@@ -1,0 +1,66 @@
+---
+title: "1.7 Level 1 Checkpoint"
+description: "Test your understanding of Level 1 concepts without AI assistance. Recall, explain, and apply."
+sidebar:
+  order: 7
+---
+
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Checkpoint: The Casual Consumer
+
+This checkpoint tests whether you have internalized the concepts from Level 1. The goal is to recall and explain these ideas **without scrolling back** to the modules. If you find yourself struggling with a concept, that is valuable information -- revisit that module before moving to Level 2.
+
+### Concept recall
+
+<ExplainBack prompt="Explain the difference between training and inference. When you send a message to ChatGPT, which one is happening? Can the model learn from your conversation?" />
+
+<ExplainBack prompt="What is a token? Why do tokens matter for cost and context windows? Roughly how many tokens make up 75 English words?" />
+
+<ExplainBack prompt="What is temperature, and how does it affect AI output? When would you want a low temperature versus a high temperature?" />
+
+<ExplainBack prompt="Name the three basic prompting patterns covered in Level 1. For each one, describe what it does and give one tip for writing a better prompt." />
+
+<ExplainBack prompt="What is the ELIZA effect, and why does it matter when interacting with modern AI? Give an example of how anthropomorphization could lead to over-trust in AI output." />
+
+<ExplainBack prompt="Name three high-risk domains where AI output requires mandatory verification. For each one, explain what kind of error the AI might produce and what the consequences could be." />
+
+### Applied exercises
+
+<TryItYourself title="You need to send a concise summary of a long meeting to your manager. Write the prompt you would use. Include at least three constraints (format, length, focus, audience, or tone).">
+A strong prompt might look like: "Summarize the following meeting transcript in 5 bullet points for my engineering manager. Focus on decisions made and action items assigned. Use a professional tone and keep each bullet under 20 words. Here is the transcript: [paste transcript]."
+
+The key elements: specified audience (engineering manager), format (bullet points), count (5), focus (decisions and action items), tone (professional), and length constraint (20 words per bullet).
+</TryItYourself>
+
+<TryItYourself title="A colleague says: 'I asked ChatGPT a question yesterday and got a great answer. Today I asked the same question and got a completely different, worse answer. I think the model is broken.' Using what you learned in Level 1, explain to them what is actually happening.">
+The model is not broken. AI responses are probabilistic -- each time you send a prompt, the model samples from a probability distribution over possible next tokens. Different samples produce different outputs. The temperature setting controls how much variation occurs. If your colleague needs consistent responses, they should look for a way to lower the temperature or use an API with deterministic settings. The model is working exactly as designed.
+</TryItYourself>
+
+<TryItYourself title="You have two tasks: (1) classify 500 customer emails as 'urgent' or 'not urgent,' and (2) write a detailed analysis of your company's Q3 competitive landscape. For each task, recommend which type of model to use (flagship, mid-tier, or lightweight) and explain why.">
+**Task 1 (email classification):** Use a lightweight model (GPT-4o mini, Claude Haiku, Gemini Flash). Classification is a simple task with a constrained output space -- the model only needs to pick between two labels. A lightweight model handles this accurately, quickly, and cheaply at scale.
+
+**Task 2 (competitive analysis):** Use a flagship model (GPT-4, Claude Opus, Gemini Ultra). This task requires synthesizing complex information, reasoning about market dynamics, and producing nuanced prose. The additional capability of a flagship model justifies the higher cost for a one-off analytical task.
+</TryItYourself>
+
+### Self-assessment
+
+Rate your confidence on each Level 1 concept from 1 (cannot explain it) to 5 (could teach it):
+
+| Concept | Confidence (1-5) |
+| :-- | :-- |
+| Training vs. inference | |
+| Tokens and tokenization | |
+| Probabilistic output and temperature | |
+| Summarize / draft / brainstorm patterns | |
+| Choosing the right model | |
+| Anthropomorphization traps and pattern matching vs. thinking | |
+| Trust boundaries and verification habits | |
+
+If any concept is below a 3, revisit that module before continuing.
+
+<KeyTakeaway>
+Level 1 fluency means understanding that AI is an inference engine producing probabilistic predictions from frozen weights. You can steer its output through specific, constrained prompts, and you should choose models based on task complexity, data sensitivity, and cost. If you can explain these concepts to a colleague, you are ready for Level 2.
+</KeyTakeaway>

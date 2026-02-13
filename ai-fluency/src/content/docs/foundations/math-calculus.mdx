@@ -1,0 +1,115 @@
+---
+title: "F.5: Calculus for AI"
+description: "Derivatives, gradients, and backpropagation — the mathematics of how neural networks learn from their mistakes."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="When a neural network gets an answer wrong during training, how do you think it 'knows' which of its millions of parameters to adjust, and by how much? There are billions of possible adjustments — what mathematical tool could guide this process efficiently?" />
+
+## Why Calculus for AI?
+
+If linear algebra (F.4) tells you how data is represented and transformed, calculus tells you how the model **learns** — how it starts with random parameters and systematically improves them to make better predictions.
+
+Calculus is the mathematics of **smooth change**. In AI, the central question is: "If I adjust this parameter slightly, how does the model's error change?" The answer to that question is a **derivative**, and the systematic process of computing derivatives across an entire neural network is called **backpropagation**.
+
+## Derivatives: The Rate of Change
+
+A **derivative** measures how a function's output changes when its input changes by a tiny amount. If you have a function f(x) and you nudge x by a small amount, the derivative tells you how much f(x) will nudge in response.
+
+In everyday terms: if you are driving and your speedometer reads 60 km/h, that speed is the derivative of your position with respect to time. It tells you how fast your position is changing.
+
+In AI terms: if you have a neural network with a parameter **w** and a loss (error) value **L**, the derivative dL/dw tells you how the loss changes when you adjust that one parameter. This is the fundamental guidance signal for learning.
+
+- If dL/dw is **positive**, increasing w will increase the loss (make things worse), so you should decrease w
+- If dL/dw is **negative**, increasing w will decrease the loss (make things better), so you should increase w
+- If dL/dw is **near zero**, the parameter is already close to a good value (or you are at a local minimum)
+
+## Gradients: Derivatives in Multiple Dimensions
+
+A neural network does not have just one parameter — it has millions or billions. The **gradient** is the collection of all partial derivatives, one for each parameter. It is a vector that points in the direction of steepest increase of the loss function.
+
+```
+gradient = [∂L/∂w₁, ∂L/∂w₂, ∂L/∂w₃, ..., ∂L/∂wₙ]
+```
+
+Each entry in this vector tells you how sensitive the loss is to that particular parameter. The gradient simultaneously answers the question "which direction should I adjust?" for every parameter in the model.
+
+To reduce the loss, you move in the **opposite direction** of the gradient — this is the core idea behind gradient descent (covered in detail in F.7: Optimization).
+
+<CalibrationCheck question="A neural network has 175 billion parameters. During one step of training, the model needs to compute the gradient. How many partial derivatives must be calculated?">
+
+175 billion — one for each parameter. This is why training large language models requires massive computational resources. Each training step involves a forward pass (computing the prediction), a loss calculation (measuring the error), and a backward pass (computing all 175 billion partial derivatives).
+
+The fact that this is computationally feasible at all is thanks to the chain rule and the backpropagation algorithm, which computes these derivatives efficiently by reusing intermediate calculations.
+</CalibrationCheck>
+
+## The Chain Rule: Computing Derivatives Through Layers
+
+Neural networks are composed of many layers stacked on top of each other. The output of one layer becomes the input to the next. To compute how the final loss depends on a parameter deep in the network, you need the **chain rule** — a calculus principle that lets you decompose a complex derivative into a product of simpler ones.
+
+If the network computes: input → layer 1 → layer 2 → layer 3 → output → loss
+
+The chain rule says the derivative of the loss with respect to a parameter in layer 1 is:
+
+```
+dL/dw₁ = (dL/dout) × (dout/dlayer3) × (dlayer3/dlayer2) × (dlayer2/dw₁)
+```
+
+Each factor in this product is a local derivative — how one layer's output changes with respect to its input — which is straightforward to compute. The chain rule chains them together to get the global derivative.
+
+## Backpropagation: The Learning Algorithm
+
+**Backpropagation** (backprop) is the algorithm that applies the chain rule systematically across every layer of a neural network. It works in two phases:
+
+1. **Forward pass:** Input data flows through the network, layer by layer, producing a prediction. The loss function measures how wrong the prediction is.
+
+2. **Backward pass:** Starting from the loss, derivatives are computed layer by layer, moving backward through the network. Each layer computes its local derivatives and passes the error signal to the layer below it.
+
+The beauty of backprop is its efficiency. Rather than computing each parameter's derivative independently (which would require a separate forward pass for each parameter), it reuses calculations from the backward pass. For a network with **n** parameters, backprop computes all **n** derivatives in roughly the same time as a single forward pass.
+
+<TryItYourself title="Consider a very simple 'network' with one input x, one weight w, and the function: output = w × x, with loss = (output - target)². If x = 2, w = 3, and target = 10, calculate the loss and the derivative dL/dw. Which direction should w be adjusted?">
+
+**Forward pass:**
+- output = w × x = 3 × 2 = 6
+- loss = (6 - 10)² = (-4)² = 16
+
+**Backward pass (chain rule):**
+- dL/d(output) = 2 × (output - target) = 2 × (6 - 10) = -8
+- d(output)/dw = x = 2
+- dL/dw = dL/d(output) × d(output)/dw = -8 × 2 = -16
+
+Since dL/dw = -16 (negative), increasing w will decrease the loss. We should increase w, which makes sense: our output (6) is below the target (10), so we need a larger weight to produce a larger output.
+
+If we used a learning rate of 0.01, the weight update would be: w_new = w - learning_rate × dL/dw = 3 - 0.01 × (-16) = 3.16
+</TryItYourself>
+
+## The Vanishing and Exploding Gradient Problems
+
+When the chain rule multiplies many derivatives together through a deep network, two problems can arise:
+
+**Vanishing gradients:** If most of the local derivatives are less than 1, their product shrinks exponentially with depth. Parameters in early layers receive almost no learning signal, effectively freezing them. This was a major obstacle for training deep networks before solutions like residual connections and careful weight initialization were developed.
+
+**Exploding gradients:** If the local derivatives are greater than 1, their product grows exponentially. Parameters receive wildly large update signals, causing the training to diverge. Gradient clipping (capping the gradient magnitude) is a common mitigation.
+
+The transformer architecture addresses these issues through **layer normalization** and **residual connections** — architectural choices motivated directly by the mathematics of gradient flow.
+
+<KeyTakeaway>
+Calculus provides the learning signal for neural networks. Derivatives tell each parameter which direction to adjust, gradients extend this to millions of parameters simultaneously, the chain rule makes it possible to propagate learning signals through deep networks, and backpropagation makes it computationally efficient. Without calculus, neural networks would have no way to improve from their initial random state.
+</KeyTakeaway>
+
+<ExplainBack prompt="Explain the concept of backpropagation to a software engineer who is familiar with traditional programming but has no machine learning background. Why can't we just try random parameter changes instead?" />
+
+<ReflectPrompt questions={[
+  "Why is the chain rule so central to deep learning? What would happen if we could not decompose complex derivatives into products of simpler ones?",
+  "The vanishing gradient problem limited deep learning for years. How does understanding this mathematical constraint help you appreciate modern architectural innovations?",
+  "How does the concept of a derivative connect to the intuitive idea of 'learning from mistakes'?"
+]} />
+
+<ConnectPrompt prompt="The gradients computed here are what the optimization algorithms in F.7 use to update parameters. The attention mechanism in transformers (Level 5) was specifically designed to create better gradient flow through the network. And understanding backpropagation is essential for fine-tuning (Level 5), where you selectively adjust which parameters receive gradient updates." />

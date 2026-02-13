@@ -1,0 +1,231 @@
+---
+title: "4.4 Deterministic Wrappers"
+description: "Building layers around probabilistic AI outputs to enforce structured formats and ensure reliability."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 4.4 Deterministic Wrappers
+
+<PredictPrompt prompt="AI models output free-form text, but your application needs structured data -- JSON objects, enum values, specific formats. How would you bridge this gap reliably? What could go wrong?" />
+
+## The Determinism Problem
+
+The fundamental tension of AI engineering is this: **models are probabilistic, but software systems need deterministic behavior**. When you ask a model to classify a support ticket, you need exactly one of `"billing"`, `"technical"`, `"general"` -- not a paragraph explaining the nuances of the classification.
+
+A deterministic wrapper is a layer of code that sits between the raw model output and your application logic, transforming probabilistic text into reliable, typed data.
+
+## Structured Output Modes
+
+Modern AI APIs provide built-in support for structured outputs:
+
+### OpenAI JSON Mode
+
+```typescript
+const completion = await openai.chat.completions.create({
+  model: "gpt-4o",
+  messages: [
+    {
+      role: "system",
+      content: "Extract the following fields as JSON: name, email, company, role."
+    },
+    { role: "user", content: userInput },
+  ],
+  response_format: { type: "json_object" },
+});
+
+const data = JSON.parse(completion.choices[0].message.content);
+```
+
+### OpenAI Structured Output with Schema
+
+```typescript
+const completion = await openai.chat.completions.create({
+  model: "gpt-4o",
+  messages: [{ role: "user", content: "Extract contact info from: ..." }],
+  response_format: {
+    type: "json_schema",
+    json_schema: {
+      name: "contact",
+      schema: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          email: { type: "string", format: "email" },
+          company: { type: "string" },
+          role: { type: "string", enum: ["engineer", "manager", "executive", "other"] },
+        },
+        required: ["name", "email"],
+      },
+    },
+  },
+});
+```
+
+### Anthropic Tool Use for Structured Output
+
+Anthropic's tool use feature can be leveraged to force structured responses:
+
+```typescript
+const response = await anthropic.messages.create({
+  model: "claude-sonnet-4-5-20250929",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Classify this ticket: ..." }],
+  tools: [{
+    name: "classify_ticket",
+    description: "Classify a support ticket into a category.",
+    input_schema: {
+      type: "object",
+      properties: {
+        category: {
+          type: "string",
+          enum: ["billing", "technical", "general", "urgent"],
+        },
+        confidence: { type: "number", minimum: 0, maximum: 1 },
+        reasoning: { type: "string" },
+      },
+      required: ["category", "confidence"],
+    },
+  }],
+  tool_choice: { type: "tool", name: "classify_ticket" },
+});
+```
+
+<CalibrationCheck question="What is the difference between asking a model to 'respond in JSON' in the prompt versus using a structured output mode like `response_format: { type: 'json_schema' }`?">
+Asking in the prompt is a **best-effort instruction** -- the model usually complies but can produce malformed JSON, include markdown code fences around it, or add explanatory text. Structured output mode is a **guarantee** enforced by the API -- the response is constrained at the decoding level to always produce valid JSON matching the schema. The structured mode eliminates an entire category of parsing failures.
+</CalibrationCheck>
+
+## Validation Layers
+
+Even with structured output modes, you should still validate the content of AI responses. The model may return valid JSON with invalid data:
+
+```typescript
+import { z } from "zod";
+
+// Define expected shape with Zod
+const TicketClassification = z.object({
+  category: z.enum(["billing", "technical", "general", "urgent"]),
+  confidence: z.number().min(0).max(1),
+  reasoning: z.string().min(10).max(500),
+});
+
+type TicketClassification = z.infer<typeof TicketClassification>;
+
+// Validate AI output
+function parseClassification(raw: string): TicketClassification {
+  const parsed = JSON.parse(raw);
+  return TicketClassification.parse(parsed); // throws if invalid
+}
+```
+
+The validation stack has three layers:
+
+1. **Format validation**: Is it valid JSON?
+2. **Schema validation**: Does it match the expected shape and types?
+3. **Business validation**: Are the values sensible? (e.g., confidence should not always be 0.99)
+
+## Retry-on-Parse-Failure
+
+When an AI output fails validation, a common pattern is to retry with the error message included in the prompt:
+
+```typescript
+async function getStructuredOutput<T>(
+  prompt: string,
+  schema: z.ZodSchema<T>,
+  maxRetries: number = 3
+): Promise<T> {
+  let lastError = "";
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const messages = [
+      { role: "user" as const, content: prompt },
+    ];
+
+    if (lastError) {
+      messages.push({
+        role: "user" as const,
+        content: `Your previous response was invalid: ${lastError}. Please try again with valid output.`,
+      });
+    }
+
+    const raw = await callModel(messages);
+
+    try {
+      return schema.parse(JSON.parse(raw));
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+    }
+  }
+
+  throw new Error(`Failed to get valid output after ${maxRetries} attempts`);
+}
+```
+
+<TryItYourself title="Design a deterministic wrapper for extracting structured recipe data from free-form text. The output should include: title (string), servings (number), ingredients (array of {name, amount, unit}), and steps (array of strings). Include validation that catches common AI errors.">
+A robust implementation:
+
+```typescript
+const RecipeSchema = z.object({
+  title: z.string().min(1).max(200),
+  servings: z.number().int().min(1).max(100),
+  ingredients: z.array(z.object({
+    name: z.string().min(1),
+    amount: z.number().positive(),
+    unit: z.string().min(1),
+  })).min(1),
+  steps: z.array(z.string().min(10)).min(1),
+});
+
+async function extractRecipe(text: string) {
+  return getStructuredOutput(
+    `Extract the recipe from this text as JSON: ${text}`,
+    RecipeSchema,
+    3
+  );
+}
+```
+
+Common AI errors this catches: negative serving counts, empty ingredient lists, missing step descriptions, ingredient amounts of zero, extremely long strings that suggest the model narrated instead of structured.
+</TryItYourself>
+
+## Enum Clamping and Default Values
+
+For classification tasks, always clamp outputs to known values:
+
+```typescript
+const VALID_CATEGORIES = ["billing", "technical", "general"] as const;
+type Category = typeof VALID_CATEGORIES[number];
+
+function clampCategory(raw: string): Category {
+  const normalized = raw.toLowerCase().trim();
+  if (VALID_CATEGORIES.includes(normalized as Category)) {
+    return normalized as Category;
+  }
+  // Fuzzy match for common model variations
+  if (normalized.includes("bill") || normalized.includes("payment")) return "billing";
+  if (normalized.includes("tech") || normalized.includes("bug")) return "technical";
+  return "general"; // Safe default
+}
+```
+
+This pattern ensures your application never receives an unexpected value, even if the model invents a new category.
+
+<ExplainBack prompt="Describe the three layers of validation for AI outputs (format, schema, business) and explain why structured output mode alone is not sufficient." />
+
+<KeyTakeaway>
+Deterministic wrappers bridge the gap between probabilistic AI outputs and the typed, validated data your application needs. Use structured output modes when available, validate with schema libraries like Zod, implement retry-on-parse-failure, and always clamp enum values to known sets. The goal is that **no invalid data ever escapes the AI boundary**.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="How do the deterministic wrapper patterns connect to the component boundary pattern from Module 4.1? Think about where validation happens in the overall architecture." />
+
+<ReflectPrompt questions={[
+  "What would happen in your system if an AI output slipped through without validation?",
+  "How do you balance strictness of validation against the flexibility that makes AI useful?",
+  "When is it better to use a structured output mode versus post-processing the free-form text?"
+]} />

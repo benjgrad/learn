@@ -1,0 +1,125 @@
+---
+title: "F.4: Linear Algebra for AI"
+description: "Vectors, matrices, and transformations — the mathematical language of data representation in AI systems."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="How do you think an AI model represents the meaning of a word like 'king' internally? It cannot store the word as text — computers work with numbers. What kind of numerical structure might capture not just the word itself but its relationships to other words like 'queen,' 'monarch,' and 'ruler'?" />
+
+## Why Linear Algebra?
+
+Linear algebra is the mathematical language that AI uses to represent and transform data. Every piece of text, every image, every audio clip that an AI model processes is first converted into arrays of numbers — **vectors** and **matrices** — before any computation begins.
+
+If tokenization (F.1) tells you how text is broken into pieces, linear algebra tells you how those pieces are represented as mathematical objects that the model can reason about.
+
+## Vectors: Representing Meaning as Numbers
+
+A **vector** is simply an ordered list of numbers. In AI, vectors are used to represent the meaning of tokens, words, sentences, or even entire documents.
+
+For example, a word embedding might represent "cat" as:
+
+```
+cat = [0.2, -0.5, 0.8, 0.1, -0.3, ...]
+```
+
+This is a point in **high-dimensional space**. Modern language models use vectors with 768, 1,024, or even 4,096 dimensions. Each dimension captures some aspect of meaning — though unlike hand-crafted features, these dimensions are learned automatically during training and do not have simple human-interpretable labels.
+
+### What Makes Vectors Powerful
+
+The key insight is that **semantic relationships become geometric relationships.** Words with similar meanings have vectors that are close together in this high-dimensional space. Words with different meanings are far apart.
+
+Even more remarkably, **relationships between words are captured as directions in the space.** The classic example:
+
+```
+vector("king") - vector("man") + vector("woman") ≈ vector("queen")
+```
+
+The direction from "man" to "woman" is approximately the same as the direction from "king" to "queen." The model has learned that gender is a direction in the embedding space, and royalty is another direction.
+
+<CalibrationCheck question="If you take the vector for 'Paris,' subtract the vector for 'France,' and add the vector for 'Germany,' what vector would you expect to get close to? Why?">
+
+You would expect a vector close to "Berlin." The direction from "France" to "Paris" represents the "capital-of" relationship. Applying that same direction from "Germany" should land near "Berlin."
+
+This works because the model has learned that capital-city relationships form a consistent direction in the embedding space. This is not explicitly programmed — it emerges from the statistical patterns in the training data. The model encountered "Paris is the capital of France" and "Berlin is the capital of Germany" enough times that the geometric relationship was learned.
+</CalibrationCheck>
+
+## Matrices: Transforming Data
+
+A **matrix** is a rectangular grid of numbers. In AI, matrices serve as **transformation functions** — they take a vector as input and produce a new vector as output. This is how the model processes and transforms representations at each layer.
+
+When a matrix **W** multiplies a vector **v**, the result is a new vector **v'**:
+
+```
+v' = W × v
+```
+
+This simple operation — matrix multiplication — is the fundamental building block of neural networks. Every layer of a transformer model applies a series of matrix multiplications to transform the input representations.
+
+### What Matrices Do in Practice
+
+In a language model:
+
+- **Embedding matrices** convert token IDs into vectors
+- **Attention matrices** calculate how much each token should attend to every other token
+- **Weight matrices** in feed-forward layers transform representations between dimensions
+- **Output matrices** convert the final representations back into probability distributions over the vocabulary
+
+A model like GPT-4 contains billions of parameters — these parameters are the entries in these matrices, learned during training.
+
+<TryItYourself title="Consider a simple 2D vector space where we represent two concepts: 'formality' (x-axis) and 'positivity' (y-axis). Place these words roughly on the grid: 'hello,' 'greetings,' 'hey,' 'salutations.' What patterns emerge?">
+
+A reasonable placement might be:
+
+- **"hey"** → low formality, moderate positivity → (1, 3)
+- **"hello"** → moderate formality, moderate positivity → (3, 3)
+- **"greetings"** → high formality, moderate positivity → (5, 3)
+- **"salutations"** → very high formality, moderate positivity → (6, 3)
+
+The pattern: these words cluster along the formality axis while staying relatively constant on the positivity axis. This illustrates how a single dimension (formality) can capture a meaningful relationship between words.
+
+Real embeddings use hundreds or thousands of dimensions, capturing far more nuanced relationships. But the principle is the same: similar words cluster together, and meaningful relationships become geometric directions.
+</TryItYourself>
+
+## High-Dimensional Spaces and Latent Space
+
+The spaces where AI embeddings live are called **latent spaces** — "latent" because the dimensions represent hidden (learned) features rather than explicitly defined ones.
+
+Key properties of high-dimensional spaces that matter for AI:
+
+**Distance measures similarity.** Two vectors that are close together (by cosine similarity or Euclidean distance) represent similar concepts. This is the basis of semantic search in vector databases.
+
+**Direction encodes relationships.** Consistent directions in the space correspond to consistent semantic relationships (gender, tense, formality, etc.).
+
+**Clusters form naturally.** Words related to the same topic (medical terms, legal terms, cooking terms) form clusters in the latent space, even though no one told the model to group them.
+
+**Dimensionality matters.** Too few dimensions and the model cannot represent enough distinctions. Too many dimensions and the model may overfit. The choice of embedding dimension (768, 1024, 4096) is an important architectural decision.
+
+## Why This Matters Beyond Theory
+
+Linear algebra is not just background knowledge — it directly informs practical AI work:
+
+- **Vector databases** (used in RAG at Level 3) work by computing distances between embedding vectors to find semantically similar documents
+- **Fine-tuning** (Level 5) involves updating the weight matrices to adapt the model's transformations for a specific domain
+- **LoRA** (Level 6) works by adding small low-rank matrices to the existing weight matrices, efficiently adapting the model with far fewer parameters
+- **Attention mechanisms** (the core of transformers) are fundamentally matrix operations that compute how tokens relate to each other
+
+<KeyTakeaway>
+Linear algebra provides the mathematical framework for representing meaning as vectors and transforming those representations through matrix operations. Semantic similarity becomes geometric distance, word relationships become directions in space, and the entire computation of a neural network reduces to a sequence of matrix multiplications. This is not abstract theory — it is the literal mechanism by which AI systems understand language.
+</KeyTakeaway>
+
+<ExplainBack prompt="Explain to someone with no math background how an AI model can 'understand' that kings and queens are related in the same way that men and women are related, using the concept of vectors and directions in space." />
+
+<ReflectPrompt questions={[
+  "How does thinking of word meanings as points in space change your intuition about how AI 'understands' language?",
+  "Why do you think models need hundreds or thousands of dimensions rather than just a few? What kinds of distinctions might require that many axes?",
+  "If two words have very similar embedding vectors, does that mean they are interchangeable? Can you think of cases where proximity in embedding space might be misleading?"
+]} />
+
+<ConnectPrompt prompt="The vectors introduced here are what get stored in vector databases for RAG pipelines (Level 3). The matrix operations are what transformer attention mechanisms (Level 5) actually compute. And the concept of latent space is crucial for understanding embeddings, which you will work with directly when building AI components (Level 4)." />

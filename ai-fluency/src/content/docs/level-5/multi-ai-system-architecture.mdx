@@ -1,0 +1,218 @@
+---
+title: "5.8 Multi-AI System Architecture"
+description: "Design systems with specialist, router, and evaluator models that work together with defined reliability targets."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 5.8 Multi-AI System Architecture
+
+<PredictPrompt prompt="Module 5.5 introduced multi-agent systems where agents with different roles collaborate. What changes when those 'agents' are actually different models -- a small fast model for routing, a large model for complex reasoning, and a fine-tuned model for domain-specific tasks? What new design decisions emerge?" />
+
+## Separation of Concerns in Multi-Model Systems
+
+In traditional software, separation of concerns means each component has a single, well-defined responsibility. The same principle applies to AI systems, but with a twist: different AI tasks have radically different cost, latency, and accuracy profiles.
+
+A single large model *can* do everything -- route requests, answer questions, evaluate its own output. But using a frontier model for every task is like using a database server to serve static files. It works, but it wastes resources and introduces unnecessary latency.
+
+Multi-model architecture assigns each task to the model best suited for it:
+
+- **Small, fast models** handle routing, classification, and simple extraction
+- **Large, capable models** handle complex reasoning, generation, and ambiguous cases
+- **Fine-tuned specialist models** handle domain-specific tasks with higher accuracy and lower cost than general-purpose models
+
+## Model Roles
+
+### Router Models
+
+A router model sits at the front of the system and directs incoming requests to the appropriate specialist. It needs to be fast, cheap, and accurate enough to classify intent.
+
+```typescript
+interface RouterOutput {
+  intent: "billing" | "technical" | "general" | "escalate";
+  confidence: number;
+  reasoning: string;
+}
+
+// A small, fast model classifies the request
+const route = await classifyIntent(userMessage); // e.g., Haiku-class model
+
+// Route to the appropriate specialist
+switch (route.intent) {
+  case "billing":
+    return billingSpecialist.handle(userMessage);   // fine-tuned model
+  case "technical":
+    return technicalSpecialist.handle(userMessage);  // large model + tools
+  case "escalate":
+    return humanQueue.add(userMessage);              // human review
+  default:
+    return generalAssistant.handle(userMessage);     // general model
+}
+```
+
+The router is the cheapest call in the pipeline, but its accuracy determines the quality of everything downstream. A misrouted request goes to the wrong specialist and produces a poor response regardless of how good that specialist is.
+
+### Specialist Models
+
+Specialist models are optimized for a narrow domain. They achieve this through:
+
+- **Fine-tuning**: Trained on domain-specific data (medical records, legal contracts, code in a specific language)
+- **Constrained context**: Given only the information relevant to their specialty, reducing distraction
+- **Specific tool sets**: Equipped with domain-appropriate tools (a billing specialist has access to billing APIs, not code execution)
+
+The tradeoff: specialists are excellent within their domain but fragile outside it. The router must correctly identify when a request falls outside any specialist's domain and handle it gracefully.
+
+### Evaluator Models
+
+An evaluator model reviews the output of other models before it reaches the user. Evaluators check for:
+
+- **Factual accuracy**: Does the response contradict known facts or the provided context?
+- **Policy compliance**: Does the response follow content guidelines and business rules?
+- **Quality**: Is the response clear, complete, and well-structured?
+
+```typescript
+interface EvaluationResult {
+  pass: boolean;
+  issues: string[];
+  suggestedRevision?: string;
+}
+
+async function evaluateResponse(
+  userQuery: string,
+  aiResponse: string,
+  context: string[]
+): Promise<EvaluationResult> {
+  // A separate model (or the same model with a different prompt)
+  // evaluates the specialist's output
+  return await evaluatorModel.evaluate({
+    query: userQuery,
+    response: aiResponse,
+    context: context,
+    criteria: ["factual_accuracy", "policy_compliance", "completeness"],
+  });
+}
+```
+
+<CalibrationCheck question="Why use a separate evaluator model instead of asking the specialist model to evaluate its own output? What limitation of self-evaluation makes a separate model valuable?">
+Models are poor at detecting their own errors. When a model generates a confidently wrong answer, it will often rate that same answer highly when asked to self-evaluate -- the same reasoning process that produced the error will defend it. A separate evaluator model brings an independent "perspective": different weights, potentially different training data, and critically, it sees the output as *text to evaluate* rather than *text it generated*. This mirrors why code review works -- the author has blind spots the reviewer does not. Research on LLM-as-Judge approaches shows that cross-model evaluation outperforms self-evaluation on factual accuracy benchmarks.
+</CalibrationCheck>
+
+## Architecture Patterns
+
+### The Assembly Line
+
+Each model handles one stage of processing:
+
+```
+User Query ──> Router ──> Specialist ──> Evaluator ──> Response
+                                              │
+                                              └──> Retry with different specialist (if evaluation fails)
+```
+
+Clean and predictable. Each model has a typed input and output contract. Failures are isolated to one stage.
+
+### The Panel
+
+Multiple specialists process the same request in parallel, and an aggregator model combines or selects the best result:
+
+```
+              ┌── Specialist A ──┐
+User Query ───┼── Specialist B ──┼──> Aggregator ──> Response
+              └── Specialist C ──┘
+```
+
+More expensive but more robust. Useful when the "right" specialist is ambiguous or when you want consensus across approaches.
+
+### The Cascade
+
+Start with the cheapest model. If it is not confident, escalate to a more capable (and expensive) model:
+
+```
+User Query ──> Small Model ──┬──> Response (if confident)
+                             └──> Large Model ──┬──> Response (if confident)
+                                                └──> Expert Model ──> Response
+```
+
+This pattern optimizes cost: most requests are handled cheaply, and expensive models are reserved for hard cases.
+
+## SLIs and SLOs for AI Systems
+
+Traditional software defines reliability with Service Level Indicators (SLIs) and Service Level Objectives (SLOs). AI systems need the same discipline, but the indicators are different because AI outputs are probabilistic.
+
+### AI-Specific SLIs
+
+| SLI | What It Measures | Example |
+|-----|-----------------|---------|
+| Accuracy rate | Fraction of correct responses | 94% of billing queries resolved correctly |
+| Hallucination rate | Fraction of responses with fabricated content | Less than 2% of responses contain unsupported claims |
+| Routing accuracy | Fraction of requests sent to the correct specialist | 97% of requests routed to the intended specialist |
+| Latency (p50/p95) | Time to produce a response | p50 under 800ms, p95 under 3s |
+| Escalation rate | Fraction of requests requiring human review | Between 5% and 15% of requests escalated |
+
+### Defining SLOs
+
+An SLO sets a target for an SLI over a time window:
+
+- "Accuracy rate will be at least 92% over any rolling 7-day period"
+- "Hallucination rate will not exceed 3% over any rolling 30-day period"
+- "p95 latency will remain below 4 seconds"
+
+The key insight is that AI SLOs must account for **probabilistic variance**. A traditional service either returns the right data or does not. An AI system might give a slightly different (but still acceptable) answer each time. Your SLOs need to define what "correct" means with enough specificity to measure it.
+
+<TryItYourself title="Design a multi-model customer service platform. Define at least three model roles (router, specialists, evaluator), their SLIs, and the SLO targets you would set for the system as a whole.">
+**Router Model** (Haiku-class, fast and cheap):
+- Role: Classify incoming customer messages into intents
+- SLI: Routing accuracy (correct intent classification)
+- SLO: 96% routing accuracy over any 7-day window
+
+**Billing Specialist** (fine-tuned on billing data):
+- Role: Answer billing questions, process refund requests
+- SLI: Resolution accuracy (customer issue resolved without re-contact within 24h)
+- SLO: 90% first-contact resolution rate
+
+**Technical Specialist** (large model with documentation retrieval):
+- Role: Troubleshoot technical issues using product documentation
+- SLI: Accuracy of troubleshooting steps (validated against known solutions)
+- SLO: 85% accuracy, with the remaining 15% escalated to human support
+
+**Evaluator Model** (separate model reviewing all outgoing responses):
+- Role: Check responses for policy compliance, tone, and factual grounding
+- SLI: Policy violation catch rate
+- SLO: Catch 99% of policy-violating responses before they reach the customer
+
+**System-Level SLOs:**
+- Overall customer satisfaction (CSAT): at least 4.2 out of 5
+- End-to-end latency: p95 under 5 seconds for automated responses
+- Escalation rate: between 8% and 20% (too low suggests the system is overconfident; too high suggests poor automation)
+</TryItYourself>
+
+## Failure Modes in Multi-Model Systems
+
+Multi-model systems introduce failure modes that do not exist in single-model deployments:
+
+- **Cascade failures**: The router misclassifies, causing the specialist to receive input it cannot handle, causing the evaluator to reject the output, causing a retry loop
+- **Inconsistent context**: Information available to the router may not be passed to the specialist, leading to contradictory behavior
+- **Version skew**: Updating one model without updating others can break the contracts between them
+- **Silent degradation**: One model's quality drops slightly (due to a provider update or data drift), but the system continues operating with lower overall quality because no single metric crosses a threshold
+
+Defending against these requires the same practices as any distributed system: contract testing between models, end-to-end integration tests, and monitoring at every boundary.
+
+<ExplainBack prompt="Explain the difference between router, specialist, and evaluator models. Describe a system where all three work together and explain why a single general-purpose model would be worse than this combination." />
+
+<KeyTakeaway>
+Multi-AI system architecture applies separation of concerns to model selection: routers classify cheaply, specialists handle domains with precision, and evaluators catch errors before they reach users. Define SLIs and SLOs that account for AI's probabilistic nature. Multi-model systems introduce new failure modes -- cascade failures, version skew, and silent degradation -- that require distributed-systems thinking to manage.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="How do the cascade and panel patterns in multi-model architecture relate to the fallback chain and retry patterns from Level 4? What design principles carry over from traditional distributed systems to multi-AI systems?" />
+
+<ReflectPrompt questions={[
+  "For a system you are building or maintaining, which model roles would provide the most value? Where would you start?",
+  "How would you test a multi-model system end-to-end when each model is non-deterministic?",
+  "What organizational challenges arise when different teams own different models in a multi-model pipeline?"
+]} />

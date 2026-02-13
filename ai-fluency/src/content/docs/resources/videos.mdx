@@ -1,0 +1,118 @@
+---
+title: "Videos"
+description: "YouTube channels and video series for learning AI through visual, engaging content."
+sidebar:
+  order: 3
+---
+
+import ResourceCard from '../../../components/learning/ResourceCard.astro';
+import ResourceGrid from '../../../components/learning/ResourceGrid.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Visual Learning for AI
+
+Video content excels at building intuition through visualization, demonstration, and narrative explanation. These channels range from quick primers on breaking research to multi-hour deep dives into transformer architecture.
+
+### Essential Channels
+
+These are the channels that consistently deliver the highest educational value for AI practitioners.
+
+<ResourceGrid resources={[
+  {
+    title: "Andrej Karpathy",
+    url: "https://www.youtube.com/@AndrejKarpathy",
+    type: "Video",
+    author: "Andrej Karpathy",
+    description: "Deep fundamental philosophy and hands-on tutorials from the former Director of AI at Tesla. His 'Neural Networks: Zero to Hero' series builds a GPT model from scratch. Essential for Levels 3-5."
+  },
+  {
+    title: "DeepLearning.AI",
+    url: "https://www.youtube.com/@Deeplearningai",
+    type: "Video",
+    author: "Andrew Ng",
+    description: "Career-focused, methodical teaching that bridges the talent gap for enterprise leaders and solo developers. Combines short courses, event recordings, and concept explainers."
+  },
+  {
+    title: "3Blue1Brown",
+    url: "https://www.youtube.com/@3blue1brown",
+    type: "Video",
+    author: "Grant Sanderson",
+    description: "The gold standard for mathematical visualization. The neural network and linear algebra series provide visual intuition that no textbook can match. Essential for understanding the math behind AI."
+  },
+  {
+    title: "Two Minute Papers",
+    url: "https://www.youtube.com/@TwoMinutePapers",
+    type: "Video",
+    author: "Karoly Zsolnai-Feher",
+    description: "Bite-sized primers on the latest breakthroughs from arXiv. An excellent way to stay current on research without reading full papers. Great for all levels."
+  }
+]} />
+
+### Deep Technical Content
+
+For viewers who want to understand the engineering and architecture behind AI systems.
+
+<ResourceGrid resources={[
+  {
+    title: "Yannic Kilcher",
+    url: "https://www.youtube.com/@YannicKilcher",
+    type: "Video",
+    author: "Yannic Kilcher",
+    description: "Detailed paper reviews and technical analyses of new research. Kilcher reads papers carefully and explains the methodology, results, and implications. Best for Levels 5-7."
+  },
+  {
+    title: "Robert Miles AI Safety",
+    url: "https://www.youtube.com/@RobertMilesAI",
+    type: "Video",
+    author: "Robert Miles",
+    description: "The definitive resource for understanding the technical challenges of AI alignment. Clear explanations of complex safety topics for a general technical audience. Essential for Level 7."
+  },
+  {
+    title: "StatQuest with Josh Starmer",
+    url: "https://www.youtube.com/@statquest",
+    type: "Video",
+    author: "Josh Starmer",
+    description: "Statistics and machine learning concepts explained with playful clarity. Breaks down intimidating topics like gradient descent, random forests, and neural networks into digestible pieces."
+  }
+]} />
+
+### Career and Practical Focus
+
+Channels that connect AI knowledge to real-world applications and career development.
+
+<ResourceGrid resources={[
+  {
+    title: "Tina Huang",
+    url: "https://www.youtube.com/@TinaHuang1",
+    type: "Video",
+    author: "Tina Huang",
+    description: "Clear, career-focused data science and AI insights grounded in real-world project experience. Practical advice on building an AI career and navigating the job market."
+  },
+  {
+    title: "Fireship",
+    url: "https://www.youtube.com/@Fireship",
+    type: "Video",
+    author: "Jeff Delaney",
+    description: "Fast-paced '100 seconds' explainers and weekly news coverage that keeps developers informed about AI tooling changes. Great for staying current on the developer tooling landscape."
+  },
+  {
+    title: "sentdex",
+    url: "https://www.youtube.com/@sentdex",
+    type: "Video",
+    author: "Harrison Kinsley",
+    description: "Extensive Python programming tutorials covering machine learning, deep learning, and data analysis. Hands-on coding walkthroughs for practical implementation."
+  }
+]} />
+
+### Recommended Viewing Path
+
+| Your Level | Start With | Then Watch |
+| :--- | :--- | :--- |
+| Level 1-2 | 3Blue1Brown's neural network series | DeepLearning.AI's concept explainers |
+| Level 3-4 | Karpathy's "Zero to Hero" series | sentdex implementation tutorials |
+| Level 5-6 | Yannic Kilcher's paper reviews | StatQuest for mathematical foundations |
+| Level 7 | Robert Miles on AI safety | Two Minute Papers for research breadth |
+
+<KeyTakeaway>
+Video is the best format for building visual intuition about mathematical concepts and architectural patterns. Use it to complement (not replace) hands-on practice. Watch a Karpathy tutorial, then implement what you learned. Watch a paper review, then read the actual paper. Active viewing beats passive consumption.
+</KeyTakeaway>

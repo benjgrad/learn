@@ -1,0 +1,42 @@
+---
+interface Props {
+  questions: string[];
+}
+
+const { questions } = Astro.props;
+---
+
+<aside class="learning-block reflect-block" aria-label="Reflection questions">
+  <div class="learning-block-header">
+    <span class="learning-block-icon">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="16" x2="12" y2="12" />
+        <line x1="12" y1="8" x2="12.01" y2="8" />
+      </svg>
+    </span>
+    <h4 class="learning-block-title">Reflect</h4>
+  </div>
+  <div class="learning-block-content">
+    <ol class="reflect-questions">
+      {questions.map((q) => (
+        <li>{q}</li>
+      ))}
+    </ol>
+  </div>
+</aside>
+
+<style>
+  .reflect-questions {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+
+  .reflect-questions li {
+    margin-bottom: 0.5rem;
+  }
+
+  .reflect-questions li:last-child {
+    margin-bottom: 0;
+  }
+</style>

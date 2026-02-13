@@ -1,0 +1,185 @@
+/* Learning block component styles
+   Used by: PredictPrompt, TryItYourself, ReflectPrompt, ConnectPrompt, KeyTakeaway */
+
+/* ------------------------------------------------------------------ */
+/* Base learning block                                                 */
+/* ------------------------------------------------------------------ */
+
+.learning-block {
+	position: relative;
+	border-left: 4px solid var(--lb-border);
+	border-radius: 0.5rem;
+	padding: 1.25rem 1.5rem;
+	margin: 1.5rem 0;
+	background: var(--lb-bg);
+}
+
+.learning-block-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+}
+
+.learning-block-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	flex-shrink: 0;
+	color: var(--lb-border);
+}
+
+.learning-block-icon svg {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.learning-block-title {
+	font-weight: 600;
+	font-size: var(--sl-text-lg, 1.125rem);
+	line-height: var(--sl-line-height-headings, 1.2);
+	color: var(--lb-title);
+	margin: 0;
+}
+
+.learning-block-content {
+	color: var(--sl-color-white, inherit);
+	line-height: var(--sl-line-height, 1.75);
+}
+
+.learning-block-content > :first-child {
+	margin-top: 0;
+}
+
+.learning-block-content > :last-child {
+	margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Predict block (amber / yellow)                                      */
+/* ------------------------------------------------------------------ */
+
+.predict-block {
+	--lb-bg: rgb(254 243 199 / 0.5);
+	--lb-border: #f59e0b;
+	--lb-title: #92400e;
+}
+
+:root[data-theme='dark'] .predict-block {
+	--lb-bg: rgb(120 53 15 / 0.2);
+	--lb-title: #fbbf24;
+}
+
+/* ------------------------------------------------------------------ */
+/* Practice block (blue)                                               */
+/* ------------------------------------------------------------------ */
+
+.practice-block {
+	--lb-bg: rgb(219 234 254 / 0.5);
+	--lb-border: #3b82f6;
+	--lb-title: #1e3a8a;
+}
+
+:root[data-theme='dark'] .practice-block {
+	--lb-bg: rgb(30 58 138 / 0.2);
+	--lb-title: #60a5fa;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reflect block (violet / purple)                                     */
+/* ------------------------------------------------------------------ */
+
+.reflect-block {
+	--lb-bg: rgb(237 233 254 / 0.5);
+	--lb-border: #8b5cf6;
+	--lb-title: #4c1d95;
+}
+
+:root[data-theme='dark'] .reflect-block {
+	--lb-bg: rgb(76 29 149 / 0.2);
+	--lb-title: #a78bfa;
+}
+
+/* ------------------------------------------------------------------ */
+/* Connect block (green / emerald)                                     */
+/* ------------------------------------------------------------------ */
+
+.connect-block {
+	--lb-bg: rgb(209 250 229 / 0.5);
+	--lb-border: #10b981;
+	--lb-title: #064e3b;
+}
+
+:root[data-theme='dark'] .connect-block {
+	--lb-bg: rgb(6 78 59 / 0.2);
+	--lb-title: #34d399;
+}
+
+/* ------------------------------------------------------------------ */
+/* Key takeaway block (slate / neutral emphasis)                       */
+/* ------------------------------------------------------------------ */
+
+.key-takeaway {
+	--lb-bg: rgb(241 245 249 / 0.7);
+	--lb-border: #475569;
+	--lb-title: #1e293b;
+	border-left-width: 4px;
+	border-radius: 0.5rem;
+	padding: 1.25rem 1.5rem;
+	margin: 1.5rem 0;
+	position: relative;
+	border-left-style: solid;
+	border-left-color: var(--lb-border);
+	background: var(--lb-bg);
+}
+
+:root[data-theme='dark'] .key-takeaway {
+	--lb-bg: rgb(30 41 59 / 0.3);
+	--lb-border: #94a3b8;
+	--lb-title: #e2e8f0;
+}
+
+.key-takeaway .learning-block-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+}
+
+.key-takeaway .learning-block-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	flex-shrink: 0;
+	color: var(--lb-border);
+}
+
+.key-takeaway .learning-block-icon svg {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.key-takeaway .learning-block-title {
+	font-weight: 600;
+	font-size: var(--sl-text-lg, 1.125rem);
+	line-height: var(--sl-line-height-headings, 1.2);
+	color: var(--lb-title);
+	margin: 0;
+}
+
+.key-takeaway .learning-block-content {
+	color: var(--sl-color-white, inherit);
+	line-height: var(--sl-line-height, 1.75);
+}
+
+.key-takeaway .learning-block-content > :first-child {
+	margin-top: 0;
+}
+
+.key-takeaway .learning-block-content > :last-child {
+	margin-bottom: 0;
+}

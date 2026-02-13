@@ -1,0 +1,126 @@
+---
+title: "3.2 Vector Databases"
+description: "Learn how vector databases store embeddings and perform millisecond-speed similarity searches using algorithms like HNSW."
+sidebar:
+  order: 2
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="You have 10 million document embeddings, each with 1,536 dimensions. A user sends a query and you need to find the 5 most similar documents. How would you search efficiently? Would comparing the query to every document be fast enough?" />
+
+## Why traditional databases fall short
+
+Traditional SQL databases are designed for **exact matches** on structured data: "find all users where country = 'Canada'." But embeddings require a fundamentally different operation: "find the vectors closest to this query vector in high-dimensional space."
+
+Comparing every stored embedding to the query embedding (a **brute-force** search) works for small datasets but becomes impractical at scale. With 10 million documents and 1,536-dimensional vectors, each comparison requires 1,536 multiplications. A brute-force scan would take seconds or minutes -- far too slow for interactive use.
+
+**Vector databases** solve this with specialized indexing algorithms that trade a small amount of accuracy for massive speed improvements.
+
+### The key players
+
+| Database | Type | Best for |
+| :-- | :-- | :-- |
+| **ChromaDB** | Open-source, lightweight | Prototyping, local development, small to medium datasets |
+| **Pinecone** | Managed cloud service | Production workloads, zero infrastructure management |
+| **pgvector** | PostgreSQL extension | Adding vector search to existing Postgres databases |
+| **Weaviate** | Open-source, feature-rich | Hybrid search (keyword + semantic), multi-modal data |
+| **Qdrant** | Open-source, Rust-based | High-performance production deployments |
+
+### How vector search works: HNSW
+
+The most common indexing algorithm is **HNSW** (Hierarchical Navigable Small World). Here is the intuition:
+
+Imagine a city with neighborhoods. To find a specific coffee shop, you do not check every building in the city. Instead:
+
+1. You start at a high-level map that shows neighborhoods
+2. You navigate to the most promising neighborhood
+3. Within that neighborhood, you check a smaller area
+4. You drill down until you find the closest shops
+
+HNSW builds a **multi-layer graph** of embeddings:
+- The top layer has few nodes, widely spaced -- for coarse navigation
+- Each lower layer has more nodes, more closely spaced -- for fine navigation
+- A search starts at the top and navigates down, making the search space smaller at each level
+
+The result: instead of comparing against all 10 million vectors, HNSW typically examines only a few hundred to find the approximate nearest neighbors in **milliseconds**.
+
+<CalibrationCheck question="HNSW finds 'approximate' nearest neighbors. Does this mean it sometimes misses the truly closest vector?">
+Yes. HNSW is an **approximate nearest neighbor** (ANN) algorithm. It may occasionally miss the absolute closest vector in exchange for dramatic speed improvements. In practice, the recall rate (percentage of true nearest neighbors found) is typically 95-99%, which is more than sufficient for most applications. You can tune the accuracy-speed tradeoff through index parameters like `ef_construction` and `ef_search`.
+</CalibrationCheck>
+
+### Vector database operations
+
+A vector database supports four core operations:
+
+**1. Insert**: Store an embedding along with metadata (the original text, a document ID, tags)
+```
+collection.add(
+  embeddings=[[0.82, -0.14, 0.53, ...]],
+  documents=["The original text"],
+  metadatas=[{"source": "handbook.pdf", "page": 42}],
+  ids=["doc_001"]
+)
+```
+
+**2. Query**: Find the k nearest neighbors to a query embedding
+```
+results = collection.query(
+  query_embeddings=[[0.79, -0.11, 0.48, ...]],
+  n_results=5
+)
+```
+
+**3. Filter**: Combine vector search with metadata filters
+```
+results = collection.query(
+  query_embeddings=[query_vector],
+  n_results=5,
+  where={"source": "handbook.pdf"}
+)
+```
+
+**4. Delete**: Remove embeddings by ID or filter
+
+### Choosing a vector database
+
+| Factor | ChromaDB | Pinecone | pgvector |
+| :-- | :-- | :-- | :-- |
+| **Setup effort** | Minimal (pip install) | Managed (API key) | Moderate (Postgres extension) |
+| **Scale** | Thousands to millions | Billions | Millions |
+| **Cost** | Free (self-hosted) | Usage-based pricing | Postgres hosting costs |
+| **Best when** | Prototyping, learning | Production without infra team | Already using Postgres |
+
+<TryItYourself title="Without running any code, design the schema for a vector database that stores your company's internal documentation. What metadata would you store alongside each embedding? What filters would users need? Think about fields like source document, date updated, department, and access level.">
+A strong schema might include:
+
+- **embedding**: The vector representation of the text chunk
+- **text**: The original text content (for display in results)
+- **source**: File name or URL of the original document
+- **department**: Which team owns this document (for access control and filtering)
+- **updated_at**: When the document was last modified (for freshness filtering)
+- **doc_type**: Category like "policy," "technical," "onboarding" (for scoped searches)
+- **chunk_index**: Position within the original document (for reconstructing context)
+
+Users would commonly filter by department (only search HR docs), doc_type (only search policies), and updated_at (only search recent documents). This combination of semantic search + metadata filtering is called **hybrid search**.
+</TryItYourself>
+
+<ExplainBack prompt="Explain why traditional databases cannot efficiently search embeddings. What does HNSW do, and what tradeoff does it make? Name three vector databases and when you would choose each." />
+
+<ReflectPrompt questions={[
+  "If you were building a RAG system for your organization, which vector database would you start with and why?",
+  "What metadata would be most valuable to store alongside your document embeddings?",
+  "How does the choice of vector database affect the rest of your AI system's architecture?"
+]} />
+
+<KeyTakeaway>
+Vector databases store embeddings and perform millisecond-speed similarity search using algorithms like HNSW. They trade a small accuracy margin for massive speed gains. Choose ChromaDB for prototyping, Pinecone for managed production, or pgvector if you already use PostgreSQL. Store rich metadata alongside embeddings to enable filtered, scoped searches.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="You now understand embeddings (Module 3.1) and where to store them (Module 3.2). In Module 3.3, you will connect these pieces into a complete RAG pipeline -- the architecture that retrieves relevant data and injects it into the model's context." />

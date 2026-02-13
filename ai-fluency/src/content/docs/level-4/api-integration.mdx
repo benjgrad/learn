@@ -1,0 +1,216 @@
+---
+title: "4.3 API Integration"
+description: "Working with AI provider APIs including authentication, SDKs, rate limiting, and error handling."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 4.3 API Integration
+
+<PredictPrompt prompt="What do you think the biggest differences are between integrating an AI model API (like OpenAI or Anthropic) versus a typical REST API (like Stripe or Twilio)? What new concerns arise?" />
+
+## The AI API Landscape
+
+AI providers expose their models through HTTP APIs that follow a common pattern: you send messages in, you get generated text out. But behind that simplicity lies significant complexity in authentication, rate limiting, billing, and error handling.
+
+The major providers include:
+
+| Provider | Key Models | SDK | Billing Unit |
+|----------|-----------|-----|-------------|
+| **OpenAI** | GPT-4o, GPT-4o-mini, o1 | `openai` (Node/Python) | Per 1K tokens (input/output priced separately) |
+| **Anthropic** | Claude Opus, Sonnet, Haiku | `@anthropic-ai/sdk` | Per 1K tokens (input/output priced separately) |
+| **Google** | Gemini Pro, Flash | `@google/generative-ai` | Per 1K tokens |
+| **Open Source** | Llama, Mistral, Qwen | `ollama`, `vllm` | Self-hosted (GPU cost) |
+
+## SDK Setup and Authentication
+
+### OpenAI SDK
+
+```typescript
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Never hardcode keys
+});
+
+const completion = await openai.chat.completions.create({
+  model: "gpt-4o",
+  messages: [
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user", content: "Explain transformers in one paragraph." },
+  ],
+  temperature: 0.3,
+  max_tokens: 500,
+});
+
+console.log(completion.choices[0].message.content);
+```
+
+### Anthropic SDK
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+const message = await anthropic.messages.create({
+  model: "claude-sonnet-4-5-20250929",
+  max_tokens: 1024,
+  system: "You are a helpful assistant.",
+  messages: [
+    { role: "user", content: "Explain transformers in one paragraph." },
+  ],
+});
+
+console.log(message.content[0].text);
+```
+
+Notice the structural differences: OpenAI uses a `choices` array while Anthropic uses a `content` array. The system prompt is a separate parameter in Anthropic but a message in OpenAI. These differences matter when building provider-agnostic abstractions.
+
+<CalibrationCheck question="Why do AI APIs price input tokens and output tokens separately, and why are output tokens typically more expensive?">
+Output tokens are more expensive because **generating** each token requires a full forward pass through the model's neural network, with each token depending on all previous tokens. Input tokens are processed more efficiently because they can be computed in parallel. The computational cost of generation is significantly higher than the cost of reading the input context.
+</CalibrationCheck>
+
+## Rate Limiting and Throttling
+
+Every AI provider enforces rate limits, typically expressed as:
+- **Requests per minute (RPM)**: How many API calls you can make
+- **Tokens per minute (TPM)**: Total token throughput allowed
+- **Tokens per day (TPD)**: Daily budget caps
+
+When you hit a rate limit, you receive a `429 Too Many Requests` response. The proper handling strategy is exponential backoff with jitter:
+
+```typescript
+async function callWithRateLimit<T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 5
+): Promise<T> {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error: any) {
+      if (error.status === 429) {
+        // Use retry-after header if available
+        const retryAfter = error.headers?.["retry-after"];
+        const delay = retryAfter
+          ? parseInt(retryAfter) * 1000
+          : Math.min(1000 * Math.pow(2, i) + Math.random() * 1000, 30000);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      } else {
+        throw error;
+      }
+    }
+  }
+  throw new Error("Max retries exceeded");
+}
+```
+
+## Streaming Responses
+
+For user-facing applications, streaming delivers tokens as they are generated rather than waiting for the complete response:
+
+```typescript
+// OpenAI streaming
+const stream = await openai.chat.completions.create({
+  model: "gpt-4o",
+  messages: [{ role: "user", content: prompt }],
+  stream: true,
+});
+
+let fullResponse = "";
+for await (const chunk of stream) {
+  const token = chunk.choices[0]?.delta?.content ?? "";
+  fullResponse += token;
+  process.stdout.write(token); // Progressive rendering
+}
+```
+
+Streaming changes the user experience significantly -- instead of waiting 5-10 seconds for a complete response, users see text appearing immediately. This reduces perceived latency even though total time to completion is similar.
+
+<TryItYourself title="Write a provider-agnostic wrapper function that accepts a standard message format and can call either OpenAI or Anthropic based on a configuration parameter. Handle the differences in request and response formats.">
+Here is one approach to a unified interface:
+
+```typescript
+interface UnifiedMessage {
+  role: "system" | "user" | "assistant";
+  content: string;
+}
+
+interface UnifiedConfig {
+  provider: "openai" | "anthropic";
+  model: string;
+  maxTokens: number;
+  temperature: number;
+}
+
+async function chat(
+  messages: UnifiedMessage[],
+  config: UnifiedConfig
+): Promise<string> {
+  if (config.provider === "openai") {
+    const completion = await openai.chat.completions.create({
+      model: config.model,
+      messages: messages,
+      max_tokens: config.maxTokens,
+      temperature: config.temperature,
+    });
+    return completion.choices[0].message.content ?? "";
+  }
+
+  if (config.provider === "anthropic") {
+    const system = messages.find(m => m.role === "system")?.content ?? "";
+    const nonSystem = messages.filter(m => m.role !== "system");
+    const message = await anthropic.messages.create({
+      model: config.model,
+      system: system,
+      messages: nonSystem,
+      max_tokens: config.maxTokens,
+      temperature: config.temperature,
+    });
+    return message.content[0].text;
+  }
+
+  throw new Error(`Unknown provider: ${config.provider}`);
+}
+```
+
+This abstraction lets you switch providers without changing application code.
+</TryItYourself>
+
+## Error Handling Taxonomy
+
+AI API errors fall into distinct categories requiring different handling strategies:
+
+| Error Type | HTTP Status | Strategy |
+|-----------|------------|----------|
+| **Rate limit** | 429 | Exponential backoff with jitter |
+| **Server error** | 500, 502, 503 | Retry up to 3 times, then fallback |
+| **Bad request** | 400 | Fix the request (token limit, format) |
+| **Auth failure** | 401, 403 | Alert, do not retry |
+| **Content filter** | 400 (with flag) | Rephrase prompt or use fallback |
+| **Timeout** | N/A | Set client timeout, retry once |
+| **Context overflow** | 400 | Truncate input, reduce context |
+
+The most critical pattern is to **distinguish retryable from non-retryable errors**. Retrying a 401 wastes time and money. Not retrying a 503 loses a request that would have succeeded.
+
+<ExplainBack prompt="Explain the key differences between integrating an AI API and a traditional REST API. Cover at least three aspects: billing model, error handling, and response format." />
+
+<KeyTakeaway>
+AI API integration requires handling unique concerns: token-based billing, rate limiting with backoff, streaming for UX, and provider-specific response formats. Building a provider-agnostic abstraction layer lets you swap models and providers without rewriting application code -- a critical capability as the AI landscape evolves rapidly.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="How does understanding token economics from Level 1 (the Foundations) help you make better decisions about API integration -- for instance, choosing between a long system prompt with few-shot examples versus a short prompt with a more capable model?" />
+
+<ReflectPrompt questions={[
+  "What are the security implications of storing API keys for AI providers? How does this differ from other API keys?",
+  "How would you monitor AI API costs in production to avoid surprise bills?",
+  "When would you choose to self-host an open-source model instead of using a commercial API?"
+]} />

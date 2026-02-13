@@ -1,0 +1,106 @@
+---
+title: "6.3: Monitoring and Drift"
+description: "Detect and respond to model degradation through monitoring, data drift detection, and concept drift analysis."
+sidebar:
+  order: 3
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Watching for Silent Failures
+
+<PredictPrompt prompt="A model that was 95% accurate at launch drops to 82% accuracy three months later, but nothing in the code has changed. What do you think could cause this degradation? How would you detect it before users notice?" />
+
+Unlike traditional software, where bugs are introduced by code changes, AI systems can silently degrade even when nothing in the codebase has changed. The world changes around the model -- user behavior shifts, language evolves, new topics emerge -- and a model trained on historical data gradually becomes misaligned with reality.
+
+### Types of Drift
+
+Understanding the different types of drift is essential for building effective monitoring:
+
+**Data Drift (Covariate Shift)** occurs when the statistical distribution of input features changes over time. The relationship between inputs and outputs remains the same, but the model encounters inputs that differ from its training distribution.
+
+*Example*: A sentiment analysis model trained on product reviews starts receiving social media posts with slang, abbreviations, and emoji. The underlying sentiment logic has not changed, but the input distribution has shifted.
+
+**Concept Drift** occurs when the underlying relationship between inputs and outputs changes. The inputs may look the same, but what they mean -- or what the correct prediction should be -- has shifted.
+
+*Example*: A fraud detection model trained before the rise of cryptocurrency transactions. The concept of "suspicious financial activity" itself has evolved to include new patterns the model has never seen.
+
+**Label Drift** occurs when the distribution of output classes changes. If a support ticket classifier was trained when 60% of tickets were billing-related but billing tickets now comprise only 30%, the model's prior assumptions are miscalibrated.
+
+<CalibrationCheck question="If your model's input distribution looks identical to the training data but accuracy is declining, which type of drift is most likely occurring?">
+This is most likely **concept drift**. Since the input distribution has not changed (no data drift), the degradation must come from the relationship between inputs and outputs having shifted. The same inputs now map to different correct answers than they did during training. This is often the hardest type of drift to detect because standard statistical tests on input features will show no anomaly.
+</CalibrationCheck>
+
+### Monitoring Strategies
+
+A comprehensive monitoring system tracks signals at multiple levels:
+
+**Input Monitoring** watches for changes in the data flowing into the model:
+- Statistical tests (KS test, PSI -- Population Stability Index) compare incoming feature distributions against a reference baseline.
+- Schema validation catches structural changes (new categories, missing fields, type mismatches).
+- Volume monitoring detects sudden spikes or drops in request traffic that may indicate upstream issues.
+
+**Output Monitoring** watches what the model produces:
+- Prediction distribution tracking catches shifts in class balance or confidence score distributions.
+- Latency monitoring identifies performance degradation before it impacts user experience.
+- Output quality sampling routes a percentage of predictions to human reviewers for ongoing quality assessment.
+
+**Outcome Monitoring** measures actual business impact:
+- Ground truth comparison, where available, provides the most direct signal of model accuracy.
+- Proxy metrics (click-through rates, user corrections, escalation rates) serve as indirect measures when labeled ground truth is delayed or unavailable.
+- A/B testing against baseline models quantifies the real-world value of model updates.
+
+### Building a Drift Detection Pipeline
+
+A practical drift detection system follows this pattern:
+
+1. **Establish Baselines**: During model deployment, capture statistical profiles of training data and initial production data as reference distributions.
+2. **Collect Production Data**: Continuously sample and store production inputs, outputs, and (when available) ground truth labels.
+3. **Run Statistical Tests**: On a scheduled cadence (hourly, daily), compare recent production data against baselines using appropriate statistical tests.
+4. **Alert on Thresholds**: When drift scores exceed defined thresholds, generate alerts with context about which features drifted and by how much.
+5. **Trigger Remediation**: Automated pipelines can initiate retraining, fallback to a previous model version, or route to a human review queue.
+
+<TryItYourself title="Design a monitoring dashboard for an LLM-powered summarization service. What metrics would you track? What thresholds would trigger alerts? How would you detect quality degradation when you do not have ground truth labels for every request?">
+A summarization monitoring dashboard should include:
+
+**Input metrics**: Average input length distribution, language distribution, topic clustering of incoming documents, request volume over time.
+
+**Output metrics**: Summary length distribution, compression ratio (output/input length), vocabulary diversity score, response latency (p50, p95, p99).
+
+**Quality proxy metrics** (no ground truth needed):
+- Hallucination detection: Compare named entities and key facts in the summary against the source document using an NLI (Natural Language Inference) model. Alert if >5% of summaries contain unsupported claims.
+- User behavior signals: Track copy rates, time-on-page, regeneration requests, and explicit feedback (thumbs up/down).
+- Self-consistency: Summarize the same document twice and measure semantic similarity between outputs. High variance suggests instability.
+
+**Alert thresholds**: Compression ratio deviating >20% from baseline (model may be truncating or hallucinating), latency p95 exceeding 2x baseline, hallucination detection rate exceeding training-time baseline by >3 percentage points.
+</TryItYourself>
+
+### Responding to Drift
+
+Detection is only valuable if it leads to effective remediation:
+
+- **Retraining**: The most common response. Retrain on recent data, validate on a holdout set, and deploy through the standard model registry pipeline.
+- **Windowed Retraining**: Use a sliding window of recent data rather than all historical data, prioritizing recency over volume when concept drift is suspected.
+- **Online Learning**: For rapidly changing domains, update the model incrementally with each new data point. Powerful but risky without careful validation.
+- **Feature Engineering**: Sometimes drift can be addressed by adding new features that capture the changed reality rather than retraining the entire model.
+- **Graceful Degradation**: When drift is detected but retraining is not yet ready, fall back to a simpler, more robust model or add human-in-the-loop review for low-confidence predictions.
+
+<ExplainBack prompt="Explain the difference between data drift and concept drift, using a specific example of each from a system you work with or can imagine." />
+
+<ReflectPrompt questions={[
+  "How would you know if an LLM's quality is degrading when the model provider updates it without your knowledge?",
+  "What is the cost of NOT monitoring for drift in your current AI deployments?",
+  "How long could one of your models silently underperform before someone would notice?"
+]} />
+
+<ConnectPrompt prompt="In Level 5, you learned about evaluation metrics like perplexity and LLM-as-a-judge. How would you adapt these evaluation techniques for continuous production monitoring rather than one-time model evaluation?" />
+
+<KeyTakeaway>
+AI systems degrade silently because the world changes around them. Robust monitoring that tracks input distributions, output quality proxies, and business outcomes is the only defense against models that work perfectly at launch but fail gradually in production.
+</KeyTakeaway>

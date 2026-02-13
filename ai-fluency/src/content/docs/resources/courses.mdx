@@ -1,0 +1,130 @@
+---
+title: "Courses"
+description: "Structured online courses and professional programs for building AI fluency."
+sidebar:
+  order: 2
+---
+
+import ResourceCard from '../../../components/learning/ResourceCard.astro';
+import ResourceGrid from '../../../components/learning/ResourceGrid.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Structured Learning Programs
+
+Courses provide the scaffolded progression that self-study cannot always offer. The best AI courses combine conceptual explanations with hands-on coding exercises, building both understanding and practical skill.
+
+### Beginner Courses (Levels 1-2)
+
+Start here if you are new to AI or want to build a solid conceptual foundation.
+
+<ResourceGrid resources={[
+  {
+    title: "AI for Everyone",
+    url: "https://www.deeplearning.ai/courses/ai-for-everyone/",
+    type: "Course",
+    author: "Andrew Ng (DeepLearning.AI / Coursera)",
+    description: "A non-technical introduction to AI designed for business professionals. Covers what AI can and cannot do, how to build AI projects, and how to navigate AI in your organization."
+  },
+  {
+    title: "Prompt Engineering for Developers",
+    url: "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+    type: "Course",
+    author: "DeepLearning.AI",
+    description: "A free short course covering prompting best practices, system messages, and iterative prompt development. Directly applicable to Level 2 skills."
+  },
+  {
+    title: "AI Safety - Full Course from Safe.AI",
+    url: "https://www.aisafetybook.com/virtual-course",
+    type: "Course",
+    author: "Center for AI Safety",
+    description: "A comprehensive introduction to machine learning ethics and safety. Accompanies the CAIS textbook. Free and self-paced. Relevant across all levels."
+  }
+]} />
+
+### Intermediate Courses (Levels 3-4)
+
+Build implementation skills with hands-on courses that go beyond concepts into code.
+
+<ResourceGrid resources={[
+  {
+    title: "Building Applications with Vector Databases",
+    url: "https://www.deeplearning.ai/short-courses/building-applications-vector-databases/",
+    type: "Course",
+    author: "DeepLearning.AI",
+    description: "Covers hybrid search, facial similarity, and recommender systems using vector databases. Essential for understanding RAG pipelines at Level 3."
+  },
+  {
+    title: "Machine Learning Specialization",
+    url: "https://www.deeplearning.ai/courses/machine-learning-specialization/",
+    type: "Course",
+    author: "Andrew Ng (DeepLearning.AI / Stanford / Coursera)",
+    description: "The updated version of the legendary Stanford ML course. Three courses covering supervised learning, advanced algorithms, and unsupervised learning with modern tools."
+  },
+  {
+    title: "Deep Learning Specialization",
+    url: "https://www.deeplearning.ai/courses/deep-learning-specialization/",
+    type: "Course",
+    author: "Andrew Ng (DeepLearning.AI / Coursera)",
+    description: "Five courses covering neural networks, optimization, CNNs, sequence models, and more. The most comprehensive deep learning course sequence available."
+  }
+]} />
+
+### Advanced Courses (Levels 5-6)
+
+For practitioners who need production-grade skills and deep architectural understanding.
+
+<ResourceGrid resources={[
+  {
+    title: "Full Stack LLM Bootcamp",
+    url: "https://fullstackdeeplearning.com/llm-bootcamp/",
+    type: "Course",
+    author: "Full Stack Deep Learning",
+    description: "Covers the entire LLM application stack: prompt engineering, LLM ops, UX design, and deployment. Practical and production-focused."
+  },
+  {
+    title: "Stanford CS229: Machine Learning",
+    url: "https://cs229.stanford.edu/",
+    type: "Course",
+    author: "Stanford University",
+    description: "The full Stanford graduate ML course with mathematical rigor. Covers supervised learning, deep learning, generalization, and unsupervised learning. Lectures available free on YouTube."
+  },
+  {
+    title: "Stanford CS224N: NLP with Deep Learning",
+    url: "https://web.stanford.edu/class/cs224n/",
+    type: "Course",
+    author: "Stanford University",
+    description: "Comprehensive coverage of modern NLP including word vectors, transformers, pretraining, and generation. The definitive academic NLP course. Free lecture videos."
+  }
+]} />
+
+### Certificate Programs
+
+For those seeking formal credentials and structured long-term programs.
+
+<ResourceGrid resources={[
+  {
+    title: "Certificate in Artificial Intelligence",
+    url: "https://learn.utoronto.ca/programs-courses/certificates/artificial-intelligence",
+    type: "Course",
+    author: "University of Toronto - School of Continuing Studies",
+    description: "Covers fundamental algorithms, supervised and unsupervised learning, and hands-on applications using Scikit-learn and TensorFlow. A structured path to AI competency."
+  },
+  {
+    title: "Certificate in Advanced Artificial Intelligence",
+    url: "https://learn.utoronto.ca/programs-courses/certificates/advanced-artificial-intelligence",
+    type: "Course",
+    author: "University of Toronto - School of Continuing Studies",
+    description: "Builds on the foundational certificate with deep reinforcement learning, NLP, and causal AI. Includes an AI Games Capstone where learners build competing agents."
+  },
+  {
+    title: "Vector Institute FastLane Program",
+    url: "https://vectorinstitute.ai/programs/ai-startup-and-scale-up-program/",
+    type: "Course",
+    author: "Vector Institute",
+    description: "For startups and scale-ups. Provides hands-on experience in training LLMs and deploying risk assessment models. Connects participants with the Vector research ecosystem."
+  }
+]} />
+
+<KeyTakeaway>
+Courses work best when you apply what you learn immediately. Choose a course that is one level above your current comfort zone, and pair it with a real project where you can apply each module's concepts. The combination of structured learning and practical application accelerates fluency faster than either approach alone.
+</KeyTakeaway>

@@ -1,0 +1,107 @@
+---
+title: "F.1: Tokens and the Architecture of Language"
+description: "How large language models break down human language into computable units, and why tokenization affects cost, performance, and multilingual AI applications."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="When you type a sentence into ChatGPT, how do you think the model 'sees' your text? Does it read letter by letter, word by word, or something else entirely? And do you think a sentence in English and the same sentence translated into Japanese would require the same amount of processing?" />
+
+## What Are Tokens?
+
+Large language models do not process language the way humans do. They cannot read words directly — instead, they break text down into **tokens**, which are the basic computational building blocks of all language processing.
+
+A token can represent:
+- A single character (like `x` or `,`)
+- A word fragment (like `un` or `tion`)
+- A complete word (like `hello`)
+- A short phrase or punctuation mark
+
+The process of breaking text into tokens is called **tokenization**, and it happens before anything else. When you send a message to an AI model, your raw text is first converted into a sequence of numeric IDs — one ID per token — and those numbers are what the model actually processes.
+
+### Why Not Just Use Words?
+
+You might wonder why models do not simply split text on spaces and use whole words as their unit of processing. There are several reasons:
+
+1. **Vocabulary size.** English alone has over 170,000 words in current use. Add technical jargon, proper nouns, misspellings, and slang, and the vocabulary becomes unmanageable. Tokens let models work with a smaller, fixed vocabulary (typically 30,000-100,000 tokens) that can still represent any text.
+
+2. **Morphology.** Words like "running," "runner," and "runs" share a root. Subword tokenization can represent these as combinations of shared pieces, helping the model recognize the relationship.
+
+3. **Unknown words.** A word-level model would fail on any word it never saw during training. A subword tokenizer can break unfamiliar words into known fragments, maintaining at least partial understanding.
+
+## The Numbers Behind Tokenization
+
+Understanding the relationship between text and tokens is essential for practical AI work, because most AI services charge per token and context windows are measured in tokens.
+
+| Metric | Approximation |
+|--------|--------------|
+| 1 token | ~4 characters in English |
+| 100 tokens | ~75 words |
+| Word-to-token ratio | ~1.5 tokens per word (varies by model) |
+| A typical paragraph | ~100-150 tokens |
+| A full page of text | ~500-700 tokens |
+
+These are averages for English text. Common words like "the" or "and" are often single tokens. Longer or less common words get split into multiple tokens. For example, "tokenization" itself is typically broken into 3 tokens: `token`, `ization` (or similar fragments depending on the model).
+
+<TryItYourself title="Estimate the token count for this sentence: 'The quick brown fox jumps over the lazy dog.' Now consider this technical sentence: 'Backpropagation calculates gradients through computational graphs.' Which do you think uses more tokens, and why?">
+
+The first sentence uses approximately 10 tokens — most of its words are common English words that exist as single tokens in typical vocabularies.
+
+The second sentence uses approximately 9-11 tokens, but "Backpropagation" alone may consume 3-4 tokens because it is a longer, less common word that gets split into subwords. The overall token count is similar, but the token-per-word ratio is higher for the technical text.
+
+You can verify this using OpenAI's Tokenizer tool or the `tiktoken` library in Python.
+</TryItYourself>
+
+## Cross-Language Tokenization
+
+One of the most important practical implications of tokenization is that it is **not language-neutral**. Models trained primarily on English text develop tokenizers that are highly efficient for English but significantly less efficient for other languages.
+
+Consider this: a sentence in English might require 15 tokens, but the same meaning expressed in Telugu, Hindi, or Chinese could require 30-50 tokens — even though the translated text might have fewer characters. This happens because:
+
+- The tokenizer was trained primarily on English text, so English words and subwords are heavily represented in the vocabulary
+- Characters from other scripts are less efficiently encoded
+- Some languages require multiple tokens per character
+
+This disparity has real consequences:
+- **Cost:** API usage is billed per token, so non-English users pay significantly more for the same work
+- **Context window usage:** Less efficient tokenization means you can fit less content from non-English languages into the same context window
+- **Performance:** Models may produce lower-quality outputs in languages where tokenization is less efficient, because less semantic information is packed into each token
+
+<CalibrationCheck question="If a model's tokenizer was trained primarily on English text, and you send it a paragraph in Arabic, what would you expect to happen to the token count compared to an equivalent English paragraph?">
+
+The Arabic paragraph would use significantly more tokens than the equivalent English text — often 2-3x as many. This is because Arabic characters and words are underrepresented in the tokenizer's vocabulary, so they get broken into smaller, less meaningful fragments. This increases cost, consumes more of the context window, and can degrade output quality.
+
+This is an active area of research. Newer models are being trained with more multilingual tokenizers, but the disparity remains significant for many languages.
+</CalibrationCheck>
+
+## How Tokenization Connects to Model Architecture
+
+The tokens produced by the tokenizer do not go directly into the model's reasoning layers. First, each token ID is converted into an **embedding** — a high-dimensional vector (a list of numbers) that represents the token's meaning. The model learned these embeddings during training, and similar tokens have similar embeddings.
+
+The flow looks like this:
+
+1. **Raw text** → Tokenizer → **Token IDs** (a sequence of integers)
+2. **Token IDs** → Embedding layer → **Vectors** (one per token)
+3. **Vectors** → Transformer layers → **Predictions** (probability of the next token)
+
+This is why tokenization is the "architecture of language" in the context of AI — it is the bridge between human-readable text and the mathematical representations that the model actually computes with.
+
+<KeyTakeaway>
+Tokens are the atomic units of AI language processing. They are not words — they are subword fragments chosen for computational efficiency. Understanding tokenization is essential because it directly determines cost (billing per token), capacity (context window measured in tokens), and multilingual fairness (languages tokenize at different efficiencies).
+</KeyTakeaway>
+
+<ExplainBack prompt="Explain to a colleague who has never used an AI tool why the same question costs more to ask in Hindi than in English, and what role tokenization plays in this difference." />
+
+<ReflectPrompt questions={[
+  "Before reading this module, did you assume AI models process language word by word? How has your understanding changed?",
+  "What are the ethical implications of tokenizers that are more efficient for English than for other languages?",
+  "If you were designing an AI-powered product for a multilingual audience, how would tokenization efficiency affect your architecture decisions?"
+]} />
+
+<ConnectPrompt prompt="Tokenization directly affects the context window (F.2) — every token counts against your limit. As you move into Prompt Engineering (Level 2), you will learn techniques to write token-efficient prompts. And when you reach Context Engineering (Level 3), you will need to consider how tokenization affects your chunking strategies for RAG pipelines." />

@@ -1,0 +1,160 @@
+---
+title: "3.5 Grounding for Accuracy"
+description: "Learn techniques to reduce hallucination and increase factual accuracy by grounding AI responses in retrieved evidence."
+sidebar:
+  order: 5
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="Even with RAG retrieving the right documents, the model can still generate incorrect information. What techniques might you use to make the model stick more closely to the retrieved evidence and less to its own 'imagination'?" />
+
+## The grounding problem
+
+In Module 3.3, you learned that RAG reduces hallucination by providing external evidence. But "reduces" is not "eliminates." The model can still:
+
+- **Confabulate**: Blend retrieved facts with training data in misleading ways
+- **Over-generalize**: State something as universally true when the source says it applies only in specific cases
+- **Hallucinate structure**: Invent numbered lists, dates, or statistics that appear in the source's style but are not actually there
+- **Misattribute**: Claim a fact comes from one source when it comes from another
+
+**Grounding** is the practice of designing your system and prompts to maximize the model's fidelity to the retrieved evidence and minimize fabrication.
+
+### Technique 1: Explicit grounding instructions
+
+The simplest grounding technique is a clear instruction in the system prompt:
+
+```
+Answer the user's question based ONLY on the provided
+context documents. For every claim you make, cite the
+specific document and section. If the context does not
+contain enough information to answer the question,
+respond with: "I don't have enough information in the
+available documents to answer this question."
+
+Do not use your general knowledge. Do not speculate.
+```
+
+This instruction does not guarantee compliance, but it significantly reduces the rate of hallucination compared to prompts without it.
+
+### Technique 2: Citation requirements
+
+Force the model to cite its sources by structuring the expected output:
+
+```
+For each statement in your answer, include a citation
+in brackets referencing the source document:
+
+Example: Remote employees must submit a monthly
+expense report [Employee Handbook, Section 7.3].
+```
+
+When the model must produce a citation for every claim, it is more likely to stay grounded in the retrieved text. Claims without a plausible citation are more likely to be caught -- either by the model self-censoring or by a human reviewer noticing the missing reference.
+
+### Technique 3: Extractive before abstractive
+
+Instead of asking the model to synthesize an answer directly, break the task into two steps:
+
+**Step 1 (extractive)**: "Quote the exact sentences from the context that are relevant to the question."
+
+**Step 2 (abstractive)**: "Based only on the quotes above, write a concise answer."
+
+By forcing an extractive step first, you create a verifiable intermediate output. The model's synthesis in step 2 can only draw from the quotes it extracted in step 1, creating a narrower path for hallucination.
+
+<CalibrationCheck question="If the model cites a source in its response, does that guarantee the citation is accurate?">
+No. The model can fabricate citations that look plausible. It might cite "Section 4.2" when the relevant information is actually in Section 3.1, or attribute a claim to the wrong document entirely. Citation requirements make the model more likely to stay grounded, but you should always verify citations against the actual source material -- especially for high-stakes applications like legal, medical, or financial advice.
+</CalibrationCheck>
+
+### Technique 4: Confidence signaling
+
+Ask the model to rate its confidence for each part of its answer:
+
+```
+For each part of your answer, indicate your confidence:
+- HIGH: Directly stated in the provided context
+- MEDIUM: Implied by the context but requires interpretation
+- LOW: Not clearly supported by the context
+```
+
+This does not prevent hallucination, but it creates **transparency**. A user seeing a LOW-confidence statement knows to verify it independently. This maps to the **Discernment** competency from Level 1.
+
+### Technique 5: Adversarial verification
+
+After generating an answer, add a verification step:
+
+```
+Now review your answer. For each claim:
+1. Quote the specific text from the context that supports it
+2. If you cannot find supporting text, mark the claim as
+   UNSUPPORTED and remove it from the answer
+3. Rewrite the answer using only supported claims
+```
+
+This is recursive self-improvement (Level 2, Module 2.5) applied specifically to factual grounding. The critique step focuses on evidence rather than style.
+
+<TryItYourself title="Write a grounded RAG prompt that includes at least three of the five techniques above. The scenario: a customer asks your AI chatbot about your company's refund policy, and the system has retrieved three relevant policy document chunks.">
+A comprehensive grounded prompt:
+
+```
+System: You are a customer service assistant. Answer
+the customer's question using ONLY the policy documents
+provided below. [Grounding instruction]
+
+For every statement, cite the document and section in
+brackets. [Citation requirement]
+
+Before writing your answer:
+1. Quote the specific sentences from the context that
+   are relevant to the question. [Extractive step]
+2. Rate each quote as HIGH (directly answers the question),
+   MEDIUM (partially relevant), or LOW (tangential).
+   [Confidence signaling]
+
+Then write your answer using only HIGH and MEDIUM quotes.
+If the context does not contain enough information,
+say "I don't have information about that specific case.
+Please contact support at [email]."
+
+Context:
+---
+[Policy chunk 1]
+[Policy chunk 2]
+[Policy chunk 3]
+---
+
+Customer question: [question]
+```
+
+This combines explicit grounding instructions, citation requirements, extractive-before-abstractive, and confidence signaling into a single prompt.
+</TryItYourself>
+
+### Measuring grounding quality
+
+How do you know if your grounding techniques are working?
+
+- **Faithfulness**: Does the response contain only claims supported by the context?
+- **Attribution accuracy**: Are citations pointing to the correct sources?
+- **Abstention rate**: Does the system appropriately say "I don't know" when the context lacks information?
+- **Hallucination rate**: What percentage of claims in responses are unsupported by context?
+
+For production systems, evaluating these metrics requires either human review or automated evaluation using a more capable model (LLM-as-a-judge, which you will encounter in Level 5).
+
+<ExplainBack prompt="Name four grounding techniques and explain how each one reduces hallucination. Why is extractive-before-abstractive more verifiable than direct synthesis? Can citations guarantee accuracy?" />
+
+<ReflectPrompt questions={[
+  "For your organization's use case, which grounding technique would have the highest impact?",
+  "What is the cost of a hallucination in your domain? A wrong answer about a return policy is different from a wrong answer about medication dosage.",
+  "How would you balance the user experience (fast, natural responses) against grounding rigor (slower, more constrained responses)?"
+]} />
+
+<KeyTakeaway>
+Grounding techniques -- explicit instructions, citation requirements, extractive-first approaches, confidence signaling, and adversarial verification -- push the model toward fidelity to retrieved evidence. No single technique eliminates hallucination, but layering multiple techniques significantly reduces it. The level of grounding rigor should match the stakes of your application.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="You have now built the core retrieval and grounding toolkit. Next, you will explore how different model architectures -- Mixture of Experts, Mixture of Agents, and reasoning models -- change the way you apply these techniques." />

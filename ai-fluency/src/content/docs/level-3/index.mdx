@@ -1,0 +1,38 @@
+---
+title: "Level 3: The Context Engineer"
+description: "Move beyond the model's internal knowledge. Learn to ground AI in external data using embeddings, vector databases, and RAG."
+sidebar:
+  order: 0
+---
+
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+
+## Welcome to Level 3
+
+In Levels 1 and 2, you worked entirely within the model's training data. Every answer came from patterns the model learned during training. This has a fundamental limitation: the model does not know about your company's internal documentation, your proprietary data, or anything that happened after its training cutoff.
+
+Level 3 solves this problem. As a **context engineer**, you learn to inject external data into the model's context window so it can answer questions about information it was never trained on. This is the bridge between general-purpose AI and AI that is useful for your specific domain.
+
+### What you will learn
+
+| Module | Topic | Core Idea |
+| :-- | :-- | :-- |
+| 3.1 | Embeddings and Vector Space | Turning text into numbers that capture meaning |
+| 3.2 | Vector Databases | Storing and searching embeddings efficiently |
+| 3.3 | The RAG Pipeline | Retrieval-Augmented Generation architecture |
+| 3.4 | Chunking and Retrieval | Breaking documents into searchable pieces |
+| 3.5 | Grounding for Accuracy | Reducing hallucination through citation and verification |
+| 3.6 | Checkpoint | Build and evaluate a conceptual RAG system |
+
+### The shift in competency focus
+
+At Level 2, the emphasis was on **Description** -- crafting precise prompts. At Level 3, the emphasis shifts to **Delegation**: knowing how to design systems that retrieve the right information and deliver it to the model at the right time.
+
+This is where AI fluency starts to look like engineering. You are no longer just writing prompts -- you are designing **data pipelines** that feed the model.
+
+<KeyTakeaway>
+The most capable prompt engineer in the world is still limited by the model's training data. Context engineering removes that limitation by bringing your own data into the model's context window. This is the foundation of every enterprise AI application.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Start with Module 3.1 on embeddings and vector space. Before you can retrieve relevant data, you need to understand how text is represented mathematically -- and why 'king minus man plus woman equals queen' is not just a parlor trick." />

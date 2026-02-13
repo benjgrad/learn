@@ -1,0 +1,78 @@
+---
+title: "1.2 The Probabilistic Nature of AI"
+description: "Learn why AI gives different answers to the same question, and how temperature and sampling control randomness."
+sidebar:
+  order: 2
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="If you ask the same AI model the same question twice, will you get the same answer? Why or why not? Write down your prediction." />
+
+## Prediction, not retrieval
+
+In Module 1.1, you learned that AI generates responses by predicting the next token. But how does it choose *which* token comes next when multiple tokens could work?
+
+The answer: **probability distributions**. At each step, the model calculates a probability for every token in its vocabulary (often 50,000+ tokens). The word "Paris" might get a 72% probability, "Lyon" might get 3%, and "the" might get 0.01%. The model then **samples** from this distribution rather than always picking the single highest-probability token.
+
+This is what makes AI **probabilistic** rather than **deterministic**. The same input can produce different outputs because of this sampling step.
+
+### Temperature: the creativity dial
+
+**Temperature** is the parameter that controls how much randomness the model uses when sampling:
+
+| Temperature | Behavior | Best for |
+| :-- | :-- | :-- |
+| **0.0** | Always picks the highest-probability token (greedy decoding) | Factual answers, code generation, data extraction |
+| **0.1 - 0.3** | Slight variation, mostly predictable | Business writing, technical documentation |
+| **0.7 - 0.9** | More diverse and creative outputs | Brainstorming, creative writing, exploration |
+| **1.0+** | High randomness, sometimes incoherent | Experimental use only |
+
+Think of temperature as a dial between "safe and predictable" and "surprising and risky." Lower temperature concentrates probability on the top choices. Higher temperature flattens the distribution, giving less likely tokens a better chance of being selected.
+
+<CalibrationCheck question="If you set the temperature to 0.0 and ask the same question twice, will you get identical responses?">
+Almost always yes, but not guaranteed. Even at temperature 0.0, some implementations have minor sources of non-determinism (floating-point arithmetic, batching). In practice, temperature 0.0 gives you *effectively* deterministic output, but perfect reproducibility depends on the specific platform and hardware.
+</CalibrationCheck>
+
+### Top-p (nucleus sampling)
+
+Temperature is not the only sampling control. **Top-p** (also called nucleus sampling) works differently: instead of scaling all probabilities, it considers only the smallest set of tokens whose cumulative probability exceeds a threshold *p*.
+
+For example, with top-p = 0.9:
+- The model sorts all tokens by probability
+- It includes tokens from the top until their probabilities sum to 90%
+- It samples only from this reduced set
+
+Top-p = 0.1 means the model only considers the very top tokens. Top-p = 1.0 means it considers all tokens. In practice, most users adjust temperature and leave top-p at its default.
+
+### Why this matters for you
+
+Understanding probabilistic output changes how you work with AI:
+
+1. **Do not expect consistency.** The same prompt may produce different results. If you need consistency, lower the temperature.
+2. **Regenerate strategically.** If a response is not what you wanted, regenerating may give you a better one -- or a worse one. The output is a sample from a distribution, not a fixed answer.
+3. **Hallucinations are a feature of the architecture.** The model assigns nonzero probability to incorrect tokens. When it samples one, you get a confident-sounding falsehood. This is not a bug to be fixed; it is inherent to how the system works.
+
+<TryItYourself title="Ask an AI chatbot to write a one-sentence summary of a topic you know well. Regenerate the response 3-4 times without changing your prompt. How much does the output vary? Now try asking for something factual like 'What is 2 + 2?' and regenerate. Notice the difference in variation.">
+Creative and open-ended prompts produce high variation across regenerations because many tokens have meaningful probability. Factual prompts with clear, unambiguous answers produce low variation because one token sequence dominates the probability distribution. This demonstrates how the model's uncertainty is visible in its output diversity.
+</TryItYourself>
+
+<ExplainBack prompt="Without scrolling back, explain what temperature does. What happens at temperature 0 versus temperature 1? Why does the same prompt sometimes give different answers?" />
+
+<ReflectPrompt questions={[
+  "When would you want high randomness in AI output? When would you want near-zero randomness?",
+  "If a colleague says 'the AI told me X,' how does understanding probabilistic output change how you receive that claim?",
+  "Have you encountered a hallucination before? At the time, did you recognize it as a probabilistic artifact?"
+]} />
+
+<KeyTakeaway>
+AI outputs are sampled from a probability distribution, not retrieved from a database. Temperature controls the spread of that distribution. This means every response is one possible version of many, and hallucinations are a natural consequence of the sampling process.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Now that you understand the probabilistic engine underneath, Module 1.3 will teach you the first practical prompting patterns -- summarize, draft, brainstorm -- and how to write prompts that steer this probability engine toward useful output." />

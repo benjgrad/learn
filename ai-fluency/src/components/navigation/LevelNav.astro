@@ -1,0 +1,151 @@
+---
+import levels from '../../data/levels.json';
+
+interface Props {
+  currentSlug: string;
+}
+
+interface Module {
+  slug: string;
+  title: string;
+}
+
+interface Level {
+  number: number;
+  title: string;
+  slug: string;
+  color: string;
+  modules: Module[];
+}
+
+const { currentSlug } = Astro.props;
+const typedLevels = levels as Level[];
+
+// Find which level this slug belongs to and locate prev/next
+let prev: Module | null = null;
+let next: Module | null = null;
+let currentLevel: Level | null = null;
+
+for (const level of typedLevels) {
+  if (!level.modules) continue;
+  const idx = level.modules.findIndex((m) => m.slug === currentSlug);
+  if (idx !== -1) {
+    currentLevel = level;
+    if (idx > 0) prev = level.modules[idx - 1];
+    if (idx < level.modules.length - 1) next = level.modules[idx + 1];
+    break;
+  }
+}
+
+const levelColor = currentLevel?.color || '#6b7280';
+---
+
+{(prev || next) && (
+  <nav
+    class="level-nav"
+    style={`--level-color: ${levelColor};`}
+    aria-label="Module navigation"
+  >
+    <div class="level-nav__inner">
+      {prev ? (
+        <a href={`/${prev.slug}/`} class="level-nav__link level-nav__link--prev">
+          <span class="level-nav__arrow" aria-hidden="true">&larr;</span>
+          <span class="level-nav__meta">
+            <span class="level-nav__label">Previous</span>
+            <span class="level-nav__title">{prev.title}</span>
+          </span>
+        </a>
+      ) : (
+        <span />
+      )}
+      {next ? (
+        <a href={`/${next.slug}/`} class="level-nav__link level-nav__link--next">
+          <span class="level-nav__meta">
+            <span class="level-nav__label">Next</span>
+            <span class="level-nav__title">{next.title}</span>
+          </span>
+          <span class="level-nav__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      ) : (
+        <span />
+      )}
+    </div>
+  </nav>
+)}
+
+<style>
+  .level-nav {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--sl-color-gray-5);
+  }
+
+  .level-nav__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .level-nav__link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-gray-5);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+    max-width: 48%;
+  }
+
+  .level-nav__link:hover {
+    border-color: var(--level-color);
+    background-color: color-mix(in srgb, var(--level-color) 8%, transparent);
+  }
+
+  .level-nav__link--next {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .level-nav__arrow {
+    font-size: 1.25rem;
+    color: var(--level-color);
+    flex-shrink: 0;
+  }
+
+  .level-nav__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .level-nav__label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .level-nav__title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 30rem) {
+    .level-nav__inner {
+      flex-direction: column;
+    }
+
+    .level-nav__link {
+      max-width: 100%;
+    }
+
+    .level-nav__link--next {
+      margin-left: 0;
+    }
+  }
+</style>

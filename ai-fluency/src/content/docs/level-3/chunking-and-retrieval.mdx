@@ -1,0 +1,124 @@
+---
+title: "3.4 Chunking and Retrieval"
+description: "Learn how document chunking strategies affect retrieval quality and how to optimize for the right information reaching the model."
+sidebar:
+  order: 4
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="If you split a 50-page document into pieces for retrieval, how big should each piece be? What happens if the pieces are too small? Too large?" />
+
+## The chunking problem
+
+Before documents can be embedded and stored in a vector database, they must be split into **chunks** -- smaller pieces that can be individually embedded and retrieved. Chunking is one of the most consequential decisions in RAG system design because it determines:
+
+- **What gets retrieved**: The chunk is the unit of retrieval. If important information spans two chunks, the system may retrieve only half of what the user needs.
+- **Embedding quality**: Embeddings represent the semantic content of their input. Too large, and the embedding becomes a vague average. Too small, and it lacks context.
+- **Context window usage**: Retrieved chunks are injected into the prompt. Larger chunks use more of the limited context window.
+
+### Chunking strategies
+
+#### Fixed-size chunking
+
+Split text into chunks of a fixed number of tokens or characters, with optional overlap:
+
+```
+Chunk 1: tokens 0-500
+Chunk 2: tokens 400-900   (100-token overlap)
+Chunk 3: tokens 800-1300  (100-token overlap)
+```
+
+**Overlap** ensures that information at chunk boundaries is not lost. A sentence that spans the boundary will appear in both chunks.
+
+- **Pros**: Simple, predictable, easy to implement
+- **Cons**: May split sentences or paragraphs mid-thought
+
+#### Semantic chunking
+
+Split text at natural boundaries: paragraphs, sections, headers, or sentence groups:
+
+```
+Chunk 1: Section 2.1 (Introduction to authentication)
+Chunk 2: Section 2.2 (OAuth flow description)
+Chunk 3: Section 2.3 (Token refresh process)
+```
+
+- **Pros**: Preserves semantic coherence within chunks
+- **Cons**: Uneven chunk sizes, some chunks may be too large or too small
+
+#### Recursive chunking
+
+Start with large chunks (sections), then split further only if a chunk exceeds a size threshold:
+
+1. Split by headers (H1, H2, H3)
+2. If a section is too long, split by paragraphs
+3. If a paragraph is too long, split by sentences
+
+- **Pros**: Balances semantic coherence with size constraints
+- **Cons**: More complex to implement
+
+### The size tradeoff
+
+| Chunk size | Retrieval precision | Context usage | Embedding quality |
+| :-- | :-- | :-- | :-- |
+| **Small** (100-200 tokens) | High -- retrieves targeted info | Efficient -- fits many chunks | Risk of losing context |
+| **Medium** (300-500 tokens) | Balanced | Moderate | Good balance |
+| **Large** (500-1000 tokens) | Lower -- includes irrelevant info | Expensive -- fewer chunks fit | May dilute the key point |
+
+The right size depends on your data and use case. Technical documentation with dense, specific information often benefits from smaller chunks. Narrative documents where context builds across paragraphs may need larger chunks.
+
+<CalibrationCheck question="If you chunk a document about a multi-step process (like a recipe or installation guide), what problem might arise even with overlap?">
+The steps may depend on each other in ways that a single chunk cannot capture. Step 5 might reference "the configuration file you created in Step 2," but if Steps 2 and 5 are in different chunks, the retrieved chunk for a query about Step 5 will lack critical context. This is the **cross-reference problem** -- information that makes sense only in combination with information elsewhere in the document. Solutions include: larger chunks that capture full procedures, metadata linking related chunks, or multi-hop retrieval that follows references.
+</CalibrationCheck>
+
+### Retrieval quality
+
+Getting the right chunks to the model is just as important as chunking well. Key retrieval considerations:
+
+**Top-k selection**: How many chunks to retrieve. Too few and you miss relevant information. Too many and you waste context window space on marginally relevant chunks.
+
+**Re-ranking**: After initial retrieval, use a second model to re-rank the results by relevance. The initial vector search is fast but approximate; a re-ranker is slower but more accurate.
+
+**Hybrid search**: Combine semantic search (embeddings) with keyword search (BM25). Semantic search finds conceptually similar content. Keyword search finds exact matches. The combination covers both cases:
+
+```
+Query: "HNSW algorithm complexity"
+
+Semantic search finds: chunks about vector search, approximate nearest neighbors
+Keyword search finds: chunks containing the exact string "HNSW"
+Hybrid combines both: more comprehensive results
+```
+
+<TryItYourself title="Take a multi-page document you are familiar with (a policy document, technical spec, or handbook). Mentally split it into chunks using two different strategies: (1) fixed-size at 300 words, and (2) by section headers. For a specific question about the document, which strategy would retrieve a more useful chunk?">
+For most structured documents, section-based chunking retrieves more useful chunks because the section boundaries align with topic boundaries. A question about "vacation policy" will retrieve the complete vacation policy section, rather than a fixed-size chunk that starts in the middle of the vacation section and ends in the middle of the sick leave section.
+
+However, if a section is very long (1,000+ words), the embedding quality degrades because it tries to represent too many ideas. This is where recursive chunking helps -- start with sections, then subdivide long ones.
+</TryItYourself>
+
+### Common chunking mistakes
+
+1. **No overlap**: Information at chunk boundaries is lost entirely
+2. **Ignoring document structure**: Splitting tables, code blocks, or lists across chunks
+3. **One size fits all**: Using the same chunk size for different document types
+4. **Forgetting metadata**: Not storing which document, section, or page each chunk came from
+
+<ExplainBack prompt="Name three chunking strategies and the tradeoff each makes. What is the 'cross-reference problem'? How does hybrid search improve retrieval quality?" />
+
+<ReflectPrompt questions={[
+  "Think about the documents your organization would index. Are they structured (with clear headers and sections) or unstructured (free-form text)? How would this affect your chunking strategy?",
+  "If retrieval returns 5 chunks but only 2 are relevant, what happens to the quality of the model's response?",
+  "How would you measure whether your chunking strategy is working well?"
+]} />
+
+<KeyTakeaway>
+Chunking determines what the RAG system can retrieve. Too small and chunks lack context. Too large and they dilute relevance. Use recursive chunking with overlap for most use cases, and combine semantic and keyword search for comprehensive retrieval. Always preserve document structure -- never split tables, code blocks, or logical units.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Good retrieval gets relevant information to the model. But even with perfect retrieval, the model can still misinterpret, over-generalize, or fabricate. Module 3.5 covers grounding techniques that push the model toward accurate, verifiable responses." />

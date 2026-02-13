@@ -1,0 +1,122 @@
+---
+title: "F.2: Context Windows as AI's Working Memory"
+description: "Understanding the limited memory that shapes every AI interaction, and how to manage it effectively for better results."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="When you have a long conversation with an AI chatbot, does it truly 'remember' what you said at the beginning? What do you think happens when your conversation gets very long — say, 50 messages in? Does the AI get better at helping you, or worse?" />
+
+## What Is a Context Window?
+
+The **context window** is the maximum amount of information a model can consider at any one time. Think of it as the model's working memory — a fixed-size container that must hold everything the model needs to generate its response.
+
+Every time you interact with an AI model, the context window contains:
+
+- **The system prompt** — instructions that define the model's behavior
+- **The conversation history** — every previous message in the current session
+- **Any attached documents** — files, code, or data you have shared
+- **The current user query** — what you are asking right now
+- **The model's response** — the output being generated also consumes tokens from the window
+
+The critical insight is that **everything competes for the same limited space**. A longer system prompt leaves less room for conversation. A longer conversation history leaves less room for attached documents. And when the window fills up, something has to go.
+
+## Context Window Sizes
+
+Modern models vary significantly in their context window capacity:
+
+| Model Class | Typical Context Window | Approximate Capacity |
+|-------------|----------------------|---------------------|
+| Early models (GPT-3) | 4,096 tokens | ~3,000 words |
+| Mid-generation (GPT-3.5) | 16,384 tokens | ~12,000 words |
+| Current generation | 128,000-200,000 tokens | ~100,000-150,000 words |
+| Extended context models | 1,000,000+ tokens | ~750,000+ words |
+
+While these numbers look large, they fill up faster than you might expect. A detailed system prompt can consume 1,000-2,000 tokens. A 20-message conversation easily reaches 5,000-10,000 tokens. Attach a few documents, and you are using a significant portion of even the largest windows.
+
+<CalibrationCheck question="A model has a 128,000 token context window. You have a 1,500-token system prompt, a 15-page document (~10,000 tokens), and a conversation that has been running for 30 exchanges (~8,000 tokens). Roughly how much of the context window have you used?">
+
+You have used approximately 19,500 tokens — about 15% of the context window. This leaves roughly 108,500 tokens. However, the model's response also counts, and each new exchange adds both your message and the model's reply. After 100 more exchanges, you could easily consume another 25,000-40,000 tokens.
+
+The key insight is that context usage grows with every turn. What starts as 15% can reach 50% or more within a single working session.
+</CalibrationCheck>
+
+## What Happens When the Window Fills Up
+
+When a conversation exceeds the context window, the model must discard information. Different models handle this differently, but the most common approach is to **drop the oldest messages first** — a behavior sometimes called "sliding window" attention.
+
+This has several consequences:
+
+1. **Loss of coherence.** The model may forget instructions or context you provided early in the conversation, leading to contradictions or confusion.
+
+2. **Hallucinations.** Without access to earlier context, the model may "fill in the gaps" with plausible-sounding but incorrect information.
+
+3. **Repeated work.** You may find yourself re-explaining requirements or re-sharing information that the model has silently dropped.
+
+4. **Behavioral drift.** System prompt instructions can be lost, causing the model's persona or behavior rules to degrade over long conversations.
+
+### The Hidden Resend Pattern
+
+Most chat interfaces create an illusion of persistent memory, but here is what actually happens behind the scenes: **every time you send a message, the entire conversation history is resent to the model**. The model does not retain any state between API calls — it re-reads everything from scratch each time.
+
+This means:
+- **Latency increases** with conversation length, because the model processes more tokens each turn
+- **Cost increases** proportionally, because you pay for all the tokens in the context window, not just the new message
+- **There is a hard ceiling** — once the conversation exceeds the window, information is lost
+
+<TryItYourself title="Design a strategy for a long-running AI assistant session where you need to process a 50-page document and have an extended Q&A conversation about it. How would you manage the context window?">
+
+An effective strategy involves several techniques:
+
+1. **Chunking the document:** Rather than loading all 50 pages at once, break the document into logical sections and load only the relevant sections for each question.
+
+2. **Rolling summaries:** Periodically ask the model to summarize the conversation so far, then start a new conversation with just the summary as context. This compresses the history.
+
+3. **Strategic new conversations:** When the topic shifts significantly, start a fresh conversation with a focused system prompt rather than continuing to accumulate history.
+
+4. **Prioritized context:** Put the most important information (system prompt, current relevant document section, recent conversation) closest to the end of the context, as models tend to attend more strongly to recent content.
+
+5. **Explicit references:** Instead of relying on the model to "remember" earlier discussion, explicitly restate key conclusions or decisions in your current message.
+</TryItYourself>
+
+## The "Lost in the Middle" Problem
+
+Research has shown that models do not attend equally to all parts of the context window. They tend to pay the most attention to the **beginning** (primacy effect) and the **end** (recency effect) of the context, with reduced attention to content in the **middle**.
+
+This has practical implications for how you structure your prompts:
+
+- Place critical instructions at the **beginning** (system prompt) and **end** (just before the query) of the context
+- Be aware that information buried in the middle of long documents may receive less attention
+- When using RAG systems, the order in which retrieved chunks are injected into the context matters
+
+## Practical Context Management
+
+Effective context management is a primary skill for AI fluency. Here are the core practices:
+
+**Start new conversations strategically.** Do not try to make one conversation handle everything. When you shift to a new topic or task, a fresh conversation with a focused system prompt will produce better results than continuing to accumulate unrelated history.
+
+**Summarize before you overflow.** If a conversation is getting long and you need to continue, ask the model to summarize the key points and decisions made so far, then start a new conversation with that summary.
+
+**Be explicit, not implicit.** Do not assume the model "remembers" something from 20 messages ago. Restate key context in your current message. This costs a few extra tokens but significantly improves response quality.
+
+**Monitor your token usage.** Many API platforms show token counts. Get in the habit of checking how much of your context window is in use, especially during long sessions.
+
+<KeyTakeaway>
+The context window is a fixed-size working memory that contains everything the model needs to generate a response — system prompt, history, documents, and output. Managing this window is not a secondary concern; it is a primary skill. Every decision about what to include and what to leave out directly affects the quality, cost, and reliability of AI outputs.
+</KeyTakeaway>
+
+<ExplainBack prompt="Explain to a non-technical product manager why their AI chatbot seems to 'forget' things after long conversations, and what the engineering team can do about it." />
+
+<ReflectPrompt questions={[
+  "Have you ever noticed an AI seeming to forget earlier parts of a conversation? Now that you understand context windows, does that experience make more sense?",
+  "How does the 'hidden resend' pattern change how you think about the cost of using AI chat interfaces?",
+  "If you were designing an AI-powered customer support system, how would context window limits affect your architecture?"
+]} />
+
+<ConnectPrompt prompt="Context window management is where tokenization (F.1) meets practical application. Every token in your prompt, documents, and history counts against the same limit. When you reach Level 3 (Context Engineering), you will learn about RAG pipelines — a direct response to context window limitations that retrieves only the most relevant information from large document collections." />

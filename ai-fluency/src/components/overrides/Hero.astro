@@ -1,0 +1,84 @@
+---
+import Default from '@astrojs/starlight/components/Hero.astro';
+
+const route = Astro.locals.starlightRoute;
+const { data } = route.entry;
+const slug = route.slug || route.id || '';
+
+// Determine if this is a level index page (e.g., "level-1", "level-2", etc.)
+const levelIndexMatch = slug.match(/^level-(\d+)$/);
+const isLevelIndex = Boolean(levelIndexMatch);
+const levelNum = isLevelIndex ? parseInt(levelIndexMatch![1], 10) : null;
+
+// Level metadata for custom hero rendering
+const levelTitles: Record<number, string> = {
+  1: 'Casual Consumer',
+  2: 'Prompt Engineer',
+  3: 'Context Engineer',
+  4: 'Component Engineer',
+  5: 'System Engineer',
+  6: 'Platformizer',
+  7: 'AI Pioneer',
+};
+
+const levelDescriptions: Record<number, string> = {
+  1: 'Understand what AI actually does and develop intuition for when and how to use it effectively.',
+  2: 'Master the art of communicating with AI through structured prompting techniques.',
+  3: 'Learn to provide AI with the right information at the right time for better results.',
+  4: 'Integrate AI as a reliable component in software systems with proper engineering patterns.',
+  5: 'Understand AI internals deeply enough to design and optimize complete AI systems.',
+  6: 'Build and operate production AI platforms with monitoring, governance, and scale.',
+  7: 'Push the boundaries of AI capability while navigating safety and ethics.',
+};
+
+const hasHero = Boolean(data.hero);
+---
+
+{isLevelIndex && levelNum !== null ? (
+  <div class="level-hero" style={`--level-color: var(--level-${levelNum});`}>
+    <div class="level-hero-inner">
+      <span class="level-number">Level {levelNum}</span>
+      <h1 class="level-title" id="_top" data-page-title>{levelTitles[levelNum] || data.title}</h1>
+      <p class="level-description">{levelDescriptions[levelNum] || ''}</p>
+    </div>
+  </div>
+) : hasHero ? (
+  <Default><slot /></Default>
+) : null}
+
+<style>
+  .level-hero {
+    padding: 2rem 0 1.5rem;
+    border-bottom: 3px solid var(--level-color, var(--sl-color-accent));
+    margin-bottom: 1rem;
+  }
+
+  .level-hero-inner {
+    max-width: var(--sl-content-width);
+  }
+
+  .level-number {
+    display: inline-block;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--level-color, var(--sl-color-accent));
+    margin-bottom: 0.5rem;
+  }
+
+  .level-title {
+    font-size: clamp(var(--sl-text-2xl), calc(0.25rem + 4vw), var(--sl-text-4xl));
+    line-height: var(--sl-line-height-headings);
+    font-weight: 600;
+    color: var(--sl-color-white);
+    margin: 0 0 0.75rem;
+  }
+
+  .level-description {
+    font-size: var(--sl-text-lg);
+    color: var(--sl-color-gray-2);
+    max-width: 55ch;
+    margin: 0;
+  }
+</style>

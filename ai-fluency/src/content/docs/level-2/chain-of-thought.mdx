@@ -1,0 +1,135 @@
+---
+title: "2.2 Chain-of-Thought Reasoning"
+description: "Learn how forcing the model to reason step by step dramatically improves performance on complex tasks."
+sidebar:
+  order: 2
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="If you ask an AI to solve a multi-step math problem, do you think it will do better if it answers immediately or if you ask it to show its work? Why?" />
+
+## The problem with direct answers
+
+When you ask a model a complex question and expect an immediate answer, you are asking it to jump to the final token prediction without generating the intermediate reasoning tokens. For simple questions, this works fine. For multi-step problems, it fails -- because the model needs to generate intermediate tokens to "carry forward" information through the reasoning chain.
+
+Consider this prompt:
+
+```
+A store sells apples for $2 each. If I buy 3 apples
+and pay with a $10 bill, and there is 8% sales tax,
+how much change do I get?
+```
+
+Without chain-of-thought, the model might jump to an answer and get it wrong. With chain-of-thought, it generates the intermediate steps -- and each step becomes context for the next prediction.
+
+## Chain-of-thought (CoT) prompting
+
+**Chain-of-thought prompting** forces the model to solve problems step by step by explicitly requesting intermediate reasoning. The simplest version is remarkably effective:
+
+```
+A store sells apples for $2 each. If I buy 3 apples
+and pay with a $10 bill, and there is 8% sales tax,
+how much change do I get?
+
+Let's think step by step.
+```
+
+Research has shown that simply adding "Let's think step by step" to a prompt can significantly improve performance on arithmetic, logic, and common-sense reasoning tasks. This works because:
+
+1. The model generates reasoning tokens (steps) that become part of the context
+2. Each step narrows the probability distribution for the next step
+3. Errors in early steps can sometimes be caught in later steps
+4. The intermediate tokens carry information that would otherwise be lost
+
+### Zero-shot CoT vs. few-shot CoT
+
+**Zero-shot CoT**: Add "Let's think step by step" or "Think through this carefully" to any prompt. Simple and surprisingly effective.
+
+**Few-shot CoT**: Provide examples that include the reasoning steps, not just the final answer:
+
+```
+Q: If a train travels 60 mph for 2.5 hours, how far does it go?
+A: The train travels at 60 miles per hour.
+   It travels for 2.5 hours.
+   Distance = speed × time = 60 × 2.5 = 150 miles.
+   The answer is 150 miles.
+
+Q: If a car travels 45 mph for 3 hours and 20 minutes, how far does it go?
+A:
+```
+
+By showing the model *how* to reason (not just what the answer looks like), you get more reliable reasoning on new problems.
+
+<CalibrationCheck question="Does chain-of-thought actually make the model 'think' or 'reason' in the way humans do?">
+No. The model is still predicting the next token. What chain-of-thought does is force the model to generate intermediate tokens that carry useful information forward through the sequence. The "reasoning" is emergent from the token generation process, not from any internal deliberation. This is why CoT sometimes produces plausible-sounding but incorrect reasoning -- the model is predicting what reasoning *looks like*, not actually reasoning.
+</CalibrationCheck>
+
+### When CoT helps (and when it does not)
+
+**CoT is effective for:**
+- Math and arithmetic problems
+- Multi-step logic puzzles
+- Tasks requiring comparison of multiple options
+- Planning and scheduling
+- Code debugging (explaining what each line does)
+
+**CoT is less useful for:**
+- Simple factual recall ("What is the capital of France?")
+- Creative generation (where step-by-step reasoning constrains creativity)
+- Tasks where speed matters more than accuracy (CoT adds tokens and latency)
+
+<TryItYourself title="Take this problem and try it two ways -- first ask the model directly for the answer, then ask with 'Let's think step by step.' Compare the results. Problem: 'A company has 150 employees. 40% work in engineering, 25% in sales, and the rest in operations. If 10% of engineers and 20% of sales staff are remote, how many total remote workers are in those two departments?'">
+**Direct approach** often produces an incorrect or partially correct answer because the model tries to jump to the final number.
+
+**With CoT**, the model should produce something like:
+- Engineering: 150 × 0.40 = 60 employees
+- Sales: 150 × 0.25 = 37.5, round to 37 or 38 employees
+- Remote engineers: 60 × 0.10 = 6
+- Remote sales: 37.5 × 0.20 = 7.5, round to 7 or 8
+- Total remote: 6 + 7.5 = 13.5
+
+Note: the rounding ambiguity is actually a feature -- the step-by-step process makes the ambiguity *visible*, whereas a direct answer would hide it.
+</TryItYourself>
+
+### Structured CoT patterns
+
+Beyond "let's think step by step," you can create more structured reasoning frameworks:
+
+**Problem decomposition:**
+```
+Break this problem into sub-problems, solve each one,
+then combine the results.
+```
+
+**Pros and cons analysis:**
+```
+For each option, list 3 advantages and 3 disadvantages,
+then make a recommendation based on the analysis.
+```
+
+**Assumption checking:**
+```
+Before answering, list the assumptions this question
+requires. Then solve the problem under those assumptions.
+```
+
+<ExplainBack prompt="What is chain-of-thought prompting, and why does it improve model performance on complex tasks? What is the simplest way to trigger it? What kinds of tasks does it not help with?" />
+
+<ReflectPrompt questions={[
+  "When you solve complex problems yourself, do you think step by step or jump to conclusions? How does that compare to what you ask AI to do?",
+  "Have you ever gotten a wrong answer from AI that you could not easily verify? Would seeing the reasoning steps have helped you catch the error?",
+  "What is the cost (in tokens and latency) of asking for chain-of-thought? When is that cost worth paying?"
+]} />
+
+<KeyTakeaway>
+Chain-of-thought prompting forces the model to generate intermediate reasoning tokens, which carry information forward and improve accuracy on multi-step problems. The simplest trigger is "Let's think step by step." But remember: the model is predicting what reasoning looks like, not actually reasoning, so always verify the logic.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Chain-of-thought controls how the model reasons. In Module 2.3, you will learn how roles and personas control the model's perspective, tone, and knowledge depth -- another powerful lever for steering output quality." />

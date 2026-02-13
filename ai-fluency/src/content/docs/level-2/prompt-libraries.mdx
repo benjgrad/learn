@@ -1,0 +1,135 @@
+---
+title: "2.6 Prompt Libraries and Personal Optimization"
+description: "Build and organize a personal prompt toolkit for consistent, high-quality AI interactions."
+sidebar:
+  order: 6
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="Think about the best prompts you have written so far in this course. If you had to use one of them again next week, could you recreate it from memory? What would you lose?" />
+
+## Why save prompts?
+
+Every time you craft a high-quality prompt, you are investing effort in understanding the task, choosing the right technique, and calibrating the output. Without a system to save and organize that work, you lose it the moment you close the chat window.
+
+Professional AI users treat prompts the way software engineers treat code: as artifacts worth versioning, sharing, and reusing. A well-organized prompt library turns one-time effort into a reusable asset.
+
+### What belongs in a prompt library
+
+Not every prompt is worth saving. Focus on prompts that are:
+
+- **Reusable**: You will need them again (weekly standup summaries, code review templates, data extraction queries)
+- **Refined**: They have been through at least one cycle of testing and improvement
+- **Transferable**: A colleague could use them with minimal modification
+
+One-off exploratory prompts and simple questions are not worth cataloging.
+
+## Platform-native tools
+
+Several AI platforms now offer built-in features for prompt persistence.
+
+### ChatGPT custom GPTs
+
+OpenAI lets you create **custom GPTs** -- persistent configurations with a system prompt, uploaded reference files, and optional tool access. A custom GPT for "Code Reviewer" might include your team's style guide as a reference document, a system prompt defining review criteria, and access to a web browsing tool for checking documentation.
+
+### Claude Projects
+
+Anthropic's **Projects** feature lets you attach persistent context documents and instructions to a conversation space. Unlike a single conversation, a Project maintains its context across multiple chats, so you can return to a "Technical Writing" project and have the same style guidelines and reference materials available every time.
+
+### ChatGPT Gems
+
+**Gems** provide lightweight prompt presets that configure ChatGPT for specific tasks without the full custom GPT setup. Think of them as saved starting points: a Gem for "meeting notes cleanup" pre-loads the instructions so you can jump straight to pasting your notes.
+
+### When platform tools are not enough
+
+Platform-native tools are convenient but limited. They lock you into a single provider, they do not version-control your prompts, and they cannot be shared across tools. For serious prompt management, you need a provider-agnostic approach.
+
+## Building a personal prompt toolkit
+
+A prompt toolkit is a structured collection of your best prompts, organized for retrieval and reuse. Here is a practical structure:
+
+### The anatomy of a saved prompt
+
+Each entry in your library should include:
+
+- **Name**: A descriptive title (e.g., "Bug Report to Ticket Converter")
+- **Purpose**: One sentence on when to use it
+- **The prompt text**: The complete prompt, ready to copy-paste
+- **Variables**: Placeholders that change per use, marked with a consistent syntax like `[VARIABLE_NAME]`
+- **Notes**: What model or temperature works best, known limitations, last tested date
+
+### Prompt templating with variables
+
+The key to reusable prompts is **parameterization**. Instead of saving a prompt that says "Review this Python code," save a template:
+
+```
+You are a senior [LANGUAGE] developer conducting a code review.
+
+Review the following code for:
+1. [REVIEW_FOCUS_1]
+2. [REVIEW_FOCUS_2]
+3. Security vulnerabilities
+4. Performance issues
+
+Code to review:
+<code>
+[CODE]
+</code>
+
+Provide your review as a numbered list of findings,
+each with severity (Critical/Major/Minor) and a
+suggested fix.
+```
+
+This single template works for Python, TypeScript, Go, or any language. The variables make it flexible without sacrificing the structure you refined.
+
+### Organization strategies
+
+Organize prompts by **workflow**, not by technique:
+
+| Category | Example prompts |
+| :-- | :-- |
+| Writing | Blog post outline, email draft, documentation template |
+| Code | Code review, bug analysis, test generation |
+| Analysis | Data summary, competitive analysis, meeting notes |
+| Communication | Stakeholder update, feedback delivery, presentation outline |
+
+This structure means you find prompts based on what you are trying to accomplish, not based on whether they use few-shot or chain-of-thought.
+
+<CalibrationCheck question="Is a prompt that works perfectly today guaranteed to work the same way in six months?">
+No. Model updates, version changes, and provider-side adjustments can alter how a prompt performs. A prompt optimized for GPT-4 may behave differently on GPT-4o or a future release. This is why your prompt library should include a "last tested" date and why periodic review of your saved prompts is important. Treat your prompt library as a living document, not a static archive.
+</CalibrationCheck>
+
+## Team prompt libraries
+
+When multiple people use AI for similar tasks, a shared prompt library prevents duplicated effort and ensures consistent quality. Key practices for team libraries:
+
+- **Standardize the template format** so everyone saves prompts with the same metadata fields
+- **Assign ownership**: Each prompt has a maintainer responsible for testing it after model updates
+- **Version control**: Store prompts in a Git repository or shared document with change history
+- **Include examples**: Show the expected output alongside the prompt so new users know what "good" looks like
+
+<TryItYourself title="Create a prompt template with at least two variables for a task you perform regularly. Save it in a format that includes: name, purpose, the template with clearly marked variables, and notes on which model settings work best. Then test it by filling in the variables and running it.">
+A strong answer has a clear naming convention, uses consistent variable markers (brackets, double braces, etc.), and includes practical metadata. The prompt should work when you substitute real values for the variables. If you cannot think of a task, try: email summarizer with `[EMAIL_TEXT]` and `[SUMMARY_LENGTH]` variables, or a meeting agenda generator with `[MEETING_TOPIC]` and `[ATTENDEE_ROLES]` variables.
+</TryItYourself>
+
+<ExplainBack prompt="What makes a prompt worth saving in a library versus treating as disposable? What are prompt template variables, and how do they make prompts reusable? Name two platform-native tools for prompt persistence and one limitation they share." />
+
+<ReflectPrompt questions={[
+  "How many prompts have you written in this course that you wish you had saved? What would your top three be?",
+  "If your team adopted a shared prompt library tomorrow, what governance challenges would you anticipate?",
+  "How do you currently organize reusable text or templates in your work -- and could the same system work for prompts?"
+]} />
+
+<KeyTakeaway>
+A prompt library turns one-time prompt engineering effort into a reusable asset. Use platform tools like custom GPTs and Claude Projects for convenience, but build a provider-agnostic toolkit with templated variables for portability and longevity. Organize by workflow, include metadata, and treat your library as a living document that needs periodic testing against model updates.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="A prompt library keeps your best work accessible. But some tasks require more than prompts -- they require running models under your direct control. In Module 2.7, you will learn how to run AI models locally for privacy, cost savings, and offline access." />

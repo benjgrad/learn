@@ -1,0 +1,42 @@
+/* Starlight custom property overrides for AI Fluency design system */
+
+:root {
+	/* Override accent to a warm blue that works with our level palette */
+	--sl-color-accent-low: hsl(224, 54%, 20%);
+	--sl-color-accent: hsl(224, 100%, 60%);
+	--sl-color-accent-high: hsl(224, 100%, 85%);
+
+	/* Font overrides */
+	--sl-font: 'Inter', var(--sl-font-system);
+	--sl-font-mono: 'JetBrains Mono', var(--sl-font-system-mono);
+
+	/* Wider content area for prose readability */
+	--sl-content-width: 75ch;
+
+	/* Level color palette (dark mode defaults) */
+	--level-0: #9ca3af; /* Foundations - gray */
+	--level-1: #60a5fa; /* Casual Consumer - blue */
+	--level-2: #a78bfa; /* Prompt Engineer - violet */
+	--level-3: #22d3ee; /* Context Engineer - cyan */
+	--level-4: #fb923c; /* Component Engineer - orange */
+	--level-5: #f87171; /* System Engineer - red */
+	--level-6: #34d399; /* Platformizer - emerald */
+	--level-7: #f472b6; /* AI Pioneer - pink */
+}
+
+:root[data-theme='light'] {
+	/* Accent for light mode */
+	--sl-color-accent-high: hsl(224, 80%, 30%);
+	--sl-color-accent: hsl(224, 90%, 60%);
+	--sl-color-accent-low: hsl(224, 88%, 90%);
+
+	/* Level color palette (light mode) */
+	--level-0: #6b7280;
+	--level-1: #3b82f6;
+	--level-2: #8b5cf6;
+	--level-3: #06b6d4;
+	--level-4: #f97316;
+	--level-5: #ef4444;
+	--level-6: #10b981;
+	--level-7: #ec4899;
+}

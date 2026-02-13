@@ -1,0 +1,153 @@
+---
+title: "2.10 Level 2 Checkpoint"
+description: "Test your prompt engineering skills. Apply zero-shot, few-shot, chain-of-thought, roles, and self-improvement techniques from memory."
+sidebar:
+  order: 10
+---
+
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Checkpoint: The Prompt Engineer
+
+This checkpoint tests whether you can deploy Level 2 techniques from memory. Do not scroll back to the modules. If a concept feels fuzzy, that is a signal to revisit the relevant module before moving to Level 3.
+
+### Concept recall
+
+<ExplainBack prompt="Explain the difference between zero-shot and few-shot prompting. When would you use each? How many examples does few-shot typically need?" />
+
+<ExplainBack prompt="What is chain-of-thought prompting? Why does it improve performance on multi-step problems? What is the simplest way to trigger it?" />
+
+<ExplainBack prompt="How does role prompting work mechanically? What three elements should a good role prompt include? Does assigning a role give the model new knowledge?" />
+
+<ExplainBack prompt="Name four parameters that control model output and explain what each one does. When would you use delimiters in a prompt, and what problem do they help prevent?" />
+
+<ExplainBack prompt="Describe the recursive self-improvement loop. What is controlled hallucination and how does confidence tagging make it practical?" />
+
+<ExplainBack prompt="What makes a prompt worth saving in a library? Explain prompt template variables and how they enable reuse. What are two platform-native tools for prompt persistence?" />
+
+<ExplainBack prompt="Why would you run a model locally instead of using a cloud API? What is quantization and why is it necessary? When should you choose local over cloud inference?" />
+
+<ExplainBack prompt="What three techniques make structured output requests (JSON, CSV) more reliable? Why is prompt-level structured output probabilistic rather than guaranteed?" />
+
+<ExplainBack prompt="Describe the think-act-observe loop in agentic AI. What is tool calling, and who actually executes the tool -- the model or the surrounding system? Why does error propagation become a bigger concern in agentic systems?" />
+
+### Applied exercises
+
+<TryItYourself title="Design a few-shot prompt that teaches an AI to convert informal bug reports into structured tickets with fields: Severity (P1-P4), Component, Description, Steps to Reproduce. Write at least 3 examples and test with a new bug report.">
+A strong answer includes 3+ examples with consistent formatting:
+
+```
+Convert bug reports to structured tickets.
+
+Report: "App crashes whenever I try to upload a PDF larger than 10MB"
+Ticket:
+- Severity: P1
+- Component: File Upload
+- Description: Application crashes on PDF upload exceeding 10MB
+- Steps to Reproduce: 1. Navigate to upload page 2. Select PDF file >10MB 3. Click upload 4. Observe crash
+
+Report: "The dark mode toggle doesn't change the sidebar color"
+Ticket:
+- Severity: P3
+- Component: UI/Theme
+- Description: Dark mode toggle fails to update sidebar styling
+- Steps to Reproduce: 1. Open settings 2. Toggle dark mode 3. Observe sidebar remains in light mode
+
+Report: "Sometimes search results take 30+ seconds to load"
+Ticket:
+- Severity: P2
+- Component: Search
+- Description: Intermittent slow search performance exceeding 30 seconds
+- Steps to Reproduce: 1. Navigate to search 2. Enter query 3. Observe load time (intermittent)
+```
+
+Key elements: consistent field order, consistent severity calibration across examples, concise but complete descriptions.
+</TryItYourself>
+
+<TryItYourself title="You are building a prompt for a customer-facing chatbot that answers questions about your company's return policy. Write a complete system message that includes: a role, behavioral guidelines, scope boundaries, and a structured format for responses. Include a delimiter strategy for separating the policy document from the chat.">
+A complete system message:
+
+```
+System: You are a helpful customer service agent for
+[Company]. You answer questions about our return policy
+with a friendly, professional tone.
+
+Behavioral guidelines:
+- Always reference the specific policy section in your answer
+- If the customer's question is not covered by the policy, say "I don't have information about that specific case. Let me connect you with a team member."
+- Never make up policy details that are not in the provided document
+- Keep answers under 3 sentences unless the customer asks for more detail
+
+Scope boundaries:
+- Only answer questions about returns and refunds
+- Do not discuss pricing, shipping, or account issues
+- Do not offer discounts or make exceptions to policy
+
+<policy_document>
+[Full return policy text goes here]
+</policy_document>
+
+Response format:
+Answer: [Your response]
+Policy Reference: [Section number or title]
+```
+
+Key elements: clear role, explicit behavioral rules, defined scope, delimiter-separated policy document, structured response format.
+</TryItYourself>
+
+<TryItYourself title="Take the following badly written prompt and improve it using at least three Level 2 techniques: 'Tell me about database optimization.' Your improved prompt should demonstrate few-shot, chain-of-thought, role assignment, or parameter awareness.">
+An improved prompt combining multiple techniques:
+
+```
+You are a senior database administrator with 15 years of
+experience in PostgreSQL and MySQL. [ROLE]
+
+I need to optimize a slow query on a users table with
+10 million rows. The query filters by email and sorts
+by created_at.
+
+Analyze this step by step: [CHAIN-OF-THOUGHT]
+1. Identify likely performance bottlenecks
+2. Suggest indexing strategies
+3. Recommend query restructuring if needed
+4. Estimate the performance improvement
+
+Here is an example of the analysis format I want: [FEW-SHOT]
+
+Query: SELECT * FROM orders WHERE status = 'pending' ORDER BY date
+Analysis:
+- Bottleneck: Full table scan on status column, filesort on date
+- Index: CREATE INDEX idx_status_date ON orders(status, date)
+- Restructure: Select only needed columns instead of *
+- Estimate: 10x improvement with composite index
+
+Now analyze:
+Query: SELECT * FROM users WHERE email LIKE '%@gmail.com' ORDER BY created_at DESC
+```
+
+This combines role assignment (senior DBA), chain-of-thought (step-by-step analysis), and few-shot (example of desired format). A parameter-aware note: this would work best at temperature 0.0-0.2 for technical accuracy.
+</TryItYourself>
+
+### Self-assessment
+
+Rate your confidence on each Level 2 technique from 1 (cannot explain it) to 5 (could teach it):
+
+| Technique | Confidence (1-5) |
+| :-- | :-- |
+| Zero-shot vs. few-shot prompting | |
+| Chain-of-thought reasoning | |
+| Role and persona assignment | |
+| Temperature, top-p, max tokens, delimiters | |
+| Recursive self-improvement | |
+| Prompt libraries and optimization | |
+| Local models and privacy | |
+| Structured output formatting | |
+| Agentic loops and tool calling | |
+
+If any technique is below a 3, revisit that module before continuing.
+
+<KeyTakeaway>
+Level 2 fluency means you can deliberately choose and combine prompting techniques to get reliable, high-quality output. You understand that few-shot teaches format, chain-of-thought enables reasoning, roles shape perspective, parameters control behavior, and self-critique refines quality. You also know how to build a reusable prompt library, when to run models locally for privacy, how to request structured output for automation, and how agentic loops extend AI beyond single-turn responses. If you can design prompts that combine multiple techniques for a specific task, you are ready for Level 3.
+</KeyTakeaway>

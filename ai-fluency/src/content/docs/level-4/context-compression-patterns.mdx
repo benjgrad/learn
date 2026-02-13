@@ -1,0 +1,196 @@
+---
+title: "4.6 Context Compression Patterns"
+description: "Implement engineering patterns for context compression including summarization pipelines, sliding windows, and token budget managers."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 4.6 Context Compression Patterns
+
+<PredictPrompt prompt="You are building a customer support chatbot that needs to reference an entire conversation history, but the context window is only 8,000 tokens. The conversation so far is 15,000 tokens. How would you engineer a solution without losing critical information?" />
+
+## Why Compression Is an Engineering Problem
+
+In Level 3, you learned *what* context windows are and *when* they matter. Now we focus on *how* to implement compression in production code. Context compression is not a nice-to-have -- it is a core engineering requirement for any AI application that handles ongoing conversations, large documents, or multi-step workflows.
+
+Every token you send to a model costs money, adds latency, and competes for attention with the tokens that actually matter. Compression engineering is about maximizing signal-to-noise ratio within your token budget.
+
+## Token Budget Managers
+
+The foundation of context compression is a token budget manager -- a module that tracks how many tokens you are using and enforces limits before requests are sent:
+
+```typescript
+interface TokenBudget {
+  systemPrompt: number;
+  recentMessages: number;
+  retrievedContext: number;
+  userMessage: number;
+  reservedForOutput: number;
+}
+
+function allocateBudget(maxTokens: number): TokenBudget {
+  return {
+    systemPrompt: Math.floor(maxTokens * 0.15),
+    recentMessages: Math.floor(maxTokens * 0.30),
+    retrievedContext: Math.floor(maxTokens * 0.25),
+    userMessage: Math.floor(maxTokens * 0.10),
+    reservedForOutput: Math.floor(maxTokens * 0.20),
+  };
+}
+```
+
+The key insight is that you should **never fill the context window to capacity**. Always reserve space for the model's output, and always prioritize the most recent and most relevant content.
+
+<CalibrationCheck question="Why should you reserve 15-20% of your token budget for the model's output, even though output tokens are handled separately in some APIs?">
+Even when the API separates input and output token limits, filling the input context to capacity degrades quality. The model's attention mechanism distributes attention across all input tokens, so an overfull context means less attention per token. Additionally, if your prompt is near the input limit, minor variations in tokenization (different user inputs tokenize differently) can cause unexpected truncation errors. Reserving headroom prevents both quality degradation and hard failures.
+</CalibrationCheck>
+
+## Sliding Window Pattern
+
+The simplest compression strategy for conversations is a sliding window that keeps only the N most recent messages:
+
+```typescript
+function slidingWindow(
+  messages: Message[],
+  maxTokens: number,
+  tokenCounter: (msg: Message) => number
+): Message[] {
+  const result: Message[] = [];
+  let tokenCount = 0;
+
+  // Always keep the system message
+  if (messages[0]?.role === "system") {
+    result.push(messages[0]);
+    tokenCount += tokenCounter(messages[0]);
+  }
+
+  // Walk backward from most recent, adding until budget is spent
+  for (let i = messages.length - 1; i >= 1; i--) {
+    const msgTokens = tokenCounter(messages[i]);
+    if (tokenCount + msgTokens > maxTokens) break;
+    result.splice(1, 0, messages[i]); // insert after system message
+    tokenCount += msgTokens;
+  }
+
+  return result;
+}
+```
+
+This works well for short conversations, but it silently drops older context. For a customer support bot, losing the original problem description is catastrophic.
+
+## Summarization Pipeline
+
+A more sophisticated approach summarizes older messages rather than dropping them:
+
+```typescript
+async function compressConversation(
+  messages: Message[],
+  budget: TokenBudget,
+  summarizer: (text: string) => Promise<string>
+): Promise<Message[]> {
+  const recent = messages.slice(-6); // keep last 6 messages verbatim
+  const older = messages.slice(0, -6);
+
+  if (older.length === 0) return messages;
+
+  const olderText = older
+    .map((m) => `${m.role}: ${m.content}`)
+    .join("\n");
+
+  const summary = await summarizer(
+    `Summarize this conversation history, preserving key facts, ` +
+    `decisions, and unresolved questions:\n${olderText}`
+  );
+
+  return [
+    { role: "system", content: `Conversation summary:\n${summary}` },
+    ...recent,
+  ];
+}
+```
+
+The tradeoff: summarization adds an extra API call (cost and latency), but preserves information that a sliding window would discard.
+
+## Map-Reduce for Large Documents
+
+When processing documents that exceed the context window, the map-reduce pattern splits the document into chunks, processes each independently, then combines results:
+
+```typescript
+async function mapReduceSummarize(
+  document: string,
+  chunkSize: number,
+  model: AIModel
+): Promise<string> {
+  // Map: summarize each chunk independently
+  const chunks = splitIntoChunks(document, chunkSize);
+  const chunkSummaries = await Promise.all(
+    chunks.map((chunk) =>
+      model.complete(`Summarize this section:\n${chunk}`)
+    )
+  );
+
+  // Reduce: combine chunk summaries into a final summary
+  const combined = chunkSummaries.join("\n---\n");
+  return model.complete(
+    `Combine these section summaries into a coherent ` +
+    `overall summary:\n${combined}`
+  );
+}
+```
+
+Map-reduce has a critical limitation: information that spans chunk boundaries can be lost. Overlap your chunks by 10-15% to mitigate this, or use hierarchical summarization where each level operates on the summaries from the previous level.
+
+## Choosing Smaller Models for Compression
+
+Not every compression step requires your most capable model. Summarization and extraction are well-suited to smaller, cheaper models:
+
+```typescript
+const MODELS = {
+  primary: "claude-sonnet-4-5-20250929",  // main reasoning
+  compression: "claude-haiku-4-5-20251001", // summarization
+};
+
+async function compressWithBudget(text: string): Promise<string> {
+  // Use the cheaper, faster model for compression
+  return callModel(MODELS.compression, {
+    prompt: `Compress this to key facts only:\n${text}`,
+    maxTokens: 200,
+  });
+}
+```
+
+This pattern -- using model distillation at the architecture level -- can reduce compression costs by 90% or more while maintaining adequate quality for context management.
+
+<TryItYourself title="Design a context compression pipeline for a code review assistant that needs to review a 5,000-line pull request. The model's context window is 16,000 tokens. Consider: which parts of the code need full fidelity? Which can be summarized? How do you handle cross-file dependencies?">
+A practical approach:
+
+1. **Token budget**: Reserve 3,000 tokens for output, 2,000 for the system prompt with review instructions. That leaves 11,000 tokens for code.
+
+2. **Priority tiers**: Changed files get full fidelity. Unchanged files referenced by imports get function signatures only. Unrelated files are excluded entirely.
+
+3. **File-level map-reduce**: For large changed files, show the full diff but summarize unchanged surrounding code as comments like `// ... 45 lines of existing validation logic ...`.
+
+4. **Cross-file context**: Extract import statements and type definitions from dependencies. Include interface definitions and function signatures but not implementations.
+
+5. **Two-pass approach**: First pass with the cheaper model identifies which files are most relevant. Second pass with the primary model reviews only the prioritized content in full.
+</TryItYourself>
+
+<ExplainBack prompt="Explain the tradeoffs between sliding window, summarization pipeline, and map-reduce compression strategies. When would you choose each one?" />
+
+<ReflectPrompt questions={[
+  "How much latency is acceptable for a compression step in your application? Does this rule out any of the strategies discussed?",
+  "What information would be most dangerous to lose during compression in the systems you build?",
+  "How would you test that your compression pipeline is preserving the information that matters?"
+]} />
+
+<ConnectPrompt prompt="How do these context compression patterns relate to the component boundary patterns from Module 4.1? Think about where compression fits in your overall AI architecture." />
+
+<KeyTakeaway>
+Context compression is a first-class engineering concern, not an afterthought. Token budget managers enforce limits proactively. Sliding windows are simple but lossy. Summarization pipelines preserve information at the cost of latency and an extra API call. Map-reduce handles documents larger than any context window. Use cheaper models for compression steps to minimize cost without sacrificing quality where it matters.
+</KeyTakeaway>

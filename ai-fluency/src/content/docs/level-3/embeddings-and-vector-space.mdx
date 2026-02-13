@@ -1,0 +1,101 @@
+---
+title: "3.1 Embeddings and Vector Space"
+description: "Understand how AI represents text as mathematical vectors that capture semantic meaning, enabling similarity search."
+sidebar:
+  order: 1
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="If you wanted to find documents that are 'similar in meaning' to a search query -- not just matching keywords -- how would you do that? What would 'similar in meaning' even mean mathematically?" />
+
+## From words to numbers
+
+In Level 1, you learned that models process tokens -- numeric representations of text fragments. **Embeddings** take this further: they represent entire words, sentences, or documents as **vectors** (lists of numbers) in a high-dimensional space.
+
+An embedding might look like this (simplified to 5 dimensions):
+
+```
+"cat"  → [0.82, -0.14, 0.53, 0.21, -0.67]
+"dog"  → [0.79, -0.11, 0.48, 0.25, -0.72]
+"car"  → [-0.31, 0.67, -0.22, 0.81, 0.15]
+```
+
+In reality, embeddings have hundreds or thousands of dimensions (768, 1024, or 1536 are common). Each dimension captures some aspect of meaning, though individual dimensions do not map neatly to human-understandable concepts.
+
+### Semantic similarity
+
+The key insight: **words with similar meanings are close together in vector space**. "Cat" and "dog" are close because they share semantic properties (animals, pets, four-legged). "Car" is far away because it represents a completely different concept.
+
+This closeness is measured mathematically using **cosine similarity** -- the angle between two vectors. A cosine similarity of 1.0 means identical meaning, 0.0 means unrelated, and -1.0 means opposite.
+
+| Pair | Cosine similarity | Interpretation |
+| :-- | :-- | :-- |
+| "happy" vs. "joyful" | ~0.92 | Near-synonyms |
+| "happy" vs. "sad" | ~0.35 | Related (emotions) but different |
+| "happy" vs. "database" | ~0.05 | Unrelated |
+
+### The famous example: vector arithmetic
+
+Embeddings capture **relational** meaning, not just similarity. The classic example:
+
+```
+king - man + woman ≈ queen
+```
+
+This works because the vector difference between "king" and "man" captures the concept of "royalty." Adding that difference to "woman" lands near "queen." This demonstrates that embeddings encode relationships, not just categories.
+
+<CalibrationCheck question="Do embeddings understand meaning the way humans do? If 'cat' and 'dog' are close in vector space, does the model 'know' they are both animals?">
+No. Embeddings capture **statistical co-occurrence patterns** from training data. "Cat" and "dog" appear in similar contexts (sentences about pets, animals, veterinarians), so they end up near each other in vector space. The model does not have a concept of "animal" -- it has a region of vector space where animal-related tokens cluster because they are used in similar ways. This is a statistical echo of meaning, not meaning itself.
+</CalibrationCheck>
+
+### How embeddings are created
+
+An **embedding model** (different from a chat model) converts text into vectors. Common embedding models include:
+
+- **OpenAI text-embedding-ada-002** (1536 dimensions)
+- **Cohere Embed** (1024 dimensions)
+- **sentence-transformers** (open-source, various dimensions)
+
+The process:
+1. Feed text into the embedding model
+2. The model outputs a fixed-length vector
+3. Store that vector alongside the original text
+
+You can embed single words, sentences, paragraphs, or entire documents. The granularity you choose affects retrieval quality -- a topic covered in Module 3.4 on chunking.
+
+### Why this matters for context engineering
+
+Embeddings enable **semantic search**: finding documents based on meaning rather than keywords. Traditional keyword search fails when:
+
+- The query uses different words than the document ("automobile" vs. "car")
+- The concept is described differently ("how to fix a slow website" vs. "performance optimization techniques")
+- The relationship is conceptual rather than lexical
+
+With embeddings, you convert both the query and all documents into vectors, then find the documents whose vectors are closest to the query vector. This is the foundation of the RAG pipeline you will build in Module 3.3.
+
+<TryItYourself title="Think of two phrases that mean the same thing but use completely different words (for example, 'I am exhausted' and 'I have no energy left'). Now think of two phrases that share a keyword but mean different things ('bank of the river' and 'bank account'). How would keyword search handle each pair? How would embedding-based search handle them?">
+**Same meaning, different words**: Keyword search would fail (no shared keywords between "I am exhausted" and "I have no energy left"). Embedding search would succeed because both phrases would be close in vector space -- they appear in similar contexts in training data.
+
+**Same keyword, different meanings**: Keyword search would incorrectly match them (both contain "bank"). Embedding search would correctly separate them because the surrounding context ("river" vs. "account") pushes the embeddings into different regions of vector space. This disambiguation is called **contextual embedding** -- the meaning of "bank" depends on its context.
+</TryItYourself>
+
+<ExplainBack prompt="What is an embedding? How does cosine similarity measure the relationship between two embeddings? Why is semantic search more powerful than keyword search for finding relevant documents?" />
+
+<ReflectPrompt questions={[
+  "Think about your organization's internal documents. If someone searched for 'how to request time off,' would keyword search find all the relevant documents? What synonyms or phrasings might it miss?",
+  "Embeddings have hundreds of dimensions, each capturing some aspect of meaning. What might it mean for two documents to be close on most dimensions but far apart on a few?",
+  "How does the quality of the embedding model affect everything downstream in a RAG pipeline?"
+]} />
+
+<KeyTakeaway>
+Embeddings are mathematical representations of text meaning. Words, sentences, and documents become vectors in high-dimensional space where proximity corresponds to semantic similarity. This enables search by meaning rather than keywords -- the foundation of retrieval-augmented generation.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Now that you understand how text becomes vectors, Module 3.2 covers where those vectors live: vector databases -- specialized storage systems designed for fast similarity search across millions of embeddings." />

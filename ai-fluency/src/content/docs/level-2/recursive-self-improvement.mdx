@@ -1,0 +1,123 @@
+---
+title: "2.5 Recursive Self-Improvement"
+description: "Learn how to have the model critique, refine, and iteratively improve its own outputs for higher-quality results."
+sidebar:
+  order: 5
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="If you could ask an AI to grade its own work and then rewrite it based on that grade, do you think the second version would be better? Why or why not?" />
+
+## The self-critique loop
+
+One of the most powerful prompt engineering techniques is having the model **evaluate and refine its own output**. This works because generation and evaluation use slightly different patterns in the model's training data. A model may generate a flawed response, but when explicitly asked to evaluate that response against specific criteria, it can often identify the flaws.
+
+The basic loop is:
+
+1. **Generate**: Ask the model to produce an initial output
+2. **Critique**: Ask the model to evaluate that output against explicit criteria
+3. **Refine**: Ask the model to produce an improved version based on the critique
+4. **Repeat**: Optionally run the cycle again
+
+This technique has been shown to reduce revision cycles in technical documentation by approximately 60%, because it catches issues before a human reviewer ever sees the output.
+
+### Step 1: Generate
+
+Start with your standard prompt and get an initial response. Do not over-optimize the prompt at this stage -- you will refine the output in the next steps.
+
+```
+Write a technical summary of how database indexing
+improves query performance. Target audience: junior
+developers. 200 words.
+```
+
+### Step 2: Critique
+
+Ask the model to evaluate its own output against specific criteria:
+
+```
+Review the summary you just wrote. Evaluate it on:
+1. Technical accuracy
+2. Clarity for junior developers
+3. Completeness (covers key concepts)
+4. Conciseness (stays within 200 words)
+
+For each criterion, give a score from 1-5 and explain
+any weaknesses.
+```
+
+The model will often identify issues it introduced during generation -- jargon that is too advanced for the audience, missing concepts, or sections that are unnecessarily verbose.
+
+### Step 3: Refine
+
+Feed the critique back into a refinement prompt:
+
+```
+Based on your critique, rewrite the summary. Specifically:
+- Simplify the jargon you flagged in criterion 2
+- Add the missing concept from criterion 3
+- Tighten the prose to meet the 200-word target
+```
+
+<CalibrationCheck question="Is there a risk that the model's self-critique introduces new errors? Can the refinement step make the output worse?">
+Yes to both. The model's critique is itself a probabilistic prediction and can be wrong. It may flag correct information as incorrect, or suggest "improvements" that reduce accuracy. Each iteration also risks **drift** -- the output moving further from your original intent. This is why human oversight remains essential. Use self-critique to improve a draft, but always verify the final output yourself.
+</CalibrationCheck>
+
+### Controlled hallucination
+
+A related technique is **controlled hallucination**: deliberately asking the model to speculate or generate possibilities that go beyond its training data, then filtering the results.
+
+```
+Brainstorm 10 potential causes for declining user
+engagement on our platform. For each cause, mark your
+confidence level: HIGH (well-established pattern),
+MEDIUM (plausible based on general principles),
+or LOW (speculative).
+```
+
+By asking the model to tag its own confidence, you get the creative benefits of AI speculation while maintaining visibility into which suggestions are grounded and which are guesses. You can then investigate the HIGH-confidence items first and treat LOW-confidence items as starting points for further research.
+
+### Multi-pass refinement
+
+For important outputs, you can run multiple refinement passes with different evaluation criteria:
+
+**Pass 1**: Generate and critique for **accuracy**
+**Pass 2**: Refine and critique for **clarity and readability**
+**Pass 3**: Refine and critique for **format and structure**
+
+Each pass focuses the model on a specific quality dimension, preventing it from trying to optimize everything simultaneously (which often results in mediocre compromises).
+
+<TryItYourself title="Ask an AI to write a persuasive paragraph arguing for remote work. Then, in the same conversation, ask it to critique that paragraph on logical rigor, evidence quality, and rhetorical effectiveness. Finally, ask it to rewrite based on the critique. Compare the first and final versions.">
+The final version should be noticeably stronger in the dimensions you asked it to evaluate. Common improvements include: stronger evidence claims (or explicit acknowledgment of missing evidence), tighter logical structure, and more effective rhetorical framing. However, watch for the model being overly deferential to its own critique -- it may over-correct on one dimension at the expense of another.
+</TryItYourself>
+
+### When to use self-improvement
+
+| Situation | Use self-critique? | Why |
+| :-- | :-- | :-- |
+| First draft of an important document | Yes | The refinement pass catches issues cheaply |
+| Quick one-off question | No | Overhead is not worth it for simple answers |
+| Complex analysis | Yes | Multi-pass refinement catches logical gaps |
+| Creative brainstorming | Maybe | Critique can kill creativity; use selectively |
+| Code generation | Yes | "Review this code for bugs" is a natural critique prompt |
+
+<ExplainBack prompt="Describe the three-step self-improvement loop. Why does it work -- what is different about generation versus evaluation? What is controlled hallucination, and how does confidence tagging make it useful?" />
+
+<ReflectPrompt questions={[
+  "How does the self-critique loop compare to your own editing process? Do you write, critique, and rewrite?",
+  "What criteria would you use to evaluate AI output in your specific work domain?",
+  "At what point does iterative refinement hit diminishing returns? How would you know when to stop?"
+]} />
+
+<KeyTakeaway>
+Recursive self-improvement has the model generate, critique, and refine its own output. This works because evaluation activates different patterns than generation. Controlled hallucination with confidence tagging gives you speculation without sacrificing transparency. Always apply human judgment to the final output -- the model's self-critique is itself probabilistic.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="You now have five core prompt engineering techniques: few-shot, chain-of-thought, roles, parameters, and self-improvement. In Module 2.6, you will learn how to save and organize your best prompts into a reusable library so this work compounds over time." />

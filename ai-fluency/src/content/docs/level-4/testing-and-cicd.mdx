@@ -1,0 +1,295 @@
+---
+title: "4.5 Testing & CI/CD"
+description: "Creating evaluation suites, snapshot tests, and CI/CD pipelines for AI components."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 4.5 Testing & CI/CD
+
+<PredictPrompt prompt="Traditional unit tests assert exact outputs: assertEqual(add(2, 3), 5). But AI outputs are non-deterministic -- the same input can produce different valid outputs. How would you write tests for something you cannot predict exactly?" />
+
+## The Testing Challenge
+
+Testing AI components is fundamentally different from testing deterministic code. You cannot assert exact string equality because:
+
+1. The same prompt produces different outputs across calls
+2. Multiple different outputs can all be "correct"
+3. Quality is often subjective and context-dependent
+4. Model updates from providers can change behavior without warning
+
+This does not mean AI components are untestable -- it means you need different testing strategies.
+
+## The Testing Pyramid for AI
+
+```
+           /\
+          /  \    Human Evaluation
+         /    \   (expensive, slow, highest signal)
+        /──────\
+       /        \  LLM-as-Judge
+      /          \ (scalable, medium signal)
+     /────────────\
+    /              \ Property-Based Tests
+   /                \ (fast, automated, structural)
+  /──────────────────\
+ /                    \ Schema & Format Tests
+/______________________\ (instant, deterministic, lowest level)
+```
+
+### Layer 1: Schema and Format Tests
+
+The foundation. These tests verify that the AI output has the correct structure, regardless of content:
+
+```typescript
+describe("classifyTicket", () => {
+  it("returns valid JSON matching the schema", async () => {
+    const result = await classifyTicket("My payment failed");
+
+    // Structure tests -- always deterministic
+    expect(result).toHaveProperty("category");
+    expect(result).toHaveProperty("confidence");
+    expect(["billing", "technical", "general"]).toContain(result.category);
+    expect(result.confidence).toBeGreaterThanOrEqual(0);
+    expect(result.confidence).toBeLessThanOrEqual(1);
+  });
+});
+```
+
+### Layer 2: Property-Based Tests
+
+Test invariant properties that should hold regardless of the specific output:
+
+```typescript
+describe("summarize", () => {
+  it("produces output shorter than input", async () => {
+    const input = longDocument; // 5000 words
+    const summary = await summarize(input);
+
+    expect(summary.split(" ").length).toBeLessThan(input.split(" ").length);
+  });
+
+  it("preserves key entities from the source", async () => {
+    const input = "Apple Inc. reported Q3 revenue of $81.8 billion.";
+    const summary = await summarize(input);
+
+    expect(summary.toLowerCase()).toContain("apple");
+    expect(summary).toMatch(/\$?\d+/); // contains a number
+  });
+});
+```
+
+### Layer 3: LLM-as-Judge
+
+Use a more capable model to evaluate outputs from the model being tested:
+
+```typescript
+async function llmJudge(
+  prompt: string,
+  response: string,
+  criteria: string
+): Promise<{ score: number; reasoning: string }> {
+  const judgment = await callModel(`
+    Evaluate the following AI response on a scale of 1-5.
+
+    Criteria: ${criteria}
+
+    Original prompt: ${prompt}
+    AI response: ${response}
+
+    Return JSON: { "score": <1-5>, "reasoning": "<explanation>" }
+  `);
+  return JSON.parse(judgment);
+}
+
+describe("customerServiceBot", () => {
+  it("responds helpfully to billing questions", async () => {
+    const response = await bot("Why was I charged twice?");
+    const evaluation = await llmJudge(
+      "Why was I charged twice?",
+      response,
+      "Is the response empathetic, addresses the billing concern, and offers a resolution path?"
+    );
+    expect(evaluation.score).toBeGreaterThanOrEqual(3);
+  });
+});
+```
+
+<CalibrationCheck question="What is the main limitation of using LLM-as-Judge for evaluation, and how can you mitigate it?">
+The main limitation is that the judge model has its own biases and can be inconsistent. It may prefer verbose responses, favor certain writing styles, or disagree with itself on repeated evaluations of the same output. Mitigations include: using multiple evaluation runs and averaging scores, providing very specific rubrics rather than open-ended criteria, testing the judge itself for consistency, and calibrating against human evaluations on a held-out set.
+</CalibrationCheck>
+
+## Evaluation Suites (Evals)
+
+An eval suite is a structured set of test cases with expected behaviors. Unlike unit tests, evals measure quality across a distribution:
+
+```typescript
+interface EvalCase {
+  input: string;
+  expectedBehavior: string; // description, not exact output
+  requiredEntities?: string[];
+  forbiddenContent?: string[];
+  maxTokens?: number;
+}
+
+const SENTIMENT_EVAL: EvalCase[] = [
+  {
+    input: "This product is absolutely wonderful!",
+    expectedBehavior: "positive sentiment",
+    requiredEntities: ["positive"],
+  },
+  {
+    input: "Worst experience of my life. Never again.",
+    expectedBehavior: "negative sentiment",
+    requiredEntities: ["negative"],
+  },
+  {
+    input: "It was okay, nothing special.",
+    expectedBehavior: "neutral or mildly negative sentiment",
+    forbiddenContent: ["positive"],
+  },
+];
+
+// Run eval suite and report accuracy
+async function runEvals(cases: EvalCase[]): Promise<EvalReport> {
+  const results = await Promise.all(
+    cases.map(async (testCase) => {
+      const output = await classifySentiment(testCase.input);
+      return {
+        input: testCase.input,
+        output,
+        passed: evaluateResult(output, testCase),
+      };
+    })
+  );
+
+  const passRate = results.filter(r => r.passed).length / results.length;
+  return { results, passRate, timestamp: new Date() };
+}
+```
+
+<TryItYourself title="Create an eval suite for a function that extracts action items from meeting notes. Define at least 5 test cases covering: clear action items, vague notes with no actions, multiple assignees, and edge cases like empty input.">
+```typescript
+const ACTION_ITEM_EVAL: EvalCase[] = [
+  {
+    input: "John will send the report by Friday. Maria needs to review the budget.",
+    expectedBehavior: "Extract two action items with correct assignees",
+    requiredEntities: ["John", "Maria", "report", "budget"],
+  },
+  {
+    input: "We discussed the quarterly results. Everyone seemed happy.",
+    expectedBehavior: "No action items extracted",
+    forbiddenContent: ["action", "todo", "task"],
+  },
+  {
+    input: "TODO: Update the API docs. Fix the login bug. Deploy to staging.",
+    expectedBehavior: "Three action items, no specific assignee",
+  },
+  {
+    input: "",
+    expectedBehavior: "Empty result, no errors",
+  },
+  {
+    input: "The team agreed to maybe possibly consider looking into the issue eventually.",
+    expectedBehavior: "Either no action items or a single vague one flagged as low-confidence",
+  },
+];
+```
+
+The tricky cases are the vague ones. A good eval suite includes adversarial examples that test whether the AI over-extracts from ambiguous language.
+</TryItYourself>
+
+## CI/CD for AI Components
+
+### Prompt Version Control
+
+Treat prompts as code artifacts that are version-controlled and reviewed:
+
+```
+prompts/
+  classify-ticket/
+    v1.txt
+    v2.txt
+    v3.txt          # current version
+    eval-results.json
+  summarize/
+    v1.txt
+    eval-results.json
+```
+
+### CI Pipeline for Prompt Changes
+
+```yaml
+# .github/workflows/ai-eval.yml
+name: AI Eval Suite
+on:
+  pull_request:
+    paths:
+      - "prompts/**"
+      - "src/ai/**"
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run eval suite
+        run: npm run eval
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Check pass rate
+        run: |
+          PASS_RATE=$(cat eval-results.json | jq '.passRate')
+          if (( $(echo "$PASS_RATE < 0.85" | bc -l) )); then
+            echo "Eval pass rate $PASS_RATE is below threshold 0.85"
+            exit 1
+          fi
+      - name: Comment results on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const results = require('./eval-results.json');
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## AI Eval Results\nPass rate: ${results.passRate}\nTotal cases: ${results.results.length}`
+            });
+```
+
+### Snapshot Testing for Regressions
+
+Capture baseline outputs and alert when behavior changes significantly:
+
+```typescript
+describe("prompt regression", () => {
+  it("produces similar output to baseline", async () => {
+    const output = await classifyTicket("My payment failed");
+    const baseline = loadSnapshot("classify-payment-failed");
+
+    // Not exact match, but semantic similarity
+    const similarity = await computeSimilarity(output, baseline);
+    expect(similarity).toBeGreaterThan(0.8);
+  });
+});
+```
+
+<ExplainBack prompt="Explain the four-layer testing pyramid for AI components. What does each layer test, and why is the pyramid shape important?" />
+
+<KeyTakeaway>
+Testing AI components requires a layered approach: deterministic schema tests at the base, property-based tests for invariants, LLM-as-Judge for quality, and human evaluation for the most critical cases. In CI/CD, treat prompts as versioned code artifacts, run eval suites on every change, and set pass-rate thresholds as quality gates.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="How does the concept of 'calibration' from learning science parallel the calibration of AI evaluation metrics? In both cases, you need to know whether your confidence in a judgment matches reality." />
+
+<ReflectPrompt questions={[
+  "What pass rate threshold would you set for AI tests in a safety-critical system versus a content recommendation system?",
+  "How do you handle the cost of running AI evals in CI when each test case makes real API calls?",
+  "What happens when the model provider updates their model and your eval scores change without any code change on your side?"
+]} />

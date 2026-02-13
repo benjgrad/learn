@@ -1,0 +1,131 @@
+---
+title: "4.7 Can vs. Should: AI Decision Frameworks"
+description: "Evaluate when AI is the right solution versus traditional algorithms, considering complexity, cost, and determinism tradeoffs."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 4.7 Can vs. Should: AI Decision Frameworks
+
+<PredictPrompt prompt="Your team proposes using an LLM to validate email addresses from user input. Another engineer suggests using a regular expression instead. Who is right, and why?" />
+
+## The AI Tax
+
+Every AI component you add to a system introduces what we can call the **AI tax** -- a set of costs that traditional software does not carry:
+
+- **Non-determinism**: The same input can produce different outputs across calls. This makes testing harder, debugging harder, and reproducibility harder.
+- **Latency**: Even the fastest model API adds hundreds of milliseconds. A regex runs in microseconds.
+- **Cost**: API calls cost money per token. A database query costs fractions of a cent.
+- **Complexity**: AI components require prompt engineering, output validation, fallback logic, and ongoing evaluation. A `switch` statement requires none of this.
+- **Opacity**: When a traditional algorithm fails, the bug is in the code. When an AI component fails, the cause might be the prompt, the model version, the input phrasing, or a training data artifact.
+
+The AI tax is not a reason to avoid AI -- it is a reason to be deliberate about where you pay it. **Use AI when the value justifies the tax. Use traditional tools when they do not.**
+
+## The Decision Framework
+
+When a feature request lands on your desk, run it through this framework before reaching for a model:
+
+### Step 1: Is the Problem Well-Defined?
+
+If the problem has a clear, exhaustive set of rules, AI is likely overkill:
+
+| Problem | Traditional Solution | AI Needed? |
+|---------|---------------------|------------|
+| Validate email format | Regex | No |
+| Calculate sales tax | Lookup table + arithmetic | No |
+| Sort search results by date | SQL `ORDER BY` | No |
+| Route support tickets by keyword | Rule engine with keyword matching | Maybe |
+| Classify support tickets by intent | LLM or fine-tuned classifier | Yes |
+
+The dividing line is **ambiguity**. When rules can fully specify the behavior, use rules. When the problem requires understanding natural language, handling edge cases that resist enumeration, or making judgment calls, AI becomes valuable.
+
+### Step 2: What Are the Alternatives?
+
+Before choosing an LLM, consider the full spectrum of tools:
+
+- **Regex and string matching**: Pattern detection, format validation, simple extraction
+- **Rule engines**: Business logic with complex conditions, decision trees, configurable workflows
+- **SQL and database queries**: Aggregation, filtering, joining, reporting
+- **Traditional ML**: Classification, regression, clustering with tabular data (random forests, gradient boosting)
+- **Embeddings + vector search**: Semantic similarity without generative AI
+- **LLMs**: Open-ended generation, complex reasoning, nuanced classification, multi-step tasks
+
+Each step up this ladder adds capability but also adds the AI tax. Use the simplest tool that solves the problem.
+
+<CalibrationCheck question="A product manager asks you to build a feature that auto-tags blog posts with categories from a fixed list of 8 categories. Each category has 5-10 defining keywords. What approach would you recommend and why?">
+Start with **keyword matching and a scoring function**. For each post, count occurrences of each category's keywords, weight them, and assign the top-scoring category. This is deterministic, free, fast, and easy to debug.
+
+If keyword matching achieves 85%+ accuracy on a test set, ship it. If accuracy is below that threshold -- likely because posts use varied language that keywords miss -- then consider **embeddings plus a simple classifier** (compute embedding similarity between the post and representative examples for each category). Only escalate to an LLM if the classification requires understanding nuance, context, or ambiguity that simpler approaches cannot handle.
+
+The key insight: start simple, measure, and escalate only when data proves the simpler approach is insufficient.
+</CalibrationCheck>
+
+### Step 3: What Does Failure Look Like?
+
+The cost of AI failure varies enormously by context:
+
+- **Low-stakes**: Auto-suggesting email subject lines. A bad suggestion is ignored. AI is fine.
+- **Medium-stakes**: Summarizing meeting notes. A missed detail is annoying but recoverable. AI is fine with human review.
+- **High-stakes**: Calculating medication dosages. A wrong answer is dangerous. AI alone is not fine.
+
+For high-stakes decisions, either use deterministic systems or place AI behind mandatory human review. The question is not "can AI do this?" but "what happens when AI gets it wrong?"
+
+### Step 4: What Is the Total Cost of Ownership?
+
+A full cost comparison includes:
+
+| Cost Factor | Traditional | AI-Powered |
+|------------|-------------|------------|
+| Development time | Moderate | Higher (prompt eng, evals) |
+| Runtime cost | Near zero | Per-request API cost |
+| Maintenance | Update rules manually | Monitor model drift, retune prompts |
+| Testing | Unit tests | Evals + unit tests + regression suites |
+| Debugging | Deterministic traces | Probabilistic, may not reproduce |
+| Vendor risk | None (your code) | Model deprecation, API changes, price hikes |
+
+## Common Anti-Patterns
+
+**"AI for validation"**: Using an LLM to validate data that has a formal specification (email, phone numbers, dates). A regex or parser is faster, cheaper, and correct by construction.
+
+**"AI for transformation"**: Using an LLM to convert between well-defined formats (CSV to JSON, date format conversion). A few lines of code handle this deterministically.
+
+**"AI for lookup"**: Sending a query to an LLM when a database query or API call returns the exact answer. The model might hallucinate; the database will not.
+
+**"AI for everything"**: Defaulting to AI for every feature because it is exciting or because the team has AI expertise. This leads to unnecessary complexity, cost, and fragility.
+
+<TryItYourself title="Evaluate these 5 feature requests. For each one, decide whether AI is the right approach, recommend a specific technology, and justify your decision.">
+**1. Detect duplicate customer accounts based on name and email variations.**
+Recommendation: **Fuzzy string matching** (Levenshtein distance, Jaro-Winkler). Deterministic, fast, and well-understood. AI is overkill for string similarity.
+
+**2. Generate personalized product descriptions from a structured product database.**
+Recommendation: **LLM**. This requires natural language generation from structured data, handling tone and style. Templates could work for simple cases, but personalization and variety require a generative model.
+
+**3. Flag potentially fraudulent transactions in real-time.**
+Recommendation: **Traditional ML** (gradient-boosted trees or random forest). Tabular data with known features (amount, location, time, merchant category) is the sweet spot for traditional ML. Lower latency and more explainable than an LLM.
+
+**4. Convert user-uploaded spreadsheets into a normalized database schema.**
+Recommendation: **Hybrid**. Use deterministic code for well-structured spreadsheets with clear headers. Use an LLM only for the ambiguous cases -- messy headers, inconsistent formats, merged cells -- where human-like judgment is needed to infer intent.
+
+**5. Automatically respond to customer reviews with personalized thank-you messages.**
+Recommendation: **LLM with guardrails**. The task requires understanding sentiment, referencing specific points from the review, and generating natural language. But add a human review queue for negative reviews to avoid tone-deaf automated responses.
+</TryItYourself>
+
+<ExplainBack prompt="Explain the AI tax and the four-step decision framework for evaluating whether AI is the right approach for a given feature." />
+
+<ReflectPrompt questions={[
+  "Think of a feature in a system you work on that uses AI. Could it be replaced with a simpler approach?",
+  "What organizational or social pressures push teams toward using AI when simpler tools would suffice?",
+  "How would you push back on a stakeholder who insists on using AI for a problem where a rule engine would work better?"
+]} />
+
+<ConnectPrompt prompt="How does the can-vs-should framework connect to the testing strategies from Module 4.5? Think about how the choice of technology affects your testing burden." />
+
+<KeyTakeaway>
+The best AI engineers are not the ones who use AI for everything -- they are the ones who know when **not** to use it. Run every feature request through the decision framework: is the problem ambiguous, are simpler alternatives insufficient, is the failure cost acceptable, and does the total cost of ownership justify the AI tax? The right answer is often a regex, a SQL query, or a rule engine.
+</KeyTakeaway>

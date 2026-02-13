@@ -1,0 +1,130 @@
+---
+title: "Books"
+description: "Essential books for AI fluency, from intuitive introductions to dense academic treatments."
+sidebar:
+  order: 1
+---
+
+import ResourceCard from '../../../components/learning/ResourceCard.astro';
+import ResourceGrid from '../../../components/learning/ResourceGrid.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Essential Reading for AI Fluency
+
+Books provide the depth that no other format can match. While the field moves fast, the foundational concepts in these texts remain relevant and form the bedrock of understanding that allows you to evaluate new developments critically.
+
+### Foundations and Deep Learning
+
+These texts build the core understanding of neural networks and deep learning that supports everything else.
+
+<ResourceGrid resources={[
+  {
+    title: "Deep Learning",
+    url: "https://www.deeplearningbook.org/",
+    type: "Book",
+    author: "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+    description: "The definitive comprehensive textbook covering everything from neural network fundamentals to advanced optimization. Often considered the gold standard for deep learning theory. Free online."
+  },
+  {
+    title: "Deep Learning with Python",
+    url: "https://www.manning.com/books/deep-learning-with-python-second-edition",
+    type: "Book",
+    author: "Francois Chollet",
+    description: "Written by the creator of Keras, this book demystifies complex topics using intuitive metaphors and real-world coding exercises. Ideal for practitioners who learn by building."
+  },
+  {
+    title: "Grokking Deep Learning",
+    url: "https://www.manning.com/books/grokking-deep-learning",
+    type: "Book",
+    author: "Andrew W. Trask",
+    description: "A must-read for building intuitive appreciation of neural mechanisms from the ground up, using only Python and NumPy. No frameworks -- just the raw math and logic."
+  }
+]} />
+
+### Large Language Models and NLP
+
+Understanding how language models work at a deep level is essential from Level 3 onward.
+
+<ResourceGrid resources={[
+  {
+    title: "Build a Large Language Model (From Scratch)",
+    url: "https://www.manning.com/books/build-a-large-language-model-from-scratch",
+    type: "Book",
+    author: "Sebastian Raschka",
+    description: "Builds intuition by implementing tokenization, embeddings, and attention layers in annotated code. The best way to truly understand what happens inside an LLM."
+  },
+  {
+    title: "Natural Language Processing with Transformers",
+    url: "https://www.oreilly.com/library/view/natural-language-processing/9781098136789/",
+    type: "Book",
+    author: "Lewis Tunstall, Leandro von Werra, Thomas Wolf",
+    description: "Step-by-step tutorials on models like BERT, GPT, and T5 using the Hugging Face library. Covers fine-tuning, evaluation, and deployment. Updated for 2025."
+  },
+  {
+    title: "The Hundred-Page Language Models Book",
+    url: "http://themlbook.com/",
+    type: "Book",
+    author: "Andriy Burkov",
+    description: "A digestible guide adopted by over 150 institutions. Perfect for gaining context on how the AI ecosystem is evolving without a multi-month commitment."
+  }
+]} />
+
+### Machine Learning Systems and Production
+
+For Levels 5-6, understanding how to build and operate ML systems in production is critical.
+
+<ResourceGrid resources={[
+  {
+    title: "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow",
+    url: "https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/",
+    type: "Book",
+    author: "Aurelien Geron",
+    description: "Practical examples across the entire ML landscape including reinforcement learning and computer vision. The go-to reference for working ML engineers."
+  },
+  {
+    title: "AI Engineering",
+    url: "https://www.oreilly.com/library/view/ai-engineering/9781098166298/",
+    type: "Book",
+    author: "Chip Huyen",
+    description: "Arguably the leading text on building and deploying ML systems in production. Covers containerization, cloud systems, model monitoring, and the full MLOps lifecycle."
+  }
+]} />
+
+### Mathematics for AI
+
+The mathematical foundations that sustain deep learning, essential for Level 5 and beyond.
+
+<ResourceGrid resources={[
+  {
+    title: "The Math Behind Artificial Intelligence",
+    url: "https://www.freecodecamp.org/news/the-math-behind-artificial-intelligence-book/",
+    type: "Book",
+    author: "freeCodeCamp",
+    description: "Covers the four pillars of AI mathematics: linear algebra, calculus, probability and statistics, and optimization theory. Free and accessible online."
+  },
+  {
+    title: "Mathematics for Machine Learning",
+    url: "https://mml-book.github.io/",
+    type: "Book",
+    author: "Marc Peter Deisenroth, A. Aldo Feisal, Cheng Soon Ong",
+    description: "A rigorous treatment of the mathematical foundations with direct connections to ML algorithms. Free PDF available from the authors."
+  }
+]} />
+
+### AI Safety and Ethics
+
+Essential reading for Level 7 and for any practitioner who wants to build responsibly.
+
+<ResourceGrid resources={[
+  {
+    title: "AI Safety, Ethics, and Society",
+    url: "https://www.aisafetybook.com/",
+    type: "Book",
+    author: "Center for AI Safety (CAIS)",
+    description: "A comprehensive introduction to machine learning ethics and safety engineering. Covers alignment, governance, and societal impact. Free textbook with accompanying course."
+  }
+]} />
+
+<KeyTakeaway>
+Start with one book that matches your current level and learning style. Chollet's "Deep Learning with Python" for hands-on learners, Goodfellow's "Deep Learning" for theory-oriented minds, or Raschka's "Build a Large Language Model" for those who want to understand LLMs from the inside out.
+</KeyTakeaway>

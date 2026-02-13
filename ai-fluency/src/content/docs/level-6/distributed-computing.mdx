@@ -1,0 +1,109 @@
+---
+title: "6.6: Distributed Computing for AI"
+description: "Understand data, tensor, and pipeline parallelism strategies for scaling AI inference and training across hardware."
+sidebar:
+  order: 6
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Scaling AI Across Hardware
+
+<PredictPrompt prompt="A frontier model has 400 billion parameters. A single high-end GPU has 80 GB of memory. How do you think engineers make such a model run when it cannot fit on one device? What challenges do you think arise when splitting work across many GPUs?" />
+
+Modern AI models are too large for any single processor. Training GPT-4-class models requires thousands of GPUs working in concert. Even inference for large models demands multi-device coordination. Distributed computing for AI is not optional -- it is the baseline requirement for operating at the frontier.
+
+### Why You Cannot Just Add More GPUs
+
+Scaling AI workloads is fundamentally different from scaling web servers. A web server handles independent requests -- you can add machines linearly. A neural network's forward pass is a single, deeply interdependent computation. Every layer depends on the output of the previous layer. Every attention head reads from the same sequence of tokens. This creates communication bottlenecks that naive hardware scaling cannot solve.
+
+The three core parallelism strategies each address a different dimension of this problem.
+
+### Data Parallelism
+
+Data parallelism is the simplest strategy: replicate the entire model on each GPU and split the training data across replicas.
+
+1. Each GPU holds a full copy of the model.
+2. A batch of training data is divided into micro-batches, one per GPU.
+3. Each GPU computes the forward and backward pass on its micro-batch independently.
+4. Gradients are synchronized across all GPUs (via all-reduce), averaged, and each replica updates its weights identically.
+
+Data parallelism scales well because the computation is independent -- the communication cost is only in gradient synchronization. However, it requires each GPU to hold the full model in memory, which is impossible for models exceeding single-GPU memory.
+
+<CalibrationCheck question="Why can't you just add more GPUs?">
+Adding GPUs via data parallelism requires each GPU to hold the entire model. For a 70B parameter model at FP16, that is ~140 GB per replica -- already exceeding the 80 GB of an A100. Beyond memory limits, communication overhead grows with GPU count: gradient all-reduce operations scale with the number of parameters and the number of devices. Network bandwidth between GPUs becomes the bottleneck, not compute. At large scale, GPUs spend more time waiting for gradient synchronization than performing useful computation unless you use techniques like gradient compression, asynchronous updates, or overlap communication with computation.
+</CalibrationCheck>
+
+### Tensor Parallelism
+
+Tensor parallelism splits individual layers across multiple GPUs. Instead of replicating the model, you partition the weight matrices themselves.
+
+For a transformer's attention layer, tensor parallelism might:
+- Split the Q, K, V projection matrices column-wise across GPUs
+- Each GPU computes attention on its partition
+- Results are gathered (all-reduce) to produce the full output
+
+Tensor parallelism enables serving models that cannot fit on a single device but demands extremely fast inter-GPU communication. GPUs must exchange intermediate activations at every layer boundary. This is why tensor parallelism works best within a single node where GPUs are connected via NVLink (600+ GB/s), not across nodes connected by network (25-100 GB/s).
+
+### Pipeline Parallelism
+
+Pipeline parallelism assigns different layers to different GPUs. A 96-layer model might place layers 1-24 on GPU 0, layers 25-48 on GPU 1, and so on.
+
+The challenge is the **pipeline bubble**: while GPU 3 processes a micro-batch through layers 73-96, GPUs 0-2 sit idle waiting for the next micro-batch to arrive. Techniques like **micro-batch scheduling** (GPipe, PipeDream) inject multiple micro-batches into the pipeline simultaneously, keeping all stages busy.
+
+Pipeline parallelism communicates only at stage boundaries (far less data than tensor parallelism) making it suitable for cross-node distribution. The trade-off is the bubble overhead and more complex memory management.
+
+### GPU and TPU Architectures
+
+At the capacity-planning level, understanding hardware characteristics shapes architectural decisions:
+
+| Hardware | Memory | Interconnect | Best For |
+| :--- | :--- | :--- | :--- |
+| NVIDIA A100 | 80 GB HBM2e | NVLink 600 GB/s | General training and inference |
+| NVIDIA H100 | 80 GB HBM3 | NVLink 900 GB/s | Large-scale training, FP8 support |
+| Google TPU v5p | 95 GB HBM | ICI 4.8 TB/s (pod) | Large batch training, TPU pod scale |
+
+TPUs are designed for massive parallelism within a pod -- their inter-chip interconnect (ICI) bandwidth far exceeds GPU networking, making them efficient for data and model parallelism at enormous scale. GPUs offer more flexibility and a broader software ecosystem.
+
+### Memory Hierarchies and Capacity Planning
+
+Memory is the primary constraint in distributed AI. A capacity plan must account for:
+
+- **Model weights**: Parameters at their serving precision (e.g., 70B params at FP16 = ~140 GB)
+- **Optimizer states**: Adam maintains two additional copies of all parameters during training (~3x the model weight memory)
+- **Activations**: Intermediate values stored for the backward pass, proportional to batch size and sequence length
+- **KV-cache**: During inference, attention cache grows linearly with batch size and sequence length
+
+Techniques like **activation checkpointing** (recompute activations instead of storing them) and **ZeRO** (partitioning optimizer states, gradients, and parameters across data-parallel ranks) reduce per-GPU memory requirements, enabling larger models on the same hardware.
+
+<TryItYourself title="You need to deploy a 180B parameter model for inference with a target of 100 concurrent users and sub-3-second latency. You have a cluster of 8 NVIDIA H100 GPUs (80 GB each). Design a parallelism strategy.">
+A 180B model at FP16 requires ~360 GB, so it cannot fit on a single GPU. A practical strategy:
+
+1. **Tensor parallelism across 4 GPUs within a node**: Split the model's weight matrices across 4 GPUs connected via NVLink, giving ~320 GB effective memory per replica at high bandwidth. Quantize to INT8 to bring model weights to ~180 GB, fitting comfortably across 4 GPUs with room for KV-cache.
+
+2. **Data parallelism with 2 replicas**: Use the remaining 4 GPUs as a second tensor-parallel replica. Two replicas handle concurrent requests, each serving roughly 50 users.
+
+3. **Continuous batching within each replica**: Use vLLM or TensorRT-LLM to dynamically batch requests across users, maximizing GPU utilization.
+
+4. **Paged attention for KV-cache**: Efficiently manage KV-cache memory to maximize the number of concurrent sequences per replica.
+</TryItYourself>
+
+<ExplainBack prompt="Explain the trade-offs between tensor parallelism and pipeline parallelism. When would you choose one over the other, and why does network topology matter?" />
+
+<ReflectPrompt questions={[
+  "How would your distributed computing strategy change if you were optimizing for training throughput vs. inference latency?",
+  "What organizational capabilities does a team need before attempting multi-node distributed AI deployment?",
+  "How do the economics of distributed AI change as models get larger -- does cost scale linearly with parameter count?"
+]} />
+
+<ConnectPrompt prompt="In Module 6.2, you studied inference serving optimizations like quantization and batching. How do those techniques interact with distributed parallelism strategies? For example, how does quantization affect the number of GPUs needed for tensor parallelism?" />
+
+<KeyTakeaway>
+Distributed computing for AI is not about adding hardware -- it is about decomposing deeply interdependent computations across devices while minimizing communication overhead. Data, tensor, and pipeline parallelism each address different constraints, and production systems typically combine all three. Understanding hardware memory hierarchies and interconnect topologies is essential for making sound capacity-planning decisions.
+</KeyTakeaway>

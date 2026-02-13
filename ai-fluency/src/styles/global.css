@@ -1,0 +1,26 @@
+/* Google Fonts: Inter (body) + JetBrains Mono (code) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base typography */
+body {
+	font-family: 'Inter', var(--sl-font-system);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre,
+kbd,
+samp {
+	font-family: 'JetBrains Mono', var(--sl-font-system-mono);
+}
+
+/* Content width constraint */
+.sl-container {
+	max-width: 75ch;
+}

@@ -1,0 +1,141 @@
+---
+title: "7.6 Architecture Innovation"
+description: "Survey novel architectural approaches beyond standard transformers, from state space models to advanced optimization."
+sidebar:
+  order: 6
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## Beyond the Standard Transformer
+
+<PredictPrompt prompt="The standard transformer has dominated AI for several years. What are its fundamental limitations, and what kinds of architectural changes might address them?" />
+
+The transformer architecture has been remarkably successful, but it is not the final word in neural network design. Its quadratic attention cost, fixed context windows, and massive parameter counts create real limitations. This module surveys the architectural innovations that aim to address these constraints -- not as a catalog of techniques to memorize, but as a lens for understanding how researchers think about improving AI systems at the most fundamental level.
+
+### The Limitations We Are Solving
+
+Before exploring alternatives, it is worth being precise about what needs fixing:
+
+- **Quadratic attention**: Standard self-attention scales as O(n^2) with sequence length. Doubling the context window quadruples the compute cost. This makes very long sequences (entire codebases, full books, long video) prohibitively expensive.
+- **Fixed context**: Transformers process a fixed window of tokens. They have no built-in mechanism for maintaining state across sequences or efficiently updating their "memory" as new information arrives.
+- **Parameter inefficiency**: Most parameters are activated for every input, even when only a fraction are relevant. A model that knows about medicine, law, and programming activates all three knowledge stores when answering a cooking question.
+- **Training instability**: As models scale, training becomes increasingly fragile. Loss spikes, gradient explosions, and the need for elaborate learning rate schedules add engineering overhead.
+
+### State Space Models
+
+State space models (SSMs) represent the most significant architectural alternative to transformers. Rather than attending to all previous tokens simultaneously, SSMs maintain a compressed hidden state that evolves over time:
+
+**Core idea**: An SSM processes a sequence by updating a fixed-size hidden state at each step, similar to an RNN but with a mathematically principled state transition that can be computed in parallel during training.
+
+**Mamba and S4**: The S4 architecture (Structured State Spaces for Sequence Modeling) showed that carefully parameterized state space models could match transformer performance on long-range tasks. Mamba improved on S4 by making the state transition **input-dependent** (selective) -- the model learns which information to store and which to discard based on the current input.
+
+**Advantages**:
+- **Linear scaling**: Processing cost scales linearly with sequence length, not quadratically
+- **Constant memory**: The hidden state has a fixed size regardless of sequence length
+- **Efficient inference**: Generation requires only the hidden state, not the full KV cache
+
+**Tradeoffs**:
+- SSMs may struggle with tasks that require precise retrieval of specific earlier tokens (the "needle in a haystack" problem)
+- The compressed state inherently loses information -- it is a lossy compression of the full history
+- Hybrid architectures (combining SSM layers with attention layers) often outperform pure SSMs
+
+<CalibrationCheck question="Why might a state space model struggle with a task like 'what was the third word in the first sentence of this document?' even though it can process much longer sequences than a transformer?">
+A state space model compresses the entire history into a fixed-size hidden state. This compression is optimized for preserving information that is useful for predicting future tokens -- general patterns, themes, and recent context. The exact identity and position of a specific earlier token is precisely the kind of detail that gets compressed away because it rarely matters for next-token prediction. A transformer with full attention can directly attend to the specific position and retrieve the exact token. This illustrates the fundamental tradeoff: SSMs trade precise random access to history for efficient sequential processing. Hybrid architectures try to get both by using attention layers for precise retrieval and SSM layers for efficient long-range processing.
+</CalibrationCheck>
+
+### Novel Attention Variants
+
+Rather than replacing attention entirely, many innovations modify it to reduce cost while preserving its strengths:
+
+**Multi-Query Attention (MQA)**: Standard multi-head attention uses separate key and value projections for each head. MQA shares a single set of keys and values across all heads, dramatically reducing the KV cache size during inference. This makes generation faster and more memory-efficient with minimal quality loss.
+
+**Grouped-Query Attention (GQA)**: A middle ground between full multi-head attention and MQA. Groups of heads share key-value projections. LLaMA 2 and many modern models use GQA as a practical compromise.
+
+**Sliding Window Attention**: Instead of attending to all previous tokens, each layer attends only to a local window. By stacking multiple layers, the model's effective receptive field grows with depth. Mistral's architecture uses this approach, achieving long-range understanding through hierarchical local attention.
+
+**Linear Attention**: Reformulates attention to avoid the explicit n-by-n attention matrix by using kernel approximations or other mathematical tricks. Reduces attention to O(n) but typically with some quality loss on tasks that require precise long-range dependencies.
+
+### Mixture of Experts
+
+Mixture of Experts (MoE) addresses parameter inefficiency by activating only a subset of the model's parameters for each input:
+
+**How it works**: Replace standard feed-forward layers with a set of "expert" sub-networks and a routing function. For each token, the router selects the top-k experts (typically 2), and only those experts process the token. The model has many more total parameters but activates far fewer per forward pass.
+
+**Implications**:
+- A 47B-parameter MoE model might activate only 13B parameters per token, achieving quality closer to a dense 47B model at the inference cost of a 13B model
+- Training is more complex because the router must learn to distribute tokens evenly across experts (load balancing)
+- Memory requirements are still proportional to total parameters, even though compute per token is lower
+
+**Open questions**: Do experts specialize in interpretable ways (one expert for math, another for language)? Evidence is mixed -- some specialization emerges, but it is often not as clean as we might hope.
+
+### Optimization Beyond Adam
+
+The Adam optimizer has been the default for training transformers, but recent work explores alternatives:
+
+**Lion (Evolved Sign Momentum)**: Discovered through automated search over optimizer algorithms, Lion uses only the sign of the gradient (not its magnitude) for updates, combined with momentum. It uses less memory than Adam (no second-moment estimate) and has shown competitive or superior performance on large-scale training.
+
+**Sophia (Second-order Clipped Stochastic Optimization)**: Uses an approximation of the Hessian (second-order curvature information) to scale learning rates per-parameter. Parameters in flat regions of the loss landscape get larger updates; parameters in sharp regions get smaller updates. This adaptive scaling can lead to faster convergence and better final performance.
+
+**Why optimization matters for practitioners**: Optimizer choice affects training speed, final model quality, memory usage, and hyperparameter sensitivity. Better optimizers mean either better models at the same cost or equivalent models at lower cost.
+
+<CalibrationCheck question="A new paper claims that their novel optimizer reduces training cost by 40% compared to Adam. What questions would you ask before accepting this claim?">
+Critical questions:
+
+1. **At what scale?** Optimizer advantages can appear or disappear at different model sizes. Results on a 125M parameter model may not hold at 7B or 70B.
+
+2. **Hyperparameter tuning budget**: Was Adam given the same hyperparameter tuning effort as the new optimizer? A well-tuned novel optimizer versus default-settings Adam is not a fair comparison.
+
+3. **What metric of cost?** Wall-clock time, total FLOPs, final loss at convergence, or performance on downstream tasks? These can tell different stories.
+
+4. **Reproducibility**: Were results averaged over multiple random seeds? Is variance reported? A single training run can be misleading.
+
+5. **Task breadth**: Does the advantage hold across different model architectures, data distributions, and downstream tasks, or only on the specific setup tested?
+</CalibrationCheck>
+
+### Evaluating Architectural Innovations
+
+When reading about a new architecture, apply this evaluation framework:
+
+1. **What specific limitation does it address?** If the answer is vague ("it is better"), be skeptical.
+2. **What does it sacrifice?** Every architectural change involves tradeoffs. If the paper does not discuss limitations, the analysis is incomplete.
+3. **At what scale was it tested?** Results at small scale often do not transfer to large scale, and vice versa.
+4. **Is the comparison fair?** Check that baselines use comparable compute budgets, hyperparameter tuning, and data.
+5. **Does it compose with existing improvements?** The best innovations are additive -- they work alongside other techniques rather than requiring you to start from scratch.
+
+<TryItYourself title="Design a hybrid architecture for processing very long documents (100,000+ tokens). Combine at least two of the architectural approaches discussed in this module, explain your design choices, and identify what you would need to validate experimentally.">
+**Proposed architecture: SSM-Attention Hybrid with MoE**
+
+**Design**:
+- Use Mamba SSM layers for the majority of the network (layers 1-20 of 24). These handle the long-range context efficiently with linear scaling.
+- Insert Grouped-Query Attention layers at positions 8, 16, and 24. These provide precise retrieval capabilities that SSMs lack, allowing the model to attend to specific earlier positions when needed.
+- Replace the feed-forward layers in attention blocks with MoE layers (8 experts, top-2 routing). This adds capacity for the attention layers to specialize without proportionally increasing compute.
+
+**Rationale**: The SSM layers handle the bulk of sequential processing at linear cost. The sparse attention layers provide the random-access retrieval that SSMs miss. MoE in the attention blocks adds capacity where it matters most.
+
+**Experimental validation needed**:
+- Compare against a pure transformer with equivalent compute budget on long-document tasks (summarization, question answering, multi-document reasoning)
+- Measure "needle in a haystack" retrieval accuracy at various positions to verify the attention layers compensate for SSM limitations
+- Test whether 3 attention layers is the right number by ablating: 1, 3, 6, and full attention baselines
+- Verify that MoE routing learns balanced expert utilization
+</TryItYourself>
+
+<ExplainBack prompt="Explain the quadratic attention problem and describe two fundamentally different approaches to solving it, along with the tradeoffs each approach makes." />
+
+<ReflectPrompt questions={[
+  "How does understanding architectural tradeoffs change the way you evaluate claims about new models?",
+  "If you were allocating a research budget, would you invest in novel architectures, better training objectives, or more data? Why?",
+  "What role should practitioners (as opposed to researchers) play in architectural innovation?"
+]} />
+
+<ConnectPrompt prompt="How do the architectural innovations discussed here connect to the efficiency and accessibility concerns from Module 7.4? Think about who benefits when models become cheaper to train and run." />
+
+<KeyTakeaway>
+The transformer is powerful but not permanent. State space models offer linear scaling at the cost of precise retrieval. Attention variants reduce cost while preserving the mechanism's strengths. Mixture of Experts activates only relevant parameters. Novel optimizers reduce training cost. The critical skill is not memorizing architectures but evaluating innovations: what problem does it solve, what does it sacrifice, and does the evidence support the claims at meaningful scale?
+</KeyTakeaway>

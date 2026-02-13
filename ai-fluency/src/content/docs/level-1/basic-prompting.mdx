@@ -1,0 +1,130 @@
+---
+title: "1.3 Basic Prompting Patterns"
+description: "Learn the three foundational prompting patterns -- summarize, draft, and brainstorm -- that form your first AI toolkit."
+sidebar:
+  order: 3
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="Think about the last time you used an AI chatbot. What did you ask it to do? Try to categorize that task: were you asking it to condense information, create something new, or generate options?" />
+
+## Your first three patterns
+
+Most beginner interactions with AI fall into three categories. Recognizing these patterns helps you write clearer prompts and get better results.
+
+### Pattern 1: Summarize
+
+You have a block of text -- an article, an email thread, meeting notes -- and you need the key points extracted. This is one of the strongest use cases for LLMs because it plays directly to their strength: compressing token sequences into shorter token sequences while preserving the high-probability (most important) information.
+
+**Weak prompt:**
+```
+Summarize this.
+```
+
+**Stronger prompt:**
+```
+Summarize the following article in 3 bullet points,
+focusing on the financial implications for mid-size
+companies. Keep each bullet under 25 words.
+```
+
+The difference is **constraints**. The stronger prompt tells the model:
+- The output format (bullet points)
+- The number of items (3)
+- The focus area (financial implications for mid-size companies)
+- A length limit (25 words per bullet)
+
+Constraints reduce the space of possible outputs, which means the model's probability distribution concentrates on tokens that satisfy your requirements.
+
+<TryItYourself title="Find any article or email you received recently. Write two summary prompts: one vague ('summarize this') and one with at least three constraints. Compare the outputs. Which is more useful?">
+The constrained prompt almost always produces a more useful result because you have narrowed the output space. The vague prompt forces the model to guess what you consider important, what format you want, and how long the summary should be. Every unspecified dimension is a dimension where the model may guess wrong.
+</TryItYourself>
+
+### Pattern 2: Draft
+
+You need to produce text -- an email, a report section, a social media post -- and you want a starting point. Drafting works well because the model has seen millions of examples of each text type during training and can generate plausible structures.
+
+**Weak prompt:**
+```
+Write an email to my team.
+```
+
+**Stronger prompt:**
+```
+Draft a professional email to my engineering team
+announcing that we are moving our deployment window
+from Thursdays to Tuesdays. Tone: direct but positive.
+Include the reason (reducing Friday incident risk)
+and the start date (March 1). Keep it under 150 words.
+```
+
+The key elements of a good drafting prompt:
+- **Audience** -- who will read this
+- **Purpose** -- what you want to communicate
+- **Tone** -- how it should sound
+- **Key details** -- facts that must be included
+- **Length** -- how long the output should be
+
+<CalibrationCheck question="If you ask the model to draft an email containing specific dates and facts, can you trust those details will be accurate in the output?">
+Only the details you explicitly provide in the prompt are reliable. If you say "start date March 1," the model will include March 1. But if you ask it to "include the relevant deadline" without specifying what that deadline is, the model may fabricate one. Always provide the facts; let the model handle the prose.
+</CalibrationCheck>
+
+### Pattern 3: Brainstorm
+
+You need ideas -- feature names, approaches to a problem, counterarguments, topic angles. Brainstorming is where the probabilistic nature of AI becomes an advantage. Higher sampling randomness means more diverse suggestions.
+
+**Weak prompt:**
+```
+Give me ideas.
+```
+
+**Stronger prompt:**
+```
+I'm designing an onboarding flow for a B2B SaaS product
+targeting HR managers. Generate 8 ideas for reducing
+time-to-first-value. For each idea, include one sentence
+describing the approach and one potential risk.
+```
+
+Brainstorming prompts benefit from:
+- **Context** about the domain and constraints
+- A **specific number** of ideas requested
+- **Structure** for each idea (so you can compare them)
+- **Perspective framing** (who is the user, what is the goal)
+
+<TryItYourself title="Pick a real problem you are working on. Write a brainstorming prompt that includes context, a target number of ideas, and a structure for each idea. Run it twice and compare. How many unique ideas appear across both runs?">
+You will likely see significant overlap in the top ideas (the highest-probability outputs) but some variation in the less obvious suggestions. This is the probabilistic engine working for you -- regenerating gives you a broader sample from the distribution of possible ideas.
+</TryItYourself>
+
+### The common thread: specificity
+
+All three patterns improve with the same strategy: **be specific about what you want**. Every constraint you add removes ambiguity and helps the model allocate its probability toward the output you need.
+
+| Dimension | Question to ask yourself |
+| :-- | :-- |
+| Format | Do I want bullets, paragraphs, a table, a list? |
+| Length | How long should the output be? |
+| Audience | Who is going to read this? |
+| Focus | What specific aspect matters most? |
+| Tone | Formal, casual, technical, friendly? |
+
+<ExplainBack prompt="Name the three basic prompting patterns and give one tip for improving each. What is the underlying principle that makes all prompts better?" />
+
+<ReflectPrompt questions={[
+  "Which of these three patterns do you use most often? Which have you never tried?",
+  "Think of a task you do manually every week. Could one of these three patterns handle 80% of it?",
+  "When you get a bad AI response, is the problem usually the model or the prompt?"
+]} />
+
+<KeyTakeaway>
+Summarize, draft, and brainstorm are the three foundational prompting patterns. The key to all of them is specificity: constraints on format, length, audience, focus, and tone reduce ambiguity and concentrate the model's output on what you actually need.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="These three patterns are 'zero-shot' prompts -- you give instructions but no examples. In Level 2, you will learn 'few-shot' prompting, where you provide examples that teach the model your desired pattern. But first, Module 1.4 covers how to choose which model to use for these tasks." />

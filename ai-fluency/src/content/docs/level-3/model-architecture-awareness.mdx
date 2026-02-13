@@ -1,0 +1,96 @@
+---
+title: "3.6 Model Architecture Awareness"
+description: "Understand how Mixture of Experts, Mixture of Agents, and reasoning models affect context engineering decisions."
+sidebar:
+  order: 6
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="Not all large language models work the same way internally. Some models use a 'Mixture of Experts' architecture, others chain multiple models together, and some spend extra compute on reasoning before answering. How might these architectural differences change the way you design prompts and context?" />
+
+## Why architecture matters for context engineering
+
+So far in Level 3, you have treated the model as a black box: you send a prompt and context, and you receive a response. But different model architectures process that context in fundamentally different ways. Understanding these differences helps you make better decisions about which model to use, how to structure your context, and what to expect from the output.
+
+### Mixture of Experts (MoE)
+
+A standard dense transformer activates all of its parameters for every token it processes. A **Mixture of Experts** model activates only a subset of specialized sub-networks (called "experts") for each token.
+
+How it works:
+
+1. A **router network** examines each incoming token
+2. The router selects a small number of experts (typically 2 out of 8 or more) most relevant to that token
+3. Only the selected experts process the token; the rest remain idle
+4. The outputs from the active experts are combined to produce the final result
+
+**Why this matters for you:**
+
+- **Speed vs. total size**: An MoE model can have far more total parameters than a dense model but run at comparable speed because only a fraction activate per token. Mixtral 8x7B has 47 billion total parameters but activates roughly 13 billion per token.
+- **Specialization**: Different experts may develop strengths in different domains. A code-heavy prompt might route to different experts than a legal document analysis.
+- **Context engineering implication**: MoE models can sometimes show inconsistency when a prompt spans multiple domains, because different tokens route to different expert combinations. Keeping your context focused on a single domain can improve coherence.
+
+### Mixture of Agents (MoA)
+
+While MoE operates within a single model, **Mixture of Agents** orchestrates multiple independent models working together:
+
+1. Several "proposer" models each generate a candidate response to the same prompt
+2. An "aggregator" model reviews all candidate responses and synthesizes a final answer
+
+**Why this matters for you:**
+
+- **Diversity of perspectives**: Different models have different training data biases and failure modes. Combining their outputs can produce more robust answers.
+- **Cost multiplier**: You pay for multiple model calls per user query. A 3-proposer MoA setup costs roughly 4x a single model call (3 proposers + 1 aggregator).
+- **Context engineering implication**: Each proposer receives the same context, so your context window budget applies to every model in the pipeline. A 10,000-token context costs 30,000 input tokens across three proposers before the aggregator even runs.
+
+### Reasoning models
+
+Models like OpenAI's o1, o3, and DeepSeek R1 implement **extended reasoning** -- they spend additional compute "thinking" before producing a final answer. Instead of generating the response token-by-token in a single pass, they produce an internal chain of thought that can run for thousands of tokens before the visible answer appears.
+
+**Key characteristics:**
+
+- **Thinking budget**: Reasoning models consume extra tokens for their internal reasoning chain. A question that costs 500 output tokens from a standard model might consume 5,000+ tokens of reasoning plus 500 tokens of visible answer.
+- **Self-correction**: The internal chain of thought allows the model to catch and correct errors before committing to a final answer. This is particularly valuable for multi-step logic, math, and code generation.
+- **Instruction sensitivity**: Reasoning models often perform better with less prescriptive prompts. Over-constraining the prompt can interfere with the model's internal reasoning process.
+
+<CalibrationCheck question="Why might a reasoning model handle a complex RAG question differently than a standard model?">
+A reasoning model spends additional compute decomposing the question, cross-referencing multiple retrieved chunks, and checking for contradictions before producing an answer. Where a standard model might retrieve three chunks and synthesize an answer in a single pass -- sometimes blending facts incorrectly -- a reasoning model's internal chain of thought can explicitly compare what chunk A says versus chunk B, notice conflicts, and resolve them. However, this comes at a cost: the reasoning tokens add significant latency and expense. For straightforward factual lookups, a reasoning model is overkill; for questions requiring synthesis across multiple documents with potential contradictions, it excels.
+</CalibrationCheck>
+
+### Choosing the right architecture
+
+| Scenario | Best fit | Why |
+| :-- | :-- | :-- |
+| Simple Q&A over a knowledge base | Standard dense model | Low latency, low cost, sufficient accuracy |
+| Complex multi-document synthesis | Reasoning model | Internal chain of thought catches contradictions |
+| High-stakes decisions needing consensus | Mixture of Agents | Multiple perspectives reduce single-model bias |
+| High throughput, moderate complexity | MoE model | Faster inference with large parameter count |
+
+<TryItYourself title="Take a RAG use case from your domain. Write a one-paragraph argument for using a standard model, then a one-paragraph argument for using a reasoning model. Identify the specific quality threshold where you would switch from one to the other.">
+A strong answer identifies concrete tradeoffs:
+
+- **Standard model argument**: For a customer support chatbot answering policy questions, a standard model with good grounding prompts can retrieve the right chunk and produce an accurate answer in under 2 seconds. 95% of questions are single-document lookups where reasoning overhead adds cost without improving quality.
+
+- **Reasoning model argument**: For the 5% of questions that require comparing policies across multiple documents (e.g., "Does my warranty cover this if I bought the extended plan?"), a reasoning model can cross-reference the base warranty terms, the extended plan addendum, and any recent policy updates to produce a nuanced, correct answer.
+
+- **Switching threshold**: Route to the reasoning model when the query touches multiple document categories or contains comparative language ("compare," "which is better," "does X override Y").
+</TryItYourself>
+
+<ExplainBack prompt="Describe how MoE, MoA, and reasoning models differ. For each architecture, name one context engineering decision it changes compared to a standard dense model." />
+
+<ReflectPrompt questions={[
+  "For the AI applications you are building or evaluating, which architectural pattern matters most: speed (MoE), robustness (MoA), or accuracy on hard problems (reasoning)?",
+  "How would you explain the difference between MoE and MoA to a non-technical stakeholder making a procurement decision?"
+]} />
+
+<KeyTakeaway>
+Model architecture is not just an implementation detail -- it directly affects how you design prompts, structure context, and budget for cost and latency. MoE models trade total parameter count for inference speed. MoA systems trade cost for robustness through model diversity. Reasoning models trade latency and token cost for deeper analysis. Matching your architecture to your use case is a core context engineering skill.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Now that you understand how different architectures consume tokens differently, the next module explores how to calculate the true cost of these choices -- model economics and ROI." />

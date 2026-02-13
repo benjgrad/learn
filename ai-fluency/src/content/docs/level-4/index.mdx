@@ -1,0 +1,59 @@
+---
+title: "Level 4: AI Component Engineer"
+description: "Engineering reliable AI components within production software systems."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+
+# Level 4: AI Component Engineer
+
+At Level 4, the professional treats AI as a **modular component** within a broader software architecture. This requires bridging the gap between conventional software engineering and the unique, probabilistic nature of AI models. Mastery at this level is defined by applying engineering patterns to build robust, testable, and production-ready AI-powered applications.
+
+## What You Will Learn
+
+This level covers five core areas:
+
+1. **AI as Software Component** -- Treating AI models as components with defined interfaces, contracts, and failure modes rather than magic black boxes.
+
+2. **Engineering Patterns** -- Applying proven software engineering and SRE patterns to AI integration, from async parallelism to deterministic wrappers.
+
+3. **API Integration** -- Working with OpenAI, Anthropic, and other provider APIs through SDKs, handling authentication, rate limits, and error recovery.
+
+4. **Deterministic Wrappers** -- Building layers around probabilistic AI outputs to enforce structured formats, validate schemas, and ensure reliability.
+
+5. **Testing & CI/CD** -- Creating evaluation suites, snapshot tests, and continuous integration pipelines that account for non-deterministic AI behavior.
+
+## Prerequisites
+
+You should be comfortable with all concepts from Levels 1-3, particularly:
+
+- Prompt engineering techniques (Level 2)
+- Context engineering and RAG pipelines (Level 3)
+- General software development experience (any language)
+
+## The Shift in Mindset
+
+<PredictPrompt prompt="What do you think is the biggest challenge when integrating AI into a traditional software system? How might it differ from integrating a normal third-party API?" />
+
+Moving from "using AI tools" to "engineering AI components" requires a fundamental shift. Traditional software components are deterministic: given the same input, they produce the same output. AI components are inherently probabilistic. The same prompt can yield different results across calls, latency varies unpredictably, and failure modes include entirely new categories like hallucination and prompt injection.
+
+The AI Component Engineer's job is to tame this probabilistic nature by wrapping it in deterministic engineering practices -- without losing the flexibility that makes AI valuable.
+
+<KeyTakeaway>
+Level 4 is where AI fluency meets software engineering discipline. You will learn to treat AI as just another component in your system -- one with unique characteristics that demand specific patterns for reliability, testing, and deployment.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Think about how the prompt engineering skills from Level 2 and the context engineering from Level 3 become the 'input specification' for the AI components you will build at this level. How does understanding tokens and context windows help you design better component interfaces?" />
+
+## Modules
+
+| Module | Topic | Key Skill |
+|--------|-------|-----------|
+| 4.1 | AI as Software Component | Component design and interface contracts |
+| 4.2 | Engineering Patterns | 30 patterns for production AI systems |
+| 4.3 | API Integration | SDK usage, auth, rate limiting, error handling |
+| 4.4 | Deterministic Wrappers | Structured output, validation, retries |
+| 4.5 | Testing & CI/CD | Eval suites, snapshot testing, pipelines |
+| 4.6 | Checkpoint | Level 4 assessment |

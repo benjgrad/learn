@@ -1,0 +1,178 @@
+---
+title: Glossary
+description: Key AI terms and definitions used throughout the AI Fluency curriculum.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## AI Fluency Glossary
+
+A reference of key terms used throughout this curriculum. Terms are organized alphabetically for quick lookup.
+
+<Aside type="tip">
+Use your browser's search (Ctrl+F / Cmd+F) to quickly find a specific term.
+</Aside>
+
+---
+
+### A
+
+**Adversarial Robustness**
+The ability of an AI system to resist manipulated or misleading inputs designed to cause incorrect outputs. Testing for adversarial robustness is a key practice at Level 5 and above.
+
+**Agentic Workflow**
+A multi-step process where an AI system acts autonomously, making decisions and taking actions on behalf of a human. Agentic behavior is a focus of Level 5 (System Engineer).
+
+**Alignment**
+The research challenge of ensuring that AI systems behave in accordance with human values and intentions, especially as systems become more autonomous and capable.
+
+**Attention Mechanism**
+The core innovation of the transformer architecture. Self-attention allows a model to calculate importance weights for every word (token) relative to every other word in a sequence, enabling it to understand context and relationships.
+
+**Augmentation**
+A mode of AI engagement where human and AI act as thinking partners, each contributing complementary strengths to a task.
+
+**Automation**
+A mode of AI engagement where AI performs specific, well-defined tasks independently, without requiring human input for each step.
+
+### B
+
+**Backpropagation**
+The algorithm used to train neural networks by calculating gradients of the loss function with respect to each weight, then adjusting weights to minimize error. It propagates error signals backward through the network.
+
+**Bayes' Theorem**
+A mathematical formula for updating the probability of a hypothesis given new evidence. Central to probabilistic reasoning and many machine learning algorithms.
+
+### C
+
+**Chain-of-Thought (CoT)**
+A prompting technique that instructs the model to solve problems as a series of intermediate reasoning steps. Adding "Let's think step-by-step" has been shown to significantly improve performance on multi-step tasks.
+
+**Chunking**
+The process of breaking large documents into smaller segments for storage in a vector database. Effective chunking preserves semantic coherence while fitting within context window limits.
+
+**Context Engineering**
+The practice of strategically managing all data that flows into an AI system's context window — including system prompts, retrieved documents, conversation history, and user input — to maximize relevance and accuracy.
+
+**Context Window**
+The maximum amount of information a model can consider at one time. It encompasses the system prompt, user query, attached documents, and conversation history. When exceeded, the model discards the oldest information first.
+
+### D
+
+**Delimiter**
+Special markers (such as triple backticks or XML tags) used to separate system instructions, context data, and user queries in a prompt, reducing the risk of the model confusing input text with instructions.
+
+**Deterministic Wrapper**
+A software layer built around a probabilistic AI model to ensure outputs adhere to specific formats (such as JSON) or functional requirements.
+
+### E
+
+**Embedding**
+A mathematical vector (list of numbers) that represents the semantic meaning of a piece of text, image, or other data. Similar meanings produce vectors that are close together in high-dimensional space.
+
+**Emergent Behavior**
+Capabilities or behaviors that arise in large-scale AI models that were not explicitly programmed or anticipated during training, such as in-context learning or chain-of-thought reasoning.
+
+### F
+
+**Few-Shot In-Context Learning**
+A prompting technique where you provide a few examples of input-output pairs to establish a pattern. The model uses these examples to infer the desired behavior without any weight updates.
+
+**Fine-Tuning**
+The process of taking a pre-trained model and further training it on a specific dataset or task to adapt its behavior for a specialized domain (such as medical or legal text).
+
+### G
+
+**Gradient Descent**
+An optimization algorithm that iteratively adjusts model parameters in the direction that reduces the loss function. It is the fundamental mechanism by which neural networks learn.
+
+**Grounding**
+The practice of connecting an AI model's responses to specific, verifiable data sources (such as internal documents or databases) to improve factual accuracy and reduce hallucinations.
+
+### H
+
+**Hallucination**
+When an AI model generates content that is factually incorrect, fabricated, or not supported by its input data. Hallucinations occur because models generate text based on probability rather than factual retrieval.
+
+**HNSW (Hierarchical Navigable Small World)**
+An algorithm used in vector databases for fast approximate nearest-neighbor searches in high-dimensional spaces.
+
+### I
+
+**Inference**
+The process of using a trained model to generate predictions or outputs from new input data. Unlike training, inference does not update the model's weights — it uses the fixed knowledge learned during training.
+
+### L
+
+**Large Language Model (LLM)**
+A neural network trained on massive text datasets that can generate, summarize, translate, and reason about natural language. Examples include GPT-4, Claude, and Llama.
+
+**Latent Space**
+The high-dimensional mathematical space where embeddings live. Relationships between concepts are encoded as geometric relationships (distances and directions) in this space.
+
+**Loss Function**
+A mathematical function that measures how far a model's predictions are from the correct answers. The goal of training is to minimize this function.
+
+**LoRA (Low-Rank Adaptation)**
+A parameter-efficient fine-tuning technique that adds small trainable matrices to a pre-trained model rather than updating all weights, dramatically reducing memory and compute requirements.
+
+### M
+
+**MLOps**
+The set of practices for deploying, monitoring, and maintaining machine learning models in production. Analogous to DevOps for traditional software, MLOps includes CI/CD for models, drift detection, and cost management.
+
+### P
+
+**Perplexity**
+A metric that measures how well a language model predicts the next token. Lower perplexity indicates a stronger understanding of the language patterns in the evaluation data.
+
+**Prompt Engineering**
+The practice of crafting inputs (prompts) to AI models that minimize ambiguity and maximize the accuracy and usefulness of the model's output.
+
+### Q
+
+**QLoRA (Quantized Low-Rank Adaptation)**
+A variant of LoRA that further reduces memory requirements by quantizing the base model weights to lower precision (such as 4-bit) while keeping the adaptation layers in higher precision.
+
+### R
+
+**RAG (Retrieval-Augmented Generation)**
+An architecture pattern that enhances an AI model's responses by first retrieving relevant information from external data sources (such as a vector database) and injecting it into the model's context before generation.
+
+**ROUGE Score**
+A set of metrics used to evaluate text summarization by measuring the overlap between generated summaries and reference summaries. Commonly used variants include ROUGE-1, ROUGE-2, and ROUGE-L.
+
+### S
+
+**Self-Attention**
+See *Attention Mechanism*. Self-attention specifically refers to attention applied within a single sequence, where each token attends to all other tokens in the same input.
+
+**System Message (System Prompt)**
+High-level instructions provided to an AI model that set rules, persona, and behavioral constraints for an entire session. System messages are processed before any user input.
+
+### T
+
+**Temperature**
+A parameter that controls the randomness of model outputs. Lower temperatures (0-0.3) produce more deterministic, focused responses. Higher temperatures (0.8-1.0) produce more creative, diverse outputs.
+
+**Token**
+The basic building block of text processing in language models. A token can represent a single character, a word fragment, a whole word, or punctuation. On average in English, one token is approximately 4 characters, or about 1.5 tokens per word.
+
+**Tokenization**
+The process of converting raw text into a sequence of numeric token IDs that a language model can process. Different models use different tokenization schemes, and efficiency varies significantly across languages.
+
+**Transformer**
+The neural network architecture introduced in the 2017 paper "Attention Is All You Need." Transformers use self-attention mechanisms to process all tokens in parallel (rather than sequentially), enabling efficient training on massive datasets. Nearly all modern LLMs are based on the transformer architecture.
+
+### V
+
+**Vector**
+An ordered list of numbers that represents a point in multi-dimensional space. In AI, vectors are used to represent the meaning of text, images, and other data as embeddings.
+
+**Vector Database**
+A specialized database optimized for storing and searching high-dimensional vectors (embeddings). Unlike traditional SQL databases that match exact keywords, vector databases perform semantic similarity searches. Examples include Chroma, Pinecone, and Weaviate.
+
+### Z
+
+**Zero-Shot Prompting**
+Providing an instruction to a model without any examples, relying entirely on the model's pre-trained knowledge to produce the desired output.

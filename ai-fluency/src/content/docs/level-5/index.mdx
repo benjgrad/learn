@@ -1,0 +1,80 @@
+---
+title: "Level 5: AI System Engineer"
+description: "Understanding AI from the inside out -- transformer architecture, fine-tuning, evaluation, and agentic workflows -- then designing multi-component AI systems."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+
+# Level 5: AI System Engineer
+
+Level 5 represents the stage of mastery where a professional understands the deep architecture that powers modern AI *and* can design multi-component systems that put that understanding to work. An AI System Engineer knows not just *how* to use models, but *why* they behave the way they do -- and can leverage that understanding to build, evaluate, fine-tune, and orchestrate sophisticated AI systems.
+
+## What You Will Learn
+
+This level covers two complementary halves:
+
+### Part 1: Understanding AI Internals (5.1-5.5)
+
+1. **Transformer Architecture** -- The encoder-decoder structure, positional encoding, and the architecture behind "Attention Is All You Need."
+
+2. **Attention Mechanism** -- Query, Key, and Value vectors, multi-head attention, and how models decide what to focus on.
+
+3. **Fine-Tuning** -- LoRA, QLoRA, RLHF, and domain adaptation techniques for customizing models to specialized tasks.
+
+4. **Evaluation Metrics** -- BLEU, ROUGE, perplexity, human evaluation, and building rigorous benchmark suites.
+
+5. **Agentic Workflows** -- ReAct prompting, tool use, multi-agent systems, and orchestration patterns for autonomous AI behavior.
+
+### Part 2: Designing Multi-Component AI Systems (5.6-5.9)
+
+6. **Orchestration Frameworks** -- Comparing LangChain, LangGraph, CrewAI, and n8n for building multi-step AI workflows, plus when to use frameworks versus custom code.
+
+7. **Human-in-the-Loop Design** -- Designing effective human oversight with confidence-based routing, escalation thresholds, and strategies to prevent approval fatigue.
+
+8. **Multi-AI System Architecture** -- Separation of concerns with router, specialist, and evaluator models, plus SLIs and SLOs for probabilistic systems.
+
+9. **System-Level Cost and Performance** -- Token budgets, batch versus real-time inference, cost accounting across multi-model pipelines, and optimization strategies.
+
+## Prerequisites
+
+You should have completed all Level 4 content and be comfortable with:
+
+- Treating AI as a software component with typed interfaces (Level 4)
+- Engineering patterns for reliability and cost (Level 4)
+- API integration and deterministic wrappers (Level 4)
+- A basic understanding of linear algebra (Foundations)
+
+## The Two-Part Journey
+
+<PredictPrompt prompt="Level 4 treated AI as a black box with inputs and outputs. What do you think changes when you understand how transformers actually work internally -- and then use that understanding to design systems where multiple models collaborate?" />
+
+At Level 4, you learned to engineer *around* AI's probabilistic nature. Level 5 is a two-part journey:
+
+**Part 1 (Modules 5.1-5.5)** takes you *inside* the model. Understanding transformers and attention mechanisms is not just academic -- it directly informs prompt design, model selection, fine-tuning decisions, and debugging. You will learn why models behave the way they do, then apply that understanding to agentic workflows where AI reasons, uses tools, and takes multi-step actions.
+
+**Part 2 (Modules 5.6-5.9)** takes you *above* the model. Once you understand individual models deeply, you are ready to design systems where multiple models collaborate -- with routers directing traffic, specialists handling domains, evaluators ensuring quality, and humans providing oversight where it matters. These modules cover the engineering of multi-component AI systems: choosing the right frameworks, designing effective human oversight, architecting multi-model pipelines, and managing cost and performance at the system level.
+
+Together, these two halves make you an engineer who can work at every level of the AI stack -- from attention weights to system architecture.
+
+<KeyTakeaway>
+Level 5 is where you move from being an expert user of AI to being an engineer who understands the machine and can design systems around it. The first half gives you deep model understanding; the second half gives you the architecture and engineering skills to build production multi-component AI systems.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Think about the component boundary pattern from Level 4. How might understanding transformer internals help you design better interfaces -- for instance, setting appropriate token limits, choosing temperature values, or predicting when a model will struggle? And how does that extend to designing boundaries between multiple models in a system?" />
+
+## Modules
+
+| Module | Topic | Key Skill |
+|--------|-------|-----------|
+| 5.1 | Transformer Architecture | Encoder/decoder, positional encoding |
+| 5.2 | Attention Mechanism | Q/K/V, multi-head attention, attention patterns |
+| 5.3 | Fine-Tuning | LoRA, QLoRA, RLHF, domain adaptation |
+| 5.4 | Evaluation Metrics | BLEU, ROUGE, perplexity, benchmarks |
+| 5.5 | Agentic Workflows | ReAct, tool use, multi-agent orchestration |
+| 5.6 | Orchestration Frameworks | LangChain, LangGraph, CrewAI, framework selection |
+| 5.7 | Human-in-the-Loop Design | Confidence routing, escalation thresholds, approval fatigue |
+| 5.8 | Multi-AI System Architecture | Router/specialist/evaluator models, SLIs and SLOs |
+| 5.9 | System-Level Cost & Performance | Token budgets, batch vs. real-time, cost optimization |
+| 5.10 | Checkpoint | Level 5 assessment |

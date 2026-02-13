@@ -1,0 +1,77 @@
+---
+title: "1.1 AI as an Inference Engine"
+description: "Understand the difference between training and inference, and why AI models do not learn from your conversations."
+sidebar:
+  order: 1
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="When you type a question into ChatGPT, do you think the model is 'looking up' an answer, 'reasoning' about it, or doing something else entirely? Write down your intuition before reading on." />
+
+## What happens when you send a message
+
+When you type a prompt into an AI chatbot, the model does not search the internet, query a database, or think about your question. Instead, it runs **inference**: it takes your input text, converts it into numbers called **tokens**, and calculates the statistically most likely next token based on patterns it learned during **training**.
+
+This is the single most important distinction in AI fluency:
+
+| Phase | When it happens | What happens |
+| :-- | :-- | :-- |
+| **Training** | Months before you use the model | The model processes massive datasets and adjusts billions of internal parameters (weights) to learn statistical patterns in language |
+| **Inference** | Every time you send a prompt | The model uses those fixed weights to predict the next token in a sequence, one token at a time |
+
+The model you are chatting with has a **knowledge cutoff** -- a date after which it has no training data. It cannot learn new facts from your conversation. When it appears to "understand" you, it is pattern-matching against what it learned during training.
+
+### Tokens: the atomic unit
+
+LLMs do not read words the way you do. They break text into **tokens** -- fragments that can be whole words, parts of words, or even single characters. A rough approximation:
+
+- 1 token is roughly 4 characters in English
+- 100 tokens is roughly 75 words
+- Most words map to 1-2 tokens, but unusual or technical words may require more
+
+This matters because models charge per token, think in tokens, and have a maximum number of tokens they can process at once (the **context window**).
+
+<CalibrationCheck question="If a model was trained with data up to January 2024, and you ask it about an event from March 2024, what will it do?">
+It will either say it does not have that information, or -- more dangerously -- it will generate a plausible-sounding but fabricated response based on patterns from its training data. This fabrication is called a **hallucination**. The model has no mechanism to distinguish "I was not trained on this" from "let me predict what the answer might look like."
+</CalibrationCheck>
+
+### Weights: frozen knowledge
+
+During training, the model adjusts billions of numerical parameters called **weights**. These weights encode the statistical relationships between tokens -- which words tend to follow which other words, in which contexts.
+
+Once training is complete, the weights are **frozen**. During inference, they do not change. Your conversation does not modify the model. This is why:
+
+- The model cannot "remember" what you told it yesterday (unless the platform stores your history and re-injects it)
+- Two people asking the same question get responses from the same frozen weights
+- The model does not "improve" from interacting with you
+
+<TryItYourself title="Open any AI chatbot. Tell it a made-up fact: 'The capital of France was changed to Lyon in 2025.' Then start a new conversation and ask 'What is the capital of France?' Does the model 'remember' your made-up fact?">
+It will not. The model will answer "Paris" because its weights were set during training and your previous conversation did not change them. Each new conversation starts fresh from the same frozen weights. This demonstrates that inference is stateless -- the model applies fixed patterns to new input each time.
+</TryItYourself>
+
+### The context window: working memory
+
+The **context window** is the maximum amount of text the model can consider at one time. It includes everything: the system prompt, your message, any attached documents, and the entire conversation history. Modern models typically have context windows ranging from 8,000 to 200,000 tokens.
+
+When a conversation exceeds the context window, the model drops the oldest information. This is why long conversations can lose coherence -- the model literally cannot see the beginning of your exchange anymore.
+
+<ExplainBack prompt="Explain the difference between training and inference in your own words. What is frozen during inference? Why does this matter for how you evaluate AI outputs?" />
+
+<ReflectPrompt questions={[
+  "Have you ever noticed an AI chatbot 'forgetting' something you told it earlier in a conversation? Does the training/inference distinction explain that behavior?",
+  "How does knowing that AI outputs are predictions (not lookups) change your level of trust in what it tells you?",
+  "When might it be risky to treat an AI response as factual without verification?"
+]} />
+
+<KeyTakeaway>
+AI models do not learn from your conversations. Every response is a statistical prediction generated by frozen weights. The model is an inference engine, not a knowledge base. This means you should always verify important claims independently.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="In the next module on the probabilistic nature of AI, you will see why this inference process produces different outputs each time. The frozen weights are deterministic, but the sampling process adds controlled randomness -- and that is a feature, not a bug." />

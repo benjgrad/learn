@@ -1,0 +1,92 @@
+---
+import Default from '@astrojs/starlight/components/PageSidebar.astro';
+
+const route = Astro.locals.starlightRoute;
+const { data } = route.entry;
+
+// Read competencies from frontmatter if available (custom frontmatter field).
+// These will be strings like "prompting", "mental-models", etc.
+const competencies: string[] = (data as Record<string, unknown>).competencies as string[] || [];
+const hasCompetencies = competencies.length > 0;
+
+// Competency display names
+const competencyLabels: Record<string, string> = {
+  'prompting': 'Prompting',
+  'mental-models': 'Mental Models',
+  'tool-use': 'Tool Use',
+  'architecture': 'Architecture',
+  'evaluation': 'Evaluation',
+  'safety': 'Safety & Ethics',
+  'mathematics': 'Mathematics',
+  'infrastructure': 'Infrastructure',
+  'research': 'Research',
+};
+
+// Competency colors
+const competencyColors: Record<string, string> = {
+  'prompting': '#60a5fa',
+  'mental-models': '#a78bfa',
+  'tool-use': '#22d3ee',
+  'architecture': '#fb923c',
+  'evaluation': '#f87171',
+  'safety': '#34d399',
+  'mathematics': '#fbbf24',
+  'infrastructure': '#f472b6',
+  'research': '#818cf8',
+};
+---
+
+{hasCompetencies && (
+  <div class="competency-sidebar-panel">
+    <h2 class="competency-heading">Competencies</h2>
+    <ul class="competency-list">
+      {competencies.map((c: string) => (
+        <li>
+          <span
+            class="competency-badge"
+            style={`--badge-color: ${competencyColors[c] || '#6b7280'};`}
+          >
+            {competencyLabels[c] || c}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+<Default><slot /></Default>
+
+<style>
+  .competency-sidebar-panel {
+    padding: 1rem var(--sl-sidebar-pad-x, 1rem);
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+
+  .competency-heading {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-h5);
+    font-weight: 600;
+    line-height: var(--sl-line-height-headings);
+    margin-bottom: 0.5rem;
+  }
+
+  .competency-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .competency-badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    background-color: color-mix(in srgb, var(--badge-color) 20%, transparent);
+    color: var(--badge-color);
+    border: 1px solid color-mix(in srgb, var(--badge-color) 30%, transparent);
+  }
+</style>

@@ -1,0 +1,137 @@
+---
+title: "2.7 Local Models and Privacy"
+description: "Run AI models locally for privacy, cost control, and offline access using tools like Ollama and LM Studio."
+sidebar:
+  order: 7
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="When you send a message to ChatGPT or Claude, where does the computation happen? What data leaves your machine? What would change if you could run the model on your own computer?" />
+
+## Why run models locally?
+
+Every time you use a cloud AI service, your prompt and the model's response travel across the internet to a remote data center. For many tasks this is fine. But there are situations where sending data to a third party is unacceptable:
+
+- **Regulated data**: Medical records, financial data, legal documents, or anything covered by HIPAA, GDPR, SOC 2, or similar frameworks
+- **Proprietary code**: Internal source code, trade secrets, or pre-release product information
+- **Personal privacy**: Journals, therapy notes, private communications
+- **Air-gapped environments**: Networks with no external internet access
+
+Local models solve this by running the entire inference process on your own hardware. Your data never leaves your machine.
+
+### The tradeoff
+
+Local models are smaller and less capable than frontier cloud models. A model that runs on a laptop typically has 7 to 13 billion parameters, compared to hundreds of billions (or more) for GPT-4 or Claude. This means local models are excellent for many practical tasks -- summarization, code completion, drafting, brainstorming -- but they struggle with complex reasoning, nuanced analysis, and tasks requiring broad world knowledge.
+
+## Ollama: the command-line approach
+
+**Ollama** is an open-source tool that makes running local models as simple as running a command. It handles model downloading, quantization, and serving behind a simple CLI.
+
+### Getting started
+
+Installation is straightforward on macOS, Linux, and Windows:
+
+```bash
+# macOS / Linux
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Then run a model
+ollama run llama3.2
+```
+
+That single command downloads the model (if not already cached) and starts an interactive chat session. First run takes a few minutes to download; subsequent runs start in seconds.
+
+### Useful commands
+
+```bash
+# List downloaded models
+ollama list
+
+# Pull a model without running it
+ollama pull mistral
+
+# Run with a specific prompt
+ollama run llama3.2 "Summarize this text: ..."
+
+# Serve as an API (compatible with OpenAI format)
+ollama serve
+```
+
+The API compatibility is particularly valuable: tools built for the OpenAI API can often be pointed at `http://localhost:11434` with minimal configuration changes.
+
+## LM Studio: the graphical approach
+
+**LM Studio** provides a desktop application with a visual interface for downloading, configuring, and chatting with local models. It is a good choice if you prefer a GUI over the command line, and it offers useful features like side-by-side model comparison and parameter adjustment sliders.
+
+LM Studio also runs a local API server, so you get the same integration benefits as Ollama with a more visual workflow for model management.
+
+## Hardware considerations
+
+Local inference is computationally intensive. The key factor is **memory** -- specifically GPU VRAM or system RAM.
+
+### GPU versus CPU inference
+
+| Factor | GPU inference | CPU inference |
+| :-- | :-- | :-- |
+| Speed | 30-100+ tokens/second | 5-15 tokens/second |
+| Requirements | NVIDIA GPU with 8+ GB VRAM | 16+ GB system RAM |
+| Model size limit | Limited by VRAM | Limited by system RAM |
+| Cost | Requires a discrete GPU | Works on any modern machine |
+
+GPU inference is dramatically faster. A 7B parameter model on a modern NVIDIA GPU generates text at conversational speed. The same model on CPU is usable but noticeably slower, roughly like watching someone type.
+
+### Quantization
+
+Full-precision models are too large for most consumer hardware. **Quantization** reduces model size by using lower-precision numbers (4-bit or 8-bit instead of 16-bit floating point). A 7B model at full precision needs approximately 14 GB of memory; at 4-bit quantization, it fits in approximately 4 GB with only modest quality loss.
+
+Most models available through Ollama and LM Studio are pre-quantized. You will see labels like `Q4_K_M` or `Q8_0` indicating the quantization level.
+
+<CalibrationCheck question="If a local 7B parameter model gives you a confident answer about a complex legal question, should you trust it as much as you would trust GPT-4's answer to the same question?">
+No. Smaller models are more prone to confident confabulation on topics requiring specialized knowledge. A 7B model may produce fluent, authoritative-sounding legal text that is factually wrong. The model's confidence has no correlation with its accuracy on expert-domain questions. For high-stakes queries, use the most capable model available and verify with authoritative sources regardless of which model you use.
+</CalibrationCheck>
+
+## When to use local versus cloud
+
+| Scenario | Recommendation | Reason |
+| :-- | :-- | :-- |
+| Processing sensitive client data | Local | Data never leaves your machine |
+| Complex multi-step reasoning | Cloud | Frontier models are significantly more capable |
+| Quick code completion | Local | Fast enough, no API latency, free |
+| Creative writing with nuance | Cloud | Larger models handle subtlety better |
+| Offline or air-gapped work | Local | Only option without internet |
+| High-volume batch processing | Local | No per-token cost after hardware investment |
+| One-off complex analysis | Cloud | Not worth optimizing local setup for a single task |
+
+### Data governance implications
+
+Running models locally does not automatically solve all data governance concerns. Consider:
+
+- **Model training data**: Open-source models were trained on public internet data, which may include copyrighted or biased content
+- **Output logging**: Ensure your local setup does not inadvertently log sensitive prompts to disk in plaintext
+- **Model provenance**: Download models from trusted sources (Hugging Face, Ollama's official library) to avoid tampered weights
+- **Compliance documentation**: If you are using local models for regulated work, document your setup for audit purposes
+
+<TryItYourself title="Install Ollama and run a small model (llama3.2 or mistral). Ask it the same question you would ask ChatGPT or Claude. Compare the response quality, speed, and the experience of knowing your data stayed local.">
+You should notice that the local model produces a reasonable response for straightforward tasks but may fall short on complex or nuanced questions. Speed depends on your hardware -- GPU users will see fast responses while CPU-only users will notice a delay. The key observation is that the interaction feels identical to a cloud service, but nothing left your machine.
+</TryItYourself>
+
+<ExplainBack prompt="Explain why someone would choose to run a model locally instead of using a cloud API. What are the main tradeoffs in capability and speed? What is quantization and why is it necessary for local inference?" />
+
+<ReflectPrompt questions={[
+  "Does your work involve any data that should not be sent to a cloud AI provider? How do you currently handle that constraint?",
+  "If local models continue to improve, at what point would you switch your daily AI use from cloud to local?",
+  "How would you explain the privacy benefits of local models to a non-technical colleague?"
+]} />
+
+<KeyTakeaway>
+Local models through tools like Ollama and LM Studio let you run AI inference on your own hardware, keeping sensitive data private. The tradeoff is capability: local models are smaller and less powerful than frontier cloud models. Use local for privacy-sensitive tasks, offline work, and high-volume processing. Use cloud for complex reasoning and tasks that demand the best available model. Quantization makes local inference practical on consumer hardware.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="Local or cloud, you still need to communicate clearly with the model. In Module 2.8, you will learn how to get models to produce structured output -- JSON, CSV, and formatted tables -- that you can feed directly into other tools and workflows." />

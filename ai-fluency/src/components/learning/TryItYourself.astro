@@ -1,0 +1,52 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<aside class="learning-block practice-block" aria-label="Practice exercise">
+  <div class="learning-block-header">
+    <span class="learning-block-icon">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+      </svg>
+    </span>
+    <h4 class="learning-block-title">Try It Yourself</h4>
+  </div>
+  <div class="learning-block-content">
+    <p>{title}</p>
+    <details class="practice-reveal">
+      <summary>Reveal Solution</summary>
+      <div class="practice-solution">
+        <slot />
+      </div>
+    </details>
+  </div>
+</aside>
+
+<style>
+  .practice-reveal {
+    margin-top: 1rem;
+    border-top: 1px solid rgb(59 130 246 / 0.2);
+    padding-top: 0.5rem;
+  }
+
+  .practice-reveal summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--lb-border, #3b82f6);
+    padding: 0.25rem 0;
+    user-select: none;
+  }
+
+  .practice-reveal summary:hover {
+    opacity: 0.8;
+  }
+
+  .practice-solution {
+    margin-top: 0.75rem;
+  }
+</style>

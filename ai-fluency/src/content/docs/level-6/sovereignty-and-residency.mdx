@@ -1,0 +1,112 @@
+---
+title: "6.7: Sovereignty and Data Residency"
+description: "Navigate geopolitical constraints on AI deployment including data residency laws, export controls, and multi-region architecture."
+sidebar:
+  order: 7
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+## The Geopolitical Dimension of AI Deployment
+
+<PredictPrompt prompt="Your company wants to deploy an AI-powered customer analytics tool in both the EU and China. What complications do you think arise beyond the purely technical? How might laws in different countries conflict with each other?" />
+
+AI systems do not exist in a vacuum. They process data, run on hardware, and serve users -- all of which are subject to the laws of specific jurisdictions. As AI becomes strategically significant, governments increasingly regulate where data can be stored, what hardware can be exported, and how AI systems must behave. The Platformizer must navigate these constraints or risk building systems that are legally undeployable.
+
+### Data Residency Laws
+
+Data residency laws require that certain categories of data be stored and processed within a country's borders. These laws fundamentally shape AI architecture decisions.
+
+**GDPR (EU)**: The General Data Protection Regulation restricts the transfer of personal data outside the European Economic Area unless the destination country provides "adequate" data protection. For AI systems, this means:
+- Training data containing EU personal data must be processed within the EEA or in countries with adequacy decisions
+- Inference requests containing personal data may need to be routed to EU-hosted endpoints
+- Model weights trained on EU personal data may themselves be subject to transfer restrictions
+
+**PIPL (China)**: China's Personal Information Protection Law requires that personal information collected within China be stored domestically. Cross-border transfers require security assessments by the Cyberspace Administration of China (CAC) and explicit user consent. In practice, most multinational companies maintain entirely separate data infrastructure for Chinese operations.
+
+**Other regimes**: Russia (Federal Law 242-FZ), India (DPDP Act), Brazil (LGPD), and Saudi Arabia each impose their own residency requirements, with varying strictness and enforcement.
+
+<CalibrationCheck question="A company trains a single global LLM on customer interaction data from 30 countries and deploys it via a US-hosted API. What data residency violations might this create?">
+Multiple potential violations:
+
+1. **GDPR violation**: EU personal data was transferred to and processed in the US for training without proper safeguards. The trained model may also encode personal data in its weights, creating an ongoing transfer issue.
+
+2. **PIPL violation**: Chinese customer data was exported without CAC security assessment or domestic storage. Simply having Chinese user data in a US training pipeline violates the law.
+
+3. **Cross-border inference**: When EU or Chinese users send requests to a US API, their personal data leaves the jurisdiction. Even if the response is immediate, the data has been processed abroad.
+
+4. **Right to deletion conflicts**: GDPR's right to erasure is extremely difficult to satisfy for data baked into model weights. The company may be unable to comply with deletion requests for data that influenced training.
+
+Solutions include region-specific models trained on local data, regional inference endpoints, and federated learning approaches that keep raw data in-jurisdiction while aggregating model updates centrally.
+</CalibrationCheck>
+
+### Export Controls on AI and Hardware
+
+Governments increasingly treat advanced AI capabilities and the hardware that enables them as strategic assets subject to export controls.
+
+**US semiconductor export controls**: The US Bureau of Industry and Security (BIS) restricts the export of advanced AI chips (NVIDIA A100, H100, and successors) to certain countries, particularly China. These controls target chips above specific compute density thresholds and extend to cloud computing services that provide access to restricted hardware.
+
+**AI model export considerations**: While most AI models are not directly export-controlled, models trained on controlled data (e.g., satellite imagery, certain biomedical data) or designed for controlled end-uses (military, surveillance) may fall under ITAR or EAR regulations.
+
+**Implications for platform teams**:
+- Cloud provider selection may be constrained by which providers can legally operate specific hardware in a target region
+- Model selection may be limited if certain architectures or capabilities fall under future export controls
+- Partnerships with vendors in controlled jurisdictions require legal review
+
+### Multi-Region Architecture
+
+Sovereignty-aware AI systems require fundamentally different architectures than simple global deployments.
+
+**Regional isolation pattern**: Deploy completely independent AI stacks per region -- separate data stores, separate model training pipelines, separate inference endpoints. Maximum compliance but highest operational cost and potential quality variation between regions.
+
+**Federated training pattern**: Keep raw data in each region but aggregate model updates centrally. Each region trains locally and shares only gradient updates or model deltas. Balances data residency with global model quality, but adds significant engineering complexity.
+
+**Regional inference with global models**: Train a single global model on compliant data, then deploy inference endpoints in each region. User data never leaves the region during inference. Works well when training data is not subject to residency restrictions, but inference data is.
+
+**Data classification and routing**: Implement a data classification layer that inspects incoming requests and routes them to the appropriate regional infrastructure. Personal data goes to in-region endpoints; non-sensitive data can use global endpoints for cost efficiency.
+
+<TryItYourself title="Your organization needs to deploy an AI-powered HR analytics tool that processes employee performance data. It must serve offices in the US, Germany, and Singapore. Design a sovereignty-compliant architecture.">
+A practical sovereignty-aware architecture:
+
+1. **Data classification**: Classify all HR data as personal data (it almost certainly qualifies under all three jurisdictions). This means data residency rules apply everywhere.
+
+2. **Regional data stores**: Employee data for each region stays in that region -- US data in `us-east`, German data in `eu-central` (Frankfurt), Singapore data in `ap-southeast`. No cross-region replication of raw employee data.
+
+3. **Model strategy**: Train a base model on synthetic or anonymized HR data that has no residency restrictions. Fine-tune regional adapters using in-region data that never leaves the jurisdiction.
+
+4. **Inference routing**: A global API gateway routes requests to the nearest compliant inference endpoint. German employee queries are processed exclusively in the Frankfurt region.
+
+5. **Audit infrastructure**: Log all data access and processing with jurisdiction tags. Implement automated compliance checks that flag cross-border data movements before they happen.
+
+6. **Access controls**: German employee data is accessible only to authorized personnel with appropriate legal basis under GDPR. Role-based access must respect both corporate policy and local law.
+</TryItYourself>
+
+### Building Sovereignty-Aware Platform Capabilities
+
+For the Platformizer, sovereignty is not a one-time compliance checkbox -- it is an architectural capability that must be built into the platform.
+
+Key platform capabilities include:
+- **Jurisdiction-aware data routing**: Automatic classification and routing of data based on content, user location, and applicable regulations
+- **Regional deployment automation**: Infrastructure-as-code that can stamp out compliant AI stacks in new regions as the organization expands
+- **Compliance dashboards**: Real-time visibility into where data is stored, processed, and transferred, with automated alerts for policy violations
+- **Regulatory change management**: A process for tracking regulatory changes across jurisdictions and assessing their impact on existing deployments
+
+<ExplainBack prompt="Explain why a single globally-trained AI model can create data residency compliance issues even if the model is only used for inference within each region." />
+
+<ReflectPrompt questions={[
+  "How would you evaluate whether your organization's current AI deployments comply with data residency laws in every jurisdiction where you operate?",
+  "What is the cost of sovereignty compliance, and how would you justify that investment to leadership?",
+  "How might increasing AI regulation and export controls change the competitive landscape between companies in different countries?"
+]} />
+
+<ConnectPrompt prompt="In Module 6.4, you studied AI governance frameworks and compliance requirements like the EU AI Act. How do sovereignty and data residency constraints compound with those governance requirements? What happens when a high-risk AI system under the EU AI Act also processes data subject to Chinese PIPL?" />
+
+<KeyTakeaway>
+Sovereignty and data residency are architectural constraints, not legal afterthoughts. The Platformizer must design AI systems that respect jurisdictional boundaries for data storage, processing, and model training while navigating export controls on hardware and capabilities. Multi-region architecture patterns -- regional isolation, federated training, and sovereignty-aware routing -- are essential tools for deploying AI in a world of competing regulatory regimes.
+</KeyTakeaway>

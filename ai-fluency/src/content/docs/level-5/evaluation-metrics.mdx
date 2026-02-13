@@ -1,0 +1,180 @@
+---
+title: "5.4 Evaluation Metrics"
+description: "BLEU, ROUGE, perplexity, human evaluation, and building rigorous benchmark suites for AI systems."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 5.4 Evaluation Metrics
+
+<PredictPrompt prompt="How do you measure whether an AI model's output is 'good'? For a factual question, you can check correctness. But how do you evaluate the quality of a summary, a translation, or a creative writing sample?" />
+
+## The Evaluation Challenge
+
+AI system evaluation is one of the hardest problems in the field. Unlike traditional software where you can assert exact outputs, AI evaluation must handle:
+
+- Multiple valid outputs for the same input
+- Quality that exists on a spectrum, not binary pass/fail
+- Context-dependent standards (a medical summary has different quality requirements than a casual chat)
+- The need to evaluate both **capability** (what the model can do) and **reliability** (how consistently it does it)
+
+## Automated Metrics
+
+### Perplexity
+
+Perplexity measures how well a language model predicts text. It is the exponential of the average negative log-likelihood:
+
+```
+Perplexity = exp(-1/N × Σ log P(token_i | context))
+```
+
+Intuitively, perplexity answers: "How surprised is the model by this text?"
+
+| Perplexity | Interpretation |
+|-----------|---------------|
+| 1 | Perfect prediction (model is never surprised) |
+| 10 | Model sees ~10 equally likely options per token |
+| 100 | Model sees ~100 equally likely options per token |
+| 1000+ | Model is very confused by the text |
+
+A well-trained language model might have perplexity of 10-30 on standard English text. **Lower is better.** Perplexity is most useful for comparing versions of the same model or measuring domain adaptation quality.
+
+### BLEU (Bilingual Evaluation Understudy)
+
+BLEU measures how much a generated text overlaps with a reference text using n-gram precision. Originally designed for machine translation:
+
+```
+BLEU = BP × exp(Σ wₙ × log pₙ)
+
+Where:
+  pₙ = n-gram precision (what fraction of generated n-grams appear in reference)
+  wₙ = weight for each n-gram size (typically uniform: 1/4 each)
+  BP = brevity penalty (penalizes outputs shorter than reference)
+```
+
+BLEU scores range from 0 to 1 (often reported as 0-100):
+
+| BLEU Score | Quality |
+|-----------|---------|
+| < 10 | Almost useless |
+| 10-19 | Hard to understand gist |
+| 20-29 | Clear enough to understand |
+| 30-39 | Understandable to good |
+| 40-49 | High quality |
+| 50+ | Very high quality (often close to human) |
+
+### ROUGE (Recall-Oriented Understudy for Gisting Evaluation)
+
+ROUGE measures text summarization quality by comparing overlap with reference summaries. Unlike BLEU (precision-focused), ROUGE emphasizes **recall** -- how much of the reference content appears in the generated text.
+
+Three common variants:
+
+- **ROUGE-1**: Unigram overlap (individual words)
+- **ROUGE-2**: Bigram overlap (two-word phrases)
+- **ROUGE-L**: Longest common subsequence
+
+```python
+# Example calculation
+reference = "The cat sat on the mat"
+generated = "The cat was sitting on a mat"
+
+# ROUGE-1 recall: 5 matching unigrams / 6 reference unigrams = 0.83
+# ROUGE-1 precision: 5 matching unigrams / 7 generated unigrams = 0.71
+# ROUGE-1 F1: 2 × (0.83 × 0.71) / (0.83 + 0.71) = 0.77
+```
+
+<CalibrationCheck question="BLEU measures precision (how much of the output matches the reference) while ROUGE measures recall (how much of the reference appears in the output). Why is precision more important for translation and recall more important for summarization?">
+For **translation**, you want every word in the output to be correct and well-placed (precision), because adding incorrect words to a translation makes it wrong. For **summarization**, you care that all the key points from the original text are captured in the summary (recall), because missing an important point is the main failure mode. A summary that covers all key points but includes some extra words is better than one that is precise but misses critical information.
+</CalibrationCheck>
+
+## Human Evaluation
+
+Automated metrics have significant limitations. They cannot reliably measure:
+- **Helpfulness**: Did the response actually help the user?
+- **Factual accuracy**: Are the claims true? (n-gram overlap says nothing about truth)
+- **Safety**: Could the response cause harm?
+- **Style and tone**: Is it appropriate for the context?
+
+### Evaluation Frameworks
+
+**Likert Scale Rating**: Human raters score outputs on a 1-5 scale across dimensions:
+- Relevance: Does it answer the question?
+- Accuracy: Is the information correct?
+- Completeness: Does it cover all important aspects?
+- Coherence: Is it well-organized and clear?
+
+**Pairwise Comparison**: Show raters two outputs and ask which is better. This is more reliable than absolute ratings because humans are better at comparing than scoring.
+
+**LLM-as-Judge**: Use a frontier model (like GPT-4 or Claude) to evaluate outputs at scale. This is faster and cheaper than human evaluation but inherits the judge model's biases.
+
+<TryItYourself title="A model generates this summary of a news article: 'The company reported strong earnings, beating analyst expectations by 15%. Revenue grew 23% year-over-year.' The reference summary says: 'Company X posted Q3 earnings above estimates. Revenue increased 23% YoY. The stock rose 5% in after-hours trading.' Calculate ROUGE-1 recall and identify what automated metrics miss.">
+**ROUGE-1 calculation:**
+Reference unigrams: `{Company, X, posted, Q3, earnings, above, estimates, Revenue, increased, 23%, YoY, The, stock, rose, 5%, in, after-hours, trading}` = 18 tokens
+Matching unigrams in generated text: `{earnings, Revenue, 23%}` = 3 tokens (being generous with partial matches)
+ROUGE-1 Recall = 3/18 = 0.17
+
+**What automated metrics miss:**
+- The generated summary is *factually correct* about earnings and revenue but ROUGE scores are low because the wording is different
+- The generated summary *misses the stock movement* (important information in the reference)
+- The generated summary *adds information* not in the reference ("beating analyst expectations by 15%") which could be correct but ROUGE does not reward it
+- ROUGE treats "grew" and "increased" as non-matching even though they mean the same thing
+
+This example shows why ROUGE alone is insufficient -- semantically accurate paraphrases score poorly.
+</TryItYourself>
+
+## Building Benchmark Suites
+
+A comprehensive evaluation strategy combines multiple metrics:
+
+```python
+class ModelBenchmark:
+    def __init__(self, test_cases: list[EvalCase]):
+        self.test_cases = test_cases
+
+    def evaluate(self, model) -> BenchmarkReport:
+        results = []
+        for case in self.test_cases:
+            output = model.generate(case.input)
+            results.append({
+                "input": case.input,
+                "output": output,
+                "reference": case.reference,
+                "rouge_1": compute_rouge_1(output, case.reference),
+                "rouge_l": compute_rouge_l(output, case.reference),
+                "schema_valid": validate_schema(output, case.schema),
+                "llm_judge_score": llm_judge(output, case.criteria),
+                "latency_ms": measure_latency(model, case.input),
+            })
+        return aggregate_results(results)
+```
+
+### Standard Benchmarks
+
+| Benchmark | Measures | Used For |
+|-----------|---------|----------|
+| **MMLU** | Multi-task knowledge (57 subjects) | General capability |
+| **HumanEval** | Code generation correctness | Coding ability |
+| **GSM8K** | Grade-school math reasoning | Mathematical reasoning |
+| **TruthfulQA** | Resistance to common misconceptions | Factual accuracy |
+| **MT-Bench** | Multi-turn conversation quality | Chat capability |
+| **HELM** | Holistic evaluation across tasks | Comprehensive comparison |
+
+<ExplainBack prompt="Compare BLEU, ROUGE, and perplexity. For each metric, explain what it measures, when to use it, and its main limitation." />
+
+<KeyTakeaway>
+No single metric captures AI quality. Perplexity measures language modeling ability, BLEU measures precision of generated text against references, and ROUGE measures recall of reference content. All automated metrics have blind spots -- they cannot assess truthfulness, helpfulness, or safety. A robust evaluation combines automated metrics for scale with human evaluation (or LLM-as-Judge) for quality assessment.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="How do these evaluation metrics inform the testing and CI/CD practices from Level 4? For instance, when should your eval suite use ROUGE scores versus LLM-as-Judge versus property-based tests?" />
+
+<ReflectPrompt questions={[
+  "If you could only use one evaluation method for your AI system, which would you choose and why?",
+  "How do you evaluate a model on tasks where there is no single 'correct' answer?",
+  "What risks arise when you optimize a model heavily for a specific benchmark?"
+]} />

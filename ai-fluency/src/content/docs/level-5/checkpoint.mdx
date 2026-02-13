@@ -1,0 +1,134 @@
+---
+title: "5.10 Checkpoint: AI System Engineer"
+description: "Assess your Level 5 understanding of AI system engineering."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+# 5.10 Checkpoint: AI System Engineer
+
+This checkpoint assesses your understanding of the deep technical concepts covered in Level 5. Be honest about where your knowledge is strong and where gaps remain.
+
+## Architecture & Attention
+
+<CalibrationCheck question="Explain the three transformer architecture variants (encoder-only, decoder-only, encoder-decoder) and give a use case for each.">
+**Encoder-only** (BERT, RoBERTa): Processes the full input bidirectionally. Best for understanding tasks like classification, sentiment analysis, and named entity recognition where you need to understand the entire input before making a decision.
+
+**Decoder-only** (GPT-4, Claude, Llama): Processes tokens left-to-right with masked attention. Best for text generation, which turns out to be so general it handles most tasks well. This is why most modern LLMs use this architecture.
+
+**Encoder-decoder** (T5, BART): Encoder reads the full input, decoder generates output attending to the encoder representation. Best for sequence-to-sequence tasks like translation and summarization where the input and output are structurally different.
+</CalibrationCheck>
+
+<CalibrationCheck question="In the attention mechanism, what are Query, Key, and Value? Why do we need all three instead of just computing similarity between tokens directly?">
+**Query** represents what a token is looking for. **Key** represents what a token contains or offers. **Value** carries the actual information to retrieve. We need three separate projections because the concept of "what I'm searching for" (Q), "what I match on" (K), and "what information I carry" (V) are different. A token might match on syntactic properties (its Key) but carry semantic information (its Value). Direct similarity between raw token embeddings could not capture these distinct roles. The three projections give the model the flexibility to learn different matching criteria and information retrieval strategies.
+</CalibrationCheck>
+
+## Fine-Tuning & Evaluation
+
+<CalibrationCheck question="Explain LoRA (Low-Rank Adaptation). Why does it work despite updating less than 1% of a model's parameters?">
+LoRA decomposes weight updates into two small matrices (B and A) whose product approximates the full update: W' = W + B*A, where B is (d x r) and A is (r x d) with r being much smaller than d. It works because the weight changes needed for task adaptation lie in a low-dimensional subspace -- the update matrix has low rank. Research shows that fine-tuning mostly adjusts a small number of "directions" in the weight space rather than changing all parameters independently. LoRA exploits this by constraining updates to a low-rank space, which captures the essential adaptation while being computationally efficient.
+</CalibrationCheck>
+
+<CalibrationCheck question="Compare BLEU and ROUGE metrics. When would you use each, and what are their main limitations?">
+**BLEU** measures precision of n-grams in generated text against a reference. Use it for machine translation where you want every generated word to be correct. Limitation: penalizes valid paraphrases and does not assess fluency or meaning.
+
+**ROUGE** measures recall of reference n-grams in generated text. Use it for summarization where you want to capture all key information. Limitation: rewards word overlap regardless of meaning and cannot distinguish factually correct from incorrect content.
+
+Both share the fundamental limitation that n-gram overlap does not equal semantic quality. Two sentences can share zero words yet mean the same thing, and two sentences can share many words yet convey different information.
+</CalibrationCheck>
+
+## Orchestration Frameworks
+
+<CalibrationCheck question="Compare two AI orchestration frameworks (e.g., LangChain vs. LangGraph, or CrewAI vs. custom code). When would you choose one over the other?">
+**LangChain** provides a broad library of integrations and chain-based abstractions. Best for rapid prototyping when you need to connect many external tools and model providers quickly. The weakness is debugging complexity -- chains of chains obscure what is actually happening at the API level.
+
+**LangGraph** extends LangChain with explicit graph-based workflow definitions (nodes and edges, including conditional edges and cycles). Best when your workflow has branching logic, retry loops, or human-in-the-loop checkpoints where you need to reason about all possible execution paths.
+
+Choose LangChain for breadth and speed of integration. Choose LangGraph when controllability and visibility into the execution flow matter more than development speed. Choose custom code when the workflow is simple enough that a framework adds more complexity than it removes.
+</CalibrationCheck>
+
+## Human-in-the-Loop Design
+
+<CalibrationCheck question="What is approval fatigue, and how do confidence-based routing and risk-based routing help prevent it?">
+**Approval fatigue** occurs when human reviewers are asked to approve too many AI decisions, causing them to rubber-stamp approvals without meaningful evaluation. Studies in alert systems show that when the volume of reviews is high and most items are routine, reviewers begin ignoring the review entirely -- the oversight process becomes theater.
+
+**Confidence-based routing** mitigates this by only escalating decisions where the model's confidence is below a calibrated threshold. High-confidence actions proceed automatically, so the human only sees genuinely ambiguous cases worth their attention.
+
+**Risk-based routing** classifies actions by consequence severity. Low-risk actions (rephrasing a FAQ) proceed automatically regardless of confidence. High-risk actions (issuing a large refund) always require human review. This focuses human attention on the decisions where errors have the greatest impact.
+
+Together, these strategies reduce the volume of human reviews to a manageable level while concentrating oversight on the cases where it matters most.
+</CalibrationCheck>
+
+## Multi-AI Architecture
+
+<CalibrationCheck question="Explain the roles of router, specialist, and evaluator models in a multi-model system. Why is this separation better than using a single large model for everything?">
+**Router models** are small and fast, classifying incoming requests to determine which specialist should handle them. **Specialist models** are optimized for narrow domains through fine-tuning or constrained context, achieving higher accuracy at lower cost than a general model. **Evaluator models** review specialist outputs for accuracy, policy compliance, and quality before the response reaches the user.
+
+This separation is better than a single large model because: (1) cost -- routing with a small model is orders of magnitude cheaper than using a frontier model for classification; (2) accuracy -- a fine-tuned specialist outperforms a general model on its domain; (3) safety -- an independent evaluator catches errors the specialist cannot detect in its own output; (4) latency -- the router and evaluator can be fast models while only the specialist needs to be large. A single model doing all these jobs pays frontier-model pricing for every task, including simple classification.
+</CalibrationCheck>
+
+## System Cost & Performance
+
+<CalibrationCheck question="Explain per-request token budgets. Why are they more effective than monthly spending caps for controlling costs in a multi-model pipeline?">
+A **per-request token budget** is a hard cap on the total tokens a single pipeline run can consume across all model calls (router + specialist + evaluator + retries). It acts like a circuit breaker: if one request enters a retry loop or receives an unexpectedly long input, the budget cuts it off before it consumes disproportionate resources.
+
+A monthly spending cap only tells you *after the fact* that you have overspent. It cannot prevent a single runaway request from burning through thousands of tokens. Per-request budgets make individual requests predictable, which makes aggregate costs forecastable. They also force explicit design decisions: if your budget is 8,000 tokens per pipeline run, you must ensure your prompts, context, and retry logic fit within that envelope.
+</CalibrationCheck>
+
+## Applied Exercise
+
+<TryItYourself title="Design a complete agentic system for a research assistant that can: (1) search academic papers, (2) summarize findings, (3) identify gaps in the literature, and (4) draft a research proposal. Define the agent architecture, tools, evaluation metrics, and safety guardrails.">
+**Architecture**: Supervisor pattern with three specialized agents.
+
+**Agent 1: Literature Search Agent**
+- Tools: `search_arxiv`, `search_semantic_scholar`, `get_paper_abstract`, `get_citations`
+- Task: Find relevant papers based on a research question
+- Output: List of 20-50 relevant papers with relevance scores
+
+**Agent 2: Analysis Agent**
+- Tools: `get_full_paper_text`, `extract_methodology`, `extract_findings`
+- Task: Read and synthesize papers, identify common themes and gaps
+- Output: Structured analysis with themes, agreements, disagreements, and gaps
+
+**Agent 3: Writing Agent**
+- Tools: `generate_outline`, `draft_section`, `check_citations`
+- Task: Draft a research proposal based on the analysis
+- Output: Complete proposal with introduction, literature review, methodology, and references
+
+**Supervisor**: Coordinates the pipeline, validates each stage's output quality before passing to the next, and manages the overall token budget.
+
+**Evaluation Metrics**:
+- Paper relevance: Precision/recall against expert-curated paper lists
+- Summary quality: ROUGE scores against human summaries, plus LLM-as-Judge for accuracy
+- Proposal quality: Human evaluation on a 5-point rubric (novelty, feasibility, clarity, rigor)
+
+**Safety Guardrails**:
+- Max 100 API calls to paper databases per session
+- Token budget of 500K per complete run
+- Human review required before the proposal is finalized
+- Citation verification: all cited papers must exist and be retrievable
+- No fabricated results or statistics in the proposal
+</TryItYourself>
+
+## Synthesis
+
+<ExplainBack prompt="Without looking back, trace the path of a user query through a transformer-based model: from tokenization through embedding, positional encoding, attention, feed-forward layers, and finally to next-token prediction. Explain what happens at each step." />
+
+<ReflectPrompt questions={[
+  "Which Level 5 concept was most surprising or changed your mental model the most?",
+  "Where do you feel you need more depth -- architecture, fine-tuning, evaluation, agentic systems, or system design?",
+  "How would you explain the attention mechanism to a software engineer who has never studied AI?",
+  "Which of the new system architecture concepts (orchestration frameworks, HIL design, multi-model systems, cost optimization) feels most relevant to your current work?"
+]} />
+
+<ConnectPrompt prompt="Looking ahead to Level 6 (Platformizer), you will learn about scaling AI across an organization -- MLOps, monitoring, governance, and cost management. How do the system engineering skills from Level 5 (evaluation metrics, fine-tuning decisions, agent safety, multi-model architecture, cost optimization) prepare you for platform-level thinking?" />
+
+<KeyTakeaway>
+At Level 5, you have gained deep understanding of the transformer architecture, attention mechanism, fine-tuning techniques, evaluation metrics, agentic workflows, orchestration frameworks, human-in-the-loop design, multi-AI system architecture, and system-level cost optimization. This knowledge transforms you from someone who uses AI to someone who understands why models behave as they do -- and can design, debug, and optimize sophisticated multi-component AI systems with confidence.
+</KeyTakeaway>

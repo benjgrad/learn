@@ -1,0 +1,47 @@
+---
+interface Props {
+  prompt: string;
+}
+
+const { prompt } = Astro.props;
+---
+
+<aside class="learning-block reflect-block" aria-label="Explain back exercise">
+  <div class="learning-block-header">
+    <span class="learning-block-icon">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    </span>
+    <h4 class="learning-block-title">Explain in Your Own Words</h4>
+  </div>
+  <div class="learning-block-content">
+    <p>{prompt}</p>
+    <div class="explain-area" role="presentation" aria-label="Space for your explanation">
+      <p class="explain-placeholder">Without scrolling back, try to explain this concept as if teaching someone else...</p>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .explain-area {
+    margin-top: 0.75rem;
+    border: 2px dashed var(--lb-border, #8b5cf6);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    min-height: 5rem;
+    background: rgb(255 255 255 / 0.3);
+  }
+
+  :root[data-theme='dark'] .explain-area {
+    background: rgb(0 0 0 / 0.15);
+  }
+
+  .explain-placeholder {
+    color: var(--lb-border, #8b5cf6);
+    font-style: italic;
+    opacity: 0.7;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+</style>

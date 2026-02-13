@@ -1,0 +1,40 @@
+---
+import ResourceCard from './ResourceCard.astro';
+
+interface Resource {
+  title: string;
+  url: string;
+  type: string;
+  author?: string;
+  description?: string;
+}
+
+interface Props {
+  resources: Resource[];
+}
+
+const { resources } = Astro.props;
+---
+
+<div class="resource-grid" role="list" aria-label="Learning resources">
+  {resources.map((resource) => (
+    <div role="listitem">
+      <ResourceCard
+        title={resource.title}
+        url={resource.url}
+        type={resource.type}
+        author={resource.author}
+        description={resource.description}
+      />
+    </div>
+  ))}
+</div>
+
+<style>
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+</style>

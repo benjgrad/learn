@@ -1,0 +1,153 @@
+---
+title: "F.7: Optimization for AI"
+description: "Gradient descent, loss functions, and optimization landscapes — finding the best parameters in a vast search space."
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="A neural network has 175 billion parameters that start at random values. How do you think the training process finds good values for all of them? You cannot try every combination — there are more possibilities than atoms in the observable universe. What strategy might work?" />
+
+## Why Optimization?
+
+You have now learned how data is represented (linear algebra, F.4), how derivatives provide a learning signal (calculus, F.5), and how probability quantifies uncertainty (probability, F.6). Optimization is where it all comes together: it is the process of systematically adjusting a model's parameters to minimize prediction error.
+
+Training a neural network is fundamentally an optimization problem: find the set of parameter values that produces the best predictions on the training data. The mathematical tools for solving this problem are what make modern AI possible.
+
+## Loss Functions: Measuring Error
+
+Before you can improve a model, you need a way to measure how wrong it is. A **loss function** (also called a cost function or objective function) takes the model's predictions and the correct answers and produces a single number that quantifies the error.
+
+### Common Loss Functions
+
+**Cross-entropy loss** is the standard loss function for language models. It measures how different the model's predicted probability distribution is from the "true" distribution (which puts 100% probability on the correct next token).
+
+```
+L = -Σ yᵢ × log(pᵢ)
+```
+
+Where yᵢ is the true label (1 for the correct token, 0 for all others) and pᵢ is the model's predicted probability.
+
+Intuitively: if the model assigns high probability to the correct token, the loss is low. If it assigns low probability to the correct token, the loss is high. Cross-entropy penalizes confident wrong answers more severely than uncertain wrong answers.
+
+**Mean squared error (MSE)** is common for regression tasks (predicting continuous values):
+
+```
+L = (1/n) × Σ(predicted - actual)²
+```
+
+The squaring ensures that large errors are penalized more than small errors.
+
+<CalibrationCheck question="A language model is predicting the next token and assigns the following probabilities to the correct answer: Case A: 0.90, Case B: 0.50, Case C: 0.01. Without computing exact values, rank these from lowest to highest cross-entropy loss.">
+
+**Case A (P = 0.90)** has the lowest loss — the model is confident and correct.
+
+**Case B (P = 0.50)** has moderate loss — the model gives even odds to the right answer.
+
+**Case C (P = 0.01)** has the highest loss — the model is confidently wrong, assigning only 1% probability to the correct answer.
+
+The cross-entropy values are: -log(0.90) ≈ 0.105, -log(0.50) ≈ 0.693, -log(0.01) ≈ 4.605.
+
+Notice how the loss jumps dramatically from Case B to Case C. Cross-entropy heavily penalizes confidently incorrect predictions, which is why models learn not just to be right, but to be *calibrated* in their confidence.
+</CalibrationCheck>
+
+## Gradient Descent: Following the Slope Downhill
+
+**Gradient descent** is the algorithm that uses gradients (from F.5) to iteratively reduce the loss function. The idea is simple: compute the gradient, then take a small step in the opposite direction (because the gradient points uphill, and we want to go downhill).
+
+```
+wₙₑw = wₒₗd - learning_rate × gradient
+```
+
+This single equation is the engine of all neural network training. It repeats millions of times across billions of parameters until the loss reaches an acceptable level.
+
+### The Learning Rate
+
+The **learning rate** (often denoted as α or η) controls the size of each step:
+
+- **Too large:** The model overshoots good parameter values and the loss oscillates or diverges
+- **Too small:** Training is extremely slow and may get stuck in shallow local minima
+- **Just right:** The model converges smoothly toward good parameters
+
+Finding the right learning rate is one of the most important practical decisions in model training. Too large and the model never converges; too small and it takes forever (or gets stuck).
+
+### Variants of Gradient Descent
+
+**Batch gradient descent** computes the gradient over the entire training dataset before each update. Accurate but extremely slow for large datasets.
+
+**Stochastic gradient descent (SGD)** computes the gradient from a single random training example. Fast but noisy — each update might not represent the true gradient direction.
+
+**Mini-batch gradient descent** computes the gradient from a small random subset (typically 32-512 examples). The practical standard — it balances speed with accuracy.
+
+<TryItYourself title="Imagine you are blindfolded on a hilly landscape and trying to find the lowest valley. You can feel the slope under your feet but cannot see. Describe a strategy for reaching the lowest point. Then consider: what could go wrong with this strategy?">
+
+**Strategy:** Feel which direction slopes downward the most steeply, then take a step in that direction. Repeat. This is exactly gradient descent — the gradient tells you the steepest direction, and you step opposite to it.
+
+**What could go wrong:**
+
+1. **Local minima:** You might descend into a small valley that is not the lowest point overall. You feel flat ground and stop, but a deeper valley exists elsewhere. In neural networks, this corresponds to parameter values that are locally good but globally suboptimal.
+
+2. **Saddle points:** You might find a point that is flat in some directions (seeming like a minimum) but slopes downward in others. These are common in high-dimensional spaces and can slow training.
+
+3. **Ravines:** The landscape might have narrow, steep-sided valleys where you oscillate back and forth across the valley walls rather than moving smoothly along the bottom. Momentum-based optimizers were designed to address this.
+
+4. **Step size problems:** If your steps are too large, you might leap over the valley entirely. If too small, you take forever. This is the learning rate dilemma.
+</TryItYourself>
+
+## The Optimization Landscape
+
+The **loss landscape** is the surface created by plotting the loss function against all possible parameter values. For a model with billions of parameters, this is a surface in billions of dimensions — impossible to visualize but mathematically well-defined.
+
+Key features of real loss landscapes:
+
+**Local minima** are points where the loss is lower than all nearby points but not necessarily the lowest overall. In high-dimensional spaces, true local minima are actually quite rare — most apparent local minima turn out to be saddle points.
+
+**Saddle points** have zero gradient but are minima in some dimensions and maxima in others. In high-dimensional spaces, saddle points are far more common than true local minima and can trap gradient descent.
+
+**Flat regions (plateaus)** have very small gradients, causing gradient descent to make almost no progress. The loss seems stuck even though better parameters exist elsewhere.
+
+## Advanced Optimizers
+
+Simple gradient descent has limitations that have led to the development of more sophisticated optimization algorithms:
+
+**Momentum** adds a "velocity" term that accumulates past gradients. This helps the optimizer push through noisy gradients and accelerate in consistent directions. Think of a ball rolling downhill that builds up speed.
+
+**RMSProp** adapts the learning rate for each parameter individually based on the history of its gradients. Parameters with large gradients get smaller learning rates, and vice versa.
+
+**Adam (Adaptive Moment Estimation)** combines the ideas of momentum and RMSProp. It maintains both a running average of gradients (first moment) and a running average of squared gradients (second moment). Adam is the default optimizer for most modern neural network training, including large language models.
+
+```
+m = β₁ × m + (1 - β₁) × gradient          // update momentum
+v = β₂ × v + (1 - β₂) × gradient²         // update velocity
+w = w - learning_rate × m / (√v + ε)       // update parameters
+```
+
+The key insight is that Adam effectively gives each parameter its own adaptive learning rate — parameters that need large updates get them, while parameters that need fine adjustment get smaller steps.
+
+## From Analytical to Numerical: The AI Paradigm
+
+A deep insight from the mathematical foundations of AI: the transition from traditional mathematics to machine learning parallels the transition from **analytical** solutions (exact algebraic formulas) to **numerical** solutions (iterative approximation algorithms).
+
+Traditional programming: write explicit rules that produce exact answers.
+Machine learning: define a loss function and let optimization find approximate solutions through iteration.
+
+This paradigm shift — from "specify the answer" to "specify the objective and let the algorithm search" — is the mathematical essence of what makes AI fundamentally different from traditional software.
+
+<KeyTakeaway>
+Optimization is the engine of AI learning. Loss functions quantify how wrong the model is. Gradient descent uses calculus to iteratively reduce that error. The learning rate controls the speed-accuracy tradeoff. And modern optimizers like Adam adapt the learning process to each parameter individually. Training a neural network is fundamentally the process of navigating a high-dimensional loss landscape to find parameter values that produce good predictions — and the mathematical tools of optimization are what make this search tractable.
+</KeyTakeaway>
+
+<ExplainBack prompt="Explain to a colleague why training a large language model costs millions of dollars in compute, by connecting the concepts of gradient descent, the number of parameters, the size of the training data, and the number of iterations required." />
+
+<ReflectPrompt questions={[
+  "How does the 'blindfolded on a landscape' analogy help you understand both the power and limitations of gradient descent?",
+  "Why is the learning rate so important? What would happen to a 175-billion-parameter model if the learning rate were set too high?",
+  "The shift from analytical to numerical solutions is described as the 'mathematical essence' of what makes AI different. Do you agree? What are the implications of relying on approximate rather than exact solutions?"
+]} />
+
+<ConnectPrompt prompt="Optimization connects every mathematical foundation: linear algebra provides the parameter representations, calculus provides the gradients, and probability provides the loss functions. When you reach Level 5, understanding optimization will help you grasp fine-tuning (selectively optimizing parameters) and LoRA (Level 6), which works by constraining the optimization to low-rank subspaces. The Adam optimizer introduced here is what trains essentially every modern language model." />

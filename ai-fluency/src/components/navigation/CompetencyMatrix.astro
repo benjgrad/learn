@@ -1,0 +1,172 @@
+---
+import competencies from '../../data/competencies.json';
+import levels from '../../data/levels.json';
+
+interface Level {
+  number: number;
+  title: string;
+  slug: string;
+  color: string;
+}
+
+interface CompetencyLevel {
+  level: number;
+  description: string;
+}
+
+interface Competency {
+  id: string;
+  name: string;
+  definition: string;
+  levels: CompetencyLevel[];
+}
+
+const typedLevels = (levels as Level[]).filter((l) => l.number > 0);
+const typedCompetencies = competencies as Competency[];
+---
+
+<div class="competency-matrix" role="region" aria-label="Competency progression matrix">
+  <div class="competency-matrix__scroll">
+    <table class="competency-matrix__table">
+      <thead>
+        <tr>
+          <th class="competency-matrix__corner" scope="col">Competency</th>
+          {typedLevels.map((level) => (
+            <th
+              class="competency-matrix__level-header"
+              scope="col"
+              style={`--level-color: ${level.color};`}
+            >
+              <span class="competency-matrix__level-num">L{level.number}</span>
+              <span class="competency-matrix__level-title">{level.title}</span>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {typedCompetencies.map((comp) => (
+          <tr>
+            <th class="competency-matrix__comp-header" scope="row">
+              <span class="competency-matrix__comp-name">{comp.name}</span>
+              <span class="competency-matrix__comp-def">{comp.definition}</span>
+            </th>
+            {typedLevels.map((level) => {
+              const entry = comp.levels.find((cl) => cl.level === level.number);
+              return (
+                <td
+                  class="competency-matrix__cell"
+                  style={`--level-color: ${level.color};`}
+                >
+                  {entry?.description || '—'}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .competency-matrix {
+    margin: 2rem 0;
+  }
+
+  .competency-matrix__scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+  }
+
+  .competency-matrix__table {
+    width: 100%;
+    min-width: 50rem;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+
+  .competency-matrix__corner {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--sl-color-bg);
+    padding: 0.75rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sl-color-gray-3);
+    border-bottom: 2px solid var(--sl-color-gray-5);
+  }
+
+  .competency-matrix__level-header {
+    padding: 0.625rem 0.5rem;
+    text-align: center;
+    border-bottom: 3px solid var(--level-color);
+    background: color-mix(in srgb, var(--level-color) 8%, var(--sl-color-bg));
+    vertical-align: bottom;
+  }
+
+  .competency-matrix__level-num {
+    display: block;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--level-color);
+  }
+
+  .competency-matrix__level-title {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--sl-color-white);
+    margin-top: 0.125rem;
+  }
+
+  .competency-matrix__comp-header {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--sl-color-bg);
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+    min-width: 9rem;
+  }
+
+  .competency-matrix__comp-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--sl-color-white);
+  }
+
+  .competency-matrix__comp-def {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: var(--sl-color-gray-3);
+    margin-top: 0.25rem;
+  }
+
+  .competency-matrix__cell {
+    padding: 0.625rem 0.5rem;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+    border-left: 1px solid var(--sl-color-gray-6);
+    color: var(--sl-color-gray-2);
+    vertical-align: top;
+  }
+
+  .competency-matrix__cell:hover {
+    background: color-mix(in srgb, var(--level-color) 10%, transparent);
+  }
+
+  tbody tr:last-child td,
+  tbody tr:last-child th {
+    border-bottom: none;
+  }
+</style>

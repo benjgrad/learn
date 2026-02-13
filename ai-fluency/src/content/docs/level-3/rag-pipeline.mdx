@@ -1,0 +1,139 @@
+---
+title: "3.3 The RAG Pipeline"
+description: "Understand the Retrieval-Augmented Generation architecture that connects external data to language models."
+sidebar:
+  order: 3
+---
+
+import PredictPrompt from '../../../components/learning/PredictPrompt.astro';
+import TryItYourself from '../../../components/learning/TryItYourself.astro';
+import CalibrationCheck from '../../../components/learning/CalibrationCheck.astro';
+import ExplainBack from '../../../components/learning/ExplainBack.astro';
+import ReflectPrompt from '../../../components/learning/ReflectPrompt.astro';
+import ConnectPrompt from '../../../components/learning/ConnectPrompt.astro';
+import KeyTakeaway from '../../../components/learning/KeyTakeaway.astro';
+
+<PredictPrompt prompt="If you wanted an AI chatbot that could answer questions about your company's 500-page employee handbook -- a document the model was never trained on -- how would you design that system? What steps would be needed?" />
+
+## What is RAG?
+
+**Retrieval-Augmented Generation (RAG)** is an architecture that gives a language model access to external knowledge by retrieving relevant information and injecting it into the prompt before generation.
+
+Without RAG, the model can only answer from its training data. With RAG, it can answer questions about documents, databases, and knowledge bases it has never seen -- as long as you provide the relevant context at query time.
+
+### The RAG pipeline in five steps
+
+```
+User Query → Embed Query → Search Vector DB → Retrieve Chunks → Augment Prompt → Generate Response
+```
+
+**Step 1: User asks a question**
+```
+"What is our company's policy on remote work for
+international employees?"
+```
+
+**Step 2: Embed the query**
+Convert the question into a vector using the same embedding model used to embed the documents.
+
+**Step 3: Search the vector database**
+Find the document chunks whose embeddings are closest to the query embedding. Retrieve the top k results (typically 3-10).
+
+**Step 4: Augment the prompt**
+Inject the retrieved text chunks into the prompt as context:
+```
+Answer the following question based only on the provided
+context. If the context does not contain the answer,
+say "I don't have information about that."
+
+Context:
+---
+[Retrieved chunk 1: Remote work policy section 4.2...]
+[Retrieved chunk 2: International employee guidelines...]
+[Retrieved chunk 3: IT security for remote access...]
+---
+
+Question: What is our company's policy on remote work
+for international employees?
+```
+
+**Step 5: Generate the response**
+The model reads the context and generates an answer grounded in the retrieved documents rather than its general training data.
+
+### Why RAG works
+
+RAG is effective because it leverages the strengths of two different systems:
+
+| Component | Strength |
+| :-- | :-- |
+| **Vector database** | Fast, accurate retrieval from millions of documents |
+| **Language model** | Natural language understanding, synthesis, and generation |
+
+The retrieval system finds relevant information. The language model synthesizes it into a coherent, natural-language answer. Neither component could do the other's job well on its own.
+
+<CalibrationCheck question="If you instruct the model to 'only answer from the provided context,' will it always comply? Can the model still hallucinate in a RAG system?">
+The model may still hallucinate. The instruction to "only answer from the provided context" biases the model toward the context, but it does not guarantee compliance. The model may:
+- Interpolate between context chunks in ways that introduce inaccuracies
+- Fill gaps in the context with information from its training data
+- Misinterpret a chunk and generate a plausible but incorrect synthesis
+
+RAG significantly reduces hallucination compared to raw generation, but it does not eliminate it. Grounding techniques (Module 3.5) further reduce this risk.
+</CalibrationCheck>
+
+### The two phases of RAG
+
+A RAG system has distinct **offline** and **online** phases:
+
+**Offline (indexing)** -- done once, or periodically:
+1. Collect documents (PDFs, web pages, databases)
+2. Chunk documents into smaller pieces (Module 3.4)
+3. Embed each chunk using an embedding model
+4. Store embeddings + metadata in the vector database
+
+**Online (query)** -- done for every user question:
+1. Embed the user's query
+2. Search the vector database for similar chunks
+3. Construct the augmented prompt
+4. Send to the language model
+5. Return the response
+
+The offline phase is a one-time investment. The online phase adds latency (embedding + search + generation), but embedding and search typically take only milliseconds, so the user experience is dominated by the model's generation time.
+
+### RAG vs. fine-tuning
+
+A common question: should you use RAG or fine-tune the model on your data?
+
+| Factor | RAG | Fine-tuning |
+| :-- | :-- | :-- |
+| **Data freshness** | Can update instantly (re-index documents) | Requires retraining to update |
+| **Cost** | Lower (no training required) | Higher (GPU compute for training) |
+| **Accuracy for specific facts** | High (retrieves exact text) | Lower (facts embedded in weights) |
+| **Domain style/tone** | Inherits model's default style | Can learn domain-specific style |
+| **Implementation complexity** | Moderate (pipeline setup) | Higher (training infrastructure) |
+
+For most enterprise use cases, RAG is the right starting point. Fine-tuning is better when you need the model to adopt a specific writing style or domain-specific reasoning pattern.
+
+<TryItYourself title="Design a RAG system on paper for a use case relevant to your work. Identify: (1) What documents would you index? (2) How would users query the system? (3) What would the augmented prompt look like? (4) What could go wrong?">
+For example, a **developer documentation chatbot**:
+
+1. **Documents**: API reference pages, tutorials, migration guides, release notes, FAQ
+2. **Queries**: "How do I authenticate with the v3 API?" or "What changed in the latest release?"
+3. **Augmented prompt**: "You are a helpful documentation assistant. Answer the developer's question using only the following documentation excerpts. If the answer is not in the excerpts, say so. [retrieved chunks] Question: [user query]"
+4. **What could go wrong**: Outdated documentation retrieved over current docs; chunks split across a multi-step procedure losing context; embedding model does not capture code semantics well; user asks about something not in the docs and the model fabricates an answer.
+
+Identifying failure modes upfront is what separates context engineers from casual RAG users.
+</TryItYourself>
+
+<ExplainBack prompt="Walk through the five steps of the RAG pipeline. What happens offline versus online? Why is RAG typically preferred over fine-tuning for enterprise knowledge bases?" />
+
+<ReflectPrompt questions={[
+  "What internal data at your organization would benefit most from a RAG system?",
+  "If you indexed your entire company wiki, what percentage of employee questions do you think RAG could answer accurately?",
+  "What is the biggest risk of deploying a RAG chatbot that answers questions about company policy?"
+]} />
+
+<KeyTakeaway>
+RAG retrieves relevant document chunks from a vector database and injects them into the model's prompt, enabling it to answer questions about data it was never trained on. The architecture separates indexing (offline, done once) from querying (online, done per request). For most enterprise use cases, RAG is simpler, cheaper, and more accurate than fine-tuning.
+</KeyTakeaway>
+
+<ConnectPrompt prompt="The RAG pipeline depends on the quality of retrieved chunks. In Module 3.4, you will learn how chunking strategies -- how you split documents into pieces -- directly determine whether the right information reaches the model." />
