@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "6.5: Cost Management",
+    "description": "Master token economics, compute optimization, and cost modeling for sustainable AI operations.",
+    "level": "level-6",
+    "slug": "cost-management",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Economics of Intelligence"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "An AI feature that costs $0.02 per request seems cheap. But if it handles 10 million requests per month, what is the annual cost? At what point does self-hosting become more economical than using a managed API?"
+    },
+    {
+      "type": "markdown",
+      "content": "AI systems have a fundamentally different cost structure than traditional software. A web server's marginal cost per request is negligible, but an LLM inference request involves significant compute. Without disciplined cost management, AI initiatives that demonstrate impressive results in demos can become financially unsustainable at scale.\n\n### Token Economics\n\nFor API-based AI services, costs are primarily driven by token consumption:\n\n- **Input tokens** (the prompt, system message, and context) are typically cheaper than output tokens.\n- **Output tokens** (the model's generated response) are the larger cost driver because each token requires a full forward pass through the model.\n- **Cached tokens** (when the provider supports prompt caching) can be significantly cheaper than freshly computed tokens.\n\nThe total cost equation for an API-based system:\n\n```\nMonthly Cost = (Avg Input Tokens × Input Price/1K + Avg Output Tokens × Output Price/1K) × Monthly Requests\n```\n\nA seemingly small per-request cost multiplied by production volume creates significant line items. A chatbot that averages 2,000 input tokens and 500 output tokens per interaction, using a frontier model at $10/M input and $30/M output tokens, costs $0.035 per interaction. At 1 million monthly interactions, that is $35,000/month -- $420,000/year -- for a single feature."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An AI coding assistant sends the entire file context (average 4,000 tokens) plus the user's question (200 tokens) and receives a 600 token response, 50 times per developer per day. With 200 developers and input pricing at $3/M tokens and output at $15/M tokens, what is the monthly cost?",
+      "answer": "**Input tokens per request**: 4,200 tokens\n**Output tokens per request**: 600 tokens\n**Requests per month**: 50 requests/day x 200 developers x 22 working days = 220,000 requests\n\n**Monthly input cost**: 220,000 x 4,200 / 1,000,000 x $3 = $2,772\n**Monthly output cost**: 220,000 x 600 / 1,000,000 x $15 = $1,980\n**Total monthly cost**: $4,752 (~$57,000/year)\n\nThis is relatively manageable for 200 developers, but cost scales linearly with headcount. Prompt caching on the system prompt and common file prefixes could reduce input costs by 50-80%."
+    },
+    {
+      "type": "markdown",
+      "content": "### Cost Optimization Strategies\n\n**Model Selection and Routing**: Not every request needs a frontier model. Implement a model router that directs requests to the cheapest model capable of handling them:\n\n- Simple classification and extraction tasks → Small, fast models (7B-13B parameters or model provider's economy tier)\n- Standard generation tasks → Mid-tier models\n- Complex reasoning, code generation, creative tasks → Frontier models\n\nA well-tuned router can reduce costs by 60-80% while maintaining quality on the tasks that matter.\n\n**Prompt Optimization**: Every token in a prompt costs money at every request. Systematic prompt optimization pays compounding returns:\n\n- Compress verbose system prompts without losing instruction clarity\n- Use structured formats (JSON, XML) that convey information in fewer tokens than natural language\n- Cache and reuse common context prefixes rather than recomputing them\n- Truncate or summarize conversation history instead of sending complete transcripts\n\n**Caching**: As covered in the inference serving module, caching at multiple layers avoids paying for redundant computation:\n\n- Semantic caching for FAQ-style queries (identical intent, different wording)\n- Response caching for deterministic requests (temperature=0, same input)\n- KV-cache reuse for shared prompt prefixes\n\n**Batching and Throughput**: For non-latency-critical workloads (batch processing, overnight analysis), accumulate requests and process them in efficient batches rather than making individual API calls."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "You have an AI-powered document processing pipeline that analyzes 50,000 legal documents per month. Each document averages 8,000 tokens. The pipeline extracts key clauses (output ~500 tokens) and then classifies risk level (output ~50 tokens). Currently both tasks use a frontier model at $10/M input, $30/M output tokens. Design a cost-optimized architecture.",
+      "solution": "**Current cost**:\n- Extraction: 50,000 x (8,000 x $10 + 500 x $30) / 1,000,000 = $4,000 + $750 = $4,750/month\n- Classification: 50,000 x (8,500 x $10 + 50 x $30) / 1,000,000 = $4,250 + $75 = $4,325/month\n- **Total: $9,075/month ($108,900/year)**\n\n**Optimized architecture**:\n\n1. **Route classification to a smaller model**: Risk classification is a simpler task. Use a fine-tuned small model at $0.15/M input, $0.60/M output.\n   - New classification cost: 50,000 x (8,500 x $0.15 + 50 x $0.60) / 1,000,000 = $63.75 + $1.50 = $65.25/month\n\n2. **Chunk documents for extraction**: Instead of sending the full 8,000 tokens, split into relevant sections. If a clause extractor preprocessor identifies that relevant sections average 2,000 tokens:\n   - New extraction cost: 50,000 x (2,000 x $10 + 500 x $30) / 1,000,000 = $1,000 + $750 = $1,750/month\n\n3. **Cache duplicate documents**: If 15% of documents are duplicates or near-duplicates:\n   - Adjusted volume: 42,500 unique documents\n   - Extraction: $1,487.50/month\n\n**Optimized total: ~$1,553/month ($18,630/year)** -- an 83% reduction."
+    },
+    {
+      "type": "markdown",
+      "content": "### Build vs. Buy Analysis\n\nAt scale, self-hosting can become more economical than API usage:\n\n| Factor | Managed API | Self-Hosted |\n| :--- | :--- | :--- |\n| **Upfront Cost** | None | GPU hardware or cloud GPU commitment |\n| **Per-Request Cost** | Linear with volume | Near-fixed (hardware cost regardless of usage) |\n| **Break-Even Point** | N/A | Typically 70-80% GPU utilization sustained |\n| **Operational Burden** | Minimal | Significant (infrastructure, updates, monitoring) |\n| **Model Access** | Latest frontier models immediately | Open-weight models only, with a delay |\n| **Data Privacy** | Data leaves your network | Data stays on-premises |\n\nThe break-even calculation depends on utilization. A reserved GPU instance costs the same whether it processes 1 request or 10,000. Self-hosting is economical only when sustained utilization justifies the fixed infrastructure cost.\n\n### Cost Dashboards and Accountability\n\nSustainable AI cost management requires visibility:\n\n- **Per-Feature Cost Attribution**: Tag every API call with the feature, team, and environment that generated it. Without attribution, costs are an opaque lump sum that no one owns.\n- **Budget Alerts**: Set per-team and per-feature budgets with alerts at 50%, 80%, and 100% thresholds.\n- **Cost Per Outcome**: Track not just total cost but cost per useful outcome (cost per resolved support ticket, cost per processed document, cost per generated recommendation). This connects spending to business value.\n- **Trend Analysis**: Monitor cost-per-request trends to catch prompt bloat, cache misses, and inefficient model routing before they compound."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of a model router and why it is one of the most impactful cost optimization strategies for organizations running multiple AI features."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Do you know the per-request cost of the AI features you use or build?",
+        "If your AI usage doubled overnight, would your budget accommodate it?",
+        "How would you justify AI costs to a CFO who sees only the expense line, not the productivity gains?"
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "In Level 1, you learned that token usage drives cost, and in Level 2, you learned prompt optimization for quality. How does the Platformizer's perspective on prompt optimization differ when the goal is cost reduction at scale versus quality improvement for a single user?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "AI cost management is not about spending less -- it is about spending wisely. Model routing, prompt optimization, caching, and per-feature cost attribution transform AI from an unpredictable expense into a managed, optimizable investment with clear ROI."
+    }
+  ]
+}

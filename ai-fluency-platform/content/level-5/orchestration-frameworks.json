@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "5.6 Orchestration Frameworks",
+    "description": "Compare AI workflow frameworks like LangChain, LangGraph, CrewAI, and n8n for building multi-step AI systems.",
+    "level": "level-5",
+    "slug": "orchestration-frameworks",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 5.6 Orchestration Frameworks"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "In module 5.5, you designed agentic workflows from scratch using ReAct loops and custom tool plumbing. What do you think a framework like LangChain or CrewAI provides on top of that? What tradeoffs might come with adopting one?"
+    },
+    {
+      "type": "markdown",
+      "content": "## From Patterns to Tools\n\nModule 5.5 introduced the *patterns* of agentic AI -- ReAct loops, tool use, multi-agent coordination. Orchestration frameworks turn those patterns into reusable building blocks so you don't have to re-implement the plumbing every time.\n\nThe core value proposition is consistent: frameworks handle the boilerplate of message routing, tool dispatch, memory management, and error recovery so you can focus on the application logic. But each framework makes different bets about what matters most.\n\n## The Framework Landscape\n\n### LangChain\n\nLangChain is a general-purpose library for building LLM-powered applications. It provides abstractions for:\n\n- **Chains**: Sequences of LLM calls, tool invocations, and data transformations\n- **Agents**: ReAct-style loops with configurable tool sets\n- **Retrievers**: Pluggable interfaces for RAG pipelines\n- **Memory**: Conversation history and state management\n\nLangChain's strength is breadth -- it has integrations with hundreds of tools, vector stores, and model providers. Its weakness is abstraction depth. Chains of chains can become difficult to debug because the framework's internal state is several layers removed from the actual API calls.\n\n### LangGraph\n\nLangGraph extends LangChain with explicit **graph-based** workflow definitions. Instead of implicit chains, you define nodes (processing steps) and edges (transitions between them), including conditional edges that branch based on model output.\n\n```\nStart ──> Research ──> Evaluate ──┬──> Draft (if sufficient)\n                                  └──> Research (if gaps found)\n```\n\nLangGraph's key advantage is **controllability**. The graph structure makes it easier to add human-in-the-loop checkpoints, implement branching logic, and reason about all possible execution paths. It trades LangChain's flexibility for predictability.\n\n### CrewAI\n\nCrewAI takes a **role-based** approach. You define agents with personas, goals, and backstories, then assign them to tasks in a crew. The framework handles delegation and collaboration.\n\n```python\nresearcher = Agent(\n    role=\"Senior Research Analyst\",\n    goal=\"Find comprehensive data on the topic\",\n    tools=[search_tool, scrape_tool],\n)\nwriter = Agent(\n    role=\"Technical Writer\",\n    goal=\"Produce clear, accurate documentation\",\n    tools=[write_tool],\n)\ncrew = Crew(agents=[researcher, writer], tasks=[research_task, write_task])\n```\n\nCrewAI is intuitive for teams that think in terms of roles and responsibilities. The risk is that role descriptions can become a substitute for precise engineering -- \"Senior Research Analyst\" sounds good but does not constrain behavior the way a typed interface does.\n\n### n8n and Visual Builders\n\nn8n, Make, and similar platforms offer **visual, node-based** workflow builders. You drag and drop AI nodes alongside HTTP requests, database queries, and conditional logic. These tools excel at:\n\n- Connecting AI to existing business systems (CRMs, email, databases)\n- Enabling non-developers to build AI workflows\n- Rapid prototyping of integration-heavy pipelines\n\nThe limitation is that visual builders struggle with complex branching, dynamic tool selection, and workflows where the AI's output determines the next steps at runtime."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the fundamental difference between a 'chain' approach (LangChain) and a 'graph' approach (LangGraph) to orchestration? When does the distinction matter?",
+      "answer": "A **chain** is a linear or lightly branching sequence where each step flows to the next. A **graph** explicitly defines nodes and edges, including conditional edges and cycles (loops). The distinction matters when your workflow needs **conditional branching** or **iterative refinement** -- for example, an agent that researches, evaluates whether it has enough information, and loops back to research if not. In a chain, you handle this with ad-hoc recursion or callbacks. In a graph, the loop is a first-class part of the workflow definition, making it visible, testable, and easier to add checkpoints to."
+    },
+    {
+      "type": "markdown",
+      "content": "## When Frameworks vs. Custom Code\n\nFrameworks are not always the right choice. Consider this decision matrix:\n\n**Use a framework when:**\n- You need rapid prototyping and the framework's abstractions match your use case\n- You want built-in integrations with many external tools or model providers\n- Your team benefits from the framework's conventions and documentation\n- The workflow is complex enough that managing state by hand is error-prone\n\n**Use custom code when:**\n- Your workflow is simple (a single ReAct loop with 2-3 tools)\n- You need fine-grained control over every API call, retry, and timeout\n- The framework's abstractions add overhead without matching your mental model\n- You are building a product where you need to own the full stack for reliability\n\nA common middle path is to start with a framework for prototyping, then replace framework components with custom code as you identify bottlenecks and stability requirements."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Evaluate framework fit: You are building a customer support bot that routes tickets, searches a knowledge base, and escalates to human agents. Sketch how you would implement this in (a) LangGraph and (b) custom code. Which approach gives you more confidence in production?",
+      "solution": "**(a) LangGraph approach:**\n- Nodes: `classify_ticket`, `search_knowledge_base`, `generate_response`, `escalate_to_human`\n- Edges: `classify_ticket` routes to `search_knowledge_base` (if routine) or `escalate_to_human` (if complex/angry)\n- Conditional edge after `generate_response`: if confidence is low, route to `escalate_to_human`\n- Human-in-the-loop checkpoint before sending any response to the customer\n\n**(b) Custom code approach:**\n- A simple state machine with 4 states matching the nodes above\n- Direct API calls to the model with typed tool definitions\n- Explicit confidence threshold checks with hardcoded routing logic\n- Custom logging and monitoring at each transition\n\n**Production confidence:** Custom code likely wins here because the workflow is simple enough (4 states, 2-3 decision points) that a framework adds abstraction overhead without proportional benefit. You gain full control over timeouts, retries, and observability. However, if you expect the workflow to grow significantly (20+ intents, multiple knowledge bases, A/B testing of routing strategies), LangGraph's graph structure would scale better."
+    },
+    {
+      "type": "markdown",
+      "content": "## Lock-In Risks\n\nEvery framework creates a dependency. Consider:\n\n- **API surface area**: How much of your code uses framework-specific types? Can you swap the framework without rewriting business logic?\n- **Model coupling**: Some frameworks are tightly coupled to specific model providers. If you need to switch from OpenAI to Anthropic (or vice versa), how much changes?\n- **Versioning instability**: The AI framework ecosystem moves fast. LangChain's API has gone through multiple breaking changes. Budget for migration cost.\n- **Debugging opacity**: When something goes wrong in a multi-layer framework, can you trace the actual HTTP request and response? If not, you are debugging the framework, not your application.\n\nThe best mitigation is the same principle from Level 4's component boundaries: **isolate the framework behind your own interfaces**. Your business logic should call your abstractions, which call the framework. If the framework changes, you update one layer."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Compare two orchestration frameworks of your choice. Explain what type of project each is best suited for and what tradeoffs you accept by choosing one over the other."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Orchestration frameworks like LangChain, LangGraph, CrewAI, and n8n turn agentic patterns into reusable building blocks. Each makes different tradeoffs: LangChain offers breadth, LangGraph offers controllability, CrewAI offers role-based intuition, and visual builders offer accessibility. The decision between framework and custom code depends on workflow complexity, control requirements, and the cost of lock-in. Isolate frameworks behind your own interfaces to preserve flexibility."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How does the component boundary pattern from Level 4 (wrapping external dependencies behind your own interfaces) apply to orchestration framework adoption? What would a 'framework-agnostic' agent architecture look like?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you used any of these frameworks? What surprised you about the gap between the tutorial experience and production use?",
+        "How do you weigh the speed of framework-based prototyping against the long-term cost of framework lock-in?",
+        "What would need to be true for you to confidently deploy a framework-based agentic system to production?"
+      ]
+    }
+  ]
+}

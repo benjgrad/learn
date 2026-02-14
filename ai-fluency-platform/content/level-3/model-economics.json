@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "3.7 Model Economics and ROI",
+    "description": "Calculate the true cost of AI approaches by comparing token pricing, latency tradeoffs, and ROI across strategies.",
+    "level": "level-3",
+    "slug": "model-economics",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An AI feature that costs $0.01 per query seems cheap -- until you multiply it by 10 million queries per month. How would you think about calculating the true cost of an AI-powered feature, and what hidden costs might surprise you?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The economics of tokens\n\nEvery interaction with a large language model has a cost measured in **tokens**. Understanding token economics is essential for building AI systems that are both effective and financially sustainable.\n\n### Input vs. output pricing\n\nMost API providers charge different rates for input tokens (your prompt and context) versus output tokens (the model's response):\n\n| Model (example pricing) | Input (per 1M tokens) | Output (per 1M tokens) |\n| :-- | :-- | :-- |\n| GPT-4o | ~$2.50 | ~$10.00 |\n| Claude Sonnet | ~$3.00 | ~$15.00 |\n| Claude Haiku | ~$0.25 | ~$1.25 |\n| GPT-4o mini | ~$0.15 | ~$0.60 |\n\n**Key insight**: Output tokens are typically 3-5x more expensive than input tokens. This means a verbose model response costs significantly more than a long input prompt. Instructing the model to be concise is not just a UX decision -- it is a cost decision.\n\n### Calculating per-query cost\n\nA simple formula for estimating the cost of a single query:\n\n```\nCost = (input_tokens x input_price) + (output_tokens x output_price)\n```\n\nFor a RAG query with a 4,000-token context window and a 500-token response using Claude Sonnet:\n\n- Input: 4,000 tokens x $3.00 / 1,000,000 = $0.012\n- Output: 500 tokens x $15.00 / 1,000,000 = $0.0075\n- **Total per query: ~$0.02**\n\nAt 100,000 queries per month, that is **$2,000/month** just in model API costs -- before infrastructure, embedding generation, vector database hosting, or engineering time.\n\n### The hidden costs\n\nToken pricing is only the visible part of the cost:\n\n- **Embedding generation**: Every document you index requires an embedding API call. Re-indexing 100,000 documents after a chunking strategy change costs money.\n- **Vector database hosting**: Managed vector databases charge for storage, queries, and uptime. Pinecone's standard tier can run $70-200+/month depending on index size and query volume.\n- **Latency cost**: Slower responses reduce user engagement. A 10-second RAG response may technically work, but users abandon sessions after 3-5 seconds. The \"cost\" of latency is measured in lost usage.\n- **Re-ranking and multi-step pipelines**: Each additional model call in your pipeline multiplies cost. A re-ranking step that calls a model to score 20 retrieved chunks adds 20 small inference calls per query.\n- **Reasoning token overhead**: As discussed in Module 3.6, reasoning models consume thousands of thinking tokens that you pay for but the user never sees."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If you switch from a 2,000-token context window to a 10,000-token context window for better retrieval coverage, how does that affect your monthly cost at 100,000 queries?",
+      "answer": "The input token cost scales roughly linearly with context size. Going from 2,000 to 10,000 input tokens (a 5x increase) with Claude Sonnet: Input cost jumps from $0.006 to $0.030 per query. At 100,000 queries/month, input costs alone go from $600 to $3,000 -- a $2,400/month increase. Output costs stay the same (assuming response length does not change). This is why context compression (Module 3.8) matters: sending more context improves quality but directly increases cost."
+    },
+    {
+      "type": "markdown",
+      "content": "### ROI: RAG vs. fine-tuning vs. prompt engineering\n\nThe three main strategies for making a model perform better on your domain each have different cost profiles:\n\n**Prompt engineering** (lowest upfront cost):\n- Cost: Engineering time only. No infrastructure beyond the API.\n- Ongoing: Pay per token at standard rates. Longer prompts with more examples cost more per query.\n- Best for: Low-to-medium query volumes, rapidly changing requirements, proof-of-concept work.\n\n**RAG** (moderate upfront cost):\n- Upfront: Embedding pipeline, vector database setup, chunking strategy development.\n- Ongoing: Embedding storage, vector DB hosting, larger context windows per query.\n- Best for: Large or frequently updated knowledge bases, cases requiring source attribution.\n\n**Fine-tuning** (highest upfront cost):\n- Upfront: Training data preparation, compute for training runs, evaluation pipeline.\n- Ongoing: Lower per-query cost (fine-tuned models can be smaller and faster). But retraining is needed when data changes.\n- Best for: High-volume, stable domains where per-query cost reduction justifies the upfront investment.\n\n### The crossover calculation\n\nFine-tuning becomes cheaper than RAG at high volumes because you eliminate the context window overhead. Consider:\n\n- **RAG approach**: 8,000 input tokens per query (prompt + retrieved context) at $3/1M = $0.024/query\n- **Fine-tuned model**: 500 input tokens per query (prompt only, knowledge is in the weights) at $3/1M = $0.0015/query\n- **Savings per query**: ~$0.022\n- **Fine-tuning cost**: ~$5,000 for training data preparation and compute\n\n**Breakeven**: $5,000 / $0.022 = ~227,000 queries. If you process more than 227,000 queries before the knowledge changes enough to require retraining, fine-tuning has a positive ROI."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate the cost of a RAG pipeline versus sending a full document in-context for this scenario: You have a 50-page employee handbook (~25,000 tokens). Users ask ~500 questions per day. Compare (A) RAG with top-5 chunk retrieval at ~3,000 tokens per query versus (B) stuffing the full 25,000-token document into every query. Use Claude Sonnet pricing and assume 400-token average responses.",
+      "solution": "**Option A: RAG pipeline**\n\nPer-query input: 3,000 tokens (retrieved chunks + prompt)\nPer-query output: 400 tokens\nInput cost: 3,000 x $3.00/1M = $0.009\nOutput cost: 400 x $15.00/1M = $0.006\nPer-query total: $0.015\n\nDaily cost: 500 x $0.015 = $7.50\nMonthly cost: $7.50 x 30 = **$225/month** (API only)\n\nPlus: Vector DB hosting (~$50-100/month), embedding costs (one-time for a single handbook: negligible)\n\n**Total: ~$300-325/month**\n\n**Option B: Full document in-context**\n\nPer-query input: 25,000 tokens (full doc + prompt)\nPer-query output: 400 tokens\nInput cost: 25,000 x $3.00/1M = $0.075\nOutput cost: 400 x $15.00/1M = $0.006\nPer-query total: $0.081\n\nDaily cost: 500 x $0.081 = $40.50\nMonthly cost: $40.50 x 30 = **$1,215/month**\n\nNo vector DB cost, no embedding cost.\n\n**Total: ~$1,215/month**\n\n**Analysis**: RAG saves ~$900/month in this scenario. But if the handbook were only 5 pages (~2,500 tokens), the context-stuffing approach would cost roughly the same as RAG while being simpler to build and maintain. The crossover point depends on document size relative to your chunk retrieval budget."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between input and output token pricing and why it matters. Describe the hidden costs beyond token pricing in a RAG system. At what query volume does fine-tuning start to beat RAG on cost?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "For a project you are working on or evaluating, what is the estimated monthly query volume? What would the API cost be at current pricing?",
+        "Have you considered the cost of latency in your AI features? How would you measure the business impact of a 2-second versus 8-second response time?",
+        "If token prices drop by 50% next year (as they have historically), how does that change which strategy has the best ROI for your use case?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Model economics is a context engineering skill. Every decision -- context window size, number of retrieved chunks, choice of model, grounding pipeline complexity -- has a direct cost implication. The cheapest approach per query (prompt engineering) may not be cheapest at scale. The most expensive upfront approach (fine-tuning) may have the best ROI at high volume. Calculate before you build."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now that you understand the cost of tokens, the next module teaches you how to spend fewer of them -- context compression techniques that reduce token budgets while preserving answer quality."
+    }
+  ]
+}

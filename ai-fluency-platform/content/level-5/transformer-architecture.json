@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "5.1 Transformer Architecture",
+    "description": "Understanding the encoder-decoder structure, self-attention, and positional encoding that power modern AI.",
+    "level": "level-5",
+    "slug": "transformer-architecture",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 5.1 Transformer Architecture"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "Before transformers, AI language models processed words one at a time in sequence (like reading left to right). What problems do you think that caused, and what advantage might a model have if it could look at all words simultaneously?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Revolution: \"Attention Is All You Need\"\n\nThe 2017 paper \"Attention Is All You Need\" by Vaswani et al. introduced the **transformer architecture**, which replaced recurrent neural networks (RNNs) and became the foundation for every major language model today -- GPT, Claude, Gemini, Llama, and more.\n\nThe key innovation was eliminating sequential processing entirely. Instead of reading words one by one, transformers process all tokens in parallel and use a mechanism called **self-attention** to learn relationships between any two positions in the sequence.\n\n## The High-Level Architecture\n\nA transformer consists of two main parts:\n\n```\n┌──────────────────────────────────────────────┐\n│                  ENCODER                      │\n│  Reads the input and builds a representation  │\n│                                               │\n│  Input Embedding + Positional Encoding        │\n│         │                                     │\n│  ┌──────▼──────┐                              │\n│  │ Self-Attention │  (attend to all input)     │\n│  └──────┬──────┘                              │\n│  ┌──────▼──────┐                              │\n│  │ Feed-Forward  │  (process each position)    │\n│  └──────┬──────┘                              │\n│         │  × N layers                         │\n└─────────┼────────────────────────────────────┘\n          │\n┌─────────▼────────────────────────────────────┐\n│                  DECODER                      │\n│  Generates the output token by token          │\n│                                               │\n│  Output Embedding + Positional Encoding       │\n│         │                                     │\n│  ┌──────▼──────┐                              │\n│  │ Masked Self-  │  (attend to previous only)  │\n│  │ Attention     │                             │\n│  └──────┬──────┘                              │\n│  ┌──────▼──────┐                              │\n│  │ Cross-       │  (attend to encoder output)  │\n│  │ Attention    │                              │\n│  └──────┬──────┘                              │\n│  ┌──────▼──────┐                              │\n│  │ Feed-Forward  │                             │\n│  └──────┬──────┘                              │\n│         │  × N layers                         │\n└─────────┼────────────────────────────────────┘\n          │\n     Output Probabilities\n```\n\n### Architecture Variants\n\nNot all modern models use both parts:\n\n| Architecture | Uses | Examples |\n|---|---|---|\n| **Encoder-only** | Understanding, classification | BERT, RoBERTa |\n| **Decoder-only** | Text generation | GPT-4, Claude, Llama |\n| **Encoder-Decoder** | Translation, summarization | T5, BART |\n\nMost modern LLMs (GPT-4, Claude, Llama) are **decoder-only** transformers. They drop the encoder entirely and use the decoder with masked self-attention to generate text auto-regressively -- predicting one token at a time, where each new token depends on all previous tokens."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why are most modern LLMs decoder-only rather than encoder-decoder? What task does that architecture optimize for?",
+      "answer": "Decoder-only models are optimized for **text generation** (next-token prediction), which turns out to be an extremely general capability. By training a model to predict the next token on massive corpora, it learns to do translation, summarization, classification, and reasoning without needing a separate encoder. The simplicity of the single-stack architecture also makes scaling easier -- you can increase model size by adding more decoder layers without coordinating between encoder and decoder."
+    },
+    {
+      "type": "markdown",
+      "content": "## Positional Encoding\n\nSince transformers process all tokens in parallel (unlike RNNs which process sequentially), they have no inherent sense of word order. The sentence \"The cat sat on the mat\" and \"The mat sat on the cat\" would be identical without positional information.\n\n**Positional encoding** solves this by adding a unique signal to each token's embedding that encodes its position in the sequence:\n\n```\nToken embedding:      [0.2, -0.5, 0.8, ...]   (what the word means)\nPosition encoding:  + [0.0,  1.0, 0.0, ...]   (where the word is)\n─────────────────────────────────────────────\nCombined:           = [0.2,  0.5, 0.8, ...]   (meaning + position)\n```\n\nThe original transformer used sinusoidal functions for positional encoding:\n\n```\nPE(pos, 2i)   = sin(pos / 10000^(2i/d_model))\nPE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))\n```\n\nModern models like Llama use **Rotary Position Embeddings (RoPE)**, which encode relative position through rotation matrices, enabling better generalization to sequence lengths not seen during training.\n\n## The Feed-Forward Network\n\nEach transformer layer contains a **feed-forward network (FFN)** that processes each position independently:\n\n```\nFFN(x) = max(0, xW₁ + b₁)W₂ + b₂\n```\n\nThis is a simple two-layer neural network applied to each token position. Research suggests that these FFN layers act as the model's \"memory\" -- storing factual knowledge learned during training. The attention layers, by contrast, handle *relationships* between tokens."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Consider a decoder-only transformer processing the prompt 'The capital of France is'. Trace through the high-level steps: (1) How is the input tokenized and embedded? (2) What does positional encoding add? (3) What does self-attention compute? (4) How does the model produce the next token?",
+      "solution": "Step by step:\n\n1. **Tokenization**: The text is split into tokens (e.g., `[\"The\", \" capital\", \" of\", \" France\", \" is\"]`) and each token is converted to an integer ID, then to an embedding vector of dimension d_model (e.g., 4096).\n\n2. **Positional encoding**: A position signal is added to each embedding so the model knows that \"The\" is at position 0, \"capital\" at position 1, and so on. This preserves word order information.\n\n3. **Self-attention**: Each token computes attention scores against all previous tokens (masked so it cannot see future tokens). \"is\" attends strongly to \"capital\" and \"France\" because those are the most relevant for predicting the next word. This happens across multiple layers, building increasingly abstract representations.\n\n4. **Next-token prediction**: The final layer's output for the last position (\"is\") is projected through a linear layer to produce a probability distribution over the entire vocabulary. \"Paris\" has the highest probability, so it is selected as the next token."
+    },
+    {
+      "type": "markdown",
+      "content": "## Layer Stacking and Depth\n\nModern transformers stack many identical layers. Each layer refines the representation:\n\n| Model | Parameters | Layers | Attention Heads | Hidden Dim |\n|-------|-----------|--------|----------------|-----------|\n| GPT-2 Small | 117M | 12 | 12 | 768 |\n| Llama 2 7B | 7B | 32 | 32 | 4096 |\n| Llama 2 70B | 70B | 80 | 64 | 8192 |\n| GPT-4 | ~1.8T (est.) | ~120 (est.) | ~96 (est.) | ~12288 (est.) |\n\nEarly layers capture surface-level patterns (syntax, grammar). Middle layers build semantic understanding. Deep layers handle complex reasoning and world knowledge. This is why larger models with more layers tend to be more capable -- they have more \"processing depth\" for building abstract representations."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the transformer architecture in your own words. Cover the three architecture variants (encoder-only, decoder-only, encoder-decoder), why positional encoding is needed, and how layer depth affects capability."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The transformer architecture processes all tokens in parallel using self-attention, with positional encoding to preserve word order. Modern LLMs are decoder-only transformers that generate text auto-regressively. The feed-forward layers store factual knowledge while attention layers handle relationships. Deeper models with more layers capture more abstract patterns, which is why scale matters for capability."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How does understanding the transformer architecture inform the engineering patterns from Level 4? For example, knowing that models have a fixed context window comes directly from the transformer's positional encoding and memory design."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does knowing about encoder-only versus decoder-only architectures help you choose the right model for a task?",
+        "Why do you think the simple 'predict next token' objective creates such capable models?",
+        "What limitations of the transformer architecture do you think drive current research directions?"
+      ]
+    }
+  ]
+}

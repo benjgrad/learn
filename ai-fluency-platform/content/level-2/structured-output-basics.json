@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "2.8 Structured Output Basics",
+    "description": "Learn to request JSON, CSV, and structured formats from AI models through prompt techniques.",
+    "level": "level-2",
+    "slug": "structured-output-basics",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you ask an AI to 'give me the data as JSON,' do you think it will always produce valid, parseable JSON? What could go wrong?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why structured output matters\n\nMost AI interactions produce free-form text. That is fine for reading, but useless for automation. If you want to feed AI output into a spreadsheet, a database, a script, or another tool, you need the output in a predictable, machine-readable format.\n\nStructured output is the bridge between conversational AI and practical workflows. Master it and you unlock the ability to chain AI into larger systems -- even without writing code.\n\n### The prompt-level approach\n\nThis module focuses on getting structured output through **prompting techniques alone**. You write your prompt in a way that makes the model produce formatted output. This approach is accessible to everyone, requires no programming, and works across all AI providers.\n\nIn Level 4, you will learn about **deterministic enforcement** -- API features like JSON mode and function calling that guarantee valid structure. For now, prompt-level techniques get you 90% of the way there.\n\n## Requesting JSON\n\nJSON (JavaScript Object Notation) is the most common structured format for data exchange. To get JSON output from a model, you need three things: an explicit format request, an example of the structure, and clear field definitions.\n\n### Basic JSON request\n\n```\nExtract the following information from this product review\nand return it as JSON:\n\n- sentiment (positive, negative, or mixed)\n- key_topics (array of main subjects discussed)\n- rating_mentioned (true/false)\n- summary (one sentence)\n\nReview: \"The laptop is incredibly fast and the screen is\ngorgeous, but the battery barely lasts 4 hours. For the\nprice, I expected better battery life. The keyboard is\ndecent. 3 out of 5 stars.\"\n```\n\nThe model will typically produce something like:\n\n```json\n{\n  \"sentiment\": \"mixed\",\n  \"key_topics\": [\"performance\", \"display\", \"battery life\", \"keyboard\", \"price\"],\n  \"rating_mentioned\": true,\n  \"summary\": \"Fast laptop with great screen but disappointing battery life for the price.\"\n}\n```\n\n### Providing a schema example\n\nFor complex structures, show the model exactly what you want:\n\n```\nConvert each employee record to JSON matching this schema:\n\n{\n  \"name\": \"string\",\n  \"department\": \"string\",\n  \"skills\": [\"string\"],\n  \"years_experience\": number,\n  \"is_manager\": boolean\n}\n\nRecords:\n- Jane Chen, Engineering, Python/Go/Kubernetes, 8 years, manages a team of 5\n- Marcus Webb, Marketing, SEO/Analytics/Content Strategy, 3 years, individual contributor\n```\n\nProviding the schema as an example is a form of few-shot prompting applied to structure. The model matches the pattern you demonstrate.\n\n## Requesting CSV\n\nCSV (comma-separated values) is ideal when you want to paste output directly into a spreadsheet.\n\n```\nAnalyze the following sales data and return a CSV with\ncolumns: Month, Revenue, Growth_Percent, Top_Product\n\nData: In January we made $45K mainly from Widget A.\nFebruary jumped to $52K driven by Widget B. March\ndropped to $38K, mostly Widget A again.\n```\n\nExpected output:\n\n```csv\nMonth,Revenue,Growth_Percent,Top_Product\nJanuary,45000,,Widget A\nFebruary,52000,15.6,Widget B\nMarch,38000,-26.9,Widget A\n```\n\n### CSV tips\n\n- Ask the model to use a **header row** explicitly -- some models omit it\n- Specify how to handle **missing values** (empty field, \"N/A\", or 0)\n- For data containing commas, request that the model **quote fields** appropriately\n\n## Requesting markdown tables\n\nMarkdown tables are useful when you want structured output that is also human-readable:\n\n```\nCompare these three programming languages for web\ndevelopment. Return a markdown table with columns:\nLanguage, Learning Curve, Performance, Ecosystem,\nBest For.\n\nLanguages: Python, JavaScript, Go\n```\n\nMarkdown tables render nicely in most chat interfaces and can be pasted directly into documentation.\n\n## Techniques for reliable structure\n\n### Technique 1: Explicit format instruction\n\nAlways state the format explicitly. Do not rely on the model to guess:\n\n```\nReturn your answer as valid JSON. Do not include any\ntext before or after the JSON object.\n```\n\nThe instruction \"do not include any text before or after\" prevents the model from adding conversational preamble like \"Here is the JSON:\" which breaks parsing.\n\n### Technique 2: Show, do not tell\n\nCombine a structural instruction with a concrete example. The model follows demonstrated patterns more reliably than described ones.\n\n### Technique 3: Constrain the fields\n\nDefine every field the model should include. Open-ended requests like \"return relevant information as JSON\" produce inconsistent schemas across runs.\n\n### Technique 4: Handle edge cases in the prompt\n\nTell the model what to do when data is missing, ambiguous, or does not fit the schema:\n\n```\nIf a field cannot be determined from the input, use null.\nIf a field could have multiple values, use an array.\nDo not invent data that is not present in the source text.\n```"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If you ask the model for JSON, will it always produce valid JSON?",
+      "answer": "No. Prompt-level JSON requests are **probabilistic**, not guaranteed. The model might add explanatory text around the JSON, produce a trailing comma, miss a closing brace, or use single quotes instead of double quotes. For casual use, prompt techniques work well -- perhaps 90-95% of the time with a well-written prompt. For production systems where invalid JSON causes a crash, you need deterministic enforcement through API features like OpenAI's JSON mode or structured output schemas. You will learn those techniques in Level 4."
+    },
+    {
+      "type": "markdown",
+      "content": "## Common failure modes\n\n| Problem | Cause | Fix |\n| :-- | :-- | :-- |\n| JSON wrapped in markdown code fences | Model adds ` ```json ` formatting | Ask explicitly for raw JSON with no code fences |\n| Extra conversational text | Model adds \"Here is the JSON:\" preamble | Add \"Output only the JSON, nothing else\" |\n| Inconsistent field names | Ambiguous prompt | Provide an explicit schema example |\n| Nested structure is wrong | Complex schema described in prose | Show the exact nesting via example |\n| Truncated output | Response hit max token limit | Reduce the data scope or increase token limit |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take a paragraph of unstructured text (a product review, a meeting summary, or a news article) and write a prompt that extracts key information into JSON. Run it three times and check whether the JSON is valid and consistent across runs. Note any variations in structure or content.",
+      "solution": "Across three runs, you will likely see the same overall structure but minor variations: field ordering may change, array items may appear in different order, and wording of string values will differ. If the structure itself varies (different field names, missing fields), your prompt needs a more explicit schema definition. Try adding an example of the exact output structure you want."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why structured output matters for automation. What three techniques make JSON requests more reliable? Why can you not guarantee valid JSON through prompting alone, and what is the alternative?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What tasks in your current workflow involve manually reformatting AI output? Could structured output prompts eliminate that step?",
+        "When would you choose CSV over JSON, or a markdown table over either?",
+        "How comfortable are you with the idea that prompt-level structured output is probabilistic rather than guaranteed?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Structured output -- JSON, CSV, markdown tables -- bridges the gap between conversational AI and automated workflows. Prompt-level techniques (explicit format instructions, schema examples, field constraints, and edge case handling) produce reliable structure most of the time. For guaranteed valid output in production systems, you will need the deterministic API features covered in Level 4. Start with prompt techniques to build intuition for what works."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Structured output lets you feed AI results into other tools. But what if the AI could use those tools directly? In Module 2.9, you will learn about agentic loops -- the pattern that lets AI models take actions, observe results, and reason about what to do next."
+    }
+  ]
+}

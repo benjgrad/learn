@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "5.2 Attention Mechanism",
+    "description": "Deep dive into Query, Key, Value vectors, multi-head attention, and how models decide what to focus on.",
+    "level": "level-5",
+    "slug": "attention-mechanism",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 5.2 Attention Mechanism"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "When you read the sentence 'The animal didn't cross the street because it was too tired', how do you know what 'it' refers to? What process in your brain lets you connect 'it' to 'animal' rather than 'street'?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Core Insight\n\nSelf-attention is the mechanism that lets transformers understand relationships between words regardless of their distance in the text. When the model processes \"it\" in the sentence above, attention allows it to \"look back\" and assign high importance to \"animal\" while assigning low importance to \"street\" -- learning the same kind of co-reference resolution that comes naturally to humans.\n\n## Query, Key, and Value\n\nThe attention mechanism works through three learned projections of each token's embedding:\n\n- **Query (Q)**: \"What am I looking for?\" -- represents the current token's search\n- **Key (K)**: \"What do I contain?\" -- represents what each token offers\n- **Value (V)**: \"What information do I carry?\" -- the actual content to retrieve\n\nThe analogy is a search engine: the Query is your search terms, Keys are the page titles, and Values are the page content. You match your query against keys to find relevant results, then retrieve the values from the best matches.\n\n### The Math\n\nFor a sequence of n tokens with embedding dimension d:\n\n```\nQ = X · W_Q    (n × d_k)\nK = X · W_K    (n × d_k)\nV = X · W_V    (n × d_v)\n\nAttention(Q, K, V) = softmax(Q · K^T / sqrt(d_k)) · V\n```\n\nStep by step:\n\n1. **Compute scores**: Multiply Q by K transpose to get an n x n attention score matrix. Each entry (i, j) says how much token i should attend to token j.\n\n2. **Scale**: Divide by sqrt(d_k) to prevent the dot products from growing too large, which would push softmax into regions with vanishingly small gradients.\n\n3. **Softmax**: Convert scores to probabilities. Each row sums to 1, creating a \"where should I look?\" distribution for each token.\n\n4. **Weighted sum**: Multiply the attention probabilities by V to get the final output -- a weighted combination of all token values, weighted by relevance."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why do we divide the dot product scores by sqrt(d_k) before applying softmax? What would happen without this scaling?",
+      "answer": "Without scaling, as the dimension d_k grows larger, the dot products between Q and K vectors grow proportionally larger in magnitude. Large dot products push the softmax function into regions where it has extremely small gradients (near 0 or 1), making the model difficult to train. Dividing by sqrt(d_k) keeps the dot products in a moderate range where softmax produces meaningful gradients, regardless of the embedding dimension. This is why it is called **scaled** dot-product attention."
+    },
+    {
+      "type": "markdown",
+      "content": "## Multi-Head Attention\n\nA single attention head can only capture one type of relationship. **Multi-head attention** runs several attention heads in parallel, each learning to focus on different aspects:\n\n```\nhead_1 = Attention(Q·W₁_Q, K·W₁_K, V·W₁_V)   -- perhaps syntax\nhead_2 = Attention(Q·W₂_Q, K·W₂_K, V·W₂_V)   -- perhaps semantics\nhead_3 = Attention(Q·W₃_Q, K·W₃_K, V·W₃_V)   -- perhaps coreference\n...\nhead_h = Attention(Q·Wₕ_Q, K·Wₕ_K, V·Wₕ_V)\n\nMultiHead(Q, K, V) = Concat(head_1, ..., head_h) · W_O\n```\n\nResearch has shown that different heads learn distinct patterns:\n\n| Attention Pattern | What It Captures | Example |\n|---|---|---|\n| **Adjacent token** | Local syntax and grammar | Subject-verb agreement |\n| **Positional** | Fixed offsets (e.g., always look 3 tokens back) | Phrase structure |\n| **Semantic** | Long-range meaning relationships | Coreference (\"it\" → \"animal\") |\n| **Delimiter** | Attention to structural markers | System prompt boundaries |\n| **Induction** | Pattern matching (\"A B ... A\" → predict \"B\") | In-context learning |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Consider the sentence: 'The lawyer who the banker consulted advised the client.' For the word 'advised', sketch which words you think would have the highest attention scores. Which attention heads might focus on different relationships?",
+      "solution": "For the word \"advised\":\n\n- **Syntactic head**: Strong attention to \"lawyer\" (subject of \"advised\") and \"client\" (object), lower attention to \"banker\" (part of a relative clause).\n- **Semantic head**: Attention to \"consulted\" (related action) and \"lawyer\" (the adviser).\n- **Structural head**: Attention to \"who\" (relative pronoun linking the clause).\n- **Positional head**: Attention to nearby words like \"the\" and \"client.\"\n\nThe key insight is that no single head captures everything. Multi-head attention lets the model represent this sentence's complex nested structure by having different heads focus on subject-verb relationships, relative clauses, and semantic roles simultaneously."
+    },
+    {
+      "type": "markdown",
+      "content": "## Masked Attention in Decoders\n\nIn decoder-only models (GPT, Claude), attention is **masked** so that each token can only attend to tokens that came before it. This prevents \"cheating\" during generation -- the model cannot look ahead at tokens it has not generated yet.\n\n```\nAttention mask (for 4 tokens):\n\n       Token 1   Token 2   Token 3   Token 4\nToken 1   ✓         ✗         ✗         ✗\nToken 2   ✓         ✓         ✗         ✗\nToken 3   ✓         ✓         ✓         ✗\nToken 4   ✓         ✓         ✓         ✓\n```\n\nThis is implemented by setting masked positions to negative infinity before softmax, which drives their attention weights to zero.\n\n## KV Cache: Why Generation Gets Slower\n\nDuring generation, the model computes attention over all previous tokens for each new token. The **KV cache** stores the Key and Value vectors from previous tokens so they do not need to be recomputed:\n\n```\nGenerating token 100:\n  - Retrieve cached K, V for tokens 1-99\n  - Compute Q for token 100 only\n  - Compute attention: Q_100 · [K_1, ..., K_99]^T\n  - Store K_100, V_100 in cache\n```\n\nThis is why:\n- **First token latency** is high (process entire prompt)\n- **Subsequent tokens** are faster (only compute one new token)\n- **Memory usage grows** linearly with sequence length (cache gets bigger)\n- **Very long contexts** can exhaust GPU memory (the KV cache for a 128K context is large)"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Query, Key, Value mechanism using an analogy of your choosing. Then describe what multi-head attention adds beyond a single attention head."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The attention mechanism uses Query, Key, and Value projections to compute how much each token should focus on every other token. Multi-head attention runs multiple attention patterns in parallel, capturing syntax, semantics, and structure simultaneously. In decoder models, masked attention prevents looking ahead, and the KV cache trades memory for speed during generation."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How does understanding attention and the KV cache connect to practical engineering decisions? For instance, why does prompt length affect latency? Why does the order of information in a prompt matter? How does this inform the context engineering skills from Level 3?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the attention mechanism explain why models sometimes 'lose' information in very long contexts?",
+        "Why does placing important instructions at the beginning or end of a prompt often work better than burying them in the middle?",
+        "How might attention patterns differ between a model trained on code versus one trained on natural language?"
+      ]
+    }
+  ]
+}

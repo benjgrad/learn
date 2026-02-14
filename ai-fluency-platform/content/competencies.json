@@ -1,0 +1,66 @@
+[
+  {
+    "id": "delegation",
+    "name": "Delegation",
+    "definition": "Strategic task distribution between humans and AI",
+    "professionalApplication": "Determining which parts of a software development lifecycle should be automated via LLMs and which require human architectural oversight.",
+    "icon": "🎯",
+    "levels": {
+      "1": "Recognize which simple tasks (summarization, drafting, brainstorming) AI can handle versus tasks requiring human judgment. Begin experimenting with offloading routine work.",
+      "2": "Strategically assign prompt-based tasks to AI while retaining control of output quality. Understand when to use zero-shot versus few-shot approaches based on task complexity.",
+      "3": "Delegate data retrieval and context assembly to RAG pipelines. Decide which knowledge sources to ground the AI in and which queries require human domain expertise.",
+      "4": "Distribute work across AI components within a software architecture. Determine which pipeline stages benefit from AI inference versus deterministic logic, and design fallback strategies.",
+      "5": "Orchestrate delegation across multi-agent workflows. Assign specialized fine-tuned models to domain-specific subtasks while maintaining human oversight of system-level behavior and evaluation.",
+      "6": "Define organization-wide delegation policies and operating models. Standardize which classes of work are AI-automated, AI-augmented, or human-only across teams and business units.",
+      "7": "Pioneer new paradigms for human-AI task distribution at the frontier. Research and publish on optimal delegation patterns for autonomous AI agents, addressing alignment and emergent behavior."
+    }
+  },
+  {
+    "id": "description",
+    "name": "Description",
+    "definition": "Effective communication of goals and behaviors to AI systems",
+    "professionalApplication": "Crafting high-level instructions and system messages that clearly define output formats and interaction rules.",
+    "icon": "📝",
+    "levels": {
+      "1": "Communicate basic goals to AI using natural language. Learn to phrase clear requests for summaries, explanations, and simple creative tasks.",
+      "2": "Craft precise prompts using structured techniques — chain-of-thought, role simulation, delimiters, and system messages. Control temperature and output format for reliable results.",
+      "3": "Design context-rich instructions that incorporate retrieved documents, specify grounding requirements, and define how the AI should use external data sources in its responses.",
+      "4": "Write system-level specifications for AI components including API contracts, expected input/output schemas, error handling behaviors, and integration requirements with surrounding software.",
+      "5": "Author fine-tuning datasets, evaluation rubrics, and multi-step agent instructions. Describe complex workflows that coordinate multiple models with precise handoff protocols.",
+      "6": "Create enterprise-wide prompt libraries, governance documentation, and standardized instruction templates. Define organizational conventions for human-AI communication across all teams.",
+      "7": "Contribute to the field's understanding of instruction-following, alignment techniques, and the fundamental limits of natural language as an interface for specifying AI behavior."
+    }
+  },
+  {
+    "id": "discernment",
+    "name": "Discernment",
+    "definition": "Critical evaluation of AI outputs and processes",
+    "professionalApplication": "Assessing the accuracy, quality, and potential bias of generated content using objective evaluation frameworks.",
+    "icon": "🔍",
+    "levels": {
+      "1": "Recognize that AI outputs are probabilistic, not factual. Begin fact-checking AI responses against trusted sources and notice when outputs seem implausible or inconsistent.",
+      "2": "Evaluate prompt effectiveness systematically. Compare outputs across different prompting strategies, identify hallucinations, and assess whether responses match specified constraints.",
+      "3": "Judge the quality of retrieved context — relevance, recency, and completeness. Assess whether grounding data improves output accuracy and identify when retrieval fails silently.",
+      "4": "Evaluate AI component reliability within software systems. Measure latency, accuracy, consistency, and failure modes. Design automated testing to catch regressions in AI behavior.",
+      "5": "Apply rigorous evaluation frameworks — perplexity, ROUGE scores, F1, LLM-as-a-judge — to assess model performance. Conduct adversarial robustness testing and bias audits.",
+      "6": "Establish organization-wide quality standards and monitoring dashboards. Detect model drift, measure ROI of AI investments, and audit algorithmic fairness across deployed systems.",
+      "7": "Advance the science of AI evaluation. Research emergent behaviors, deceptive reasoning patterns, and novel benchmarks. Contribute to peer-reviewed assessment of frontier model capabilities."
+    }
+  },
+  {
+    "id": "diligence",
+    "name": "Diligence",
+    "definition": "Responsible and ethical application of AI",
+    "professionalApplication": "Maintaining transparency, accountability, and security in AI-assisted workflows to ensure ethical compliance.",
+    "icon": "🛡️",
+    "levels": {
+      "1": "Understand basic AI ethics — privacy, bias, and transparency. Avoid sharing sensitive personal data with AI tools. Acknowledge when work is AI-assisted.",
+      "2": "Apply responsible prompting practices. Avoid prompt injection risks, respect intellectual property in training data, and maintain transparency about AI involvement in produced content.",
+      "3": "Ensure data governance in RAG pipelines — proper handling of proprietary documents, access controls on vector databases, and compliance with data retention policies.",
+      "4": "Implement security best practices for AI components — input validation, output sanitization, API key management, and audit logging. Design systems that fail safely and transparently.",
+      "5": "Build ethical safeguards into agentic systems. Implement human-in-the-loop checkpoints, monitor for harmful outputs, and ensure fine-tuned models maintain safety alignment.",
+      "6": "Design and enforce enterprise AI governance frameworks. Navigate regulatory compliance (EU AI Act, FERPA), conduct algorithmic fairness audits, and manage organizational risk.",
+      "7": "Shape the future of AI safety and ethics through research, policy advocacy, and standards development. Address deepfakes, misinformation, and the preservation of human agency in an AI-dominated world."
+    }
+  }
+]

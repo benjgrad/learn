@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "2.1 Zero-Shot and Few-Shot Prompting",
+    "description": "Learn how providing examples in your prompt teaches the model to follow patterns it was never explicitly trained on.",
+    "level": "level-2",
+    "slug": "zero-shot-and-few-shot",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you wanted an AI to format text in a very specific way that it has never seen before -- say, your company's internal notation style -- how would you get it to do that without retraining the model?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Zero-shot: instructions only\n\nEvery prompt you wrote in Level 1 was a **zero-shot** prompt: you gave the model an instruction and zero examples of the desired output. The model relied entirely on its pre-trained knowledge to interpret your request.\n\n```\nClassify the following customer message as \"billing\",\n\"technical\", or \"general\":\n\n\"I can't log into my account after changing my password.\"\n```\n\nZero-shot works well when the task is common (classification, summarization, translation) and the expected output format is standard. The model has seen millions of similar tasks during training and can generalize.\n\nBut zero-shot fails when:\n- Your desired output format is unusual or proprietary\n- The task requires a specific reasoning pattern the model does not default to\n- You need consistent formatting across many outputs\n\n## Few-shot: teaching by example\n\n**Few-shot prompting** (also called **in-context learning**) adds examples of input-output pairs before the actual task. The model detects the pattern in your examples and applies it to the new input.\n\n```\nClassify customer messages. Here are examples:\n\nMessage: \"When is my next invoice due?\"\nCategory: billing\n\nMessage: \"The dashboard is loading slowly.\"\nCategory: technical\n\nMessage: \"Do you have a referral program?\"\nCategory: general\n\nMessage: \"I can't log into my account after changing my password.\"\nCategory:\n```\n\nThe model sees the pattern (message followed by category) and continues it. This is remarkably powerful because you are effectively **programming the model through examples** without writing code or retraining anything."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "How many examples do you typically need for few-shot prompting to work? Is there a minimum or maximum?",
+      "answer": "There is no hard minimum, but research shows:\n- **1-shot** (one example) often provides a significant improvement over zero-shot for formatting tasks\n- **3-5 examples** typically establish a robust pattern for most tasks\n- Beyond **10-15 examples**, you get diminishing returns and risk filling up the context window\n\nThe quality and diversity of examples matters more than quantity. Choose examples that cover the range of cases the model will encounter."
+    },
+    {
+      "type": "markdown",
+      "content": "### Why few-shot works\n\nFew-shot learning is an **emergent property** of large language models -- it was not explicitly programmed. It emerges because the model was trained on text that naturally contains patterns and continuations. When you provide examples, you are creating a pattern within the context window, and the model continues that pattern.\n\nThis means few-shot learning is actually a form of the same next-token prediction you learned about in Level 1. The model is not \"learning\" from your examples in any deep sense -- it is recognizing a pattern and predicting what comes next.\n\n### Designing effective examples\n\nGood few-shot examples share several properties:\n\n1. **Representative**: Cover the range of inputs the model will see\n2. **Consistent**: Use identical formatting across all examples\n3. **Clear boundaries**: Use markers to separate input from output\n4. **Ordered thoughtfully**: Place the most representative examples first\n\nBad examples can actively hurt performance. If your examples contain inconsistencies or errors, the model will learn those inconsistencies."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Create a few-shot prompt that teaches an AI to convert informal meeting notes into structured action items with an owner, deadline, and description. Write 3 examples, then test with a real set of meeting notes.",
+      "solution": "A well-structured few-shot prompt might look like:\n\n```\nConvert meeting notes into structured action items.\n\nNotes: \"John will handle the API docs by Friday. Sarah needs to review the test coverage.\"\nAction items:\n- Owner: John | Deadline: Friday | Task: Write API documentation\n- Owner: Sarah | Deadline: TBD | Task: Review test coverage\n\nNotes: \"We need someone to set up monitoring. Mark volunteered, aiming for end of sprint.\"\nAction items:\n- Owner: Mark | Deadline: End of sprint | Task: Set up monitoring system\n\nNotes: [your actual meeting notes here]\nAction items:\n```\n\nThe key is consistent formatting across examples: same delimiter (|), same field order (Owner, Deadline, Task), same handling of missing information (TBD)."
+    },
+    {
+      "type": "markdown",
+      "content": "### Zero-shot vs. few-shot: when to use which\n\n| Situation | Recommended approach |\n| :-- | :-- |\n| Standard task (summarize, translate) | Zero-shot is usually sufficient |\n| Custom output format | Few-shot with 3-5 examples |\n| Domain-specific classification | Few-shot with representative categories |\n| Complex reasoning | Few-shot combined with chain-of-thought (Module 2.2) |\n| Limited context window | Zero-shot to save tokens |"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between zero-shot and few-shot prompting. Why does few-shot work even though the model is not actually learning from your examples? When would you choose each approach?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think of a task at work where the output format is specific to your organization. Could few-shot prompting handle it?",
+        "What would happen if you provided contradictory examples in a few-shot prompt?",
+        "How does the concept of in-context learning connect to the idea that AI is a next-token predictor?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Few-shot prompting teaches the model your desired pattern through examples placed directly in the prompt. It works because the model recognizes and continues patterns -- the same next-token prediction from Level 1, applied to your examples. Use 3-5 consistent, representative examples for best results."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Few-shot prompting controls the model's output format. In Module 2.2, you will learn chain-of-thought prompting, which controls the model's reasoning process -- forcing it to show its work step by step."
+    }
+  ]
+}

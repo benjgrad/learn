@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "3.8 Context Compression",
+    "description": "Learn when and how to compress context to stay within token budgets while preserving answer quality.",
+    "level": "level-3",
+    "slug": "context-compression",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have a 5-page document that is relevant to a user's question, but your token budget only allows 1 page of context. What are your options, and what might you lose with each approach?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The compression problem\n\nContext windows are finite and tokens cost money. In Module 3.7, you saw that larger context windows directly increase per-query cost. But reducing context carelessly destroys the information the model needs to answer correctly.\n\n**Context compression** is the practice of reducing the number of tokens you send to the model while preserving the information density that matters for the task. It sits at the intersection of retrieval quality, cost management, and answer accuracy.\n\n### Strategy 1: Prompt compression\n\nPrompt compression rewrites your instructions and context to use fewer tokens without losing meaning. This can be done manually or with automated tools.\n\n**Manual compression** techniques:\n\n- Remove filler phrases (\"It is important to note that...\" becomes a direct statement)\n- Replace verbose instructions with concise equivalents (\"Please provide a detailed and comprehensive answer\" becomes \"Be thorough\")\n- Use structured formats (bullet points, tables) instead of prose paragraphs for reference data\n- Remove redundant context -- if the same fact appears in three retrieved chunks, include it once\n\n**Automated compression** uses a smaller, cheaper model to rewrite context before passing it to the primary model:\n\n```\nStep 1: Retrieve 10 chunks (8,000 tokens)\nStep 2: Send to a fast model with instruction:\n        \"Compress these chunks into the key facts\n        relevant to: [user question]. Target: 2,000 tokens.\"\nStep 3: Send compressed context (2,000 tokens)\n        to the primary model with the user question\n```\n\nThe tradeoff: the compression step adds latency and a small cost, but the savings on the primary model call (6,000 fewer input tokens) often outweigh it -- especially when using expensive reasoning models.\n\n### Strategy 2: Lossy summarization\n\nSummarization deliberately discards detail to fit within a budget. Unlike compression (which tries to preserve all information in fewer tokens), summarization accepts information loss in exchange for brevity.\n\n**Levels of summarization:**\n\n| Level | What is preserved | What is lost | Use case |\n| :-- | :-- | :-- | :-- |\n| **Executive summary** | Key conclusions and decisions | Supporting evidence, nuance | Quick overview questions |\n| **Section summaries** | Main point of each section | Detail within sections | Navigation and scoping |\n| **Key-point extraction** | Specific facts, numbers, names | Narrative flow, context | Factual lookup queries |\n\n**When lossy summarization is acceptable:**\n\n- The user's question is broad (\"What is this document about?\") and does not require specific details\n- You are building a multi-turn system where the summary helps the model decide which section to retrieve in full\n- The domain tolerates approximation (informal Q&A, brainstorming, general research)\n\n**When lossy summarization is dangerous:**\n\n- Legal, medical, or financial questions where a missing qualifier changes the answer\n- Questions about specific numbers, dates, or thresholds\n- Any scenario where grounding rigor (Module 3.5) is critical"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If you summarize a legal contract from 10,000 tokens to 2,000 tokens, what specific types of information are most likely to be lost, and why is that dangerous?",
+      "answer": "Summarization tends to preserve high-level structure (\"This is an employment agreement between X and Y for a 3-year term\") while dropping qualifiers, exceptions, and conditional clauses (\"...except in cases of gross misconduct as defined in Appendix C, Section 4\"). These exceptions are often the most legally important parts of a contract. A summary might say \"the non-compete clause lasts 2 years\" while omitting \"unless the employee is terminated without cause, in which case it is void.\" For legal documents, lossy summarization should only be used for initial scoping -- never as the basis for answering specific legal questions."
+    },
+    {
+      "type": "markdown",
+      "content": "### Strategy 3: Budget-aware retrieval\n\nInstead of retrieving a fixed number of chunks and then compressing, **budget-aware retrieval** adjusts the retrieval step itself to fit the token budget:\n\n1. **Adaptive top-k**: Start with a target budget (e.g., 3,000 tokens). Retrieve chunks in order of relevance and stop when the cumulative token count hits the budget.\n2. **Tiered retrieval**: Retrieve the top-3 chunks in full, and the next 7 as summaries. This gives the model detailed evidence for the best matches and awareness of additional relevant context.\n3. **Query-dependent budgets**: Allocate more context budget for complex questions (\"Compare the refund policies across all three product tiers\") and less for simple ones (\"What is the return window?\").\n\n### Strategy 4: Truncation\n\nThe simplest approach: cut the context at a fixed token count. Truncation preserves the beginning of the context verbatim and discards the rest.\n\n**When truncation works**: When the most relevant information is at the beginning of the document (executive summaries, abstracts, introductions).\n\n**When truncation fails**: When relevant information is distributed throughout the document, or when the end of the document contains critical caveats and conclusions.\n\n**A common mistake**: Truncating retrieved chunks from the end. If your retrieval returns 10 chunks ranked by relevance, truncating by dropping the last 5 chunks (lowest relevance) is reasonable. Truncating by cutting the text of each chunk in half destroys context within every chunk -- a much worse outcome.\n\n### Strategy 5: Pagination\n\nFor multi-turn conversations, **pagination** avoids the compression problem entirely by spreading the context across multiple interactions:\n\n```\nTurn 1: \"Here is pages 1-3 of the document.\n         What are the key points so far?\"\nTurn 2: \"Here is pages 4-6. Update your summary\n         with any new information.\"\nTurn 3: \"Based on your full summary, answer the\n         user's question: [question]\"\n```\n\nPagination preserves full fidelity (every token is seen by the model) but requires multiple API calls and careful state management. It works well for automated pipelines where latency is less critical than accuracy."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take any 5-page document (or use a long article). Create three versions of it for use as context: (1) Full text, (2) Compressed version targeting 40% of the original token count, and (3) Key-points-only version targeting 15% of the original. Send the same question to a model with each version as context and compare the answer quality. Note where the compressed and key-points versions lose important information.",
+      "solution": "When running this comparison, look for:\n\n1. **Full text**: Should produce the most accurate, detailed answer. This is your quality baseline.\n\n2. **Compressed version (40%)**: Likely preserves the main arguments and most specific facts. You may notice the model loses some nuance -- qualifiers, exceptions, and hedging language tend to be the first things dropped in compression. The answer should be substantially similar to the full-text version.\n\n3. **Key-points version (15%)**: Will preserve top-level facts and numbers but lose narrative context. The model may produce a correct but shallow answer. For factual questions (\"What was the revenue in Q3?\"), this may be sufficient. For analytical questions (\"Why did the strategy change?\"), the missing context will degrade the answer.\n\nThe gap between versions reveals your document's **information density distribution**. If compressed and full-text produce nearly identical answers, your original document has low information density and compression is safe. If even the 40% version degrades quality, the document is information-dense and you should prefer pagination or larger context budgets."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Name four context compression strategies and describe the tradeoff each one makes. When is lossy summarization acceptable versus dangerous? What is budget-aware retrieval and how does it differ from compressing after retrieval?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "For your current or planned AI application, what is the ratio of available context window to typical document size? Is compression even necessary, or do your documents fit comfortably?",
+        "If you had to choose between a 20% chance of dropping critical information through compression versus paying 5x more for full-context queries, which would you choose for your domain? Why?",
+        "How would you test whether your compression strategy is degrading answer quality in production?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Context compression is a tradeoff between token cost and information fidelity. Prompt compression and budget-aware retrieval preserve the most information per token. Lossy summarization trades detail for brevity. Truncation is simple but crude. Pagination preserves everything but costs multiple calls. The right strategy depends on your document's information density, your quality requirements, and your cost constraints."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "With model architecture awareness, economic thinking, and compression techniques in your toolkit, you now have the complete Level 3 skill set. The Level 3 Checkpoint will test whether you can integrate all of these concepts into coherent system design decisions."
+    }
+  ]
+}

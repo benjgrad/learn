@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "5.7 Human-in-the-Loop Design",
+    "description": "Design effective human oversight into AI systems with confidence-based routing and escalation thresholds.",
+    "level": "level-5",
+    "slug": "human-in-the-loop",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 5.7 Human-in-the-Loop Design"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "Module 5.5 mentioned requiring human approval for high-impact actions. But what happens when every action is flagged for approval? What do you think happens to the quality of human review when reviewers see hundreds of approval requests per day?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Oversight Spectrum\n\nHuman-in-the-loop (HIL) is not a binary switch. It exists on a spectrum:\n\n1. **Full automation**: The AI acts without any human involvement. Fast, scalable, and risky for high-stakes decisions.\n2. **Human-on-the-loop**: The AI acts autonomously but a human monitors outputs and can intervene. The human reviews a dashboard, not every action.\n3. **Human-in-the-loop**: The AI proposes actions, a human approves or rejects each one before execution.\n4. **Human-in-the-driver-seat**: The human does the work with AI assistance (autocomplete, suggestions). The human makes every decision.\n\nEach level trades speed for safety. The engineering challenge is choosing the right level for each action *within* a system -- not applying one level uniformly."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Human approval for every AI action results in what problem? And requiring approval for no actions results in what problem?",
+      "answer": "**Approval for every action** leads to **approval fatigue**. Reviewers rubber-stamp decisions because the volume is too high to evaluate each one carefully. Studies in security alert systems show that when false positive rates exceed 50%, operators begin ignoring alerts entirely. The approval step becomes theater -- it looks like oversight but provides none.\n\n**Approval for no actions** leaves the system entirely unsupervised. Any model error, hallucination, or adversarial input flows directly into production consequences. For low-stakes tasks this may be acceptable, but for actions that affect customers, finances, or safety, the risk of undetected failure is too high.\n\nThe goal is to find the middle ground: approve only the actions where human judgment genuinely adds value."
+    },
+    {
+      "type": "markdown",
+      "content": "## Approval Fatigue and Mitigation\n\nApproval fatigue is the central failure mode of HIL design. When humans are asked to review too many decisions, review quality collapses. Mitigation strategies include:\n\n**Confidence-based routing**: Only escalate to a human when the model's confidence is below a threshold. High-confidence actions proceed automatically; low-confidence or ambiguous cases get human review.\n\n**Risk-based routing**: Classify actions by consequence severity. A chatbot rephrasing a FAQ answer can proceed automatically. A chatbot issuing a refund over $500 requires human approval regardless of model confidence.\n\n**Batch review**: Instead of interrupting a human for each decision, collect low-priority items and present them as a batch for periodic review. This lets the human compare decisions and spot patterns.\n\n**Sampling**: For high-volume, low-risk actions, randomly sample a percentage for human review. This provides statistical oversight without reviewing every case.\n\n## Escalation Thresholds\n\nAn escalation threshold defines the boundary between \"AI decides\" and \"human decides.\" Designing good thresholds requires:\n\n### Confidence Scores\n\nMost models can provide a confidence signal -- either through logprobs, calibrated probability scores, or structured self-assessment. Map these to routing decisions:\n\n```typescript\ninterface RoutingDecision {\n  action: string;\n  confidence: number;  // 0.0 to 1.0\n  riskLevel: \"low\" | \"medium\" | \"high\";\n}\n\nfunction route(decision: RoutingDecision): \"auto\" | \"human_review\" {\n  // High-risk actions always need human review\n  if (decision.riskLevel === \"high\") return \"human_review\";\n\n  // Medium-risk: use confidence threshold\n  if (decision.riskLevel === \"medium\") {\n    return decision.confidence > 0.85 ? \"auto\" : \"human_review\";\n  }\n\n  // Low-risk: very permissive threshold\n  return decision.confidence > 0.5 ? \"auto\" : \"human_review\";\n}\n```\n\n### Threshold Calibration\n\nSetting the right threshold is an empirical process:\n\n1. **Start conservative**: Set thresholds high (more human review) and collect data.\n2. **Measure**: Track the rate at which humans override the AI's proposed action. If humans approve 99% of escalated items at a given confidence level, the threshold is too low -- you are wasting human attention.\n3. **Adjust**: Lower the threshold for actions where human override rate is very low. Raise it where overrides are frequent.\n4. **Monitor continuously**: Model behavior changes with updates, data drift, and new edge cases. Thresholds that worked last month may not work today."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design an escalation policy for an AI-powered content moderation system that reviews user-generated posts. Define at least three tiers of action, the confidence thresholds for each, and what the human reviewer sees.",
+      "solution": "**Tier 1: Auto-approve (confidence > 0.95 that content is safe)**\n- Post is published immediately\n- Included in random 2% sample for quality assurance review\n\n**Tier 2: Auto-remove (confidence > 0.95 that content violates policy)**\n- Post is removed immediately with a policy-violation notice to the user\n- User can appeal, which triggers Tier 3 review\n- Included in random 5% sample for false-positive review\n\n**Tier 3: Human review (confidence between 0.5 and 0.95 in either direction)**\n- Post is held in a review queue, not visible to other users\n- Reviewer sees: the post content, the model's predicted category (spam, harassment, misinformation, etc.), confidence score, and the user's history (prior violations, account age)\n- Reviewer chooses: approve, remove with reason, or escalate to senior moderator\n- Target: reviewer handles each item in under 30 seconds\n\n**Tier 4: Senior escalation (edge cases, appeals, or legal risk)**\n- Flagged by Tier 3 reviewer or by specific keyword triggers (legal threats, self-harm)\n- Senior moderator reviews with full context including conversation threads\n- Decision is documented for policy training data\n\n**Metrics to track**: human override rate per tier, time-to-decision, false positive rate (safe content removed), false negative rate (harmful content published)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Confidence-Based Routing in Practice\n\nConfidence routing works best when the confidence signal is **calibrated** -- meaning a score of 0.8 actually corresponds to being correct 80% of the time. In practice, LLM confidence is often poorly calibrated:\n\n- Models tend to be **overconfident** on questions they get wrong\n- Logprobs on the final token do not always reflect overall answer quality\n- Structured self-assessment (\"On a scale of 1-10, how confident are you?\") can be gamed by system prompts\n\nStrategies for better confidence estimation:\n\n- **Consistency sampling**: Ask the model the same question multiple times (or with slight rephrasings). If it gives the same answer 9 out of 10 times, confidence is high. If answers vary, confidence is low.\n- **Logprob analysis**: For classification tasks, compare the logprobs of the top candidates. A large gap between first and second choice suggests higher confidence.\n- **Decomposition**: Break the decision into sub-questions and check if the model is confident about each one. Overall confidence is limited by the weakest link.\n\n## Where HIL Belongs in System Architecture\n\nHuman-in-the-loop is not just a feature you bolt on at the end. It is an **architectural decision** that affects data flow, latency, and state management:\n\n- **Synchronous HIL**: The system blocks and waits for human approval before continuing. Simple but slow. Appropriate for high-stakes, low-volume decisions.\n- **Asynchronous HIL**: The system queues the decision and continues with other work. The human reviews the queue. Appropriate for high-volume decisions where latency tolerance is higher.\n- **Hybrid**: The system continues with a default action but flags it for retroactive review. The human can reverse the action within a time window. Appropriate when speed matters but reversibility is possible."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain approval fatigue: what it is, why it happens, and two specific design strategies to prevent it in an AI system you are building."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Effective human-in-the-loop design is not about adding an approval step -- it is about routing the *right* decisions to humans while automating the rest. Confidence-based and risk-based routing prevent approval fatigue. Escalation thresholds must be calibrated empirically and monitored continuously. The choice between synchronous, asynchronous, and hybrid HIL patterns is an architectural decision that shapes the entire system."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How does the concept of approval fatigue in HIL design relate to alert fatigue in traditional monitoring systems (Level 4)? What lessons from DevOps and SRE can inform how we design AI oversight?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In your work context, which AI actions would you want on full automation, and which would you insist on human review for?",
+        "How would you measure whether your human-in-the-loop process is actually providing meaningful oversight versus just creating delay?",
+        "What happens to your HIL design when the volume of decisions grows 10x? Does it scale?"
+      ]
+    }
+  ]
+}

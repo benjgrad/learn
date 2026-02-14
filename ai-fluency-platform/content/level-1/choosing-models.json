@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "1.4 Choosing the Right Model",
+    "description": "Understand the landscape of AI models -- GPT-4, Claude, Gemini, and open-source alternatives -- and learn when to use which.",
+    "level": "level-1",
+    "slug": "choosing-models",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "How many different AI models can you name? Do you think they are all equally good at everything, or do they have different strengths? What would make you choose one over another?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The model landscape\n\nThere is no single \"best\" AI model. Different models are built by different companies, trained on different data, and optimized for different tasks. Choosing the right model is about matching the tool to the job.\n\n### The major frontier models\n\n| Model Family | Provider | Key Strengths | Access |\n| :-- | :-- | :-- | :-- |\n| **GPT-4 / GPT-4o** | OpenAI | Strong general reasoning, code generation, large ecosystem | ChatGPT, API |\n| **Claude** (Opus, Sonnet, Haiku) | Anthropic | Long-context handling, nuanced instruction following, safety-focused | claude.ai, API |\n| **Gemini** (Ultra, Pro, Flash) | Google | Multimodal (text + image + video), integration with Google services | Gemini app, API |\n| **Llama** | Meta | Open-source, can run locally, customizable | Hugging Face, local |\n| **Mistral** | Mistral AI | Efficient performance for size, strong European data handling | API, local |\n\nThese are called **frontier models** because they represent the current leading edge of capability. They are large (hundreds of billions of parameters), expensive to train, and typically accessed through cloud APIs or web interfaces.\n\n### Model tiers within a family\n\nMost providers offer multiple models at different capability-cost tradeoffs:\n\n- **Flagship** (GPT-4, Claude Opus, Gemini Ultra) -- Most capable, slowest, most expensive. Use for complex reasoning, analysis, and tasks where quality matters most.\n- **Mid-tier** (GPT-4o, Claude Sonnet, Gemini Pro) -- Good balance of capability and speed. Suitable for most everyday tasks.\n- **Lightweight** (GPT-4o mini, Claude Haiku, Gemini Flash) -- Fastest, cheapest, less capable on complex tasks. Use for simple classification, extraction, and high-volume processing."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Is a more expensive model always better? When would you deliberately choose a cheaper, less capable model?",
+      "answer": "A more expensive model is not always better for every task. If you need to classify 10,000 customer support tickets as \"billing,\" \"technical,\" or \"other,\" a lightweight model can do this faster and at a fraction of the cost. Reserve flagship models for tasks that actually require complex reasoning, nuance, or multi-step analysis. Matching model capability to task complexity is a core cost-management skill."
+    },
+    {
+      "type": "markdown",
+      "content": "### Open-source vs. closed-source\n\n**Closed-source** models (GPT-4, Claude) are accessed through APIs or web interfaces. You send your data to the provider's servers. This means:\n- You do not control where your data goes\n- The provider could change or discontinue the model\n- You pay per use\n\n**Open-source** models (Llama, Mistral) can be downloaded and run on your own hardware. This means:\n- Your data never leaves your infrastructure\n- You have full control over the model's lifecycle\n- You pay for compute, not per API call\n- You can fine-tune the model for your specific domain\n\nThe tradeoff: open-source models are generally less capable than the latest frontier closed-source models, but the gap is narrowing rapidly.\n\n### Decision framework\n\nWhen choosing a model, ask these questions:\n\n1. **How complex is the task?** Simple extraction or classification can use lightweight models. Complex analysis or creative writing benefits from flagship models.\n2. **How sensitive is the data?** If you cannot send data to a third party, you need an open-source model running locally.\n3. **How much does cost matter?** High-volume use cases need cost-efficient models. One-off analysis can afford flagship pricing.\n4. **Do I need multimodal input?** If you are working with images, audio, or video, not all models support this equally.\n5. **How fast do I need the response?** Lightweight models respond in milliseconds; flagship models may take several seconds for complex queries."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take a task you regularly use AI for. Ask the same question to two different AI models (for example, ChatGPT and Claude, or ChatGPT and Gemini). Compare the responses on three dimensions: accuracy, helpfulness, and style. Which model better fits your working style?",
+      "solution": "You will often find that both models produce acceptable responses, but with different styles, structures, and levels of detail. Your preference may come down to factors like how the model organizes information, how much it explains its reasoning, or how it handles ambiguity. There is no objectively \"best\" model -- there is the best model for your specific task and preferences."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Name three factors that should influence your choice of AI model. What is the difference between a frontier model and an open-source model, and when would you choose each?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you been using only one AI model? What might you be missing by not exploring alternatives?",
+        "For your most sensitive work data, is a cloud-based model acceptable or would you need a local option?",
+        "How do cost and speed factor into your decision today? Would that change if you were processing thousands of requests?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "There is no single best model. Frontier models offer the highest capability but send your data to third-party servers. Open-source models give you control and privacy at lower capability. Match model tier to task complexity: use lightweight models for simple tasks and flagship models for complex reasoning."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Choosing the right model becomes even more important at Level 2, where prompt engineering techniques like few-shot learning and chain-of-thought can amplify a model's capabilities -- or expose its weaknesses. Before moving on, test what you have learned in the Level 1 Checkpoint."
+    }
+  ]
+}

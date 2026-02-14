@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "4.2 Engineering Patterns for AI",
+    "description": "Applying proven software engineering and SRE patterns to build robust AI-powered systems.",
+    "level": "level-4",
+    "slug": "engineering-patterns",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 4.2 Engineering Patterns for AI"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "Software engineering has well-known patterns like retry, circuit breaker, and pub/sub. What new patterns do you think emerge when the 'service' you are calling is a probabilistic AI model rather than a deterministic API?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The 30 Patterns Framework\n\nAfter years of building production AI systems, practitioners have identified approximately 30 distinct engineering patterns that help transition from simple prompts to robust system architecture. These patterns apply traditional SRE (Site Reliability Engineering) and software engineering principles to the AI domain.\n\nWe will focus on the most impactful patterns grouped into four categories: **flow control**, **reliability**, **cost optimization**, and **output management**.\n\n## Flow Control Patterns\n\n### 1. Async Map with Parallelism\n\nWhen processing multiple items through an AI model, you need to balance throughput against rate limits. The async map pattern uses generators and promises to control backpressure:\n\n```typescript\nasync function asyncMap<T, R>(\n  items: T[],\n  fn: (item: T) => Promise<R>,\n  concurrency: number = 5\n): Promise<R[]> {\n  const results: R[] = [];\n  const executing = new Set<Promise<void>>();\n\n  for (const item of items) {\n    const promise = fn(item).then(result => {\n      results.push(result);\n      executing.delete(promise);\n    });\n    executing.add(promise);\n\n    if (executing.size >= concurrency) {\n      await Promise.race(executing);\n    }\n  }\n  await Promise.all(executing);\n  return results;\n}\n\n// Process 100 documents with max 5 concurrent AI calls\nconst summaries = await asyncMap(documents, summarize, 5);\n```\n\n### 2. Pipeline Pattern\n\nChain multiple AI operations where each step transforms the output for the next:\n\n```\nExtract entities ──> Classify intent ──> Generate response ──> Validate output\n```\n\nEach step is a separate AI component with its own prompt, model selection, and error handling. This is more reliable than asking a single model to do everything at once.\n\n### 3. Fan-Out / Fan-In\n\nSend the same input to multiple models or prompt variants, then aggregate the results:\n\n```typescript\nasync function consensusClassify(text: string): Promise<string> {\n  const results = await Promise.all([\n    classify(text, \"gpt-4\"),\n    classify(text, \"claude-sonnet\"),\n    classify(text, \"gpt-4\", ALTERNATIVE_PROMPT),\n  ]);\n  return majorityVote(results);\n}\n```"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why would you send the same input to multiple models instead of just using the best model once?",
+      "answer": "Multiple models provide a form of **ensemble voting** that reduces the chance of any single model's bias or hallucination affecting the outcome. If two out of three models agree on a classification, you have higher confidence than a single model's output. This is especially valuable for high-stakes decisions where a wrong answer is expensive."
+    },
+    {
+      "type": "markdown",
+      "content": "## Reliability Patterns\n\n### 4. Retry with Exponential Backoff\n\nAI APIs are prone to rate limits and transient failures. Always implement retries with increasing delays:\n\n```typescript\nasync function withRetry<T>(\n  fn: () => Promise<T>,\n  maxAttempts: number = 3,\n  baseDelay: number = 1000\n): Promise<T> {\n  for (let attempt = 1; attempt <= maxAttempts; attempt++) {\n    try {\n      return await fn();\n    } catch (error) {\n      if (attempt === maxAttempts) throw error;\n      if (isRateLimitError(error)) {\n        const delay = baseDelay * Math.pow(2, attempt - 1);\n        await sleep(delay);\n      } else {\n        throw error; // Don't retry non-transient errors\n      }\n    }\n  }\n  throw new Error(\"Unreachable\");\n}\n```\n\n### 5. Circuit Breaker\n\nWhen an AI provider is experiencing an outage, stop sending requests to avoid cascading failures:\n\n```\nCLOSED ──(failures exceed threshold)──> OPEN\n  ^                                        │\n  └──(timer expires, test request)── HALF-OPEN\n```\n\n### 6. Model Fallback Chain\n\nDefine a priority list of models. If the primary model fails or is too slow, fall back to alternatives:\n\n```typescript\nconst MODEL_CHAIN = [\n  { model: \"claude-sonnet-4-5-20250929\", timeout: 10000 },\n  { model: \"gpt-4o\", timeout: 10000 },\n  { model: \"gpt-4o-mini\", timeout: 5000 }, // faster, cheaper fallback\n];\n```\n\nThis pattern ensures your system keeps working even when a specific provider is down."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a fallback chain for a customer-facing chatbot. Consider what should happen at each level of degradation -- from the best model being available down to complete AI outage. What does the user experience at each level?",
+      "solution": "A production fallback chain might look like this:\n\n1. **Primary**: Frontier model (Claude Sonnet, GPT-4o) -- full capability, rich responses\n2. **Secondary**: Smaller model (GPT-4o-mini, Haiku) -- slightly reduced quality, faster response\n3. **Tertiary**: Cached responses -- return pre-computed answers to common questions\n4. **Emergency**: Static FAQ -- no AI at all, but the user can still find basic help\n\nAt each level, the user should receive a consistent interface. They should not notice degradation unless response quality visibly changes. The key is that **the system never shows an error page** -- it always provides some level of service."
+    },
+    {
+      "type": "markdown",
+      "content": "## Cost Optimization Patterns\n\n### 7. Prompt Caching\n\nMany AI providers support caching identical prompts. Structure your system prompts to maximize cache hits:\n\n```typescript\n// System prompt is identical across requests (cacheable)\nconst SYSTEM = \"You are a helpful assistant that classifies support tickets.\";\n\n// Only the user content changes per request\nconst classify = (ticket: string) => callModel(SYSTEM, ticket);\n```\n\n### 8. Model Routing\n\nNot every request needs a frontier model. Route based on complexity:\n\n```typescript\nfunction selectModel(input: string): string {\n  if (input.length < 100 && isSimpleQuery(input)) {\n    return \"gpt-4o-mini\"; // simple tasks: cheap model\n  }\n  if (requiresReasoning(input)) {\n    return \"claude-sonnet-4-5-20250929\"; // complex tasks: frontier model\n  }\n  return \"gpt-4o\"; // default: balanced\n}\n```\n\n### 9. Response Caching\n\nCache AI responses for identical or semantically similar inputs. This dramatically reduces cost for repeated queries.\n\n## Output Management Patterns\n\n### 10. Structured Output Enforcement\n\nForce models to return valid JSON or specific schemas (covered in depth in Module 4.4).\n\n### 11. Output Validation Pipeline\n\nEvery AI output passes through a validation chain before reaching the user:\n\n```\nModel Output ──> Schema Check ──> Content Filter ──> Business Rules ──> Deliver\n```\n\n### 12. Streaming with Progressive Rendering\n\nFor user-facing applications, stream responses token by token rather than waiting for complete output:\n\n```typescript\nconst stream = await openai.chat.completions.create({\n  model: \"gpt-4o\",\n  messages: [{ role: \"user\", content: prompt }],\n  stream: true,\n});\n\nfor await (const chunk of stream) {\n  const content = chunk.choices[0]?.delta?.content;\n  if (content) renderToken(content);\n}\n```"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Pick three patterns from this module and explain how they work together in a production system. For example, how might model routing, retry, and circuit breaker interact?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Engineering patterns for AI borrow heavily from distributed systems and SRE practice. The core patterns -- retry, circuit breaker, fallback chains, prompt caching, and model routing -- transform AI from an unreliable novelty into a production-grade system component. The key is layering multiple patterns so that no single failure can bring down your application."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How do these engineering patterns relate to the context engineering skills from Level 3? For example, how might the pipeline pattern use RAG at one stage and prompt engineering at another?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which of these patterns would have the highest impact on a system you have built or worked on?",
+        "How do cost optimization patterns change the economics of using AI in production?",
+        "What is the risk of over-engineering AI integrations with too many patterns?"
+      ]
+    }
+  ]
+}

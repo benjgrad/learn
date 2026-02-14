@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "6.2: Inference Serving",
+    "description": "Optimize model inference with quantization, batching, caching, and serving architecture patterns.",
+    "level": "level-6",
+    "slug": "inference-serving",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Making Models Fast and Efficient"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "A frontier LLM with 70 billion parameters needs to serve 1,000 concurrent users with sub-second latency. What techniques do you think are used to make this possible? How would you trade off quality vs. speed?"
+    },
+    {
+      "type": "markdown",
+      "content": "Training a model is only half the challenge. Serving it to users at scale -- with low latency, high throughput, and manageable cost -- requires a distinct set of engineering techniques. Inference serving is where model quality meets economic reality.\n\n### The Inference Pipeline\n\nWhen a user sends a request to an LLM-powered application, the inference pipeline involves:\n\n1. **Request Reception**: The API gateway receives the request and performs authentication, rate limiting, and routing.\n2. **Preprocessing**: Tokenization, prompt template injection, and context assembly transform the raw request into model input.\n3. **Model Execution**: The model generates output tokens, typically autoregressively (one token at a time for LLMs).\n4. **Postprocessing**: Output parsing, safety filtering, and format validation prepare the response.\n5. **Response Delivery**: Results are streamed or returned to the client.\n\nEach stage introduces latency. The Platformizer's job is to optimize every link in this chain.\n\n### Quantization\n\nQuantization reduces the numerical precision of model weights to decrease memory usage and increase inference speed. A model trained in 32-bit floating point (FP32) can often be served in lower precision with minimal quality loss.\n\n| Precision | Bits per Weight | Memory for 70B Model | Typical Quality Impact |\n| :--- | :--- | :--- | :--- |\n| FP32 | 32 | ~280 GB | Baseline |\n| FP16 / BF16 | 16 | ~140 GB | Negligible loss |\n| INT8 | 8 | ~70 GB | Minimal loss for most tasks |\n| INT4 (GPTQ/AWQ) | 4 | ~35 GB | Noticeable on complex reasoning |\n\nTechniques like **LoRA** (Low-Rank Adaptation) and **QLoRA** enable efficient fine-tuning that requires significantly less GPU memory by keeping most weights frozen and training small adapter layers in reduced precision."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why can models tolerate aggressive quantization (e.g., INT4) for many tasks but struggle on complex mathematical reasoning?",
+      "answer": "Neural network weights contain redundant information -- many weights contribute minimally to the output and can be approximated with lower precision. However, tasks requiring precise multi-step reasoning (like math) depend on subtle weight interactions where small quantization errors compound across multiple reasoning steps. The accumulated error from rounding millions of weights to 4-bit precision can shift the probability distribution enough to change the selected token at critical decision points."
+    },
+    {
+      "type": "markdown",
+      "content": "### Batching Strategies\n\nProcessing requests one at a time wastes GPU compute. Batching groups multiple requests together to fill the GPU's parallel processing capacity.\n\n- **Static Batching**: Collects a fixed number of requests or waits for a time window, then processes them together. Simple but introduces latency for early arrivals.\n- **Continuous (Inflight) Batching**: New requests join an in-progress batch as slots become available when earlier requests finish generating. Tools like vLLM and TensorRT-LLM implement this, dramatically improving throughput.\n- **Speculative Decoding**: A smaller, faster \"draft\" model generates candidate tokens that the larger model verifies in a single forward pass. When the draft model predicts correctly (which happens frequently for common patterns), multiple tokens are generated in the time usually needed for one.\n\n### Caching Strategies\n\nCaching avoids redundant computation for repeated or similar requests:\n\n- **KV-Cache**: During autoregressive generation, the Key-Value attention states for already-processed tokens are cached so they do not need to be recomputed for each new token. This is standard in all modern inference engines.\n- **Prompt Caching**: When many requests share the same system prompt or context prefix, the KV-cache for that prefix can be computed once and reused across requests.\n- **Semantic Caching**: For applications where similar queries produce similar answers (like FAQ bots), responses are cached keyed by semantic similarity rather than exact string match."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "You are designing the inference architecture for a customer support chatbot that handles 500 requests per minute. Each request includes a 2,000 token system prompt and averages 200 tokens of user context. Design an architecture that minimizes cost while maintaining sub-2-second response times.",
+      "solution": "An efficient architecture would combine:\n\n1. **Prompt caching**: The 2,000 token system prompt is identical across all requests. Pre-compute its KV-cache once and clone it for each request, saving ~80% of input processing.\n\n2. **Continuous batching**: Use vLLM or TGI (Text Generation Inference) to dynamically batch concurrent requests, maximizing GPU utilization.\n\n3. **Model selection**: Start with a smaller model (7B-13B parameters quantized to INT8) since customer support queries are typically formulaic. Route only complex edge cases to a larger model.\n\n4. **Semantic caching**: Many customer support queries are variations of the same question. Cache responses keyed by embedding similarity with a threshold, serving cached answers for the ~40% of queries that are near-duplicates.\n\n5. **Autoscaling**: Scale inference pods based on queue depth rather than CPU utilization, since GPU inference has different scaling characteristics than traditional web services."
+    },
+    {
+      "type": "markdown",
+      "content": "### Serving Architecture Patterns\n\nProduction inference serving typically uses one of these patterns:\n\n- **Model-as-a-Service (API)**: Use a managed API (OpenAI, Anthropic, Google) and pay per token. Lowest operational burden, highest per-unit cost, least control.\n- **Self-Hosted Single Model**: Deploy a model on dedicated GPU infrastructure using frameworks like vLLM, TGI, or Triton. Full control over optimization but requires ML infrastructure expertise.\n- **Model Router**: Route requests to different models based on complexity, cost, or latency requirements. Simple queries go to a small, fast model; complex queries go to a frontier model.\n- **Edge Inference**: Deploy quantized models directly on user devices or edge servers for latency-sensitive or privacy-critical applications."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain how continuous batching differs from static batching and why it is particularly important for autoregressive language model serving."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "For your use cases, what is the right trade-off between self-hosted inference and managed APIs?",
+        "How would your inference architecture change if you needed to serve users globally with sub-200ms latency?",
+        "What monitoring would you need to detect when quantization is degrading output quality for specific query types?"
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "In Level 5, you studied the transformer's self-attention mechanism. How does the KV-cache optimization exploit the architecture of attention to avoid redundant computation during autoregressive generation?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Inference serving is where model quality meets economic constraints. Mastering quantization, batching, caching, and routing strategies allows you to serve high-quality AI experiences at a fraction of the naive cost and latency."
+    }
+  ]
+}

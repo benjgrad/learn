@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "5.5 Agentic Workflows",
+    "description": "ReAct prompting, tool use, multi-agent systems, and orchestration patterns for autonomous AI.",
+    "level": "level-5",
+    "slug": "agentic-workflows",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 5.5 Agentic Workflows"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "Standard AI interactions are one-shot: user asks, model responds. What would change if the model could use tools, take actions, and run multi-step plans autonomously? What new risks and opportunities emerge?"
+    },
+    {
+      "type": "markdown",
+      "content": "## From Chat to Agency\n\nThe three modes of AI engagement define a progression:\n\n1. **Automation**: AI performs a single defined task (summarize this, classify that)\n2. **Augmentation**: Human and AI think together (co-writing, code review)\n3. **Agency**: AI works independently, making decisions and taking actions on behalf of the human\n\nAgentic workflows live in the third mode. An AI agent is a system where the model:\n- **Observes** the current state\n- **Reasons** about what to do next\n- **Acts** by calling tools or producing outputs\n- **Reflects** on the results to decide the next step\n\nThis loop continues until the task is complete or the agent decides it needs human input.\n\n## ReAct: Reasoning + Acting\n\nThe ReAct framework (Reasoning and Acting) interleaves thinking with tool use. Instead of generating a complete answer from memory, the model reasons about what it needs, uses a tool to get real information, then continues reasoning.\n\n```\nUser: What was Apple's stock price change on its last earnings day?\n\nThought: I need to find Apple's most recent earnings date, then look up\n         the stock price change on that day.\nAction: search(\"Apple AAPL most recent earnings date 2026\")\nObservation: Apple reported Q1 2026 earnings on January 30, 2026.\n\nThought: Now I need the stock price change on January 30, 2026.\nAction: lookup_stock_price(\"AAPL\", \"2026-01-30\")\nObservation: Open: $242.50, Close: $251.80, Change: +3.83%\n\nThought: I have both pieces of information. I can now answer.\nAnswer: Apple's stock rose 3.83% on its most recent earnings day\n        (January 30, 2026), closing at $251.80.\n```\n\nThe key advantage of ReAct over pure generation is **grounding** -- the model's claims are based on real tool outputs, not memory that might be stale or incorrect.\n\n### Implementing a ReAct Loop\n\n```typescript\ninterface Tool {\n  name: string;\n  description: string;\n  parameters: Record<string, unknown>;\n  execute: (params: Record<string, unknown>) => Promise<string>;\n}\n\nasync function reactLoop(\n  query: string,\n  tools: Tool[],\n  maxSteps: number = 10\n): Promise<string> {\n  const messages = [\n    { role: \"system\", content: buildSystemPrompt(tools) },\n    { role: \"user\", content: query },\n  ];\n\n  for (let step = 0; step < maxSteps; step++) {\n    const response = await callModel(messages, { tools });\n\n    if (response.type === \"text\") {\n      return response.content; // Agent decided to answer\n    }\n\n    if (response.type === \"tool_call\") {\n      const tool = tools.find(t => t.name === response.toolName);\n      const result = await tool.execute(response.parameters);\n\n      messages.push(\n        { role: \"assistant\", content: response.raw },\n        { role: \"tool\", content: result },\n      );\n    }\n  }\n\n  return \"Agent reached maximum steps without a final answer.\";\n}\n```"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the main risk of a ReAct agent compared to a simple prompt-and-respond system? Why does adding tool use increase the potential for failure?",
+      "answer": "Each step in a ReAct loop introduces a new point of failure. The model might: call the wrong tool, pass incorrect parameters, misinterpret tool output, enter an infinite loop, or take an irreversible action. With N steps, the probability of at least one error is 1 - (1-p)^N, where p is the per-step error rate. Even a 5% per-step error rate means a 40% chance of failure in a 10-step plan. This is why agentic workflows need robust error handling, step limits, and human oversight for consequential actions."
+    },
+    {
+      "type": "markdown",
+      "content": "## Tool Use\n\nModern AI APIs provide native support for tool use (also called \"function calling\"):\n\n```typescript\n// Define tools the model can use\nconst tools = [\n  {\n    name: \"get_weather\",\n    description: \"Get current weather for a location\",\n    parameters: {\n      type: \"object\",\n      properties: {\n        location: { type: \"string\", description: \"City name\" },\n        unit: { type: \"string\", enum: [\"celsius\", \"fahrenheit\"] },\n      },\n      required: [\"location\"],\n    },\n  },\n  {\n    name: \"search_web\",\n    description: \"Search the web for current information\",\n    parameters: {\n      type: \"object\",\n      properties: {\n        query: { type: \"string\" },\n      },\n      required: [\"query\"],\n    },\n  },\n];\n\n// Model decides when and how to use tools\nconst response = await anthropic.messages.create({\n  model: \"claude-sonnet-4-5-20250929\",\n  messages: [{ role: \"user\", content: \"What's the weather in Tokyo?\" }],\n  tools: tools,\n});\n// Response includes a tool_use block with name=\"get_weather\" and input={location: \"Tokyo\"}\n```\n\nThe model does not execute the tools -- it produces a structured request specifying which tool to call and with what parameters. Your code executes the tool and feeds the result back.\n\n## Multi-Agent Systems\n\nFor complex tasks, multiple specialized agents can collaborate:\n\n### Orchestration Patterns\n\n**Sequential Pipeline**: Each agent handles one stage, passing results to the next.\n```\nResearch Agent ──> Writing Agent ──> Review Agent ──> Final Output\n```\n\n**Supervisor Pattern**: A central agent delegates tasks and synthesizes results.\n```\n              ┌── Research Agent\nSupervisor ───┼── Analysis Agent\n              └── Writing Agent\n```\n\n**Debate / Adversarial**: Agents argue different positions, improving through disagreement.\n```\nProposer Agent ──> Critic Agent ──> Proposer refines ──> ... ──> Consensus\n```"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a multi-agent system for automated code review. Define at least three specialized agents, their tools, and how they coordinate. Consider: What does each agent focus on? How do they share findings? Who makes the final decision?",
+      "solution": "**Agent 1: Security Reviewer**\n- Focus: Vulnerabilities, injection risks, authentication issues\n- Tools: `run_sast_scanner`, `check_dependency_vulnerabilities`, `search_cve_database`\n- Output: List of security findings with severity ratings\n\n**Agent 2: Style & Standards Reviewer**\n- Focus: Code style, naming conventions, architectural patterns\n- Tools: `run_linter`, `check_test_coverage`, `compare_to_style_guide`\n- Output: Style violations and improvement suggestions\n\n**Agent 3: Logic Reviewer**\n- Focus: Correctness, edge cases, performance\n- Tools: `run_tests`, `analyze_complexity`, `check_error_handling`\n- Output: Logic issues and potential bugs\n\n**Supervisor Agent**:\n- Receives findings from all three agents\n- Deduplicates and prioritizes issues\n- Produces a unified review with the most critical items first\n- Has the tool `post_review_comment` to write the final GitHub review\n\nCoordination: Supervisor dispatches the code diff to all three agents in parallel, collects their reports, then synthesizes a final review. If any agent reports a critical security issue, the supervisor automatically requests changes rather than approving."
+    },
+    {
+      "type": "markdown",
+      "content": "## Guardrails and Safety\n\nAgentic systems require additional safety measures:\n\n1. **Action boundaries**: Define what the agent is and is not allowed to do. Separate read-only tools from write tools.\n2. **Human-in-the-loop**: Require human approval for irreversible or high-impact actions (sending emails, making purchases, deleting data).\n3. **Step limits**: Cap the maximum number of reasoning steps to prevent runaway loops.\n4. **Cost limits**: Set per-task token budgets to prevent expensive reasoning spirals.\n5. **Output filtering**: Validate agent outputs before they reach external systems.\n\n```typescript\ninterface AgentPolicy {\n  maxSteps: number;\n  maxTokenBudget: number;\n  allowedTools: string[];\n  requireApproval: string[];  // tools needing human sign-off\n  forbiddenActions: string[];\n}\n```"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the ReAct framework and why it is more reliable than asking a model to answer complex questions from memory alone. Include the reasoning-acting-observing loop in your explanation."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Agentic workflows give AI the ability to reason, use tools, and take multi-step actions autonomously. The ReAct framework interleaves thinking and tool use for grounded responses. Multi-agent systems let specialized agents collaborate on complex tasks. But agency comes with compounding error risk, making guardrails, step limits, and human oversight essential for production safety."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How do the engineering patterns from Level 4 (circuit breakers, retries, fallback chains) apply to agentic workflows? What happens when a tool call fails in the middle of a multi-step plan?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Where is the line between 'useful automation' and 'risky autonomy' in your work context?",
+        "How would you test an agentic workflow where the model's decisions change based on tool outputs?",
+        "What governance and oversight structures should organizations put in place before deploying agentic AI?"
+      ]
+    }
+  ]
+}

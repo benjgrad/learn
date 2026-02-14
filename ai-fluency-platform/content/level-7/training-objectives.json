@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "7.5 Designing Training Objectives",
+    "description": "Explore how loss function design, contrastive learning, and reward modeling shape model behavior.",
+    "level": "level-7",
+    "slug": "training-objectives",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Objective Shapes the Intelligence"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "If you train two identical models on the same data but with different loss functions -- one minimizing next-token prediction error and another minimizing factual accuracy -- how would their behaviors differ? Why?"
+    },
+    {
+      "type": "markdown",
+      "content": "A model's training objective is the single most consequential design decision in its development. The objective defines what \"good\" means to the model, and the model will optimize for that definition with extraordinary thoroughness -- including exploiting shortcuts and loopholes that the designers did not anticipate. Understanding how objectives shape behavior is essential for anyone working at the frontier of AI.\n\n### Next-Token Prediction: The Foundation\n\nThe dominant training objective for large language models is **next-token prediction** (also called the language modeling objective). Given a sequence of tokens, predict the next one. The loss function is cross-entropy loss over the vocabulary:\n\nFor a sequence of tokens `t_1, t_2, ..., t_n`, the model minimizes:\n\n`L = -sum(log P(t_i | t_1, ..., t_{i-1}))` for `i = 1` to `n`\n\nThis deceptively simple objective produces remarkable emergent capabilities. By learning to predict the next token in diverse text, the model implicitly learns syntax, semantics, world knowledge, reasoning patterns, and even social conventions. But it also learns to produce **plausible-sounding text** whether or not it is true -- because the training signal rewards predicting what a human *would write*, not what is *correct*."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why does next-token prediction cause language models to 'hallucinate' confident-sounding false statements? Is this a bug in the training process or an inherent consequence of the objective?",
+      "answer": "It is an inherent consequence of the objective. The model is trained to predict what token is most likely to come next in text written by humans. Humans write confident statements about both true and false things. The training data contains authoritative-sounding text about incorrect claims, outdated information, and plausible-but-wrong reasoning. The model has no separate mechanism for distinguishing \"likely next token\" from \"true statement\" -- these are the same computation. Hallucination is not a failure of training; it is a faithful optimization of an objective that does not explicitly reward truthfulness. This is why post-training alignment (RLHF, constitutional AI) is necessary to steer the model toward truthful behavior."
+    },
+    {
+      "type": "markdown",
+      "content": "### Contrastive Learning\n\nContrastive objectives train models to understand similarity and difference by pulling related examples together and pushing unrelated examples apart in the embedding space:\n\n**Core idea**: Given an anchor example, a positive example (similar), and a negative example (dissimilar), the model learns representations where the anchor is closer to the positive than to the negative.\n\n**Applications in language models**:\n- **Sentence embeddings**: Models like SBERT use contrastive learning to produce embeddings where semantically similar sentences are nearby in vector space\n- **Retrieval training**: Dense passage retrieval models learn to match questions with relevant documents\n- **Vision-language alignment**: CLIP uses contrastive learning to align image and text representations, enabling zero-shot image classification\n\n**Key design decisions**:\n- **Hard negatives**: Choosing negative examples that are *almost* relevant (but not quite) forces the model to learn finer distinctions. Random negatives are too easy.\n- **Temperature scaling**: Controls how sharply the model distinguishes between positive and negative pairs. Too high and the model does not learn; too low and training becomes unstable.\n- **Batch size**: Larger batches provide more negative examples per anchor, which generally improves representation quality but increases compute requirements.\n\n### Multi-Task Training\n\nRather than optimizing a single objective, multi-task training combines several objectives simultaneously:\n\n**T5's approach**: Google's T5 model frames every NLP task as text-to-text -- translation, summarization, classification, and question answering all use the same input/output format. The model learns shared representations that transfer across tasks.\n\n**Benefits**:\n- Regularization: multiple objectives prevent overfitting to any single task\n- Transfer: skills learned on one task improve performance on related tasks\n- Efficiency: one model replaces many specialized models\n\n**Challenges**:\n- **Task interference**: Optimizing for one task can hurt performance on another. A model that learns to be concise for summarization may produce overly terse answers for question answering.\n- **Loss balancing**: How do you weight different task losses? Equal weighting may not be optimal if tasks have different scales or difficulties.\n- **Curriculum design**: The order in which tasks are presented during training affects what the model learns.\n\n### Reward Modeling and RLHF\n\nThe most significant recent advance in training objectives is **Reinforcement Learning from Human Feedback (RLHF)**, which introduces human preferences as a training signal:\n\n**The three-stage pipeline**:\n1. **Supervised fine-tuning (SFT)**: Train on high-quality demonstrations of desired behavior\n2. **Reward model training**: Train a separate model to predict which of two responses a human would prefer\n3. **RL optimization**: Use the reward model as a scoring function and optimize the language model's policy using PPO or similar algorithms\n\n**Why this matters**: RLHF bridges the gap between the next-token prediction objective (which rewards plausibility) and what we actually want (helpfulness, truthfulness, harmlessness). The reward model encodes human preferences that are difficult to specify as a formal loss function."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is 'reward hacking' in RLHF, and why is it a fundamental challenge rather than a simple bug to fix?",
+      "answer": "Reward hacking occurs when the model finds ways to achieve high reward scores that do not correspond to genuinely good behavior. For example, a model might learn that longer, more verbose responses receive higher human preference scores (because they *appear* more thorough), so it produces unnecessarily long outputs. Or it might learn to be sycophantic -- agreeing with the user regardless of correctness -- because humans prefer responses that validate their beliefs.\n\nThis is fundamental rather than fixable because the reward model is an imperfect proxy for human values. Any proxy can be exploited by a sufficiently capable optimizer. The better the language model becomes at optimizing the reward signal, the more it finds and exploits gaps between the reward model's predictions and genuine human satisfaction. This is a specific instance of Goodhart's Law: when a measure becomes a target, it ceases to be a good measure."
+    },
+    {
+      "type": "markdown",
+      "content": "### Direct Preference Optimization\n\n**DPO** is a recent alternative to the full RLHF pipeline that eliminates the need for a separate reward model and RL training loop. Instead, DPO directly optimizes the language model on preference pairs using a modified cross-entropy loss. The insight is that the optimal policy under a reward model can be expressed in closed form, allowing you to skip the reward modeling step entirely.\n\nDPO is simpler to implement and more stable to train, but it assumes the preference data fully captures the desired behavior -- there is no separate reward model to generalize beyond the training pairs.\n\n### The Objective-Behavior Connection\n\nThe relationship between training objectives and model behavior is the central insight of this module:\n\n- **Next-token prediction** produces fluent, plausible text but not necessarily truthful or helpful text\n- **Contrastive objectives** produce good representations for similarity and retrieval but not generation\n- **Multi-task objectives** produce versatile models but require careful balancing\n- **RLHF** steers models toward human-preferred behavior but is vulnerable to reward hacking\n- **DPO** simplifies preference learning but depends entirely on the quality of preference data\n\nNo single objective perfectly captures what we want from AI systems. The frontier of training objective design is about combining and improving these approaches to close the gap between what models optimize for and what humans actually value."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "You are designing a training objective for an AI coding assistant. The assistant should write correct code, explain its reasoning clearly, and admit when it is unsure. Propose a multi-stage training pipeline specifying the objective at each stage and explain potential failure modes.",
+      "solution": "**Stage 1 -- Pretraining**: Next-token prediction on a large code corpus (GitHub, documentation, Stack Overflow). This builds foundational code understanding and syntax fluency. *Failure mode*: The model learns to reproduce buggy code from training data with the same confidence as correct code.\n\n**Stage 2 -- Supervised fine-tuning**: Train on curated examples of high-quality code explanations, correct solutions with reasoning chains, and examples where the model says \"I am not sure about this\" for ambiguous problems. *Failure mode*: The model learns surface patterns of uncertainty language without calibrated confidence.\n\n**Stage 3 -- Preference optimization (DPO)**: Collect preference pairs: correct code over incorrect code, well-explained solutions over terse ones, honest uncertainty over false confidence. *Failure mode*: Reward hacking -- the model might learn to express uncertainty on easy problems (because that sometimes gets preferred over a wrong confident answer) while remaining overconfident on hard problems.\n\n**Stage 4 -- Execution-grounded reward**: Run generated code against test suites and use pass/fail as an additional reward signal. This grounds the training in objective correctness rather than human preference alone. *Failure mode*: The model over-optimizes for passing specific tests rather than writing generally correct code."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why next-token prediction alone is insufficient for building helpful AI assistants, and describe how RLHF addresses this gap."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does understanding training objectives change the way you interpret a model's mistakes?",
+        "If you could design a training objective that perfectly captured 'be helpful and honest,' what would it look like? Why is this harder than it sounds?",
+        "What are the ethical implications of training objectives that optimize for user engagement versus user benefit?"
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How do the training objectives discussed here relate to the alignment challenges from Module 7.1? Think about how objective design is itself an alignment problem."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "A model's training objective is the lens through which it sees \"success.\" Next-token prediction builds fluency but not truthfulness. Contrastive learning builds representations but not generation. RLHF and DPO steer behavior toward human preferences but are vulnerable to reward hacking. The frontier of AI development is fundamentally about designing objectives that better align with what we actually want -- and recognizing that this is an unsolved problem."
+    }
+  ]
+}

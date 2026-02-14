@@ -1,0 +1,846 @@
+{
+  "levels": [
+    {
+      "level": 0,
+      "title": "Foundations",
+      "subtitle": "The atomic units of intelligence",
+      "color": "#6b7280",
+      "description": "Master the underlying mechanics of large language models before progressing through the fluency levels. Understand tokens, context windows, probabilistic prediction, and the mathematical foundations that sustain AI — linear algebra, calculus, probability, and optimization theory.",
+      "moduleCount": 3
+    },
+    {
+      "level": 1,
+      "title": "Casual Consumer",
+      "subtitle": "From magic box to inference engine",
+      "color": "#3b82f6",
+      "description": "Develop intuition for AI capabilities through direct interaction with web-based interfaces. Transition from viewing AI as a magic box to understanding it as an inference engine that predicts responses from training knowledge. Learn inference versus training, probabilistic outputs, and basic prompting for summarization, drafting, and brainstorming.",
+      "moduleCount": 3
+    },
+    {
+      "level": 2,
+      "title": "Prompt Engineer",
+      "subtitle": "Precise instructional design for AI",
+      "color": "#8b5cf6",
+      "description": "Move from casual conversation to precise instructional design. Master advanced prompting techniques including zero-shot, few-shot in-context learning, chain-of-thought reasoning, and role simulation. Control model behavior through temperature, system messages, and delimiters. Employ controlled hallucination and recursive self-improvement strategies.",
+      "moduleCount": 4
+    },
+    {
+      "level": 3,
+      "title": "Context Engineer",
+      "subtitle": "Grounding AI in external data",
+      "color": "#06b6d4",
+      "description": "Move beyond the model's internal weights to include external, proprietary data. Specialize in grounding AI through Retrieval-Augmented Generation (RAG), vector databases, and embedding pipelines. Master the full lifecycle of document processing — ingestion, chunking, indexing, and retrieval — to ensure factual accuracy and domain relevance.",
+      "moduleCount": 4
+    },
+    {
+      "level": 4,
+      "title": "AI Component Engineer",
+      "subtitle": "AI as a modular software component",
+      "color": "#f97316",
+      "description": "Treat AI as a modular component within broader software architecture. Bridge conventional software engineering with the unique nature of AI models using AI Systems Engineering Patterns. Master async parallelism, deterministic wrappers, context engineering, vectorize integration, CI/CD for models, and fallback strategies between frontier and local models.",
+      "moduleCount": 4
+    },
+    {
+      "level": 5,
+      "title": "AI System Engineer",
+      "subtitle": "Orchestrating complex agentic workflows",
+      "color": "#ef4444",
+      "description": "Orchestrate complex, multi-stage agentic workflows. Understand the deep architecture of transformers — self-attention mechanisms, multi-head attention, and parallel processing. Master fine-tuning and domain adaptation for specialized industries. Evaluate system reliability through LLM-as-a-judge, perplexity metrics, and adversarial robustness testing.",
+      "moduleCount": 4
+    },
+    {
+      "level": 6,
+      "title": "AI Platformizer",
+      "subtitle": "Scaling AI across the enterprise",
+      "color": "#10b981",
+      "description": "Focus on infrastructure and governance required to scale AI organization-wide. Standardize the AI Stack for secure, efficient team usage. Manage MLOps including inference serving, LoRA/QLoRA optimization, monitoring, drift detection, and cost management. Bridge technical teams and executive leadership through strategic adoption, governance frameworks, and compliance with regulations like the EU AI Act.",
+      "moduleCount": 3
+    },
+    {
+      "level": 7,
+      "title": "AI Pioneer",
+      "subtitle": "Pushing the boundaries of the field",
+      "color": "#ec4899",
+      "description": "Push the boundaries of AI through fundamental research and innovation. Focus on long-term societal impacts including AI alignment, emergent behavior detection, and AIGC ethics. Engage with frontier research through institutions like the Vector Institute, contribute to NeurIPS and CVPR proceedings, and address challenges of deepfakes, misinformation, and preserving human creativity.",
+      "moduleCount": 3
+    }
+  ],
+  "modules": {
+    "root": [
+      {
+        "title": "AI Fluency",
+        "description": "Master AI fluency through evidence-based learning — from foundational concepts to pioneering research.",
+        "level": "root",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "Glossary",
+        "description": "Key AI terms and definitions used throughout the AI Fluency curriculum.",
+        "level": "root",
+        "slug": "glossary",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Getting Started",
+        "description": "How to use the AI Fluency platform, understand the learning structure, and choose your path.",
+        "level": "root",
+        "slug": "getting-started",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Competency Map",
+        "description": "The 4D competency framework that guides your AI fluency journey across all seven levels.",
+        "level": "root",
+        "slug": "competency-map",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      }
+    ],
+    "resources": [
+      {
+        "title": "Resource Library",
+        "description": "Curated books, courses, videos, podcasts, and newsletters for every level of AI fluency.",
+        "level": "resources",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "Books",
+        "description": "Essential books for AI fluency, from intuitive introductions to dense academic treatments.",
+        "level": "resources",
+        "slug": "books",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Courses",
+        "description": "Structured online courses and professional programs for building AI fluency.",
+        "level": "resources",
+        "slug": "courses",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Videos",
+        "description": "YouTube channels and video series for learning AI through visual, engaging content.",
+        "level": "resources",
+        "slug": "videos",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Podcasts",
+        "description": "AI podcasts for practitioners, covering research, engineering, business strategy, and the future of AI.",
+        "level": "resources",
+        "slug": "podcasts",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Newsletters",
+        "description": "AI newsletters and blogs to stay current with the rapidly evolving field.",
+        "level": "resources",
+        "slug": "newsletters",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      }
+    ],
+    "level-7": [
+      {
+        "title": "Level 7: AI Pioneer",
+        "description": "Pushing the boundaries of AI through alignment research, emergent behavior analysis, ethics, and frontier innovation.",
+        "level": "level-7",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "7.1: Alignment and Safety",
+        "description": "Understand AI alignment challenges, RLHF, constitutional AI, and the foundations of AI safety research.",
+        "level": "level-7",
+        "slug": "alignment-and-safety",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.2: Emergent Behavior",
+        "description": "Explore emergent capabilities, scaling laws, and phase transitions in large AI systems.",
+        "level": "level-7",
+        "slug": "emergent-behavior",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.3: Ethics of AI Content",
+        "description": "Navigate the ethical challenges of deepfakes, AI-generated art, attribution, creative rights, and societal impact.",
+        "level": "level-7",
+        "slug": "ethics-of-ai-content",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.4: Frontier Research",
+        "description": "Explore the cutting edge of AI research: open problems, research methodology, and future directions.",
+        "level": "level-7",
+        "slug": "frontier-research",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.5 Designing Training Objectives",
+        "description": "Explore how loss function design, contrastive learning, and reward modeling shape model behavior.",
+        "level": "level-7",
+        "slug": "training-objectives",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.7: Level 7 Checkpoint",
+        "description": "Assess your understanding of AI's frontier challenges in alignment, emergence, ethics, and research.",
+        "level": "level-7",
+        "slug": "checkpoint",
+        "order": 5,
+        "isCheckpoint": true,
+        "isIndex": false
+      },
+      {
+        "title": "7.6 Architecture Innovation",
+        "description": "Survey novel architectural approaches beyond standard transformers, from state space models to advanced optimization.",
+        "level": "level-7",
+        "slug": "architecture-innovation",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      }
+    ],
+    "level-6": [
+      {
+        "title": "Level 6: AI Platformizer",
+        "description": "Scaling AI across the organization with production infrastructure, governance, and cost management.",
+        "level": "level-6",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "6.1: MLOps Fundamentals",
+        "description": "Master the ML lifecycle, experiment tracking, and model registry for production AI systems.",
+        "level": "level-6",
+        "slug": "mlops-fundamentals",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.2: Inference Serving",
+        "description": "Optimize model inference with quantization, batching, caching, and serving architecture patterns.",
+        "level": "level-6",
+        "slug": "inference-serving",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.3: Monitoring and Drift",
+        "description": "Detect and respond to model degradation through monitoring, data drift detection, and concept drift analysis.",
+        "level": "level-6",
+        "slug": "monitoring-and-drift",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.4: Governance and Compliance",
+        "description": "Establish AI governance frameworks, risk management processes, and regulatory compliance for enterprise AI.",
+        "level": "level-6",
+        "slug": "governance-and-compliance",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.5: Cost Management",
+        "description": "Master token economics, compute optimization, and cost modeling for sustainable AI operations.",
+        "level": "level-6",
+        "slug": "cost-management",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.6: Distributed Computing for AI",
+        "description": "Understand data, tensor, and pipeline parallelism strategies for scaling AI inference and training across hardware.",
+        "level": "level-6",
+        "slug": "distributed-computing",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.7: Sovereignty and Data Residency",
+        "description": "Navigate geopolitical constraints on AI deployment including data residency laws, export controls, and multi-region architecture.",
+        "level": "level-6",
+        "slug": "sovereignty-and-residency",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.8: Level 6 Checkpoint",
+        "description": "Assess your readiness as an AI Platformizer with this comprehensive checkpoint.",
+        "level": "level-6",
+        "slug": "checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-5": [
+      {
+        "title": "5.1 Transformer Architecture",
+        "description": "Understanding the encoder-decoder structure, self-attention, and positional encoding that power modern AI.",
+        "level": "level-5",
+        "slug": "transformer-architecture",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.9 System-Level Cost and Performance",
+        "description": "Manage inference costs and performance across multi-model pipelines with token budgets and batch optimization.",
+        "level": "level-5",
+        "slug": "system-cost-performance",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.6 Orchestration Frameworks",
+        "description": "Compare AI workflow frameworks like LangChain, LangGraph, CrewAI, and n8n for building multi-step AI systems.",
+        "level": "level-5",
+        "slug": "orchestration-frameworks",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.8 Multi-AI System Architecture",
+        "description": "Design systems with specialist, router, and evaluator models that work together with defined reliability targets.",
+        "level": "level-5",
+        "slug": "multi-ai-system-architecture",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Level 5: AI System Engineer",
+        "description": "Understanding AI from the inside out -- transformer architecture, fine-tuning, evaluation, and agentic workflows -- then designing multi-component AI systems.",
+        "level": "level-5",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "5.7 Human-in-the-Loop Design",
+        "description": "Design effective human oversight into AI systems with confidence-based routing and escalation thresholds.",
+        "level": "level-5",
+        "slug": "human-in-the-loop",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.3 Fine-Tuning",
+        "description": "LoRA, QLoRA, RLHF, and domain adaptation techniques for customizing models to specialized tasks.",
+        "level": "level-5",
+        "slug": "fine-tuning",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.4 Evaluation Metrics",
+        "description": "BLEU, ROUGE, perplexity, human evaluation, and building rigorous benchmark suites for AI systems.",
+        "level": "level-5",
+        "slug": "evaluation-metrics",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.10 Checkpoint: AI System Engineer",
+        "description": "Assess your Level 5 understanding of AI system engineering.",
+        "level": "level-5",
+        "slug": "checkpoint",
+        "order": 0,
+        "isCheckpoint": true,
+        "isIndex": false
+      },
+      {
+        "title": "5.2 Attention Mechanism",
+        "description": "Deep dive into Query, Key, Value vectors, multi-head attention, and how models decide what to focus on.",
+        "level": "level-5",
+        "slug": "attention-mechanism",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.5 Agentic Workflows",
+        "description": "ReAct prompting, tool use, multi-agent systems, and orchestration patterns for autonomous AI.",
+        "level": "level-5",
+        "slug": "agentic-workflows",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      }
+    ],
+    "level-4": [
+      {
+        "title": "4.5 Testing & CI/CD",
+        "description": "Creating evaluation suites, snapshot tests, and CI/CD pipelines for AI components.",
+        "level": "level-4",
+        "slug": "testing-and-cicd",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Level 4: AI Component Engineer",
+        "description": "Engineering reliable AI components within production software systems.",
+        "level": "level-4",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "4.2 Engineering Patterns for AI",
+        "description": "Applying proven software engineering and SRE patterns to build robust AI-powered systems.",
+        "level": "level-4",
+        "slug": "engineering-patterns",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.4 Deterministic Wrappers",
+        "description": "Building layers around probabilistic AI outputs to enforce structured formats and ensure reliability.",
+        "level": "level-4",
+        "slug": "deterministic-wrappers",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.6 Context Compression Patterns",
+        "description": "Implement engineering patterns for context compression including summarization pipelines, sliding windows, and token budget managers.",
+        "level": "level-4",
+        "slug": "context-compression-patterns",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.8 Checkpoint: AI Component Engineer",
+        "description": "Assess your Level 4 understanding of AI component engineering.",
+        "level": "level-4",
+        "slug": "checkpoint",
+        "order": 0,
+        "isCheckpoint": true,
+        "isIndex": false
+      },
+      {
+        "title": "4.7 Can vs. Should: AI Decision Frameworks",
+        "description": "Evaluate when AI is the right solution versus traditional algorithms, considering complexity, cost, and determinism tradeoffs.",
+        "level": "level-4",
+        "slug": "can-vs-should",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.3 API Integration",
+        "description": "Working with AI provider APIs including authentication, SDKs, rate limiting, and error handling.",
+        "level": "level-4",
+        "slug": "api-integration",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.1 AI as Software Component",
+        "description": "Treating AI models as components with defined interfaces, contracts, and failure modes.",
+        "level": "level-4",
+        "slug": "ai-as-software-component",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      }
+    ],
+    "level-3": [
+      {
+        "title": "Level 3: The Context Engineer",
+        "description": "Move beyond the model's internal knowledge. Learn to ground AI in external data using embeddings, vector databases, and RAG.",
+        "level": "level-3",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "3.1 Embeddings and Vector Space",
+        "description": "Understand how AI represents text as mathematical vectors that capture semantic meaning, enabling similarity search.",
+        "level": "level-3",
+        "slug": "embeddings-and-vector-space",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.2 Vector Databases",
+        "description": "Learn how vector databases store embeddings and perform millisecond-speed similarity searches using algorithms like HNSW.",
+        "level": "level-3",
+        "slug": "vector-databases",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.3 The RAG Pipeline",
+        "description": "Understand the Retrieval-Augmented Generation architecture that connects external data to language models.",
+        "level": "level-3",
+        "slug": "rag-pipeline",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.4 Chunking and Retrieval",
+        "description": "Learn how document chunking strategies affect retrieval quality and how to optimize for the right information reaching the model.",
+        "level": "level-3",
+        "slug": "chunking-and-retrieval",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.5 Grounding for Accuracy",
+        "description": "Learn techniques to reduce hallucination and increase factual accuracy by grounding AI responses in retrieved evidence.",
+        "level": "level-3",
+        "slug": "grounding-for-accuracy",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.6 Model Architecture Awareness",
+        "description": "Understand how Mixture of Experts, Mixture of Agents, and reasoning models affect context engineering decisions.",
+        "level": "level-3",
+        "slug": "model-architecture-awareness",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.7 Model Economics and ROI",
+        "description": "Calculate the true cost of AI approaches by comparing token pricing, latency tradeoffs, and ROI across strategies.",
+        "level": "level-3",
+        "slug": "model-economics",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.8 Context Compression",
+        "description": "Learn when and how to compress context to stay within token budgets while preserving answer quality.",
+        "level": "level-3",
+        "slug": "context-compression",
+        "order": 8,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.9 Level 3 Checkpoint",
+        "description": "Design and evaluate a complete RAG system from memory. Test your understanding of embeddings, retrieval, and grounding.",
+        "level": "level-3",
+        "slug": "checkpoint",
+        "order": 9,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-2": [
+      {
+        "title": "Level 2: The Prompt Engineer",
+        "description": "Move from casual conversation to precise instructional design. Learn advanced prompting techniques that maximize AI output quality.",
+        "level": "level-2",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "2.1 Zero-Shot and Few-Shot Prompting",
+        "description": "Learn how providing examples in your prompt teaches the model to follow patterns it was never explicitly trained on.",
+        "level": "level-2",
+        "slug": "zero-shot-and-few-shot",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.2 Chain-of-Thought Reasoning",
+        "description": "Learn how forcing the model to reason step by step dramatically improves performance on complex tasks.",
+        "level": "level-2",
+        "slug": "chain-of-thought",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.3 Roles and Personas",
+        "description": "Learn how assigning the model a specific identity shapes its tone, knowledge depth, and reasoning perspective.",
+        "level": "level-2",
+        "slug": "roles-and-personas",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.4 Parameters and Control",
+        "description": "Master the technical parameters that control model behavior: temperature, top-p, max tokens, and structural delimiters.",
+        "level": "level-2",
+        "slug": "parameters-and-control",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.5 Recursive Self-Improvement",
+        "description": "Learn how to have the model critique, refine, and iteratively improve its own outputs for higher-quality results.",
+        "level": "level-2",
+        "slug": "recursive-self-improvement",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.6 Prompt Libraries and Personal Optimization",
+        "description": "Build and organize a personal prompt toolkit for consistent, high-quality AI interactions.",
+        "level": "level-2",
+        "slug": "prompt-libraries",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.7 Local Models and Privacy",
+        "description": "Run AI models locally for privacy, cost control, and offline access using tools like Ollama and LM Studio.",
+        "level": "level-2",
+        "slug": "local-models",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.8 Structured Output Basics",
+        "description": "Learn to request JSON, CSV, and structured formats from AI models through prompt techniques.",
+        "level": "level-2",
+        "slug": "structured-output-basics",
+        "order": 8,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.9 Introduction to Agentic Loops",
+        "description": "Understand the think-act-observe loop that enables AI to use tools and take actions.",
+        "level": "level-2",
+        "slug": "agentic-loops-intro",
+        "order": 9,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.10 Level 2 Checkpoint",
+        "description": "Test your prompt engineering skills. Apply zero-shot, few-shot, chain-of-thought, roles, and self-improvement techniques from memory.",
+        "level": "level-2",
+        "slug": "checkpoint",
+        "order": 10,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-1": [
+      {
+        "title": "Level 1: The Casual Consumer",
+        "description": "Begin your AI fluency journey by understanding what AI actually does when you talk to it.",
+        "level": "level-1",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "1.1 AI as an Inference Engine",
+        "description": "Understand the difference between training and inference, and why AI models do not learn from your conversations.",
+        "level": "level-1",
+        "slug": "ai-as-inference-engine",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.2 The Probabilistic Nature of AI",
+        "description": "Learn why AI gives different answers to the same question, and how temperature and sampling control randomness.",
+        "level": "level-1",
+        "slug": "probabilistic-nature",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.3 Basic Prompting Patterns",
+        "description": "Learn the three foundational prompting patterns -- summarize, draft, and brainstorm -- that form your first AI toolkit.",
+        "level": "level-1",
+        "slug": "basic-prompting",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.4 Choosing the Right Model",
+        "description": "Understand the landscape of AI models -- GPT-4, Claude, Gemini, and open-source alternatives -- and learn when to use which.",
+        "level": "level-1",
+        "slug": "choosing-models",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.5 AI Is Not Thinking",
+        "description": "Understand why AI fluent text feels authoritative but represents pattern matching, not cognition.",
+        "level": "level-1",
+        "slug": "ai-is-not-thinking",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.6 When Not to Trust AI",
+        "description": "Learn to identify high-risk domains where AI outputs require mandatory human verification.",
+        "level": "level-1",
+        "slug": "when-not-to-trust-ai",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.7 Level 1 Checkpoint",
+        "description": "Test your understanding of Level 1 concepts without AI assistance. Recall, explain, and apply.",
+        "level": "level-1",
+        "slug": "checkpoint",
+        "order": 7,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "foundations": [
+      {
+        "title": "Foundations",
+        "description": "The atomic units of intelligence — master the core concepts and mathematical pillars that sustain modern AI.",
+        "level": "foundations",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "F.1: Tokens and the Architecture of Language",
+        "description": "How large language models break down human language into computable units, and why tokenization affects cost, performance, and multilingual AI applications.",
+        "level": "foundations",
+        "slug": "tokens-and-language",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "F.2: Context Windows as AI's Working Memory",
+        "description": "Understanding the limited memory that shapes every AI interaction, and how to manage it effectively for better results.",
+        "level": "foundations",
+        "slug": "context-windows",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "F.3: Probabilistic Thinking for AI",
+        "description": "Why AI outputs are predictions based on probabilities, not factual lookups, and how to calibrate your expectations accordingly.",
+        "level": "foundations",
+        "slug": "probabilistic-thinking",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "F.4: Linear Algebra for AI",
+        "description": "Vectors, matrices, and transformations — the mathematical language of data representation in AI systems.",
+        "level": "foundations",
+        "slug": "math-linear-algebra",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "F.5: Calculus for AI",
+        "description": "Derivatives, gradients, and backpropagation — the mathematics of how neural networks learn from their mistakes.",
+        "level": "foundations",
+        "slug": "math-calculus",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "F.6: Probability and Statistics for AI",
+        "description": "Probability distributions, Bayes' theorem, and statistical inference — the mathematics of decision-making under uncertainty.",
+        "level": "foundations",
+        "slug": "math-probability",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "F.7: Optimization for AI",
+        "description": "Gradient descent, loss functions, and optimization landscapes — finding the best parameters in a vast search space.",
+        "level": "foundations",
+        "slug": "math-optimization",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "4.8 Checkpoint: AI Component Engineer",
+    "description": "Assess your Level 4 understanding of AI component engineering.",
+    "level": "level-4",
+    "slug": "checkpoint",
+    "order": 0,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 4.8 Checkpoint: AI Component Engineer\n\nThis checkpoint evaluates your understanding of Level 4 concepts. Work through each section honestly -- the goal is to identify gaps in your knowledge, not to get a perfect score.\n\n## Concept Check"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the 'component boundary pattern' and why does it matter for AI integration?",
+      "answer": "The component boundary pattern means wrapping all AI interactions behind a typed interface where inputs are validated before reaching the model, outputs are parsed and typed before leaving the component, and retries and fallbacks are handled internally. The rest of your system interacts with a clean API and does not know it is talking to AI. This matters because it makes AI components testable, mockable, and replaceable -- just like any other service dependency."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Name three engineering patterns for AI reliability and explain how they work together.",
+      "answer": "**Retry with exponential backoff** handles transient failures like rate limits. **Circuit breaker** stops sending requests to a provider that is consistently failing, preventing cascading failures. **Model fallback chain** automatically switches to alternative models when the primary model is unavailable or too slow. Together, these form a defense-in-depth strategy: retries handle individual request failures, the circuit breaker prevents waste during outages, and fallback chains ensure the system keeps serving users even during provider issues."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the difference between 'json mode' and 'structured output with schema' in AI APIs?",
+      "answer": "JSON mode guarantees the response is valid JSON, but does not guarantee it matches any particular shape -- the model might return any valid JSON object. Structured output with a JSON schema constrains the model to produce JSON that matches a specific schema, including required fields, types, and enum values. Schema mode is strictly more constrained and reliable, but may not be available in all providers or for all models."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Describe three context compression strategies and explain when you would choose each one.",
+      "answer": "**Sliding window** keeps only the N most recent messages. Choose this for low-latency applications where only recent context matters (e.g., quick Q&A bots). **Summarization pipeline** uses a model to compress older messages into a summary while keeping recent messages verbatim. Choose this when older context contains critical information that cannot be dropped (e.g., customer support with issue history). **Map-reduce** splits large documents into chunks, processes each independently, then combines results. Choose this for processing documents that exceed any single context window (e.g., analyzing a full codebase or long report). The key tradeoff is between information preservation, latency, and cost."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A feature request asks you to 'use AI to validate phone numbers from user input.' Apply the can-vs-should framework: what would you recommend instead, and why?",
+      "answer": "Phone number validation has a well-defined formal specification -- country codes, digit counts, and format rules are exhaustive and unambiguous. A library like `libphonenumber` handles this deterministically, instantly, and for free. Using an LLM would add latency (hundreds of milliseconds versus microseconds), cost (per-token API charges), non-determinism (the model might accept invalid formats or reject valid ones), and complexity (prompt engineering, output parsing, error handling). The can-vs-should framework says: if the problem has clear, enumerable rules, use traditional tools. AI adds value only when the problem involves ambiguity, natural language understanding, or judgment that resists rule-based specification."
+    },
+    {
+      "type": "markdown",
+      "content": "## Applied Exercise"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a complete AI component for a product review analyzer. Include: (1) the typed interface, (2) the provider-agnostic wrapper, (3) the validation layer with Zod schema, (4) error handling with retry and fallback, and (5) at least 3 eval test cases.",
+      "solution": "Here is a comprehensive design:\n\n```typescript\n// 1. Typed Interface\ninterface ReviewAnalysis {\n  sentiment: \"positive\" | \"negative\" | \"mixed\" | \"neutral\";\n  confidence: number;\n  keyTopics: string[];\n  summary: string;\n  recommendation: \"promote\" | \"flag\" | \"ignore\";\n}\n\n// 2. Provider-agnostic wrapper\nasync function analyzeReview(\n  reviewText: string,\n  config: { provider: \"openai\" | \"anthropic\" }\n): Promise<ReviewAnalysis> {\n  const raw = await chat(\n    [\n      { role: \"system\", content: REVIEW_ANALYSIS_PROMPT },\n      { role: \"user\", content: reviewText },\n    ],\n    { ...config, model: selectModel(config.provider), maxTokens: 500, temperature: 0.1 }\n  );\n  return validateReviewAnalysis(raw);\n}\n\n// 3. Validation with Zod\nconst ReviewAnalysisSchema = z.object({\n  sentiment: z.enum([\"positive\", \"negative\", \"mixed\", \"neutral\"]),\n  confidence: z.number().min(0).max(1),\n  keyTopics: z.array(z.string()).min(1).max(10),\n  summary: z.string().min(10).max(300),\n  recommendation: z.enum([\"promote\", \"flag\", \"ignore\"]),\n});\n\n// 4. Error handling with retry and fallback\nasync function analyzeWithFallback(text: string): Promise<ReviewAnalysis> {\n  try {\n    return await withRetry(() => analyzeReview(text, { provider: \"anthropic\" }), 3);\n  } catch {\n    return await withRetry(() => analyzeReview(text, { provider: \"openai\" }), 3);\n  }\n}\n\n// 5. Eval test cases\nconst REVIEW_EVALS = [\n  {\n    input: \"Best purchase I have ever made! Life-changing product.\",\n    expectedBehavior: \"positive sentiment, high confidence, recommend promote\",\n  },\n  {\n    input: \"Arrived broken. Terrible customer service. Want a refund.\",\n    expectedBehavior: \"negative sentiment, recommend flag\",\n  },\n  {\n    input: \"It is fine for the price. Nothing special but does the job.\",\n    expectedBehavior: \"neutral or mixed sentiment, recommend ignore\",\n  },\n];\n```"
+    },
+    {
+      "type": "markdown",
+      "content": "## Synthesis"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Without looking back, explain the four-layer testing pyramid for AI components and give an example of a test at each layer."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which Level 4 concept changed your thinking the most about how to build with AI?",
+        "Where do you feel most confident? Where do you still have gaps?",
+        "How would you explain the difference between 'using AI' and 'engineering AI components' to a colleague?",
+        "Think of a recent project: where could context compression have reduced costs or improved quality?",
+        "Have you encountered a case where AI was used when a simpler traditional approach would have been better?"
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Looking ahead to Level 5, you will learn about the transformer architecture and attention mechanism that power these models. How might understanding the internals of a model change the way you design component interfaces and testing strategies?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "At Level 4, you have learned to treat AI as a first-class software component: defining typed interfaces, applying engineering patterns for reliability, integrating provider APIs, enforcing deterministic outputs, and building proper testing pipelines. The core skill is bridging the gap between probabilistic AI behavior and the deterministic guarantees your software system needs."
+    }
+  ]
+}

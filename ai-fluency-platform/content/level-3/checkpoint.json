@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "title": "3.9 Level 3 Checkpoint",
+    "description": "Design and evaluate a complete RAG system from memory. Test your understanding of embeddings, retrieval, and grounding.",
+    "level": "level-3",
+    "slug": "checkpoint",
+    "order": 9,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Checkpoint: The Context Engineer\n\nThis checkpoint tests whether you can design a complete context engineering system from memory. Do not scroll back to the modules. If a concept feels uncertain, revisit it -- Level 3 concepts are foundational to everything that follows.\n\n### Concept recall"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "What is an embedding? How does cosine similarity work? Why is semantic search more powerful than keyword search for document retrieval?"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Name three vector databases and describe when you would choose each one. What does HNSW stand for, and what tradeoff does it make?"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Walk through the five steps of the RAG pipeline from user query to generated response. What happens in the offline phase versus the online phase?"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Name three chunking strategies. What is the tradeoff between small and large chunks? What is the cross-reference problem?"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "List four grounding techniques that reduce hallucination in RAG systems. Why is extractive-before-abstractive more verifiable than direct synthesis?"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Describe Mixture of Experts (MoE), Mixture of Agents (MoA), and reasoning models. How does each architecture affect the way you design prompts, structure context, and budget for cost?"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between input and output token pricing. Walk through an ROI comparison of RAG versus fine-tuning: what are the upfront costs, ongoing costs, and at what query volume does fine-tuning break even?"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Name four context compression strategies and the tradeoff each one makes. When is lossy summarization acceptable? What is budget-aware retrieval and how does it differ from compressing after retrieval?"
+    },
+    {
+      "type": "markdown",
+      "content": "### Applied exercises"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a complete RAG system for a legal firm that needs to answer questions about thousands of case files. Specify: (1) What embedding model would you use and why? (2) Which vector database and why? (3) Your chunking strategy for legal documents. (4) Your grounding approach for high-stakes legal answers. (5) What metadata would you store?",
+      "solution": "A strong design:\n\n1. **Embedding model**: A high-quality model like OpenAI's text-embedding-ada-002 or a legal-domain embedding model if available. Legal language has specialized vocabulary, so embedding quality matters significantly.\n\n2. **Vector database**: Pinecone or Qdrant for production. Legal firms need reliable, scalable infrastructure. pgvector if they already run PostgreSQL. ChromaDB only for prototyping.\n\n3. **Chunking strategy**: Recursive chunking based on document structure (sections, paragraphs). Legal documents have strong structural hierarchy (case name, facts, analysis, holding). Preserve paragraph integrity. Use 300-500 token chunks with 50-token overlap. Never split numbered clauses or citations.\n\n4. **Grounding approach**: Maximum rigor -- extractive-before-abstractive with mandatory citations. Every claim must reference a specific case file, section, and paragraph. Include confidence signaling (HIGH/MEDIUM/LOW). Add explicit instruction to say \"I cannot determine this from the available case files\" rather than speculate.\n\n5. **Metadata**: Case number, date filed, jurisdiction, case type (civil/criminal), parties involved, judge, outcome, document section. Enable filtering by jurisdiction and date range."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A user reports that your RAG chatbot gave a wrong answer. It cited the correct document but stated the opposite of what the document says. Diagnose at least three possible causes and propose a fix for each.",
+      "solution": "Possible causes and fixes:\n\n1. **Chunk boundary problem**: The relevant sentence was split across two chunks, and only the second half was retrieved, losing a negation or qualifier. **Fix**: Increase chunk overlap, or use semantic chunking that respects sentence boundaries.\n\n2. **Embedding ambiguity**: The chunk was retrieved because it was topically relevant, but it discusses an exception to the rule while the main rule is in a different chunk. **Fix**: Retrieve more chunks (increase top-k) so the model sees both the rule and the exception. Add re-ranking to prioritize the most directly relevant chunk.\n\n3. **Model hallucination despite context**: The model read the correct chunk but generated text that contradicts it -- especially likely with negations (\"employees are NOT eligible\" becomes \"employees are eligible\"). **Fix**: Add extractive-before-abstractive grounding. Force the model to quote exact text before synthesizing. Add adversarial verification (\"Review your answer against the quoted text. Does any claim contradict the source?\").\n\n4. **Stale or conflicting documents**: Two versions of a policy are indexed, and the model drew from the outdated version. **Fix**: Store document version and date as metadata. Filter retrieval to only return the most recent version. Implement a document lifecycle process that removes outdated documents from the index."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Compare RAG and fine-tuning for this scenario: a healthcare company wants an AI assistant that answers patient questions about medications, side effects, and dosage guidelines. Which approach would you recommend and why? What are the risks of each?",
+      "solution": "**Recommendation: RAG**, with extremely rigorous grounding.\n\n**Why RAG over fine-tuning:**\n- Drug information changes frequently (new warnings, recalls, updated dosage guidelines). RAG can re-index immediately; fine-tuning requires expensive retraining.\n- Accuracy is paramount in healthcare. RAG allows you to cite the exact source document (FDA label, manufacturer guidelines), making every claim verifiable.\n- Fine-tuning could bake outdated information into model weights, creating a liability if guidelines change between training runs.\n\n**Risks of RAG in healthcare:**\n- Hallucination despite grounding -- a wrong medication dosage could cause harm\n- Chunking errors that separate a drug name from its contraindications\n- Patients treating AI responses as medical advice without consulting a physician\n\n**Mitigation:** Mandatory disclaimers, strict confidence signaling, human review for all medication-specific answers, and explicit system instructions to direct patients to healthcare providers for personalized advice."
+    },
+    {
+      "type": "markdown",
+      "content": "### Self-assessment\n\nRate your confidence on each Level 3 concept from 1 (cannot explain it) to 5 (could teach it):\n\n| Concept | Confidence (1-5) |\n| :-- | :-- |\n| Embeddings and vector space | |\n| Cosine similarity and semantic search | |\n| Vector databases (ChromaDB, Pinecone, pgvector) | |\n| RAG pipeline (offline + online phases) | |\n| Chunking strategies and tradeoffs | |\n| Grounding techniques for accuracy | |\n| Model architecture awareness (MoE, MoA, reasoning) | |\n| Model economics and ROI | |\n| Context compression techniques | |\n\nIf any concept is below a 3, revisit that module before continuing."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Level 3 fluency means you can design a complete context engineering system: embed documents, store them in a vector database, retrieve relevant chunks for user queries, and ground the model's responses in the evidence. You also understand how model architecture affects your design choices, how to calculate the true cost of AI approaches, and how to compress context to balance quality against budget. If you can diagnose failures in a RAG pipeline and propose targeted fixes, you are ready for Level 4 -- where you start treating AI as a component in larger software systems."
+    }
+  ]
+}

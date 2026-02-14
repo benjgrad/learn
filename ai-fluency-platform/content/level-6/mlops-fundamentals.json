@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "6.1: MLOps Fundamentals",
+    "description": "Master the ML lifecycle, experiment tracking, and model registry for production AI systems.",
+    "level": "level-6",
+    "slug": "mlops-fundamentals",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## MLOps: From Toy Demos to Production Systems"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "You have a model that performs well in a Jupyter notebook. What do you think are the biggest challenges in getting that same model to serve real users reliably in production? List at least three challenges."
+    },
+    {
+      "type": "markdown",
+      "content": "Scaling AI requires a transition from \"toy demos\" to production-grade systems. MLOps (Machine Learning Operations) is the discipline that bridges this gap, applying DevOps principles to the unique challenges of machine learning workflows.\n\nUnlike traditional software, ML systems have an additional axis of complexity: **the data**. Code changes are versioned and reviewed through pull requests, but data changes, model weights, and hyperparameter configurations introduce a combinatorial explosion of states that must be tracked, reproduced, and governed.\n\n### The ML Lifecycle\n\nA production ML system follows a continuous lifecycle:\n\n1. **Data Collection and Validation** -- Ingesting raw data and running automated quality checks to catch schema drift, missing values, and distribution shifts before they corrupt downstream models.\n\n2. **Feature Engineering** -- Transforming raw data into model-ready features. Feature stores (like Feast or Tecton) provide a shared registry so that teams reuse consistent feature definitions rather than reimplementing the same transformations.\n\n3. **Model Training** -- Running experiments across hyperparameter combinations. Each experiment must log its configuration, dataset version, and resulting metrics for reproducibility.\n\n4. **Model Evaluation** -- Comparing candidate models against baselines using held-out test sets and domain-specific metrics. Automated gates prevent underperforming models from advancing.\n\n5. **Model Deployment** -- Packaging the model for serving (containerization, serialization) and routing traffic to it. Blue-green and canary deployment strategies reduce the blast radius of regressions.\n\n6. **Monitoring and Feedback** -- Tracking prediction quality, latency, and data drift in production. Alerts trigger retraining pipelines when performance degrades beyond defined thresholds.\n\n### Experiment Tracking\n\nExperiment tracking is the foundation of reproducible ML. Tools like MLflow, Weights & Biases, and Neptune provide:\n\n- **Parameter Logging**: Every hyperparameter, random seed, and preprocessing step is recorded alongside the run.\n- **Metric Visualization**: Loss curves, accuracy plots, and custom metrics are tracked in real-time and comparable across runs.\n- **Artifact Storage**: Model checkpoints, datasets, and configuration files are versioned and linked to the specific experiment that produced them.\n- **Lineage Tracking**: The full dependency chain from raw data to deployed model is queryable and auditable."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is experiment tracking more critical in ML than version control alone in traditional software?",
+      "answer": "In traditional software, the code fully determines behavior -- if you have the same code, you get the same output. In ML, behavior depends on the combination of code, data, hyperparameters, and training randomness. Version control tracks code changes, but experiment tracking captures the full state that produced a specific model, enabling true reproducibility and meaningful comparison between approaches."
+    },
+    {
+      "type": "markdown",
+      "content": "### The Model Registry\n\nA model registry is a centralized catalog of trained models with their metadata, lifecycle stage, and approval status. It serves as the single source of truth for what is deployed where.\n\nKey concepts:\n\n- **Model Versioning**: Each model is registered with a unique version, linked to the experiment run that produced it.\n- **Stage Transitions**: Models progress through stages like `Development`, `Staging`, `Production`, and `Archived`. Transitions require explicit approval.\n- **Metadata and Tags**: Models carry metadata about their training data version, performance metrics, intended use case, and known limitations.\n- **Access Control**: Teams can restrict who can promote a model to production, enforcing governance without blocking experimentation."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a model registry workflow for a team that deploys both LLM-based features and traditional ML classifiers. What stages would you define? What metadata is mandatory before a model can be promoted to production? What automated checks would gate each transition?",
+      "solution": "A robust registry workflow might include:\n\n**Stages**: `Experimental` → `Validated` → `Staging` → `Production` → `Deprecated`\n\n**Mandatory metadata for production promotion**:\n- Training dataset version and hash\n- Evaluation metrics on holdout set (with confidence intervals)\n- Bias/fairness audit results\n- Latency and throughput benchmarks\n- Rollback plan documentation\n\n**Automated gates**:\n- `Experimental → Validated`: Unit tests pass, metrics exceed baseline by a defined margin\n- `Validated → Staging`: Integration tests pass, no data quality alerts in last 24 hours\n- `Staging → Production`: Canary deployment shows no regression over N hours, human approval from model owner"
+    },
+    {
+      "type": "markdown",
+      "content": "### CI/CD for Machine Learning\n\nTraditional CI/CD pipelines verify that code compiles and tests pass. ML CI/CD extends this with:\n\n- **Data Validation**: Schema checks and statistical tests run on each data update to catch drift early.\n- **Training Pipelines**: Automated retraining triggers on schedule or when data drift is detected.\n- **Model Validation**: Candidate models are automatically evaluated against a suite of tests -- not just accuracy, but latency, fairness, and robustness benchmarks.\n- **Prompt Versioning**: For LLM-based systems, prompts are version-controlled alongside code, and changes trigger automated evaluation against regression test suites."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a model registry and an experiment tracker, and why a production ML platform needs both."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does your current organization track which model version is running in production?",
+        "What would break in your workflow if you needed to reproduce a model from six months ago?",
+        "Where are the biggest gaps between your current ML workflow and a mature MLOps practice?"
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Think back to Level 4's discussion of deterministic wrappers around probabilistic AI models. How does the MLOps lifecycle formalize those same concerns at an organizational scale?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "MLOps is not just tooling -- it is the organizational discipline of treating data, models, and experiments as first-class citizens alongside code, enabling reproducibility, governance, and continuous improvement at scale."
+    }
+  ]
+}

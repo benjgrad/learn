@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "2.3 Roles and Personas",
+    "description": "Learn how assigning the model a specific identity shapes its tone, knowledge depth, and reasoning perspective.",
+    "level": "level-2",
+    "slug": "roles-and-personas",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you tell an AI 'You are an experienced tax accountant,' do you think the quality of its tax-related answers will change? What about the style and tone? Why would this work?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why roles work\n\nWhen you assign the model a role -- \"You are an expert software architect\" or \"Act as a senior data analyst\" -- you are manipulating the probability distribution over its output tokens. The model has been trained on text written by people in many roles and contexts. By specifying a role, you bias the model toward the vocabulary, reasoning patterns, and level of detail associated with that role in the training data.\n\nThis is not role-play for entertainment. It is a **prompt engineering technique** that:\n\n- Sets the expected **knowledge depth** (expert vs. beginner)\n- Shapes the **tone and style** (formal vs. casual, technical vs. accessible)\n- Activates relevant **domain vocabulary** and reasoning patterns\n- Establishes **perspective** (advisor, critic, teacher, interviewer)\n\n### System messages vs. inline roles\n\nThere are two ways to assign a role:\n\n**System message** (when using APIs or platforms that support it):\n```\nSystem: You are a senior backend engineer with 15 years\nof experience in distributed systems. You give direct,\ntechnical answers and flag potential scalability issues\nin any proposed solution.\n```\n\n**Inline role** (in any chat interface):\n```\nAct as a senior backend engineer with 15 years of\nexperience in distributed systems. Review the following\narchitecture proposal and identify scalability concerns.\n```\n\nSystem messages are processed differently by some models -- they may receive higher priority or persist across turns more reliably. But both approaches work by setting context that influences subsequent token predictions.\n\n### Crafting effective role prompts\n\nA good role prompt includes:\n\n1. **Identity**: Who the model is (\"You are a...\")\n2. **Experience level**: How much expertise to assume (\"senior,\" \"10 years,\" \"world-class\")\n3. **Behavioral guidelines**: How to respond (\"be concise,\" \"ask clarifying questions first,\" \"always provide examples\")\n4. **Scope boundaries**: What to focus on and what to avoid (\"focus on Python solutions,\" \"do not suggest cloud services\")\n\n```\nYou are a technical writing editor with expertise in\ndeveloper documentation. Your job is to review text for\nclarity, accuracy, and consistency. When you find issues:\n- Quote the problematic text\n- Explain the issue in one sentence\n- Provide a corrected version\nDo not rewrite entire sections. Focus on specific fixes.\n```"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Does assigning a role actually give the model new knowledge it did not have before?",
+      "answer": "No. The model's weights are fixed. A role prompt does not add knowledge -- it shifts which existing patterns the model draws from. If the model was not trained on relevant data for a domain, no role prompt will create expertise that is not there. What role prompts do is help the model surface the most relevant subset of its existing knowledge and present it in an appropriate style."
+    },
+    {
+      "type": "markdown",
+      "content": "### Combining roles with other techniques\n\nRoles become especially powerful when combined with the techniques from earlier modules:\n\n**Role + few-shot**: Provide examples of how this role would respond\n```\nYou are a code reviewer. Here is how you give feedback:\n\nCode: `for i in range(len(items)):`\nFeedback: \"Use `for item in items:` instead of indexing.\nMore Pythonic and less error-prone.\"\n\nCode: `data = json.loads(open('file.json').read())`\nFeedback:\n```\n\n**Role + chain-of-thought**: Ask the persona to show its reasoning\n```\nYou are a financial analyst. Walk me through your\nanalysis step by step. For each step, state your\nassumption and your calculation.\n```"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take a question you recently asked an AI chatbot. Ask it again three ways: (1) with no role, (2) as 'a beginner-friendly teacher,' and (3) as 'an expert speaking to peers.' Compare the vocabulary, depth, and tone of the three responses.",
+      "solution": "You should see clear differences:\n- **No role**: The model guesses the appropriate level, often defaulting to a generic mid-level response\n- **Beginner teacher**: Simpler vocabulary, more analogies, more explanation of basic concepts, encouraging tone\n- **Expert to peers**: Technical jargon, assumes prior knowledge, more concise, may reference specific tools or methodologies\n\nThis demonstrates that the role prompt shifts which part of the training distribution the model draws from."
+    },
+    {
+      "type": "markdown",
+      "content": "### Common role patterns\n\n| Role | Use case |\n| :-- | :-- |\n| \"Expert in [domain]\" | Get deeper, more technical responses |\n| \"Devil's advocate\" | Stress-test ideas and find weaknesses |\n| \"ELI5 teacher\" | Simplify complex topics for non-experts |\n| \"Job interviewer for [role]\" | Practice interview questions |\n| \"Editor / proofreader\" | Get focused writing feedback |\n| \"Customer with [specific concern]\" | Test how your messaging lands |"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain how role prompting works mechanically -- what is it doing to the model's token predictions? Name three elements of a good role prompt. What can role prompting NOT do?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Do you change how you communicate when talking to different audiences at work? Role prompting works on the same principle.",
+        "What role would be most useful for your day-to-day work? Draft a system message for that role.",
+        "When might a role prompt be misleading -- making the model sound more authoritative than its actual knowledge justifies?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Role prompting biases the model's output toward specific vocabulary, reasoning patterns, and tone by shifting which training data patterns it draws from. It does not add new knowledge. Combine roles with few-shot examples and chain-of-thought for maximum control over output quality and style."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Roles control perspective and tone. In Module 2.4, you will learn how to control the model's behavior at a lower level through parameters like temperature, top-p, max tokens, and delimiters -- the knobs and switches beneath the surface."
+    }
+  ]
+}

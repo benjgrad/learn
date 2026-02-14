@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "5.9 System-Level Cost and Performance",
+    "description": "Manage inference costs and performance across multi-model pipelines with token budgets and batch optimization.",
+    "level": "level-5",
+    "slug": "system-cost-performance",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 5.9 System-Level Cost and Performance"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "You have built a multi-model system (module 5.8) with a router, two specialists, and an evaluator. Each model call costs money and adds latency. If you get 10,000 requests per day, how do you think costs scale? What are the biggest levers for reducing cost without sacrificing quality?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Cost Equation for Multi-Model Pipelines\n\nIn a single-model system, cost is straightforward: tokens in multiplied by input price, plus tokens out multiplied by output price. In a multi-model pipeline, costs compound because a single user request may trigger multiple model calls:\n\n```\nUser request\n  ├── Router call:      ~200 input tokens, ~50 output tokens\n  ├── Specialist call:  ~2,000 input tokens, ~500 output tokens\n  ├── Evaluator call:   ~2,500 input tokens, ~100 output tokens\n  └── (Retry if eval fails: another specialist + evaluator cycle)\n```\n\nA request that \"costs\" 2,500 tokens in a single-model system might consume 5,000-8,000 tokens across a pipeline. At scale, this multiplier matters. A system handling 100,000 requests per day at an average of 6,000 tokens per pipeline run and a blended rate of $3 per million tokens costs roughly $1,800 per day -- $54,000 per month.\n\n## Token Budgets at the System Level\n\nA token budget is a hard cap on how many tokens a single request (or pipeline run) can consume. Without a budget, edge cases can burn through resources:\n\n- A retry loop that fires three times consumes 3x the normal cost\n- A specialist that receives a long document and generates a detailed analysis might use 10x the average tokens\n- An agentic loop with many tool calls can consume tokens without bound\n\n### Implementing Token Budgets\n\n```typescript\ninterface TokenBudget {\n  maxInputTokens: number;\n  maxOutputTokens: number;\n  maxPipelineTokens: number;  // total across all model calls\n  warningThreshold: number;    // alert when usage exceeds this fraction\n}\n\nclass BudgetTracker {\n  private used = 0;\n\n  constructor(private budget: TokenBudget) {}\n\n  recordUsage(inputTokens: number, outputTokens: number): void {\n    this.used += inputTokens + outputTokens;\n    if (this.used > this.budget.maxPipelineTokens) {\n      throw new BudgetExceededError(this.used, this.budget.maxPipelineTokens);\n    }\n  }\n\n  remaining(): number {\n    return this.budget.maxPipelineTokens - this.used;\n  }\n}\n```\n\nSet budgets based on observed usage distributions. Look at the p50, p95, and p99 of tokens consumed per request. Set the budget at p99 plus a margin -- this catches runaway cases without rejecting legitimate requests."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is a per-request token budget more useful than a daily or monthly spending cap for controlling costs in a multi-model pipeline?",
+      "answer": "A daily or monthly cap tells you when you have spent too much in aggregate, but by the time the cap is reached, the damage is done. A **per-request budget** catches runaway individual requests in real time -- a single agentic loop that enters an infinite retry cycle, or a specialist that receives an unexpectedly long document. It is the difference between a circuit breaker (which stops the problem immediately) and a billing alert (which tells you about the problem after the fact). Per-request budgets also make costs predictable: if every request is guaranteed to consume fewer than N tokens, you can forecast monthly costs with confidence."
+    },
+    {
+      "type": "markdown",
+      "content": "## Inference Orchestration: Batch vs. Real-Time\n\nNot every AI task needs a response in milliseconds. Understanding when to use batch versus real-time inference is a major cost and performance lever.\n\n### Real-Time Inference\n\nThe model processes each request as it arrives and returns a response immediately. Use for:\n- User-facing chat and conversational interfaces\n- Time-sensitive decisions (content moderation, fraud detection)\n- Interactive workflows where the user is waiting\n\n**Cost characteristics**: Pay full per-token pricing. No opportunity for batching discounts. Latency is the primary constraint.\n\n### Batch Inference\n\nRequests are collected and processed together, typically with lower per-token pricing and higher throughput. Use for:\n- Nightly document processing or summarization\n- Bulk classification of historical data\n- Evaluation runs across a test suite\n- Any task where the result is not needed within seconds\n\n**Cost characteristics**: Many providers offer 50% discounts for batch processing. Throughput is higher because the provider can schedule work efficiently. Latency is hours, not seconds.\n\n### Hybrid Patterns\n\nMany systems benefit from a hybrid approach:\n\n- **Real-time for the user-facing path**: The chatbot responds immediately using a fast model\n- **Batch for background processing**: Overnight, a more capable model re-evaluates the day's responses, flags quality issues, and generates training data\n- **Deferred enrichment**: The real-time response is \"good enough,\" and a batch process later adds citations, fact-checks, or additional context that gets cached for future requests\n\n## Cost Accounting Across Multi-Model Pipelines\n\nWhen multiple models serve a single product, you need visibility into where money is going. Cost accounting means tracking spend by:\n\n- **Model**: Which model consumes the most tokens? Is the router disproportionately expensive?\n- **Pipeline stage**: Is the evaluator responsible for 40% of cost because it reviews long specialist outputs?\n- **Request type**: Do billing queries cost 2x more than general queries because the billing specialist is a larger model?\n- **Outcome**: What is the cost per *successful* resolution? If 20% of requests require retries, the effective cost per success is 1.25x the raw per-request cost.\n\n```typescript\ninterface CostRecord {\n  requestId: string;\n  stage: \"router\" | \"specialist\" | \"evaluator\" | \"retry\";\n  model: string;\n  inputTokens: number;\n  outputTokens: number;\n  cost: number;  // in dollars\n  timestamp: Date;\n}\n\n// Aggregate to answer: \"What is our cost per successful customer resolution?\"\nfunction costPerResolution(records: CostRecord[], resolutions: number): number {\n  const totalCost = records.reduce((sum, r) => sum + r.cost, 0);\n  return totalCost / resolutions;\n}\n```\n\n## Optimization Strategies\n\n### 1. Prompt Compression\n\nReduce input tokens without losing essential context:\n- Strip unnecessary formatting and boilerplate from system prompts\n- Summarize long conversation histories instead of passing the full transcript\n- Use retrieval to include only relevant context rather than entire documents\n\n### 2. Model Tiering\n\nUse the cheapest model that meets quality requirements for each stage:\n- Router: smallest available model (classification does not need a frontier model)\n- Simple specialist tasks: mid-tier model\n- Complex reasoning: frontier model, but only when needed\n- Evaluator: often a smaller model with a focused evaluation rubric works well\n\n### 3. Caching\n\nCache responses for identical or near-identical inputs:\n- **Exact-match caching**: Hash the input and cache the output. Effective for FAQ-style queries.\n- **Semantic caching**: Use embedding similarity to identify functionally equivalent queries. More complex but catches rephrasings.\n- **Prompt caching**: Some providers offer discounted rates when the system prompt prefix is reused across calls. Structure prompts to maximize prefix overlap.\n\n### 4. Early Exit\n\nNot every request needs the full pipeline:\n- If the router is highly confident and the task is simple, skip the evaluator\n- If the specialist's response is short and well-structured, reduce evaluation scope\n- If the request matches a cached pattern, return the cached response directly"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "You operate a multi-model pipeline handling 50,000 requests per day. The current monthly cost is $80,000. Your target is to reduce cost by 30% without measurable quality degradation. Propose a specific optimization plan with estimated savings for each strategy.",
+      "solution": "**Current cost breakdown (estimated):**\n- Router (Haiku-class): $2,000/month (2.5%)\n- Specialist (Sonnet-class): $45,000/month (56%)\n- Evaluator (Sonnet-class): $25,000/month (31%)\n- Retries (10% of requests): $8,000/month (10%)\n\n**Optimization plan:**\n\n1. **Prompt compression on specialist inputs** (-15% specialist cost): Summarize conversation history instead of passing full transcripts. Estimated saving: $6,750/month.\n\n2. **Model tiering for evaluator** (-40% evaluator cost): Replace Sonnet-class evaluator with a Haiku-class model using a focused rubric. Test shows comparable catch rates for policy violations. Estimated saving: $10,000/month.\n\n3. **Exact-match caching** (-10% overall): Cache responses for the top 500 most common queries, which represent 15% of volume. Estimated saving: $8,000/month.\n\n4. **Early exit for high-confidence simple requests** (-5% overall): Skip the evaluator for requests where the router confidence is above 0.98 and the specialist response is under 200 tokens. Estimated saving: $4,000/month.\n\n**Total estimated savings: $28,750/month (36%)**\n\n**Validation**: Run the optimized pipeline in shadow mode alongside the current pipeline for two weeks. Compare quality metrics (accuracy, customer satisfaction, escalation rate) before fully switching over."
+    },
+    {
+      "type": "markdown",
+      "content": "## Distinguishing System-Level from Organizational-Level Cost\n\nThis module focuses on the engineering of a single AI system's cost and performance. Level 6 will address organizational-level concerns: cost governance across many teams and products, chargeback models, procurement strategy, and enterprise budgeting. The distinction matters because:\n\n- **System-level** (this module): \"How do I make *this pipeline* efficient?\" Token budgets, model tiering, caching, batch vs. real-time.\n- **Organizational-level** (Level 6): \"How does *the company* manage AI spend across dozens of teams?\" Cost centers, approval workflows, vendor negotiations, usage policies.\n\nAn engineer optimizing a single system needs the skills in this module. A platform team managing AI across the organization needs both."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between batch and real-time inference. Give a concrete example of a system that uses both and explain why each mode is appropriate for its use case."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Multi-model pipelines multiply token costs because a single request triggers several model calls. Control costs with per-request token budgets, model tiering (cheapest model per stage), prompt compression, caching, and early exit strategies. Distinguish batch from real-time inference to match pricing to latency requirements. Track costs by model, pipeline stage, and request type to identify the highest-leverage optimizations."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How do the cost engineering concepts in this module (token budgets, model tiering, caching) relate to the API cost patterns from Level 4? What new challenges emerge when you move from a single model to a multi-model pipeline?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What is the most expensive part of an AI system you have worked with? Was the cost justified by the quality it provided?",
+        "How would you explain AI inference costs to a non-technical stakeholder who asks why the AI bill is growing?",
+        "What monitoring and alerting would you set up to catch cost anomalies before they become budget problems?"
+      ]
+    }
+  ]
+}

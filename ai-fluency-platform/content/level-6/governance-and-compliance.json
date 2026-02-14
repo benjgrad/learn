@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "6.4: Governance and Compliance",
+    "description": "Establish AI governance frameworks, risk management processes, and regulatory compliance for enterprise AI.",
+    "level": "level-6",
+    "slug": "governance-and-compliance",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Building Trust Through Structure"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "Your company wants to deploy an AI system that makes hiring recommendations. What governance structures do you think need to be in place before this system goes live? Who should be involved in the approval process?"
+    },
+    {
+      "type": "markdown",
+      "content": "As AI moves from experimental projects to core business operations, governance becomes the critical layer that determines whether an organization can scale AI responsibly. Governance is not about slowing innovation -- it is about creating the trust and accountability structures that allow AI adoption to accelerate with confidence.\n\n### AI Governance Frameworks\n\nAn AI governance framework defines **who** can build AI systems, **what** they can build, **how** systems must be evaluated, and **when** human oversight is required. Effective frameworks balance enablement with control.\n\n**The Three Pillars of AI Governance:**\n\n1. **Accountability**: Every AI system has a designated owner responsible for its behavior, performance, and compliance. Accountability cannot be distributed so broadly that no one is responsible.\n\n2. **Transparency**: Stakeholders (users, regulators, affected parties) can understand what an AI system does, what data it uses, and how decisions are made. This does not require exposing proprietary models -- it requires clear documentation of capabilities, limitations, and intended use.\n\n3. **Auditability**: All decisions, data lineage, model versions, and evaluation results are logged and retrievable. If a regulator or internal auditor asks \"why did the system produce this output six months ago?\", the organization can answer.\n\n### Risk Classification\n\nNot all AI systems carry the same risk. A risk-based approach allows organizations to apply proportionate governance:\n\n| Risk Level | Examples | Governance Requirements |\n| :--- | :--- | :--- |\n| **Minimal** | Internal content summarization, code autocompletion | Basic documentation, standard code review |\n| **Limited** | Customer-facing chatbots, recommendation engines | Impact assessment, bias testing, user disclosure |\n| **High** | Credit scoring, medical diagnosis support, hiring tools | Full audit trail, fairness analysis, human-in-the-loop, regulatory filing |\n| **Unacceptable** | Social scoring, real-time mass surveillance, manipulative targeting | Prohibited under most frameworks (e.g., EU AI Act) |\n\nThis tiered approach mirrors the EU AI Act's risk categories and allows teams to move fast on low-risk applications while applying rigorous scrutiny where the stakes are highest."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is it important to classify AI risk at the use-case level rather than the model level?",
+      "answer": "The same model can be used for both low-risk and high-risk applications. A large language model used for internal meeting summarization (minimal risk) requires very different governance than the same model used to generate medical advice (high risk). Risk classification must consider the **deployment context** -- who is affected, what decisions are influenced, and what the consequences of failure are -- not just the technical capabilities of the underlying model."
+    },
+    {
+      "type": "markdown",
+      "content": "### The AI System Lifecycle Governance Process\n\nGovernance integrates into the development lifecycle rather than being bolted on at the end:\n\n**Design Phase**: Before building, teams complete an AI Impact Assessment documenting the system's purpose, affected populations, data sources, potential harms, and mitigation strategies. For high-risk systems, an ethics review board provides input.\n\n**Development Phase**: Data quality, bias testing, and privacy reviews run alongside model development. Training data provenance is documented. Evaluation criteria are established before training begins, not retrofitted afterward.\n\n**Deployment Phase**: The model registry enforces governance gates. High-risk models require sign-off from legal, compliance, and the responsible AI team. Deployment includes user-facing disclosures where AI is involved in decisions.\n\n**Operation Phase**: Continuous monitoring for bias drift, performance degradation, and misuse. Incident response procedures are defined for when AI systems produce harmful outputs. Regular re-certification ensures deployed models still meet standards.\n\n**Retirement Phase**: Models are deprecated through a managed process. Data retention policies are followed. Downstream dependencies are identified and migrated.\n\n### Regulatory Landscape\n\nThe regulatory environment for AI is evolving rapidly:\n\n- **EU AI Act**: The most comprehensive AI regulation, establishing risk categories, mandatory requirements for high-risk systems, and prohibitions on certain uses. Organizations serving EU users must comply regardless of where they are headquartered.\n- **NIST AI Risk Management Framework**: A voluntary US framework providing guidelines for identifying, assessing, and mitigating AI risks. Widely adopted as a baseline.\n- **Industry-Specific Regulations**: Healthcare (HIPAA for data, FDA for clinical AI), finance (model risk management guidance from regulators), and employment (local laws restricting automated hiring decisions) layer additional requirements."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Draft an AI Impact Assessment template for a high-risk AI system. Include sections for: system purpose, affected populations, data sources, potential harms, mitigation strategies, human oversight mechanisms, and success/failure criteria. What questions should each section answer?",
+      "solution": "An AI Impact Assessment template for high-risk systems:\n\n**1. System Purpose and Scope**\n- What problem does this system solve? What decisions does it influence?\n- What would happen if this system did not exist (baseline comparison)?\n- Who requested this system and why?\n\n**2. Affected Populations**\n- Who is directly affected by this system's outputs?\n- Are any protected or vulnerable groups disproportionately impacted?\n- Do affected individuals know AI is involved in decisions about them?\n\n**3. Data Sources and Privacy**\n- What data is used for training? For inference? What is the provenance?\n- Does the data include personal or sensitive information?\n- How is consent obtained? What are the data retention policies?\n\n**4. Potential Harms**\n- What could go wrong? (List failure modes with severity and likelihood)\n- What are the bias risks? (Demographic, geographic, socioeconomic)\n- What is the worst-case scenario if this system fails completely?\n\n**5. Mitigation Strategies**\n- What bias testing and fairness metrics will be applied?\n- What fallback mechanisms exist (human review, alternative systems)?\n- How are harmful outputs detected and corrected post-deployment?\n\n**6. Human Oversight**\n- Which decisions require human review before action?\n- What is the escalation path when the system produces uncertain outputs?\n- Can humans override or opt out of AI-assisted decisions?\n\n**7. Success and Failure Criteria**\n- What metrics define acceptable performance?\n- Below what thresholds will the system be suspended or retrained?\n- How often are these criteria re-evaluated?"
+    },
+    {
+      "type": "markdown",
+      "content": "### Building an Internal AI Governance Team\n\nEffective governance requires cross-functional collaboration:\n\n- **AI/ML Engineers** ensure technical standards are met and systems are auditable.\n- **Legal/Compliance** interprets regulatory requirements and maps them to technical controls.\n- **Ethics/Responsible AI** evaluates societal impact and bias concerns.\n- **Business Stakeholders** define acceptable risk thresholds based on use case context.\n- **Security** assesses adversarial risks, data protection, and access control.\n\nThe governance team should function as enablers, not gatekeepers. Their role is to create clear standards, reusable templates, and automated checks that make compliance the path of least resistance."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why AI governance should be risk-based rather than applying the same level of scrutiny to every AI application, and give an example of how this changes governance in practice."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Does your organization have a clear process for assessing AI risk before deployment?",
+        "Who would be accountable if one of your AI systems produced a discriminatory outcome?",
+        "How would you handle a situation where governance requirements slow down a time-sensitive deployment?"
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Think back to the 4D Competencies from the Foundations level. How does Diligence -- responsible and ethical application of AI -- manifest differently at the individual level (Levels 1-5) versus the organizational level (Level 6)?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "AI governance is not a brake on innovation but an accelerator. Organizations with clear governance frameworks deploy AI faster because teams know exactly what is required, approvals are streamlined through risk-based classification, and stakeholders trust that appropriate safeguards are in place."
+    }
+  ]
+}

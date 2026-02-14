@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "title": "6.8: Level 6 Checkpoint",
+    "description": "Assess your readiness as an AI Platformizer with this comprehensive checkpoint.",
+    "level": "level-6",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## AI Platformizer Checkpoint\n\nThis checkpoint assesses your ability to scale AI across an organization through production infrastructure, governance, and cost management. Work through each section honestly -- this is about calibrating your understanding, not scoring points.\n\n### MLOps and Infrastructure"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A team has deployed a model that works well, but six months later they cannot reproduce the training run that created it. What MLOps practices were likely missing, and how would you implement them?",
+      "answer": "The team likely lacked:\n\n1. **Experiment tracking**: Hyperparameters, random seeds, and training configurations were not logged alongside the model artifact. Implement an experiment tracker (MLflow, W&B) that auto-logs all parameters and metrics.\n\n2. **Data versioning**: The training dataset was not versioned or its hash was not recorded. Use dataset versioning tools (DVC, Delta Lake) and require training pipelines to log the exact dataset version used.\n\n3. **Environment reproducibility**: The software environment (library versions, CUDA version, hardware) was not captured. Use containerized training with pinned dependencies and log the container image digest.\n\n4. **Model registry with lineage**: The deployed model was not linked back to its originating experiment run. A model registry should require linking to the experiment run, dataset version, and training environment before allowing promotion to production."
+    },
+    {
+      "type": "markdown",
+      "content": "### Inference Optimization"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You are serving a 13B parameter model that handles 200 requests per minute. Response latency is acceptable but GPU utilization is only 35%. What inference optimizations could increase throughput without adding hardware?",
+      "answer": "At 35% GPU utilization, the model is significantly underutilized:\n\n1. **Enable continuous batching**: If using static batching, switch to continuous (inflight) batching. This alone could double or triple throughput by filling idle GPU cycles with new requests as previous requests complete.\n\n2. **Increase batch size**: If the batch size is too conservative, increase it until GPU memory is near capacity. Monitor for latency increases at larger batch sizes.\n\n3. **Enable KV-cache optimization**: Ensure paged attention (like vLLM's PagedAttention) is enabled to reduce memory waste from fragmented KV-caches, allowing larger effective batch sizes.\n\n4. **Quantize to INT8**: If running in FP16, quantizing to INT8 roughly halves memory per request, enabling approximately twice the concurrent batch size.\n\n5. **Implement speculative decoding**: Use a smaller draft model to propose tokens verified by the 13B model, increasing effective tokens per second.\n\nCombined, these optimizations could increase throughput to 500-600+ requests per minute on the same hardware."
+    },
+    {
+      "type": "markdown",
+      "content": "### Monitoring and Drift"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An LLM-based content moderation system has been flagging significantly more posts as toxic in the past two weeks. The engineering team says nothing has changed. What are three possible explanations, and how would you investigate each?",
+      "answer": "Three explanations to investigate:\n\n1. **Data drift**: User behavior may have shifted (e.g., a viral event, new user demographic, platform change). **Investigation**: Compare the distribution of recent input text (length, topic clusters, vocabulary) against the prior baseline. Use embedding-based clustering to identify new patterns.\n\n2. **Model provider update**: If using a managed API, the provider may have updated the model weights. **Investigation**: Run the same evaluation benchmark used at deployment against the current model version. Contact the provider about recent model changes. Check if the model version identifier has changed.\n\n3. **Concept drift in toxicity norms**: What society considers \"toxic\" evolves over time. New slang, political discourse, or cultural shifts may trigger false positives. **Investigation**: Sample flagged posts, have human reviewers re-label them, and compare human judgment against model predictions to measure the false positive rate specifically on recent content.\n\nStart with the simplest explanation (model provider update) before investigating more complex causes."
+    },
+    {
+      "type": "markdown",
+      "content": "### Governance and Compliance"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your company is expanding an AI-powered loan assessment tool from Canada to the EU. What governance changes are required?",
+      "answer": "Key changes for EU deployment:\n\n1. **EU AI Act compliance**: Loan assessment is classified as \"high-risk\" under the EU AI Act. This requires a conformity assessment, technical documentation, quality management system, mandatory human oversight, and registration in the EU database for high-risk AI systems.\n\n2. **Explainability requirements**: EU regulations require that individuals can obtain meaningful information about the logic involved in automated decisions that significantly affect them. The system needs to produce human-readable explanations for each decision.\n\n3. **GDPR considerations**: Data processing must comply with GDPR, including lawful basis for processing, data minimization, right to explanation for automated decisions (Article 22), and potentially a Data Protection Impact Assessment (DPIA).\n\n4. **Bias and fairness auditing**: The system must be tested for bias against EU-protected characteristics, which may differ from Canadian protected grounds. Regular bias audits with documentation are mandatory.\n\n5. **Post-market monitoring**: Ongoing monitoring and reporting obligations, including incident reporting for serious incidents to the relevant national authority."
+    },
+    {
+      "type": "markdown",
+      "content": "### Distributed Computing"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your team wants to deploy a 140B parameter model for inference. They propose renting 8 A100 GPUs (80 GB each) and using data parallelism to split the workload. Why won't this approach work, and what parallelism strategy should they use instead?",
+      "answer": "Data parallelism replicates the entire model on each GPU, so every GPU needs enough memory to hold all 140B parameters. At FP16, a 140B model requires ~280 GB -- far exceeding a single A100's 80 GB. Data parallelism cannot help here because the model simply does not fit on one device.\n\nInstead, they should use **tensor parallelism** to split the model's weight matrices across GPUs within a node. Distributing across 4 GPUs via tensor parallelism gives ~320 GB of effective memory, enough for the model weights plus KV-cache overhead. With 8 GPUs available, they could run two tensor-parallel replicas of 4 GPUs each for higher throughput, or use all 8 in a single tensor-parallel group for maximum memory headroom.\n\nIf they needed to scale beyond one node, they would add **pipeline parallelism** across nodes (where inter-node bandwidth is lower) while keeping tensor parallelism within each node (where NVLink provides high bandwidth)."
+    },
+    {
+      "type": "markdown",
+      "content": "### Sovereignty and Data Residency"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your company operates a single AI inference endpoint in the US that serves customers globally. A new enterprise client in Germany requires GDPR compliance, and another in China requires PIPL compliance. Can you solve this by simply adding regional API gateways that proxy to the US endpoint?",
+      "answer": "No. Regional API gateways do not solve the fundamental problem: the data still crosses borders to reach the US inference endpoint. Under GDPR, EU personal data processed in the US requires specific legal mechanisms (adequacy decisions, Standard Contractual Clauses, or Binding Corporate Rules) and even these have faced legal challenges. Under PIPL, Chinese personal data generally must be stored and processed within China, and cross-border transfers require a CAC security assessment.\n\nA compliant architecture requires **regional inference endpoints** that process data within each jurisdiction. Deploy inference infrastructure in an EU data center (e.g., Frankfurt) and a China data center. User requests containing personal data must be routed to and processed entirely within the applicable region. The model weights themselves can potentially be deployed globally (if trained on compliant data), but inference-time data -- the user inputs and outputs -- must respect residency requirements.\n\nAdditionally, logging and monitoring data that contains personal information must also remain in-region, which means regional observability stacks, not just regional inference."
+    },
+    {
+      "type": "markdown",
+      "content": "### Cost Management"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your organization's AI API spending has grown 40% quarter-over-quarter for three consecutive quarters, but the number of AI features has only grown 15%. What is happening and how would you investigate?",
+      "answer": "Spending is growing disproportionately to feature count, suggesting existing features are becoming more expensive. Investigation steps:\n\n1. **Per-feature cost attribution**: Break down spending by feature. Identify which features are driving the growth -- it may be one or two features scaling usage, not a uniform increase.\n\n2. **Token usage analysis**: Check if average tokens per request are increasing. Common causes: conversation history growing without truncation, prompt templates being expanded, more context being injected per request.\n\n3. **Traffic volume growth**: Features may be serving more users or more requests per user even if the feature count is stable. Correlate request volume growth against spending growth.\n\n4. **Model tier creep**: Check if features have been upgraded to more expensive models without corresponding cost analysis. Developers often upgrade models for quality without budgeting for the cost impact.\n\n5. **Cache effectiveness**: Monitor cache hit rates. If caching has degraded (e.g., due to more diverse queries or configuration changes), the same volume of requests costs more.\n\nRemediation typically involves implementing cost attribution dashboards, per-feature budgets, model routing to use cheaper models where possible, and prompt optimization to reduce token consumption."
+    },
+    {
+      "type": "markdown",
+      "content": "### Synthesis"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "If you were building an AI platform team from scratch, what would be the first three capabilities you would establish and why?",
+        "How do you balance the speed of innovation that teams want with the governance that the organization needs?",
+        "Which of the Level 6 topics do you feel most confident about, and which would you prioritize for deeper study?",
+        "How would you measure the success of an AI platform team -- what metrics would you track?",
+        "How do distributed computing constraints (GPU memory, interconnect bandwidth) shape the economic decisions of which models to deploy and how?",
+        "If your organization expanded into three new countries next quarter, how would you assess the AI sovereignty and data residency implications before deployment?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The AI Platformizer operates at the intersection of technology, operations, and strategy. Mastery at this level means you can not only build production AI systems but create the organizational infrastructure -- MLOps pipelines, inference optimization, monitoring, governance, and cost management -- that enables dozens of teams to do so safely and efficiently."
+    }
+  ]
+}

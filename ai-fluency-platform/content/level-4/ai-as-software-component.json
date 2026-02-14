@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "4.1 AI as Software Component",
+    "description": "Treating AI models as components with defined interfaces, contracts, and failure modes.",
+    "level": "level-4",
+    "slug": "ai-as-software-component",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 4.1 AI as Software Component"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "How would you define the 'interface' of an AI model if you were treating it like a software library? What inputs does it accept, and what guarantees can you make about its outputs?"
+    },
+    {
+      "type": "markdown",
+      "content": "## From Tool to Component\n\nWhen developers first work with AI, they tend to think of it as a standalone tool -- you send a prompt, you get text back. But in production systems, AI must be treated as a **component** with the same rigor you would apply to any service dependency.\n\nA software component has:\n- **A defined interface** -- what inputs it accepts and what outputs it returns\n- **A contract** -- the guarantees it makes about behavior\n- **Known failure modes** -- how it can break and what happens when it does\n- **Performance characteristics** -- latency, throughput, and resource consumption\n\nAI components share all these characteristics, but with a critical difference: their contracts are probabilistic rather than deterministic.\n\n## Defining AI Component Interfaces\n\nA well-designed AI component interface specifies:\n\n```typescript\ninterface AIComponent<TInput, TOutput> {\n  // What the component accepts\n  input: TInput;\n\n  // What the component returns (with confidence)\n  output: TOutput;\n\n  // Configuration that shapes behavior\n  config: {\n    model: string;\n    temperature: number;\n    maxTokens: number;\n    systemPrompt: string;\n  };\n\n  // What can go wrong\n  errors: AIComponentError[];\n}\n```\n\nThe key insight is that you should **never expose raw model outputs** to the rest of your system. Instead, wrap the model behind a typed interface that your application can rely on.\n\n### Example: A Sentiment Analysis Component\n\n```typescript\n// Bad: Raw AI integration scattered through code\nconst response = await openai.chat.completions.create({\n  model: \"gpt-4\",\n  messages: [{ role: \"user\", content: `Analyze sentiment: ${text}` }],\n});\nconst sentiment = response.choices[0].message.content; // string, could be anything\n\n// Good: AI wrapped as a typed component\ninterface SentimentResult {\n  label: \"positive\" | \"negative\" | \"neutral\";\n  confidence: number;\n  reasoning: string;\n}\n\nasync function analyzeSentiment(text: string): Promise<SentimentResult> {\n  const raw = await callModel(text, SENTIMENT_PROMPT);\n  return parseSentimentResponse(raw); // validates & types the output\n}\n```"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is it important to parse and validate AI outputs rather than passing raw response strings through your application?",
+      "answer": "Raw AI outputs are untyped strings that could contain anything -- unexpected formats, refusals, hallucinated content, or partial responses. Parsing and validating ensures that downstream code receives data in the shape it expects, failures are caught at the AI boundary rather than propagating through your system, and you can implement retry or fallback logic at a single point."
+    },
+    {
+      "type": "markdown",
+      "content": "## Failure Modes Unique to AI Components\n\nTraditional APIs have well-understood failure modes: timeouts, 4xx/5xx errors, malformed data. AI components introduce additional categories:\n\n| Failure Mode | Description | Mitigation |\n|---|---|---|\n| **Hallucination** | Model generates plausible but false information | Output validation, grounding with RAG |\n| **Refusal** | Model declines to respond due to safety filters | Fallback prompts, alternative phrasing |\n| **Format drift** | Model returns data in an unexpected structure | Schema validation, structured output mode |\n| **Prompt injection** | User input manipulates the system prompt | Input sanitization, prompt isolation |\n| **Latency spikes** | Inference time varies significantly | Timeouts, streaming, caching |\n| **Cost overruns** | Token usage exceeds budget | Token counting, request limits |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a component interface for an AI-powered code review tool. Define the input type, output type, configuration, and list at least three failure modes specific to the AI behavior (not just network errors).",
+      "solution": "A strong design might look like this:\n\n```typescript\ninterface CodeReviewInput {\n  code: string;\n  language: string;\n  context?: string; // PR description, related files\n}\n\ninterface CodeReviewOutput {\n  issues: Array<{\n    severity: \"critical\" | \"warning\" | \"suggestion\";\n    line: number;\n    description: string;\n    suggestedFix?: string;\n  }>;\n  summary: string;\n  overallQuality: number; // 1-10\n}\n```\n\nAI-specific failure modes include: (1) hallucinated line numbers that do not exist in the code, (2) false positive security findings based on pattern-matching rather than understanding, (3) inconsistent severity ratings across similar issues, (4) suggesting \"fixes\" that introduce new bugs."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Component Boundary Pattern\n\nThe most important architectural decision is **where you draw the AI boundary** in your system. A clean boundary means:\n\n1. **Inputs are validated** before reaching the model\n2. **Outputs are parsed and typed** before leaving the component\n3. **Retries and fallbacks** are handled inside the component\n4. **The rest of your system does not know it is talking to AI** -- it just sees a function with typed inputs and outputs\n\n```\n┌─────────────────────────────────────────────┐\n│           AI Component Boundary             │\n│                                             │\n│  Input ──> Validate ──> Build Prompt ──>    │\n│            Format       + Context           │\n│                            │                │\n│                      Call Model             │\n│                            │                │\n│  Output <── Type <── Parse Response <──     │\n│             Check     + Validate            │\n│                                             │\n└─────────────────────────────────────────────┘\n```\n\nThis boundary pattern means the rest of your application treats the AI component like any other service -- testable, mockable, and replaceable."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the 'component boundary' pattern for AI integration. Why is it important that the rest of your system does not know it is talking to an AI model?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Treating AI as a software component means defining typed interfaces, validating outputs at the boundary, and handling AI-specific failure modes like hallucination and format drift. The rest of your system should interact with a clean, typed API -- not raw model outputs."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "In Level 3, you learned about grounding AI with external data through RAG. How does the component boundary pattern help you swap between a RAG-grounded component and a simpler direct-prompt component without changing the rest of your system?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a project you are working on. Where would you draw the AI component boundary?",
+        "What failure modes would be most dangerous in your domain (healthcare, finance, consumer, etc.)?",
+        "How does treating AI as a component change the way you think about testing?"
+      ]
+    }
+  ]
+}

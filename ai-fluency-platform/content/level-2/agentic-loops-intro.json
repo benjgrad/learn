@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "2.9 Introduction to Agentic Loops",
+    "description": "Understand the think-act-observe loop that enables AI to use tools and take actions.",
+    "level": "level-2",
+    "slug": "agentic-loops-intro",
+    "order": 9,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Standard AI chat works like a single question and answer. But what if the AI could search the web, run code, or check a database before answering? How would that change what AI can do?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Beyond single-turn responses\n\nEverything you have learned so far follows a simple pattern: you write a prompt, the model generates a response. One input, one output. This is powerful, but it limits AI to tasks that can be solved in a single generation step.\n\nMany real-world tasks require multiple steps:\n\n- \"Find the cheapest flight to Tokyo next month\" requires searching, comparing, filtering\n- \"Debug this error in my code\" requires reading the error, examining the code, testing a hypothesis, verifying the fix\n- \"Summarize the latest research on X\" requires searching for papers, reading them, synthesizing findings\n\n**Agentic loops** are the pattern that lets AI handle multi-step tasks by giving it the ability to take actions and observe results.\n\n## The think-act-observe loop\n\nAn agentic AI follows a cycle:\n\n1. **Think**: The model reasons about the current situation and decides what to do next\n2. **Act**: The model calls a tool -- searches the web, runs code, queries a database, reads a file\n3. **Observe**: The model receives the result of its action\n4. **Repeat**: Based on the observation, the model thinks again and decides whether to take another action or deliver a final answer\n\nThis cycle continues until the model determines it has enough information to answer the original question.\n\n### A concrete example\n\nYou ask: \"What is the current weather in Chicago and should I bring an umbrella?\"\n\nA standard model would answer based on its training data, which has no current weather information. An agentic model would:\n\n1. **Think**: \"I need current weather data. I should search for Chicago weather.\"\n2. **Act**: Call a web search tool with the query \"current weather Chicago\"\n3. **Observe**: Receive results showing 45 degrees Fahrenheit, 80% chance of rain\n4. **Think**: \"The data shows high rain probability. I can now answer the question.\"\n5. **Act**: Deliver the final response: \"It is 45 degrees in Chicago with an 80% chance of rain. Yes, bring an umbrella.\"\n\nThe model made a **decision** about what tool to use, **interpreted** the results, and **synthesized** a final answer. This is fundamentally different from a single-turn generation.\n\n## Tool calling: how models take action\n\nThe mechanism that enables agentic behavior is **tool calling** (also called function calling). The model does not literally browse the web or execute code. Instead:\n\n1. The model generates a structured request describing which tool to call and with what arguments\n2. An external system executes the tool and returns the result\n3. The model receives the result as new context and continues reasoning\n\nTools available to modern AI models include:\n\n| Tool | What it does | Example use |\n| :-- | :-- | :-- |\n| Web search | Queries a search engine | Finding current information |\n| Code execution | Runs code in a sandbox | Calculations, data analysis |\n| File reading | Reads documents or data files | Analyzing uploaded content |\n| API calls | Interacts with external services | Checking databases, sending messages |\n| Image generation | Creates images from descriptions | Visual content creation |\n\n### The model does not \"have\" tools\n\nAn important distinction: the model itself does not contain a web browser or a Python interpreter. Tools are **provided to the model** by the system running it. When OpenAI gives ChatGPT web browsing capability, or when Anthropic gives Claude code execution, they are configuring the system around the model to execute tool calls and feed results back.\n\nThis means the same underlying model can have different capabilities depending on how it is deployed. A Claude instance with tools enabled can browse the web; the same model without tools cannot."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "When an AI model 'searches the web,' is the model itself connecting to the internet and browsing websites?",
+      "answer": "No. The model generates a text request like \"search for: Chicago weather today.\" A separate system component -- the tool executor -- actually performs the web search and returns the results as text. The model then processes those results as part of its context. The model never directly accesses the internet, databases, or file systems. It only generates structured tool-call requests and receives text results."
+    },
+    {
+      "type": "markdown",
+      "content": "## Observing agentic behavior in practice\n\nYou have likely already encountered agentic behavior without recognizing it:\n\n- **ChatGPT with browsing**: When ChatGPT says \"Let me search for that,\" it is entering an agentic loop -- thinking about what to search, executing the search, reading results, and synthesizing an answer\n- **Claude with code execution**: When Claude writes and runs Python code to analyze data you uploaded, it is thinking about what code to write, executing it, observing the output, and possibly revising the code\n- **Cursor, GitHub Copilot, Claude Code**: AI coding assistants read files, propose edits, run tests, and iterate -- a multi-step agentic loop applied to software development\n\n### The reasoning trace\n\nMany agentic systems show their reasoning process. You might see the model display text like:\n\n```\nThinking: The user wants current stock prices. I need\nto search for this information.\n\nSearching: \"AAPL stock price today\"\n\nReading results...\n\nThinking: I found the price. Let me also check the\ndaily change to give a complete answer.\n\nSearching: \"AAPL stock price change today\"\n\nReading results...\n\nHere is what I found: ...\n```\n\nThis visible reasoning trace is valuable for understanding and debugging the model's behavior. It shows you why the model chose specific actions and how it interpreted results.\n\n## Limitations of agentic loops\n\nAgentic systems are powerful but not infallible:\n\n- **Error propagation**: A bad search query leads to bad results, which lead to a bad answer. Mistakes compound across steps.\n- **Loops and dead ends**: The model might repeatedly try the same failing approach without changing strategy\n- **Cost**: Each tool call adds tokens and latency. A complex agentic task might involve 10-20 tool calls, each adding cost and time.\n- **Hallucinated tool calls**: The model might attempt to call tools that do not exist or pass invalid arguments\n\nThese limitations are why Level 5 of this curriculum covers building robust agentic systems with error handling, retry logic, and human-in-the-loop checkpoints."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Use a tool-enabled AI chat (ChatGPT with browsing, Claude with tools, or Perplexity) and ask a question that requires current information, such as recent news or live data. Watch for the reasoning trace -- the visible steps the model takes. Note how many tool calls it makes and whether any of them seem unnecessary or redundant.",
+      "solution": "You should observe the model making at least one tool call (usually a web search). Pay attention to whether the model searches once and synthesizes, or searches multiple times to refine its answer. Some models show their reasoning explicitly; others hide it behind a \"searching...\" indicator. If you can see the reasoning trace, note whether the model's decision to search (or search again) was logical. Unnecessary searches indicate the model is being cautious rather than efficient."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Describe the think-act-observe loop in your own words. What is tool calling, and who actually executes the tool -- the model or the surrounding system? Why does error propagation become a bigger concern in agentic systems than in single-turn prompts?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you noticed agentic behavior in AI tools you already use? What did you think was happening behind the scenes before reading this module?",
+        "What tasks in your work require multiple steps that a single AI response cannot handle? Could an agentic system help?",
+        "How do you feel about AI making decisions about what actions to take, rather than you directing every step?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Agentic loops extend AI beyond single-turn responses by enabling a think-act-observe cycle. The model reasons about what to do, calls tools (web search, code execution, APIs), observes results, and iterates until it can answer. The model itself does not execute tools -- a surrounding system handles that. This pattern powers modern AI assistants, coding tools, and research agents. Understanding it conceptually prepares you for building agentic systems in Level 5."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have now completed all Level 2 modules: prompt engineering techniques, prompt libraries, local models, structured output, and agentic loops. In the Level 2 Checkpoint, you will test your understanding of all these concepts from memory before advancing to Level 3."
+    }
+  ]
+}

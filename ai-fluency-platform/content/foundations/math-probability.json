@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "F.6: Probability and Statistics for AI",
+    "description": "Probability distributions, Bayes' theorem, and statistical inference — the mathematics of decision-making under uncertainty.",
+    "level": "foundations",
+    "slug": "math-probability",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Language models produce a probability distribution over possible next tokens at every step. But what exactly is a probability distribution? And how do you think the model combines evidence from the entire context to arrive at these probabilities? Is there a principled mathematical way to update beliefs given new evidence?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why Probability in AI?\n\nIn F.3 (Probabilistic Thinking), you learned that AI models generate text by predicting the most probable next token. This module provides the mathematical foundation behind that process.\n\nProbability theory is the mathematics of **uncertainty**, and AI is fundamentally a system for making decisions under uncertainty. The model is never \"sure\" what token comes next — it assigns probabilities to every option and samples from that distribution. Understanding how probability distributions work, how evidence updates beliefs, and how statistical reasoning operates gives you deeper insight into why AI behaves the way it does.\n\n## Probability Distributions\n\nA **probability distribution** assigns a probability to every possible outcome such that all probabilities sum to 1. In the context of language models, the \"outcomes\" are the tokens in the vocabulary.\n\n### Discrete Distributions\n\nWhen a model generates the next token, it produces a **discrete probability distribution** over its vocabulary — say, 50,000 tokens. Each token gets a probability, and all 50,000 probabilities sum to 1.\n\n```\nP(\"the\")   = 0.12\nP(\"a\")     = 0.08\nP(\"Paris\") = 0.05\nP(\"is\")    = 0.04\n...\n[50,000 total entries summing to 1.0]\n```\n\nThe **softmax function** is what converts the model's raw output scores (called \"logits\") into this valid probability distribution. It takes a vector of arbitrary numbers and transforms them into positive values that sum to 1:\n\n```\nsoftmax(zᵢ) = e^(zᵢ) / Σ e^(zⱼ)\n```\n\nThis is the mathematical connection between the model's internal computations and the probabilities you see in its output.\n\n### Key Properties\n\n**Entropy** measures the \"spread\" of a distribution. High entropy means many tokens have similar probabilities (the model is uncertain). Low entropy means one or a few tokens dominate (the model is confident). Temperature (from F.3) directly modifies the entropy of the output distribution.\n\n**Expected value** is the weighted average outcome. While you typically do not compute an expected \"token,\" the concept underlies many AI evaluation metrics."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A model produces the following distribution for the next token: P('yes') = 0.45, P('no') = 0.40, P('maybe') = 0.10, P(everything else) = 0.05. Would you say the model is 'confident' in its answer? How does this relate to the concept of entropy?",
+      "answer": "The model is not very confident. While \"yes\" has the highest probability, \"no\" is close behind at 0.40. The effective choice is nearly a coin flip between two options.\n\nThis distribution has moderate entropy — not as high as a uniform distribution (where all tokens have equal probability), but much higher than a \"confident\" distribution like P('yes') = 0.98.\n\nIn practice, this kind of split often indicates the answer genuinely depends on nuance or context that the model finds ambiguous. It is a signal that you should provide more context or rephrase the question."
+    },
+    {
+      "type": "markdown",
+      "content": "## Bayes' Theorem: Updating Beliefs with Evidence\n\n**Bayes' theorem** is the mathematical framework for updating beliefs when you receive new evidence. It is expressed as:\n\n```\nP(A|B) = P(B|A) × P(A) / P(B)\n```\n\nWhere:\n- **P(A|B)** is the **posterior** — the probability of A given that B is observed\n- **P(B|A)** is the **likelihood** — the probability of observing B if A is true\n- **P(A)** is the **prior** — the probability of A before seeing evidence B\n- **P(B)** is the **evidence** — the total probability of observing B\n\n### Bayes in Language Models\n\nWhile modern language models do not explicitly compute Bayes' theorem at each step, the underlying concept is deeply embedded in their operation. The model's training process can be understood as Bayesian updating at a massive scale:\n\n- **Prior knowledge** comes from the patterns learned during training (the model's \"beliefs\" about language)\n- **New evidence** comes from the context you provide (your prompt, conversation history, documents)\n- **Posterior output** is the updated probability distribution over next tokens, informed by both prior knowledge and current evidence\n\nWhen you add more context to a prompt, you are essentially providing more evidence for the model's Bayesian reasoning. This is why specificity in prompts improves accuracy — you are narrowing the posterior distribution."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A medical test is 95% accurate (if you have the disease, it correctly tests positive 95% of the time; if you do not have the disease, it correctly tests negative 95% of the time). The disease affects 1% of the population. You test positive. What is the probability you actually have the disease? Most people guess over 90% — use Bayes' theorem to calculate the actual answer.",
+      "solution": "Let A = \"has disease\" and B = \"tests positive.\"\n\n- P(A) = 0.01 (1% prevalence)\n- P(B|A) = 0.95 (95% true positive rate)\n- P(B|not A) = 0.05 (5% false positive rate)\n- P(B) = P(B|A) × P(A) + P(B|not A) × P(not A) = 0.95 × 0.01 + 0.05 × 0.99 = 0.0095 + 0.0495 = 0.059\n\nP(A|B) = P(B|A) × P(A) / P(B) = 0.95 × 0.01 / 0.059 = 0.0095 / 0.059 ≈ **16.1%**\n\nThe actual probability is only about 16%, despite the 95% test accuracy. This is because the disease is rare (low prior), so most positive results are false positives from the large healthy population.\n\nThis example illustrates why prior probabilities matter enormously — a principle that applies directly to AI. When a language model encounters a prompt, its \"prior\" from training strongly influences its output. Rare or unusual requests may produce unreliable results, just as the rare disease produces misleading test results."
+    },
+    {
+      "type": "markdown",
+      "content": "## Statistical Inference and AI Evaluation\n\n**Statistical inference** is the process of drawing conclusions about a population from a sample. In AI, this underlies how we evaluate model performance and make decisions about reliability.\n\n### Key Concepts\n\n**Confidence intervals** tell you the range within which a true value likely falls. When an AI model achieves \"93% accuracy on a test set,\" the confidence interval tells you how much that number might vary on a different test set.\n\n**Hypothesis testing** provides a framework for making decisions. \"Is model A better than model B?\" is fundamentally a statistical question that requires careful comparison, not just a single benchmark number.\n\n**The Central Limit Theorem** states that the average of many independent samples tends toward a normal distribution, regardless of the underlying distribution. This is why averaging across multiple model runs or evaluation metrics produces more reliable estimates than single measurements.\n\n### Practical Application: Why You Should Not Trust Single Tests\n\nWhen evaluating AI models, a single accuracy number is nearly meaningless without context:\n\n- What was the test set? Was it representative of real-world use?\n- What is the confidence interval? How much might the number vary?\n- Were there class imbalances? A model could achieve 99% accuracy on a spam detector by simply labeling everything as \"not spam\" if only 1% of emails are spam\n\nStatistical literacy is essential for the **Discernment** competency — critically evaluating AI performance claims."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Probability provides the mathematical framework for everything AI does: from generating token-by-token predictions (probability distributions and softmax) to updating beliefs with new evidence (Bayes' theorem) to evaluating model performance (statistical inference). The transition from deterministic thinking to probabilistic reasoning is not just philosophical — it is grounded in precise mathematics that governs every step of how AI systems operate and how we should evaluate them."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a business stakeholder why a model that is '95% accurate' might still produce unreliable results in their specific use case. Use the concepts of prior probability and base rates to make your point."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the Bayesian perspective change how you think about providing context to AI models? Is adding more context always beneficial?",
+        "The medical test example shows how base rates dramatically affect real-world accuracy. Can you think of an analogous situation in AI applications?",
+        "Why might a single benchmark number (like '93% accuracy') be misleading when comparing AI models for a production deployment?"
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The softmax function introduced here is the exact function used in transformer attention mechanisms (Level 5) to convert raw attention scores into a probability distribution. Bayes' theorem connects directly to how RAG systems (Level 3) should weight retrieved evidence. And statistical inference is the foundation of the model evaluation frameworks you will encounter at Level 5 (perplexity, ROUGE, F1 scores)."
+    }
+  ]
+}

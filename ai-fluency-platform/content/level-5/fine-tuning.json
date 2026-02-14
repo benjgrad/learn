@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "5.3 Fine-Tuning",
+    "description": "LoRA, QLoRA, RLHF, and domain adaptation techniques for customizing models to specialized tasks.",
+    "level": "level-5",
+    "slug": "fine-tuning",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "# 5.3 Fine-Tuning"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "When should you fine-tune a model rather than use prompt engineering or RAG? What kinds of improvements can fine-tuning deliver that better prompts cannot?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why Fine-Tune?\n\nPre-trained models are generalists. They know a lot about everything but are experts in nothing. Fine-tuning adapts a pre-trained model to a specific domain or task by continuing the training process on a curated dataset.\n\nThe decision tree for customization:\n\n```\nNeed AI to do something specific?\n│\n├── Can prompt engineering solve it?\n│   └── Yes → Use prompt engineering (cheapest, fastest)\n│\n├── Needs access to private data?\n│   └── Yes → Use RAG (Level 3)\n│\n├── Needs to change behavior/style/format consistently?\n│   └── Yes → Fine-tune\n│\n└── Needs deep domain expertise (medical, legal, scientific)?\n    └── Yes → Fine-tune on domain data\n```\n\nFine-tuning is the right choice when you need:\n- **Consistent style or format** that prompting cannot reliably enforce\n- **Domain-specific knowledge** beyond what RAG can provide\n- **Reduced latency** by encoding knowledge in weights rather than context\n- **Cost reduction** by using a smaller fine-tuned model instead of a large general one\n\n## Full Fine-Tuning vs. Parameter-Efficient Methods\n\n**Full fine-tuning** updates all parameters in the model. For a 7B parameter model, this requires:\n- ~28GB GPU memory just for model weights (at fp32)\n- ~28GB for gradients\n- ~56GB for optimizer states (Adam)\n- Total: ~112GB -- requiring multiple high-end GPUs\n\nThis is impractical for most teams, which is why **parameter-efficient fine-tuning (PEFT)** methods were developed.\n\n## LoRA: Low-Rank Adaptation\n\nLoRA is the most widely used PEFT method. The key insight is that the weight updates during fine-tuning are **low-rank** -- they can be approximated by much smaller matrices.\n\nInstead of updating a weight matrix W directly:\n\n```\nW' = W + ΔW    (ΔW is same size as W -- huge)\n```\n\nLoRA decomposes the update into two small matrices:\n\n```\nW' = W + B · A\n\nWhere:\n  W is d × d (frozen, not updated)\n  A is d × r (tiny, trainable)\n  B is r × d (tiny, trainable)\n  r << d (rank, typically 4-64)\n```\n\nFor a 4096 x 4096 weight matrix with rank r=16:\n- Full update: 16,777,216 parameters\n- LoRA update: (4096 x 16) + (16 x 4096) = 131,072 parameters\n- **Reduction: 128x fewer trainable parameters**\n\n### Practical LoRA with Hugging Face\n\n```python\nfrom peft import LoraConfig, get_peft_model\nfrom transformers import AutoModelForCausalLM\n\nmodel = AutoModelForCausalLM.from_pretrained(\"meta-llama/Llama-2-7b-hf\")\n\nlora_config = LoraConfig(\n    r=16,                        # rank -- higher = more capacity\n    lora_alpha=32,               # scaling factor\n    target_modules=[\"q_proj\", \"v_proj\"],  # which layers to adapt\n    lora_dropout=0.05,\n    bias=\"none\",\n    task_type=\"CAUSAL_LM\",\n)\n\nmodel = get_peft_model(model, lora_config)\nmodel.print_trainable_parameters()\n# trainable params: 4,194,304 || all params: 6,742,609,920 || trainable%: 0.0622\n```"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why does LoRA target specific layer types (like q_proj and v_proj in attention) rather than all layers? What is the tradeoff of targeting more layers?",
+      "answer": "Attention projection layers (Q, K, V, and output projections) are where most of the model's task-specific behavior is encoded. Research shows that adapting these layers gives the best quality-to-cost ratio. Targeting more layers (including feed-forward layers) increases the number of trainable parameters and can improve quality for complex tasks, but also increases memory usage and training time. The typical starting point is Q and V projections, expanding to all attention projections and then FFN layers only if quality is insufficient."
+    },
+    {
+      "type": "markdown",
+      "content": "## QLoRA: Quantized LoRA\n\nQLoRA combines LoRA with **4-bit quantization** of the base model, reducing memory requirements dramatically:\n\n```\nStandard LoRA on 7B model:  ~14GB GPU memory (fp16 weights)\nQLoRA on 7B model:          ~4GB GPU memory (4-bit weights)\n```\n\nThis means you can fine-tune a 7B model on a single consumer GPU (like an RTX 3090 with 24GB) or a 70B model on a single A100 80GB.\n\n```python\nfrom transformers import BitsAndBytesConfig\n\nquantization_config = BitsAndBytesConfig(\n    load_in_4bit=True,\n    bnb_4bit_quant_type=\"nf4\",       # normalized float 4-bit\n    bnb_4bit_compute_dtype=torch.bfloat16,\n    bnb_4bit_use_double_quant=True,  # quantize the quantization constants\n)\n\nmodel = AutoModelForCausalLM.from_pretrained(\n    \"meta-llama/Llama-2-7b-hf\",\n    quantization_config=quantization_config,\n)\n```\n\n## RLHF: Reinforcement Learning from Human Feedback\n\nRLHF is the technique that transformed raw language models into helpful, harmless assistants. The process has three stages:\n\n### Stage 1: Supervised Fine-Tuning (SFT)\nFine-tune the base model on high-quality instruction-response pairs to teach it the format of helpful conversations.\n\n### Stage 2: Reward Model Training\nCollect human preferences: show humans two model responses to the same prompt and ask which is better. Train a separate model to predict these preferences.\n\n### Stage 3: Reinforcement Learning\nUse the reward model to score the language model's outputs and optimize the language model to produce higher-scoring responses using PPO (Proximal Policy Optimization).\n\n```\nBase Model ──> SFT (learn format) ──> RLHF (learn preferences) ──> Aligned Model\n                     │                          │\n              Human-written              Human preference\n              conversations              comparisons\n```\n\nModern alternatives to PPO include **DPO (Direct Preference Optimization)**, which skips the reward model entirely and optimizes preferences directly."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "You are building a medical coding assistant that needs to assign ICD-10 codes to clinical notes. Walk through the decision process: (1) Why is prompt engineering alone insufficient? (2) Why might RAG not be enough? (3) What data would you need for fine-tuning? (4) Which technique (full, LoRA, QLoRA) would you choose and why?",
+      "solution": "1. **Prompt engineering is insufficient** because ICD-10 has over 70,000 codes with subtle distinctions. No prompt can encode the expertise needed to distinguish between, say, E11.21 (Type 2 diabetes with diabetic nephropathy) and E11.22 (Type 2 diabetes with diabetic chronic kidney disease). The model needs to learn these patterns from training data.\n\n2. **RAG may not be enough** because the relationship between clinical language and codes is not a simple lookup. A note saying \"patient presents with elevated blood sugar and protein in urine\" requires medical reasoning to map to the correct code. RAG retrieves relevant documents, but the model needs training to do the clinical reasoning.\n\n3. **Training data needed**: Thousands of (clinical note, correct ICD-10 code) pairs from certified medical coders. Also need negative examples where similar notes map to different codes.\n\n4. **QLoRA is the best choice**: You likely do not have a fleet of A100 GPUs, and QLoRA lets you fine-tune a 7B or 13B model on a single GPU. Start with rank 16 targeting attention projections, train for 3-5 epochs, and evaluate against a held-out test set of coder-verified examples."
+    },
+    {
+      "type": "markdown",
+      "content": "## When to Fine-Tune vs. Alternatives\n\n| Approach | Best For | Effort | Cost |\n|----------|----------|--------|------|\n| **Prompt engineering** | Format, style, simple tasks | Low | Low (per-call) |\n| **Few-shot examples** | Pattern matching, classification | Low | Medium (token cost) |\n| **RAG** | Private data, factual grounding | Medium | Medium |\n| **LoRA fine-tuning** | Behavior change, domain adaptation | High | Medium (one-time) |\n| **Full fine-tuning** | Maximum quality, new capabilities | Very high | High |"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between LoRA and full fine-tuning. Why does LoRA work despite updating less than 1% of the model's parameters?"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Fine-tuning customizes pre-trained models for specific domains and tasks. LoRA and QLoRA make this practical by updating only a small fraction of parameters, reducing GPU memory requirements by 10-30x. Use fine-tuning when prompt engineering and RAG cannot deliver the consistency, domain expertise, or cost efficiency you need. RLHF and DPO are the techniques that align models with human preferences."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "How does understanding fine-tuning change your perspective on the model fallback chains from Level 4? When might a fine-tuned small model outperform a large general-purpose model for a specific task?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the risks of fine-tuning on biased or low-quality data?",
+        "How would you evaluate whether a fine-tuned model has 'forgotten' important general capabilities (catastrophic forgetting)?",
+        "In what situations would you recommend against fine-tuning?"
+      ]
+    }
+  ]
+}
