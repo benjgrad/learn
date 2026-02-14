@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FeedbackPanel } from "./FeedbackPanel";
@@ -17,8 +17,10 @@ interface TryItYourselfProps {
   solution: string;
   moduleTitle: string;
   interactionKey: string;
-  onComplete?: (key: string, userInput: string) => void;
+  onComplete?: (key: string, userInput: string, aiFeedback?: string) => void;
   isComplete?: boolean;
+  savedUserInput?: string;
+  savedFeedback?: string;
 }
 
 export function TryItYourself({
@@ -28,12 +30,15 @@ export function TryItYourself({
   interactionKey,
   onComplete,
   isComplete,
+  savedUserInput,
+  savedFeedback,
 }: TryItYourselfProps) {
-  const [value, setValue] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [value, setValue] = useState(savedUserInput || "");
+  const [feedback, setFeedback] = useState(savedFeedback || "");
   const [isStreaming, setIsStreaming] = useState(false);
   const [submitted, setSubmitted] = useState(isComplete || false);
   const [revealed, setRevealed] = useState(false);
+  const feedbackRef = useRef("");
   const {
     requestAI,
     showSignInPrompt,
@@ -48,6 +53,7 @@ export function TryItYourself({
     if (!value.trim() || isStreaming) return;
     setIsStreaming(true);
     setFeedback("");
+    feedbackRef.current = "";
     setSubmitted(true);
 
     try {
@@ -60,10 +66,13 @@ export function TryItYourself({
           solution,
           userInput: value,
         },
-        (text) => setFeedback((prev) => prev + text),
+        (text) => {
+          feedbackRef.current += text;
+          setFeedback((prev) => prev + text);
+        },
         () => {
           setIsStreaming(false);
-          onComplete?.(interactionKey, value);
+          onComplete?.(interactionKey, value, feedbackRef.current);
         }
       );
     } catch (err) {

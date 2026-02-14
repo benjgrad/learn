@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FeedbackPanel } from "./FeedbackPanel";
@@ -16,8 +16,10 @@ interface CalibrationCheckProps {
   answer: string;
   moduleTitle: string;
   interactionKey: string;
-  onComplete?: (key: string, userInput: string) => void;
+  onComplete?: (key: string, userInput: string, aiFeedback?: string) => void;
   isComplete?: boolean;
+  savedUserInput?: string;
+  savedFeedback?: string;
 }
 
 export function CalibrationCheck({
@@ -27,12 +29,15 @@ export function CalibrationCheck({
   interactionKey,
   onComplete,
   isComplete,
+  savedUserInput,
+  savedFeedback,
 }: CalibrationCheckProps) {
-  const [revealed, setRevealed] = useState(false);
+  const [revealed, setRevealed] = useState(isComplete || false);
   const [discussInput, setDiscussInput] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [feedback, setFeedback] = useState(savedFeedback || "");
   const [isStreaming, setIsStreaming] = useState(false);
   const [completed, setCompleted] = useState(isComplete || false);
+  const feedbackRef = useRef("");
   const {
     requestAI,
     showSignInPrompt,
@@ -55,6 +60,7 @@ export function CalibrationCheck({
     if (!discussInput.trim() || isStreaming) return;
     setIsStreaming(true);
     setFeedback("");
+    feedbackRef.current = "";
 
     try {
       await requestAI(
@@ -66,8 +72,14 @@ export function CalibrationCheck({
           answer,
           userInput: discussInput,
         },
-        (text) => setFeedback((prev) => prev + text),
-        () => setIsStreaming(false)
+        (text) => {
+          feedbackRef.current += text;
+          setFeedback((prev) => prev + text);
+        },
+        () => {
+          setIsStreaming(false);
+          onComplete?.(interactionKey, discussInput, feedbackRef.current);
+        }
       );
     } catch (err) {
       if (err instanceof RateLimitError) {
@@ -77,7 +89,7 @@ export function CalibrationCheck({
       }
       setIsStreaming(false);
     }
-  }, [discussInput, isStreaming, moduleTitle, question, answer, requestAI]);
+  }, [discussInput, isStreaming, moduleTitle, question, answer, interactionKey, onComplete, requestAI]);
 
   return (
     <div className="my-6 rounded-lg border-l-4 border-amber-500 bg-amber-50/50 dark:bg-amber-950/20 p-4">

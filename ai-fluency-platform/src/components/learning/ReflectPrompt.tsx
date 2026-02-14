@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FeedbackPanel } from "./FeedbackPanel";
@@ -13,8 +13,28 @@ interface ReflectPromptProps {
   questions: string[];
   moduleTitle: string;
   interactionKey: string;
-  onComplete?: (key: string, userInput: string) => void;
+  onComplete?: (key: string, userInput: string, aiFeedback?: string) => void;
   isComplete?: boolean;
+  savedUserInput?: string;
+  savedFeedback?: string;
+}
+
+function parseReflectAnswers(savedInput: string | undefined, questions: string[]): Record<number, string> {
+  if (!savedInput) return {};
+  const parsed: Record<number, string> = {};
+  const parts = savedInput.split(/\n\nQ: /);
+  for (const part of parts) {
+    const match = part.match(/(?:^Q: )?(.+?)\nA: ([\s\S]*)/);
+    if (match) {
+      const questionText = match[1];
+      const answerText = match[2];
+      const idx = questions.findIndex((q) => q === questionText);
+      if (idx !== -1 && answerText !== "(no response)") {
+        parsed[idx] = answerText;
+      }
+    }
+  }
+  return parsed;
 }
 
 export function ReflectPrompt({
@@ -23,11 +43,16 @@ export function ReflectPrompt({
   interactionKey,
   onComplete,
   isComplete,
+  savedUserInput,
+  savedFeedback,
 }: ReflectPromptProps) {
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [feedback, setFeedback] = useState("");
+  const [answers, setAnswers] = useState<Record<number, string>>(
+    () => parseReflectAnswers(savedUserInput, questions)
+  );
+  const [feedback, setFeedback] = useState(savedFeedback || "");
   const [isStreaming, setIsStreaming] = useState(false);
   const [submitted, setSubmitted] = useState(isComplete || false);
+  const feedbackRef = useRef("");
   const {
     requestAI,
     showSignInPrompt,
@@ -44,6 +69,7 @@ export function ReflectPrompt({
     if (!hasContent || isStreaming) return;
     setIsStreaming(true);
     setFeedback("");
+    feedbackRef.current = "";
     setSubmitted(true);
 
     const userInput = questions
@@ -59,10 +85,13 @@ export function ReflectPrompt({
           questions: JSON.stringify(questions),
           userInput,
         },
-        (text) => setFeedback((prev) => prev + text),
+        (text) => {
+          feedbackRef.current += text;
+          setFeedback((prev) => prev + text);
+        },
         () => {
           setIsStreaming(false);
-          onComplete?.(interactionKey, userInput);
+          onComplete?.(interactionKey, userInput, feedbackRef.current);
         }
       );
     } catch (err) {

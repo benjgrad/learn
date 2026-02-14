@@ -49,6 +49,7 @@ export function ModuleRenderer({
     markInteraction,
     markModuleComplete,
     isInteractionComplete,
+    getInteractionData,
   } = useProgress(modulePath, meta.level);
 
   // Count total interactive blocks
@@ -68,8 +69,8 @@ export function ModuleRenderer({
   let interactionIndex = 0;
 
   const handleInteractionComplete = useCallback(
-    (key: string, userInput: string) => {
-      markInteraction(key, { userInput, completed: true });
+    (key: string, userInput: string, aiFeedback?: string) => {
+      markInteraction(key, { userInput, aiFeedback, completed: true });
       celebrateInteraction(levelColor);
     },
     [markInteraction, levelColor]
@@ -107,6 +108,7 @@ export function ModuleRenderer({
 
             case "predictPrompt": {
               const key = `predictPrompt-${interactionIndex++}`;
+              const saved = getInteractionData(key);
               return (
                 <PredictPrompt
                   key={i}
@@ -115,12 +117,15 @@ export function ModuleRenderer({
                   interactionKey={key}
                   onComplete={handleInteractionComplete}
                   isComplete={isInteractionComplete(key)}
+                  savedUserInput={saved?.userInput}
+                  savedFeedback={saved?.aiFeedback}
                 />
               );
             }
 
             case "explainBack": {
               const key = `explainBack-${interactionIndex++}`;
+              const saved = getInteractionData(key);
               return (
                 <ExplainBack
                   key={i}
@@ -129,12 +134,15 @@ export function ModuleRenderer({
                   interactionKey={key}
                   onComplete={handleInteractionComplete}
                   isComplete={isInteractionComplete(key)}
+                  savedUserInput={saved?.userInput}
+                  savedFeedback={saved?.aiFeedback}
                 />
               );
             }
 
             case "tryItYourself": {
               const key = `tryItYourself-${interactionIndex++}`;
+              const saved = getInteractionData(key);
               return (
                 <TryItYourself
                   key={i}
@@ -144,12 +152,15 @@ export function ModuleRenderer({
                   interactionKey={key}
                   onComplete={handleInteractionComplete}
                   isComplete={isInteractionComplete(key)}
+                  savedUserInput={saved?.userInput}
+                  savedFeedback={saved?.aiFeedback}
                 />
               );
             }
 
             case "calibrationCheck": {
               const key = `calibrationCheck-${interactionIndex++}`;
+              const saved = getInteractionData(key);
               return (
                 <CalibrationCheck
                   key={i}
@@ -159,12 +170,15 @@ export function ModuleRenderer({
                   interactionKey={key}
                   onComplete={handleInteractionComplete}
                   isComplete={isInteractionComplete(key)}
+                  savedUserInput={saved?.userInput}
+                  savedFeedback={saved?.aiFeedback}
                 />
               );
             }
 
             case "reflectPrompt": {
               const key = `reflectPrompt-${interactionIndex++}`;
+              const saved = getInteractionData(key);
               return (
                 <ReflectPrompt
                   key={i}
@@ -173,6 +187,8 @@ export function ModuleRenderer({
                   interactionKey={key}
                   onComplete={handleInteractionComplete}
                   isComplete={isInteractionComplete(key)}
+                  savedUserInput={saved?.userInput}
+                  savedFeedback={saved?.aiFeedback}
                 />
               );
             }

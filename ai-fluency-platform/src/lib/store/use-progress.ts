@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import type { InteractionState } from "@/types/progress";
 import {
   getModuleProgress,
+  getInteraction,
   markInteraction as storeMarkInteraction,
   markModuleComplete as storeMarkModuleComplete,
   isModuleComplete as storeIsModuleComplete,
@@ -43,11 +44,20 @@ export function useProgress(modulePath: string, levelId: string) {
     [modulePath, completedCount]
   );
 
+  const getInteractionData = useCallback(
+    (interactionKey: string): InteractionState | null => {
+      return getInteraction(modulePath, interactionKey);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [modulePath, completedCount]
+  );
+
   return {
     completedCount,
     moduleComplete,
     markInteraction,
     markModuleComplete,
     isInteractionComplete,
+    getInteractionData,
   };
 }

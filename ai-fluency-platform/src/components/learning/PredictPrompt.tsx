@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FeedbackPanel } from "./FeedbackPanel";
@@ -13,8 +13,10 @@ interface PredictPromptProps {
   prompt: string;
   moduleTitle: string;
   interactionKey: string;
-  onComplete?: (key: string, userInput: string) => void;
+  onComplete?: (key: string, userInput: string, aiFeedback?: string) => void;
   isComplete?: boolean;
+  savedUserInput?: string;
+  savedFeedback?: string;
 }
 
 export function PredictPrompt({
@@ -23,11 +25,14 @@ export function PredictPrompt({
   interactionKey,
   onComplete,
   isComplete,
+  savedUserInput,
+  savedFeedback,
 }: PredictPromptProps) {
-  const [value, setValue] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [value, setValue] = useState(savedUserInput || "");
+  const [feedback, setFeedback] = useState(savedFeedback || "");
   const [isStreaming, setIsStreaming] = useState(false);
   const [submitted, setSubmitted] = useState(isComplete || false);
+  const feedbackRef = useRef("");
   const {
     requestAI,
     showSignInPrompt,
@@ -42,6 +47,7 @@ export function PredictPrompt({
     if (!value.trim() || isStreaming) return;
     setIsStreaming(true);
     setFeedback("");
+    feedbackRef.current = "";
     setSubmitted(true);
 
     try {
@@ -53,10 +59,13 @@ export function PredictPrompt({
           prompt,
           userInput: value,
         },
-        (text) => setFeedback((prev) => prev + text),
+        (text) => {
+          feedbackRef.current += text;
+          setFeedback((prev) => prev + text);
+        },
         () => {
           setIsStreaming(false);
-          onComplete?.(interactionKey, value);
+          onComplete?.(interactionKey, value, feedbackRef.current);
         }
       );
     } catch (err) {
