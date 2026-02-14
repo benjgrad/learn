@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { Menu, LogIn, LogOut, LayoutDashboard, BookOpen } from "lucide-react";
+import { Menu, LogIn, LogOut, LayoutDashboard, BookOpen, User } from "lucide-react";
 import { Sidebar } from "./Sidebar";
 
 export function Header() {
@@ -58,19 +58,23 @@ export function Header() {
           {user ? (
             <>
               <Link href="/dashboard">
-                <Button variant="ghost" size="icon" className="hidden md:flex">
+                <Button variant="ghost" size="sm" className="gap-1.5 hidden md:flex">
                   <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
                 </Button>
               </Link>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleSignOut}
-                className="gap-1"
+                className="gap-1.5"
               >
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Sign Out</span>
               </Button>
+              <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-medium" title={user.email ?? "Signed in"}>
+                {user.email ? user.email[0].toUpperCase() : <User className="h-4 w-4" />}
+              </div>
             </>
           ) : (
             <>
@@ -80,9 +84,9 @@ export function Header() {
                 </Button>
               </Link>
               <Link href="/auth/login">
-                <Button variant="ghost" size="sm" className="gap-1">
+                <Button size="sm" className="gap-1.5">
                   <LogIn className="h-4 w-4" />
-                  <span className="hidden sm:inline">Sign In</span>
+                  Sign In
                 </Button>
               </Link>
             </>
