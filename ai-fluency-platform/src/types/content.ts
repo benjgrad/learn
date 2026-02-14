@@ -21,7 +21,17 @@ export type ContentBlock =
   | { type: "calibrationCheck"; question: string; answer: string }
   | { type: "reflectPrompt"; questions: string[] }
   | { type: "connectPrompt"; prompt: string }
-  | { type: "keyTakeaway"; content: string };
+  | { type: "keyTakeaway"; content: string }
+  | {
+      type: "providerContent";
+      context?: string;
+      providers: {
+        "claude-code"?: string;
+        "codex"?: string;
+        "cline"?: string;
+        "gemini"?: string;
+      };
+    };
 
 export interface LevelInfo {
   level: number;

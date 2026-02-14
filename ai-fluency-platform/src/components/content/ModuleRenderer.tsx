@@ -9,6 +9,8 @@ import { CalibrationCheck } from "@/components/learning/CalibrationCheck";
 import { ReflectPrompt } from "@/components/learning/ReflectPrompt";
 import { ConnectPrompt } from "@/components/learning/ConnectPrompt";
 import { KeyTakeaway } from "@/components/learning/KeyTakeaway";
+import { ProviderContent } from "@/components/learning/ProviderContent";
+import { ProviderToggle } from "@/components/learning/ProviderToggle";
 import { ModuleChat } from "@/components/learning/ModuleChat";
 import { ProgressBar } from "@/components/progress/ProgressBar";
 import { ModuleComplete } from "@/components/progress/ModuleComplete";
@@ -61,6 +63,8 @@ export function ModuleRenderer({
     ).length
   );
 
+  const hasProviderContent = blocks.some((b) => b.type === "providerContent");
+
   let interactionIndex = 0;
 
   const handleInteractionComplete = useCallback(
@@ -84,6 +88,9 @@ export function ModuleRenderer({
           <ProgressBar completed={completedCount} total={totalInteractions} />
         </div>
       )}
+
+      {/* Provider toggle (only if module has provider content) */}
+      {hasProviderContent && <ProviderToggle />}
 
       {/* Content blocks */}
       <div className="prose dark:prose-invert max-w-none overflow-hidden">
@@ -175,6 +182,15 @@ export function ModuleRenderer({
 
             case "keyTakeaway":
               return <KeyTakeaway key={i} content={block.content} />;
+
+            case "providerContent":
+              return (
+                <ProviderContent
+                  key={i}
+                  context={block.context}
+                  providers={block.providers}
+                />
+              );
 
             default:
               return null;

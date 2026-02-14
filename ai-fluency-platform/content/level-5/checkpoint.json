@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "5.10 Checkpoint: AI System Engineer",
+    "title": "5.14 Checkpoint: AI System Engineer",
     "description": "Assess your Level 5 understanding of AI system engineering.",
     "level": "level-5",
     "slug": "checkpoint",
@@ -11,7 +11,7 @@
   "blocks": [
     {
       "type": "markdown",
-      "content": "# 5.10 Checkpoint: AI System Engineer\n\nThis checkpoint assesses your understanding of the deep technical concepts covered in Level 5. Be honest about where your knowledge is strong and where gaps remain.\n\n## Architecture & Attention"
+      "content": "# 5.14 Checkpoint: AI System Engineer\n\nThis checkpoint assesses your understanding of the deep technical concepts covered in Level 5. Be honest about where your knowledge is strong and where gaps remain.\n\n## Architecture & Attention"
     },
     {
       "type": "calibrationCheck",
@@ -75,12 +75,36 @@
     },
     {
       "type": "markdown",
+      "content": "## Tool Protocols, Subagents, and Multi-Agent Teams"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Explain MCP architecture and why a standardized tool protocol matters for the agent ecosystem.",
+      "answer": "MCP (Model Context Protocol) uses a **client-server architecture**: the AI agent runs an MCP client that connects to one or more MCP tool servers. Each server exposes a set of tools with typed schemas (name, description, parameters, return type). The client discovers available tools at connection time and presents them to the model as callable functions.\n\nA standardized protocol matters because without it, every agent-tool integration is a custom implementation. If you build a database tool for Claude Code, it does not work in Cline or Codex without rewriting the integration. MCP solves this the same way HTTP solved web communication: one protocol, many implementations. A tool server written once works with any MCP-compatible agent. This creates network effects -- as more tool servers are published, every MCP-compatible agent becomes more capable, and as more agents support MCP, building a tool server becomes more valuable. Without standardization, the ecosystem fragments into provider-specific silos."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "When should you spawn a subagent vs. handle a task in the main agent? What are the tradeoffs?",
+      "answer": "**Spawn a subagent when**: (1) The subtask is independent and can run in parallel with other work. (2) The subtask requires a different context or tool set that would clutter the main agent's context window. (3) The subtask is exploratory or risky and you want to isolate its failures from the main agent. (4) You need to protect the main agent's context from large intermediate results (e.g., searching thousands of files).\n\n**Handle in the main agent when**: (1) The task is simple and sequential -- spawning a subagent adds overhead without benefit. (2) The result is needed immediately in the current reasoning chain with no opportunity for parallel work. (3) The task requires the main agent's full accumulated context (conversation history, prior decisions).\n\n**Tradeoffs**: Subagents add latency (spawning overhead), cost (duplicate system prompts and context), and coordination complexity (the main agent must formulate a clear task description and interpret the result). But they provide parallelism, context isolation, and failure containment. The rule of thumb: if the subtask would take more than a few tool calls and the main agent can do useful work in the meantime, spawn a subagent."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Design a 3-agent team for migrating a codebase from JavaScript to TypeScript. Define agents, task list, and shutdown sequence.",
+      "answer": "**Team Lead Agent**: Coordinates the migration. Reads the codebase structure, creates the task list, assigns work, and reviews results.\n\n**Agent 1 -- Type Analyst**: Analyzes JavaScript files to infer types, identifies dependencies between modules, and generates TypeScript type definitions (.d.ts or inline types). Tools: file read, AST parser, type inference.\n\n**Agent 2 -- Converter**: Takes JavaScript files and converts them to TypeScript, applying the types from Agent 1. Renames .js to .ts, adds type annotations, fixes import statements, and resolves compilation errors. Tools: file read/write/edit, TypeScript compiler, test runner.\n\n**Task list**: (1) Analyze dependency graph and determine conversion order (leaf modules first). (2) Generate shared type definitions for interfaces used across modules. (3) Convert leaf modules to TypeScript. (4) Convert intermediate modules. (5) Convert entry points. (6) Run full type check and fix remaining errors. (7) Run test suite and verify no regressions.\n\n**Shutdown sequence**: Team Lead waits for all conversion tasks to complete. Runs the full TypeScript build and test suite as a final verification. If passing, sends shutdown requests to Agent 1 and Agent 2. Each agent approves shutdown. Team Lead marks all tasks complete and shuts down last. If verification fails, Team Lead creates new fix tasks instead of shutting down."
+    },
+    {
+      "type": "markdown",
       "content": "## Applied Exercise"
     },
     {
       "type": "tryItYourself",
       "title": "Design a complete agentic system for a research assistant that can: (1) search academic papers, (2) summarize findings, (3) identify gaps in the literature, and (4) draft a research proposal. Define the agent architecture, tools, evaluation metrics, and safety guardrails.",
       "solution": "**Architecture**: Supervisor pattern with three specialized agents.\n\n**Agent 1: Literature Search Agent**\n- Tools: `search_arxiv`, `search_semantic_scholar`, `get_paper_abstract`, `get_citations`\n- Task: Find relevant papers based on a research question\n- Output: List of 20-50 relevant papers with relevance scores\n\n**Agent 2: Analysis Agent**\n- Tools: `get_full_paper_text`, `extract_methodology`, `extract_findings`\n- Task: Read and synthesize papers, identify common themes and gaps\n- Output: Structured analysis with themes, agreements, disagreements, and gaps\n\n**Agent 3: Writing Agent**\n- Tools: `generate_outline`, `draft_section`, `check_citations`\n- Task: Draft a research proposal based on the analysis\n- Output: Complete proposal with introduction, literature review, methodology, and references\n\n**Supervisor**: Coordinates the pipeline, validates each stage's output quality before passing to the next, and manages the overall token budget.\n\n**Evaluation Metrics**:\n- Paper relevance: Precision/recall against expert-curated paper lists\n- Summary quality: ROUGE scores against human summaries, plus LLM-as-Judge for accuracy\n- Proposal quality: Human evaluation on a 5-point rubric (novelty, feasibility, clarity, rigor)\n\n**Safety Guardrails**:\n- Max 100 API calls to paper databases per session\n- Token budget of 500K per complete run\n- Human review required before the proposal is finalized\n- Citation verification: all cited papers must exist and be retrievable\n- No fabricated results or statistics in the proposal"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a complete multi-agent system that uses MCP tools, subagent delegation, and team coordination to perform a full-stack feature implementation. Define the team structure, task dependencies, tool registrations, and shutdown protocol.",
+      "solution": "**System: Full-Stack Feature Implementation Agent Team**\n\n**Team Structure (4 agents)**:\n- **Team Lead**: Reads the feature spec, decomposes into frontend/backend/database tasks, assigns work, reviews PRs, runs integration tests\n- **Backend Agent**: Implements API endpoints, business logic, and server-side validation\n- **Frontend Agent**: Implements UI components, client-side state management, and API integration\n- **Database Agent**: Designs schema migrations, writes queries, seeds test data\n\n**MCP Tool Registrations**:\n- All agents: `file-read`, `file-write`, `file-edit`, `glob`, `grep`, `bash` (via filesystem MCP server)\n- Backend Agent: `database-query`, `api-test` (via custom MCP servers)\n- Frontend Agent: `browser-preview`, `component-test` (via browser MCP server)\n- Database Agent: `migration-run`, `schema-validate` (via database MCP server)\n- Team Lead: `git-operations`, `ci-pipeline` (via Git MCP server)\n\n**Task Dependencies**:\n1. [DB Agent] Design and run schema migration (no dependencies)\n2. [Backend Agent] Implement API endpoints (blocked by task 1)\n3. [Frontend Agent] Build UI components with mock data (no dependencies -- can run parallel with 1)\n4. [Frontend Agent] Integrate UI with real API (blocked by tasks 2 and 3)\n5. [Team Lead] Run integration tests (blocked by task 4)\n6. [Team Lead] Code review and merge (blocked by task 5)\n\n**Subagent Delegation**: The Backend Agent spawns a subagent to generate comprehensive API tests while it continues implementing the next endpoint. The Frontend Agent spawns a subagent to handle CSS/styling while it focuses on component logic.\n\n**Shutdown Protocol**: Team Lead monitors all tasks. When task 6 completes, it sends shutdown requests to DB Agent (first, since its work finished earliest), then Backend Agent, then Frontend Agent. Each agent confirms shutdown. Team Lead verifies the CI pipeline passes on the merged branch, then shuts down. If any agent rejects shutdown (still has pending work), Team Lead investigates and resolves before re-requesting."
     },
     {
       "type": "markdown",

@@ -46,7 +46,7 @@
       "subtitle": "Orchestrating complex agentic workflows",
       "color": "#ef4444",
       "description": "Orchestrate complex, multi-stage agentic workflows. Understand the deep architecture of transformers — self-attention mechanisms, multi-head attention, and parallel processing. Master fine-tuning and domain adaptation for specialized industries. Evaluate system reliability through LLM-as-a-judge, perplexity metrics, and adversarial robustness testing.",
-      "moduleCount": 4
+      "moduleCount": 13
     },
     {
       "level": 6,
@@ -319,42 +319,6 @@
     ],
     "level-5": [
       {
-        "title": "5.1 Transformer Architecture",
-        "description": "Understanding the encoder-decoder structure, self-attention, and positional encoding that power modern AI.",
-        "level": "level-5",
-        "slug": "transformer-architecture",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
-        "title": "5.9 System-Level Cost and Performance",
-        "description": "Manage inference costs and performance across multi-model pipelines with token budgets and batch optimization.",
-        "level": "level-5",
-        "slug": "system-cost-performance",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
-        "title": "5.6 Orchestration Frameworks",
-        "description": "Compare AI workflow frameworks like LangChain, LangGraph, CrewAI, and n8n for building multi-step AI systems.",
-        "level": "level-5",
-        "slug": "orchestration-frameworks",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
-        "title": "5.8 Multi-AI System Architecture",
-        "description": "Design systems with specialist, router, and evaluator models that work together with defined reliability targets.",
-        "level": "level-5",
-        "slug": "multi-ai-system-architecture",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
         "title": "Level 5: AI System Engineer",
         "description": "Understanding AI from the inside out -- transformer architecture, fine-tuning, evaluation, and agentic workflows -- then designing multi-component AI systems.",
         "level": "level-5",
@@ -364,11 +328,20 @@
         "isIndex": true
       },
       {
-        "title": "5.7 Human-in-the-Loop Design",
-        "description": "Design effective human oversight into AI systems with confidence-based routing and escalation thresholds.",
+        "title": "5.1 Transformer Architecture",
+        "description": "Understanding the encoder-decoder structure, self-attention, and positional encoding that power modern AI.",
         "level": "level-5",
-        "slug": "human-in-the-loop",
-        "order": 0,
+        "slug": "transformer-architecture",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.2 Attention Mechanism",
+        "description": "Deep dive into Query, Key, Value vectors, multi-head attention, and how models decide what to focus on.",
+        "level": "level-5",
+        "slug": "attention-mechanism",
+        "order": 2,
         "isCheckpoint": false,
         "isIndex": false
       },
@@ -377,7 +350,7 @@
         "description": "LoRA, QLoRA, RLHF, and domain adaptation techniques for customizing models to specialized tasks.",
         "level": "level-5",
         "slug": "fine-tuning",
-        "order": 0,
+        "order": 3,
         "isCheckpoint": false,
         "isIndex": false
       },
@@ -386,25 +359,7 @@
         "description": "BLEU, ROUGE, perplexity, human evaluation, and building rigorous benchmark suites for AI systems.",
         "level": "level-5",
         "slug": "evaluation-metrics",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
-        "title": "5.10 Checkpoint: AI System Engineer",
-        "description": "Assess your Level 5 understanding of AI system engineering.",
-        "level": "level-5",
-        "slug": "checkpoint",
-        "order": 0,
-        "isCheckpoint": true,
-        "isIndex": false
-      },
-      {
-        "title": "5.2 Attention Mechanism",
-        "description": "Deep dive into Query, Key, Value vectors, multi-head attention, and how models decide what to focus on.",
-        "level": "level-5",
-        "slug": "attention-mechanism",
-        "order": 0,
+        "order": 4,
         "isCheckpoint": false,
         "isIndex": false
       },
@@ -413,8 +368,89 @@
         "description": "ReAct prompting, tool use, multi-agent systems, and orchestration patterns for autonomous AI.",
         "level": "level-5",
         "slug": "agentic-workflows",
-        "order": 0,
+        "order": 5,
         "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.6 Tool Protocols and MCP",
+        "description": "How agents discover and use tools through standardized protocols, from function calling to the Model Context Protocol.",
+        "level": "level-5",
+        "slug": "tool-protocols-mcp",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.7 Subagents and Delegation",
+        "description": "Spawning specialized agents for parallel work with isolated context, typed capabilities, and structured delegation.",
+        "level": "level-5",
+        "slug": "subagents-and-delegation",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.8 Multi-Agent Teams",
+        "description": "Coordinating multiple agents on shared objectives with task lists, message passing, and graceful lifecycle management.",
+        "level": "level-5",
+        "slug": "multi-agent-teams",
+        "order": 8,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.9 Building Custom Agents",
+        "description": "Building agents programmatically with SDKs — from tool definitions to deployment and testing strategies.",
+        "level": "level-5",
+        "slug": "agent-sdk",
+        "order": 9,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.10 Orchestration Frameworks",
+        "description": "Compare AI workflow frameworks like LangChain, LangGraph, CrewAI, and n8n for building multi-step AI systems.",
+        "level": "level-5",
+        "slug": "orchestration-frameworks",
+        "order": 10,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.11 Human-in-the-Loop Design",
+        "description": "Design effective human oversight into AI systems with confidence-based routing and escalation thresholds.",
+        "level": "level-5",
+        "slug": "human-in-the-loop",
+        "order": 11,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.12 Multi-AI System Architecture",
+        "description": "Design systems with specialist, router, and evaluator models that work together with defined reliability targets.",
+        "level": "level-5",
+        "slug": "multi-ai-system-architecture",
+        "order": 12,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.13 System-Level Cost and Performance",
+        "description": "Manage inference costs and performance across multi-model pipelines with token budgets and batch optimization.",
+        "level": "level-5",
+        "slug": "system-cost-performance",
+        "order": 13,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.14 Checkpoint: AI System Engineer",
+        "description": "Assess your Level 5 understanding of AI system engineering.",
+        "level": "level-5",
+        "slug": "checkpoint",
+        "order": 14,
+        "isCheckpoint": true,
         "isIndex": false
       }
     ],
