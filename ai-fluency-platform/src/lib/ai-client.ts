@@ -12,6 +12,13 @@ export class RateLimitError extends Error {
   }
 }
 
+export class OfflineError extends Error {
+  constructor() {
+    super("You're offline. Please check your connection and try again.");
+    this.name = "OfflineError";
+  }
+}
+
 let lastRemainingUses: number | null = null;
 
 export function getLastRemainingUses(): number | null {
@@ -24,6 +31,10 @@ export async function streamAIResponse(
   onChunk: (text: string) => void,
   onDone?: () => void
 ): Promise<void> {
+  if (typeof navigator !== "undefined" && !navigator.onLine) {
+    throw new OfflineError();
+  }
+
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

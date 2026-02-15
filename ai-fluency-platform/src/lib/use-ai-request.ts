@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import {
   streamAIResponse,
   RateLimitError,
+  OfflineError,
   getLastRemainingUses,
 } from "@/lib/ai-client";
 
@@ -19,6 +20,7 @@ export function useAIRequest() {
   const { user } = useAuth();
   const [showSignInPrompt, setShowSignInPrompt] = useState(false);
   const [rateLimitHit, setRateLimitHit] = useState(false);
+  const [offline, setOffline] = useState(false);
   const [remaining, setRemaining] = useState(5);
   const [limit, setLimit] = useState(5);
   const pendingRef = useRef<PendingRequest | null>(null);
@@ -38,6 +40,10 @@ export function useAIRequest() {
           setRemaining(r);
         }
       } catch (err) {
+        if (err instanceof OfflineError) {
+          setOffline(true);
+          throw err;
+        }
         if (err instanceof RateLimitError) {
           setRateLimitHit(true);
           setLimit(err.limit);
@@ -58,6 +64,7 @@ export function useAIRequest() {
       onDone?: () => void
     ) => {
       setRateLimitHit(false);
+      setOffline(false);
 
       if (!user) {
         // Anonymous user: show sign-in prompt, stash request
@@ -99,6 +106,7 @@ export function useAIRequest() {
     requestAI,
     showSignInPrompt,
     rateLimitHit,
+    offline,
     remaining,
     limit,
     continueAsAnonymous,
