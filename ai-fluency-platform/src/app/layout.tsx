@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth-context";
 import { ProviderProvider } from "@/lib/store/provider-context";
+import { IOSInstallPrompt } from "@/components/pwa/IOSInstallPrompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,6 +50,7 @@ export default function RootLayout({
             <Header />
             <div className="flex-1">{children}</div>
             <Footer />
+            <IOSInstallPrompt />
           </ProviderProvider>
         </AuthProvider>
       </body>

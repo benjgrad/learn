@@ -91,7 +91,7 @@ export function ExplainBack({
         placeholder="Explain in your own words..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="min-h-[80px] text-sm bg-white dark:bg-background mb-3"
+        className="min-h-[80px] md:text-sm bg-white dark:bg-background mb-3"
         disabled={isStreaming}
       />
       <Button

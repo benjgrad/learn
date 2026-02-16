@@ -91,7 +91,7 @@ export function PredictPrompt({
         placeholder="Write your prediction here..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="min-h-[60px] text-sm bg-white dark:bg-background mb-3"
+        className="min-h-[60px] md:text-sm bg-white dark:bg-background mb-3"
         disabled={isStreaming}
       />
       <Button

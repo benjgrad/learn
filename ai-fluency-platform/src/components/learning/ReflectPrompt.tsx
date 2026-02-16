@@ -124,7 +124,7 @@ export function ReflectPrompt({
               onChange={(e) =>
                 setAnswers((prev) => ({ ...prev, [i]: e.target.value }))
               }
-              className="min-h-[50px] text-sm bg-white dark:bg-background"
+              className="min-h-[50px] md:text-sm bg-white dark:bg-background"
               disabled={isStreaming}
             />
           </li>

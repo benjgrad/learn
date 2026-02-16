@@ -118,7 +118,7 @@ export function CalibrationCheck({
               placeholder="Ask a follow-up question..."
               value={discussInput}
               onChange={(e) => setDiscussInput(e.target.value)}
-              className="min-h-[60px] text-sm bg-white dark:bg-background mb-2"
+              className="min-h-[60px] md:text-sm bg-white dark:bg-background mb-2"
               disabled={isStreaming}
             />
             <Button

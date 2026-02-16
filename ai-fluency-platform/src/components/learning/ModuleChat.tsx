@@ -176,7 +176,7 @@ export function ModuleChat({
                   handleSend();
                 }
               }}
-              className="min-h-[36px] max-h-[80px] text-sm resize-none"
+              className="min-h-[36px] max-h-[80px] md:text-sm resize-none"
               disabled={isStreaming || rateLimitHit}
             />
             <Button

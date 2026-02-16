@@ -10,11 +10,12 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [step, setStep] = useState<"email" | "otp">("email");
   const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -22,15 +23,32 @@ export default function LoginPage() {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
     });
 
     if (error) {
       setError(error.message);
     } else {
-      setSent(true);
+      setStep("otp");
+    }
+    setLoading(false);
+  };
+
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.verifyOtp({
+      email,
+      token: otp,
+      type: "email",
+    });
+
+    if (error) {
+      setError(error.message);
+    } else {
+      window.location.href = "/dashboard";
     }
     setLoading(false);
   };
@@ -45,18 +63,46 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {sent ? (
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                <Mail className="h-6 w-6 text-green-600" />
+          {step === "otp" ? (
+            <div className="space-y-4">
+              <div className="text-center space-y-2">
+                <div className="mx-auto w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                  <Mail className="h-6 w-6 text-green-600" />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  We sent a 6-digit code to <strong>{email}</strong>
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Check your email for a magic link to sign in. You can close this
-                tab.
-              </p>
+              <form onSubmit={handleVerifyCode} className="space-y-4">
+                <Input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={6}
+                  placeholder="000000"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                  className="text-center text-2xl tracking-[0.5em] font-mono"
+                  autoFocus
+                  required
+                />
+                {error && (
+                  <p className="text-sm text-red-500">{error}</p>
+                )}
+                <Button type="submit" className="w-full" disabled={loading || otp.length !== 6}>
+                  {loading ? "Verifying..." : "Verify Code"}
+                </Button>
+              </form>
+              <button
+                type="button"
+                onClick={() => { setStep("email"); setOtp(""); setError(""); }}
+                className="w-full text-sm text-muted-foreground hover:text-foreground"
+              >
+                Use a different email
+              </button>
             </div>
           ) : (
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleSendCode} className="space-y-4">
               <div className="space-y-2">
                 <Input
                   type="email"
@@ -70,10 +116,10 @@ export default function LoginPage() {
                 <p className="text-sm text-red-500">{error}</p>
               )}
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Sending..." : "Send Magic Link"}
+                {loading ? "Sending..." : "Send Sign-In Code"}
               </Button>
               <p className="text-xs text-center text-muted-foreground">
-                No password needed. We&apos;ll send you a sign-in link.
+                No password needed. We&apos;ll send a 6-digit code to your email.
               </p>
             </form>
           )}
