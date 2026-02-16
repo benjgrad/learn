@@ -70,7 +70,7 @@ export default function LoginPage() {
                   <Mail className="h-6 w-6 text-green-600" />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  We sent a 6-digit code to <strong>{email}</strong>
+                  We sent an 8-digit code to <strong>{email}</strong>
                 </p>
               </div>
               <form onSubmit={handleVerifyCode} className="space-y-4">
@@ -79,18 +79,18 @@ export default function LoginPage() {
                   inputMode="numeric"
                   autoComplete="one-time-code"
                   pattern="[0-9]*"
-                  maxLength={6}
-                  placeholder="000000"
+                  maxLength={8}
+                  placeholder="00000000"
                   value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                  className="text-center text-2xl tracking-[0.5em] font-mono"
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                  className="text-center text-2xl tracking-[0.3em] font-mono"
                   autoFocus
                   required
                 />
                 {error && (
                   <p className="text-sm text-red-500">{error}</p>
                 )}
-                <Button type="submit" className="w-full" disabled={loading || otp.length !== 6}>
+                <Button type="submit" className="w-full" disabled={loading || otp.length !== 8}>
                   {loading ? "Verifying..." : "Verify Code"}
                 </Button>
               </form>
@@ -120,7 +120,7 @@ export default function LoginPage() {
                 {loading ? "Sending..." : "Send Sign-In Code"}
               </Button>
               <p className="text-xs text-center text-muted-foreground">
-                No password needed. We&apos;ll send a 6-digit code to your email.
+                No password needed. We&apos;ll send a code to your email.
               </p>
             </form>
           )}
