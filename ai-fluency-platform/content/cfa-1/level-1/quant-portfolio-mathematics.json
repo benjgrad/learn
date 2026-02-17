@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "QM.5: Portfolio Mathematics",
+    "description": "Calculate portfolio expected return and variance using covariance and correlation. Understand diversification benefits and the minimum variance portfolio.",
+    "level": "level-1",
+    "slug": "quant-portfolio-mathematics",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you combine two risky assets in a portfolio, is it possible for the portfolio to have less risk than either asset individually? Under what conditions?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Portfolio Expected Return\n\nThe expected return of a portfolio is the **weighted average** of the expected returns of its component assets:\n\n$$E(R_p) = \\sum_{i=1}^{n} w_i \\times E(R_i)$$\n\nWhere $w_i$ is the weight (proportion) of asset $i$ and $\\sum w_i = 1$.\n\n### Example\n\nA portfolio is 60% stocks ($E(R) = 12\\%$) and 40% bonds ($E(R) = 5\\%$):\n\n$$E(R_p) = 0.60 \\times 12\\% + 0.40 \\times 5\\% = 7.2\\% + 2.0\\% = 9.2\\%$$\n\nNotice that the portfolio return is simply a linear combination \u2014 there is no \"diversification benefit\" for expected return. The benefit of diversification shows up entirely in risk reduction."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio holds three assets with weights 0.5, 0.3, and 0.2, and expected returns of 10%, 8%, and 15%. What is the portfolio's expected return?",
+      "answer": "E(R_p) = 0.5(10%) + 0.3(8%) + 0.2(15%) = 5% + 2.4% + 3% = 10.4%. Portfolio expected return is always a weighted average \u2014 it can never be higher than the highest individual return or lower than the lowest."
+    },
+    {
+      "type": "markdown",
+      "content": "## Covariance and Correlation\n\n### Covariance\n\nCovariance measures how two variables move together:\n\n$$\\text{Cov}(R_A, R_B) = E[(R_A - E(R_A))(R_B - E(R_B))]$$\n\nFor a sample:\n\n$$\\text{Cov}(R_A, R_B) = \\frac{\\sum_{i=1}^{n}(R_{A,i} - \\bar{R}_A)(R_{B,i} - \\bar{R}_B)}{n-1}$$\n\n- Positive covariance: assets tend to move in the same direction\n- Negative covariance: assets tend to move in opposite directions\n- Zero covariance: no linear relationship\n\n### Correlation\n\nCorrelation standardizes covariance to a range of $[-1, +1]$:\n\n$$\\rho_{A,B} = \\frac{\\text{Cov}(R_A, R_B)}{\\sigma_A \\times \\sigma_B}$$\n\n| Correlation | Interpretation |\n|---|---|\n| $\\rho = +1$ | Perfect positive linear relationship |\n| $\\rho = 0$ | No linear relationship |\n| $\\rho = -1$ | Perfect negative linear relationship |\n\nCorrelation is the **key input** for diversification. The lower the correlation between assets, the greater the diversification benefit."
+    },
+    {
+      "type": "markdown",
+      "content": "## Portfolio Variance\n\n### Two-Asset Portfolio\n\n$$\\sigma_p^2 = w_A^2\\sigma_A^2 + w_B^2\\sigma_B^2 + 2w_Aw_B\\text{Cov}(R_A,R_B)$$\n\nUsing correlation:\n\n$$\\sigma_p^2 = w_A^2\\sigma_A^2 + w_B^2\\sigma_B^2 + 2w_Aw_B\\rho_{AB}\\sigma_A\\sigma_B$$\n\n### Special Cases\n\n**Perfect positive correlation** ($\\rho = +1$): $\\sigma_p = w_A\\sigma_A + w_B\\sigma_B$ \u2014 portfolio risk is the weighted average of individual risks. **No diversification benefit.**\n\n**Zero correlation** ($\\rho = 0$): $\\sigma_p^2 = w_A^2\\sigma_A^2 + w_B^2\\sigma_B^2$ \u2014 the cross-term vanishes, and portfolio risk is less than the weighted average.\n\n**Perfect negative correlation** ($\\rho = -1$): $\\sigma_p = |w_A\\sigma_A - w_B\\sigma_B|$ \u2014 risk can be reduced to **zero** with the right weights.\n\n### Example\n\nAsset A: $\\sigma_A = 20\\%$, Asset B: $\\sigma_B = 15\\%$, $\\rho_{AB} = 0.3$, weights 60/40:\n\n$$\\sigma_p^2 = (0.6)^2(0.20)^2 + (0.4)^2(0.15)^2 + 2(0.6)(0.4)(0.3)(0.20)(0.15)$$\n$$= 0.0144 + 0.0036 + 0.00216 = 0.01996$$\n$$\\sigma_p = \\sqrt{0.01996} = 14.13\\%$$\n\nThe portfolio standard deviation (14.13%) is less than the weighted average of individual standard deviations ($0.6 \\times 20\\% + 0.4 \\times 15\\% = 18\\%$). This is the **diversification benefit**."
+    },
+    {
+      "type": "markdown",
+      "content": "## Diversification and the Minimum Variance Portfolio\n\n### Diversification Benefits\n\nDiversification reduces risk without sacrificing expected return. The benefit increases as:\n- Correlation between assets **decreases**\n- The number of assets **increases**\n\nHowever, diversification cannot eliminate all risk. As the number of assets grows:\n- **Unsystematic (firm-specific) risk** is diversified away\n- **Systematic (market) risk** remains\n\n### Minimum Variance Portfolio (MVP)\n\nFor a two-asset portfolio, the weight in Asset A that minimizes portfolio variance is:\n\n$$w_A^* = \\frac{\\sigma_B^2 - \\text{Cov}(R_A,R_B)}{\\sigma_A^2 + \\sigma_B^2 - 2\\text{Cov}(R_A,R_B)}$$\n\n### N-Asset Portfolios\n\nFor $n$ assets, the variance involves $n$ variance terms and $\\frac{n(n-1)}{2}$ unique covariance terms:\n\n$$\\sigma_p^2 = \\sum_{i=1}^{n} w_i^2\\sigma_i^2 + \\sum_{i=1}^{n}\\sum_{j\\neq i} w_iw_j\\text{Cov}(R_i,R_j)$$\n\nAs $n$ grows large, portfolio variance is dominated by the **average covariance** between assets, not by individual asset variances. This explains why systematic risk cannot be diversified away."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Two assets have the following characteristics:\n- Asset X: E(R) = 14%, \u03c3 = 25%\n- Asset Y: E(R) = 8%, \u03c3 = 12%\n- Correlation: \u03c1 = -0.2\n\n(a) Calculate the expected return and standard deviation of a portfolio with 50% in each asset.\n(b) Find the minimum variance portfolio weights.",
+      "solution": "**(a) Equal-weight portfolio:**\n\n$E(R_p) = 0.5(14\\%) + 0.5(8\\%) = 11\\%$\n\n$\\sigma_p^2 = (0.5)^2(0.25)^2 + (0.5)^2(0.12)^2 + 2(0.5)(0.5)(-0.2)(0.25)(0.12)$\n\n$= 0.015625 + 0.0036 + (-0.003) = 0.016225$\n\n$\\sigma_p = \\sqrt{0.016225} = 12.74\\%$\n\nNote: portfolio risk (12.74%) is lower than either asset's risk (25% and 12%) individually would suggest for equal weighting, due to the negative correlation.\n\nActually, $\\sigma_p = 12.74\\%$ is slightly above Asset Y's 12%, but well below the weighted average of 18.5%.\n\n**(b) Minimum variance portfolio:**\n\n$\\text{Cov}(X,Y) = \\rho \\times \\sigma_X \\times \\sigma_Y = (-0.2)(0.25)(0.12) = -0.006$\n\n$w_X^* = \\frac{\\sigma_Y^2 - \\text{Cov}}{\\sigma_X^2 + \\sigma_Y^2 - 2\\text{Cov}} = \\frac{0.0144 - (-0.006)}{0.0625 + 0.0144 - 2(-0.006)}$\n\n$= \\frac{0.0204}{0.0889} = 0.2294 \\approx 22.9\\%$\n\n$w_Y^* = 1 - 0.229 = 77.1\\%$\n\nThe MVP overweights the lower-risk asset (Y) and underweights the higher-risk asset (X), as expected."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Mathematics Practice Problems",
+      "problems": [
+        {
+          "id": "qm5-1",
+          "question": "A portfolio is 70% in Stock A (expected return 11%) and 30% in Stock B (expected return 7%). The portfolio's expected return is closest to:",
+          "options": [
+            "A) 9.0%",
+            "B) 9.8%",
+            "C) 10.4%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "E(R_p) = 0.70(11%) + 0.30(7%) = 7.7% + 2.1% = 9.8%. Option A (9.0%) is the simple average: (11% + 7%)/2, ignoring weights. Option C (10.4%) reverses the weights: 0.30(11%) + 0.70(7%)? No, that equals 8.2%. Option C likely uses 0.80 and 0.20 weights.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate portfolio expected return"
+        },
+        {
+          "id": "qm5-2",
+          "question": "Two assets have standard deviations of 20% and 10% with a correlation of 0.5. A portfolio is equally weighted. The portfolio standard deviation is closest to:",
+          "options": [
+            "A) 13.2%",
+            "B) 15.0%",
+            "C) 11.2%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "\u03c3\u00b2_p = (0.5)\u00b2(0.20)\u00b2 + (0.5)\u00b2(0.10)\u00b2 + 2(0.5)(0.5)(0.5)(0.20)(0.10) = 0.01 + 0.0025 + 0.005 = 0.0175. \u03c3_p = \u221a0.0175 = 13.23%. Option B (15.0%) is the weighted average of standard deviations: 0.5(20%) + 0.5(10%), which only holds for \u03c1 = +1. Option C (11.2%) incorrectly uses \u03c1 = 0, dropping the covariance term: \u221a(0.01 + 0.0025) = 11.18%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate portfolio standard deviation for a two-asset portfolio"
+        },
+        {
+          "id": "qm5-3",
+          "question": "As the number of stocks in an equally weighted portfolio increases from 5 to 50, the portfolio risk:",
+          "options": [
+            "A) Approaches zero",
+            "B) Decreases toward the level of average covariance",
+            "C) Decreases toward the average variance"
+          ],
+          "correctAnswer": "B",
+          "explanation": "As n increases, individual variance terms (w\u00b2\u03c3\u00b2) shrink toward zero (weight = 1/n becomes tiny), but covariance terms dominate. Portfolio variance converges toward the average covariance between assets, which represents systematic risk. Option A is wrong because systematic risk cannot be diversified away. Option C confuses variance with covariance \u2014 it is the average covariance, not variance, that determines the floor.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe diversification benefits and limitations"
+        },
+        {
+          "id": "qm5-4",
+          "question": "Assets A and B have \u03c3_A = 30%, \u03c3_B = 20%, and Cov(A,B) = -0.012. The weight of Asset A in the minimum variance portfolio is closest to:",
+          "options": [
+            "A) 24%",
+            "B) 36%",
+            "C) 44%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "w_A* = (\u03c3_B\u00b2 - Cov) / (\u03c3_A\u00b2 + \u03c3_B\u00b2 - 2Cov) = (0.04 - (-0.012)) / (0.09 + 0.04 - 2(-0.012)) = 0.052 / 0.154 = 0.3377 \u2248 33.8%, closest to 36%. Option A (24%) only uses \u03c3_B\u00b2/(\u03c3_A\u00b2 + \u03c3_B\u00b2) without the covariance adjustment. Option C (44%) reverses the numerator to use \u03c3_A\u00b2 instead of \u03c3_B\u00b2.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate minimum variance portfolio weights"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a friend why combining two risky investments can actually reduce overall risk. Use the concept of correlation and a concrete example to illustrate how this 'free lunch' of diversification works."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does portfolio expected return have no diversification benefit, while portfolio risk does?",
+        "What happens to the minimum variance portfolio if the correlation between two assets changes from +0.5 to -0.5?",
+        "In practice, why can't investors fully diversify away all risk?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Portfolio return: $E(R_p) = \\sum w_i E(R_i)$ \u2014 always a weighted average\n- Two-asset variance: $\\sigma_p^2 = w_A^2\\sigma_A^2 + w_B^2\\sigma_B^2 + 2w_Aw_B\\rho_{AB}\\sigma_A\\sigma_B$\n- Correlation: $\\rho = \\text{Cov}(A,B) / (\\sigma_A \\sigma_B)$, ranges from -1 to +1\n- Lower correlation = greater diversification benefit\n- $\\rho = +1$: no diversification benefit; $\\rho = -1$: risk can reach zero\n- MVP weight: $w_A^* = (\\sigma_B^2 - \\text{Cov}) / (\\sigma_A^2 + \\sigma_B^2 - 2\\text{Cov})$\n- As n grows, portfolio variance converges to average covariance (systematic risk)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Simulation Methods**, where you will learn how Monte Carlo and historical simulations generate thousands of possible outcomes to model portfolio risk. These simulations rely on the return distributions and correlations you studied here."
+    }
+  ]
+}

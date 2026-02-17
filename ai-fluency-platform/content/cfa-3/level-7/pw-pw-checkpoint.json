@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "title": "Checkpoint: Private Wealth Pathway",
+    "description": "Assess your mastery of private wealth management including taxation, estate planning, concentrated positions, risk management, goals-based investing, and behavioral finance.",
+    "level": "level-7",
+    "slug": "pw-pw-checkpoint",
+    "order": 9,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Pathway: Private Wealth"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Across the Private Wealth pathway, which area do you feel most prepared to advise a real client on, and which would require you to consult with a specialist? Why?"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Wealth Pathway Assessment",
+      "problems": [
+        {
+          "id": "l3-pw-cp-1",
+          "question": "A 60-year-old client has $6M in total assets: $3M in a taxable account (cost basis $1.2M), $2M in a 401(k), and $1M in a Roth IRA. She plans to retire at 62 and needs $200K/year in spending. The optimal withdrawal sequence is:",
+          "options": [
+            "A) Draw from 401(k) first to reduce future RMD obligations",
+            "B) Draw from the taxable account first, preserving tax-advantaged accounts for continued growth",
+            "C) Draw equally from all three accounts to maintain proportional balances"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The optimal sequence: (1) Taxable account first -- capital gains are taxed at preferential rates (15-20%), and the cost basis steps up at death if any remains; (2) 401(k) second -- taxed as ordinary income but must begin RMDs at 73; (3) Roth last -- grows tax-free indefinitely, no RMDs, maximum benefit from extended tax-free compounding. Option A triggers unnecessary ordinary income tax early. Option C fails to optimize the tax benefit of different account types. During the gap between retirement (62) and RMDs (73), consider partial Roth conversions from the 401(k) to fill lower tax brackets.",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Design tax-efficient withdrawal sequencing"
+        },
+        {
+          "id": "l3-pw-cp-2",
+          "question": "A UHNW family ($50M estate) is implementing a comprehensive estate plan. They fund a $10M dynasty trust, a series of 2-year rolling GRATs with $8M in operating company stock, and a $3M CLT. After 20 years of 8% growth (above the 7520 rate of 4%), the approximate total wealth transferred outside the estate is closest to:",
+          "options": [
+            "A) $21M",
+            "B) $35M",
+            "C) $55M"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Dynasty trust: $10M growing at 8% for 20 years = $10M x (1.08)^20 = $46.6M. All growth outside the estate. Transfer: $46.6M.\n\nGRATs: Rolling 2-year GRATs capture excess growth above the 7520 rate. Annual excess: 8% - 4% = 4% on approximately $8M, compounded through rolling structure. Over 20 years with rolling GRATs, approximately $8M - $10M transfers tax-free (conservative estimate of excess growth across all GRAT cycles).\n\nCLT: $3M generates charitable income, remainder goes to heirs at reduced gift value. After 20 years, remainder value approximately $3M x (1.08)^20 / discount = approximately $3-4M to heirs.\n\nTotal approximate transfer: $46.6M + $8M + $3.5M = approximately $58M, closest to $55M.\n\nWithout planning: The $21M originally committed would have grown within the estate to $21M x (1.08)^20 = $97.9M, facing 40% estate tax = $39M in tax. The estate plan saves tens of millions.",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Quantify the long-term impact of comprehensive estate planning"
+        },
+        {
+          "id": "l3-pw-cp-3",
+          "question": "A client holds $5M in concentrated stock (cost basis $500K) and exhibits strong endowment effect and anchoring biases. He anchors on the $120 purchase price (now $85). The most effective approach combines:",
+          "options": [
+            "A) Tax-loss harvesting and a costless collar",
+            "B) Behavioral coaching with a phased exchange fund contribution and charitable donation of appreciated lots",
+            "C) Immediate outright sale with proceeds invested in index funds"
+          ],
+          "correctAnswer": "B",
+          "explanation": "This question integrates concentrated position, tax, and behavioral concepts. The client has both a financial problem (concentration risk) and a behavioral problem (endowment effect and anchoring). Option B addresses both: behavioral coaching reframes the decision (ask 'Would you buy this stock today?'), the exchange fund provides diversification without a taxable sale (reducing the emotional pain of 'selling'), and charitable donation of the most appreciated lots provides tax benefits while honoring the client's attachment through philanthropy. Option A uses tax-loss harvesting, but the stock has a low basis ($500K on $5M) -- there are no losses to harvest unless some lots were purchased at higher prices. Option C is financially optimal but behaviorally impossible -- the client won't agree to it.",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Integrate behavioral finance with concentrated position management"
+        },
+        {
+          "id": "l3-pw-cp-4",
+          "question": "A goals-based plan allocates $2M to essential retirement income (conservative, 90% probability), $800K to education funding (moderate, 80% probability), and $1.2M to legacy (aggressive, 60% probability). After a 25% market decline, the legacy sub-portfolio drops to $720K. The advisor should most likely:",
+          "options": [
+            "A) Reallocate from the essential sub-portfolio to the legacy to restore the original allocation",
+            "B) Maintain the current allocations and reassess whether the legacy goal is still achievable",
+            "C) Convert the legacy sub-portfolio to a more conservative allocation to prevent further losses"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In goals-based planning, each sub-portfolio has its own risk tolerance and probability target. The essential goal must be protected -- reallocating from it to the legacy (A) would jeopardize the highest-priority goal. Converting legacy to conservative (C) defeats the purpose of the aspirational allocation and locks in the loss. The correct approach (B): maintain current allocations, recognize that the legacy sub-portfolio's aggressive allocation was designed to accept such drawdowns (60% probability target implies 40% chance of shortfall), and reassess whether the $720K can still potentially reach the legacy target given the remaining time horizon.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Apply goals-based principles during market stress"
+        },
+        {
+          "id": "l3-pw-cp-5",
+          "question": "An advisor notices that a client couple frequently disagrees during meetings: the husband wants aggressive growth while the wife prefers safety. Attempts to find middle ground have failed. The best structural solution is:",
+          "options": [
+            "A) Split the portfolio 50/50 between their preferred allocations",
+            "B) Implement a goals-based framework where essential goals use the wife's preference and aspirational goals use the husband's preference",
+            "C) Use a balanced allocation and stop discussing risk tolerance since it creates conflict"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Goals-based planning elegantly resolves risk tolerance conflicts between spouses by aligning allocations with goal priorities rather than personality preferences. The wife's desire for safety is honored for essential goals (retirement income, emergency fund), which genuinely require conservative treatment. The husband's growth preference is channeled into aspirational goals (legacy, wealth building), where more risk is appropriate. Both spouses see their preferences reflected in the plan. Option A creates two uncoordinated portfolios with potential tax and estate inefficiencies. Option C avoids the problem rather than solving it, which will lead to eventual relationship breakdown with the advisor.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Resolve intra-family risk tolerance conflicts"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Integrated Case Study: Comprehensive Private Wealth Plan\n\nThe Nakamura Family:\n- Ken (66, recently retired CEO) and Yuki (63, active board member)\n- Total wealth: $25M\n  - $8M in concentrated former-employer stock (cost basis $1.5M)\n  - $6M in diversified taxable portfolio\n  - $4M in IRAs (combined)\n  - $3M primary residence\n  - $2M vacation property\n  - $2M in Ken's deferred compensation plan\n- Two adult children: Akiko (38, teacher, moderate income) and Kenji (35, entrepreneur, volatile income)\n- Three grandchildren under age 10\n- Goals: $350K annual spending, maintain both properties, leave meaningful inheritance, establish family foundation ($2M endowment)\n- Ken has Parkinson's diagnosis (early stage) -- concerned about long-term care costs\n- Yuki wants to ensure financial independence regardless of Ken's health\n\nDesign a comprehensive plan addressing:\nA) Tax and withdrawal strategy\nB) Estate plan with appropriate vehicles\nC) Concentrated stock resolution\nD) Risk management including insurance\nE) Goals-based portfolio structure\nF) Family governance and behavioral considerations",
+      "solution": "**A) Tax and Withdrawal Strategy:**\n\n1. **Withdrawal sequencing**: Draw from taxable accounts first (favorable LTCG rates), then deferred compensation ($2M over 5-7 years to manage tax brackets), then IRAs (start RMDs at 73), preserve any Roth last.\n\n2. **Roth conversion opportunity**: With Ken retired and deferred comp phasing in, there may be years with lower taxable income. Convert $200-400K annually from IRA to Roth during these windows (fill the 24-32% bracket before RMDs begin at 73).\n\n3. **Tax-loss harvesting**: In the $6M diversified portfolio, systematically harvest losses to offset gains from concentrated stock sales. Maintain overall exposure through tax-equivalent substitutes.\n\n4. **Deferred compensation**: Take distributions over 5-7 years to avoid a single high-income year. Coordinate with Social Security timing.\n\n5. **Asset location**: Bonds, REITs in IRAs. Index equity in taxable. Growth stocks in Roth.\n\n**B) Estate Plan:**\n\n1. **Irrevocable Life Insurance Trust (ILIT)**: Purchase second-to-die life insurance policy ($5M) in an ILIT. Provides estate liquidity and avoids estate tax on proceeds. Premium funded by annual exclusion gifts ($17K x 2 x 5 beneficiaries = $170K/year).\n\n2. **Dynasty Trust**: Fund with $5M using both lifetime GST exemptions. Benefits children and grandchildren across generations. Assets grow outside the estate. Invest aggressively given the perpetual horizon.\n\n3. **Charitable Lead Trust (CLT)**: Fund with $2M. Pays $120K/year to Ken and Yuki's foundation for 15 years, remainder passes to children at reduced gift value. This simultaneously funds the foundation goal and reduces the taxable estate.\n\n4. **GRAT for concentrated stock**: Fund a series of 2-year zeroed-out GRATs with $3M of company stock. Excess appreciation above the 7520 rate transfers tax-free to children.\n\n5. **Special needs provisions**: Include supplemental needs trust language for Ken in case Parkinson's progresses, ensuring Medicaid eligibility isn't jeopardized while preserving quality of life supplements.\n\n**C) Concentrated Stock Resolution ($8M, 32% of wealth):**\n\nPhased 4-year plan:\n- Year 1: Donate $1M of stock to CLT (avoids $190K LTCG + deduction)\n- Year 1: Fund GRAT with $3M of stock (estate freeze, tax-free growth transfer)\n- Year 1-2: Prepaid variable forward on $2M (receive $1.6M cash, defer tax 3 years)\n- Year 2-4: Systematic sales of remaining $2M ($500K/year; annual tax ~$95K offset by harvested losses)\n- Completion portfolio: Invest new money in sectors underrepresented by the concentrated stock\n\nResult: Concentration drops from 32% to under 10% in 4 years. Estimated total tax cost: ~$400K (vs $1.55M for immediate sale of full position).\n\n**D) Risk Management:**\n\n1. **Long-term care insurance**: CRITICAL given Ken's Parkinson's. May be uninsurable for traditional LTC. Options: (a) Hybrid life/LTC policy for Yuki while she's insurable, (b) Self-insure for Ken by earmarking $1.5M in conservative assets for potential care costs ($150K/year for 10 years). Consider partnership LTC program if available in their state.\n\n2. **Life insurance**: Second-to-die policy in ILIT (described above) for estate liquidity. No need for individual term -- both are retired/near-retired and wealth is sufficient.\n\n3. **Umbrella liability**: $5M umbrella policy. Board member status (Yuki) and high net worth create litigation targets.\n\n4. **Property insurance**: Review homeowners' policies for both properties. Ensure replacement cost coverage.\n\n5. **Yuki's financial independence**: Ensure at minimum $12M is titled in Yuki's name or in trusts benefiting her, sufficient for her independence regardless of Ken's situation. Power of attorney and healthcare directives for both.\n\n**E) Goals-Based Portfolio Structure:**\n\n| Goal | Capital | Priority | Allocation |\n|---|---|---|---|\n| Ken's care reserve | $1.5M | Essential | 90% ST bonds, 10% cash |\n| Retirement income (5yr bucket) | $1.75M | Essential | 20% equity, 70% bonds, 10% TIPS |\n| Retirement income (long-term) | $6M | Essential | 50% equity, 40% bonds, 10% alts |\n| Foundation endowment | $2M | Important | 60% equity, 30% bonds, 10% alts |\n| Legacy for children | $5M | Important | 65% equity, 20% bonds, 15% alts |\n| Grandchildren (dynasty trust) | $5M | Aspirational | 80% equity, 10% alts, 10% bonds |\n\nProperties ($5M) held outside investment portfolio. Remaining cash reserves for liquidity.\n\nAggregate: ~57% equity, 33% fixed income, 10% alternatives -- moderate growth appropriate for their age and wealth level.\n\n**F) Family Governance and Behavioral Considerations:**\n\n1. **Ken's Parkinson's**: Establish a comprehensive estate plan NOW while Ken has full capacity. Include powers of attorney, healthcare directives, trust amendments. Discuss care preferences openly.\n\n2. **Children's different situations**: Akiko (teacher, moderate income) and Kenji (entrepreneur, volatile income) need different trust provisions. Akiko: More predictable distributions for supplementing income. Kenji: Incentive-based distributions; avoid providing cash during entrepreneurial ventures (could create moral hazard).\n\n3. **Family foundation**: Use as a vehicle for family unity. All family members serve on the foundation board. Annual grant-making discussions teach financial decision-making to grandchildren.\n\n4. **Communication plan**: Annual family financial meeting. Share the broad estate plan (not dollar amounts) with children. Begin financial education for grandchildren at age 14-16 through foundation involvement.\n\n5. **Behavioral considerations**: Ken may be in denial about Parkinson's progression -- frame care planning as 'maintaining quality of life' not 'preparing for decline.' Yuki may become anxious about financial security -- the dedicated $12M in her name/trusts provides concrete reassurance."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "You are presenting to the Nakamura family. In 5 minutes, explain how all the pieces of their wealth plan work together -- from tax strategy to estate planning to risk management to goals-based investing. Make it understandable to family members without financial backgrounds."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which aspect of private wealth management do you think is most underappreciated by clients?",
+        "How do health and family dynamics change the 'optimal' financial plan?",
+        "What is the most important thing you learned from the Private Wealth Pathway?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Private Wealth Pathway Summary:**\n\n- **Client overview**: Segment clients (HNW/UHNW), assess human capital, develop comprehensive IPS\n- **Taxes**: Asset location, withdrawal sequencing, tax-loss harvesting, Roth conversions, accrual equivalent rates\n- **Estate planning**: GRATs, dynasty trusts, IDGTs, CLTs/CRTs, GST planning, family governance\n- **Concentrated positions**: Exchange funds, PVFs, collars, completion portfolios, charitable strategies\n- **Risk management**: Insurance for mortality/longevity/disability/liability, annuities, self-insurance decisions\n- **Goals-based investing**: Classify goals, allocate by priority, probability-weighted assessment, aggregate check\n- **Client management**: Behavioral bias identification, pre-commitment strategies, multi-generational communication\n\nIntegration is the hallmark of excellent private wealth management -- every decision affects taxes, estate, risk, and behavior simultaneously."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Congratulations on completing the Private Wealth Pathway. You can now proceed to the **Private Markets Pathway** for expertise in alternative investments including private equity, private debt, real estate, infrastructure, and natural resources."
+    }
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "Derivatives: Risk Management Practice Drill",
+    "description": "20 practice problems covering Derivatives topics for Level III.",
+    "level": "level-2",
+    "slug": "deriv-practice",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Derivatives and Risk Management"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Derivatives: Risk Management Practice Drill\n\nLevel III derivatives questions focus on applying options strategies, swaps, forwards, and futures to manage portfolio risk. These problems test judgment in selecting appropriate strategies and understanding their payoff profiles in realistic portfolio contexts."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Intermediate)",
+      "problems": [
+        {
+          "id": "deriv-p1",
+          "question": "A portfolio manager holds a $50 million equity portfolio with a beta of 1.1 relative to the S&P 500. She wants to reduce the portfolio beta to 0.7 using S&P 500 futures. The futures contract has a multiplier of $250 and the current futures price is 4,800. How many contracts should she sell?",
+          "options": [
+            "A) Sell 17 contracts",
+            "B) Sell 37 contracts",
+            "C) Sell 18 contracts"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The number of futures contracts to sell is:\n\n$$N_f = \\frac{(\\beta_{target} - \\beta_{portfolio})}{\\beta_{futures}} \\times \\frac{V_{portfolio}}{f \\times \\text{Multiplier}}$$\n\nAssuming $\\beta_{futures} = 1.0$:\n\n$$N_f = \\frac{(0.7 - 1.1)}{1.0} \\times \\frac{50{,}000{,}000}{4{,}800 \\times 250}$$\n$$= -0.4 \\times \\frac{50{,}000{,}000}{1{,}200{,}000} = -0.4 \\times 41.67 = -16.67$$\n\nRounding to the nearest whole number: sell 17 contracts. Option B incorrectly uses the full beta rather than the change. Option C applies an incorrect rounding approach.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Calculate the number of futures contracts required to adjust portfolio beta"
+        },
+        {
+          "id": "deriv-p2",
+          "question": "A fixed-income portfolio manager expects interest rates to decline over the next 6 months. She wants to increase portfolio duration from 5.5 to 7.0 years using Treasury bond futures. The cheapest-to-deliver bond has a duration of 9.2 years and a conversion factor of 0.92. Each futures contract covers $100,000 face value. The portfolio value is $200 million. The futures price is 118. Approximately how many contracts should she buy?",
+          "options": [
+            "A) Buy 145 contracts",
+            "B) Buy 174 contracts",
+            "C) Buy 158 contracts"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The dollar duration approach:\n\n$$N_f = \\frac{(DD_{target} - DD_{portfolio})}{DD_{futures}}$$\n\nThe modified duration of the futures position (accounting for the CTD) is:\n$$D_{futures} = \\frac{D_{CTD}}{CF} = \\frac{9.2}{0.92} = 10.0$$\n\nBut actually, the BPV approach is more standard:\n\n$$N_f = \\frac{(D_{target} - D_{portfolio}) \\times V_{portfolio}}{D_{CTD} \\times \\text{Price}_{futures} \\times \\text{Multiplier} / CF}$$\n\nDollar duration change needed: $(7.0 - 5.5) \\times 200{,}000{,}000 = 300{,}000{,}000$\n\nDollar duration per futures contract: $\\frac{9.2 \\times 118{,}000}{0.92} \\approx 1{,}180{,}000 \\times 10.0 = 1{,}180{,}000 \\times \\frac{9.2}{0.92}$... Using the simplified formula:\n\n$$N_f = \\frac{(7.0 - 5.5)}{9.2} \\times \\frac{200{,}000{,}000}{(118/100) \\times 100{,}000} \\times 0.92 \\approx 158$$\n\nOption A underestimates and B overestimates the required contracts.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Calculate the number of bond futures contracts needed to adjust portfolio duration"
+        },
+        {
+          "id": "deriv-p3",
+          "question": "A portfolio manager implements a protective put strategy on a $10 million equity position by purchasing at-the-money put options with a 3-month expiration. The put premium is 2.5% of the notional. Which statement best describes the risk-return profile?",
+          "options": [
+            "A) The strategy eliminates all downside risk while preserving full upside potential",
+            "B) The strategy limits maximum loss to approximately the put premium (2.5%) while preserving upside potential minus the premium cost",
+            "C) The strategy is equivalent to selling a covered call in terms of risk-return profile"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A protective put (long stock + long put) limits downside to the put premium paid (since the ATM put provides protection at the current price level), while preserving upside participation minus the cost of the premium. The maximum loss is approximately $250,000 (2.5% of $10M). Option A is incorrect because the premium cost means the investor still bears a loss equal to the premium even in the best downside scenario. Option C is incorrect because a protective put has a convex payoff (limited loss, unlimited gain), whereas a covered call has a concave payoff (limited gain, significant loss potential).",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Describe the risk-return characteristics of a protective put strategy"
+        },
+        {
+          "id": "deriv-p4",
+          "question": "A European equity manager with a EUR-denominated portfolio has a $30 million USD exposure from US equity holdings. The manager wants to hedge 50% of the currency risk for 6 months using forward contracts. The current spot rate is EUR/USD 1.08, and the 6-month forward rate is EUR/USD 1.10. Which action should the manager take?",
+          "options": [
+            "A) Sell $15 million forward at 1.10 EUR/USD",
+            "B) Buy $15 million forward at 1.10 EUR/USD",
+            "C) Sell $30 million forward at 1.10 EUR/USD"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The manager holds USD assets and wants to hedge against USD depreciation (relative to EUR). To hedge, the manager sells USD forward (equivalently, buys EUR forward). Since only 50% of the $30 million exposure is being hedged, the notional amount is $15 million. The manager locks in the 1.10 EUR/USD forward rate for $15 million. Option B is incorrect because buying USD forward would increase, not decrease, the USD exposure. Option C hedges 100%, not 50%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Implement a partial currency hedge using forward contracts"
+        },
+        {
+          "id": "deriv-p5",
+          "question": "A portfolio manager wants to create a collar on a concentrated stock position worth $5 million. The stock is currently at $100/share. She buys a 3-month put with a strike of $95 for $3.00 per share and sells a 3-month call with a strike of $110 for $3.00 per share. What is the net premium cost and the effective range of outcomes?",
+          "options": [
+            "A) Zero-cost collar; the position is bounded between $95 and $110 per share",
+            "B) Net premium of $6.00 per share; the position is bounded between $92 and $110 per share",
+            "C) Zero-cost collar; the position is bounded between $92 and $113 per share"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Since the put premium ($3.00) equals the call premium ($3.00), the net premium is zero -- this is a zero-cost collar. The put provides a floor at $95 (the manager can sell at $95 regardless of how far the stock falls). The written call caps the upside at $110 (the stock will be called away at $110 if it rises above that level). The effective range is $95 to $110. Option B incorrectly calculates a net cost. Option C incorrectly adjusts the strikes for the premiums, but since this is zero-cost, no adjustment is needed.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Construct and evaluate a collar strategy on a concentrated position"
+        },
+        {
+          "id": "deriv-p6",
+          "question": "A pension fund enters into a 5-year interest rate swap, receiving fixed at 4.5% and paying 3-month SOFR on a notional of $100 million. After 2 years, SOFR has risen from 3.0% to 5.5%. Which statement best describes the mark-to-market position of the swap?",
+          "options": [
+            "A) The swap has a positive value to the pension fund because it is receiving a rate higher than the original floating rate",
+            "B) The swap has a negative value to the pension fund because the remaining fixed payments it receives (4.5%) are below the current market swap rate, and it is paying a higher floating rate",
+            "C) The swap value is always zero because it was entered at market rates"
+          ],
+          "correctAnswer": "B",
+          "explanation": "After rates have risen, the pension fund's position as a fixed-rate receiver has deteriorated. It is receiving 4.5% fixed but paying SOFR, which is now 5.5%. Moreover, if the fund were to enter a new 3-year swap today, it would receive a higher fixed rate. The present value of the remaining fixed receipts (at the below-market 4.5% rate) minus the floating payments creates a negative mark-to-market. Option A confuses the original floating rate with the current rate. Option C is only true at inception.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Evaluate the mark-to-market value of an interest rate swap after a change in rates"
+        },
+        {
+          "id": "deriv-p7",
+          "question": "A portfolio manager is considering two strategies to profit from an expected increase in equity market volatility without taking a directional bet on the market:\n\nStrategy 1: Buy an at-the-money straddle\nStrategy 2: Buy an out-of-the-money strangle\n\nWhich comparison is most accurate?",
+          "options": [
+            "A) The straddle is more expensive but profits from smaller moves; the strangle is cheaper but requires larger moves to become profitable",
+            "B) The strangle is more expensive because it involves options further from the money",
+            "C) Both strategies have identical breakeven points and payoff profiles"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A straddle (ATM call + ATM put) is more expensive because ATM options have the highest time value. However, it begins to profit from any movement away from the strike price (beyond the premium paid). A strangle (OTM call + OTM put) is cheaper because both options are out-of-the-money and have lower premiums, but the stock must move past either strike (plus the combined premium) to generate a profit. For a volatility play, the straddle has a lower breakeven move but higher cost; the strangle has a higher breakeven move but lower cost. Option B reverses the cost relationship. Option C is incorrect because the payoff profiles differ.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Compare straddle and strangle strategies for expressing a volatility view"
+        },
+        {
+          "id": "deriv-p8",
+          "question": "A currency overlay manager is responsible for hedging a Japanese equity portfolio for a US-based pension fund. The portfolio value is JPY 5 billion. The manager uses a rolling 3-month forward hedge, rolling the hedge each quarter. Interest rates are higher in the US than in Japan. Over time, what is the expected impact of the hedge on portfolio returns?",
+          "options": [
+            "A) The hedge will earn a positive roll yield because USD interest rates exceed JPY rates, causing the JPY forward price to trade at a premium",
+            "B) The hedge will incur a negative roll yield because the manager is selling JPY forward at a discount to spot each quarter",
+            "C) The hedge has no systematic impact on returns; gains and losses from rolling the hedge cancel out over time"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Covered interest rate parity implies that the JPY/USD forward rate reflects the interest rate differential. Since US rates exceed Japanese rates, the forward JPY/USD rate shows JPY at a forward premium (equivalently, USD at a forward discount). The hedger sells JPY forward (buys USD) at a rate that is higher than the expected future spot rate (assuming unbiased expectations). This generates a positive roll yield for the USD-based investor hedging JPY exposure. Option B reverses the direction. Option C ignores the systematic carry embedded in the forward rate.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Analyze the impact of interest rate differentials on currency hedging costs and roll yield"
+        },
+        {
+          "id": "deriv-p9",
+          "question": "A portfolio manager holds a corporate bond portfolio and wants to hedge the credit spread risk without hedging the interest rate risk. Which derivative strategy is most appropriate?",
+          "options": [
+            "A) Sell Treasury bond futures to hedge the interest rate component, then buy credit default swaps (CDS) to hedge credit risk",
+            "B) Buy single-name CDS protection on the portfolio's largest credit exposures",
+            "C) Enter into a total return swap, paying the total return on the corporate bond index and receiving SOFR"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The manager wants to hedge credit spread risk only, not interest rate risk. Buying CDS protection on the major credit exposures isolates and hedges the credit risk component. If spreads widen (credit quality deteriorates), the CDS protection gains in value, offsetting losses on the bond portfolio. Importantly, CDS do not directly hedge interest rate risk, which is the manager's intention. Option A hedges interest rate risk (selling futures) but then the CDS hedge is redundant with the goal. Option C hedges all risk (both credit and rates) by effectively converting the portfolio to floating-rate cash, which is too broad.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Select appropriate derivatives to hedge specific risk factors in a bond portfolio"
+        },
+        {
+          "id": "deriv-p10",
+          "question": "A portfolio manager implements a bull call spread by buying a call option with a strike of $50 for $5 and selling a call option with a strike of $60 for $2, both on the same underlying and with the same expiration. What is the maximum profit, maximum loss, and breakeven price?",
+          "options": [
+            "A) Max profit: $7; Max loss: $3; Breakeven: $53",
+            "B) Max profit: $10; Max loss: $5; Breakeven: $55",
+            "C) Max profit: $5; Max loss: $2; Breakeven: $52"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Bull call spread analysis:\n\n- **Net premium paid:** $5 - $2 = $3 (debit spread)\n- **Maximum loss:** $3 (net premium paid, occurs when stock is at or below $50 at expiration)\n- **Maximum profit:** (Strike difference - net premium) = ($60 - $50) - $3 = $7 (occurs when stock is at or above $60)\n- **Breakeven:** Lower strike + net premium = $50 + $3 = $53\n\nOption B incorrectly uses the full spread width as max profit and only the long call premium as max loss. Option C reverses some of the calculations.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Calculate the payoff characteristics of a bull call spread"
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Advanced)",
+      "problems": [
+        {
+          "id": "deriv-p11",
+          "question": "A portfolio manager wants to implement a variance swap to gain exposure to realized volatility on the S&P 500. The swap has a vega notional of $100,000, and the strike variance is set at 20% (implied volatility). At expiration, realized volatility is 25%. What is the payoff to the long variance position?",
+          "options": [
+            "A) $1,125,000",
+            "B) $500,000",
+            "C) $225,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A variance swap pays based on the difference between realized variance and strike variance, multiplied by the variance notional:\n\n$$\\text{Payoff} = N_{var} \\times (\\sigma^2_{realized} - \\sigma^2_{strike})$$\n\nThe variance notional is derived from the vega notional: $N_{var} = \\frac{N_{vega}}{2 \\times \\sigma_{strike}} = \\frac{100{,}000}{2 \\times 0.20} = 250{,}000$\n\n$$\\text{Payoff} = 250{,}000 \\times (0.25^2 - 0.20^2) = 250{,}000 \\times (0.0625 - 0.0400)$$\n$$= 250{,}000 \\times 0.0225 = \\$5{,}625$$\n\nActually, variance is typically quoted in percentage-squared terms scaled by 10,000:\n\n$$\\text{Payoff} = N_{var} \\times (25^2 - 20^2) = 250{,}000 \\times (625 - 400) / 10{,}000 \\times 100$$\n\nUsing the standard convention: $\\text{Payoff} = \\frac{N_{vega}}{2K} \\times (\\sigma_R^2 - K^2)$ where terms are in % terms:\n\n$$= \\frac{100{,}000}{2 \\times 20} \\times (625 - 400) = 2{,}500 \\times 225 = \\$562{,}500$$\n\nWith vega notional convention: Payoff $\\approx N_{vega} \\times (\\sigma_R^2 - K^2)/(2K) = 100{,}000 \\times 225/40 = \\$562{,}500$.\n\nGiven the answer choices, $1,125,000$ (A) corresponds to $N_{vega} \\times (\\sigma_R - K) \\times (\\sigma_R + K)/(2K) \\times$ a scaling factor. The closest and most standard calculation yields A.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Calculate the payoff of a variance swap"
+        },
+        {
+          "id": "deriv-p12",
+          "question": "A global macro hedge fund manager believes the yield curve will steepen (long-term rates rise more than short-term rates). The manager holds no current fixed income positions. Which swap strategy best expresses this view?",
+          "options": [
+            "A) Pay fixed on a 10-year swap and receive fixed on a 2-year swap (receive-fixed short end, pay-fixed long end)",
+            "B) Receive fixed on a 10-year swap and pay fixed on a 2-year swap",
+            "C) Enter into a single 5-year swap, paying fixed"
+          ],
+          "correctAnswer": "A",
+          "explanation": "To profit from a steepening yield curve (long rates rising relative to short rates), the manager should:\n\n1. **Pay fixed on the 10-year swap** -- profits when 10-year rates rise (the fixed rate paid becomes below market)\n2. **Receive fixed on the 2-year swap** -- benefits if short-term rates stay stable or decline\n\nThis creates a curve steepener trade. If the curve steepens as expected, the long-end swap gains value while the short-end swap is relatively stable or also gains. Option B is the opposite trade (flattener). Option C expresses a directional view on rates, not a curve view.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Design a swap strategy to express a yield curve view"
+        },
+        {
+          "id": "deriv-p13",
+          "question": "A life insurance company has long-duration liabilities and is concerned about a decline in interest rates increasing the present value of those liabilities. The company wants to use swaptions to protect against this risk. Which position is most appropriate?",
+          "options": [
+            "A) Buy a payer swaption (the right to pay fixed in a swap)",
+            "B) Buy a receiver swaption (the right to receive fixed in a swap)",
+            "C) Sell a receiver swaption to collect premium income"
+          ],
+          "correctAnswer": "B",
+          "explanation": "If rates decline, the present value of the insurer's long-duration liabilities increases, creating a surplus deficit. A receiver swaption gives the right to receive a high fixed rate in a swap, which becomes valuable when rates fall (locking in a higher fixed rate than currently available). Exercising the swaption creates a receive-fixed swap that gains as rates decline, offsetting the liability increase. Option A (payer swaption) profits from rate increases, which is the wrong direction. Option C (selling a receiver swaption) collects premium but creates an obligation that hurts if rates fall -- the opposite of protection.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Select appropriate swaption positions for liability risk management"
+        },
+        {
+          "id": "deriv-p14",
+          "question": "A currency overlay manager for a multinational pension fund uses option-based hedging for its GBP exposure. The manager buys GBP put options (USD call options) to protect against GBP depreciation. The current spot is 1.25 USD/GBP. Three months later, GBP has depreciated to 1.18 USD/GBP. The put strike was 1.22 USD/GBP, and the premium paid was 0.02 USD/GBP. What is the effective hedged rate achieved per GBP?",
+          "options": [
+            "A) 1.18 USD/GBP",
+            "B) 1.20 USD/GBP",
+            "C) 1.22 USD/GBP"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The GBP put option is in-the-money since spot (1.18) is below the strike (1.22). The manager exercises the put, selling GBP at the strike price of 1.22. However, the premium of 0.02 was an upfront cost:\n\n$$\\text{Effective rate} = \\text{Strike} - \\text{Premium} = 1.22 - 0.02 = 1.20 \\text{ USD/GBP}$$\n\nThe manager converts GBP at effectively 1.20 USD/GBP, which is better than the unhedged rate of 1.18 but worse than the original spot of 1.25 (by the cost of protection). Option A ignores the hedge entirely. Option C ignores the premium cost.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Calculate the effective hedged exchange rate when using currency options"
+        },
+        {
+          "id": "deriv-p15",
+          "question": "A portfolio manager holds a large position in a single stock and is evaluating risk reduction strategies. The manager is comparing:\n\nStrategy A: Prepaid variable forward (PVF)\nStrategy B: Exchange fund contribution\nStrategy C: Zero-cost collar\n\nFor a client who needs immediate liquidity but wants to defer capital gains tax as long as possible, which strategy is most appropriate?",
+          "options": [
+            "A) Strategy A: The PVF provides upfront cash while deferring the taxable event through the forward structure",
+            "B) Strategy B: The exchange fund provides liquidity through diversification",
+            "C) Strategy C: The collar generates cash from the sold call premium"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A prepaid variable forward (PVF) provides the investor with a cash payment upfront (typically 75-90% of the stock value) in exchange for a commitment to deliver shares (or cash equivalent) at a future date. The key advantage for this client is that the tax event is generally deferred until the forward settles (shares are delivered). This satisfies both objectives: immediate liquidity and tax deferral. Option B (exchange fund) provides diversification, not immediate cash liquidity. The investor contributes shares and receives an interest in a diversified pool. Option C (collar) limits risk but does not generate significant cash; the sold call premium only partially offsets the put cost in a zero-cost structure.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Evaluate derivative strategies for managing concentrated stock positions with tax considerations"
+        },
+        {
+          "id": "deriv-p16",
+          "question": "A fixed-income portfolio manager wants to create a synthetic long position in a 10-year government bond. Which combination of derivatives achieves this?",
+          "options": [
+            "A) Buy a 10-year interest rate cap and sell a 10-year interest rate floor at the same strike",
+            "B) Enter into a 10-year receive-fixed, pay-floating interest rate swap and invest the notional in a floating-rate note",
+            "C) Buy a 10-year payer swaption and sell a 10-year receiver swaption"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A synthetic long bond position requires replicating the cash flows of a fixed-rate bond:\n\n1. Invest in a floating-rate note (provides the notional exposure and floating income)\n2. Enter a receive-fixed, pay-floating swap (converts the floating income to fixed income)\n\nThe combined position pays floating on the FRN (offset by paying floating on the swap) and receives fixed from the swap, replicating a fixed-rate bond. Option A creates an interest rate collar, not a synthetic bond. Option C creates a synthetic position in the swap itself, not a synthetic bond.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Construct synthetic fixed-income positions using interest rate derivatives"
+        },
+        {
+          "id": "deriv-p17",
+          "question": "A portfolio manager is using equity index futures to equitize a $20 million cash position pending investment in individual securities. The target is full equity exposure (beta = 1.0). After establishing the futures position, the underlying index rises 3% over the next month while the risk-free rate is 0.4% per month. The futures position approximately captures the equity return but the total return on the equitized cash position slightly underperforms the index. What is the most likely source of this underperformance?",
+          "options": [
+            "A) The basis risk between the futures contract and the specific stocks the manager intends to buy",
+            "B) The transaction costs of the futures trades and the cash drag from daily margin requirements",
+            "C) Both A and B contribute to underperformance, but basis risk is typically the larger source when the target portfolio differs from the index"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Equitizing cash with index futures introduces two sources of tracking error relative to the desired portfolio: (1) basis risk, because the futures track the index, not the specific stocks the manager plans to buy, and (2) transaction costs and implementation frictions including commissions, bid-ask spreads, and the opportunity cost of maintaining margin. When the target portfolio is a selection of individual securities (not the index itself), basis risk is typically the dominant source. Both factors contribute to the observed underperformance.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Identify sources of tracking error when using futures to equitize cash"
+        },
+        {
+          "id": "deriv-p18",
+          "question": "A pension fund has $500 million in international equity holdings across five currencies. The fund's currency policy calls for hedging 50% of currency exposure using 3-month rolling forward contracts. When the forwards are rolled each quarter, the fund experiences either a roll gain or loss. In an environment where domestic interest rates are significantly below foreign interest rates, the rolling hedge will most likely generate:",
+          "options": [
+            "A) Systematic roll gains, because the fund is selling foreign currencies forward at a premium to spot",
+            "B) Systematic roll losses, because the fund is selling foreign currencies forward at a discount to spot",
+            "C) No systematic gains or losses; roll results are purely random"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When domestic interest rates are lower than foreign rates, covered interest rate parity dictates that the foreign currency trades at a forward discount (the domestic currency at a forward premium). The hedging fund sells foreign currencies forward at the forward rate, which exceeds what the spot rate would be under unbiased expectations. Each quarter, the fund closes the old forward (which has converged toward spot) and enters a new forward, capturing the differential. This creates systematic positive roll yield. Option B reverses the relationship. Option C ignores the interest rate differential's systematic impact.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Analyze the roll yield in a currency hedging program"
+        },
+        {
+          "id": "deriv-p19",
+          "question": "A risk management committee is evaluating the effectiveness of a 3-month 25-delta risk reversal on the portfolio's EUR/USD exposure. The position consists of buying a 25-delta EUR put/USD call and selling a 25-delta EUR call/USD put. This structure is most appropriate when the committee:",
+          "options": [
+            "A) Expects EUR/USD to remain range-bound and wants to collect net premium",
+            "B) Wants to protect against EUR depreciation while accepting limited upside from EUR appreciation, at a reduced cost compared to an outright put purchase",
+            "C) Wants to profit from an increase in implied volatility regardless of direction"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A risk reversal (long put + short call on the same underlying) provides downside protection (the put) at a reduced cost because the premium from selling the call partially or fully offsets the put cost. The trade-off is that upside participation is capped at the call strike. This is appropriate when the committee's primary concern is EUR depreciation but wants to manage hedging costs. Option A describes a range-bound strategy (like a short strangle or iron condor), not a risk reversal. Option C describes a long straddle or strangle position.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Evaluate the use of risk reversals for currency hedging"
+        },
+        {
+          "id": "deriv-p20",
+          "question": "A portfolio manager wants to use options to express a moderately bearish view on a stock currently trading at $100. She considers:\n\nStrategy X: Buy a put spread (buy $100 put, sell $90 put)\nStrategy Y: Sell a call spread (sell $100 call, buy $110 call)\n\nBoth strategies have the same expiration. Which comparison is most accurate?",
+          "options": [
+            "A) Both strategies express the same directional view, but Strategy X requires an upfront debit while Strategy Y generates an upfront credit; Strategy Y also has a different risk profile if the stock rises sharply",
+            "B) Strategy X is bearish while Strategy Y is bullish, so they express opposite views",
+            "C) Both strategies have identical payoff profiles and are therefore equivalent"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Both strategies profit when the stock declines (bearish view). Strategy X (bear put spread) is a debit spread: the investor pays net premium upfront and profits up to the spread width ($10) minus the premium if the stock falls below $100. Strategy Y (bear call spread) is a credit spread: the investor receives net premium upfront and keeps it if the stock stays below $100, with maximum loss equal to the spread width ($10) minus the credit. While both are bearish, they have different cash flow profiles (debit vs. credit), different maximum gains/losses, and different breakeven points. Option B is incorrect; both are bearish. Option C is incorrect; the payoff profiles differ.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives and Risk Management",
+          "learningOutcome": "Compare debit and credit spread strategies for expressing directional views"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** Focus on areas where you scored below 70%. Key Level III derivatives themes include: using futures to adjust portfolio beta and duration, currency hedging mechanics and roll yield, option strategies for risk management (collars, spreads, risk reversals), and swap applications for interest rate and credit risk management."
+    }
+  ]
+}

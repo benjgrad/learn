@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "title": "QM.8: Quantitative Methods Checkpoint",
+    "description": "Comprehensive assessment of CFA Level II Quantitative Methods covering regression analysis, time-series models, machine learning, and big data projects.",
+    "level": "level-1",
+    "slug": "quant-checkpoint",
+    "order": 9,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Checkpoint: Quantitative Methods\n\nThis checkpoint tests your mastery of Level II Quantitative Methods using **vignette-based questions** that integrate concepts across modules. Work through each vignette carefully \u2014 read the case study, examine the data, and answer the related questions before revealing explanations.\n\n### Vignette 1: Regression Diagnostics and Model Selection"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Vignette 1: Equity Factor Model Analysis",
+      "vignette": "Anya Petrov, CFA, is a portfolio manager at Meridian Capital. She is evaluating a multi-factor model to explain monthly returns for a portfolio of 80 mid-cap stocks over 120 months.\n\nHer base model (Model 1) uses three Fama-French factors:\n\nR_i = alpha + beta_1(MKT) + beta_2(SMB) + beta_3(HML) + epsilon\n\nShe also tests an expanded model (Model 2) that adds momentum (MOM) and quality (QMJ) factors.\n\nRegression diagnostics for Model 1:\n\n| Diagnostic | Value |\n|---|---|\n| R-squared | 0.74 |\n| Adjusted R-squared | 0.733 |\n| SEE | 2.15% |\n| Durbin-Watson | 1.18 |\n| DW critical values (5%) | d_L = 1.61, d_U = 1.74 |\n| Breusch-Pagan chi-sq | 11.2 |\n| BP critical value (5%, 3 df) | 7.81 |\n| F-statistic | 110.5 |\n\nModel comparison:\n\n| Metric | Model 1 (3 factors) | Model 2 (5 factors) |\n|---|---|---|\n| R-squared | 0.74 | 0.81 |\n| Adjusted R-squared | 0.733 | 0.801 |\n| AIC | -312.4 | -338.9 |\n| BIC | -301.2 | -322.1 |\n\nIn Model 2, the t-statistics are: MKT = 12.4, SMB = 3.8, HML = 2.6, MOM = 4.1, QMJ = 3.2. The critical t-value at 5% is 1.98.\n\nAfter applying Newey-West standard errors to Model 1, the t-statistic for HML drops from 3.1 to 1.85.",
+      "problems": [
+        {
+          "id": "qmcp-1",
+          "question": "Based on the diagnostic tests for Model 1, Petrov should be most concerned about:",
+          "options": [
+            "A) heteroskedasticity only.",
+            "B) serial correlation only.",
+            "C) both heteroskedasticity and serial correlation."
+          ],
+          "correctAnswer": "C",
+          "explanation": "Both diagnostic tests indicate violations. The Durbin-Watson statistic (1.18) is below d_L (1.61), indicating significant positive serial correlation. The Breusch-Pagan statistic (11.2) exceeds the critical value (7.81), indicating heteroskedasticity. Both problems affect the reliability of standard errors and hypothesis tests. Option A and Option B each identify only one of the two problems.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret diagnostic tests for regression assumptions"
+        },
+        {
+          "id": "qmcp-2",
+          "question": "The appropriate correction for Model 1's standard errors given these diagnostic results is:",
+          "options": [
+            "A) White heteroskedasticity-consistent standard errors.",
+            "B) Newey-West (HAC) standard errors.",
+            "C) Generalized least squares with AR(1) correction."
+          ],
+          "correctAnswer": "B",
+          "explanation": "With both heteroskedasticity and serial correlation present, Newey-West (heteroskedasticity and autocorrelation consistent) standard errors are the appropriate correction. They adjust for both problems simultaneously. Option A (White SE) only corrects for heteroskedasticity, leaving serial correlation unaddressed. Option C (GLS) changes the estimation method and is more complex than necessary when the goal is to obtain valid inference on OLS estimates.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Select appropriate standard error corrections"
+        },
+        {
+          "id": "qmcp-3",
+          "question": "After applying Newey-West standard errors, the HML factor's t-statistic drops from 3.1 to 1.85. At the 5% significance level, Petrov should conclude that:",
+          "options": [
+            "A) HML is statistically significant using either standard error method.",
+            "B) HML appears significant with OLS SE but is not significant with corrected SE, suggesting the original significance was spurious.",
+            "C) HML should be removed from the model because its coefficient is biased."
+          ],
+          "correctAnswer": "B",
+          "explanation": "With OLS standard errors, the t-statistic (3.1) exceeds the critical value (1.98), appearing significant. With Newey-West SE, the t-statistic (1.85) falls below 1.98, making HML insignificant. The original significance was inflated by understated standard errors due to heteroskedasticity and serial correlation. The coefficient estimate itself is unchanged and unbiased \u2014 only the standard error is corrected. Option A is incorrect because HML fails the corrected test. Option C is wrong because the coefficient is unbiased; only the SE was misleading.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Evaluate how robust standard errors affect inference"
+        },
+        {
+          "id": "qmcp-4",
+          "question": "Comparing Model 1 and Model 2, the evidence most strongly supports:",
+          "options": [
+            "A) Model 1, because it is more parsimonious.",
+            "B) Model 2, because all fit criteria (adjusted R-squared, AIC, BIC) favor it.",
+            "C) Model 2, but only based on R-squared improvement."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Model 2 has higher adjusted R-squared (0.801 vs. 0.733) and lower AIC (-338.9 vs. -312.4) and BIC (-322.1 vs. -301.2). All three criteria favor Model 2, even BIC which penalizes additional parameters most heavily. All five factors in Model 2 are individually significant. Option A ignores the substantial improvement across all metrics. Option C understates the evidence \u2014 the conclusion is based on adjusted R-squared (not raw), AIC, and BIC, not just raw R-squared.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compare regression models using multiple fit criteria"
+        }
+      ]
+    },
+    {
+      "type": "markdown",
+      "content": "### Vignette 2: Time-Series and Forecasting"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Vignette 2: Currency and Interest Rate Modeling",
+      "vignette": "James Nakamura, CFA, is a fixed income strategist analyzing the USD/EUR exchange rate and interest rate differentials. He has 15 years of monthly data (180 observations).\n\nHe estimates AR(1) models for three series:\n\n| Series | phi_0 | phi_1 | Dickey-Fuller t-stat | DF critical (5%) |\n|---|---|---|---|---|\n| USD/EUR level | 0.005 | 0.997 | -0.85 | -2.88 |\n| USD/EUR monthly return | 0.001 | -0.05 | -8.42 | -2.88 |\n| US-EU interest rate differential | 0.04 | 0.94 | -3.15 | -2.88 |\n\nNakamura then tests whether the USD/EUR level and the cumulative interest rate differential are cointegrated. The Engle-Granger test on the residuals of the cointegrating regression yields a DF t-statistic of -3.52 (critical value -3.37).\n\nHe estimates an error correction model:\n\nDelta(FX_t) = 0.003 - 0.06(FX_{t-1} - 0.8*CumDiff_{t-1} - 1.10) + 0.35*Delta(CumDiff_t) + epsilon_t\n\nThe current USD/EUR rate is 1.15, and the cumulative interest rate differential implies an equilibrium rate of 1.10.",
+      "problems": [
+        {
+          "id": "qmcp-5",
+          "question": "Based on the Dickey-Fuller test results, which series is/are non-stationary?",
+          "options": [
+            "A) USD/EUR level only.",
+            "B) USD/EUR level and the interest rate differential.",
+            "C) All three series are non-stationary."
+          ],
+          "correctAnswer": "A",
+          "explanation": "Only the USD/EUR level is non-stationary: its DF t-statistic (-0.85) fails to reject the unit root null (critical value -2.88). The USD/EUR return rejects the null (|-8.42| > 2.88) and is stationary. The interest rate differential also rejects (|-3.15| > 2.88) and is stationary. Option B incorrectly classifies the rate differential as non-stationary. Option C incorrectly classifies all series.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply the Dickey-Fuller test to identify stationarity"
+        },
+        {
+          "id": "qmcp-6",
+          "question": "The long-run mean of the interest rate differential is closest to:",
+          "options": [
+            "A) 0.04%",
+            "B) 0.67%",
+            "C) 0.94%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Long-run mean = phi_0 / (1 - phi_1) = 0.04 / (1 - 0.94) = 0.04 / 0.06 = 0.667, approximately 0.67%. Option A (0.04) is phi_0, the intercept, not the long-run mean. Option C (0.94) is the AR(1) coefficient. The series is stationary (DF rejects unit root), so this long-run mean is well-defined.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate long-run mean from AR(1) parameters"
+        },
+        {
+          "id": "qmcp-7",
+          "question": "The error correction coefficient of -0.06 implies that the USD/EUR rate adjusts toward its equilibrium level by correcting approximately:",
+          "options": [
+            "A) 6% of the disequilibrium each month.",
+            "B) 6 cents per month.",
+            "C) 94% of the disequilibrium each month."
+          ],
+          "correctAnswer": "A",
+          "explanation": "The error correction coefficient (-0.06) means that 6% of the deviation from the long-run equilibrium is corrected each month. Since the current rate (1.15) is above the equilibrium (1.10), the disequilibrium is 0.05. The error correction term contributes: -0.06 x (1.15 - 1.10) = -0.06 x 0.05 = -0.003, pushing the rate down toward equilibrium. Option B incorrectly interprets the coefficient in levels. Option C (94%) confuses the correction speed with the persistence (1 - 0.06 = 0.94).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret error correction model coefficients"
+        },
+        {
+          "id": "qmcp-8",
+          "question": "Nakamura observes that USD/EUR monthly returns have phi_1 = -0.05. This is most consistent with:",
+          "options": [
+            "A) strong momentum in exchange rate returns.",
+            "B) returns that are essentially unpredictable from their own past values.",
+            "C) a non-stationary process requiring differencing."
+          ],
+          "correctAnswer": "B",
+          "explanation": "An AR(1) coefficient of -0.05 is very close to zero, indicating minimal autocorrelation in returns. Past returns have almost no predictive power for future returns, consistent with weak-form market efficiency in currency markets. The negative sign suggests very slight mean reversion, but the magnitude is negligible. Option A would require a large positive coefficient. Option C is incorrect \u2014 the DF test strongly rejects a unit root (t = -8.42), confirming stationarity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret AR(1) coefficients for return predictability"
+        }
+      ]
+    },
+    {
+      "type": "markdown",
+      "content": "### Vignette 3: Machine Learning and Big Data"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Vignette 3: Credit Risk Modeling with ML",
+      "vignette": "Elena Torres, CFA, manages the credit risk team at Continental Bank. Her team is building a model to predict corporate bond defaults within the next 12 months. The dataset contains 5,000 bonds observed over 10 years (50,000 bond-year observations), with 2% historical default rate.\n\nThe team tests several approaches using 80/20 train-test split:\n\n| Model | Training Accuracy | Test Accuracy | AUC-ROC (Test) | Features Used |\n|---|---|---|---|---|\n| Logistic Regression | 83% | 82% | 0.78 | 12 |\n| LASSO Logistic | 81% | 81% | 0.77 | 7 |\n| Decision Tree (depth=15) | 97% | 71% | 0.65 | 45 |\n| Random Forest | 94% | 84% | 0.82 | 45 |\n| Gradient Boosting | 91% | 85% | 0.84 | 45 |\n\nThe team also applies k-means clustering (k=4) to the bond universe based on financial ratios and identifies four clusters:\n\n| Cluster | Avg Leverage | Avg Coverage | Avg Default Rate | n |\n|---|---|---|---|---|\n| 1 | 0.3 | 8.2 | 0.3% | 18,000 |\n| 2 | 0.5 | 4.1 | 1.5% | 15,000 |\n| 3 | 0.7 | 2.0 | 4.8% | 12,000 |\n| 4 | 0.9 | 0.8 | 9.2% | 5,000 |\n\nThe LASSO model selected 7 features: leverage, interest coverage, EBITDA margin, current ratio, revenue volatility, industry dummy (energy), and market-implied default probability.",
+      "problems": [
+        {
+          "id": "qmcp-9",
+          "question": "The decision tree (depth=15) has a training accuracy of 97% but test accuracy of 71%. This pattern is best described as:",
+          "options": [
+            "A) underfitting \u2014 the model is too simple to capture the underlying relationships.",
+            "B) overfitting \u2014 the deep tree memorizes training data noise rather than learning generalizable patterns.",
+            "C) high bias \u2014 the model makes strong assumptions that do not match the data."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The 26-percentage-point gap between training (97%) and test (71%) accuracy is a classic sign of overfitting. A depth-15 decision tree with 45 features creates highly specific rules that fit the training data (including noise) but fail to generalize. The random forest and gradient boosting models use the same 45 features but achieve better test performance by using ensemble techniques that reduce variance. Option A and Option C describe the opposite problem (underfitting/high bias), which would show poor performance on both training and test data.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify overfitting from training vs. test performance"
+        },
+        {
+          "id": "qmcp-10",
+          "question": "LASSO logistic regression selected 7 of 45 features. Compared to standard logistic regression with all features, LASSO most likely achieves:",
+          "options": [
+            "A) higher test accuracy because it uses more information.",
+            "B) better interpretability and reduced overfitting through automatic feature selection.",
+            "C) unbiased coefficient estimates for the selected features."
+          ],
+          "correctAnswer": "B",
+          "explanation": "LASSO's L1 penalty shrinks 38 coefficients to exactly zero, selecting only the 7 most predictive features. This provides: (1) better interpretability \u2014 analysts can explain why a bond is flagged as risky using 7 clear factors, and (2) reduced overfitting \u2014 eliminating noise features reduces model variance. LASSO test accuracy (81%) is actually slightly lower than standard logistic (82%), but it uses far fewer features with comparable performance. Option A is incorrect \u2014 LASSO uses less information by design. Option C is incorrect \u2014 LASSO coefficients are biased (shrunk toward zero) by construction; this bias is the tradeoff for lower variance.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Explain LASSO's feature selection and bias-variance tradeoff"
+        },
+        {
+          "id": "qmcp-11",
+          "question": "The gradient boosting model has the highest test AUC-ROC (0.84). In this context, AUC-ROC measures:",
+          "options": [
+            "A) the proportion of defaults correctly predicted.",
+            "B) the model's ability to distinguish between defaults and non-defaults across all classification thresholds.",
+            "C) the overall accuracy of the model's probability estimates."
+          ],
+          "correctAnswer": "B",
+          "explanation": "AUC-ROC (Area Under the Receiver Operating Characteristic curve) measures the model's ability to discriminate between positive (default) and negative (non-default) cases across all possible classification thresholds. An AUC of 0.84 means that a randomly chosen default has an 84% probability of receiving a higher predicted default probability than a randomly chosen non-default. Option A describes recall (sensitivity), a threshold-specific metric. Option C describes calibration, which is related but distinct from discrimination.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret AUC-ROC as a classification performance metric"
+        },
+        {
+          "id": "qmcp-12",
+          "question": "The k-means clustering results show that Cluster 4 has the highest average default rate (9.2%) and highest leverage (0.9). The clustering analysis is an example of:",
+          "options": [
+            "A) supervised learning, because default rates are known for each cluster.",
+            "B) unsupervised learning, because the algorithm groups bonds without using default labels.",
+            "C) semi-supervised learning, because it uses both labeled and unlabeled data."
+          ],
+          "correctAnswer": "B",
+          "explanation": "K-means clustering is unsupervised learning \u2014 it groups bonds based on similarity in financial ratios (leverage, coverage) without using default labels as input. The default rates shown in the table are calculated after clustering to characterize each group, but they were not used by the algorithm to form the clusters. The fact that clusters align with default rates validates the clustering as economically meaningful. Option A incorrectly assumes labels were used during training. Option C is a distinct paradigm not described here.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Distinguish supervised from unsupervised learning"
+        }
+      ]
+    },
+    {
+      "type": "markdown",
+      "content": "### Concept Recall"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the full sequence of steps you would take to build and validate a multiple regression model for predicting stock returns. Cover model specification, assumption testing, correction methods, and model comparison."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Compare and contrast LASSO, Ridge, and OLS regression. For each method, describe when you would use it and what tradeoff it makes between bias and variance."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "What is cointegration, and why is it important for pairs trading? Explain how you would test for it and what model you would use to exploit it."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A regression model for bond spreads yields a Durbin-Watson statistic of 0.92 (d_L = 1.58, d_U = 1.72) and a Breusch-Pagan test statistic of 15.3 (critical value = 9.49 at 5%). An independent variable has an OLS coefficient of 2.4 with OLS SE of 0.8. After applying the appropriate correction, the SE increases to 1.4. (a) Identify all assumption violations. (b) Name the appropriate correction. (c) Determine whether the variable is significant at 5% before and after correction (critical t = 1.98).",
+      "solution": "(a) **Violations identified:**\n- Serial correlation: DW = 0.92 < d_L = 1.58, so we reject no-autocorrelation. Positive serial correlation is present.\n- Heteroskedasticity: BP = 15.3 > 9.49, so we reject homoskedasticity.\n\n(b) **Correction:** Newey-West (HAC) standard errors, which correct for both heteroskedasticity and autocorrelation simultaneously. White robust SE would only address heteroskedasticity.\n\n(c) **Significance test:**\n- Before correction: t = 2.4 / 0.8 = 3.0 > 1.98 \u2014 significant at 5%\n- After correction: t = 2.4 / 1.4 = 1.71 < 1.98 \u2014 NOT significant at 5%\n\nThe coefficient (2.4) is unchanged; only the standard error increases. The original significance was inflated by understated standard errors caused by the assumption violations. This is a practical example of how failing to correct for serial correlation and heteroskedasticity can lead to false conclusions about variable importance."
+    },
+    {
+      "type": "markdown",
+      "content": "### Self-Assessment\n\nRate your confidence on each Quantitative Methods topic from 1 (cannot explain it) to 5 (could teach it):\n\n| Topic | Confidence (1-5) |\n| :-- | :-- |\n| Multiple regression specification and OLS assumptions | |\n| Hypothesis testing (t-test, F-test, confidence intervals) | |\n| R-squared vs. adjusted R-squared vs. AIC/BIC | |\n| Heteroskedasticity (Breusch-Pagan, White SE) | |\n| Serial correlation (Durbin-Watson, Newey-West SE) | |\n| Multicollinearity (VIF, remedies) | |\n| Dummy variables, interaction terms, polynomial regression | |\n| Logistic regression and qualitative dependent variables | |\n| AR models, stationarity, and unit root tests | |\n| Cointegration and error correction models | |\n| Supervised vs. unsupervised machine learning | |\n| Overfitting, cross-validation, and regularization (LASSO/Ridge) | |\n| Big data, NLP, and text analytics in finance | |\n\nIf any topic is below a 3, revisit that module before continuing."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Level II Quantitative Methods mastery means you can specify, estimate, diagnose, and correct multiple regression models. You understand when OLS assumptions fail, how to detect violations, and which corrections to apply. You can model time-series data, test for stationarity and cointegration, and apply machine learning methods with appropriate validation. If you can work through vignette-style problems integrating these concepts, you are ready for the exam."
+    }
+  ]
+}

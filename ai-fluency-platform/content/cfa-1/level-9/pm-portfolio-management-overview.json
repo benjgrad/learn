@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.3: Portfolio Management: An Overview",
+    "description": "Describe the portfolio management process, investment policy statements, and asset allocation.",
+    "level": "level-9",
+    "slug": "pm-portfolio-management-overview",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Why might a pension fund invest very differently from a 25-year-old individual, even if both have the same amount of money to invest? What factors would drive those differences?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Portfolio Approach\n\nThe **portfolio perspective** evaluates individual investments not in isolation, but by their contribution to the overall portfolio's risk and return. A stock that is very volatile on its own might actually reduce portfolio risk if it has low correlation with existing holdings.\n\nThis is the core insight of modern portfolio theory: **it is the interaction among assets that matters**, not just each asset's standalone characteristics.\n\n### Why a Portfolio Approach?\n\n- Diversification reduces risk without necessarily reducing expected return\n- An asset's risk contribution depends on its correlation with the rest of the portfolio\n- An individually \"risky\" asset may be appropriate if it improves the portfolio's risk-return profile\n- Evaluating securities in isolation leads to suboptimal portfolio construction\n\n### The Three Steps of Portfolio Management\n\n| Step | Activity | Key Output |\n|---|---|---|\n| **1. Planning** | Understand the investor's needs, create an IPS | Investment Policy Statement (IPS) |\n| **2. Execution** | Construct the portfolio via asset allocation and security selection | Invested portfolio |\n| **3. Feedback** | Monitor performance, rebalance, adapt to changing circumstances | Revised portfolio |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A university endowment and a bank's bond portfolio both hold fixed-income securities. Are their investment objectives likely to be the same? Why or why not?",
+      "answer": "No. The endowment's objective is typically to maintain purchasing power over a very long time horizon while providing a stable spending stream (e.g., 4-5% annual payout). It can tolerate moderate volatility. The bank holds bonds primarily for liquidity management and regulatory compliance, with a much shorter effective time horizon and near-zero tolerance for credit losses. Same asset class, fundamentally different objectives, constraints, and risk tolerances."
+    },
+    {
+      "type": "markdown",
+      "content": "## Types of Investors\n\n### Individual Investors\n\nIndividuals invest to meet personal goals \u2014 retirement, education, home purchase. Their needs vary widely by age, wealth, income stability, and risk tolerance. Life-cycle investing suggests younger investors can take more risk (longer time horizon), while older investors should shift toward less volatile assets.\n\n### Institutional Investors\n\n| Investor Type | Time Horizon | Risk Tolerance | Key Characteristic |\n|---|---|---|---|\n| **Defined benefit pension** | Long | Moderate to high | Must meet future liability payments to retirees |\n| **Endowment/Foundation** | Very long (perpetual) | High | Must preserve real value while funding spending |\n| **Insurance company** | Depends on product | Low to moderate | Must match asset durations to policy liabilities |\n| **Sovereign wealth fund (SWF)** | Very long | High | Invests national surplus for future generations |\n| **Bank** | Short | Low | Manages liquidity, meets regulatory capital requirements |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Pooled Investment Vehicles\n\nMost investors access markets through pooled vehicles rather than buying individual securities:\n\n**Mutual funds (open-end):** Issue new shares on demand at net asset value (NAV). Investors can redeem at NAV daily. Actively managed funds attempt to outperform a benchmark; passively managed (index) funds track a benchmark at low cost.\n\n**Exchange-traded funds (ETFs):** Trade on exchanges like stocks throughout the day at market prices (which may differ slightly from NAV). Most are passively managed. Key advantages: intraday liquidity, tax efficiency, low expense ratios.\n\n**Hedge funds:** Private investment pools using strategies like leverage, short selling, and derivatives. Typically limited to qualified/accredited investors. Common fee structure: \"2 and 20\" (2% management fee + 20% performance fee). Often have lock-up periods restricting withdrawals.\n\n| Vehicle | Pricing | Liquidity | Typical Fees | Investor Access |\n|---|---|---|---|---|\n| Mutual fund | NAV (end of day) | Daily redemption | 0.5\u20131.5% | Public |\n| ETF | Market price (intraday) | Intraday trading | 0.03\u20130.50% | Public |\n| Hedge fund | NAV (periodic) | Lock-up periods | 2% + 20% | Qualified only |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Classify the following investors by their likely time horizon and risk tolerance: (a) a newly established university endowment, (b) a life insurance company, (c) a 30-year-old saving for retirement in 35 years, (d) a sovereign wealth fund funded by oil revenues.",
+      "solution": "**(a) University endowment:** Very long (perpetual) time horizon; high risk tolerance. The endowment aims to exist indefinitely and can weather short-term volatility to earn higher long-term returns.\n\n**(b) Life insurance company:** Long time horizon but low to moderate risk tolerance. It must match asset cash flows to policy liabilities and faces regulatory constraints. Predictability of cash flows is critical.\n\n**(c) 30-year-old individual:** Long time horizon (35 years); moderate to high risk tolerance. Human capital (future earnings) provides a buffer, allowing more equity exposure early.\n\n**(d) Sovereign wealth fund:** Very long time horizon; high risk tolerance. Investing national surplus for future generations, with no near-term liabilities. Can allocate heavily to equities, real assets, and alternatives."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Management Overview Practice Problems",
+      "problems": [
+        {
+          "id": "pm3-1",
+          "question": "An investor holds a concentrated position in a single technology stock. From a portfolio management perspective, the primary concern is that the investor:",
+          "options": [
+            "A) has excessive systematic risk exposure",
+            "B) has excessive unsystematic risk that could be diversified away",
+            "C) will earn a lower expected return than the market"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A concentrated single-stock position carries substantial unsystematic (firm-specific) risk that could be eliminated through diversification at no cost to expected return. This is the central insight of the portfolio approach. Option A is incorrect because the concern is unsystematic, not systematic, risk. Option C is incorrect because the expected return depends on the stock's beta, not on whether the investor is diversified.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe the portfolio approach to investing"
+        },
+        {
+          "id": "pm3-2",
+          "question": "Which of the following institutional investors is most likely to have the highest risk tolerance?",
+          "options": [
+            "A) A property and casualty insurance company",
+            "B) A university endowment with no debt",
+            "C) A commercial bank managing its bond portfolio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A university endowment with no debt has a perpetual time horizon and no fixed liabilities that must be met on specific dates, allowing it the highest risk tolerance. Option A is incorrect because P&C insurers face unpredictable claims and need liquid, low-risk assets. Option C is incorrect because banks have short time horizons, strict regulatory capital requirements, and very low risk tolerance for their investment portfolios.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe types of investors and their characteristics"
+        },
+        {
+          "id": "pm3-3",
+          "question": "An investor wants low-cost equity market exposure with the ability to trade throughout the day. The most appropriate pooled investment vehicle is:",
+          "options": [
+            "A) An actively managed mutual fund",
+            "B) An exchange-traded fund (ETF)",
+            "C) A hedge fund"
+          ],
+          "correctAnswer": "B",
+          "explanation": "ETFs offer low-cost, passive equity market exposure with intraday trading capability. Option A is incorrect because actively managed mutual funds have higher fees and can only be transacted at end-of-day NAV. Option C is incorrect because hedge funds are restricted to qualified investors, have much higher fees (typically 2% + 20%), and have limited liquidity due to lock-up periods.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe types of pooled investment vehicles"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why a pension fund and a university endowment might construct very different portfolios even though both are institutional investors with large asset pools. Focus on how their objectives and constraints differ."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the portfolio approach change the way you think about adding a new investment to your own holdings?",
+        "Why might a hedge fund's high fees be justified for some investors but not others?",
+        "Which type of institutional investor do you think faces the most challenging constraints, and why?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Portfolio approach: evaluate investments by their contribution to the whole portfolio, not in isolation\n- Three steps: planning (IPS), execution (asset allocation + security selection), feedback (monitoring + rebalancing)\n- Individual investors: needs vary by age, goals, and risk tolerance\n- Institutional investors: pension funds, endowments, insurance companies, SWFs, banks \u2014 each with distinct objectives and constraints\n- Pooled vehicles: mutual funds (daily NAV), ETFs (intraday, low-cost), hedge funds (qualified investors, high fees, limited liquidity)\n- Time horizon and liability structure are the primary drivers of risk tolerance"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Portfolio Planning and Construction**, where you will learn to write an Investment Policy Statement (IPS) \u2014 the formal document that translates investor needs into actionable investment guidelines. Everything you learned about investor types and objectives feeds directly into the IPS framework."
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "title": "DV.10: One-Period Binomial Model",
+    "description": "Price options using the one-period binomial model with up/down factors, risk-neutral probabilities, hedge ratios (delta), replicating portfolios, and risk-neutral valuation.",
+    "level": "level-7",
+    "slug": "deriv-binomial-model",
+    "order": 10,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A stock is at $100 and can go to either $120 or $80 next period. A call option has a strike of $100. Can you figure out the fair option price using only these numbers and the risk-free rate \u2014 without knowing the probability that the stock goes up?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Binomial Framework\n\nThe **one-period binomial model** assumes that over one period, the underlying asset can move to exactly one of two possible values:\n\n- **Up state:** $S_u = S_0 \\times u$ (where $u > 1$ is the up factor)\n- **Down state:** $S_d = S_0 \\times d$ (where $d < 1$ is the down factor)\n\n### Option Payoffs in Each State\n\nFor a call with strike $X$:\n- Up state: $c_u = \\max(0, S_u - X)$\n- Down state: $c_d = \\max(0, S_d - X)$\n\nFor a put with strike $X$:\n- Up state: $p_u = \\max(0, X - S_u)$\n- Down state: $p_d = \\max(0, X - S_d)$\n\n### Risk-Neutral Probabilities\n\nThe **risk-neutral probability** of the up move is:\n\n$$\\pi_u = \\frac{(1 + r) - d}{u - d}$$\n\n$$\\pi_d = 1 - \\pi_u$$\n\nThese are **not** real-world probabilities. They are mathematical weights that allow us to price the option by discounting the **expected payoff** (under risk-neutral probabilities) at the risk-free rate.\n\n### Option Price\n\n$$c = \\frac{\\pi_u \\times c_u + \\pi_d \\times c_d}{1 + r}$$\n\n$$p = \\frac{\\pi_u \\times p_u + \\pi_d \\times p_d}{1 + r}$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why can we price options without knowing the actual probability that the stock goes up? This seems impossible \u2014 how can the price not depend on the likelihood of each outcome?",
+      "answer": "The key insight is replication. We can construct a portfolio of the stock and risk-free borrowing that exactly replicates the option's payoff in both states. Since the replicating portfolio produces the same payoff as the option regardless of which state occurs, the option must cost the same as the replicating portfolio \u2014 by the law of one price. The actual probabilities cancel out because the hedge works in both states. Risk-neutral probabilities are a mathematical convenience that produce the same price as the replication argument."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Replicating Portfolio and Hedge Ratio\n\n### Hedge Ratio (Delta)\n\nThe **hedge ratio** (or **delta**) is the number of shares of stock needed to replicate one option:\n\n$$\\Delta = \\frac{c_u - c_d}{S_u - S_d}$$\n\nDelta represents the option's sensitivity to changes in the underlying price.\n\n### Replicating Portfolio\n\nA replicating portfolio for a call consists of:\n- **Long $\\Delta$ shares** of the underlying\n- **Borrow** $B$ at the risk-free rate\n\nWhere:\n\n$$B = \\frac{\\Delta \\times S_d - c_d}{1 + r} = \\frac{\\Delta \\times S_u - c_u}{1 + r}$$\n\nThe option price equals the cost of the replicating portfolio:\n\n$$c = \\Delta \\times S_0 - B$$\n\n### Numerical Example\n\n$S_0 = 100$, $u = 1.20$, $d = 0.80$, $r = 5\\%$, $X = 100$\n\n- $S_u = 120$, $S_d = 80$\n- $c_u = \\max(0, 120 - 100) = 20$, $c_d = \\max(0, 80 - 100) = 0$\n- $\\pi_u = \\frac{1.05 - 0.80}{1.20 - 0.80} = \\frac{0.25}{0.40} = 0.625$\n- $c = \\frac{0.625 \\times 20 + 0.375 \\times 0}{1.05} = \\frac{12.50}{1.05} = \\$11.90$\n- $\\Delta = \\frac{20 - 0}{120 - 80} = \\frac{20}{40} = 0.50$"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A stock trades at $50. In one period it will be either $60 (u = 1.20) or $42 (d = 0.84). The risk-free rate is 3%. Price a European put with strike $48 using (a) risk-neutral probabilities and (b) the replicating portfolio approach. Verify both methods give the same answer.",
+      "solution": "**Method (a): Risk-Neutral Probabilities**\n\n$\\pi_u = \\frac{(1 + r) - d}{u - d} = \\frac{1.03 - 0.84}{1.20 - 0.84} = \\frac{0.19}{0.36} = 0.5278$\n\n$\\pi_d = 1 - 0.5278 = 0.4722$\n\nPut payoffs: $p_u = \\max(0, 48 - 60) = 0$, $p_d = \\max(0, 48 - 42) = 6$\n\n$p = \\frac{0.5278 \\times 0 + 0.4722 \\times 6}{1.03} = \\frac{2.8333}{1.03} = \\$2.75$\n\n**Method (b): Replicating Portfolio**\n\n$\\Delta = \\frac{p_u - p_d}{S_u - S_d} = \\frac{0 - 6}{60 - 42} = \\frac{-6}{18} = -0.3333$\n\nThe negative delta means we short 0.3333 shares to replicate the put.\n\n$B = \\frac{\\Delta \\times S_u - p_u}{1 + r} = \\frac{-0.3333 \\times 60 - 0}{1.03} = \\frac{-20}{1.03} = -19.417$\n\n(Negative $B$ means lending/investing $19.417)\n\n$p = \\Delta \\times S_0 - B = -0.3333 \\times 50 - (-19.417) = -16.667 + 19.417 = \\$2.75$\n\nBoth methods give **$2.75** \u2014 confirming the equivalence of risk-neutral pricing and replication."
+    },
+    {
+      "type": "practiceSet",
+      "title": "One-Period Binomial Model Practice",
+      "problems": [
+        {
+          "id": "dv10-1",
+          "question": "In the one-period binomial model, the risk-neutral probability of an up move is calculated as:",
+          "options": [
+            "A) \u03c0 = (u \u2212 d) / (1 + r \u2212 d)",
+            "B) \u03c0 = (1 + r \u2212 d) / (u \u2212 d)",
+            "C) \u03c0 = (S_u \u2212 S_d) / (c_u \u2212 c_d)"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The risk-neutral probability of an up move is \u03c0_u = (1 + r \u2212 d)/(u \u2212 d). This formula ensures that the expected return on the stock under risk-neutral probabilities equals the risk-free rate. Option A inverts the numerator and denominator. Option C is the reciprocal of the hedge ratio (delta), not the risk-neutral probability.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate risk-neutral probabilities in the binomial model"
+        },
+        {
+          "id": "dv10-2",
+          "question": "A stock is priced at $80. u = 1.25, d = 0.80, r = 4%. A European call has a strike of $85. The call price using the one-period binomial model is closest to:",
+          "options": [
+            "A) $6.41",
+            "B) $7.69",
+            "C) $8.17"
+          ],
+          "correctAnswer": "B",
+          "explanation": "S_u = 80 \u00d7 1.25 = $100; S_d = 80 \u00d7 0.80 = $64. c_u = max(0, 100 \u2212 85) = $15; c_d = max(0, 64 \u2212 85) = $0. \u03c0_u = (1.04 \u2212 0.80)/(1.25 \u2212 0.80) = 0.24/0.45 = 0.5333. c = (0.5333 \u00d7 15 + 0.4667 \u00d7 0)/1.04 = 8.00/1.04 = $7.69. Option A uses incorrect risk-neutral probabilities. Option C does not discount at the risk-free rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Price a European call option using the one-period binomial model"
+        },
+        {
+          "id": "dv10-3",
+          "question": "Using the data from the previous problem (S\u2080 = $80, u = 1.25, d = 0.80, call strike = $85), the hedge ratio (delta) for the call is closest to:",
+          "options": [
+            "A) 0.333",
+            "B) 0.417",
+            "C) 0.500"
+          ],
+          "correctAnswer": "B",
+          "explanation": "\u0394 = (c_u \u2212 c_d)/(S_u \u2212 S_d) = (15 \u2212 0)/(100 \u2212 64) = 15/36 = 0.417. This means replicating one call requires holding 0.417 shares. Option A (0.333) would be 15/45 (using u \u2212 d denominators incorrectly). Option C (0.500) would require equal up and down ranges, which is not the case here.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the hedge ratio in the binomial model"
+        },
+        {
+          "id": "dv10-4",
+          "question": "In the binomial model, risk-neutral probabilities are best described as:",
+          "options": [
+            "A) The actual probabilities of up and down moves estimated from historical data",
+            "B) Probabilities that make the expected stock return equal to the risk-free rate",
+            "C) Probabilities that are always equal to 0.5 in a fair market"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Risk-neutral probabilities are mathematical weights (not real-world probabilities) that, when used to compute expected values, make the expected return on every asset equal to the risk-free rate. This allows option pricing without knowing investors' risk preferences. Option A describes real-world (physical) probabilities, not risk-neutral ones. Option C is only true in the special case where u \u2212 1 = 1 \u2212 d and r is at the midpoint, which is not generally the case.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain the concept of risk-neutral valuation"
+        },
+        {
+          "id": "dv10-5",
+          "question": "A stock trades at $50. u = 1.20, d = 0.80, r = 5%. A European put has a strike of $48. The put price is closest to:",
+          "options": [
+            "A) $2.86",
+            "B) $3.81",
+            "C) $5.71"
+          ],
+          "correctAnswer": "A",
+          "explanation": "S_u = 50 \u00d7 1.20 = $60; S_d = 50 \u00d7 0.80 = $40. p_u = max(0, 48 \u2212 60) = $0; p_d = max(0, 48 \u2212 40) = $8. \u03c0_u = (1.05 \u2212 0.80)/(1.20 \u2212 0.80) = 0.25/0.40 = 0.625. \u03c0_d = 1 \u2212 0.625 = 0.375. p = (0.625 \u00d7 0 + 0.375 \u00d7 8)/1.05 = 3.00/1.05 = $2.857 \u2248 $2.86. Option B ($3.81) fails to discount at the risk-free rate and miscalculates the expected payoff. Option C ($5.71) uses the wrong risk-neutral probabilities or neglects to discount.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Price a European put option using the one-period binomial model"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the one-period binomial model to someone who understands basic algebra. Walk through how risk-neutral probabilities work and why the real probability of the stock going up is irrelevant for pricing the option."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the binomial model not require knowing the actual probability of an up or down move?",
+        "How does the hedge ratio (delta) change as the option moves further in-the-money?",
+        "How would you extend this one-period model to multiple periods?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas:**\n\n- **Risk-neutral probability:** $\\pi_u = \\frac{(1+r) - d}{u - d}$, $\\pi_d = 1 - \\pi_u$\n- **Option price:** $c = \\frac{\\pi_u c_u + \\pi_d c_d}{1 + r}$ (same for puts)\n- **Hedge ratio:** $\\Delta = \\frac{c_u - c_d}{S_u - S_d}$\n- The replicating portfolio (\u0394 shares + borrowing) gives the same price as risk-neutral valuation\n- Risk-neutral probabilities are **not** real-world probabilities \u2014 they make expected returns equal $r$\n- The option price does **not** depend on the actual probability of up/down moves\n- Delta for calls: 0 \u2264 \u0394 \u2264 1; Delta for puts: \u22121 \u2264 \u0394 \u2264 0"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have now completed the Derivatives content modules. The next step is the **Derivatives Checkpoint**, which will test your understanding across all derivative topics \u2014 from market structure to forward pricing, option valuation, put-call parity, and the binomial model."
+    }
+  ]
+}

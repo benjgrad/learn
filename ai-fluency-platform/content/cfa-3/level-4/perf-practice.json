@@ -1,0 +1,245 @@
+{
+  "meta": {
+    "title": "Performance Evaluation Practice Drill",
+    "description": "15 practice problems covering Performance Evaluation topics for Level III.",
+    "level": "level-4",
+    "slug": "perf-practice",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Performance Measurement"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Performance Evaluation Practice Drill\n\nThese problems cover portfolio performance evaluation, GIPS standards, and investment manager selection. Level III requires you to apply these concepts in realistic institutional contexts, making judgment calls about appropriate methodologies and compliance."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Intermediate)",
+      "problems": [
+        {
+          "id": "perf-p1",
+          "question": "A pension fund evaluates its equity manager using time-weighted return (TWR) and money-weighted return (MWR). The manager received a large cash inflow just before the market declined 10%, then recovered 15% in the second half. The TWR is 3.5%, but the MWR is -1.2%. Which statement best explains the discrepancy?",
+          "options": [
+            "A) The MWR penalizes the manager for poor market timing of cash flows, even though the manager did not control the timing of the inflow",
+            "B) The TWR is incorrect because it ignores the impact of cash flows on actual investor experience",
+            "C) The MWR is always more appropriate for evaluating manager skill than TWR"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The MWR (internal rate of return) is influenced by the size and timing of cash flows. The large inflow before the decline meant more capital was exposed to the loss, reducing the MWR. The TWR removes the impact of external cash flows by geometrically linking subperiod returns, providing a cleaner measure of manager skill. In this case, the manager had no control over the cash flow timing, so TWR is the more appropriate measure of investment decision-making ability. Option B is incorrect because TWR is the standard for evaluating managers precisely because it isolates manager decisions from cash flow timing. Option C reverses the standard: TWR is preferred for manager evaluation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Distinguish between time-weighted and money-weighted returns for manager evaluation"
+        },
+        {
+          "id": "perf-p2",
+          "question": "A GIPS-compliant firm is constructing composites for its equity strategies. The firm manages three large-cap growth mandates with slight differences in client restrictions (one client prohibits tobacco stocks, another has a 5% cash minimum). How should the firm handle composite construction?",
+          "options": [
+            "A) Create a separate composite for each mandate since they have different restrictions",
+            "B) Include all three mandates in the same composite if the restrictions do not meaningfully alter the investment strategy, and disclose the restrictions",
+            "C) Exclude the restricted mandates from all composites since they do not represent the 'pure' strategy"
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS requires that all fee-paying, discretionary portfolios be included in at least one composite. Minor client restrictions (such as excluding a single sector or maintaining a small cash buffer) do not necessarily make a mandate non-representative of the strategy. If the restrictions do not significantly affect the portfolio's risk/return characteristics or the manager's ability to implement the strategy, the mandates should be included in the same composite. The restrictions should be disclosed. Creating separate composites for minor variations (A) would fragment composites unnecessarily. Excluding mandates from all composites (C) violates GIPS requirements.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Apply GIPS composite construction standards to portfolios with client-imposed restrictions"
+        },
+        {
+          "id": "perf-p3",
+          "question": "An investment consultant is selecting a fixed income manager for a corporate pension fund. The consultant evaluates Manager X using the following criteria:\n\n| Criterion | Manager X |\n|-----------|----------|\n| 5-year annualized return | 4.8% (benchmark: 4.2%) |\n| Information ratio | 0.42 |\n| Maximum drawdown | -6.2% (benchmark: -5.8%) |\n| Sharpe ratio | 0.65 (benchmark: 0.55) |\n| Organization: key-person risk | High |\n\nWhich factor should receive the most weight in the selection decision?",
+          "options": [
+            "A) The 60 bps excess return, which demonstrates consistent alpha generation",
+            "B) The high key-person risk, because organizational stability is critical for long-term mandates and a key-person departure could fundamentally change the investment process",
+            "C) The information ratio, because it is the single best measure of manager skill"
+          ],
+          "correctAnswer": "B",
+          "explanation": "While quantitative metrics (excess return, IR, Sharpe ratio) are important, qualitative factors like organizational stability and key-person risk can dominate the selection decision. A manager with high key-person dependency faces the risk that the departure of a single individual invalidates the entire track record and investment process. For a long-term institutional mandate, this represents a fundamental risk to the expected future performance. The consultant should weigh this heavily, potentially as a disqualifying factor. Option A and C focus on backward-looking quantitative measures without addressing whether the performance will persist.",
+          "difficulty": "advanced",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Evaluate qualitative and quantitative factors in investment manager selection"
+        },
+        {
+          "id": "perf-p4",
+          "question": "A portfolio's return for the quarter was 2.8%. The benchmark return was 2.0%. Using the Brinson-Fachler attribution model, the allocation effect is determined to be +0.50% and the selection effect is +0.20%. What is the interaction effect?",
+          "options": [
+            "A) 0.10%",
+            "B) 0.30%",
+            "C) 0.80%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The total active return must equal the sum of the attribution effects:\n\n$$\\text{Active Return} = \\text{Allocation} + \\text{Selection} + \\text{Interaction}$$\n$$2.8\\% - 2.0\\% = 0.50\\% + 0.20\\% + \\text{Interaction}$$\n$$0.80\\% = 0.70\\% + \\text{Interaction}$$\n$$\\text{Interaction} = 0.10\\%$$\n\nThe interaction effect captures the joint impact of being overweight in sectors where the manager also outperforms through stock selection. Option B and C do not correctly solve the identity.",
+          "difficulty": "basic",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Calculate the interaction effect in Brinson attribution"
+        },
+        {
+          "id": "perf-p5",
+          "question": "A GIPS-compliant firm acquires another asset management firm. The acquired firm was not GIPS-compliant. Under GIPS standards, the acquiring firm must:",
+          "options": [
+            "A) Immediately include the acquired firm's historical track records in its GIPS-compliant composites",
+            "B) Disclose the acquisition and, within one year, bring the acquired firm's portfolios into compliance by including them in appropriate composites on a going-forward basis; the acquired firm's historical non-compliant performance cannot be presented as GIPS-compliant",
+            "C) Exclude all acquired portfolios from composites permanently since they were managed by a non-compliant firm"
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS requires that acquired assets be brought into compliance within one year of the acquisition date. Going forward, the acquired portfolios must be included in the appropriate composites. However, the historical (pre-acquisition) track record of the non-compliant firm cannot be presented as GIPS-compliant unless it can be verified to meet GIPS standards. The acquiring firm must disclose the acquisition. Option A incorrectly allows non-compliant historical records to be presented as compliant. Option C is too restrictive -- GIPS requires inclusion, not permanent exclusion.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Apply GIPS standards to firm acquisitions"
+        },
+        {
+          "id": "perf-p6",
+          "question": "A pension fund's board is evaluating whether to terminate a value equity manager who has underperformed the benchmark by 200 bps annually over the past 3 years. The manager's investment process and team are unchanged, and the underperformance coincides with a period of strong growth stock outperformance. Which recommendation is most appropriate?",
+          "options": [
+            "A) Terminate the manager immediately because 3 years of underperformance is sufficient evidence of poor skill",
+            "B) Retain the manager, recognizing that style-driven underperformance is expected periodically for a value manager and that the manager's process and team remain intact; evaluate the manager's performance relative to a value benchmark",
+            "C) Replace the manager with a growth manager to capitalize on the current market trend"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Value managers are expected to underperform during periods of growth stock dominance. The key evaluation question is whether the manager is executing the intended strategy effectively, not whether the style itself is in or out of favor. Since the process and team are unchanged, the underperformance is likely style-driven rather than skill-driven. The manager should be evaluated against a value benchmark (e.g., Russell 1000 Value), not a broad market benchmark. Terminating during style-driven underperformance and switching to the outperforming style (C) is a classic behavioral mistake (performance chasing). Option A applies an arbitrary time threshold without considering the source of underperformance.",
+          "difficulty": "advanced",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Evaluate manager performance in the context of style cycles and distinguish style-driven from skill-driven returns"
+        },
+        {
+          "id": "perf-p7",
+          "question": "An analyst calculates the following risk-adjusted performance measures for Fund Z over a 5-year period:\n\n- Sharpe ratio: 0.72\n- Treynor ratio: 8.5%\n- Jensen's alpha: 1.2% (t-statistic: 1.45)\n- M-squared: 1.8%\n\nBased on these measures, which conclusion is most supported?",
+          "options": [
+            "A) Fund Z demonstrates statistically significant skill based on Jensen's alpha of 1.2%",
+            "B) Fund Z shows positive risk-adjusted performance across all measures, but the alpha is not statistically significant at the 5% level, suggesting the outperformance could be attributable to chance",
+            "C) The M-squared measure contradicts the Jensen's alpha, indicating inconsistent results"
+          ],
+          "correctAnswer": "B",
+          "explanation": "All four risk-adjusted measures are positive, indicating outperformance on a risk-adjusted basis. However, statistical significance is critical for inferring skill. Jensen's alpha has a t-statistic of 1.45, which is below the approximately 2.0 threshold for 5% significance. This means we cannot reject the null hypothesis that alpha equals zero -- the outperformance could be due to chance. Option A ignores the t-statistic. Option C is incorrect because M-squared and alpha measure different things (total risk vs. systematic risk adjustment) and are not expected to give identical values; both being positive is consistent.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Interpret risk-adjusted performance measures and assess statistical significance"
+        },
+        {
+          "id": "perf-p8",
+          "question": "Under GIPS standards, a firm presents a composite that includes portfolios with performance-based fees. The firm's standard fee schedule is 1.0% of AUM. For GIPS-compliant presentation, which approach to fee disclosure is correct?",
+          "options": [
+            "A) Present only gross-of-fee returns since net-of-fee calculations are too complex with performance-based fees",
+            "B) Present both gross-of-fee and net-of-fee returns; net-of-fee returns for portfolios with performance-based fees should reflect the actual performance-based fees charged",
+            "C) Present net-of-fee returns using only the standard 1.0% fee schedule, ignoring the performance-based fee arrangements"
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS requires firms to present both gross-of-fee and net-of-fee returns (or at minimum, firms must present one and may present both, depending on the GIPS edition). When performance-based fees are involved, net-of-fee returns should reflect the actual fees charged (including performance fees), not a model fee. This gives prospective clients an accurate picture of what investors actually experienced. Option A fails to provide net-of-fee information. Option C understates the actual fee impact for portfolios that paid performance-based fees.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Apply GIPS fee disclosure requirements for composites with performance-based fees"
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Advanced)",
+      "problems": [
+        {
+          "id": "perf-p9",
+          "question": "An endowment's investment committee uses returns-based style analysis (RBSA) to evaluate its equity managers. The RBSA for Manager Y over the past 36 months shows:\n\n- Large Value: 45%\n- Large Growth: 25%\n- Small Value: 20%\n- Small Growth: 10%\n- $R^2$: 0.92\n\nThe manager claims to run a pure large-cap value strategy. What is the most appropriate interpretation?",
+          "options": [
+            "A) The manager is misrepresenting the strategy; the committee should immediately terminate the relationship",
+            "B) The RBSA suggests the manager has meaningful exposure to growth and small-cap factors beyond the stated style, warranting a deeper investigation through holdings-based analysis to determine if this reflects intentional diversification, style drift, or data artifacts",
+            "C) The high $R^2$ confirms the manager is running the stated strategy since most of the variation is explained"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The RBSA shows that only 45% of the return variation is attributable to large value, with significant exposure to growth (25%) and small cap (20+30%). For a manager claiming to run a pure large-cap value strategy, this warrants investigation. However, RBSA has limitations: it uses index returns as proxies, is sensitive to the estimation window, and may pick up transient factor exposures. The committee should conduct holdings-based style analysis to verify whether the portfolio actually contains growth or small-cap stocks, or whether the RBSA result reflects statistical artifacts. Option A is premature without further investigation. Option C misinterprets $R^2$; high $R^2$ means the style factors explain total return variation, not that the specific style allocations match the stated mandate.",
+          "difficulty": "advanced",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Interpret returns-based style analysis and identify its limitations"
+        },
+        {
+          "id": "perf-p10",
+          "question": "A plan sponsor is conducting a manager search for an emerging market equity mandate. The search has narrowed to three finalists. The sponsor's consultant recommends a structured scoring process using the following weighted criteria:\n\n| Category | Weight |\n|----------|--------|\n| Investment process & philosophy | 30% |\n| Performance track record (7+ years) | 25% |\n| Organization & team stability | 20% |\n| Risk management | 15% |\n| Fees | 10% |\n\nManager A scores highest on performance but lowest on organizational stability. Manager B scores highest overall but has only 4 years of track record. Manager C scores average across all categories. Which selection approach is most appropriate?",
+          "options": [
+            "A) Select Manager A because performance is the most important predictor of future results",
+            "B) Select Manager B with the caveat that the short track record should be supplemented with analysis of the team's prior experience and simulated or incubated returns, and the mandate should include appropriate monitoring provisions",
+            "C) Select Manager C because consistent average scores indicate lower risk of disappointment"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Manager B scores highest overall on the structured criteria, which reflects the sponsor's stated priorities. The short track record (4 years vs. the ideal 7+) is a concern but can be partially mitigated by analyzing the team's experience at prior firms, examining the investment process in detail, and establishing clear monitoring benchmarks and review periods. Option A overweights a single criterion (performance) despite the consultant's recommended weights, and ignores the organizational stability concern which is a significant risk factor. Option C settles for mediocrity without a strong rationale.",
+          "difficulty": "advanced",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Apply a structured manager selection process and address track record limitations"
+        },
+        {
+          "id": "perf-p11",
+          "question": "A defined benefit plan's total fund returned 8.5% for the year. The policy benchmark returned 7.8%. The plan's investment consultant performs a total fund attribution:\n\n| Source | Contribution |\n|--------|--------------|\n| Strategic asset allocation | +0.0% (by definition, equals benchmark) |\n| Tactical asset allocation | +0.30% |\n| Manager selection (within asset classes) | +0.25% |\n| Interaction/residual | +0.15% |\n| **Total active return** | **+0.70%** |\n\nThe board wants to understand which decisions added the most value. What is the appropriate conclusion?",
+          "options": [
+            "A) Tactical asset allocation was the most valuable decision because it contributed the most active return (+0.30%)",
+            "B) Both tactical asset allocation and manager selection contributed meaningfully, but the board should evaluate the risk taken to generate each source of active return before concluding which was most valuable",
+            "C) The residual/interaction term indicates the attribution model is unreliable"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Raw active return contributions do not tell the full story. The board should consider the risk-adjusted contribution of each decision. If TAA contributed 0.30% with high tracking error (large tactical bets), while manager selection contributed 0.25% with low tracking error (consistent alpha from well-chosen managers), the manager selection may be more valuable on a risk-adjusted basis. The interaction/residual term (C) is a normal artifact of multi-level attribution, not an indication of model failure. Option A looks only at the absolute contribution without considering the risk taken.",
+          "difficulty": "advanced",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Interpret total fund attribution and evaluate active return sources on a risk-adjusted basis"
+        },
+        {
+          "id": "perf-p12",
+          "question": "A GIPS-compliant firm manages a real estate composite. Under GIPS, which valuation requirement applies to the real estate composite?",
+          "options": [
+            "A) Real estate portfolios must be valued monthly using the same methodology as publicly traded securities",
+            "B) Real estate portfolios must be valued at least quarterly, with external valuations required at least once every 12 months for periods beginning on or after January 1, 2012",
+            "C) Real estate portfolios may be valued annually using internal estimates without external appraisals"
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS has specific provisions for real estate and private equity due to the illiquid nature of these assets. For real estate, portfolios must be valued at least quarterly (internally is acceptable for interim periods), but an external valuation (independent appraisal) is required at least once every 12 months. This balances the need for timely reporting with the practical challenges of valuing illiquid assets. Option A applies public market standards inappropriately. Option C understates the frequency and external validation requirements.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Apply GIPS valuation requirements for real estate composites"
+        },
+        {
+          "id": "perf-p13",
+          "question": "An institutional investor uses a peer group comparison to evaluate its domestic equity manager. The manager ranks in the 35th percentile (top 35%) over 3 years and 55th percentile (slightly below median) over 5 years. Which limitation of peer group comparison is most relevant to interpreting these results?",
+          "options": [
+            "A) Peer groups suffer from survivorship bias (poorly performing funds drop out), style inconsistency (the 'peer group' may include different strategies), and shifting composition over time, making rankings unreliable indicators of relative skill",
+            "B) Peer group comparisons are always superior to benchmark comparisons because they measure relative skill",
+            "C) The decline from 35th to 55th percentile definitively proves the manager's skill is deteriorating"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Peer group comparisons have well-documented limitations: (1) Survivorship bias removes poor performers, inflating the average and making a given ranking harder to achieve over time. (2) Peer groups are often self-selected and may include managers with different styles, benchmarks, or risk profiles. (3) The composition changes over time, making comparison across periods unreliable. The ranking change from 35th to 55th could reflect these artifacts rather than true skill deterioration. Option B ignores these limitations. Option C draws a conclusion not supported by the data given the peer group's limitations.",
+          "difficulty": "advanced",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Identify the limitations of peer group comparisons in manager evaluation"
+        },
+        {
+          "id": "perf-p14",
+          "question": "A fixed income portfolio manager's performance is being evaluated using fixed income attribution. The attribution shows:\n\n- Income return: +0.15% vs. benchmark\n- Treasury (interest rate) effect: -0.20%\n- Spread effect: +0.45%\n- Currency effect: +0.10%\n- Selection effect: +0.05%\n- Total excess return: +0.55%\n\nWhich skill does the manager demonstrate most clearly?",
+          "options": [
+            "A) Interest rate anticipation, based on the Treasury effect",
+            "B) Credit analysis and spread positioning, which contributed the most to excess return",
+            "C) Currency management, because the currency effect was positive"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The spread effect (+0.45%) is by far the largest contributor to excess return, indicating that the manager added the most value through credit analysis and spread positioning (overweighting sectors or issuers that experienced spread tightening). The Treasury effect (-0.20%) actually detracted from performance, meaning the manager's interest rate positioning was incorrect (A is wrong). The currency effect (+0.10%) was positive but small relative to the spread contribution. This type of attribution helps plan sponsors understand which skills they are paying for.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Interpret fixed income performance attribution to identify manager skill"
+        },
+        {
+          "id": "perf-p15",
+          "question": "A plan sponsor is drafting the investment manager agreement (IMA) for a new equity mandate. Which provision is most critical for enabling effective ongoing performance evaluation?",
+          "options": [
+            "A) A fee schedule with performance-based compensation to align interests",
+            "B) Clear specification of the investment benchmark, allowable deviations (tracking error limits, sector/position limits), and reporting requirements including holdings-level transparency",
+            "C) A termination clause allowing the sponsor to end the relationship at any time without cause"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Effective performance evaluation requires a well-defined benchmark, clear investment guidelines, and transparency. Without these provisions in the IMA, the sponsor cannot determine whether the manager is executing the intended strategy, taking appropriate levels of risk, or generating genuine alpha. Holdings-level transparency enables both returns-based and holdings-based attribution. Option A addresses incentive alignment but does not enable evaluation. Option C is a governance provision but does not facilitate the evaluation process itself.",
+          "difficulty": "basic",
+          "cfaTopic": "Performance Measurement",
+          "learningOutcome": "Identify the critical provisions in an investment manager agreement for performance evaluation"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** Focus on areas where you scored below 70%. Key Level III performance evaluation themes include: TWR vs. MWR for manager evaluation, GIPS composite construction and valuation, risk-adjusted performance interpretation, style analysis, and structured manager selection processes."
+    }
+  ]
+}

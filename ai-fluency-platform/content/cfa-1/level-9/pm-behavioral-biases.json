@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "PM.5: The Behavioral Biases of Individuals",
+    "description": "Describe cognitive errors and emotional biases that affect investment decision-making.",
+    "level": "level-9",
+    "slug": "pm-behavioral-biases",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You bought a stock at $50 and it has fallen to $30. A purely rational analysis says the stock is now worth $25. Would you sell? Most people wouldn't \u2014 why not?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Cognitive Errors vs. Emotional Biases\n\nBehavioral finance recognizes that investors are not perfectly rational. Their decisions are systematically distorted by **biases** that fall into two categories:\n\n**Cognitive errors** stem from faulty reasoning or information processing. They can often be corrected through education and better decision frameworks.\n\n**Emotional biases** stem from feelings, impulses, or intuition. They are harder to correct because they are rooted in psychology rather than logic. The best approach is often to **accommodate** emotional biases rather than attempt to eliminate them.\n\n| Category | Cause | Correctable? | Approach |\n|---|---|---|---|\n| Cognitive errors | Faulty reasoning | Yes, with education | Correct (adapt the process) |\n| Emotional biases | Feelings and impulses | Difficult | Accommodate (adapt the portfolio) |\n\n### Key Cognitive Errors\n\n- **Conservatism:** Slow to update beliefs when presented with new evidence\n- **Confirmation bias:** Seeking only information that confirms existing beliefs\n- **Anchoring:** Over-relying on an initial piece of information (e.g., purchase price)\n- **Overconfidence:** Overestimating one's ability to predict outcomes\n- **Representativeness:** Judging probabilities based on how similar something looks to a pattern\n- **Availability bias:** Overweighting information that is easily recalled (recent, dramatic)\n- **Mental accounting:** Treating money differently based on arbitrary categories\n- **Framing:** Making different decisions based on how a problem is presented\n- **Hindsight bias:** Believing past events were predictable after they occurred"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An investor refuses to sell a losing stock because 'it will come back to my purchase price.' Which bias or biases are most likely at work?",
+      "answer": "Multiple biases are operating simultaneously. Anchoring: the investor is fixated on the purchase price as a reference point, even though it is irrelevant to the stock's future prospects. Loss aversion (emotional): the pain of realizing a loss exceeds the pleasure of an equivalent gain, so the investor avoids selling. Disposition effect: the tendency to sell winners too early and hold losers too long. The rational approach is to evaluate the stock's current value and prospects regardless of what was paid for it."
+    },
+    {
+      "type": "markdown",
+      "content": "## Emotional Biases\n\n- **Loss aversion:** The pain of a $1 loss feels roughly **twice as intense** as the pleasure of a $1 gain. This leads investors to hold losing positions too long and sell winning positions too early (the **disposition effect**)\n- **Overconfidence (emotional):** Excessive conviction in one's judgments, leading to concentrated portfolios and excessive trading\n- **Self-control bias:** Inability to delay gratification, leading to insufficient saving and excessive consumption\n- **Status quo bias:** Preference for the current state \u2014 investors fail to rebalance or make needed changes\n- **Endowment bias:** Overvaluing assets already owned, leading to reluctance to sell inherited stocks or reallocate\n- **Regret aversion:** Fear of making a decision that turns out wrong, leading to inaction (errors of omission) or herding with the crowd\n\n### Implications for Investment Decisions and the IPS\n\nBiases affect every stage of portfolio management:\n\n| Bias | Impact on Investing |\n|---|---|\n| Overconfidence | Excessive trading, concentrated portfolios, underestimating risk |\n| Loss aversion | Holding losers, selling winners prematurely |\n| Anchoring | Failure to update price targets or valuations |\n| Framing | Asset allocation influenced by how options are presented |\n| Status quo | Failure to rebalance; inertia in outdated allocations |\n| Mental accounting | Creating multiple \"buckets\" instead of managing a unified portfolio |\n\nAn effective IPS helps mitigate biases by providing a **pre-committed, objective framework** for decision-making. When emotions tempt deviation, the IPS serves as an anchor to rational behavior."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "For each scenario, identify the primary behavioral bias and classify it as cognitive or emotional: (1) An investor checks only bullish analyst reports after buying a stock. (2) An investor keeps a 'play money' account separate from their retirement savings and takes excessive risk with it. (3) An investor assumes a fund manager who outperformed for 3 years is skilled rather than lucky.",
+      "solution": "**(1) Confirmation bias (cognitive).** The investor selectively seeks information that supports their existing position, ignoring disconfirming evidence. This can be corrected by deliberately seeking opposing viewpoints.\n\n**(2) Mental accounting (cognitive).** The investor treats money in different accounts as if it has different value. Risk should be managed at the total portfolio level. The 'play money' is still real wealth \u2014 losses in one account reduce total net worth regardless of the label.\n\n**(3) Representativeness bias (cognitive).** The investor judges the probability of skill based on a small, recent sample that 'looks like' what a skilled manager would produce. Three years of outperformance can easily occur by chance. Proper evaluation requires longer time periods and statistical significance testing."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Behavioral Biases Practice Problems",
+      "problems": [
+        {
+          "id": "pm5-1",
+          "question": "An investor who inherited shares of a company refuses to sell them despite poor fundamentals, stating 'these were my father's shares.' This behavior is most consistent with:",
+          "options": [
+            "A) conservatism bias",
+            "B) endowment bias",
+            "C) availability bias"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Endowment bias causes investors to overvalue assets they already own, particularly those with emotional significance. The investor assigns extra value to the inherited shares beyond their market fundamentals. Option A (conservatism) involves slow updating of beliefs, not attachment to owned assets. Option C (availability) involves overweighting easily recalled information, not emotional attachment to possessions.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify and classify behavioral biases"
+        },
+        {
+          "id": "pm5-2",
+          "question": "A portfolio manager consistently overestimates the precision of her forecasts and trades more frequently than her peers. Her portfolio is heavily concentrated in 5 stocks. These behaviors are most consistent with:",
+          "options": [
+            "A) overconfidence bias",
+            "B) regret aversion",
+            "C) status quo bias"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Overconfidence leads to three observable behaviors: overestimating the precision of forecasts (too-narrow confidence intervals), excessive trading (believing you have better information), and concentrated portfolios (high conviction in a few positions). Option B (regret aversion) leads to inaction and herding, not concentration and excessive trading. Option C (status quo) leads to inertia, the opposite of frequent trading.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe the effects of behavioral biases on investment decisions"
+        },
+        {
+          "id": "pm5-3",
+          "question": "A financial advisor determines that a client's primary biases are loss aversion and status quo bias (both emotional). The most appropriate approach is to:",
+          "options": [
+            "A) educate the client to eliminate these biases through rational analysis",
+            "B) accommodate the biases by making gradual portfolio changes and framing recommendations in terms of potential gains",
+            "C) ignore the biases and construct the theoretically optimal portfolio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Emotional biases are deeply rooted in psychology and are resistant to education alone. The recommended approach is to accommodate them \u2014 in this case, by making changes incrementally (respecting status quo bias) and framing trade-offs in terms of gains rather than losses (working around loss aversion). Option A is more appropriate for cognitive errors, which respond better to education. Option C ignores the client's psychology, risking panic selling or non-compliance during market stress.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe approaches to mitigate behavioral biases"
+        },
+        {
+          "id": "pm5-4",
+          "question": "After a market crash, an investor states: 'I knew the market was overvalued \u2014 I should have sold everything.' This statement most likely reflects:",
+          "options": [
+            "A) framing bias",
+            "B) hindsight bias",
+            "C) self-control bias"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Hindsight bias is the tendency to believe, after the fact, that an outcome was predictable. The investor reconstructs their memory to believe they 'knew' the crash was coming, even though they did not act on that belief at the time. Option A (framing) relates to how choices are presented affecting decisions. Option C (self-control) relates to inability to delay gratification and has no connection to post-event rationalization.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify cognitive errors in investment behavior"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between cognitive errors and emotional biases to a colleague. Give one example of each and describe why the recommended approach for dealing with them differs."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which behavioral biases do you think you are most susceptible to in your own financial decisions?",
+        "How does an IPS serve as a defense against behavioral biases?",
+        "Why might a portfolio manager's overconfidence be particularly dangerous compared to other biases?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Cognitive errors** (faulty reasoning): conservatism, confirmation, anchoring, overconfidence, representativeness, availability, mental accounting, framing, hindsight \u2014 **correctable** through education\n- **Emotional biases** (feelings): loss aversion, overconfidence, self-control, status quo, endowment, regret aversion \u2014 **accommodate** rather than correct\n- Loss aversion: losses hurt ~2x as much as equivalent gains feel good\n- Overconfidence \u2192 excessive trading, concentrated portfolios\n- Mental accounting \u2192 suboptimal total portfolio management\n- The IPS provides a pre-committed framework to counteract biases\n- Key distinction: correct cognitive errors, accommodate emotional biases"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Introduction to Risk Management**, which moves from individual investor psychology to a systematic, enterprise-level view of risk. You will learn about risk governance, VaR, stress testing, and how organizations measure and manage risk across their entire operations \u2014 building on your understanding of risk tolerance from the IPS and the behavioral challenges that complicate risk decisions."
+    }
+  ]
+}

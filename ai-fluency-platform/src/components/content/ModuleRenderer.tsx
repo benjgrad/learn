@@ -11,6 +11,7 @@ import { ConnectPrompt } from "@/components/learning/ConnectPrompt";
 import { KeyTakeaway } from "@/components/learning/KeyTakeaway";
 import { ProviderContent } from "@/components/learning/ProviderContent";
 import { ProviderToggle } from "@/components/learning/ProviderToggle";
+import { PracticeSet } from "@/components/learning/PracticeSet";
 import { ModuleChat } from "@/components/learning/ModuleChat";
 import { ProgressBar } from "@/components/progress/ProgressBar";
 import { ModuleComplete } from "@/components/progress/ModuleComplete";
@@ -18,6 +19,8 @@ import { useProgress } from "@/lib/store/use-progress";
 import { celebrateInteraction, celebrateModule } from "@/lib/celebrations";
 import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const markdownComponents: Components = {
   table: ({ children, ...props }) => (
@@ -33,6 +36,7 @@ interface ModuleRendererProps {
   levelTitle: string;
   levelColor: string;
   nextModule: ModuleMeta | null;
+  course?: string;
 }
 
 export function ModuleRenderer({
@@ -41,8 +45,9 @@ export function ModuleRenderer({
   levelTitle,
   levelColor,
   nextModule,
+  course,
 }: ModuleRendererProps) {
-  const modulePath = `${meta.level}/${meta.slug}`;
+  const modulePath = `${course}/${meta.level}/${meta.slug}`;
   const {
     completedCount,
     moduleComplete,
@@ -60,7 +65,8 @@ export function ModuleRenderer({
         b.type === "explainBack" ||
         b.type === "tryItYourself" ||
         b.type === "calibrationCheck" ||
-        b.type === "reflectPrompt"
+        b.type === "reflectPrompt" ||
+        b.type === "practiceSet"
     ).length
   );
 
@@ -100,7 +106,11 @@ export function ModuleRenderer({
             case "markdown":
               return (
                 <div key={i}>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm, remarkMath]}
+                    rehypePlugins={[rehypeKatex]}
+                    components={markdownComponents}
+                  >
                     {block.content}
                   </ReactMarkdown>
                 </div>
@@ -193,6 +203,21 @@ export function ModuleRenderer({
               );
             }
 
+            case "practiceSet": {
+              const key = `practiceSet-${interactionIndex++}`;
+              return (
+                <PracticeSet
+                  key={i}
+                  title={block.title}
+                  vignette={block.vignette}
+                  problems={block.problems}
+                  interactionKey={key}
+                  onComplete={handleInteractionComplete}
+                  isComplete={isInteractionComplete(key)}
+                />
+              );
+            }
+
             case "connectPrompt":
               return <ConnectPrompt key={i} prompt={block.prompt} />;
 
@@ -220,11 +245,16 @@ export function ModuleRenderer({
           isComplete={moduleComplete}
           onMarkComplete={handleModuleComplete}
           nextModule={nextModule}
+          course={course}
         />
       )}
 
       {/* Floating chat */}
-      <ModuleChat moduleTitle={meta.title} levelTitle={levelTitle} />
+      <ModuleChat
+        moduleTitle={meta.title}
+        levelTitle={levelTitle}
+        courseName={course}
+      />
     </div>
   );
 }

@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "FSA.2: Employee Compensation",
+    "description": "Analyze defined benefit pensions, defined contribution plans, and share-based compensation including stock options and RSUs, with IFRS vs GAAP differences.",
+    "level": "level-3",
+    "slug": "fsa-employee-compensation",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company has a defined benefit pension plan with $1 billion in plan assets and $1.3 billion in projected benefit obligations. How does this $300 million gap appear on the balance sheet, and does a decline in interest rates make the situation better or worse?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Defined Benefit Pension Plans\n\nIn a defined benefit (DB) plan, the employer promises a specific retirement benefit calculated by a formula (typically based on years of service and final salary). The employer bears the **investment risk** and the **longevity risk**.\n\n### Key Components\n\n**Projected Benefit Obligation (PBO)** \u2014 the present value of all future pension benefits earned to date, using expected future salary levels:\n\n$$\\text{PBO}_{\\text{end}} = \\text{PBO}_{\\text{begin}} + \\text{Service cost} + \\text{Interest cost} \\pm \\text{Actuarial gains/losses} + \\text{Past service cost} - \\text{Benefits paid}$$\n\n**Plan Assets** \u2014 assets set aside to fund the pension promise:\n\n$$\\text{Plan Assets}_{\\text{end}} = \\text{Plan Assets}_{\\text{begin}} + \\text{Actual return} + \\text{Employer contributions} - \\text{Benefits paid}$$\n\n**Funded Status** = Plan Assets \u2212 PBO\n- **Overfunded**: Plan Assets > PBO \u2192 net pension asset on balance sheet\n- **Underfunded**: Plan Assets < PBO \u2192 net pension liability on balance sheet"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If the discount rate used to calculate the PBO decreases from 5% to 4%, what happens to the funded status of a defined benefit plan, assuming plan assets remain unchanged?",
+      "answer": "The funded status deteriorates (becomes more underfunded). A lower discount rate increases the present value of future benefit obligations (PBO rises) because the same future cash flows are discounted at a lower rate. If plan assets are unchanged, the gap widens. This is a key risk \u2014 falling interest rates can significantly worsen pension funded status, creating hidden leverage on the balance sheet."
+    },
+    {
+      "type": "markdown",
+      "content": "## Pension Expense Components\n\n### Income Statement Impact\n\n| Component | Classification | Description |\n|---|---|---|\n| **Service cost** | Operating expense | PV of benefits earned by employees during the period |\n| **Net interest expense/income** | Below operating (usually) | Discount rate \u00d7 net pension liability (or asset) |\n| **Past service cost** | Depends on GAAP/IFRS | Cost of retroactive benefit changes |\n\n### OCI Components (not in P&L)\n\n| Component | Treatment |\n|---|---|\n| **Actuarial gains/losses** | Changes in PBO from assumption changes (discount rate, mortality, etc.) |\n| **Return differences** | Actual return on plan assets minus expected return |\n\n### IFRS vs GAAP Key Differences\n\n| Item | IFRS (IAS 19R) | US GAAP (ASC 715) |\n|---|---|---|\n| Pension expense in P&L | Service cost + net interest on net liability | Service cost + interest cost \u2212 expected return + amortization of prior items |\n| Expected return on assets | Uses the **same discount rate** applied to PBO | Can use a **different expected rate** of return |\n| Actuarial gains/losses | Recognized immediately in **OCI** (no recycling) | Recognized in OCI; amortized to P&L using **corridor approach** |\n| Remeasurement recycling | **Never** recycled to P&L | **Recycled** via corridor amortization |\n\nThe GAAP approach using a separate expected return on assets can allow companies to **smooth** pension expense and potentially **inflate operating income** by assuming high expected returns."
+    },
+    {
+      "type": "markdown",
+      "content": "## Share-Based Compensation\n\n### Stock Options\n\nEmployee stock options give the right to purchase shares at a fixed **exercise price** after a **vesting period**.\n\n**Accounting treatment:**\n- Fair value estimated at **grant date** (using Black-Scholes or binomial model)\n- Compensation expense recognized over the **vesting period**\n- Classified as **equity** if settled in shares (typical)\n\n$$\\text{Annual expense} = \\frac{\\text{Fair value at grant date} \\times \\text{Number of options}}{\\text{Vesting period}}$$\n\n### Restricted Stock Units (RSUs)\n\nRSUs entitle the employee to shares after a vesting period, with no exercise price.\n\n- Fair value = stock price at grant date (simpler than options)\n- Expense recognized over vesting period\n- Performance-based RSUs may require probability-weighted vesting estimates\n\n### Analytical Considerations\n\n- Share-based compensation is a **real economic cost** despite being non-cash\n- Some companies add back stock-based compensation to calculate \"adjusted\" earnings \u2014 analysts should be skeptical\n- Dilutive effect: options and RSUs increase share count, reducing EPS\n- Treasury stock method used for diluted EPS calculation"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Pension Funded Status Calculation",
+      "solution": "Given the following data for XYZ Corp's defined benefit plan:\n\n- PBO at start of year: $800M\n- Plan assets at start of year: $700M\n- Service cost: $35M\n- Discount rate: 5%\n- Actual return on plan assets: $56M (8%)\n- Employer contributions: $40M\n- Benefits paid: $30M\n\nStep 1: Calculate ending PBO\nPBO_end = $800 + $35 (service cost) + $40 (interest = 5% \u00d7 $800) \u2212 $30 (benefits paid) = $845M\n\nStep 2: Calculate ending plan assets\nAssets_end = $700 + $56 (actual return) + $40 (contributions) \u2212 $30 (benefits paid) = $766M\n\nStep 3: Funded status\n$766M \u2212 $845M = \u2212$79M (underfunded)\n\nBalance sheet: Net pension liability of $79M\n\nUnder IFRS: Net interest = 5% \u00d7 ($800 \u2212 $700) = $5M expense. Total P&L pension cost = $35 + $5 = $40M.\nRemeasurement in OCI = Actual return ($56M) \u2212 Expected return (5% \u00d7 $700 = $35M) = $21M gain in OCI."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Employee Compensation Practice",
+      "problems": [
+        {
+          "id": "fsa-ec-1",
+          "vignette": "Analyst Rachel Kim is evaluating GlobalTech Inc., which has a significant defined benefit pension plan. She extracts the following information:\n\n| Item | Amount |\n|---|---|\n| PBO, beginning of year | $2,400M |\n| Plan assets, beginning of year | $2,100M |\n| Service cost | $85M |\n| Discount rate | 4.5% |\n| Expected return on plan assets (GAAP) | 7.0% |\n| Actual return on plan assets | $126M |\n| Employer contributions | $90M |\n| Benefits paid | $75M |\n| Actuarial loss (from assumption changes) | $50M |\n\nKim notes that GlobalTech reports under US GAAP.",
+          "question": "The total pension expense recognized in GlobalTech's income statement under US GAAP is closest to:",
+          "options": [
+            "A) $46M",
+            "B) $76M",
+            "C) $126M"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under US GAAP: Pension expense = Service cost + Interest cost \u2212 Expected return on plan assets = $85M + (4.5% \u00d7 $2,400M) \u2212 (7.0% \u00d7 $2,100M) = $85M + $108M \u2212 $147M = $46M. Key insight: GAAP allows the use of an expected return ($147M) that exceeds the actual return ($126M), effectively reducing reported pension expense. The $21M difference (expected minus actual return) goes to OCI. The actuarial loss ($50M) also goes to OCI under GAAP, not P&L (unless the corridor threshold is breached). Option B might result from using the actual return instead of expected. Option C confuses the actual return on plan assets with pension expense.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate pension expense under US GAAP"
+        },
+        {
+          "id": "fsa-ec-2",
+          "vignette": "Analyst Rachel Kim is evaluating GlobalTech Inc., which has a significant defined benefit pension plan. She extracts the following information:\n\n| Item | Amount |\n|---|---|\n| PBO, beginning of year | $2,400M |\n| Plan assets, beginning of year | $2,100M |\n| Service cost | $85M |\n| Discount rate | 4.5% |\n| Actual return on plan assets | $126M |\n| Employer contributions | $90M |\n| Benefits paid | $75M |\n| Actuarial loss (from assumption changes) | $50M |\n\nKim wants to understand how the funded status changed during the year.",
+          "question": "The funded status of GlobalTech's pension plan at year-end is closest to:",
+          "options": [
+            "A) \u2212$327M",
+            "B) \u2212$300M",
+            "C) \u2212$252M"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Ending PBO = $2,400 + $85 (service cost) + $108 (interest: 4.5% \u00d7 $2,400) + $50 (actuarial loss) \u2212 $75 (benefits paid) = $2,568M.\n\nEnding plan assets = $2,100 + $126 (actual return) + $90 (contributions) \u2212 $75 (benefits paid) = $2,241M.\n\nFunded status = $2,241 \u2212 $2,568 = \u2212$327M. The funded status worsened from the beginning gap of \u2212$300M despite $90M in employer contributions, primarily because the actuarial loss ($50M) and interest cost ($108M) added more to the PBO than the actual return ($126M) and contributions ($90M) added to plan assets. Option B is the beginning funded status, ignoring all current-year changes. Option C underestimates the deterioration.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate the funded status of a defined benefit pension plan"
+        },
+        {
+          "id": "fsa-ec-3",
+          "vignette": "Chen Wei, CFA, is comparing two technology companies:\n\n| Metric | TechAlpha | TechBeta |\n|---|---|---|\n| Revenue | $5,000M | $5,200M |\n| Reported operating income | $1,200M | $1,100M |\n| Stock-based compensation (SBC) | $150M | $650M |\n| SBC as % of revenue | 3.0% | 12.5% |\n| Diluted share count increase from SBC | 2% | 8% |\n\nTechBeta's management presents 'adjusted operating income' of $1,750M, which adds back all stock-based compensation.",
+          "question": "When comparing the two companies' profitability, Wei should most likely:",
+          "options": [
+            "A) Use TechBeta's adjusted operating income of $1,750M since SBC is a non-cash expense",
+            "B) Use reported operating income for both companies, recognizing that SBC at 12.5% of revenue represents a significant and recurring economic cost for TechBeta",
+            "C) Ignore SBC entirely since it does not affect cash flow"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Stock-based compensation is a real economic cost \u2014 it represents value transferred from existing shareholders to employees. Although non-cash, it causes dilution and reflects the true cost of compensating employees. TechBeta's SBC at 12.5% of revenue is exceptionally high and recurring, making the 'adjusted' figure misleading. The 8% dilutive share increase further demonstrates the economic cost. Option A ignores that SBC is a real cost that substitutes for cash compensation. Option C is wrong because SBC does affect shareholders through dilution, even if it doesn't appear on the cash flow statement as a direct outflow.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Evaluate the impact of share-based compensation on financial analysis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague why a company's pension plan can be a source of hidden risk. Cover how falling interest rates affect the PBO, why the GAAP expected return assumption can be misleading, and how an underfunded pension is similar to hidden debt."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How would you adjust your analysis of a company whose pension plan uses an aggressively high expected return assumption?",
+        "Why should analysts be skeptical of companies that add back stock-based compensation when reporting 'adjusted' earnings?",
+        "How does the IFRS approach to pension accounting differ from GAAP, and which provides more useful information to analysts?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Funded status = Plan Assets \u2212 PBO (reported on balance sheet)\n- Lower discount rates increase PBO \u2192 worsened funded status\n- **GAAP** allows separate expected return on assets (can inflate income)\n- **IFRS** uses discount rate for both \u2192 net interest approach (more conservative)\n- Actuarial gains/losses go to OCI; GAAP amortizes to P&L, IFRS does not recycle\n- Stock-based compensation is a **real economic cost** despite being non-cash\n- SBC expense = fair value at grant date / vesting period\n- Always evaluate SBC as % of revenue and dilutive share impact"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Multinational Operations**, where you'll learn how companies with foreign subsidiaries translate financial statements \u2014 including how currency fluctuations create translation adjustments that flow through OCI, similar to pension remeasurements."
+    }
+  ]
+}

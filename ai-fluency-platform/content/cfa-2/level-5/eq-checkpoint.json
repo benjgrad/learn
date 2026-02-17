@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "Equity Investments Checkpoint",
+    "description": "Test your integrated understanding of equity valuation models \u2014 DDM, FCF, market multiples, residual income, and private company valuation.",
+    "level": "level-5",
+    "slug": "eq-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Equity Investments \u2014 Checkpoint Assessment\n\nThis checkpoint tests your ability to apply and compare equity valuation approaches across different company types. You should be able to:\n\n- Select the appropriate valuation model for a given company\n- Calculate intrinsic value using DDM, FCF, market multiples, and residual income\n- Interpret PVGO, justified multiples, and sum-of-the-parts analysis\n- Apply private company valuation adjustments (DLOM, DLOC, normalization)\n- Evaluate sensitivity of valuations to key assumptions"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Equity Investments \u2014 Checkpoint Problems",
+      "problems": [
+        {
+          "id": "eq-cp-1",
+          "vignette": "Emily Carter, CFA, manages a diversified equity portfolio and is evaluating three potential additions:\n\n**Company A \u2014 Pacific Power (regulated utility)**\n- Stable dividend of $4.50 per share, expected to grow at 3% forever\n- ROE = 10%, Payout ratio = 70%, Beta = 0.5\n- Cost of equity (CAPM) = 7.5%, Current price = $100\n\n**Company B \u2014 CloudVista (high-growth SaaS)**\n- No dividends, reinvests all earnings\n- FCFE per share = $2.80, expected to grow 18% for 5 years, then 5%\n- Cost of equity = 14%, Current price = $65\n\n**Company C \u2014 Heritage Bank**\n- Book value per share = $42, ROE = 13%, Cost of equity = 10%\n- Expected growth = 4%, Payout = 40%\n- Current price = $58",
+          "question": "The most appropriate primary valuation model for each company is:",
+          "options": [
+            "A) Pacific Power: DDM; CloudVista: FCFE; Heritage Bank: Residual Income",
+            "B) Pacific Power: FCFF; CloudVista: P/S; Heritage Bank: DDM",
+            "C) Pacific Power: Residual Income; CloudVista: DDM; Heritage Bank: FCFE"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Pacific Power is a stable utility with a predictable dividend \u2014 the Gordon Growth DDM is ideal. CloudVista pays no dividends and is high-growth \u2014 FCFE captures the cash flow generation that dividends miss. Heritage Bank is a financial institution where free cash flow is hard to define but book value and ROE are well-measured \u2014 residual income is the standard approach for banks. Option B assigns FCFF to a utility (unnecessary complexity for a stable dividend payer) and P/S to a profitable SaaS company. Option C assigns DDM to a non-dividend-paying company (inappropriate) and FCFE to a bank (problematic).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Select appropriate valuation models for different company types"
+        },
+        {
+          "id": "eq-cp-2",
+          "vignette": "Emily Carter, CFA, manages a diversified equity portfolio and is evaluating three potential additions:\n\n**Company A \u2014 Pacific Power (regulated utility)**\n- Stable dividend of $4.50 per share, expected to grow at 3% forever\n- ROE = 10%, Payout ratio = 70%, Beta = 0.5\n- Cost of equity (CAPM) = 7.5%, Current price = $100\n\n**Company B \u2014 CloudVista (high-growth SaaS)**\n- No dividends, reinvests all earnings\n- FCFE per share = $2.80, expected to grow 18% for 5 years, then 5%\n- Cost of equity = 14%, Current price = $65\n\n**Company C \u2014 Heritage Bank**\n- Book value per share = $42, ROE = 13%, Cost of equity = 10%\n- Expected growth = 4%, Payout = 40%\n- Current price = $58",
+          "question": "Using the Gordon Growth Model, Pacific Power's intrinsic value and investment conclusion are:",
+          "options": [
+            "A) $103.00 \u2014 undervalued",
+            "B) $103.00 \u2014 overvalued",
+            "C) $96.00 \u2014 overvalued"
+          ],
+          "correctAnswer": "A",
+          "explanation": "V\u2080 = D\u2081/(r-g) = $4.50 \u00d7 1.03/(0.075 - 0.03) = $4.635/0.045 = $103.00. Since V\u2080 ($103) > P\u2080 ($100), the stock appears undervalued by $3 (about 3%). Option B has the correct value but the wrong conclusion \u2014 $103 > $100 means undervalued. Option C uses an incorrect value. Cross-check: Sustainable g = (1-0.70) \u00d7 0.10 = 3.0%, consistent with the given 3% growth rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate intrinsic value using the Gordon Growth Model"
+        },
+        {
+          "id": "eq-cp-3",
+          "vignette": "Emily Carter, CFA, manages a diversified equity portfolio and is evaluating three potential additions:\n\n**Company C \u2014 Heritage Bank**\n- Book value per share = $42, ROE = 13%, Cost of equity = 10%\n- Expected growth = 4%, Payout = 40%\n- Current price = $58\n\nCarter uses the single-stage residual income model for Heritage Bank.",
+          "question": "Heritage Bank's intrinsic value using the single-stage RI model is closest to:",
+          "options": [
+            "A) $53.00",
+            "B) $63.00",
+            "C) $71.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "RI\u2081 = (ROE - r_e) \u00d7 B\u2080 = (0.13 - 0.10) \u00d7 $42 = $1.26\n\nV\u2080 = B\u2080 + RI\u2081/(r_e - g) = $42 + $1.26/(0.10 - 0.04) = $42 + $1.26/0.06 = $42 + $21 = $63.00\n\nSince V\u2080 ($63) > P\u2080 ($58), Heritage Bank appears undervalued by about 8.6%. Option A ($53) understates value. Option C ($71) appears to use a lower discount rate or higher ROE. The justified P/B = $63/$42 = 1.50x, confirming the bank creates value above its cost of equity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate intrinsic value using the residual income model"
+        },
+        {
+          "id": "eq-cp-4",
+          "vignette": "Carter's colleague is valuing a private equity target, Artisan Brands, using the following data:\n\n| Item | Value |\n|---|---|\n| Normalized EBITDA | $12 million |\n| Comparable public EV/EBITDA | 9.0x |\n| Debt | $25 million |\n| Cash | $5 million |\n| Control premium estimate | 20% |\n| DLOM (minority interest) | 25% |\n\nThe private equity fund is purchasing a 100% controlling interest.",
+          "question": "The equity value of the 100% controlling interest in Artisan Brands is closest to:",
+          "options": [
+            "A) $60 million",
+            "B) $83 million",
+            "C) $88 million"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Step 1: Enterprise value from comparables = $12M \u00d7 9.0 = $108M\n\nStep 2: Equity value (marketable, minority basis from public comps) = $108M - $25M + $5M = $88M\n\nStep 3: For a 100% controlling interest, we add a control premium. However, some argue that public company multiples already reflect minority value, so a control premium should be added: $88M \u00d7 (1 + 0.20) = $105.6M. \n\nBut wait \u2014 for a controlling, marketable interest, DLOM typically doesn't apply (the buyer has control to force liquidity). The answer depends on interpretation. If public multiples reflect minority value: $88M \u00d7 1.20 = $105.6M. If public multiples already reflect some control elements, the equity value without adjustments is $88M.\n\nOption C ($88M) represents the equity value before control/discount adjustments, derived directly from the public comparable method. For a 100% acquisition where the buyer IS the control party, the $88M base EV-derived equity is the closest answer. DLOM doesn't apply to a controlling interest that is being acquired for cash.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Value a private company controlling interest using the market approach"
+        },
+        {
+          "id": "eq-cp-5",
+          "vignette": "Carter prepares a summary comparing her valuations across all three public companies:\n\n| Stock | Model | Intrinsic Value | Market Price | Implied Return |\n|---|---|---|---|---|\n| Pacific Power | DDM | $103 | $100 | 10.5% |\n| CloudVista | FCFE | $72 | $65 | 24.8% |\n| Heritage Bank | RI | $63 | $58 | 18.6% |\n\nCarter notes that CloudVista has the highest implied return but also the greatest model risk due to sensitivity to the terminal growth rate assumption.",
+          "question": "Carter's concern about model risk in CloudVista's valuation is most justified because:",
+          "options": [
+            "A) the FCFE model is inherently less reliable than DDM or residual income models",
+            "B) CloudVista's high-growth phase makes the terminal value a larger proportion of total value, amplifying the impact of the terminal growth assumption",
+            "C) CloudVista's lack of dividends means there is no cash flow to discount"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In a multi-stage FCFE model for a high-growth company, the terminal value (calculated at the end of the high-growth phase) typically represents 80\u201390% of total present value. Small changes in the terminal growth rate (e.g., 5% vs 6%) cause disproportionately large changes in the terminal value, which dominates the valuation. This is amplified by the high cost of equity denominator. Option A is incorrect \u2014 the FCFE model isn't inherently less reliable; the issue is the specific company characteristics. Option C is incorrect \u2014 FCFE (free cash flow to equity) is the cash flow being discounted, not dividends; the company generates positive FCFE even without paying dividends.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Evaluate model risk and sensitivity in equity valuation"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "EQ.6: Private Company Valuation",
+    "description": "Apply income, market, and asset-based approaches to private companies, and understand discounts for lack of marketability, control premiums, and earnouts.",
+    "level": "level-5",
+    "slug": "eq-private-company",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You own 100% of a private company that earns the same net income as a publicly traded competitor. Would your company be worth the same as the public company? More? Less? What factors account for the difference?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why Private Company Valuation Differs\n\nPrivate companies represent a significant portion of the global economy, but their valuation involves unique challenges not present in public equity analysis:\n\n| Challenge | Impact |\n|---|---|\n| No market price | Must estimate value entirely from models |\n| Limited financial disclosure | Less data for forecasting |\n| Illiquidity | Cannot sell shares quickly at fair value |\n| Concentrated ownership | Owner-manager conflicts, key-person risk |\n| Tax considerations | Tax structure affects value (C-corp vs S-corp vs LLC) |\n| Size premium | Small firms tend to have higher required returns |\n\n### Purposes of Private Company Valuation\n\n- **Transaction support** \u2014 M&A, buyouts, IPO pricing\n- **Financial reporting** \u2014 Goodwill impairment testing, stock compensation\n- **Tax compliance** \u2014 Estate and gift taxes, transfer pricing\n- **Litigation** \u2014 Shareholder disputes, divorce proceedings\n- **Investment** \u2014 Private equity, venture capital due diligence"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A private company generates $5M in EBITDA. A comparable public company trades at 8x EV/EBITDA. An analyst values the private company at exactly $40M enterprise value. What has the analyst likely overlooked?",
+      "answer": "The analyst has likely overlooked several adjustments needed when applying public multiples to private companies: (1) A discount for lack of marketability (DLOM), typically 15-30%, reflecting the inability to sell private shares on a liquid exchange. (2) Possible adjustments for excess owner compensation or personal expenses run through the company (normalization). (3) A size premium \u2014 smaller private companies are riskier than their larger public peers. (4) A control premium or minority discount depending on what stake is being valued. After these adjustments, the value would likely be significantly below $40M."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Three Valuation Approaches\n\n### 1. Income Approach\n\n**Capitalized Cash Flow Method** (for stable companies):\n\n$$V_0 = \\frac{CF_1}{r - g}$$\n\nWhere $CF_1$ is normalized free cash flow, $r$ is the required return (often built up from risk-free rate + equity risk premium + size premium + company-specific risk premium), and $g$ is the sustainable growth rate.\n\n**Excess Earnings Method:**\n1. Determine fair return on tangible assets: Working capital return + Fixed asset return\n2. Total earnings - Return on tangible assets = **Excess earnings** (attributable to intangibles)\n3. Capitalize excess earnings at a higher rate (intangibles are riskier)\n4. Value = Tangible asset value + Capitalized excess earnings\n\n### 2. Market Approach\n\n**Guideline Public Company Method:**\n- Identify comparable public companies\n- Apply their multiples (adjusted for size, growth, risk) to the private company's metrics\n- Apply DLOM and other appropriate discounts\n\n**Guideline Transactions Method:**\n- Use multiples from actual private company transactions (M&A deals)\n- Advantage: already reflects private company characteristics\n- Challenge: limited data, stale transactions"
+    },
+    {
+      "type": "markdown",
+      "content": "## Discounts and Premiums\n\n### Discount for Lack of Marketability (DLOM)\n\nPrivate shares cannot be sold on a liquid exchange. Studies suggest DLOM ranges from **15% to 35%** depending on:\n- Company size and financial health\n- Dividend policy (higher dividends reduce DLOM)\n- Prospects for an IPO or sale\n- Shareholder agreements (put rights reduce DLOM)\n\n### Discount for Lack of Control (DLOC)\n\nMinority shareholders cannot influence corporate decisions:\n\n$$DLOC = 1 - \\frac{1}{1 + \\text{Control premium}}$$\n\nIf the control premium is 25%: $DLOC = 1 - 1/1.25 = 20\\%$\n\n### Control Premium\n\nApplied when valuing a **controlling interest** \u2014 reflects the buyer's ability to:\n- Set dividends and compensation\n- Direct strategy and capital allocation\n- Sell or liquidate the company\n\n### Applying Multiple Discounts\n\nFor a **minority, non-marketable interest**:\n\n$$V_{\\text{minority, illiquid}} = V_{\\text{control}} \\times (1 - DLOC) \\times (1 - DLOM)$$\n\n### Earnouts\n\nAn **earnout** is a contingent payment in an acquisition that depends on the target achieving specified performance targets post-acquisition. This:\n- Bridges valuation gaps between buyer and seller\n- Aligns incentives for the seller to continue contributing\n- Shifts risk to the seller if projections don't materialize\n- Creates potential disputes about target measurement"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "ValuCo is a private manufacturing company with normalized EBITDA of $8M. You identify three comparable public companies with EV/EBITDA multiples of 7x, 8x, and 9x. The median is 8x. You estimate: DLOM = 20%, Control premium for a controlling interest = 30%. (a) What is the enterprise value of a 100% controlling interest? (b) What is the value of a 30% minority, non-marketable interest if total equity value (after subtracting $10M debt) applies?",
+      "solution": "**Part (a): 100% Controlling Interest**\n\nStart with market-based EV: $8M \u00d7 8x = $64M (enterprise value)\n\nApply DLOM to the equity portion:\nEquity value before DLOM: $64M - $10M (debt) = $54M\nFor a controlling interest, DLOM may be reduced or waived \u2014 control holders can force a sale or IPO. However, some DLOM may still apply.\n\nIf we apply a reduced DLOM of 10% for a control position: $54M \u00d7 (1 - 0.10) = $48.6M equity value\nEnterprise value for the controlling interest: $48.6M + $10M = $58.6M\n\nIf DLOM is waived for control: $64M enterprise value, $54M equity value\n\n**Part (b): 30% Minority, Non-Marketable Interest**\n\nStart with control equity value: $54M\nApply DLOC: DLOC = 1 - 1/(1+0.30) = 1 - 0.769 = 23.1%\nMarketable minority value: $54M \u00d7 (1 - 0.231) = $41.5M\nApply DLOM: $41.5M \u00d7 (1 - 0.20) = $33.2M\n30% interest: $33.2M \u00d7 0.30 = **$9.97M**\n\nCompare to a naive calculation: 30% \u00d7 $54M = $16.2M. The discounts reduce the minority interest value by 38.5%."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Company Valuation \u2014 Vignette Practice",
+      "problems": [
+        {
+          "id": "eq-pc-1",
+          "vignette": "Robert Hayes, CFA, is engaged to value Precision Parts Inc., a privately held auto parts manufacturer, for estate tax purposes. The deceased owner held a 25% non-controlling interest. Hayes gathers the following information:\n\n| Item | Value |\n|---|---|\n| Normalized net income | $6.0 million |\n| Normalized EBITDA | $10.0 million |\n| Book value of equity | $25.0 million |\n| Comparable public company EV/EBITDA | 7.5x (median) |\n| Company debt | $15.0 million |\n| Estimated control premium | 25% |\n| Estimated DLOM (minority interest) | 22% |\n\nHayes decides to use the guideline public company method.",
+          "question": "The enterprise value of Precision Parts using the guideline public company method is closest to:",
+          "options": [
+            "A) $60.0 million",
+            "B) $75.0 million",
+            "C) $90.0 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Enterprise value = Normalized EBITDA \u00d7 Comparable multiple = $10.0M \u00d7 7.5 = $75.0M. Option A ($60M) incorrectly uses net income \u00d7 some multiple. Option C ($90M) may incorrectly apply a 9x multiple. The guideline public company method applies the peer median multiple to the subject company's EBITDA to estimate total enterprise value before any adjustments for control or marketability.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate enterprise value using the guideline public company method"
+        },
+        {
+          "id": "eq-pc-2",
+          "vignette": "Robert Hayes, CFA, is engaged to value Precision Parts Inc., a privately held auto parts manufacturer, for estate tax purposes. The deceased owner held a 25% non-controlling interest. Hayes gathers the following information:\n\n| Item | Value |\n|---|---|\n| Normalized net income | $6.0 million |\n| Normalized EBITDA | $10.0 million |\n| Book value of equity | $25.0 million |\n| Comparable public company EV/EBITDA | 7.5x (median) |\n| Company debt | $15.0 million |\n| Estimated control premium | 25% |\n| Estimated DLOM (minority interest) | 22% |\n\nHayes determines the total equity value on a controlling, marketable basis is $60 million.",
+          "question": "The fair value of the deceased owner's 25% non-controlling, non-marketable interest is closest to:",
+          "options": [
+            "A) $9.36 million",
+            "B) $11.70 million",
+            "C) $12.00 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Start with total equity on a control, marketable basis: $60M.\n\nStep 1: Apply DLOC. DLOC = 1 - 1/(1+0.25) = 1 - 0.80 = 20%. Marketable minority equity value = $60M \u00d7 (1 - 0.20) = $48M.\n\nStep 2: Apply DLOM. Non-marketable minority equity = $48M \u00d7 (1 - 0.22) = $48M \u00d7 0.78 = $37.44M.\n\nStep 3: Pro-rata share. 25% \u00d7 $37.44M = $9.36M.\n\nOption B ($11.70M) appears to apply only DLOM without DLOC: $60M \u00d7 0.78 \u00d7 0.25 = $11.70M. Option C ($12.00M) applies only DLOC: $60M \u00d7 0.80 \u00d7 0.25 = $12.00M. Both discounts must be applied for a non-controlling, non-marketable interest.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Apply DLOM and DLOC to determine the value of a minority non-marketable interest"
+        },
+        {
+          "id": "eq-pc-3",
+          "vignette": "Hayes is also advising on the acquisition of TechServe LLC by a strategic buyer. The buyer offers $50 million upfront plus an earnout of up to $15 million based on TechServe achieving EBITDA targets of $8M, $9M, and $10M over the next three years. TechServe's current EBITDA is $7.2 million, and the owner projects $9.5M average EBITDA over the earnout period. The buyer estimates only a 60% probability of meeting the targets.",
+          "question": "The earnout structure in the TechServe acquisition most likely benefits the:",
+          "options": [
+            "A) buyer, because it reduces the total consideration if TechServe underperforms",
+            "B) seller, because it guarantees an additional $15 million above the upfront payment",
+            "C) both parties equally, because earnouts always result in fair risk sharing"
+          ],
+          "correctAnswer": "A",
+          "explanation": "An earnout benefits the buyer because: (1) it reduces upfront cash outlay, limiting downside if the target underperforms, (2) it shifts performance risk to the seller \u2014 if EBITDA targets aren't met, the buyer pays less, and (3) it aligns the seller's incentives to ensure a successful transition. The expected additional consideration is $15M \u00d7 60% = $9M, making the expected total deal value $59M rather than $65M. Option B is wrong \u2014 the earnout is contingent, not guaranteed; the seller receives $15M only if targets are met. Option C is wrong \u2014 earnouts inherently protect the buyer more, as the seller bears the risk of underperformance with no upside beyond the cap.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Evaluate the impact of earnout provisions in private company acquisitions"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a business owner who is selling her company why the buyer is offering less than what she believes her company is worth based on public company multiples. Use the concepts of DLOM, control premiums, and normalization adjustments in your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the purpose of a private company valuation (tax, litigation, M&A) influence the standard of value and methods used?",
+        "How would you normalize the financial statements of a private company where the owner pays herself an above-market salary?",
+        "What are the pros and cons of using guideline transactions versus guideline public companies?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Three approaches: **Income** (capitalized CF, excess earnings), **Market** (guideline public cos, guideline transactions), **Asset-based** (adjusted net assets)\n- **DLOM** (15\u201335%) reflects illiquidity of private shares\n- **DLOC** = 1 - 1/(1 + control premium) \u2014 for minority interests\n- For minority, non-marketable: $V = V_{control} \\times (1-DLOC) \\times (1-DLOM)$\n- **Normalization** adjusts for above/below-market owner compensation, personal expenses, one-time items\n- **Earnouts** bridge valuation gaps and shift performance risk to the seller\n- Build-up method for required return: risk-free + ERP + size premium + company-specific premium"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've now completed the Equity Investments modules for Level II. The next section is the **Equity Investments Checkpoint**, where you'll test your integrated understanding across all six equity valuation topics \u2014 from DDM to private company valuation."
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ALT.5: Natural Resources",
+    "description": "Describe commodity investments, farmland, timberland, and their roles in portfolio diversification.",
+    "level": "level-8",
+    "slug": "alt-natural-resources",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An investor buys a crude oil futures contract at $70 per barrel. One month later, spot oil is $72 but the futures contract has actually lost money. How is this possible? What role does the shape of the futures curve play?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Commodity Investment Methods\n\nCommodities are **physical goods** \u2014 energy (oil, natural gas), metals (gold, copper), agriculture (wheat, corn), and livestock. Investors can gain exposure through several methods:\n\n| Method | Description | Characteristics |\n|---|---|---|\n| **Futures contracts** | Agreements to buy/sell at a future date and price | Most common; no physical storage; leverage |\n| **Commodity swaps** | OTC contracts exchanging fixed for floating commodity prices | Customizable; counterparty risk |\n| **Commodity ETFs/ETNs** | Exchange-traded products tracking commodity indices | Liquid; accessible to retail investors |\n| **Physical ownership** | Direct purchase and storage | Practical only for precious metals; storage costs |\n| **Equity in commodity producers** | Shares of mining, energy, or agriculture companies | Exposed to company-specific risk, not pure commodity exposure |\n\n## Components of Commodity Futures Return\n\nThe total return from holding a commodity futures position has **three components**:\n\n$$\\text{Total Return} = \\text{Spot Return} + \\text{Roll Yield} + \\text{Collateral Yield}$$\n\n- **Spot return (price return)**: change in the spot price of the commodity\n- **Collateral yield**: return earned on the cash (T-bills) posted as margin collateral\n- **Roll yield**: gain or loss from rolling expiring futures contracts into new ones"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the difference between contango and backwardation, and how does each affect roll yield?",
+      "answer": "In contango, futures prices are higher than the spot price (upward-sloping futures curve). When rolling, the investor sells the expiring lower-priced contract and buys the more expensive next-month contract \u2014 this creates a negative roll yield (loss). In backwardation, futures prices are lower than the spot price (downward-sloping curve). Rolling means selling the expiring higher-priced contract and buying the cheaper next-month contract \u2014 creating a positive roll yield (gain). Persistent contango can significantly erode returns even if the spot price rises."
+    },
+    {
+      "type": "markdown",
+      "content": "## Roll Yield in Detail\n\n### Contango (Negative Roll Yield)\n\nWhen the futures curve is upward-sloping (futures price > spot price):\n\n$$F_t > S_t \\implies \\text{Negative roll yield}$$\n\nThe investor \"buys high\" when rolling \u2014 paying more for the next contract than the expiring contract is worth. Most commodity markets are in contango most of the time because of **storage costs** and **insurance costs** embedded in futures prices.\n\n### Backwardation (Positive Roll Yield)\n\nWhen the futures curve is downward-sloping (futures price < spot price):\n\n$$F_t < S_t \\implies \\text{Positive roll yield}$$\n\nBackwardation typically occurs when there is **strong current demand** or **supply disruptions** that make immediate delivery more valuable than future delivery.\n\n## Commodity Index Construction\n\nPopular commodity indices (S&P GSCI, Bloomberg Commodity Index) differ in:\n- **Weighting methodology**: production-weighted (GSCI) vs. diversified weights (BCOM)\n- **Commodity selection**: which commodities are included\n- **Roll schedule**: when and how futures contracts are rolled\n\nThese differences can produce significantly different returns from the \"same\" asset class."
+    },
+    {
+      "type": "markdown",
+      "content": "## Farmland and Timberland\n\n### Farmland\n\nReturn sources:\n- **Crop income**: annual harvest revenue\n- **Land appreciation**: long-term increase in land value\n- **Inflation hedge**: food prices and land values tend to rise with inflation\n\nFarmland has historically exhibited **low correlation** with stocks and bonds, and positive correlation with inflation.\n\n### Timberland\n\nReturn sources:\n- **Biological growth**: trees grow in volume ~2-8% per year regardless of market conditions\n- **Timber harvest revenue**: selling harvested wood\n- **Land appreciation**: underlying land value increases\n\nUnique advantage: **harvest flexibility**. Unlike crops, trees can be left to grow if timber prices are low, acting as a natural \"store of value.\" This optionality is a significant benefit not available in most other commodities.\n\n### Diversification Benefits of Natural Resources\n\n- Commodities provide **inflation protection** because their prices are often a component of inflation indices\n- Low correlation with stocks and bonds improves portfolio risk-adjusted returns\n- Gold specifically acts as a **safe-haven asset** during geopolitical uncertainty\n- Farmland and timberland provide stable, income-generating exposure to real assets"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An investor holds a long commodity futures position. The current spot price is $50, the current (near-month) futures price is $50, and the next-month futures contract trades at $52. The collateral (margin) earns 4% annually. Over one month: (1) Spot price rises to $53. (2) The investor rolls into the next-month contract at $52. Calculate the approximate one-month total return, breaking it into spot return, roll yield, and collateral yield.",
+      "solution": "**Spot Return:**\nSpot moved from $50 to $53: $(53 - 50) / 50 = +6.0\\%$\n\n**Roll Yield:**\nThe investor exits the near-month contract (converging to spot at $53) and enters the next-month contract at $52. But the roll yield comes from the difference between the expiring contract and the new contract at the time of rolling:\nRoll yield $\\approx (50 - 52) / 50 = -4.0\\%$ (contango creates a loss, as the investor buys the more expensive contract)\n\nMore precisely, the investor's futures position gained from the spot move but loses on the roll, so roll yield reflects the cost of maintaining the position.\n\n**Collateral Yield:**\n$4\\% / 12 \\approx +0.33\\%$ (one month of T-bill return)\n\n**Total Return:**\n$6.0\\% + (-4.0\\%) + 0.33\\% \\approx +2.33\\%$\n\nDespite a 6% spot price increase, the investor captured only about 2.3% due to contango's negative roll yield."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Natural Resources Practice Problems",
+      "problems": [
+        {
+          "id": "alt5-1",
+          "question": "A commodity futures market is in contango. Which of the following best describes the expected roll yield for a long futures investor?",
+          "options": [
+            "A) Positive, because the investor sells high and buys low when rolling",
+            "B) Negative, because the investor must buy the more expensive next-month contract when rolling",
+            "C) Zero, because contango means futures and spot prices are equal"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In contango, futures prices exceed the spot price (upward-sloping curve). When rolling, the investor closes the expiring contract (converging toward spot) and opens a new position in the higher-priced next-month contract. This 'buy high' effect creates a negative roll yield that erodes total return. Option A describes backwardation. Option C is incorrect \u2014 contango specifically means futures prices are above spot.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe contango and its effect on roll yield"
+        },
+        {
+          "id": "alt5-2",
+          "question": "Which of the following is a unique advantage of timberland compared to other commodity investments?",
+          "options": [
+            "A) Timber prices are not affected by economic cycles",
+            "B) Trees continue to grow in volume regardless of market prices, providing harvest flexibility",
+            "C) Timberland generates no taxable income until harvest"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Trees grow biologically at 2-8% per year regardless of market conditions. If timber prices are low, the owner can defer harvesting and let trees continue growing in volume, essentially storing value on the stump. This harvest flexibility or 'biological growth option' is unique to timberland. Option A is incorrect \u2014 timber prices are cyclical (tied to housing and construction). Option C is incorrect \u2014 timberland may generate income from various sources that is taxable.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe timberland as an investment"
+        },
+        {
+          "id": "alt5-3",
+          "question": "An investor's commodity futures position earned a spot return of +8%, a roll yield of -5%, and a collateral yield of +3% over the past year. The total return is closest to:",
+          "options": [
+            "A) 16%",
+            "B) 6%",
+            "C) 8%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Total Return = Spot Return + Roll Yield + Collateral Yield = 8% + (-5%) + 3% = 6%. The negative roll yield (likely from contango) significantly reduced the return from the spot price increase. Option A incorrectly sums absolute values. Option C ignores roll yield and collateral yield. This illustrates why commodity futures returns can differ substantially from spot price changes.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate total return from commodity futures"
+        },
+        {
+          "id": "alt5-4",
+          "question": "Which of the following best describes why commodities are considered an inflation hedge?",
+          "options": [
+            "A) Commodity futures have embedded inflation expectations in their prices",
+            "B) Commodity prices are often a direct component of inflation indices, so their values tend to rise with inflation",
+            "C) Commodity producers increase supply during inflation, driving up revenues"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Commodities like energy and food are direct inputs to consumer and producer price indices. When commodity prices rise, they contribute to measured inflation, creating a natural positive correlation between commodity returns and inflation. Option A is partially true but does not explain the inflation hedging mechanism. Option C is incorrect \u2014 higher supply would tend to lower prices, not raise them, which is the opposite of an inflation hedge.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain commodities as an inflation hedge"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain roll yield to someone who has never traded futures. Use an analogy \u2014 like renewing a lease at a higher rent \u2014 to illustrate why contango creates a cost and backwardation creates a benefit for long commodity investors."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might an investor in a commodity ETF underperform the spot commodity price over a long period?",
+        "How does timberland's harvest flexibility provide an advantage that annual crops like wheat do not have?",
+        "Why do different commodity indices produce different returns despite tracking the 'same' asset class?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **Total Futures Return = Spot Return + Roll Yield + Collateral Yield**\n- **Contango** (futures > spot): negative roll yield; **backwardation** (futures < spot): positive roll yield\n- Commodity exposure: futures, swaps, ETFs/ETNs, physical ownership, producer equities\n- Commodity indices differ in weighting, composition, and roll schedule \u2014 returns vary significantly\n- **Farmland**: crop income + land appreciation; inflation hedge, low correlation\n- **Timberland**: biological growth (2-8%/year) + harvest flexibility \u2014 natural store of value\n- Commodities provide **inflation protection** because they are components of inflation indices\n- Gold acts as a **safe-haven** during geopolitical uncertainty"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Hedge Funds**, where you will learn about strategies that use commodities, equities, fixed income, and derivatives to generate returns that are less dependent on market direction \u2014 including long/short equity, global macro, and managed futures."
+    }
+  ]
+}

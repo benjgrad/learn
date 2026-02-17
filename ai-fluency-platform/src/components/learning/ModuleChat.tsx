@@ -17,9 +17,11 @@ interface ChatMessage {
 export function ModuleChat({
   moduleTitle,
   levelTitle,
+  courseName,
 }: {
   moduleTitle: string;
   levelTitle: string;
+  courseName?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -58,6 +60,7 @@ export function ModuleChat({
         {
           moduleTitle,
           levelTitle,
+          courseName,
           messages: newMessages,
         },
         (text) => {
@@ -85,7 +88,7 @@ export function ModuleChat({
       setStreamingContent("");
       setIsStreaming(false);
     }
-  }, [input, isStreaming, messages, moduleTitle, levelTitle, requestAI]);
+  }, [input, isStreaming, messages, moduleTitle, levelTitle, courseName, requestAI]);
 
   if (!open) {
     return (

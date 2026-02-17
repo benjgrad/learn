@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "PM.1: Portfolio Risk and Return: Part I",
+    "description": "Calculate and interpret portfolio risk and return measures. Understand diversification and the efficient frontier.",
+    "level": "level-9",
+    "slug": "pm-risk-return-part-i",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you combine two stocks that each have 20% annual volatility into a portfolio, will the portfolio's volatility be 20%, more than 20%, or less than 20%? What factor determines the answer?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Historical Returns and Risk Measures\n\nInvestment decisions begin with understanding how returns are distributed and how to measure the risk embedded in those distributions.\n\n**Holding period return (HPR):**\n\n$$R = \\frac{P_1 - P_0 + D_1}{P_0}$$\n\nWhere $P_0$ is the purchase price, $P_1$ is the ending price, and $D_1$ is income received.\n\n**Arithmetic mean return** is the simple average of periodic returns:\n\n$$\\bar{R} = \\frac{1}{n}\\sum_{t=1}^{n} R_t$$\n\n**Geometric mean return** compounds across periods and is always less than or equal to the arithmetic mean:\n\n$$R_G = \\left[\\prod_{t=1}^{n}(1 + R_t)\\right]^{1/n} - 1$$\n\n### Risk Measures\n\n| Measure | Formula | What It Captures |\n|---|---|---|\n| Variance | $\\sigma^2 = \\frac{\\sum(R_t - \\bar{R})^2}{n-1}$ | Total dispersion around the mean |\n| Standard deviation | $\\sigma = \\sqrt{\\sigma^2}$ | Dispersion in the same units as returns |\n| Semi-variance | Uses only returns below the mean | Downside risk only |\n| VaR (5%) | 5th percentile loss | Maximum loss at a given confidence level |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An investor earns +50% in Year 1 and -50% in Year 2. What is the arithmetic mean return? What is the geometric mean return? Which better reflects the investor's actual experience?",
+      "answer": "Arithmetic mean = (50% + (-50%))/2 = 0%. Geometric mean = [(1.50)(0.50)]^(1/2) - 1 = (0.75)^(1/2) - 1 = -13.4%. The geometric mean better reflects actual experience: $100 grows to $150, then falls to $75 \u2014 a net loss of 25% over two years. The arithmetic mean overstates compounded performance because it ignores the volatility drag."
+    },
+    {
+      "type": "markdown",
+      "content": "## Risk Aversion and Utility Theory\n\nA **risk-averse** investor demands a higher expected return to accept more risk. This is formalized through the utility function:\n\n$$U = E(R) - \\frac{1}{2} A \\sigma^2$$\n\nWhere:\n- $U$ = utility (satisfaction level)\n- $E(R)$ = expected return of the portfolio\n- $A$ = risk aversion coefficient (higher $A$ = more risk-averse)\n- $\\sigma^2$ = portfolio variance\n\n**Indifference curves** represent combinations of risk and return that yield equal utility. For risk-averse investors, these curves slope upward (more risk requires more return). Steeper curves indicate greater risk aversion.\n\n| Investor Type | $A$ Value | Behavior |\n|---|---|---|\n| Risk-averse | $A > 0$ | Requires compensation for risk |\n| Risk-neutral | $A = 0$ | Indifferent to risk level |\n| Risk-seeking | $A < 0$ | Prefers more risk (unusual) |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Portfolio Risk and the Power of Diversification\n\nThe expected return of a two-asset portfolio is the weighted average:\n\n$$E(R_p) = w_1 E(R_1) + w_2 E(R_2)$$\n\nBut portfolio variance is **not** a simple weighted average \u2014 it depends on how assets move together:\n\n$$\\sigma_p^2 = w_1^2 \\sigma_1^2 + w_2^2 \\sigma_2^2 + 2 w_1 w_2 \\rho_{1,2} \\sigma_1 \\sigma_2$$\n\nWhere $\\rho_{1,2}$ is the correlation between assets 1 and 2 (ranges from $-1$ to $+1$).\n\n### Correlation and Diversification\n\n| Correlation ($\\rho$) | Diversification Benefit |\n|---|---|\n| $+1.0$ | No benefit \u2014 risk is the weighted average |\n| $0.0$ | Substantial reduction in portfolio risk |\n| $-1.0$ | Maximum benefit \u2014 risk can be eliminated entirely |\n\nThe **efficient frontier** is the set of portfolios that offer the highest expected return for each level of risk. The **minimum variance portfolio (MVP)** sits at the leftmost point of the efficient frontier \u2014 it has the lowest possible risk among all combinations of the available assets.\n\nFor a two-asset case, the MVP weight in asset 1 is:\n\n$$w_1^{\\text{MVP}} = \\frac{\\sigma_2^2 - \\rho_{1,2}\\sigma_1\\sigma_2}{\\sigma_1^2 + \\sigma_2^2 - 2\\rho_{1,2}\\sigma_1\\sigma_2}$$"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate the expected return and standard deviation of a portfolio that is 60% Stock A and 40% Stock B. Stock A: E(R) = 12%, \u03c3 = 25%. Stock B: E(R) = 7%, \u03c3 = 15%. Correlation = 0.30.",
+      "solution": "**Expected return:**\n\n$E(R_p) = 0.60(12\\%) + 0.40(7\\%) = 7.2\\% + 2.8\\% = 10.0\\%$\n\n**Portfolio variance:**\n\n$\\sigma_p^2 = (0.60)^2(0.25)^2 + (0.40)^2(0.15)^2 + 2(0.60)(0.40)(0.30)(0.25)(0.15)$\n\n$= 0.0225 + 0.0036 + 0.0054 = 0.0315$\n\n**Standard deviation:**\n\n$\\sigma_p = \\sqrt{0.0315} = 17.75\\%$\n\nNotice the portfolio standard deviation (17.75%) is less than the weighted average of the individual standard deviations (0.60 \u00d7 25% + 0.40 \u00d7 15% = 21%). This gap is the diversification benefit, made possible because the correlation (0.30) is less than 1.0."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Risk and Return Practice Problems",
+      "problems": [
+        {
+          "id": "pm1-1",
+          "question": "An investor earns returns of +10%, -5%, and +20% over three years. The geometric mean annual return is closest to:",
+          "options": [
+            "A) 7.89%",
+            "B) 8.33%",
+            "C) 8.56%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Geometric mean = [(1.10)(0.95)(1.20)]^(1/3) - 1 = [1.254]^(1/3) - 1 = 1.0789 - 1 = 7.89%. Option B (8.33%) is the arithmetic mean: (10% - 5% + 20%)/3. Option C is a common miscalculation. The geometric mean is always less than or equal to the arithmetic mean, with the gap increasing as return volatility rises.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate geometric mean return"
+        },
+        {
+          "id": "pm1-2",
+          "question": "A portfolio consists of 50% Asset X (\u03c3 = 20%) and 50% Asset Y (\u03c3 = 30%). If the correlation between X and Y is 0.0, the portfolio standard deviation is closest to:",
+          "options": [
+            "A) 18.0%",
+            "B) 25.0%",
+            "C) 12.5%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "\u03c3\u00b2_p = (0.50)\u00b2(0.20)\u00b2 + (0.50)\u00b2(0.30)\u00b2 + 2(0.50)(0.50)(0.0)(0.20)(0.30) = 0.01 + 0.0225 + 0 = 0.0325. \u03c3_p = \u221a0.0325 = 18.03%. Option B (25%) is the simple weighted average of standard deviations (0.50 \u00d7 20% + 0.50 \u00d7 30%), which would only be correct if \u03c1 = +1. Option C is too low \u2014 it would require a strongly negative correlation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate portfolio standard deviation for a two-asset portfolio"
+        },
+        {
+          "id": "pm1-3",
+          "question": "An investor with a risk aversion coefficient (A) of 4 is evaluating two portfolios:\n\n| Portfolio | E(R) | \u03c3 |\n|-----------|-------|-----|\n| P | 11% | 20% |\n| Q | 8% | 12% |\n\nUsing the utility function U = E(R) - 0.5A\u03c3\u00b2, the investor would prefer:",
+          "options": [
+            "A) Portfolio P (U = 3.0%)",
+            "B) Portfolio Q (U = 5.12%)",
+            "C) The investor is indifferent between P and Q"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Portfolio P: U = 0.11 - 0.5(4)(0.20)\u00b2 = 0.11 - 0.08 = 0.03 = 3.0%. Portfolio Q: U = 0.08 - 0.5(4)(0.12)\u00b2 = 0.08 - 0.0288 = 0.0512 = 5.12%. Portfolio Q provides higher utility (5.12% vs. 3.0%) because the risk penalty for P's higher volatility outweighs its return advantage for this highly risk-averse investor (A = 4). Option A correctly calculates P's utility but Q's is higher. Option C would require equal utility values.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate and interpret investor utility"
+        },
+        {
+          "id": "pm1-4",
+          "question": "Two assets have standard deviations of 20% and 30%. The minimum variance portfolio (MVP) weight in the first asset is closest to:\n\nAssume a correlation of 0.25 between the two assets.",
+          "options": [
+            "A) 50%",
+            "B) 65%",
+            "C) 75%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "w\u2081 = (\u03c3\u2082\u00b2 - \u03c1\u03c3\u2081\u03c3\u2082) / (\u03c3\u2081\u00b2 + \u03c3\u2082\u00b2 - 2\u03c1\u03c3\u2081\u03c3\u2082). Numerator = 0.30\u00b2 - 0.25(0.20)(0.30) = 0.0900 - 0.0150 = 0.0750. Denominator = 0.20\u00b2 + 0.30\u00b2 - 2(0.25)(0.20)(0.30) = 0.04 + 0.09 - 0.03 = 0.10. w\u2081 = 0.0750 / 0.10 = 75%. The MVP overweights the lower-variance asset because reducing exposure to the high-variance asset lowers portfolio risk more. Option A (50%) incorrectly assumes equal weights minimize variance \u2014 equal weights only minimize variance when both assets have identical standard deviations. Option B (65%) underweights the lower-variance asset relative to what the MVP formula prescribes.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate minimum variance portfolio weights"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why combining two risky assets can produce a portfolio with less risk than either asset alone. Use the concept of correlation to support your explanation, as if speaking to someone who understands basic statistics but hasn't studied portfolio theory."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the geometric mean always less than or equal to the arithmetic mean for volatile return series?",
+        "How would an increase in your personal risk aversion coefficient change the shape of your indifference curves?",
+        "In what real-world scenario might two assets have a correlation close to -1?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Geometric mean \u2264 arithmetic mean (gap widens with volatility)\n- Utility: $U = E(R) - \\frac{1}{2}A\\sigma^2$ \u2014 higher $A$ penalizes risk more\n- Portfolio return = weighted average of asset returns\n- Portfolio variance depends on weights, individual variances, **and** correlations\n- Diversification benefit exists whenever $\\rho < +1$\n- Maximum diversification when $\\rho = -1$ (risk can be fully eliminated)\n- Efficient frontier: highest return for each risk level\n- Minimum variance portfolio overweights the lower-variance asset"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Portfolio Risk and Return: Part II**, which introduces the Capital Asset Pricing Model (CAPM). CAPM extends the efficient frontier by adding a risk-free asset, creating the capital market line \u2014 and it distinguishes between systematic risk (rewarded) and unsystematic risk (diversifiable). Your understanding of correlation and diversification is the foundation for that distinction."
+    }
+  ]
+}

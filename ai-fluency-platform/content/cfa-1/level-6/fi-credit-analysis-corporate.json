@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FI.16: Credit Analysis for Corporate Issuers",
+    "description": "Apply the four Cs framework (capacity, collateral, covenants, character), key credit ratios, industry analysis, and credit scoring concepts.",
+    "level": "level-6",
+    "slug": "fi-credit-analysis-corporate",
+    "order": 16,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two companies have the same debt-to-equity ratio. Company A is a utility with stable cash flows; Company B is a technology startup with volatile revenue. Should they receive the same credit rating? What other factors matter beyond leverage ratios?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Four Cs of Credit Analysis\n\n### 1. Capacity\n\n**Capacity** is the issuer's ability to generate sufficient cash flows to service its debt. This is the most important C and involves analyzing:\n\n- **Industry analysis**: Growth prospects, competitive dynamics, regulatory environment, cyclicality, barriers to entry\n- **Company fundamentals**: Market position, operating efficiency, revenue diversification, management quality\n- **Financial ratios**: Leverage, coverage, and cash flow metrics (detailed below)\n\n### 2. Collateral\n\n**Collateral** refers to the quality and value of assets backing the debt. More relevant for secured debt and distressed issuers:\n\n- Tangible assets (property, equipment) provide better collateral than intangible assets (goodwill, patents)\n- Asset quality declines in distress (fire sale values < book values)\n\n### 3. Covenants\n\n**Covenants** are contractual terms that protect bondholders:\n- Affirmative: Maintain financial ratios, provide audited financials, maintain insurance\n- Negative: Limit additional debt, restrict dividends, limit asset sales, restrict liens\n\n### 4. Character\n\n**Character** refers to management's integrity, track record, and strategy:\n- History of debt repayment, corporate governance quality\n- Strategic decisions (aggressive acquisitions, shareholder-friendly vs. creditor-friendly actions)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has a strong leverage ratio (Debt/EBITDA = 2.0x) but its interest coverage ratio (EBITDA/Interest) has been declining for three consecutive years. Is the credit improving or deteriorating?",
+      "answer": "The credit is likely deteriorating. While the leverage ratio looks healthy in isolation, the declining interest coverage trend signals that the company's earnings are falling relative to its interest costs. This could indicate deteriorating operating performance, rising interest rates on variable-rate debt, or increasing interest expense from recent debt issuance. Trend analysis is crucial \u2014 a snapshot ratio may look acceptable while the trajectory points to trouble. Credit analysts weight trends heavily alongside absolute levels."
+    },
+    {
+      "type": "markdown",
+      "content": "## Key Credit Ratios\n\n### Leverage Ratios\n\n$$\\text{Debt-to-EBITDA} = \\frac{\\text{Total Debt}}{\\text{EBITDA}}$$\n\n$$\\text{Debt-to-Capital} = \\frac{\\text{Total Debt}}{\\text{Total Debt + Equity}}$$\n\n$$\\text{FFO-to-Debt} = \\frac{\\text{Funds from Operations}}{\\text{Total Debt}}$$\n\nLower leverage ratios indicate stronger credit (less debt relative to earnings or capital).\n\n### Coverage Ratios\n\n$$\\text{Interest Coverage} = \\frac{\\text{EBITDA}}{\\text{Interest Expense}}$$\n\n$$\\text{EBITDA-to-Interest} = \\frac{\\text{EBITDA}}{\\text{Interest Expense}}$$\n\n$$\\text{Fixed Charge Coverage} = \\frac{\\text{EBITDA}}{\\text{Interest + Lease Payments}}$$\n\nHigher coverage ratios indicate stronger credit (more earnings available to service obligations).\n\n### Cash Flow Ratios\n\n$$\\text{CFO-to-Debt} = \\frac{\\text{Cash Flow from Operations}}{\\text{Total Debt}}$$\n\n$$\\text{Free Cash Flow / Debt} = \\frac{\\text{FCF}}{\\text{Total Debt}}$$\n\n**Free cash flow** = CFO \u2212 Capital expenditures. Positive FCF after servicing debt indicates the issuer can reduce leverage over time."
+    },
+    {
+      "type": "markdown",
+      "content": "## Industry Analysis and Credit Scoring\n\n### Industry Risk Factors\n\n| Factor | Lower Credit Risk | Higher Credit Risk |\n|---|---|---|\n| Cyclicality | Non-cyclical (utilities, healthcare) | Highly cyclical (mining, autos) |\n| Competition | Oligopoly, high barriers | Fragmented, low barriers |\n| Regulation | Stable regulatory framework | Changing/uncertain regulation |\n| Growth | Mature, stable demand | Declining or highly volatile |\n| Technology risk | Low disruption threat | High disruption threat |\n\n### Altman Z-Score (Conceptual)\n\nThe **Altman Z-score** is a statistical model that combines multiple financial ratios to predict bankruptcy probability:\n\n$$Z = 1.2X_1 + 1.4X_2 + 3.3X_3 + 0.6X_4 + 1.0X_5$$\n\nwhere: $X_1$ = Working capital/Total assets, $X_2$ = Retained earnings/Total assets, $X_3$ = EBIT/Total assets, $X_4$ = Market value of equity/Book value of debt, $X_5$ = Sales/Total assets.\n\n| Z-Score | Interpretation |\n|---|---|\n| Z > 2.99 | Safe zone (low default probability) |\n| 1.81 < Z < 2.99 | Grey zone (moderate risk) |\n| Z < 1.81 | Distress zone (high default probability) |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company has EBITDA of $500M, total debt of $1,800M, interest expense of $90M, and CFO of $350M. Calculate the debt-to-EBITDA, interest coverage, and CFO-to-debt ratios. Interpret the credit quality.",
+      "solution": "**Debt-to-EBITDA:**\n$$\\frac{\\$1{,}800M}{\\$500M} = 3.6\\times$$\n\n**Interest Coverage (EBITDA/Interest):**\n$$\\frac{\\$500M}{\\$90M} = 5.6\\times$$\n\n**CFO-to-Debt:**\n$$\\frac{\\$350M}{\\$1{,}800M} = 19.4\\%$$\n\n**Interpretation:**\n- Debt-to-EBITDA of 3.6x is moderate \u2014 generally consistent with a BBB rating. Below 2x would be strong (A-rated); above 5x would indicate significant leverage (BB or below).\n- Interest coverage of 5.6x is healthy \u2014 the company generates 5.6 times the EBITDA needed to cover interest. Below 2x would be concerning.\n- CFO-to-debt of 19.4% is adequate. The company can repay about one-fifth of its debt from annual operating cash flow. Above 25% would be strong; below 10% would be weak.\n\nOverall: This profile is consistent with a **low-investment-grade (BBB)** rating."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Corporate Credit Analysis Practice",
+      "problems": [
+        {
+          "id": "fi16-1",
+          "question": "In the four Cs of credit analysis, a company's ability to generate cash flow to service its debt obligations is best described by:",
+          "options": [
+            "A) Character",
+            "B) Capacity",
+            "C) Collateral"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Capacity refers to the issuer's ability to generate sufficient cash flow to meet its debt obligations. It is assessed through industry analysis, company fundamentals, and financial ratio analysis. Option A (Character) refers to management quality, integrity, and track record. Option C (Collateral) refers to the assets pledged to back the debt, which is relevant primarily for asset-backed or secured debt.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the four Cs of credit analysis"
+        },
+        {
+          "id": "fi16-2",
+          "question": "Company A has a debt-to-EBITDA ratio of 2.5x and an interest coverage ratio of 8.0x. Company B has a debt-to-EBITDA ratio of 4.5x and an interest coverage ratio of 3.0x. Both are in the same industry. Company A's credit quality is most likely:",
+          "options": [
+            "A) Lower than Company B's",
+            "B) Similar to Company B's",
+            "C) Higher than Company B's"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Company A has stronger credit metrics on both measures: lower leverage (2.5x vs 4.5x debt-to-EBITDA) and higher coverage (8.0x vs 3.0x interest coverage). Lower leverage means less debt relative to earnings; higher coverage means more earnings available to service debt. Since both companies are in the same industry, the ratio comparison is directly meaningful. Option A reverses the interpretation. Option B ignores clear differences.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare corporate credit quality using financial ratios"
+        },
+        {
+          "id": "fi16-3",
+          "question": "A company's Altman Z-score is 1.65. This most likely indicates:",
+          "options": [
+            "A) Strong creditworthiness with low default probability",
+            "B) The company is in a grey zone with moderate risk",
+            "C) The company is in a distress zone with high default probability"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Z < 1.81 places the company in the distress zone, indicating high default probability. The Z-score of 1.65 falls below the 1.81 threshold. Option A (safe zone) requires Z > 2.99. Option B (grey zone) requires 1.81 < Z < 2.99. The Altman Z-score is a blunt tool and should be used alongside other analysis, but a score this low is a warning signal.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Interpret the Altman Z-score"
+        },
+        {
+          "id": "fi16-4",
+          "question": "When analyzing a company's credit quality, a credit analyst would be most concerned about which of the following trends?",
+          "options": [
+            "A) Stable debt-to-EBITDA with rising free cash flow",
+            "B) Rising debt-to-EBITDA with declining interest coverage",
+            "C) Stable interest coverage with declining revenue growth"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Rising leverage (increasing debt-to-EBITDA) combined with declining interest coverage is the most alarming combination \u2014 it means the company is taking on more debt while its ability to service that debt is deteriorating. This is a classic pattern preceding credit downgrades or defaults. Option A shows improving cash generation with stable leverage (positive). Option C shows slowing growth but stable debt service ability (less immediately concerning).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify trends indicating deteriorating credit quality"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the four Cs of credit analysis to someone new to fixed income. For each C, give a specific example of what a credit analyst would look at and why it matters for assessing default risk."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might the same debt-to-EBITDA ratio represent different credit qualities in different industries?",
+        "How do strong covenants benefit bondholders at the expense of managerial flexibility?",
+        "What are the limitations of using the Altman Z-score as the sole measure of credit quality?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Four Cs**: Capacity (cash flow), Collateral (assets), Covenants (protections), Character (management)\n- **Leverage ratios**: Debt/EBITDA, Debt/Capital, FFO/Debt \u2014 lower is stronger\n- **Coverage ratios**: EBITDA/Interest, Fixed charge coverage \u2014 higher is stronger\n- **Cash flow ratios**: CFO/Debt, FCF/Debt \u2014 higher is stronger\n- Industry analysis: cyclicality, competition, regulation, technology risk\n- **Altman Z-score**: >2.99 safe; 1.81-2.99 grey zone; <1.81 distress zone\n- Trend analysis is as important as absolute ratio levels\n- Compare ratios within the same industry for meaningful assessment"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Securitization**, where we examine how pools of loans and receivables are transformed into tradeable securities through special purpose vehicles, tranching, and credit enhancement structures."
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ECON.3: Fiscal Policy",
+    "description": "Understand how government spending and taxation influence aggregate demand, and evaluate the effectiveness of fiscal policy through the multiplier, crowding out, and Ricardian equivalence.",
+    "level": "level-2",
+    "slug": "econ-fiscal-policy",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "During a recession, the government increases spending by $100 billion. Will the total impact on GDP be exactly $100 billion, more, or less? What factors might amplify or dampen the effect?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Fiscal Policy Fundamentals\n\nFiscal policy refers to the government's use of **spending and taxation** to influence the economy. It is controlled by the legislative and executive branches of government (unlike monetary policy, which is managed by the central bank).\n\n### Types of Fiscal Policy\n\n| Policy Stance | Actions | When Used |\n|---|---|---|\n| **Expansionary** | Increase spending, cut taxes | Recession, high unemployment |\n| **Contractionary** | Decrease spending, raise taxes | Overheating, high inflation |\n\n### The Government Budget\n\n$$\\text{Budget balance} = \\text{Tax revenues} - \\text{Government spending}$$\n\n- **Budget surplus**: Revenues > Spending (contractionary effect)\n- **Budget deficit**: Spending > Revenues (expansionary effect)\n- **National debt**: The accumulated stock of past deficits minus past surpluses\n\n### Automatic Stabilizers vs. Discretionary Policy\n\n**Automatic stabilizers** are fiscal mechanisms that adjust without new legislation:\n- **Progressive income taxes**: As incomes fall in a recession, people move to lower tax brackets, automatically reducing their tax burden and supporting spending\n- **Unemployment benefits**: Spending on benefits automatically rises during recessions, maintaining consumer demand\n- **Transfer payments**: Welfare and food assistance programs expand during downturns\n\n**Discretionary fiscal policy** requires deliberate government action \u2014 new spending programs, stimulus packages, or tax law changes. It is subject to **recognition lag** (time to identify the problem), **action lag** (time to pass legislation), and **impact lag** (time for the policy to affect the economy)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why might automatic stabilizers be more effective than discretionary fiscal policy during a recession?",
+      "answer": "Automatic stabilizers activate immediately without requiring legislative action. They avoid the significant time lags associated with discretionary policy \u2014 by the time legislators recognize a recession, debate policy options, and pass legislation, the recession may already be ending. Automatic stabilizers also adjust proportionally to the severity of the downturn (more people lose jobs \u2192 more unemployment benefits paid out) and reverse automatically during recovery. Discretionary policy, conversely, may be poorly timed, politically motivated, or difficult to reverse once enacted."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Fiscal Multiplier\n\nThe **fiscal multiplier** measures the total change in GDP resulting from an initial change in government spending or taxation.\n\n### Spending Multiplier\n\n$$\\text{Spending multiplier} = \\frac{1}{1 - MPC(1-t)}$$\n\nWhere:\n- $MPC$ = marginal propensity to consume (fraction of additional income that is spent)\n- $t$ = tax rate\n\nFor a simplified model with no taxes:\n\n$$\\text{Spending multiplier} = \\frac{1}{1 - MPC}$$\n\n**Example**: If MPC = 0.8 and there are no taxes:\n\n$$\\text{Multiplier} = \\frac{1}{1 - 0.8} = \\frac{1}{0.2} = 5$$\n\nA $100 billion increase in government spending would increase GDP by $100 \\times 5 = \\$500$ billion.\n\n### Tax Multiplier\n\nThe tax multiplier is smaller in absolute value than the spending multiplier because a tax cut first increases disposable income, and only the fraction consumed ($MPC$) enters the spending stream:\n\n$$\\text{Tax multiplier} = \\frac{-MPC}{1 - MPC}$$\n\nWith $MPC = 0.8$: Tax multiplier $= \\frac{-0.8}{0.2} = -4$. A $100 billion tax cut increases GDP by $400 billion \u2014 less than the $500 billion from an equivalent spending increase."
+    },
+    {
+      "type": "markdown",
+      "content": "## Limitations of Fiscal Policy\n\n### Crowding Out\n\nWhen the government borrows to fund deficit spending, it competes with private borrowers for available funds. This increased demand for loanable funds **raises interest rates**, which:\n- Reduces private investment spending\n- Reduces interest-sensitive consumer spending (housing, autos)\n- May appreciate the domestic currency, reducing net exports\n\nThe net stimulus to GDP is therefore **less than the multiplier suggests**. In extreme cases, complete crowding out could fully offset the fiscal stimulus.\n\n### Ricardian Equivalence\n\nProposed by Robert Barro, this theory argues that government deficit spending has **no net stimulative effect** because rational consumers anticipate that today's deficits mean higher future taxes. In response, consumers increase saving to pay those future taxes, exactly offsetting the government's spending increase.\n\nIf Ricardian equivalence holds perfectly, it makes no difference whether the government funds spending through taxes now or borrowing (future taxes). In practice, Ricardian equivalence is an incomplete description of reality because:\n- Consumers have finite planning horizons (may not expect to pay future taxes)\n- Liquidity constraints prevent some consumers from smoothing consumption\n- Uncertainty about who will bear future taxes reduces the offsetting behavior\n\n### Supply-Side Fiscal Policy\n\nRather than managing aggregate demand, supply-side policies aim to increase aggregate supply through:\n- Lower marginal tax rates to incentivize work, saving, and investment\n- Deregulation to reduce business costs\n- Investment in infrastructure and education\n\nThe **Laffer curve** illustrates that beyond a certain tax rate, higher rates actually reduce total tax revenue because they discourage economic activity."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "The government implements a $200 billion spending increase, funded by borrowing. The marginal propensity to consume is 0.75, with no income tax for simplicity. Calculate: (a) the fiscal multiplier, (b) the theoretical GDP impact, and (c) explain why the actual impact would likely be smaller.",
+      "solution": "**a) Fiscal multiplier:**\n\n$$\\text{Multiplier} = \\frac{1}{1 - MPC} = \\frac{1}{1 - 0.75} = \\frac{1}{0.25} = 4$$\n\n**b) Theoretical GDP impact:**\n\n$$\\Delta GDP = \\text{Multiplier} \\times \\Delta G = 4 \\times \\$200\\text{B} = \\$800\\text{ billion}$$\n\n**c) Why the actual impact would be smaller:**\n\n1. **Crowding out**: Government borrowing of $200 billion increases demand for loanable funds, raising interest rates. Higher rates reduce private investment and consumer borrowing, partially offsetting the stimulus.\n\n2. **Ricardian equivalence**: To the extent consumers anticipate future tax increases to repay the borrowed $200 billion, they may increase saving rather than spending.\n\n3. **Import leakage**: Some of the additional spending flows to foreign goods rather than domestic production.\n\n4. **Time lags**: The full multiplier process takes time, during which economic conditions may change.\n\n5. **Inflation**: If the economy is near full capacity, the increased demand may raise prices rather than real output."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Fiscal Policy Practice Problems",
+      "problems": [
+        {
+          "id": "econ3-1",
+          "question": "If the marginal propensity to consume is 0.6 and there are no taxes, the fiscal spending multiplier is closest to:",
+          "options": [
+            "A) 1.6",
+            "B) 2.5",
+            "C) 6.0"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Spending multiplier = 1/(1 \u2212 MPC) = 1/(1 \u2212 0.6) = 1/0.4 = 2.5. Option A (1.6) results from adding 1 + MPC, a common error of confusing the multiplier formula with a simple addition. Option C (6.0) results from computing 1/MPC \u00d7 (1/something) or inverting incorrectly \u2014 possibly computing MPC/(1 \u2212 MPC) = 0.6/0.4 = 1.5, then miscalculating, or using 1/MPC directly which would yield 1/0.6 \u2248 1.67.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate the fiscal spending multiplier"
+        },
+        {
+          "id": "econ3-2",
+          "question": "Government deficit spending most likely leads to crowding out of private investment through which mechanism?",
+          "options": [
+            "A) Increased taxes on corporate profits",
+            "B) Higher interest rates from increased government borrowing",
+            "C) Reduced consumer confidence from larger national debt"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Crowding out occurs when government borrowing to fund deficits increases the demand for loanable funds, driving up interest rates. Higher interest rates make private investment more expensive, reducing business capital spending. Option A is incorrect because crowding out is specifically about deficit spending (borrowing), not tax increases \u2014 higher taxes would be a different policy mechanism entirely. Option C describes a possible sentiment effect but is not the standard crowding-out mechanism taught in the CFA curriculum.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain the crowding-out effect of fiscal policy"
+        },
+        {
+          "id": "econ3-3",
+          "question": "According to Ricardian equivalence, a government tax cut financed by borrowing will most likely result in:",
+          "options": [
+            "A) Increased consumer spending as disposable income rises",
+            "B) No change in consumer spending as households increase saving",
+            "C) Decreased consumer spending as confidence falls"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Ricardian equivalence holds that rational, forward-looking consumers recognize that a tax cut financed by borrowing simply shifts taxes to the future. They save the entire tax cut to pay the expected future tax increase, leaving consumption unchanged. The fiscal policy has no net effect on aggregate demand. Option A represents the traditional Keynesian view that ignores forward-looking behavior. Option C has no theoretical basis under Ricardian equivalence \u2014 the theory predicts no change, not a decrease.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe Ricardian equivalence and its implications for fiscal policy"
+        },
+        {
+          "id": "econ3-4",
+          "question": "Country X has a marginal propensity to consume of 0.80 and no income tax. The government increases spending by $50 billion and simultaneously raises taxes by $50 billion (a balanced-budget approach). The net change in GDP is closest to:",
+          "options": [
+            "A) $0 billion",
+            "B) $50 billion",
+            "C) $200 billion"
+          ],
+          "correctAnswer": "B",
+          "explanation": "This is the balanced-budget multiplier. Spending multiplier = 1/(1 \u2212 0.80) = 5. Tax multiplier = \u2212MPC/(1 \u2212 MPC) = \u22120.80/0.20 = \u22124. Effect of $50B spending increase: 5 \u00d7 $50B = $250B. Effect of $50B tax increase: \u22124 \u00d7 $50B = \u2212$200B. Net effect: $250B \u2212 $200B = $50B. The balanced-budget multiplier always equals 1 (net GDP change equals the spending/tax change). Option A assumes the effects perfectly cancel, which ignores that the spending multiplier exceeds the tax multiplier in absolute value. Option C ($200B) uses only the spending multiplier (4 \u00d7 $50B) without accounting for the contractionary tax effect.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate the balanced-budget multiplier effect"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of the fiscal multiplier to someone with no economics background. Then describe two reasons why the actual multiplier effect might be smaller than the theoretical calculation suggests."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In what ways does fiscal policy affect your daily life, even if you don't notice it directly?",
+        "Do you find the Ricardian equivalence argument convincing? Why or why not?",
+        "How would you evaluate whether a government's fiscal stimulus was successful?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Spending multiplier: $\\frac{1}{1 - MPC}$; Tax multiplier: $\\frac{-MPC}{1 - MPC}$\n- Balanced-budget multiplier = 1 (spending multiplier \u2212 |tax multiplier| always equals 1)\n- Automatic stabilizers (progressive taxes, unemployment benefits) act without legislation\n- Discretionary policy faces recognition, action, and impact lags\n- **Crowding out**: Government borrowing \u2192 higher interest rates \u2192 reduced private investment\n- **Ricardian equivalence**: Consumers offset deficit spending by increasing saving\n- Supply-side policies focus on aggregate supply (lower tax rates, deregulation)\n- Laffer curve: Beyond a certain rate, higher taxes reduce total revenue"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Monetary Policy** \u2014 the central bank's tools for influencing the economy through interest rates and money supply. You'll see how monetary and fiscal policy can work together or at cross-purposes, and why central bank independence matters."
+    }
+  ]
+}

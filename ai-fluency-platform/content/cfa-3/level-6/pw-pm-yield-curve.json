@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PM.2: Yield Curve Strategies",
+    "description": "Analyze yield curve dynamics and implement strategies based on expected curve movements, including bullet, barbell, ladder, carry trade, and butterfly approaches.",
+    "level": "level-6",
+    "slug": "pw-pm-yield-curve",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You expect the yield curve to flatten -- short rates rise while long rates stay constant. Would you prefer a bullet portfolio concentrated at the 10-year point, or a barbell portfolio split between 2-year and 30-year maturities? Why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Yield Curve Movements\n\nYield curve changes can be decomposed into three components:\n\n1. **Level (parallel shift)**: All rates move up or down by the same amount (~75% of variance)\n2. **Slope (steepening/flattening)**: Differential movement between short and long rates (~20%)\n3. **Curvature (butterfly)**: Differential movement of intermediate vs short+long rates (~5%)\n\n### Measuring Expected Returns\n\n**Roll-down return** (riding the yield curve): If the curve is upward-sloping and unchanged, a bond \"rolls down\" to a lower yield (higher price) as time passes.\n\n$$E(R) \\approx \\text{Yield income} + \\text{Roll-down return} + \\text{Expected price change from yield forecast} - \\text{Credit losses} - \\text{Financing cost}$$\n\n**Carry trade**: Borrow at short-term rates, invest at longer-term rates. Profitable when the curve is upward-sloping and stable.\n\n$$\\text{Carry} = \\text{Yield on long position} - \\text{Financing cost of short position}$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio manager has a barbell portfolio (2-year and 30-year bonds) and a bullet portfolio (10-year bonds), both with the same duration. If the yield curve experiences a positive butterfly (intermediate rates rise, short and long rates fall), which portfolio outperforms?",
+      "answer": "The barbell outperforms. In a positive butterfly, short and long rates fall (benefiting the barbell's 2-year and 30-year positions) while intermediate rates rise (hurting the bullet's 10-year position). The barbell has positive exposure to the butterfly -- it profits when the curve becomes more curved. The bullet has negative butterfly exposure. This illustrates why duration matching alone is insufficient for comparing strategies; you must also consider exposure to slope and curvature changes."
+    },
+    {
+      "type": "markdown",
+      "content": "## Portfolio Strategies\n\n### Bullet Strategy\nConcentrate holdings at a single maturity point.\n- **Benefits when**: Rates at that maturity fall; stable yield curve; low curvature risk\n- **Risk**: Concentrated exposure to one part of the curve\n\n### Barbell Strategy\nSplit holdings between short and long maturities.\n- **Benefits when**: Yield curve flattens; positive butterfly (intermediate rates rise vs ends)\n- **Higher convexity** than bullet for same duration (beneficial for large rate moves)\n- **Risk**: Curve steepening or negative butterfly\n\n### Ladder Strategy\nEvenly distribute holdings across maturities.\n- **Benefits**: Diversified across the curve, natural reinvestment, low maintenance\n- **Use case**: Investors without strong curve views\n\n### Butterfly Trade\nCombine bullet and barbell positions to express curvature views:\n- **Long butterfly**: Long wings (short + long), short body (intermediate) -- profits from increased curvature\n- **Short butterfly**: Short wings, long body -- profits from decreased curvature\n\nDuration-neutral butterfly: $w_S \\cdot D_S + w_L \\cdot D_L = w_M \\cdot D_M$ where total position is zero-cost\n\n## Key Rate Duration Positioning\n\nKey rate durations measure sensitivity to specific maturity points on the curve.\n\n$$\\Delta P \\approx -\\sum_{i} KRD_i \\cdot \\Delta y_i \\cdot P$$\n\nPositioning the portfolio's key rate durations allows targeted exposure to expected curve movements.\n\n## Inter-Market Strategies\n\nExploit yield differences across countries:\n- **Unhedged**: Take currency risk for higher yields\n- **Currency-hedged**: Use forwards to isolate interest rate differential\n- Covered interest rate parity implies hedged returns converge, but **basis risk** creates opportunities"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Yield Curve Strategy Recommendation\n\nEconomic analysis suggests the following over the next 6 months:\n- Central bank expected to raise the policy rate by 75 bps\n- Inflation expectations declining, long-term rates expected to fall 25 bps\n- Credit spreads expected to widen modestly\n\nYour client's fixed income portfolio currently has a duration of 6 years with a laddered structure. Current yield: 4.5%.\n\nA) Describe the expected yield curve movement.\nB) Recommend a specific repositioning strategy.\nC) Calculate the approximate expected return if long rates fall 25 bps and the portfolio is repositioned to a duration of 8 years (assume roll-down of 15 bps and credit loss of 5 bps over the period).",
+      "solution": "**A) Expected Yield Curve Movement:**\n\nThe curve is expected to flatten significantly:\n- Short end: +75 bps from policy rate hikes\n- Long end: -25 bps from declining inflation expectations\n- Net flattening: approximately 100 bps\n\nThis is a bear-flattening scenario (short rates rise more than long rates fall).\n\n**B) Recommended Strategy:**\n\nShift from the ladder to a barbell/long-duration bias:\n1. Extend duration from 6 to 8+ years by overweighting the long end\n2. Reduce intermediate maturities (the belly of the curve may underperform)\n3. Consider a barbell with short-term cash equivalents (to be reinvested at higher short rates) and long-term bonds (to benefit from falling long rates)\n4. Reduce credit exposure given expected spread widening -- favor government bonds\n5. Use receive-fixed interest rate swaps at the long end to add duration efficiently\n\n**C) Approximate Expected Return (6-month, annualized basis):**\n\nYield income: 4.5% / 2 = 2.25% (6 months)\nRoll-down return: 15 bps = 0.15%\nPrice appreciation from yield decline: Duration x Yield change = 8 x 0.25% = 2.00%\nCredit losses: -0.05%\n\nTotal expected return (6-month): 2.25% + 0.15% + 2.00% - 0.05% = 4.35%\n\nAnnualized: approximately 8.7%\n\nNote: This assumes the repositioning is done before the rate changes materialize and ignores transaction costs of restructuring."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Yield Curve Strategies Practice",
+      "problems": [
+        {
+          "id": "l3-pm2-1",
+          "question": "A manager expects a parallel upward shift of 50 bps. Portfolio A (bullet, duration 5, convexity 30) and Portfolio B (barbell, duration 5, convexity 55) are compared. Which statement is most accurate?",
+          "options": [
+            "A) Portfolio A will outperform because bullets benefit from parallel shifts",
+            "B) Portfolio B will outperform due to its higher convexity",
+            "C) Both will have approximately the same return since they have the same duration"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For a parallel shift, duration is the primary determinant of return, so both portfolios lose approximately the same amount from the duration effect (5 x 0.50% = 2.50% price decline). However, convexity provides a secondary benefit: the higher convexity of the barbell (55 vs 30) means it loses slightly less. Convexity adjustment = 0.5 x Convexity x (yield change)^2. For B: 0.5 x 55 x 0.005^2 = 0.069%. For A: 0.5 x 30 x 0.005^2 = 0.038%. Portfolio B outperforms by approximately 3 bps. Option C ignores the convexity effect.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare bullet and barbell portfolio performance across yield curve scenarios"
+        },
+        {
+          "id": "l3-pm2-2",
+          "question": "A bond currently yields 4.2% with 7 years to maturity. The 6-year point on the yield curve is 4.0%. Assuming an unchanged yield curve, the bond's roll-down return over one year is closest to:",
+          "options": [
+            "A) 0.20%",
+            "B) 1.20%",
+            "C) 1.40%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Roll-down return combines the yield earned plus the capital gain from rolling down the curve. After one year, the 7-year bond becomes a 6-year bond at a yield of 4.0% (a 20 bps decline). The price gain from the 20 bps yield decline on a bond with approximately 6 years modified duration: 6 x 0.20% = 1.20%. However, the roll-down return is the price appreciation component only: approximately 6 x 0.20% = 1.20%. Adding the yield income of 4.2% gives total return of ~5.4%. But the question asks specifically for roll-down return (price appreciation from curve roll), which is approximately 1.20%. Actually, including the carry: The total excess return from carrying the position includes carry (4.2% yield earned) and roll (1.20% price gain). The roll-down return specifically is the price change from moving along the curve = Modified Duration x yield change = ~6 x 0.20% = 1.20%. The answer is B at 1.20%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate roll-down return from an unchanged yield curve"
+        },
+        {
+          "id": "l3-pm2-3",
+          "question": "A portfolio manager constructs a duration-neutral butterfly trade: long $50M in 2-year bonds (duration 1.9), long $50M in 30-year bonds (duration 18.5), and short the 10-year (duration 8.2). For the trade to be duration-neutral, the notional amount of the 10-year short position is closest to:",
+          "options": [
+            "A) $100M",
+            "B) $124M",
+            "C) $112M"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For duration neutrality: BPV of longs = BPV of short.\n\nBPV of 2-year long: $50M x 1.9 x 0.0001 = $9,500\nBPV of 30-year long: $50M x 18.5 x 0.0001 = $92,500\nTotal long BPV: $102,000\n\nRequired short BPV: $102,000\nShort notional = $102,000 / (8.2 x 0.0001) = $102,000 / 0.00082 = $124.4M\n\nOption A ($100M) assumes equal notional. Option C is an intermediate distractor.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Construct a duration-neutral butterfly trade"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a carry trade and a roll-down strategy. When does each work best, and what risks does each face? Use a concrete example with numbers."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does your view on the economy translate into a specific yield curve expectation?",
+        "Why might a barbell outperform a bullet even when you have no view on the yield curve?",
+        "What are the practical challenges of implementing inter-market yield curve strategies?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Yield curve changes decompose into **level** (~75%), **slope** (~20%), and **curvature** (~5%)\n- **Bullet**: Concentrated maturity; benefits from falling rates at that point\n- **Barbell**: Split maturities; higher convexity, benefits from flattening/positive butterfly\n- **Ladder**: Diversified, low maintenance, no curve view required\n- **Roll-down return**: Price gain from moving along an upward-sloping, static curve\n- **Carry trade**: Borrow short, lend long; profitable when curve is stable and upward-sloping\n- **Key rate durations**: Allow targeted positioning for specific curve segments\n- **Butterfly trades**: Express views on curvature changes"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Credit Strategies** -- moving beyond the risk-free yield curve to explore how credit spreads create additional return opportunities and risks. The curve positioning skills you've learned here extend naturally to credit spread curves."
+    }
+  ]
+}

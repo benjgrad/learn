@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "EQ.4: Introduction to Equity Securities",
+    "description": "Understand the characteristics of common and preferred stock, depository receipts, private vs public equity, and the decomposition of return on equity.",
+    "level": "level-5",
+    "slug": "eq-intro-equity-securities",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company issues both common stock and preferred stock. If the company faces financial difficulty, which group of shareholders gets paid first? What do you think preferred shareholders give up in exchange for that priority?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Common Stock vs. Preferred Stock\n\n### Common Stock\n\nCommon stock represents **ownership** in a corporation and provides:\n\n- **Voting rights** \u2014 typically one vote per share on corporate matters (board elections, mergers, etc.)\n- **Residual claim** on assets after all creditors and preferred shareholders are paid in liquidation\n- **Dividends** \u2014 not guaranteed; declared at the board's discretion\n- **Limited liability** \u2014 shareholders can lose only their investment, not more\n\nSome companies issue **dual-class shares**: Class A with voting rights and Class B with limited or no voting rights (e.g., Google/Alphabet, Meta).\n\n### Preferred Stock\n\nPreferred stock is a **hybrid** security with features of both equity and debt:\n\n| Feature | Preferred | Common |\n|---|---|---|\n| Dividends | Fixed, stated rate | Variable, at board's discretion |\n| Dividend priority | Paid before common | Paid after preferred |\n| Voting rights | Usually none | Yes |\n| Liquidation priority | Senior to common | Residual claim |\n| Price sensitivity | More interest rate sensitive | More earnings sensitive |\n\n**Types of preferred stock:**\n- **Cumulative** \u2014 missed dividends accumulate and must be paid before any common dividends\n- **Non-cumulative** \u2014 missed dividends are forfeited permanently\n- **Participating** \u2014 receives additional dividends beyond the fixed rate if common dividends exceed a threshold\n- **Convertible** \u2014 can be converted into common shares at a predetermined ratio"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has cumulative preferred stock with a $4 annual dividend. The company skipped dividends for 2 years and now wants to pay a common stock dividend. How much must be paid to preferred shareholders first?",
+      "answer": "The company must pay $12 per preferred share before any common dividends: $4 \u00d7 2 years of arrears = $8, plus the current year's $4 dividend = $12. With cumulative preferred stock, all missed (accumulated) dividends must be paid before common shareholders receive anything. If this were non-cumulative preferred, only the current $4 dividend would need to be paid, and the $8 in missed dividends would be permanently forfeited."
+    },
+    {
+      "type": "markdown",
+      "content": "## Depository Receipts and Global Equity\n\n### Depository Receipts (DRs)\n\nDepository receipts allow investors to hold shares in foreign companies through domestic exchanges. A bank buys foreign shares, holds them in custody, and issues receipts that trade domestically.\n\n| Type | Full Name | Where They Trade | Example |\n|---|---|---|---|\n| **ADR** | American Depository Receipt | U.S. exchanges | Toyota trading on NYSE |\n| **GDR** | Global Depository Receipt | Non-U.S. exchanges (often London, Luxembourg) | Indian company trading in London |\n\n**ADR Levels:**\n- **Level I** \u2014 OTC trading only; minimal SEC reporting; easiest and cheapest to establish\n- **Level II** \u2014 listed on a U.S. exchange; must meet SEC reporting requirements\n- **Level III** \u2014 listed on a U.S. exchange and can raise new capital through public offerings; full SEC compliance\n\n### Private vs. Public Equity\n\n| Feature | Public Equity | Private Equity |\n|---|---|---|\n| Liquidity | High \u2014 traded on exchanges | Low \u2014 no public market |\n| Disclosure | Extensive regulatory requirements | Minimal public disclosure |\n| Valuation | Market price readily available | Requires estimation (appraisals, models) |\n| Access | Available to all investors | Typically limited to institutional/accredited investors |\n\nPrivate equity stages: **venture capital** (early stage) \u2192 **growth equity** (expansion) \u2192 **buyouts** (mature companies)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Equity Risk, Return, and ROE Decomposition\n\n### Equity Risk and Return Characteristics\n\nEquity investors earn returns through:\n- **Capital appreciation** \u2014 increase in stock price\n- **Dividend income** \u2014 cash distributions from earnings\n\n$$\\text{Total Return} = \\frac{P_1 - P_0 + D}{P_0}$$\n\nWhere $P_0$ is the purchase price, $P_1$ is the selling price, and $D$ is dividends received.\n\nEquity is riskier than debt because shareholders have a **residual claim** \u2014 they are paid last in liquidation and their returns are not contractually fixed.\n\n### DuPont Decomposition of ROE\n\nReturn on equity (ROE) can be decomposed to reveal the **drivers** of shareholder returns:\n\n$$\\text{ROE} = \\frac{\\text{Net Income}}{\\text{Equity}} = \\underbrace{\\frac{\\text{Net Income}}{\\text{Revenue}}}_{\\text{Net Profit Margin}} \\times \\underbrace{\\frac{\\text{Revenue}}{\\text{Total Assets}}}_{\\text{Asset Turnover}} \\times \\underbrace{\\frac{\\text{Total Assets}}{\\text{Equity}}}_{\\text{Financial Leverage}}$$\n\n**Example:** A company has a net margin of 8%, asset turnover of 1.5\u00d7, and equity multiplier of 2.0\u00d7.\n\n$$\\text{ROE} = 0.08 \\times 1.5 \\times 2.0 = 0.24 = 24\\%$$\n\nHigh ROE can come from high margins (pricing power), high turnover (operational efficiency), or high leverage (financial risk). The DuPont decomposition reveals which factor is driving returns."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Decompose ROE using the DuPont formula and interpret the results for two companies.",
+      "solution": "Company A: Net income = $50M, Revenue = $500M, Total assets = $400M, Equity = $200M\nCompany B: Net income = $50M, Revenue = $1,000M, Total assets = $800M, Equity = $200M\n\n**Company A:**\n- Net profit margin = $50M / $500M = 10%\n- Asset turnover = $500M / $400M = 1.25\u00d7\n- Equity multiplier = $400M / $200M = 2.0\u00d7\n- ROE = 10% \u00d7 1.25 \u00d7 2.0 = 25%\n\n**Company B:**\n- Net profit margin = $50M / $1,000M = 5%\n- Asset turnover = $1,000M / $800M = 1.25\u00d7\n- Equity multiplier = $800M / $200M = 4.0\u00d7\n- ROE = 5% \u00d7 1.25 \u00d7 4.0 = 25%\n\nBoth companies have 25% ROE, but Company A achieves it through high margins (10%) while Company B relies on high leverage (4.0\u00d7 equity multiplier) to compensate for lower margins (5%). Company B's ROE is riskier because high leverage magnifies losses in downturns."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Equity Securities Practice Problems",
+      "problems": [
+        {
+          "id": "eq4-1",
+          "question": "A company has cumulative preferred stock outstanding with a $5 annual dividend per share. Dividends were not paid for the past 3 years. Before the company can pay any common dividends, the total amount per preferred share that must be paid is:",
+          "options": [
+            "A) $5",
+            "B) $15",
+            "C) $20"
+          ],
+          "correctAnswer": "C",
+          "explanation": "With cumulative preferred stock, all unpaid dividends accumulate in arrears. The company owes 3 years of arrears ($5 \u00d7 3 = $15) plus the current year's dividend ($5), for a total of $20 per share. Option A ($5) represents only the current year's dividend. Option B ($15) includes only the arrears and omits the current year's dividend.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Describe features of cumulative preferred stock"
+        },
+        {
+          "id": "eq4-2",
+          "question": "An investor buys a stock at $45, receives $2 in dividends, and sells it at $52. The investor's total return is closest to:",
+          "options": [
+            "A) 15.6%",
+            "B) 17.8%",
+            "C) 20.0%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Total return = (P\u2081 \u2212 P\u2080 + D) / P\u2080 = ($52 \u2212 $45 + $2) / $45 = $9 / $45 = 20.0%. Capital gain = ($52 \u2212 $45)/$45 = 15.6% and dividend yield = $2/$45 = 4.4%. Option A (15.6%) includes only the capital gain and ignores the dividend. Option B (17.8%) results from an arithmetic error.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate the total return on an equity investment"
+        },
+        {
+          "id": "eq4-3",
+          "question": "Using the DuPont decomposition, a company has a net profit margin of 6%, asset turnover of 2.0\u00d7, and equity multiplier of 2.5\u00d7. Its ROE is closest to:",
+          "options": [
+            "A) 10.5%",
+            "B) 24.0%",
+            "C) 30.0%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "ROE = Net profit margin \u00d7 Asset turnover \u00d7 Equity multiplier = 6% \u00d7 2.0 \u00d7 2.5 = 30.0%. The DuPont formula decomposes ROE into profitability (margin), efficiency (turnover), and leverage. Option A (10.5%) divides instead of multiplying. Option B (24.0%) omits one of the three components.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate and interpret ROE using the DuPont decomposition"
+        },
+        {
+          "id": "eq4-4",
+          "question": "Which level of American Depository Receipt (ADR) program allows a foreign company to raise new capital by issuing shares in the United States?",
+          "options": [
+            "A) Level I",
+            "B) Level II",
+            "C) Level III"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Only Level III ADR programs allow the foreign company to raise new capital through public offerings on U.S. exchanges. Level III requires full SEC registration and reporting compliance. Option A is incorrect because Level I ADRs trade only over the counter with minimal SEC requirements. Option B is incorrect because Level II ADRs may list on exchanges but cannot raise new capital.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Distinguish between levels of ADR programs"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a friend who is new to investing the differences between common stock and preferred stock. Cover who gets paid first, who has voting rights, and why someone might choose one over the other."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a company choose to issue preferred stock instead of bonds to raise capital?",
+        "If two companies have the same ROE but very different leverage ratios, which would you prefer to invest in and why?",
+        "What are the trade-offs for a foreign company listing ADRs in the U.S. versus staying listed only on its home exchange?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Common stock** provides voting rights and residual claim on assets\n- **Preferred stock** has priority on dividends and liquidation but typically no voting rights\n- **Cumulative preferred** accumulates unpaid dividends; non-cumulative forfeits them\n- **ADRs** allow foreign stocks to trade on U.S. exchanges (Level I: OTC, Level II: listed, Level III: capital raising)\n- Total return = $(P_1 - P_0 + D) / P_0$\n- **DuPont ROE** = Net profit margin \u00d7 Asset turnover \u00d7 Equity multiplier\n- High ROE from leverage is riskier than high ROE from margins"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Introduction to Company Analysis**, where you'll learn how to evaluate the businesses behind these equity securities. Understanding equity characteristics helps you assess which companies are worth owning and at what price."
+    }
+  ]
+}

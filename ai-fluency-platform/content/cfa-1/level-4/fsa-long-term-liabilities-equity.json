@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "FSA.8: Long-Term Liabilities and Equity",
+    "description": "Understand bond issuance at premium and discount, the effective interest method, lease accounting under IFRS 16 and ASC 842, pension basics, share issuance, and treasury stock.",
+    "level": "level-4",
+    "slug": "fsa-long-term-liabilities-equity",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company issues a $1,000 face value bond at $950 (a discount). Over the bond's life, will the interest expense reported on the income statement be more than, less than, or equal to the coupon payments? Why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Bond Issuance: Premium and Discount\n\nWhen a company issues a bond, the issue price depends on the relationship between the **coupon rate** and the **market interest rate** at issuance.\n\n| Relationship | Issue Price | Bond Type |\n|---|---|---|\n| Coupon rate > Market rate | Above par | Premium |\n| Coupon rate = Market rate | At par | Par |\n| Coupon rate < Market rate | Below par | Discount |\n\n### Bond Issue Price\n\n$$\\text{Price} = \\sum_{t=1}^{n} \\frac{C}{(1+r)^t} + \\frac{F}{(1+r)^n}$$\n\nWhere $C$ = coupon payment, $r$ = market rate per period, $F$ = face value, $n$ = number of periods.\n\n### Example\n\nA 5-year, 6% annual coupon bond, face value \\$1,000, issued when the market rate is 8%:\n\n$$\\text{Price} = 60 \\times \\frac{1-(1.08)^{-5}}{0.08} + \\frac{1{,}000}{(1.08)^5}$$\n$$= 60 \\times 3.9927 + 680.58 = 239.56 + 680.58 = \\$920.15$$\n\nThe bond is issued at a **discount** of $79.85 ($1,000 - $920.15). This discount represents additional interest the bondholder earns over the bond's life \u2014 the difference between total coupon payments and the issue price."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Effective Interest Method\n\nUnder both IFRS and US GAAP, the effective interest method is required for amortizing bond premiums and discounts.\n\n$$\\text{Interest expense} = \\text{Carrying amount} \\times \\text{Market rate at issuance}$$\n$$\\text{Coupon payment} = \\text{Face value} \\times \\text{Coupon rate}$$\n$$\\text{Amortization} = |\\text{Interest expense} - \\text{Coupon payment}|$$\n\n### Discount Bond Example\n\nUsing the bond from above (carrying amount at issuance = $920.15, coupon = $60, market rate = 8%):\n\n| Year | BV Start | Interest Exp (\u00d78%) | Coupon | Amortization | BV End |\n|---|---|---|---|---|---|\n| 1 | $920.15 | $73.61 | $60.00 | $13.61 | $933.76 |\n| 2 | $933.76 | $74.70 | $60.00 | $14.70 | $948.46 |\n| 3 | $948.46 | $75.88 | $60.00 | $15.88 | $964.34 |\n| 4 | $964.34 | $77.15 | $60.00 | $17.15 | $981.49 |\n| 5 | $981.49 | $78.51 | $60.00 | $18.51 | $1,000.00 |\n\n**Key insight**: For a discount bond, interest expense **exceeds** the coupon payment each period. The difference amortizes the discount, gradually increasing the carrying amount to par."
+    },
+    {
+      "type": "markdown",
+      "content": "## Lease Accounting\n\nModern lease standards (IFRS 16, effective 2019; ASC 842, effective 2019) bring most leases **onto the balance sheet**.\n\n### IFRS 16: Single Model for Lessees\n\nAll leases (except short-term \u226412 months and low-value assets) are treated the same:\n- **Right-of-use (ROU) asset** on the balance sheet\n- **Lease liability** = PV of future lease payments\n- Income statement: **depreciation** (on ROU asset) + **interest expense** (on lease liability)\n- This resembles a **finance lease** under the old standard\n\n### ASC 842: Two Models\n\n| Type | Balance Sheet | Income Statement |\n|---|---|---|\n| **Finance lease** | ROU asset + Lease liability | Depreciation + Interest (front-loaded) |\n| **Operating lease** | ROU asset + Lease liability | Single straight-line lease expense |\n\n### Impact on Financial Ratios\n\nBringing leases on balance sheet:\n- **Increases** total assets and total liabilities\n- **Increases** debt-to-equity ratio\n- **Increases** asset turnover denominator (may decrease the ratio)\n- **Increases** EBITDA (lease expense reclassified to depreciation + interest)\n- Under IFRS 16, CFO **increases** (principal portion of lease payment moves from CFO to CFF)\n\n### Pension Basics\n\nDefined benefit pension obligations create a **long-term liability** measured as the PV of projected benefits. The net pension asset/liability = Plan assets - Projected benefit obligation. Remeasurements go to OCI under IFRS; US GAAP is similar."
+    },
+    {
+      "type": "markdown",
+      "content": "## Equity Transactions: Share Issuance and Treasury Stock\n\n### Share Issuance\n\nWhen a company issues shares at a price above par value:\n- **Common stock (par)** increases by par \u00d7 shares issued\n- **Additional paid-in capital (APIC)** increases by (issue price - par) \u00d7 shares issued\n\n### Example\n\nIssue 100,000 shares, par value $1, at $25 per share:\n- Common stock: 100,000 \u00d7 $1 = $100,000\n- APIC: 100,000 \u00d7 ($25 - $1) = $2,400,000\n- Total contributed capital increase: $2,500,000\n\n### Treasury Stock\n\nTreasury stock is shares repurchased by the company. Under the **cost method** (most common):\n- Debit Treasury Stock (contra-equity) at repurchase cost\n- Treasury stock **reduces** total equity\n\n### Example\n\nRepurchase 10,000 shares at $30 each:\n- Treasury stock: 10,000 \u00d7 $30 = $300,000 (reduces equity)\n\nIf later reissued at $35:\n- Cash: 10,000 \u00d7 $35 = $350,000\n- Treasury stock removed: $300,000\n- APIC increases by: $50,000\n\nIf reissued below cost (at $25):\n- Cash: $250,000\n- Treasury stock removed: $300,000\n- APIC or Retained earnings reduced by: $50,000\n\nTreasury shares are **not outstanding** \u2014 they receive no dividends and have no voting rights."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A premium bond has a carrying amount of $1,050 at the start of the year, a coupon rate of 7%, face value of $1,000, and an effective interest rate of 5%. What is interest expense for the year, and does the carrying amount increase or decrease?",
+      "answer": "Interest expense = $1,050 \u00d7 5% = $52.50. Coupon payment = $1,000 \u00d7 7% = $70.00. Since the coupon exceeds interest expense, the premium amortizes by $70.00 - $52.50 = $17.50. The carrying amount decreases to $1,050 - $17.50 = $1,032.50. For a premium bond, the carrying amount declines toward par over time."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company issues a 3-year, 5% annual coupon bond with face value $1,000 when the market rate is 4%. Calculate the issue price and prepare the complete amortization table using the effective interest method.",
+      "solution": "**Issue Price:**\n$$P = 50 \\times \\frac{1-(1.04)^{-3}}{0.04} + \\frac{1{,}000}{(1.04)^3}$$\n$$= 50 \\times 2.7751 + 889.00 = 138.75 + 889.00 = \\$1{,}027.75$$\n\nThe bond is issued at a premium of $27.75.\n\n**Amortization Table:**\n\n| Year | BV Start | Int Exp (\u00d74%) | Coupon | Amortization | BV End |\n|---|---|---|---|---|---|\n| 1 | $1,027.75 | $41.11 | $50.00 | $8.89 | $1,018.86 |\n| 2 | $1,018.86 | $40.75 | $50.00 | $9.25 | $1,009.62 |\n| 3 | $1,009.62 | $40.38 | $50.00 | $9.62 | $1,000.00 |\n\nNote: Interest expense decreases each period as the carrying amount declines. The coupon exceeds interest expense, and the difference amortizes the premium."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Long-Term Liabilities and Equity Practice Problems",
+      "problems": [
+        {
+          "id": "fsa8-1",
+          "question": "A company issues a bond at a discount. Over the life of the bond, the total interest expense recognized will be:",
+          "options": [
+            "A) Equal to the total coupon payments",
+            "B) Greater than the total coupon payments",
+            "C) Less than the total coupon payments"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For a discount bond, total interest expense = total coupon payments + the discount. The discount is amortized as additional interest expense each period. If a $1,000 bond is issued at $950, total interest expense over its life exceeds total coupons by $50 (the original discount). Option A would be true only for a par bond. Option C describes a premium bond, where total interest expense is less than total coupons by the premium amount.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Describe the relationship between interest expense and coupon payments for discount and premium bonds"
+        },
+        {
+          "id": "fsa8-2",
+          "question": "Under IFRS 16, a company with significant operating leases previously accounted for off-balance-sheet will most likely experience an increase in:",
+          "options": [
+            "A) Net income in the early years of the lease",
+            "B) EBITDA",
+            "C) The current ratio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under IFRS 16, what was previously a single operating lease expense is split into depreciation (on the ROU asset) and interest (on the lease liability). Since EBITDA excludes both depreciation and interest, EBITDA increases. Option A is incorrect \u2014 in the early years, the combined depreciation + interest expense exceeds what the straight-line lease expense would have been (front-loading), so net income decreases. Option C is incorrect \u2014 the current portion of the lease liability increases current liabilities, likely reducing the current ratio.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the impact of lease capitalization on financial statements and ratios"
+        },
+        {
+          "id": "fsa8-3",
+          "question": "A discount bond has a carrying amount of $940 at the beginning of Year 2, a face value of $1,000, a coupon rate of 5%, and a market rate at issuance of 7%. Interest expense for Year 2 is closest to:",
+          "options": [
+            "A) $47.00",
+            "B) $50.00",
+            "C) $65.80"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Interest expense = Carrying amount \u00d7 Market rate = $940 \u00d7 7% = $65.80. The coupon payment = $1,000 \u00d7 5% = $50.00. The discount amortization = $65.80 - $50.00 = $15.80, increasing the carrying amount to $955.80. Option A ($47.00) incorrectly applies the market rate to the face value minus something. Option B ($50.00) is the coupon payment, not interest expense. The effective interest method always uses the carrying amount times the original market rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate interest expense using the effective interest method"
+        },
+        {
+          "id": "fsa8-4",
+          "question": "A company repurchases 50,000 of its own shares at $40 per share using the cost method. The impact on the balance sheet is:",
+          "options": [
+            "A) Total equity decreases by $2,000,000 and total assets decrease by $2,000,000",
+            "B) Total equity increases by $2,000,000 as the company 'invests in itself'",
+            "C) No effect on total equity; the shares are reclassified within equity"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Treasury stock is recorded as a contra-equity account at cost: 50,000 \u00d7 $40 = $2,000,000. This reduces total equity by $2,000,000. Cash (an asset) also decreases by $2,000,000. Option B is incorrect \u2014 share repurchases reduce equity and assets; they are not an investment. Option C is incorrect \u2014 treasury stock is a reduction of equity, not a reclassification. The repurchased shares are no longer outstanding and receive no dividends.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Account for treasury stock transactions using the cost method"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the effective interest method to someone who understands that bonds can be issued at premiums and discounts. Walk through why interest expense differs from the coupon payment and how the carrying amount changes over time for both premium and discount bonds."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why did standard setters decide to bring operating leases onto the balance sheet, and what problem does this solve for analysts?",
+        "How does the effective interest method ensure that the bond's carrying amount reaches par at maturity?",
+        "What is the economic rationale for companies repurchasing their own shares?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Bond issue price = PV of coupons + PV of face value at market rate\n- Coupon > market rate \u2192 premium; Coupon < market rate \u2192 discount\n- Effective interest: Interest expense = Carrying amount \u00d7 Market rate at issuance\n- Discount bond: Interest expense > Coupon; carrying amount rises to par\n- Premium bond: Interest expense < Coupon; carrying amount falls to par\n- IFRS 16: All leases \u2192 ROU asset + liability (single model)\n- ASC 842: Finance lease (front-loaded) vs Operating lease (straight-line)\n- Lease capitalization increases assets, liabilities, EBITDA; decreases current ratio\n- Treasury stock (cost method): contra-equity at repurchase cost\n- Treasury shares: not outstanding, no dividends, no voting rights"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Analysis of Income Taxes**, where you'll learn about deferred tax assets and liabilities \u2014 timing differences between accounting and tax reporting. Bond discount/premium amortization and lease accounting are common sources of temporary differences that create deferred taxes."
+    }
+  ]
+}

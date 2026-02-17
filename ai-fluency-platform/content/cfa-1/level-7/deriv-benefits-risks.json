@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "DV.3: Benefits, Risks, and Uses of Derivatives",
+    "description": "Understand the benefits derivatives provide (risk management, price discovery, operational advantages) and the risks they introduce (counterparty, liquidity, operational, basis risk).",
+    "level": "level-7",
+    "slug": "deriv-benefits-risks",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An airline uses fuel derivatives to lock in jet fuel prices. What specific benefits does this provide? What could go wrong \u2014 what new risks might the airline face by using derivatives?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Benefits of Derivative Markets\n\n### Risk Management (Hedging)\n\nDerivatives allow market participants to **transfer specific risks** to those willing to bear them. A wheat farmer can sell futures to lock in a price; a portfolio manager can buy put options to protect against a market decline. Hedging does not eliminate risk \u2014 it transfers it.\n\n### Price Discovery\n\nDerivative markets aggregate information from diverse participants, producing prices that reflect consensus expectations about future values. Futures prices for commodities, interest rates, and currencies are widely used as **benchmarks** and forward-looking indicators.\n\n### Operational Advantages\n\n- **Leverage** \u2014 derivatives require less capital than buying the underlying directly. A $5 option premium controls $100 of stock exposure.\n- **Lower transaction costs** \u2014 trading futures is typically cheaper than transacting in the underlying market.\n- **Short selling ease** \u2014 derivatives make it simple to take bearish positions without borrowing securities.\n- **Market completeness** \u2014 derivatives create payoff patterns that cannot be replicated with the underlying alone.\n\n### Informational Efficiency\n\nDerivative markets improve overall market efficiency by enabling rapid incorporation of new information into prices and facilitating arbitrage that corrects mispricings in underlying markets."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company hedges its foreign currency revenue using forward contracts. Six months later, the currency moved favorably \u2014 the company would have earned more without the hedge. Did the hedge fail?",
+      "answer": "No, the hedge did not fail. The purpose of hedging is to reduce uncertainty, not to maximize profit. The hedge worked exactly as intended \u2014 it locked in a known exchange rate, eliminating the risk of an unfavorable move. The 'cost' of hedging is giving up potential gains from favorable moves. Judging a hedge by its opportunity cost after the fact is hindsight bias."
+    },
+    {
+      "type": "markdown",
+      "content": "## Risks of Derivative Markets\n\n### Counterparty (Credit) Risk\n\nThe risk that the other party to a derivative contract **defaults** on its obligations. This is most significant in OTC markets where no clearinghouse guarantees performance.\n\n### Liquidity Risk\n\nThe risk that a position **cannot be closed or offset** at a fair price due to insufficient market activity. Customized OTC derivatives are particularly susceptible \u2014 there may be no secondary market.\n\n### Operational Risk\n\nThe risk of loss from **inadequate systems, processes, or controls**. Examples include settlement failures, valuation model errors, unauthorized trading (e.g., rogue traders), and documentation disputes.\n\n### Basis Risk\n\nThe risk that the derivative used to hedge does **not perfectly track** the exposure being hedged. For example, hedging jet fuel costs with crude oil futures introduces basis risk because jet fuel and crude oil prices do not move in perfect lockstep.\n\n$$\\text{Basis} = \\text{Spot price of hedged asset} - \\text{Futures price of hedging instrument}$$\n\n### Systemic Risk\n\nBecause derivatives create interconnections among financial institutions, the failure of one major participant can cascade through the system. The 2008 crisis demonstrated how concentrated counterparty exposures (e.g., AIG's credit default swaps) can threaten the entire financial system."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio manager holds $10 million in a diversified stock portfolio and is worried about a market downturn over the next 3 months. Describe two derivative-based strategies to manage this risk and identify one risk each strategy introduces.",
+      "solution": "**Strategy 1: Buy put options on a stock index (e.g., S&P 500 puts)**\n\nThis creates a 'floor' on portfolio value. If the market falls, the put gains in value, offsetting portfolio losses. The downside is the premium cost \u2014 if the market rises, the premium is lost. Risk introduced: **basis risk** \u2014 the portfolio may not perfectly track the index.\n\n**Strategy 2: Sell (short) stock index futures**\n\nFutures gains offset portfolio losses if the market declines. No upfront premium is required (unlike options). However, if the market rises, futures losses offset portfolio gains \u2014 the manager gives up upside. Risk introduced: **basis risk** (same as above) plus **margin risk** \u2014 adverse price moves require additional margin deposits, creating potential liquidity strain."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Benefits, Risks, and Uses Practice",
+      "problems": [
+        {
+          "id": "dv3-1",
+          "question": "An airline hedges jet fuel costs using crude oil futures. The primary risk that remains after the hedge is in place is best described as:",
+          "options": [
+            "A) Counterparty risk",
+            "B) Basis risk",
+            "C) Systematic risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Basis risk arises because jet fuel and crude oil prices are correlated but do not move identically. The hedge may not perfectly offset changes in jet fuel costs. Option A is less relevant because exchange-traded futures have minimal counterparty risk (clearinghouse guarantee). Option C (systematic risk) refers to broad market risk, which is not the primary concern of a commodity-specific hedge.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the risks of derivative markets including basis risk"
+        },
+        {
+          "id": "dv3-2",
+          "question": "Which of the following is most likely a benefit that derivatives provide to financial markets?",
+          "options": [
+            "A) Elimination of counterparty credit risk",
+            "B) Greater price discovery and informational efficiency",
+            "C) Guaranteed positive returns for hedgers"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Derivative markets improve price discovery by aggregating information from diverse participants and providing forward-looking price signals. Option A is incorrect \u2014 derivatives can reduce counterparty risk (through clearing) but do not eliminate it entirely, and OTC derivatives create counterparty risk. Option C is incorrect \u2014 hedging locks in outcomes but does not guarantee positive returns; hedgers sacrifice potential gains to reduce uncertainty.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the benefits of derivative markets"
+        },
+        {
+          "id": "dv3-3",
+          "question": "A trader enters a large OTC interest rate swap with a single counterparty. The risk that the counterparty defaults when the swap has a positive value to the trader is best described as:",
+          "options": [
+            "A) Basis risk",
+            "B) Liquidity risk",
+            "C) Counterparty (credit) risk"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Counterparty (credit) risk is the risk that the other party defaults on its obligation. For an OTC swap, if the counterparty defaults when the swap is in-the-money to the trader, the trader loses the unrealized gain. Option A (basis risk) relates to imperfect hedging. Option B (liquidity risk) relates to the ability to exit a position at a fair price, not to default.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe counterparty risk in OTC derivative markets"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain basis risk using a concrete example. Why can't a hedger always find a derivative that perfectly matches their exposure?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "If derivatives are leveraged instruments, how does leverage amplify both the benefits and risks?",
+        "Why did regulators push for central clearing of OTC derivatives after 2008?",
+        "Can hedging ever make a company worse off compared to not hedging? Under what circumstances?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Benefits:** risk management (hedging), price discovery, leverage, lower transaction costs, ease of short selling\n- **Counterparty risk:** default by the other party (primarily OTC)\n- **Liquidity risk:** inability to close a position at a fair price\n- **Operational risk:** losses from failed processes, systems, or controls\n- **Basis risk:** imperfect correlation between the hedge instrument and the exposure\n- Hedging transfers risk \u2014 it does not eliminate it\n- Leverage amplifies both gains and losses"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Arbitrage, Replication, and Cost of Carry** \u2014 the foundational pricing principles for all derivatives. You will learn why two assets with the same payoffs must have the same price, and how to construct replicating portfolios."
+    }
+  ]
+}

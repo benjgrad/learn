@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "Ethics.3: Application of Ethics L2",
+    "description": "Work through complex vignette-based ethical scenarios involving multiple stakeholder conflicts, research analyst independence, portfolio manager duties, and compliance system design.",
+    "level": "level-10",
+    "slug": "ethics-application-l2",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Ethics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A compliance officer discovers that the firm's star portfolio manager has been personal-account trading in the same stocks he recommends to clients, consistently buying before client orders are placed. The PM's personal account has outperformed. Is this necessarily a violation even if clients also profited from the recommendations?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Multi-Stakeholder Ethical Analysis\n\nLevel II ethics requires analyzing scenarios where obligations to different stakeholders may conflict:\n\n### Stakeholder Hierarchy\n\n1. **Capital markets** (integrity of markets serves everyone)\n2. **Clients** (fiduciary and suitability obligations)\n3. **Employer** (loyalty within ethical bounds)\n4. **Self** (personal interests last)\n\n### Framework for Ethical Analysis\n\n1. **Identify** all stakeholders affected by the decision\n2. **Recognize** which Standards apply\n3. **Consider** alternative courses of action\n4. **Evaluate** consequences for each stakeholder\n5. **Decide** based on the Standards, choosing the option that best serves the stakeholder hierarchy\n6. **Act** with transparency and documentation\n\n### Common Multi-Stakeholder Conflicts\n\n| Scenario | Stakeholders in Tension | Resolution Principle |\n|----------|------------------------|---------------------|\n| IB pressure on research | Firm vs. clients | Clients first (objectivity) |\n| Whistleblowing | Employer vs. market integrity | Markets first |\n| Client trades vs. personal trades | PM vs. clients | Clients first (priority) |\n| Fee negotiations | Firm vs. clients | Fair dealing, disclosure |\n| Proxy voting | PM preference vs. client interest | Client interest governs |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A PM discovers that a company she recommended to clients has committed accounting fraud. She confirmed this through her own investigation using only public sources. Should she: (a) immediately sell the stock for clients, (b) report to compliance first, or (c) contact the company for clarification?",
+      "answer": "She should (a) act to protect client interests by trading out of the position promptly and (b) report to compliance simultaneously. Client protection (Standard III(A) Loyalty, Prudence, and Care) takes priority. Since her information comes from public sources (not MNPI), she is not restricted from trading. Waiting for company clarification (c) would delay protecting clients from a known risk. She should document her analysis, execute trades for all affected clients fairly (Standard III(B)), and work with compliance to determine if the fraud should be reported to regulators."
+    },
+    {
+      "type": "markdown",
+      "content": "## Research Analyst Independence \u2014 Case Studies\n\n### Case 1: The Expert Network\n\nAn analyst pays an expert network firm to arrange calls with industry consultants. During a call, a former pharmaceutical executive mentions that his former company will not receive FDA approval for a key drug \u2014 information not yet public.\n\n**Analysis:**\n- The information is material and nonpublic (Standard II(A))\n- The analyst cannot trade, recommend, or communicate this information\n- The analyst should report the breach to compliance\n- The expert network arrangement itself may need review\n\n### Case 2: Selective Disclosure\n\nA CEO tells three analysts during a private meeting that Q4 earnings will be 'significantly below consensus.' The CEO asks them to keep it confidential until the earnings call next week.\n\n**Analysis:**\n- This is MNPI \u2014 the CEO should not have disclosed it selectively\n- The analysts should: (1) not trade, (2) encourage the CEO to make a public disclosure immediately, (3) report to compliance\n- If the CEO refuses to disclose publicly, the analysts may need to notify regulators\n\n### Case 3: Research Report Pressure\n\nA large client threatens to pull $500M if the firm's analyst maintains a 'Sell' rating on a stock the client holds.\n\n**Analysis:**\n- Standard I(B): the analyst must maintain objectivity regardless of client pressure\n- The firm should have procedures to prevent clients from influencing research content\n- The PM servicing the client can discuss the research but cannot change it"
+    },
+    {
+      "type": "markdown",
+      "content": "## Compliance System Design\n\n### Elements of an Effective Compliance System\n\n| Element | Description |\n|---------|-------------|\n| **Code of ethics** | Firm-wide principles and values |\n| **Written policies** | Specific rules covering key risk areas |\n| **Training** | Regular education on ethical obligations |\n| **Reporting mechanisms** | Whistleblower channels, escalation procedures |\n| **Monitoring** | Surveillance of trades, communications, gifts |\n| **Enforcement** | Consequences for violations |\n| **Firewall** | Separation of conflicting functions |\n| **Personal trading policies** | Pre-clearance, restricted lists, holding periods |\n\n### Personal Trading Policies\n\nBest practices include:\n- **Pre-clearance** of all personal trades\n- **Blackout periods** around client trades and firm research\n- **Holding periods** (e.g., minimum 30-day hold)\n- **Duplicate account statements** sent to compliance\n- **Restricted lists** for securities where the firm has conflicts or MNPI\n\n### Record Retention\n\nCFA Standards recommend retaining records for at least **seven years**:\n- Research reports and supporting analysis\n- Client communications\n- Trade records\n- Compliance reviews\n- Performance records"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Comprehensive Scenario: Emily Rodriguez is a CFA charterholder and senior PM at Granite Capital. She manages both a discretionary institutional fund and an advisory account for a wealthy individual. She discovers that: (1) her firm's compliance system does not require pre-clearance for employee personal trades under $10,000, (2) a junior analyst on her team has been copy-pasting sections from external research reports into client presentations without attribution, and (3) her advisory client wants to concentrate 80% of their portfolio in a single stock that Emily believes is overvalued. Analyze each issue and recommend actions.",
+      "solution": "**Issue 1 \u2014 Inadequate personal trading policy:**\n\nStandard IV(C) requires supervisors to make reasonable efforts to ensure compliance. The $10K exemption creates a loophole that could allow front-running or other violations to go undetected. Emily should:\n- Recommend to compliance that the firm eliminate the exemption or lower the threshold\n- As a supervisor, she has a duty to advocate for stronger controls\n- Document her recommendation\n\n**Issue 2 \u2014 Plagiarism by junior analyst:**\n\nThis violates Standard I(C) Misrepresentation and Standard IV(C) Responsibilities of Supervisors. Emily must:\n- Immediately stop the practice\n- Instruct the analyst on proper attribution requirements\n- Review prior presentations for plagiarism and correct the record with affected clients\n- Report the issue to compliance\n- Implement a review process for future presentations\n- Consider disciplinary action\n\n**Issue 3 \u2014 Unsuitable concentration for advisory client:**\n\nFor the advisory account, Emily has a duty under Standard III(C) Suitability to recommend appropriate investments:\n- She must clearly communicate her concerns about concentration and overvaluation\n- She should document her recommendation against the 80% concentration\n- If the client insists after receiving her advice, she may execute the trade (advisory accounts give clients more autonomy)\n- She should confirm the client's understanding in writing\n- If the concentration would violate the IPS, she must decline to implement it"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Ethics Application L2 \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "eth3-1",
+          "question": "**Vignette: Oakbridge Asset Management**\n\nOakbridge manages pension fund assets and mutual funds. The following events occur in a single week:\n\n**Monday**: PM Robert Kim buys 5,000 shares of DataCorp for his personal account at $42. Tuesday, he allocates 50,000 shares of DataCorp to three client accounts at an average price of $43. DataCorp was not on the firm's recommended list before Robert's personal trade.\n\n**Wednesday**: Analyst Lisa Park issues a 'Buy' on CloudTech after a meeting with CloudTech's CEO. During the meeting, the CEO showed Lisa confidential revenue projections for Q1 that significantly exceeded consensus. Lisa believes the data supports her thesis.\n\n**Friday**: The firm announces the launch of a new composite performance record starting from the date that produces the best track record.\n\n---\n\n**Question 1:** Robert Kim's Monday personal trade most likely violates:",
+          "options": [
+            "A) Standard VI(B) Priority of Transactions, by trading ahead of client orders",
+            "B) Standard III(B) Fair Dealing, by not offering the trade to all clients simultaneously",
+            "C) Standard III(C) Suitability, by not assessing whether DataCorp was suitable for client accounts"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Robert bought personally on Monday and then purchased for clients on Tuesday at a higher price \u2014 classic front-running. Standard VI(B) requires that client and employer transactions take priority over personal transactions. By buying first, Robert benefited from the subsequent client purchases that likely pushed the price higher. He should have executed client trades first and only traded personally after clients were filled (or not at all during a blackout period). While fair dealing (B) and suitability (C) may also be concerns, front-running via priority of transactions is the primary and most direct violation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Identify front-running as a violation of transaction priority"
+        },
+        {
+          "id": "eth3-2",
+          "question": "**Question 2 (continued):** Lisa Park's Buy recommendation on CloudTech:",
+          "options": [
+            "A) Is appropriate because her own independent analysis supports the conclusion",
+            "B) Violates Standard II(A) because it relies on material nonpublic information from the CEO",
+            "C) Violates Standard V(B) because she failed to communicate the source of her data to clients"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The CEO's confidential Q1 revenue projections are Material Nonpublic Information. Even though Lisa's independent analysis may have pointed toward a Buy, the recommendation is tainted by MNPI because the confidential projections 'significantly exceeded consensus' and were used to support her thesis. Standard II(A) prohibits trading on or communicating MNPI. Lisa should not have issued the recommendation until the information was publicly disclosed. Option A incorrectly suggests independent analysis can override MNPI contamination. Option C misidentifies the primary violation.",
+          "difficulty": "advanced",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Apply MNPI rules when analyst research overlaps with nonpublic confirmation"
+        },
+        {
+          "id": "eth3-3",
+          "question": "**Question 3 (continued):** The firm's approach to its new composite performance record most likely violates:",
+          "options": [
+            "A) Standard III(D) Performance Presentation, by selecting the start date to maximize reported performance",
+            "B) Standard I(A) Knowledge of the Law, by not following local advertising regulations",
+            "C) Standard V(A) Diligence and Reasonable Basis, by not testing the strategy adequately"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Standard III(D) requires that performance presentation be fair, accurate, and complete. Selecting a start date to produce the best track record is cherry-picking \u2014 a form of misrepresentation that gives prospective clients a misleading impression of the firm's abilities. The composite start date should reflect when the strategy was actually implemented, not the date that maximizes performance. This practice may also violate GIPS standards if the firm claims compliance. Options B and C do not address the core performance presentation manipulation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Identify performance presentation violations through selective reporting"
+        },
+        {
+          "id": "eth3-4",
+          "question": "**Vignette: Summit Financial Planning**\n\nCFA charterholder Maria Gonzalez is a financial planner with both discretionary and advisory clients. A discretionary client, a conservative retiree, has an IPS specifying maximum 40% equity allocation. Maria discovers the account is at 55% equity after a strong market rally. Maria has been busy with new client acquisition and has not rebalanced in 6 months.\n\n---\n\n**Question 1:** Maria's failure to rebalance most likely violates:",
+          "options": [
+            "A) Standard III(A) Loyalty, Prudence, and Care, by neglecting her fiduciary duty to a discretionary client",
+            "B) Standard III(C) Suitability, by maintaining an allocation inconsistent with the IPS",
+            "C) Both A and B"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Maria violates both standards. Standard III(A) \u2014 as a fiduciary for a discretionary account, she has a duty to actively manage the portfolio and monitor adherence to the IPS. Neglecting the account for 6 months while pursuing new business is a breach of loyalty and care. Standard III(C) \u2014 the current 55% equity allocation violates the IPS maximum of 40%, making the portfolio unsuitable for the client's risk profile. Both violations stem from the same neglect but address different aspects: the duty of care (III(A)) and the specific suitability requirement (III(C)).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Identify multiple standard violations from fiduciary neglect"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague why front-running is considered one of the most serious ethical violations in investment management. Cover how it harms clients even if the PM's recommendations are ultimately profitable, and why 'no client was harmed' is not a valid defense."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How should a firm balance the cost of compliance with the benefits of ethical culture?",
+        "Why is performance presentation manipulation harmful even if the underlying strategy is legitimate?",
+        "When does an analyst's obligation to protect clients from fraud override their obligation to their employer?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Principles:**\n\n- Stakeholder hierarchy: markets \u2192 clients \u2192 employer \u2192 self\n- Front-running: personal trades before client trades is a serious violation regardless of client outcomes\n- MNPI contamination: independent analysis cannot 'cure' a recommendation tainted by nonpublic information\n- Performance presentation: cherry-picking start dates, accounts, or time periods is misrepresentation\n- Fiduciary duty for discretionary accounts includes active monitoring and rebalancing\n- Compliance systems need: written policies, training, monitoring, enforcement, firewalls, personal trading rules\n- Record retention: minimum seven years recommended\n- When standards conflict, follow the stakeholder hierarchy and the stricter standard"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "This completes the Ethics application module. The **Ethics Checkpoint** will test your ability to apply all standards simultaneously to complex vignettes \u2014 the format and difficulty level of the actual CFA Level II exam. Review any areas of uncertainty before proceeding."
+    }
+  ]
+}

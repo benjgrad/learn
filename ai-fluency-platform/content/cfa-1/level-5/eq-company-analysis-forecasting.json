@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "EQ.7: Company Analysis and Forecasting",
+    "description": "Learn top-down and bottom-up forecasting approaches, revenue and expense modeling methods, margin analysis, pro forma financial statements, and scenario analysis.",
+    "level": "level-5",
+    "slug": "eq-company-analysis-forecasting",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you were asked to forecast next year's revenue for a major retailer, how would you approach it? Would you start with the overall economy and work down, or start with the company's individual stores and work up?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Top-Down vs. Bottom-Up Forecasting\n\nAnalysts use two fundamental approaches to forecast company performance:\n\n### Top-Down Approach\n\nStart with the **macroeconomy**, then narrow to the industry, then the company:\n\n$$\\text{GDP Growth} \\rightarrow \\text{Industry Growth} \\rightarrow \\text{Company Market Share} \\rightarrow \\text{Company Revenue}$$\n\n**Steps:**\n1. Forecast economic growth (GDP, consumer spending, interest rates)\n2. Estimate industry growth based on economic conditions\n3. Estimate the company's market share within the industry\n4. Derive company revenue = Industry size \u00d7 Market share\n\n**Advantage:** Captures macroeconomic trends and ensures company forecasts are consistent with broader economic conditions.\n\n### Bottom-Up Approach\n\nStart with **company-specific data** and build upward:\n\n$$\\text{Segment Revenue} \\rightarrow \\text{Total Revenue} \\rightarrow \\text{Growth Rate}$$\n\n**Steps:**\n1. Analyze individual business segments, products, or geographies\n2. Forecast each segment based on competitive position, capacity, and pricing\n3. Aggregate segment forecasts into total company revenue\n\n**Advantage:** More granular and captures company-specific drivers. Better for companies with diverse segments or unique competitive positions.\n\n### In Practice\n\nMost analysts use **both approaches** and reconcile them. If top-down implies 5% industry growth but bottom-up forecasts 12% company growth, the analyst must justify why the company can significantly outgrow its industry."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An analyst forecasts that a luxury goods company will grow revenue by 15% next year using a bottom-up approach. However, the top-down forecast shows the economy entering a recession with consumer spending declining 3%. How should the analyst reconcile these forecasts?",
+      "answer": "The analyst should critically evaluate the 15% bottom-up forecast in light of macro headwinds. Even luxury goods companies are affected by recessions, though less than mass-market retailers. The analyst might: (1) stress-test the bottom-up assumptions against recession scenarios, (2) examine how the company performed in prior recessions, (3) consider whether new product launches or geographic expansion could offset macro weakness, and (4) adjust the revenue forecast downward if the bottom-up assumptions implicitly depend on strong consumer spending. The final forecast should be consistent with the economic outlook unless there are compelling company-specific reasons for outperformance."
+    },
+    {
+      "type": "markdown",
+      "content": "## Revenue Forecasting Methods\n\nSeveral specific techniques are used to forecast revenue:\n\n### Growth Rate Approach\n\nProject revenue using historical or estimated growth rates:\n\n$$\\text{Revenue}_{t+1} = \\text{Revenue}_t \\times (1 + g)$$\n\n**Sources of growth rate estimates:**\n- Historical average growth\n- Industry growth rate plus/minus market share changes\n- Analyst consensus estimates\n- Management guidance\n\n### Capacity-Based Approach\n\nFor capital-intensive businesses (manufacturing, airlines, hotels):\n\n$$\\text{Revenue} = \\text{Capacity} \\times \\text{Utilization Rate} \\times \\text{Average Price}$$\n\n**Example:** A hotel chain with 50,000 rooms, 72% occupancy, and $180 average daily rate:\n$$\\text{Annual Revenue} = 50{,}000 \\times 0.72 \\times \\$180 \\times 365 = \\$2.365\\text{B}$$\n\n### Segment-Level Approach\n\nBreak revenue into meaningful segments:\n\n| Segment | Units | Price/Unit | Revenue |\n|---|---|---|---|\n| Product A | 100,000 | $50 | $5.0M |\n| Product B | 200,000 | $30 | $6.0M |\n| Services | \u2014 | \u2014 | $3.0M |\n| **Total** | | | **$14.0M** |\n\nThis approach is most useful when segments have different growth drivers and margins."
+    },
+    {
+      "type": "markdown",
+      "content": "## Expense Modeling, Margins, and Pro Forma Statements\n\n### Expense Forecasting\n\nExpenses are typically modeled as either:\n- **Variable costs** \u2014 forecasted as a percentage of revenue (e.g., COGS = 60% of revenue)\n- **Fixed costs** \u2014 forecasted as a dollar amount that doesn't change with volume (e.g., rent, depreciation)\n- **Semi-variable costs** \u2014 have both fixed and variable components (e.g., salaries with commissions)\n\n$$\\text{Total Cost} = \\text{Fixed Costs} + (\\text{Variable Cost per Unit} \\times \\text{Units Sold})$$\n\n### Margin Analysis\n\nProjecting margins involves analyzing the cost structure:\n\n$$\\text{Operating Margin Forecast} = 1 - \\frac{\\text{Forecasted COGS + Forecasted SG\\&A + Forecasted D\\&A}}{\\text{Forecasted Revenue}}$$\n\nMargin expansion can result from: operating leverage (fixed costs spread over more revenue), pricing power, cost efficiencies, or mix shift toward higher-margin products.\n\n### Pro Forma Financial Statements\n\nA pro forma model integrates all forecasts into projected financial statements:\n\n1. **Income statement:** Revenue \u2212 COGS \u2212 SG&A \u2212 D&A \u2212 Interest \u2212 Tax = Net Income\n2. **Balance sheet:** Driven by turnover assumptions (days receivable, days inventory, days payable)\n3. **Cash flow statement:** Derived from income statement and balance sheet changes\n\n### Scenario Analysis\n\n| Scenario | Revenue Growth | Operating Margin | EPS |\n|---|---|---|---|\n| **Bull case** | 12% | 22% | $4.50 |\n| **Base case** | 7% | 19% | $3.20 |\n| **Bear case** | 2% | 15% | $1.80 |\n\nScenario analysis tests how sensitive the valuation is to different assumptions, helping analysts understand the range of possible outcomes."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Build a simplified revenue forecast using both top-down and bottom-up approaches.",
+      "solution": "**Scenario:** Forecast next year's revenue for a mid-sized auto parts retailer.\n\nCurrent revenue: $500M. The company operates 200 stores.\n\n**Top-Down Approach:**\n- GDP growth forecast: 2.5%\n- Auto parts industry grows at ~1.2\u00d7 GDP: 2.5% \u00d7 1.2 = 3.0%\n- Company's market share is stable at 4% of the $12.5B industry\n- Industry next year: $12.5B \u00d7 1.03 = $12.875B\n- Company revenue: $12.875B \u00d7 4% = $515M (3.0% growth)\n\n**Bottom-Up Approach:**\n- Same-store sales growth: 2% (based on traffic trends and pricing)\n- Existing 200 stores \u00d7 $2.50M avg revenue \u00d7 1.02 = $510M\n- New store openings: 8 new stores \u00d7 $2.0M avg (ramp-up year) = $16M\n- Total bottom-up: $510M + $16M = $526M (5.2% growth)\n\n**Reconciliation:**\nThe bottom-up forecast ($526M) exceeds top-down ($515M) by $11M. The difference is driven by new store openings. This is reasonable if the company is gaining market share through expansion. Final forecast: $520M (4.0% growth), reflecting some conservatism on new store ramp-up."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Company Analysis Forecasting Practice Problems",
+      "problems": [
+        {
+          "id": "eq7-1",
+          "question": "An analyst forecasts that a company's industry will grow at 5% next year. The company currently has a 10% market share, which the analyst expects to increase to 11%. Current industry revenue is $50 billion. The analyst's revenue forecast for the company using a top-down approach is closest to:",
+          "options": [
+            "A) $5.25 billion",
+            "B) $5.50 billion",
+            "C) $5.78 billion"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Industry revenue next year = $50B \u00d7 1.05 = $52.5B. Company revenue = $52.5B \u00d7 11% = $5.775B, closest to $5.78B. Option A ($5.25B) uses the current 10% market share applied to next year's industry ($52.5B \u00d7 10%). Option B ($5.50B) applies the 11% share to the current industry size ($50B \u00d7 11%).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Apply the top-down forecasting approach"
+        },
+        {
+          "id": "eq7-2",
+          "question": "A company has fixed costs of $200 million and variable costs equal to 40% of revenue. If revenue increases from $800 million to $900 million, the company's operating profit margin will most likely:",
+          "options": [
+            "A) Decrease",
+            "B) Stay the same",
+            "C) Increase"
+          ],
+          "correctAnswer": "C",
+          "explanation": "At $800M revenue: Total costs = $200M + 0.40($800M) = $520M. Operating profit = $280M. Margin = 280/800 = 35.0%. At $900M revenue: Total costs = $200M + 0.40($900M) = $560M. Operating profit = $340M. Margin = 340/900 = 37.8%. The margin increases because fixed costs are spread over more revenue \u2014 this is operating leverage. Option A is incorrect because operating leverage causes margins to expand with revenue growth. Option B would only be true if all costs were variable.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Explain operating leverage and its effect on margins"
+        },
+        {
+          "id": "eq7-3",
+          "question": "Which of the following is most likely an advantage of the bottom-up forecasting approach compared to the top-down approach?",
+          "options": [
+            "A) It ensures consistency with macroeconomic forecasts",
+            "B) It captures company-specific competitive dynamics and product-level detail",
+            "C) It is less time-consuming and requires fewer data inputs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The bottom-up approach starts with company-specific data (products, segments, stores) and builds up to total revenue, capturing granular competitive dynamics that a top-down approach might miss. Option A describes an advantage of the top-down approach, which starts with the macroeconomy and ensures consistency with broader conditions. Option C is incorrect because the bottom-up approach is typically more time-consuming and data-intensive than top-down.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Compare top-down and bottom-up forecasting approaches"
+        },
+        {
+          "id": "eq7-4",
+          "question": "An analyst creates three scenarios for a stock: bull case ($60, 25% probability), base case ($45, 50% probability), and bear case ($30, 25% probability). The expected value of the stock is closest to:",
+          "options": [
+            "A) $43.50",
+            "B) $45.00",
+            "C) $47.50"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Expected value = (0.25 \u00d7 $60) + (0.50 \u00d7 $45) + (0.25 \u00d7 $30) = $15.00 + $22.50 + $7.50 = $45.00. Option A ($43.50) underweights the bull case. Option C ($47.50) is the simple average of the three scenarios (($60 + $45 + $30)/3), which ignores the probability weights.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate expected value using scenario analysis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain operating leverage to someone who understands basic math. Why does a company with high fixed costs see its profit margin expand more rapidly when revenue grows compared to a company with mostly variable costs?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "When would you rely more on top-down forecasting versus bottom-up, and why?",
+        "How does the mix of fixed and variable costs affect a company's risk profile?",
+        "What are the dangers of building financial forecasts that are too precise (e.g., forecasting to the penny)?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Top-down:** Macro \u2192 Industry \u2192 Company; ensures consistency with economic outlook\n- **Bottom-up:** Company segments \u2192 Total; captures company-specific drivers\n- Revenue forecasting methods: growth rate, capacity-based, segment-level\n- **Operating leverage:** Fixed costs cause margins to expand with revenue growth\n- Total cost = Fixed costs + (Variable cost per unit \u00d7 Units)\n- **Pro forma statements** integrate all forecasts into projected financials\n- **Scenario analysis** tests sensitivity to key assumptions (bull/base/bear)\n- Expected value = $\\sum (\\text{Probability}_i \\times \\text{Value}_i)$"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Equity Valuation Concepts and Basic Tools**, where you'll use the forecasts you've built to determine what a stock is actually worth. The dividend discount model and price multiples translate financial projections into specific price targets."
+    }
+  ]
+}

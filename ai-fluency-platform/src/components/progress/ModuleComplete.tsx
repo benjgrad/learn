@@ -10,12 +10,14 @@ interface ModuleCompleteProps {
   isComplete: boolean;
   onMarkComplete: () => void;
   nextModule: ModuleMeta | null;
+  course?: string;
 }
 
 export function ModuleComplete({
   isComplete,
   onMarkComplete,
   nextModule,
+  course,
 }: ModuleCompleteProps) {
   return (
     <Card className="my-8">
@@ -27,7 +29,7 @@ export function ModuleComplete({
               Module Complete!
             </p>
             {nextModule && (
-              <Link href={`/learn/${nextModule.level}/${nextModule.slug}`}>
+              <Link href={`/learn/${course ? `${course}/` : ""}${nextModule.level}/${nextModule.slug}`}>
                 <Button className="gap-2">
                   Continue to {nextModule.title}
                   <ArrowRight className="h-4 w-4" />

@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "FI.1: Bond Prices and Yields",
+    "description": "Understand the inverse relationship between bond prices and yields, calculate present values, and interpret yield curves.",
+    "level": "level-6",
+    "slug": "fi-bond-prices-yields",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If interest rates rise by 1%, what happens to the price of a 10-year bond versus a 2-year bond? Which drops more, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Bond Pricing Fundamentals\n\nA bond's price is the **present value of its future cash flows** \u2014 periodic coupon payments plus the return of par value at maturity.\n\n$$P = \\sum_{t=1}^{n} \\frac{C}{(1+y)^t} + \\frac{F}{(1+y)^n}$$\n\nWhere:\n- $P$ = bond price\n- $C$ = coupon payment per period\n- $F$ = face (par) value\n- $y$ = yield to maturity per period\n- $n$ = number of periods\n\n### Example\n\nA 3-year bond with a 5% annual coupon and $100 par value, priced at a YTM of 6%:\n\n$$P = \\frac{5}{1.06} + \\frac{5}{1.06^2} + \\frac{105}{1.06^3} = 4.717 + 4.450 + 88.167 = \\$97.33$$\n\nSince the YTM (6%) exceeds the coupon rate (5%), the bond trades at a **discount** (below par)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A bond is trading at 102. Is its yield-to-maturity higher or lower than its coupon rate?",
+      "answer": "Lower. When a bond trades at a premium (above par at 102), its YTM is below its coupon rate. The buyer pays more than face value, reducing the effective yield. Conversely, discount bonds have YTM above their coupon rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Price-Yield Relationship\n\nBond prices and yields move in **opposite directions**. This inverse relationship is fundamental to fixed income investing.\n\n| When yields... | Bond prices... | Why? |\n|---|---|---|\n| Rise | Fall | Future cash flows are discounted at a higher rate |\n| Fall | Rise | Future cash flows are discounted at a lower rate |\n\n### Price Sensitivity\n\nNot all bonds react equally to yield changes:\n\n- **Longer maturity** = greater price sensitivity (more cash flows affected)\n- **Lower coupon rate** = greater price sensitivity (more value in the distant par payment)\n- **Lower initial yield** = greater price sensitivity (convexity effect)\n\nThis sensitivity is formally measured by **duration**, which we'll cover in the next module."
+    },
+    {
+      "type": "markdown",
+      "content": "## Premium, Par, and Discount Bonds\n\n| Relationship | Bond Type | Price vs Par |\n|---|---|---|\n| Coupon rate > YTM | Premium | Price > 100 |\n| Coupon rate = YTM | Par | Price = 100 |\n| Coupon rate < YTM | Discount | Price < 100 |\n\nAs a bond approaches maturity, its price converges toward par value (\"pull to par\"). A premium bond's price gradually declines toward 100, while a discount bond's price gradually rises toward 100."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate the price of a 5-year, 6% annual coupon bond with a face value of $100 and a YTM of 8%. Show each step of the calculation.",
+      "solution": "Using the bond pricing formula:\n\n$P = \\frac{6}{1.08} + \\frac{6}{1.08^2} + \\frac{6}{1.08^3} + \\frac{6}{1.08^4} + \\frac{106}{1.08^5}$\n\n$P = 5.556 + 5.144 + 4.763 + 4.410 + 72.137 = \\$92.01$\n\nSince the YTM (8%) exceeds the coupon rate (6%), the bond trades at a discount. The annuity factor approach: $P = 6 \\times \\frac{1 - (1.08)^{-5}}{0.08} + \\frac{100}{1.08^5} = 23.873 + 68.058 = \\$91.93$ (rounding differences)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Bond Pricing Practice Problems",
+      "problems": [
+        {
+          "id": "fi1-1",
+          "question": "A 3-year, 4% annual coupon bond has a YTM of 4%. What is its price per $100 par?",
+          "options": [
+            "A) $98.00",
+            "B) $100.00",
+            "C) $102.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When the coupon rate equals the YTM, the bond trades at par ($100). The present value of coupons plus par exactly equals face value: $4/1.04 + $4/1.04\u00b2 + $104/1.04\u00b3 = $3.846 + $3.698 + $92.456 = $100.00. Option A would require YTM > coupon (discount). Option C would require YTM < coupon (premium).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate bond price given YTM"
+        },
+        {
+          "id": "fi1-2",
+          "question": "Which of the following bonds is most sensitive to a change in interest rates?\n\n| Bond | Maturity | Coupon | YTM |\n|------|----------|--------|-----|\n| X | 5 years | 8% | 6% |\n| Y | 10 years | 4% | 6% |\n| Z | 10 years | 8% | 6% |",
+          "options": [
+            "A) Bond X",
+            "B) Bond Y",
+            "C) Bond Z"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Bond Y has the longest maturity (10 years) AND the lowest coupon (4%), making it the most sensitive to interest rate changes. Longer maturity means more cash flows are affected by rate changes. Lower coupon means more of the bond's value comes from the distant par payment, which is heavily discounted. Bond Z has the same maturity but a higher coupon (8%), making it less sensitive. Bond X has the shortest maturity (5 years), making it least sensitive.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the relationship between bond price sensitivity and maturity, coupon, and yield"
+        },
+        {
+          "id": "fi1-3",
+          "question": "A 2-year zero-coupon bond has a YTM of 5%. A 2-year 6% annual coupon bond also has a YTM of 5%. If yields rise to 6%, which bond experiences a larger percentage price decline?",
+          "options": [
+            "A) The zero-coupon bond",
+            "B) The coupon bond",
+            "C) Both experience the same percentage decline"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The zero-coupon bond is more sensitive because 100% of its value comes from the final payment at maturity. With no interim cash flows, all of its present value is affected by the yield change. The coupon bond receives some cash flow at year 1, which is less affected by the rate change. Specifically: Zero-coupon: old price = 100/1.05\u00b2 = $90.70, new price = 100/1.06\u00b2 = $89.00, decline = 1.87%. Coupon bond: old price = 6/1.05 + 106/1.05\u00b2 = $101.86, new price = 6/1.06 + 106/1.06\u00b2 = $100.00, decline = 1.82%.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain how coupon rate affects price sensitivity"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why bond prices and yields move in opposite directions. Use the present value concept to support your explanation, as if you were teaching someone who understands basic math but has never studied finance."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which aspect of bond pricing was most unintuitive to you?",
+        "How would you explain the concept of 'pull to par' to a fellow candidate?",
+        "What real-world factors cause yields to change?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Bond price = PV of all future cash flows (coupons + par)\n- Price and yield are **inversely related**\n- Coupon > YTM \u2192 premium (price > par)\n- Coupon = YTM \u2192 par (price = par)\n- Coupon < YTM \u2192 discount (price < par)\n- Greater sensitivity with: longer maturity, lower coupon, lower initial yield\n- As maturity approaches, price converges to par (pull to par)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Duration and Convexity**, which quantify exactly how much a bond's price changes for a given yield change. Duration builds directly on the price-yield relationship you just learned \u2014 it answers 'by how many dollars does the price change per 1% yield move?'"
+    }
+  ]
+}

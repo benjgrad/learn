@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "katex/dist/katex.min.css";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -22,13 +23,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "AI Fluency Platform",
+  title: "Learning Platform",
   description:
-    "Master AI fluency through evidence-based learning — from foundational concepts to pioneering research.",
+    "Evidence-based learning with interactive exercises, AI-powered feedback, and structured progression.",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "AI Fluency",
+    title: "Learning Platform",
   },
 };
 

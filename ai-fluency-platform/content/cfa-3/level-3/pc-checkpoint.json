@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "Portfolio Construction Checkpoint",
+    "description": "Test your mastery of equity and fixed-income portfolio management, alternatives allocation, institutional portfolios, trading costs, and integrated case analysis.",
+    "level": "level-3",
+    "slug": "pc-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Construction Comprehensive Assessment",
+      "problems": [
+        {
+          "id": "l3-pc-cp-1",
+          "question": "A quantitative equity manager applies the Fundamental Law of Active Management. If the manager's information coefficient is 0.06 and breadth is 500 independent decisions, the expected information ratio is closest to:",
+          "options": [
+            "A) 0.85",
+            "B) 1.34",
+            "C) 30.0"
+          ],
+          "correctAnswer": "B",
+          "explanation": "IR \u2248 IC \u00d7 \u221aBR = 0.06 \u00d7 \u221a500 = 0.06 \u00d7 22.36 = 1.34. The moderate IC (0.06) combined with high breadth (500 bets) produces a strong IR. This is a key insight of the Fundamental Law \u2014 many small, slightly informed bets can produce excellent risk-adjusted performance.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Apply the Fundamental Law of Active Management"
+        },
+        {
+          "id": "l3-pc-cp-2",
+          "question": "A pension fund immunizes a $500M single liability with duration 10 years. The portfolio uses a barbell of 2-year and 20-year bonds. The primary risk to this immunization strategy is:",
+          "options": [
+            "A) Parallel shifts in the yield curve",
+            "B) Non-parallel shifts (yield curve twists)",
+            "C) Credit default of the bond issuers"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Classical immunization with duration matching is designed to handle parallel shifts. The barbell structure (2-year + 20-year) has duration 10 but is highly sensitive to non-parallel shifts. If the curve flattens (short rates up, long rates down), the losses on 2-year bonds and gains on 20-year bonds will not offset as expected. A bullet portfolio concentrated near 10 years would be much better immunized against non-parallel shifts. Key rate duration matching further addresses this risk.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify risks to immunization strategies"
+        },
+        {
+          "id": "l3-pc-cp-3",
+          "question": "The 'denominator effect' in alternatives allocation refers to:",
+          "options": [
+            "A) The tendency for alternative fund fees to increase as AUM grows",
+            "B) The increase in illiquid allocation percentage when liquid assets decline in value",
+            "C) The reduction in PE returns as more capital enters the asset class"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When public markets decline (e.g., equities fall 30%), the total portfolio value (denominator) shrinks while illiquid alternatives (which are appraised and slow to mark down) maintain their reported values. The alternatives percentage of the portfolio rises above its policy target. This can force sales of liquid assets to meet spending needs, or worse, force selling of illiquid assets at distressed prices. The 2008 crisis demonstrated this effect dramatically for many endowments.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the denominator effect and its implications"
+        },
+        {
+          "id": "l3-pc-cp-4",
+          "question": "Implementation shortfall differs from VWAP as an execution benchmark in that implementation shortfall:",
+          "options": [
+            "A) Only measures explicit trading costs",
+            "B) Captures the full cost from decision to final execution including opportunity cost",
+            "C) Is always lower than VWAP cost for large orders"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Implementation shortfall measures the total gap between the 'paper' return (if the trade had executed at the decision price) and the actual return, capturing delay costs, market impact, and opportunity costs on unfilled portions. VWAP only measures execution quality relative to the day's volume-weighted average price \u2014 it does not capture delay costs (pre-trade) or opportunity costs (unfilled trades). IS provides a more comprehensive picture of total execution cost.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Compare execution benchmarks"
+        },
+        {
+          "id": "l3-pc-cp-5",
+          "question": "For a well-funded (105%) frozen DB pension plan with no new participants, the most appropriate asset allocation is:",
+          "options": [
+            "A) High equity allocation to build surplus further",
+            "B) Primarily long-duration bonds in an LDI framework",
+            "C) Balanced allocation similar to an endowment"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A well-funded, frozen plan has no need for return-seeking assets to close a funding gap (it's overfunded) and no new participants to generate future liabilities. The primary objective is to maintain the funded status and ensure liabilities can be met \u2014 this calls for LDI with long-duration bonds matching liability duration. Adding equity risk (A) is unnecessary and could erode the surplus. Endowment-style allocation (C) is inappropriate because the plan has explicit liabilities and a potentially finite horizon (eventual plan termination).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Recommend asset allocation based on pension fund characteristics"
+        },
+        {
+          "id": "l3-pc-cp-6",
+          "question": "A portfolio manager uses a derivatives overlay with receive-fixed swaps (notional $400M, duration 12) on a $2B portfolio. The effective duration increase from the overlay is:",
+          "options": [
+            "A) 1.2 years",
+            "B) 2.4 years",
+            "C) 12.0 years"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Duration contribution of the swap = Swap duration \u00d7 (Notional / Portfolio value) = 12 \u00d7 ($400M / $2,000M) = 12 \u00d7 0.20 = 2.4 years. The overlay adds 2.4 years of effective duration to the total portfolio without requiring the purchase of physical long-duration bonds. This is a capital-efficient way to close the duration gap between assets and liabilities.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate duration impact of derivatives overlays"
+        }
+      ]
+    }
+  ]
+}

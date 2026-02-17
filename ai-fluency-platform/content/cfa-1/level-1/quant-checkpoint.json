@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "title": "QM: Quantitative Methods Checkpoint",
+    "description": "Comprehensive assessment covering all Quantitative Methods topics: rates and returns, TVM, statistics, probability, portfolio math, simulation, estimation, hypothesis testing, regression, and big data.",
+    "level": "level-1",
+    "slug": "quant-checkpoint",
+    "order": 13,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "You are teaching a study group preparing for the CFA exam. Explain the logical thread connecting these QM topics: (1) measuring returns \u2192 (2) describing their distribution \u2192 (3) making probability statements \u2192 (4) testing hypotheses about them \u2192 (5) modeling their relationships with regression. How does each topic build on the previous one?"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An analyst collects 48 monthly excess returns (fund minus benchmark). The sample mean excess return is 0.4% per month with a sample standard deviation of 2.0%. (a) Construct a 95% confidence interval for the true mean monthly excess return. (b) Test whether the fund has statistically significant alpha (H\u2080: \u03bc = 0). (c) Calculate the annualized Sharpe ratio. (d) If the analyst runs a regression of fund returns on benchmark returns and gets R\u00b2 = 0.72, what does this imply about how much of the fund's return variation is explained by the benchmark?",
+      "solution": "**(a) 95% Confidence Interval:**\n\n$SE = s/\\sqrt{n} = 2.0\\%/\\sqrt{48} = 2.0\\%/6.928 = 0.2887\\%$\n\nUsing t-critical (47 df) \u2248 2.012:\n\n$CI = 0.4\\% \\pm 2.012 \\times 0.2887\\% = 0.4\\% \\pm 0.581\\%$\n\n$CI = [-0.181\\%, 0.981\\%]$\n\n**(b) Hypothesis Test:**\n\n$t = 0.4\\%/0.2887\\% = 1.386$\n\nCritical value (two-tailed, \u03b1 = 0.05): \u2248 2.012\n\nSince $|1.386| < 2.012$, fail to reject $H_0$. The alpha is not statistically significant at the 5% level. The confidence interval containing zero confirms this.\n\n**(c) Annualized Sharpe Ratio:**\n\nMonthly Sharpe = Mean excess return / SD = 0.4% / 2.0% = 0.20\n\nAnnualized Sharpe = Monthly Sharpe \u00d7 \u221a12 = 0.20 \u00d7 3.464 = 0.693\n\n**(d) R\u00b2 Interpretation:**\n\n$R^2 = 0.72$ means 72% of the fund's return variation is explained by the benchmark. The remaining 28% is due to the fund's active bets (security selection, sector tilts, etc.). A high R\u00b2 suggests the fund closely tracks its benchmark."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio manager uses Monte Carlo simulation to model a client's retirement outcomes. She assumes returns are normally distributed with \u03bc = 7% and \u03c3 = 12%. What are two important limitations of this approach that she should communicate to the client?",
+      "answer": "First, normal distribution assumption: real returns are leptokurtic (fat-tailed) and negatively skewed, so the simulation may understate the probability of extreme losses. Tail events like market crashes occur more frequently than a normal distribution predicts. Second, parameter uncertainty: the assumed \u03bc = 7% and \u03c3 = 12% are estimates. Small changes in these inputs can produce significantly different retirement outcomes. The model output is only as good as these input assumptions ('garbage in, garbage out'). She should present sensitivity analysis showing how results change with different assumptions."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Quantitative Methods Comprehensive Checkpoint",
+      "problems": [
+        {
+          "id": "qm-cp-1",
+          "question": "An investor deposits $50,000 and earns the following annual returns: Year 1: +20%, Year 2: -15%, Year 3: +25%. The geometric mean annual return and ending portfolio value are closest to:\n\n| Geometric Mean | Ending Value |\n|---|---|\n| (A) 8.58% | $63,750 |\n| (B) 10.00% | $66,150 |\n| (C) 8.58% | $64,423 |",
+          "options": [
+            "A) Geometric mean 8.58%, ending value $63,750",
+            "B) Geometric mean 10.00%, ending value $66,150",
+            "C) Geometric mean 8.58%, ending value $64,423"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Ending value: $50,000 \u00d7 1.20 \u00d7 0.85 \u00d7 1.25 = $50,000 \u00d7 1.275 = $63,750. Geometric mean: (1.275)^(1/3) - 1 = 1.08436 - 1 = 8.44%, closest to 8.58% (rounding in options). Option B uses the arithmetic mean: (20-15+25)/3 = 10%. Option C has the correct geometric mean but incorrect ending value. Checking: 1.20 \u00d7 0.85 = 1.02, 1.02 \u00d7 1.25 = 1.275. $50,000 \u00d7 1.275 = $63,750.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate geometric mean return and ending wealth (QM.1)"
+        },
+        {
+          "id": "qm-cp-2",
+          "question": "A lottery prize pays $10,000 per year for 20 years starting one year from now. An alternative is a lump sum today. At a discount rate of 6%, the minimum lump sum that would make you indifferent is closest to:",
+          "options": [
+            "A) $114,699",
+            "B) $200,000",
+            "C) $121,581"
+          ],
+          "correctAnswer": "A",
+          "explanation": "This is an ordinary annuity. PV = $10,000 \u00d7 [1-(1.06)^(-20)]/0.06 = $10,000 \u00d7 [1-0.31180]/0.06 = $10,000 \u00d7 11.4699 = $114,699. Option B is the undiscounted sum: 20 \u00d7 $10,000. Option C multiplies by (1.06) as if it were an annuity due: $114,699 \u00d7 1.06 = $121,581.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate PV of an ordinary annuity (QM.2)"
+        },
+        {
+          "id": "qm-cp-3",
+          "question": "A distribution of hedge fund returns has a mean of 8%, median of 10%, and mode of 12%. This distribution is most likely:",
+          "options": [
+            "A) Positively skewed",
+            "B) Symmetric",
+            "C) Negatively skewed"
+          ],
+          "correctAnswer": "C",
+          "explanation": "When mean < median < mode, the distribution is negatively (left) skewed. The long left tail pulls the mean below the median. This is common for hedge fund strategies that have frequent small gains but occasional large losses. Option A (positively skewed) requires mean > median > mode. Option B requires all three measures to be equal.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify skewness from central tendency measures (QM.3)"
+        },
+        {
+          "id": "qm-cp-4",
+          "question": "An analyst estimates a 40% probability that interest rates rise. If rates rise, a bond portfolio has a 70% chance of losing value. If rates do not rise, the portfolio has a 10% chance of losing value. The total probability of the portfolio losing value is closest to:",
+          "options": [
+            "A) 28%",
+            "B) 34%",
+            "C) 80%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "P(Loss) = P(Loss|Rise)P(Rise) + P(Loss|No Rise)P(No Rise) = 0.70(0.40) + 0.10(0.60) = 0.28 + 0.06 = 0.34 = 34%. This is the total probability rule. Option A (28%) only considers the case where rates rise: 0.70 \u00d7 0.40. Option C (80%) adds the conditional probabilities: 70% + 10%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply the total probability rule (QM.4)"
+        },
+        {
+          "id": "qm-cp-5",
+          "question": "Asset A has \u03c3 = 18% and Asset B has \u03c3 = 24%. The correlation is +1. A portfolio with 60% in A and 40% in B has a standard deviation closest to:",
+          "options": [
+            "A) 20.4%",
+            "B) 21.0%",
+            "C) 15.1%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When \u03c1 = +1, portfolio \u03c3 = w_A \u00d7 \u03c3_A + w_B \u00d7 \u03c3_B = 0.60(18%) + 0.40(24%) = 10.8% + 9.6% = 20.4%. With perfect positive correlation, there is no diversification benefit \u2014 risk is a simple weighted average. Option B uses the variance formula incorrectly. Option C might use \u03c1 = 0 or a computational error.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate portfolio risk with perfect correlation (QM.5)"
+        },
+        {
+          "id": "qm-cp-6",
+          "question": "An analyst runs a Monte Carlo simulation for a pension fund assuming normally distributed returns. The simulation's VaR estimate is most likely to:",
+          "options": [
+            "A) Overestimate tail risk because normal distributions have fat tails",
+            "B) Underestimate tail risk because actual return distributions are typically leptokurtic",
+            "C) Accurately estimate tail risk because Monte Carlo uses many simulations"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Actual financial returns are typically leptokurtic (excess kurtosis > 0), meaning they have fatter tails than a normal distribution. Assuming normality underestimates the frequency of extreme outcomes, so VaR will be too low (underestimate tail risk). Option A reverses the kurtosis \u2014 normal distributions have thinner tails than actual returns. Option C confuses the number of simulations with the accuracy of distribution assumptions.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify limitations of Monte Carlo with normal assumptions (QM.6, QM.3)"
+        },
+        {
+          "id": "qm-cp-7",
+          "question": "A sample of 100 daily returns has a mean of 0.05% and standard deviation of 1.2%. The 95% confidence interval for the population mean daily return is closest to:",
+          "options": [
+            "A) [-0.19%, 0.29%]",
+            "B) [-2.30%, 2.40%]",
+            "C) [0.03%, 0.07%]"
+          ],
+          "correctAnswer": "A",
+          "explanation": "SE = 1.2%/\u221a100 = 0.12%. CI = 0.05% \u00b1 1.96(0.12%) = 0.05% \u00b1 0.235%. CI = [-0.185%, 0.285%], closest to [-0.19%, 0.29%]. Option B uses the standard deviation instead of standard error: 0.05% \u00b1 1.96(1.2%). Option C is far too narrow, as if SE were 0.01%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Construct a confidence interval (QM.7)"
+        },
+        {
+          "id": "qm-cp-8",
+          "question": "An analyst tests H\u2080: \u03bc \u2264 5% against H\u2090: \u03bc > 5% at \u03b1 = 0.05. The test statistic is 1.75 and the one-tailed critical value is 1.645. The p-value is 0.04. The analyst should:",
+          "options": [
+            "A) Fail to reject H\u2080 because the test statistic is less than 1.96",
+            "B) Reject H\u2080 because the test statistic exceeds the one-tailed critical value",
+            "C) Fail to reject H\u2080 because the p-value exceeds 0.025"
+          ],
+          "correctAnswer": "B",
+          "explanation": "This is a one-tailed test. The relevant critical value is 1.645, not 1.96. Since 1.75 > 1.645, reject H\u2080. Equivalently, p-value (0.04) < \u03b1 (0.05), confirming rejection. Option A incorrectly uses the two-tailed critical value (1.96) for a one-tailed test. Option C incorrectly divides \u03b1 by 2 \u2014 that is only done for two-tailed tests.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Conduct a one-tailed hypothesis test (QM.8)"
+        },
+        {
+          "id": "qm-cp-9",
+          "question": "A researcher calculates both the Pearson correlation (r = 0.30) and the Spearman rank correlation (r_s = 0.75) between two variables. The most likely explanation for this divergence is:",
+          "options": [
+            "A) The relationship is linear but the sample is too small",
+            "B) The relationship is monotonically increasing but non-linear, with outliers affecting the Pearson measure",
+            "C) The data is normally distributed and Spearman is biased upward"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Spearman captures monotonic relationships using ranks, which are robust to outliers. A high Spearman but low Pearson typically indicates a non-linear monotonic relationship or the presence of outliers distorting the Pearson value. Option A does not explain the divergence \u2014 small samples add noise but should not systematically produce different values. Option C is incorrect \u2014 with normal data, Pearson and Spearman give similar results; Spearman is not biased.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compare Pearson and Spearman correlation (QM.9)"
+        },
+        {
+          "id": "qm-cp-10",
+          "question": "A CAPM regression yields: R_i - R_f = 1.2% + 0.85(R_m - R_f), R\u00b2 = 0.65, SEE = 3.5%. Which statement is most accurate?",
+          "options": [
+            "A) The stock has above-average systematic risk because beta exceeds 0.5",
+            "B) The stock has positive alpha of 1.2% and 65% of its return variation is explained by the market",
+            "C) The standard error of 3.5% means the stock's expected return is 3.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The intercept (alpha = 1.2%) represents excess return beyond what CAPM predicts. R\u00b2 = 0.65 means 65% of the stock's return variation is explained by market movements, with 35% due to firm-specific factors. Beta = 0.85 < 1, indicating below-average systematic risk. Option A incorrectly states that beta > 0.5 means above-average risk \u2014 the threshold for 'average' is beta = 1. Option C misinterprets the SEE, which measures the typical prediction error, not the expected return.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret regression output (QM.10)"
+        },
+        {
+          "id": "qm-cp-11",
+          "question": "A machine learning model for credit default prediction achieves 92% accuracy on training data and 90% accuracy on test data. This model is most likely:",
+          "options": [
+            "A) Overfitting \u2014 training accuracy far exceeds test accuracy",
+            "B) Well-fitted \u2014 training and test accuracy are both high and close together",
+            "C) Underfitting \u2014 the model is too simple"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A 2-percentage-point gap between training (92%) and test (90%) accuracy is small and acceptable. Both values are high, suggesting the model captures the underlying pattern without memorizing noise. Option A would require a much larger gap (e.g., 98% training, 60% test). Option C would show poor performance on both training and test data.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Evaluate ML model performance (QM.11)"
+        },
+        {
+          "id": "qm-cp-12",
+          "question": "An investor calculates a money-weighted return of 12% and a time-weighted return of 8% for the same portfolio over the same period. The most likely explanation is:",
+          "options": [
+            "A) The investor added funds before periods of strong performance",
+            "B) The investor added funds before periods of weak performance",
+            "C) The portfolio manager outperformed the benchmark by 4%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "MWR > TWR when the investor's cash flows are favorably timed \u2014 more money is invested during high-return periods. The additional capital earns the high returns, boosting the MWR. Option B would cause MWR < TWR (adding money before losses). Option C confuses the MWR-TWR difference with benchmark-relative performance \u2014 the 4% gap reflects cash flow timing, not manager skill.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret the difference between MWR and TWR (QM.1)"
+        }
+      ]
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which Quantitative Methods topic do you feel most confident about? Which needs the most review before the exam?",
+        "How do the statistical concepts (hypothesis testing, regression, confidence intervals) connect to real-world investment decisions?",
+        "If you could only remember three formulas from this entire QM section for the exam, which three would give you the most coverage?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Quantitative Methods Master Summary:**\n\n**Returns**: Geometric mean for compound growth; TWR for managers, MWR for investors\n\n**TVM**: $FV = PV(1+r)^n$; NPV > 0 \u2192 accept; IRR > required return \u2192 accept\n\n**Statistics**: Sample variance uses $n-1$; Sharpe = $(R_p - R_f)/\\sigma_p$; negative skew + leptokurtosis = typical for financial returns\n\n**Probability**: Bayes: $P(A|B) = P(B|A)P(A)/P(B)$; beware base rate neglect\n\n**Portfolio Math**: $\\sigma_p^2 = w_A^2\\sigma_A^2 + w_B^2\\sigma_B^2 + 2w_Aw_B\\rho\\sigma_A\\sigma_B$; lower correlation \u2192 more diversification\n\n**Simulation**: Monte Carlo needs distribution inputs; historical uses actual data; bootstrap resamples with replacement\n\n**Estimation**: $SE = s/\\sqrt{n}$; CI = $\\bar{X} \\pm t_{crit} \\times SE$\n\n**Hypothesis Testing**: Type I = rejecting true $H_0$ ($\\alpha$); Type II = not rejecting false $H_0$ ($\\beta$); Power = $1-\\beta$\n\n**Regression**: $R^2 = SSR/SST$; $t = b_1/s_{b_1}$; $F = t^2$ in simple regression\n\n**Big Data**: Volume/Velocity/Variety; supervised (labeled) vs unsupervised (unlabeled); overfitting = high training, low test performance"
+    }
+  ]
+}

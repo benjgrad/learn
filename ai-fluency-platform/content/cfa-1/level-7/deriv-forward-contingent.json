@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "DV.2: Forward Commitments and Contingent Claims",
+    "description": "Distinguish forward commitments (forwards, futures, swaps) from contingent claims (options). Understand payoff diagrams, long/short positions, and European vs American options.",
+    "level": "level-7",
+    "slug": "deriv-forward-contingent",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Imagine you agree today to buy a car for $30,000 three months from now. What happens if the car's market value is $35,000 at that time? What if it drops to $25,000? Now imagine instead you pay $500 for the *right* (but not the obligation) to buy at $30,000. How do your outcomes change?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Two Categories of Derivatives\n\nAll derivatives fall into one of two categories based on the **obligation structure**:\n\n### Forward Commitments\n\nBoth parties are **obligated** to transact at a future date at terms set today.\n\n- **Forward contract** \u2014 a private (OTC) agreement to buy/sell an asset at a specified price on a specified future date. Customized, not traded on an exchange.\n- **Futures contract** \u2014 an exchange-traded, standardized forward contract with daily mark-to-market settlement.\n- **Swap** \u2014 a series of forward commitments: an agreement to exchange cash flows on multiple future dates (e.g., fixed rate for floating rate).\n\n### Contingent Claims\n\nOne party has the **right but not the obligation** to transact. The other party has the obligation if the right is exercised.\n\n- **Call option** \u2014 the right to **buy** the underlying at the strike price\n- **Put option** \u2014 the right to **sell** the underlying at the strike price\n\nThe option buyer pays a **premium** upfront for this right. The option seller (writer) receives the premium and bears the obligation.\n\n| Feature | Forward Commitment | Contingent Claim |\n|---|---|---|\n| Obligation | Both parties obligated | Only seller obligated |\n| Upfront cost | Zero (or near-zero) | Buyer pays premium |\n| Potential loss | Unlimited for both sides | Buyer limited to premium |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company enters a forward contract to buy EUR 1 million at $1.10/EUR in 90 days. At expiration the spot rate is $1.15/EUR. What is the company's gain or loss?",
+      "answer": "The company gains. It agreed to buy EUR 1 million at $1.10/EUR (paying $1,100,000) when the market rate is $1.15/EUR (market cost would be $1,150,000). The gain is ($1.15 \u2212 $1.10) \u00d7 1,000,000 = $50,000. The counterparty loses the same $50,000 \u2014 confirming the zero-sum nature of forwards."
+    },
+    {
+      "type": "markdown",
+      "content": "## Options: Calls, Puts, and Exercise Styles\n\n### Call Option Payoff (at expiration)\n\nThe buyer of a call profits when the underlying price $S_T$ exceeds the strike price $X$:\n\n$$\\text{Call payoff} = \\max(0, S_T - X)$$\n\n$$\\text{Call profit} = \\max(0, S_T - X) - c_0$$\n\nwhere $c_0$ is the premium paid.\n\n### Put Option Payoff (at expiration)\n\nThe buyer of a put profits when the underlying price falls below the strike:\n\n$$\\text{Put payoff} = \\max(0, X - S_T)$$\n\n$$\\text{Put profit} = \\max(0, X - S_T) - p_0$$\n\nwhere $p_0$ is the premium paid.\n\n### Exercise Styles\n\n- **European option** \u2014 can only be exercised **at expiration**\n- **American option** \u2014 can be exercised **at any time** up to and including expiration\n\nAmerican options are at least as valuable as European options (they offer more flexibility). Most exchange-traded equity options are American. Most index options are European.\n\n### Long vs. Short Positions\n\n| Position | Forwards/Futures | Options |\n|---|---|---|\n| Long | Agrees to **buy** at future date | Buys the option (pays premium) |\n| Short | Agrees to **sell** at future date | Sells/writes the option (receives premium) |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An investor buys a European call option on a stock with a strike price of $50 for a premium of $4. At expiration, the stock price is $58. Calculate the payoff and profit. Then calculate the payoff and profit if the stock price is $48 at expiration.",
+      "solution": "**Scenario 1: $S_T = 58$**\n\nPayoff = max(0, 58 \u2212 50) = $8\n\nProfit = $8 \u2212 $4 = **$4**\n\nThe investor exercises the call, buying at $50 what is worth $58.\n\n**Scenario 2: $S_T = 48$**\n\nPayoff = max(0, 48 \u2212 50) = $0\n\nProfit = $0 \u2212 $4 = **\u2212$4**\n\nThe call expires worthless because $S_T < X$. The investor's maximum loss is the premium paid ($4). This illustrates the asymmetric payoff of options \u2014 limited downside (premium) with potentially unlimited upside."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Forward Commitments and Contingent Claims Practice",
+      "problems": [
+        {
+          "id": "dv2-1",
+          "question": "Which of the following best distinguishes a contingent claim from a forward commitment?",
+          "options": [
+            "A) A contingent claim requires an upfront payment; a forward commitment does not",
+            "B) A contingent claim gives one party the right but not the obligation to transact",
+            "C) A contingent claim is always traded on an exchange"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The defining feature of a contingent claim (option) is that the buyer has the right but not the obligation to transact, while the seller is obligated if the buyer exercises. Option A is a characteristic but not the defining distinction \u2014 some forward commitments also involve initial payments. Option C is incorrect because many options (exotic options) trade OTC.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Distinguish between forward commitments and contingent claims"
+        },
+        {
+          "id": "dv2-2",
+          "question": "An investor sells (writes) a European put option with a strike price of $40 for a premium of $3. At expiration, the underlying is trading at $35. What is the writer's profit or loss?",
+          "options": [
+            "A) \u2212$5",
+            "B) \u2212$2",
+            "C) +$3"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The put buyer exercises because $S_T < X$. The put writer must buy the underlying at $40 when it is worth $35, losing $5 on exercise. However, the writer collected $3 in premium. Net profit = $3 \u2212 $5 = \u2212$2. Option A (\u2212$5) ignores the premium received. Option C (+$3) incorrectly assumes the put expires worthless.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate option payoff and profit for buyers and sellers"
+        },
+        {
+          "id": "dv2-3",
+          "question": "A swap is best described as:",
+          "options": [
+            "A) A single forward commitment to exchange one asset for another",
+            "B) A series of forward commitments to exchange cash flows on multiple future dates",
+            "C) A contingent claim that gives one party the right to exchange cash flows"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A swap is equivalent to a series of forward contracts \u2014 each settlement date represents a forward commitment to exchange cash flows (e.g., fixed for floating interest payments). Option A describes a single forward contract, not a swap. Option C describes a swaption (an option on a swap), not a swap itself.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the features of forwards, futures, swaps, and options"
+        },
+        {
+          "id": "dv2-4",
+          "question": "An American call option and a European call option are identical in all respects (same underlying, strike, expiration). Which statement is most accurate?",
+          "options": [
+            "A) The American call must be worth more than the European call",
+            "B) The American call is worth at least as much as the European call",
+            "C) Both options have the same value because call options are rarely exercised early"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The American option offers all the exercise rights of the European option plus the additional right of early exercise. This extra flexibility means it is worth at least as much \u2014 but not necessarily more. For non-dividend-paying stocks, it is never optimal to exercise an American call early (so they have equal value). Option A is too strong: 'must be worth more' is incorrect because they can be equal. Option C gives the right conclusion for calls on non-dividend stocks but the wrong reasoning and ignores dividend-paying stocks.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Distinguish between European and American options"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between forward commitments and contingent claims to someone who has never studied finance. Use an everyday analogy for each type."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might an investor choose to buy a put option instead of short-selling the underlying?",
+        "In what sense is a swap 'just a series of forwards'?",
+        "Why would the writer of an option accept unlimited potential loss in exchange for a fixed premium?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Forward commitments** (forwards, futures, swaps): both parties are obligated\n- **Contingent claims** (options): buyer has the right, seller has the obligation\n- Call payoff = $\\max(0, S_T - X)$; Put payoff = $\\max(0, X - S_T)$\n- Buyer's maximum loss = premium paid; seller's maximum loss can be much larger\n- European options: exercise at expiration only; American options: exercise any time\n- American options are worth \u2265 European options (additional flexibility)\n- A swap = series of forward commitments"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Benefits, Risks, and Uses of Derivatives** \u2014 why market participants use these instruments, the specific advantages they offer, and the risks (counterparty, liquidity, operational, basis) that must be managed."
+    }
+  ]
+}

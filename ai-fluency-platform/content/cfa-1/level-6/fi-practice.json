@@ -1,0 +1,455 @@
+{
+  "meta": {
+    "title": "FI: Fixed Income Practice Drill",
+    "description": "30 practice problems covering all Fixed Income topics.",
+    "level": "level-6",
+    "slug": "fi-practice",
+    "order": 20,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Fixed Income Practice Drill\n\nThis set contains 30 problems across all Fixed Income topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "fi-p-001",
+          "question": "A bond has a par value of $1,000, a coupon rate of 6% paid semi-annually, and 10 years to maturity. If the yield to maturity is 8%, the bond's price is closest to:",
+          "options": [
+            "A) $864.10",
+            "B) $1,000.00",
+            "C) $1,135.90"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Semi-annual coupon = $1{,}000 \\times 0.06 / 2 = \\$30$, periods $n = 20$, yield per period $r = 0.08/2 = 0.04$:\n\n$$P = 30 \\times \\frac{1 - (1.04)^{-20}}{0.04} + \\frac{1{,}000}{(1.04)^{20}}$$\n\n$$= 30 \\times 13.5903 + \\frac{1{,}000}{2.1911} = 407.71 + 456.39 = \\$864.10$$\n\nSince YTM (8%) exceeds the coupon rate (6%), the bond trades at a discount.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the price of a fixed-rate bond using discounted cash flows."
+        },
+        {
+          "id": "fi-p-002",
+          "question": "A zero-coupon bond with a face value of $1,000 and 5 years to maturity is priced at $783.53. The yield to maturity is closest to:",
+          "options": [
+            "A) 5.0%",
+            "B) 4.3%",
+            "C) 6.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "For a zero-coupon bond:\n\n$$P = \\frac{FV}{(1 + YTM)^n} \\implies YTM = \\left(\\frac{FV}{P}\\right)^{1/n} - 1$$\n\n$$YTM = \\left(\\frac{1{,}000}{783.53}\\right)^{1/5} - 1 = (1.2763)^{0.20} - 1 = 1.0500 - 1 = 5.0\\%$$",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate yield to maturity for a zero-coupon bond."
+        },
+        {
+          "id": "fi-p-003",
+          "question": "Which of the following bond features provides the issuer with the right to repay the bond before maturity?",
+          "options": [
+            "A) Conversion feature",
+            "B) Call provision",
+            "C) Put provision"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A call provision gives the issuer the right (but not the obligation) to redeem the bond before its stated maturity at a predetermined call price. This benefits the issuer when interest rates fall \u2014 they can refinance at lower rates. A put provision gives the bondholder the right to sell back to the issuer. A conversion feature allows the bondholder to convert to equity. Callable bonds have higher yields than otherwise identical non-callable bonds to compensate investors for call risk.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe common bond features including call, put, and conversion provisions."
+        },
+        {
+          "id": "fi-p-004",
+          "question": "A floating-rate note pays SOFR + 150 bps, reset quarterly. If SOFR is currently 4.5%, the annualized coupon rate is:",
+          "options": [
+            "A) 6.00%",
+            "B) 4.50%",
+            "C) 5.50%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The coupon on a floating-rate note equals the reference rate plus the quoted margin:\n\n$$\\text{Coupon} = \\text{SOFR} + \\text{Spread} = 4.50\\% + 1.50\\% = 6.00\\%$$\n\nThe coupon resets each quarter based on the prevailing SOFR rate. Because the coupon adjusts, floating-rate notes have minimal interest rate risk (duration near zero) but are exposed to credit spread and reference rate reset risk.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the coupon rate on a floating-rate note."
+        },
+        {
+          "id": "fi-p-005",
+          "question": "A bond's Macaulay duration is 7.2 years. If the yield to maturity is 5%, the modified duration is closest to:",
+          "options": [
+            "A) 6.86 years",
+            "B) 7.56 years",
+            "C) 7.20 years"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Modified duration adjusts Macaulay duration for the yield level:\n\n$$D_{mod} = \\frac{D_{Mac}}{1 + YTM} = \\frac{7.2}{1 + 0.05} = \\frac{7.2}{1.05} = 6.857 \\approx 6.86$$\n\nFor semi-annual bonds: $D_{mod} = D_{Mac} / (1 + YTM/2)$. Modified duration measures the approximate percentage price change for a 1% change in yield:\n\n$$\\%\\Delta P \\approx -D_{mod} \\times \\Delta y$$",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate modified duration from Macaulay duration."
+        },
+        {
+          "id": "fi-p-006",
+          "question": "All else equal, which bond has the greatest interest rate risk?",
+          "options": [
+            "A) 5-year, 8% coupon bond",
+            "B) 10-year, 4% coupon bond",
+            "C) 10-year, 8% coupon bond"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Interest rate risk (duration) increases with:\n- Longer maturity (10-year > 5-year)\n- Lower coupon rate (4% < 8%)\n- Lower yield to maturity\n\nThe 10-year, 4% coupon bond has the longest maturity AND lowest coupon, giving it the highest duration and greatest price sensitivity to interest rate changes. A lower coupon means more of the bond's value comes from the distant par repayment, increasing duration.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify the bond characteristics that determine interest rate risk."
+        },
+        {
+          "id": "fi-p-007",
+          "question": "The yield curve is upward sloping. According to the pure expectations theory, this implies that:",
+          "options": [
+            "A) Future short-term rates are expected to rise",
+            "B) Investors require a term premium for holding longer-term bonds",
+            "C) The central bank will raise interest rates"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The pure expectations theory states that the yield curve reflects market expectations of future short-term interest rates, with no term premium. An upward-sloping curve implies that investors expect short-term rates to increase in the future. Forward rates equal expected future spot rates under this theory.\n\nThe liquidity preference theory (option B) adds a term premium to explain why the curve is typically upward-sloping even without rate increase expectations. Option C may be true but is not what the pure expectations theory directly implies.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Interpret the shape of the yield curve under different theories of term structure."
+        },
+        {
+          "id": "fi-p-008",
+          "question": "A bond has a modified duration of 6.5 and convexity of 45. If yields increase by 100 basis points, the estimated percentage price change is:",
+          "options": [
+            "A) \u22126.28%",
+            "B) \u22126.50%",
+            "C) \u22126.73%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Using the duration-convexity approximation:\n\n$$\\%\\Delta P \\approx -D_{mod} \\times \\Delta y + \\frac{1}{2} \\times C \\times (\\Delta y)^2$$\n\n$$= -6.5 \\times 0.01 + \\frac{1}{2} \\times 45 \\times (0.01)^2$$\n\n$$= -0.0650 + 0.00225 = -0.06275 = -6.28\\%$$\n\nThe convexity term partially offsets the duration effect, reducing the estimated price decline. Without convexity, the estimate would be -6.50%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Estimate bond price changes using duration and convexity."
+        },
+        {
+          "id": "fi-p-009",
+          "question": "Credit risk comprises:",
+          "options": [
+            "A) Default risk and interest rate risk",
+            "B) Default risk and loss severity (loss given default)",
+            "C) Default risk and liquidity risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Credit risk has two components:\n\n1. **Default risk (probability of default):** The likelihood that the borrower fails to make scheduled payments\n2. **Loss severity (loss given default):** The amount lost if default occurs, accounting for recovery\n\n$$\\text{Expected Loss} = \\text{Probability of Default} \\times \\text{Loss Given Default}$$\n\n$$= PD \\times (1 - \\text{Recovery Rate})$$\n\nInterest rate risk and liquidity risk are separate risk categories, not components of credit risk.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Define credit risk and its components."
+        },
+        {
+          "id": "fi-p-010",
+          "question": "The one-year spot rate is 3%, and the two-year spot rate is 4%. The implied one-year forward rate one year from now is closest to:",
+          "options": [
+            "A) 5.01%",
+            "B) 3.50%",
+            "C) 4.50%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Using the no-arbitrage relationship between spot and forward rates:\n\n$$(1 + s_2)^2 = (1 + s_1)(1 + f_{1,1})$$\n\n$$(1.04)^2 = (1.03)(1 + f_{1,1})$$\n\n$$1.0816 = 1.03(1 + f_{1,1})$$\n\n$$f_{1,1} = \\frac{1.0816}{1.03} - 1 = 1.0501 - 1 = 5.01\\%$$\n\nThe forward rate exceeds both spot rates because the yield curve is upward-sloping.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate implied forward rates from spot rates."
+        },
+        {
+          "id": "fi-p-011",
+          "question": "Government bonds are considered to have lower credit risk than corporate bonds primarily because:",
+          "options": [
+            "A) Government bonds always offer higher yields",
+            "B) Sovereign governments can tax and, in some cases, print currency to meet obligations",
+            "C) Government bonds are always inflation-protected"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Sovereign governments have unique powers that reduce credit risk:\n\n- **Taxing authority:** Can raise taxes to generate revenue\n- **Monetary authority:** Central banks can create money to service debt (for domestic currency debt)\n- **Long operating history and stability**\n\nHowever, sovereign default is not impossible \u2014 countries have defaulted on foreign currency debt, and hyperinflation from money printing carries its own risks. Government bonds typically offer lower yields (not higher) precisely because of lower credit risk. Not all government bonds are inflation-protected.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain the factors that contribute to lower credit risk for government bonds."
+        },
+        {
+          "id": "fi-p-012",
+          "question": "A bond's yield spread over the benchmark Treasury rate narrows from 200 bps to 150 bps. The bondholder experiences:",
+          "options": [
+            "A) A capital gain, as the bond's price increases",
+            "B) A capital loss, as the bond's price decreases",
+            "C) No change in price, only in yield"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When a bond's yield spread narrows (tightens), the bond's total yield decreases (assuming the benchmark rate is unchanged). Since bond prices move inversely to yields, a lower yield means a higher price \u2014 the bondholder experiences a capital gain.\n\nSpread narrowing typically occurs when:\n- Credit conditions improve\n- Market confidence increases\n- Demand for the bond increases\n\nThis is why credit analysis and spread forecasting are crucial for active fixed-income management.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain the relationship between yield spreads and bond prices."
+        },
+        {
+          "id": "fi-p-013",
+          "question": "An investor holds a bond with a modified duration of 5.0 and a convexity of 30. If yields decrease by 50 basis points, the approximate percentage price increase is:",
+          "options": [
+            "A) 2.54%",
+            "B) 2.50%",
+            "C) 2.46%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$\\%\\Delta P \\approx -D_{mod} \\times \\Delta y + \\frac{1}{2} \\times C \\times (\\Delta y)^2$$\n\n$$= -(5.0)(-0.005) + \\frac{1}{2}(30)(0.005)^2$$\n\n$$= 0.025 + 0.000375 = 0.025375 = 2.54\\%$$\n\nNote that convexity adds to the price increase when yields fall and reduces the price decrease when yields rise \u2014 this asymmetry is beneficial to bondholders and is why higher convexity, all else equal, is preferred.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Apply the duration-convexity approximation for yield decreases."
+        },
+        {
+          "id": "fi-p-014",
+          "question": "A bond is quoted at a yield of 5.5% on a semi-annual bond equivalent basis. The equivalent annual yield on an annual-pay basis is closest to:",
+          "options": [
+            "A) 5.58%",
+            "B) 5.50%",
+            "C) 5.42%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "To convert from semi-annual bond equivalent yield (BEY) to effective annual yield (EAY):\n\n$$EAY = \\left(1 + \\frac{BEY}{2}\\right)^2 - 1 = \\left(1 + \\frac{0.055}{2}\\right)^2 - 1$$\n\n$$= (1.0275)^2 - 1 = 1.05576 - 1 = 5.58\\%$$\n\nThe EAY is higher because of the compounding effect of receiving semi-annual coupons.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Convert between semi-annual bond equivalent yield and effective annual yield."
+        },
+        {
+          "id": "fi-p-015",
+          "question": "Securitization benefits originators by:",
+          "options": [
+            "A) Eliminating all credit risk from the originated loans",
+            "B) Removing assets from the balance sheet, freeing capital and improving financial ratios",
+            "C) Guaranteeing higher yields for investors"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Securitization converts illiquid assets (loans, receivables) into tradable securities by transferring them to a special purpose entity (SPE). Benefits for the originator include:\n\n- **Balance sheet relief:** Assets move off-balance-sheet, reducing leverage and freeing capital\n- **Funding diversification:** Access to capital markets beyond traditional bank funding\n- **Risk transfer:** Credit risk is partially transferred to investors\n\nHowever, originators often retain some credit exposure (first-loss tranche) and do not eliminate all risk. Securitization does not guarantee yields for investors.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the benefits of securitization for originators and investors."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "fi-p-016",
+          "question": "A mortgage-backed security (MBS) investor faces prepayment risk. When interest rates fall, prepayments tend to:",
+          "options": [
+            "A) Increase, as homeowners refinance at lower rates, reducing the MBS duration",
+            "B) Decrease, as homeowners lock in their existing rates",
+            "C) Remain constant because prepayments are contractually fixed"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When interest rates fall, homeowners refinance their mortgages at lower rates, accelerating prepayment of the underlying loans in the MBS pool. This increases prepayment speed and:\n\n- Reduces the weighted average life and duration of the MBS (contraction risk)\n- Returns principal to investors at par when the MBS may be trading above par\n- Forces investors to reinvest at lower prevailing rates\n\nThis negative convexity distinguishes MBS from non-callable bonds and is why MBS offer a yield premium.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain prepayment risk and its impact on mortgage-backed securities."
+        },
+        {
+          "id": "fi-p-017",
+          "question": "A collateralized mortgage obligation (CMO) with sequential-pay tranches has Tranche A receiving all principal payments first. Compared to the underlying MBS pool, Tranche A has:",
+          "options": [
+            "A) Higher duration and greater prepayment risk",
+            "B) Lower duration and greater contraction risk",
+            "C) The same duration as the pool"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In a sequential-pay CMO, Tranche A receives all principal payments (both scheduled and prepayments) before any other tranche. This means:\n\n- **Shorter duration** because Tranche A receives principal faster\n- **Greater contraction risk** when rates fall (prepayments accelerate, shortening its life further)\n- **Lower extension risk** compared to later tranches\n\nLater tranches (B, C, Z) have longer durations and greater extension risk (if prepayments slow). The CMO structure redistributes prepayment risk across tranches rather than eliminating it.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Analyze the risk characteristics of different CMO tranches."
+        },
+        {
+          "id": "fi-p-018",
+          "question": "An asset-backed security (ABS) backed by auto loans uses a revolving structure. During the revolving period:",
+          "options": [
+            "A) Principal collections are used to purchase new receivables, maintaining the pool balance",
+            "B) All cash flows are passed through to investors immediately",
+            "C) The SPE issues additional tranches to fund new loans"
+          ],
+          "correctAnswer": "A",
+          "explanation": "In a revolving ABS structure (common for credit card and sometimes auto loan securitizations), the revolving period allows the SPE to reinvest principal collections into new receivables, maintaining the pool size. This is followed by an amortization period during which principal collections flow to investors.\n\nKey risks during the revolving period:\n- Quality of new receivables may differ from original\n- Early amortization triggers if performance deteriorates\n- Interest-only payments to investors during the revolving period",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the revolving structure in asset-backed securities."
+        },
+        {
+          "id": "fi-p-019",
+          "question": "A corporate bond has a spread of 250 bps over the benchmark government bond. The G-spread and Z-spread are most likely to differ when:",
+          "options": [
+            "A) The yield curve is flat",
+            "B) The yield curve is steeply upward-sloping or downward-sloping",
+            "C) The bond is a zero-coupon bond"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The G-spread is the spread over the government bond yield (a single benchmark yield), while the Z-spread (zero-volatility spread) is the constant spread added to each spot rate on the zero-coupon yield curve that makes the bond's discounted cash flows equal to its price.\n\nThese measures differ when the yield curve is not flat because:\n- G-spread uses a single yield, ignoring the term structure\n- Z-spread properly accounts for the shape of the yield curve\n\nWhen the curve is flat, all spot rates equal the yield, so G-spread and Z-spread are identical. For zero-coupon bonds, they also converge (one cash flow).",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between G-spread and Z-spread and when they diverge."
+        },
+        {
+          "id": "fi-p-020",
+          "question": "A bond has yield-based Macaulay duration of 6.0 and is priced at $980. The yield changes from 5.00% to 5.10%. Using the duration approximation, the new price is closest to:",
+          "options": [
+            "A) $974.40",
+            "B) $974.00",
+            "C) $986.00"
+          ],
+          "correctAnswer": "A",
+          "explanation": "First, calculate modified duration: $D_{mod} = 6.0 / (1.05) = 5.714$\n\nPrice change:\n$$\\Delta P \\approx -D_{mod} \\times P \\times \\Delta y = -5.714 \\times 980 \\times 0.001 = -\\$5.60$$\n\n$$P_{new} \\approx 980 - 5.60 = \\$974.40$$\n\nAlternatively: $\\%\\Delta P = -5.714 \\times 0.001 = -0.5714\\%$, and $980 \\times 0.994286 = \\$974.40$.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Use modified duration to estimate the dollar price change of a bond."
+        },
+        {
+          "id": "fi-p-021",
+          "question": "A bond portfolio has an effective duration of 4.5 and a key rate duration profile concentrated at the 10-year point. If the 10-year rate rises by 50 bps while all other rates remain unchanged, the portfolio will:",
+          "options": [
+            "A) Decline by approximately 2.25%",
+            "B) Decline by approximately 4.50%",
+            "C) Not change because only one rate moved"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Key rate duration measures sensitivity to a change in a specific point on the yield curve. If the portfolio's effective duration of 4.5 is concentrated at the 10-year key rate:\n\n$$\\%\\Delta P \\approx -KRD_{10y} \\times \\Delta y_{10y} = -4.5 \\times 0.005 = -2.25\\%$$\n\nKey rate durations sum to effective duration but reveal exposure to non-parallel yield curve shifts (twists, butterfly). This analysis is critical for portfolios benchmarked to specific maturities.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Apply key rate duration to estimate portfolio sensitivity to non-parallel yield curve shifts."
+        },
+        {
+          "id": "fi-p-022",
+          "question": "A BBB-rated corporate bond has a probability of default of 2% per year and a loss given default of 60%. The expected annual credit loss is:",
+          "options": [
+            "A) 1.20%",
+            "B) 2.00%",
+            "C) 0.80%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$\\text{Expected Loss} = PD \\times LGD = 0.02 \\times 0.60 = 0.012 = 1.20\\%$$\n\nAlternatively: $\\text{Expected Loss} = PD \\times (1 - \\text{Recovery Rate}) = 0.02 \\times (1 - 0.40) = 1.20\\%$\n\nThe credit spread on the bond should be at least 120 bps to compensate investors for expected credit losses, plus an additional risk premium for unexpected losses and illiquidity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate expected credit loss from probability of default and loss given default."
+        },
+        {
+          "id": "fi-p-023",
+          "question": "An investor holds a portfolio of bonds with a total market value of $10 million and a portfolio duration of 7.0. To reduce the duration to 5.0, the investor should sell bonds with a duration of 9.0 and buy bonds with a duration of 3.0. The amount to be reallocated is closest to:",
+          "options": [
+            "A) $3.33 million",
+            "B) $2.86 million",
+            "C) $5.00 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Let $x$ = amount to reallocate. The target portfolio duration equation:\n\n$$D_{target} = D_{current} - \\frac{x}{V}(D_{sell} - D_{buy})$$\n\n$$5.0 = 7.0 - \\frac{x}{10{,}000{,}000}(9.0 - 3.0)$$\n\n$$5.0 = 7.0 - \\frac{6x}{10{,}000{,}000}$$\n\n$$\\frac{6x}{10{,}000{,}000} = 2.0 \\implies x = \\frac{2.0 \\times 10{,}000{,}000}{6} = \\$3{,}333{,}333 \\approx \\$3.33 \\text{ million}$$",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the reallocation needed to achieve a target portfolio duration."
+        },
+        {
+          "id": "fi-p-024",
+          "question": "The option-adjusted spread (OAS) on a callable bond is 120 bps. The Z-spread is 180 bps. The value of the embedded call option in spread terms is:",
+          "options": [
+            "A) 60 bps",
+            "B) 120 bps",
+            "C) 300 bps"
+          ],
+          "correctAnswer": "A",
+          "explanation": "For callable bonds, the relationship between Z-spread and OAS:\n\n$$\\text{Z-spread} = \\text{OAS} + \\text{Option Cost (in bps)}$$\n\n$$\\text{Option Cost} = \\text{Z-spread} - \\text{OAS} = 180 - 120 = 60 \\text{ bps}$$\n\nThe Z-spread exceeds the OAS for callable bonds because the call option benefits the issuer (and costs the investor), requiring additional spread compensation. For putable bonds, the OAS would exceed the Z-spread because the put option benefits the investor.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the option cost from the difference between Z-spread and OAS."
+        },
+        {
+          "id": "fi-p-025",
+          "question": "An investor buys a 5-year, 4% annual coupon bond at par ($1,000). Over the 5-year holding period, coupons are reinvested at 3%. The investor's realized return is:",
+          "options": [
+            "A) Less than 4%",
+            "B) Exactly 4%",
+            "C) Greater than 4%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When the reinvestment rate (3%) is lower than the YTM at purchase (4%), the realized return will be less than 4%. The total terminal value:\n\n- Par at maturity: $1,000\n- Reinvested coupons: $40 \\times \\frac{(1.03)^5 - 1}{0.03} = 40 \\times 5.3091 = \\$212.36$\n\nTotal = $1,212.36$\n\nRealized return: $(1{,}212.36 / 1{,}000)^{1/5} - 1 = 1.03917 - 1 = 3.92\\%$\n\nThis illustrates reinvestment risk \u2014 the YTM is only realized if coupons can be reinvested at the YTM rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain reinvestment risk and its impact on realized bond returns."
+        },
+        {
+          "id": "fi-p-026",
+          "question": "A credit analyst downgrades a bond from A to BBB. The most likely immediate effect on the bond is:",
+          "options": [
+            "A) The bond's price decreases and its yield spread widens",
+            "B) The bond's coupon rate increases",
+            "C) The bond's maturity date is extended"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A credit downgrade increases the perceived risk of the bond, causing:\n\n- **Yield spread widening** \u2014 investors demand higher compensation for the increased credit risk\n- **Price decline** \u2014 higher yield means lower present value of future cash flows\n- Possible forced selling by investors with ratings-based mandates (e.g., funds that can only hold A-rated or above)\n\nThe coupon rate and maturity are contractual features that do not change with rating changes. The magnitude of the price impact depends on the 'cliff effect' \u2014 the downgrade from investment grade to speculative grade (BBB to BB) would have a much larger impact.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Analyze the price and yield impact of a credit rating change."
+        },
+        {
+          "id": "fi-p-027",
+          "question": "A sinking fund provision in a bond indenture requires the issuer to retire a portion of the bond issue periodically. From the bondholder's perspective, a sinking fund:",
+          "options": [
+            "A) Reduces credit risk but introduces reinvestment risk",
+            "B) Eliminates all interest rate risk",
+            "C) Increases credit risk by reducing the bond's liquidity"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A sinking fund provision:\n\n**Benefits (reduces credit risk):**\n- Ensures systematic repayment of principal\n- Reduces the outstanding amount at maturity, lowering default risk\n- Creates a more orderly amortization schedule\n\n**Costs (reinvestment risk):**\n- Forces early principal return if the issuer retires bonds at par when trading above par\n- Bondholder must reinvest at potentially lower rates\n- Similar to call risk but on a predetermined schedule\n\nIt does not eliminate interest rate risk or necessarily reduce liquidity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Evaluate the impact of a sinking fund provision on bondholder risk."
+        },
+        {
+          "id": "fi-p-028",
+          "question": "The yield spread on a floating-rate note (FRN) relative to its reference rate is called the:",
+          "options": [
+            "A) Discount margin",
+            "B) Z-spread",
+            "C) Option-adjusted spread"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The discount margin is the constant spread over the reference rate that equates the present value of the FRN's expected cash flows to its market price. It reflects the credit quality and liquidity of the issuer:\n\n- If the discount margin equals the quoted margin, the FRN trades at par\n- If the discount margin exceeds the quoted margin, the FRN trades below par (credit has deteriorated)\n- If the discount margin is less than the quoted margin, the FRN trades above par (credit has improved)\n\nThe Z-spread and OAS are used for fixed-rate bonds, not floating-rate notes.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Define the discount margin and its relationship to FRN pricing."
+        },
+        {
+          "id": "fi-p-029",
+          "question": "A bullet bond and a mortgage amortizing bond both have a maturity of 20 years and the same coupon rate and YTM. The bullet bond will have:",
+          "options": [
+            "A) Higher duration than the amortizing bond",
+            "B) Lower duration than the amortizing bond",
+            "C) The same duration as the amortizing bond"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A bullet bond repays all principal at maturity, concentrating cash flows at the end. An amortizing bond repays principal gradually over its life, resulting in earlier average cash flow receipt.\n\nSince duration is the weighted-average time to receive cash flows:\n- **Bullet bond:** High weight on the distant principal payment, resulting in higher duration\n- **Amortizing bond:** Principal returned throughout the life, bringing the weighted average forward, resulting in lower duration\n\nHigher duration means greater interest rate sensitivity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare the duration of bullet versus amortizing bonds."
+        },
+        {
+          "id": "fi-p-030",
+          "question": "An analyst observes that a 10-year corporate bond with a 5% coupon trades at $950 while a 10-year government bond with the same coupon trades at $1,020. The credit spread in yield terms is best described as the:",
+          "options": [
+            "A) Difference in YTM between the corporate and government bond",
+            "B) Difference in coupon rates",
+            "C) Difference in prices divided by the government bond price"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The credit spread is the difference in yield to maturity between a credit-risky bond and a risk-free benchmark (government bond) of similar maturity:\n\n$$\\text{Credit Spread} = YTM_{\\text{corporate}} - YTM_{\\text{government}}$$\n\nSince the corporate bond trades below par, its YTM exceeds 5%. Since the government bond trades above par, its YTM is below 5%. The credit spread compensates investors for:\n- Expected credit losses\n- Credit risk premium (unexpected losses)\n- Liquidity premium",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Define and interpret credit spreads on corporate bonds."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers bond pricing, duration, convexity basics, yield curve theory, credit risk fundamentals, and securitization. Set B covers MBS/ABS structures, spread measures, key rate duration, portfolio rebalancing, and credit analysis."
+    }
+  ]
+}

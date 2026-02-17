@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ECON.2: Understanding Business Cycles",
+    "description": "Identify the phases of the business cycle, interpret leading/lagging/coincident indicators, classify unemployment types, and distinguish demand-pull from cost-push inflation.",
+    "level": "level-2",
+    "slug": "econ-understanding-business-cycles",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "What signals would you look for to determine whether the economy is heading into a recession? Which economic indicators do you think move first \u2014 before the downturn becomes obvious?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Phases of the Business Cycle\n\nThe business cycle describes the recurring pattern of **expansion and contraction** in aggregate economic activity. GDP is the primary measure, but the cycle affects employment, industrial production, and income broadly.\n\n### The Four Phases\n\n1. **Expansion (recovery)**: GDP grows, unemployment falls, consumer and business confidence rise. Credit conditions are typically easy, and corporate profits increase.\n\n2. **Peak**: The economy reaches maximum output. Resource utilization is high, inflationary pressures build, and capacity constraints appear. The peak marks the transition from expansion to contraction.\n\n3. **Contraction (recession)**: GDP declines, unemployment rises, consumer spending falls, and business investment contracts. A recession is commonly defined as two consecutive quarters of declining real GDP. Credit conditions tighten.\n\n4. **Trough**: The low point of economic activity. Pessimism is widespread, but the seeds of recovery are forming \u2014 inventories are depleted, interest rates are typically low, and pent-up demand begins to build.\n\n### Economic Indicators\n\n| Indicator Type | Timing | Examples |\n|---|---|---|\n| **Leading** | Move before GDP | Stock prices, building permits, new orders for capital goods, yield curve slope, consumer expectations |\n| **Coincident** | Move with GDP | Industrial production, personal income, manufacturing/trade sales, nonfarm payrolls |\n| **Lagging** | Move after GDP | Unemployment rate, CPI for services, average duration of unemployment, bank prime rate, commercial loans outstanding |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The unemployment rate is classified as a lagging indicator. Why does it lag behind GDP changes rather than moving simultaneously?",
+      "answer": "Firms are slow to hire and fire. During a contraction, companies first reduce hours and defer hiring before laying off workers. During a recovery, firms initially increase overtime and use temporary staff before committing to permanent hires. This labor hoarding behavior means unemployment continues to rise even after GDP has begun recovering, and continues to fall after a peak. Additionally, discouraged workers re-enter the labor force during recovery, temporarily inflating the measured unemployment rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Unemployment Types\n\nUnemployment is categorized by its underlying cause:\n\n- **Frictional unemployment**: Workers transitioning between jobs. This is normal and even healthy \u2014 it reflects voluntary job search, relocation, or career changes. It exists even in a strong economy.\n\n- **Structural unemployment**: A mismatch between workers' skills and available jobs. Caused by technological change, shifts in demand across industries, or geographic immobility. More persistent than frictional unemployment and may require retraining.\n\n- **Cyclical unemployment**: Caused by insufficient aggregate demand during recessions. When the economy contracts, firms lay off workers. Cyclical unemployment is **zero at full employment**.\n\nThe **natural rate of unemployment** equals frictional plus structural unemployment. It represents \"full employment\" and is the rate at which there is no cyclical unemployment.\n\n$$\\text{Natural rate} = \\text{Frictional} + \\text{Structural}$$\n\nWhen the actual unemployment rate exceeds the natural rate, cyclical unemployment is positive, and the economy is producing below potential GDP."
+    },
+    {
+      "type": "markdown",
+      "content": "## Inflation and Deflation\n\nInflation is a **sustained increase in the general price level**. The CFA curriculum distinguishes two primary causes:\n\n### Demand-Pull Inflation\n\nOccurs when **aggregate demand increases faster than aggregate supply**. Too much money chasing too few goods. Common triggers:\n- Expansionary monetary policy (low interest rates, increased money supply)\n- Expansionary fiscal policy (tax cuts, increased government spending)\n- Strong consumer or business confidence\n\nThe aggregate demand curve shifts **rightward**, pushing prices and output up.\n\n### Cost-Push Inflation\n\nOccurs when **production costs increase**, reducing aggregate supply. Firms pass higher costs on to consumers. Common triggers:\n- Rising commodity prices (oil, raw materials)\n- Wage increases exceeding productivity growth\n- Supply chain disruptions\n- Currency depreciation (making imports more expensive)\n\nThe aggregate supply curve shifts **leftward**, pushing prices up while output falls \u2014 creating the painful combination called **stagflation** (stagnation + inflation).\n\n### Deflation\n\nA sustained decrease in the general price level. While cheaper goods may seem beneficial, deflation is economically dangerous:\n- Consumers defer purchases, expecting lower future prices\n- Real debt burdens increase (the money owed buys more)\n- A **deflationary spiral** can develop: falling prices \u2192 reduced spending \u2192 lower production \u2192 more unemployment \u2192 further price declines\n\n### Theories of Business Cycles\n\n- **Keynesian**: Driven by changes in aggregate demand; prices and wages are sticky downward, so the economy can remain below full employment. Government intervention is needed.\n- **Monetarist**: Caused primarily by inappropriate monetary policy \u2014 too much or too little money growth.\n- **Austrian**: Credit expansion leads to malinvestment; the bust is a necessary correction.\n- **Real Business Cycle**: Driven by real (supply-side) shocks such as technology changes; the cycle reflects efficient market adjustments."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "The economy is experiencing the following conditions: GDP growth has turned negative for two consecutive quarters, the unemployment rate is rising, consumer confidence is falling, but the stock market has recently begun to recover. What phase of the business cycle are you most likely in? Which indicators are leading, coincident, and lagging?",
+      "solution": "The economy is most likely in a **contraction (recession)**, potentially near the **trough**.\n\n**Evidence:**\n- Two consecutive quarters of negative GDP growth confirms a recession (contraction phase)\n- Rising unemployment is a **lagging indicator** \u2014 it confirms the recession is underway\n- Falling consumer confidence is a **coincident indicator** \u2014 it tracks current conditions\n- The stock market recovering is a **leading indicator** \u2014 equity markets typically bottom 6-9 months before the broader economy recovers\n\nThe fact that the stock market is recovering while unemployment is still rising is consistent with approaching the trough. Leading indicators turn up first (stocks), then coincident indicators improve (GDP, production), and lagging indicators follow last (unemployment begins to fall). This is why the unemployment rate often peaks after a recession has officially ended."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Business Cycles Practice Problems",
+      "problems": [
+        {
+          "id": "econ2-1",
+          "question": "Which of the following is most accurately classified as a leading economic indicator?",
+          "options": [
+            "A) Industrial production",
+            "B) Building permits for new houses",
+            "C) Average duration of unemployment"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Building permits are a leading indicator because they signal future construction activity and economic expansion before it materializes. Option A (industrial production) is a coincident indicator \u2014 it moves with the current phase of the business cycle. Option C (average duration of unemployment) is a lagging indicator \u2014 it continues to worsen even after a recovery has begun, as long-term unemployed workers are the last to be rehired.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Classify economic indicators as leading, coincident, or lagging"
+        },
+        {
+          "id": "econ2-2",
+          "question": "An economy's natural rate of unemployment is 5%. The current unemployment rate is 8%. The cyclical unemployment rate is closest to:",
+          "options": [
+            "A) 3%",
+            "B) 5%",
+            "C) 8%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Cyclical unemployment = Actual unemployment rate \u2212 Natural rate = 8% \u2212 5% = 3%. The natural rate (5%) consists of frictional and structural unemployment, which exist even at full employment. The 3% excess represents workers who lost jobs due to insufficient aggregate demand in the current downturn. Option B (5%) confuses the natural rate with cyclical unemployment. Option C (8%) confuses the total unemployment rate with cyclical unemployment alone.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate cyclical unemployment given actual and natural rates"
+        },
+        {
+          "id": "econ2-3",
+          "question": "An economy experiences rising prices alongside falling real GDP and rising unemployment. This combination is most consistent with:",
+          "options": [
+            "A) Demand-pull inflation",
+            "B) Cost-push inflation",
+            "C) Deflation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Cost-push inflation (stagflation) is characterized by rising prices combined with falling output and rising unemployment. It results from a leftward shift in aggregate supply \u2014 higher costs reduce production while pushing prices up. Option A (demand-pull inflation) is incorrect because demand-pull inflation occurs when aggregate demand shifts right, which increases both prices AND output (GDP would be rising, not falling). Option C (deflation) is incorrect because prices are rising, not falling.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Distinguish between demand-pull and cost-push inflation"
+        },
+        {
+          "id": "econ2-4",
+          "question": "According to the Keynesian theory of business cycles, prolonged recessions are most likely caused by:",
+          "options": [
+            "A) Real supply-side shocks to technology and productivity",
+            "B) Excessive credit expansion leading to malinvestment",
+            "C) Insufficient aggregate demand combined with downward wage and price rigidity"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Keynesian theory holds that business cycles are primarily driven by fluctuations in aggregate demand. Because wages and prices are sticky downward, the economy does not self-correct quickly \u2014 it can remain in a recessionary gap for an extended period, justifying government intervention. Option A describes the Real Business Cycle theory, which attributes cycles to real supply-side shocks. Option B describes the Austrian School theory, which attributes cycles to credit-driven malinvestment.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Compare theories of the business cycle"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between demand-pull and cost-push inflation to someone who understands supply and demand but has not studied macroeconomics. Use a specific real-world example for each."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which business cycle indicators do you pay attention to in your daily life, even if you didn't realize they were economic indicators?",
+        "Why is it important for investors to understand where the economy is in the business cycle?",
+        "How would an investment strategy differ at the trough versus the peak of a business cycle?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Four phases: expansion \u2192 peak \u2192 contraction \u2192 trough\n- Leading indicators (stock prices, building permits) change direction before GDP\n- Coincident indicators (industrial production, payrolls) track current GDP\n- Lagging indicators (unemployment rate, CPI services) confirm past trends\n- Natural rate of unemployment = frictional + structural (no cyclical)\n- Demand-pull inflation: AD shifts right \u2192 prices up, output up\n- Cost-push inflation (stagflation): AS shifts left \u2192 prices up, output down\n- Deflation creates debt burden increases and deflationary spirals\n- Business cycle theories: Keynesian (demand), Monetarist (money supply), Austrian (credit/malinvestment), Real Business Cycle (supply shocks)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Fiscal Policy** \u2014 how governments use spending and taxation to influence the business cycle. You'll see how fiscal tools are deployed during recessions and expansions, and why their effectiveness is debated through concepts like the multiplier effect, crowding out, and Ricardian equivalence."
+    }
+  ]
+}

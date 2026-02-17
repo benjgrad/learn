@@ -6,6 +6,28 @@ export interface ModuleMeta {
   order: number;
   isCheckpoint: boolean;
   isIndex: boolean;
+  isPracticeOnly?: boolean;
+  isExamBank?: boolean;
+  cfaTopic?: string;
+  cfaLOS?: string[];
+}
+
+export interface PracticeProblem {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  explanation: string;
+  difficulty: "basic" | "intermediate" | "advanced";
+  cfaTopic?: string;
+  learningOutcome?: string;
+}
+
+export interface CourseInfo {
+  id: string;
+  title: string;
+  description: string;
+  color: string;
 }
 
 export interface ModuleContent {
@@ -22,6 +44,12 @@ export type ContentBlock =
   | { type: "reflectPrompt"; questions: string[] }
   | { type: "connectPrompt"; prompt: string }
   | { type: "keyTakeaway"; content: string }
+  | {
+      type: "practiceSet";
+      title: string;
+      vignette?: string;
+      problems: PracticeProblem[];
+    }
   | {
       type: "providerContent";
       context?: string;
@@ -40,6 +68,7 @@ export interface LevelInfo {
   color: string;
   description: string;
   moduleCount: number;
+  levelLabel?: string; // "Level" (default) or "Topic" for CFA courses
 }
 
 export interface CurriculumData {

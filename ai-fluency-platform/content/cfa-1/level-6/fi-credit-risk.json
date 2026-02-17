@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.14: Credit Risk",
+    "description": "Understand default risk, credit spread risk, downgrade risk, expected loss components, recovery rates, and credit ratings.",
+    "level": "level-6",
+    "slug": "fi-credit-risk",
+    "order": 14,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A bond-rating agency downgrades a company from A to BBB+. The company has not defaulted and may never default. Can bondholders still lose money from this downgrade alone? How?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Types of Credit Risk\n\nCredit risk encompasses several related but distinct risks:\n\n### Default Risk\nThe risk that the issuer fails to make scheduled interest or principal payments. Default risk is the most severe form of credit risk \u2014 it results in actual loss of cash flows.\n\n### Credit Spread Risk\nThe risk that the yield spread over the benchmark widens, causing the bond's price to fall even without a default. Credit spreads reflect the market's assessment of credit risk and can change due to issuer-specific or market-wide factors.\n\n### Downgrade Risk\nThe risk that a rating agency lowers the issuer's credit rating, which typically triggers spread widening and price declines. Downgrades can also force institutional investors with rating-based mandates to sell.\n\n## Expected Loss\n\nThe **expected loss** on a bond combines the probability and severity of default:\n\n$$\\text{Expected Loss} = \\text{PD} \\times \\text{LGD} \\times \\text{EAD}$$\n\n| Component | Definition |\n|---|---|\n| **PD** (Probability of Default) | Likelihood of default over a specified period |\n| **LGD** (Loss Given Default) | Percentage of exposure lost if default occurs = 1 \u2212 Recovery Rate |\n| **EAD** (Exposure at Default) | Amount owed at the time of default |\n\n### Recovery Rate\n\nThe **recovery rate** is the percentage of the bond's face value that investors receive after default:\n\n$$\\text{LGD} = 1 - \\text{Recovery Rate}$$\n\nRecovery rates vary by seniority: senior secured (~45-65%) > senior unsecured (~35-45%) > subordinated (~15-30%)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A BBB-rated bond has a 2% probability of default over 1 year, a recovery rate of 40%, and an EAD of $10 million. What is the expected loss?",
+      "answer": "Expected loss = PD \u00d7 LGD \u00d7 EAD = 0.02 \u00d7 (1 \u2212 0.40) \u00d7 $10,000,000 = 0.02 \u00d7 0.60 \u00d7 $10,000,000 = $120,000. The LGD is 60% (= 1 \u2212 40% recovery). Even though the default probability is low (2%), the expected loss is meaningful because the LGD (60%) and EAD ($10M) are significant. The actual loss if default occurs would be $6,000,000, but the probability-weighted expected loss is $120,000."
+    },
+    {
+      "type": "markdown",
+      "content": "## Credit Ratings\n\nRating agencies (Moody's, S&P, Fitch) assess credit quality and assign ratings:\n\n| S&P/Fitch | Moody's | Category |\n|---|---|---|\n| AAA | Aaa | Highest quality |\n| AA+, AA, AA\u2212 | Aa1, Aa2, Aa3 | High quality |\n| A+, A, A\u2212 | A1, A2, A3 | Upper medium grade |\n| BBB+, BBB, BBB\u2212 | Baa1, Baa2, Baa3 | Medium grade (lowest IG) |\n| BB+, BB, BB\u2212 | Ba1, Ba2, Ba3 | Speculative |\n| B+, B, B\u2212 | B1, B2, B3 | Highly speculative |\n| CCC to C | Caa to C | Substantial/extreme risk |\n| D | \u2014 | In default |\n\n### Rating Transitions\n\n**Transition matrices** show the probability of moving between rating categories over a period. Key patterns:\n- Higher-rated bonds have a higher probability of maintaining their rating\n- Downgrades are more common than upgrades\n- The probability of default increases steeply as ratings decline\n- **Fallen angels** (IG to HY) face forced selling and outsized price declines"
+    },
+    {
+      "type": "markdown",
+      "content": "## Limitations of Credit Ratings\n\nCredit ratings are useful but have important limitations:\n\n- **Lag market pricing**: Ratings change slowly; markets often reprice credit risk before agencies act\n- **Issuer-paid model**: Agencies are paid by issuers, creating potential conflicts of interest\n- **Through-the-cycle approach**: Ratings reflect long-term credit quality, not short-term fluctuations, which can mask deteriorating conditions\n- **Not a guarantee**: A high rating does not guarantee against default (e.g., many AAA-rated CDO tranches defaulted in 2008)\n- **Do not capture all risks**: Ratings focus on default risk, not liquidity risk, interest rate risk, or market-wide spread risk\n\n### Credit Spread Components\n\nThe credit spread a bond trades at reflects:\n1. **Expected loss** (compensation for default probability \u00d7 loss severity)\n2. **Credit risk premium** (compensation for the uncertainty around expected loss)\n3. **Liquidity premium** (compensation for lower liquidity vs. government bonds)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio contains two bonds. Bond A: EAD $5M, PD 1%, recovery rate 50%. Bond B: EAD $3M, PD 5%, recovery rate 30%. Calculate the expected loss for each bond and the total portfolio expected loss.",
+      "solution": "**Bond A:**\n$$\\text{EL}_A = 0.01 \\times (1 - 0.50) \\times \\$5{,}000{,}000 = 0.01 \\times 0.50 \\times \\$5{,}000{,}000 = \\$25{,}000$$\n\n**Bond B:**\n$$\\text{EL}_B = 0.05 \\times (1 - 0.30) \\times \\$3{,}000{,}000 = 0.05 \\times 0.70 \\times \\$3{,}000{,}000 = \\$105{,}000$$\n\n**Total Portfolio Expected Loss:**\n$$\\text{EL}_{\\text{total}} = \\$25{,}000 + \\$105{,}000 = \\$130{,}000$$\n\nDespite Bond A having a larger exposure ($5M vs $3M), Bond B contributes far more to expected loss ($105K vs $25K) because of its higher default probability (5% vs 1%) and lower recovery rate (30% vs 50%)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Credit Risk Practice",
+      "problems": [
+        {
+          "id": "fi14-1",
+          "question": "A bond has a probability of default of 3%, a loss given default of 55%, and an exposure at default of $1 million. The expected loss is closest to:",
+          "options": [
+            "A) $16,500",
+            "B) $30,000",
+            "C) $55,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Expected loss = PD \u00d7 LGD \u00d7 EAD = 0.03 \u00d7 0.55 \u00d7 $1,000,000 = $16,500. Option B uses only PD \u00d7 EAD without LGD ($1M \u00d7 3% = $30,000). Option C uses only LGD \u00d7 EAD without PD ($1M \u00d7 5.5% = $55,000).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate expected loss from default risk components"
+        },
+        {
+          "id": "fi14-2",
+          "question": "A bondholder's primary concern about a credit rating downgrade (without default) is most likely:",
+          "options": [
+            "A) Loss of coupon payments",
+            "B) Widening credit spread and declining bond price",
+            "C) Reduced par value at maturity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A downgrade (without default) does not affect contractual cash flows \u2014 coupon payments and par repayment continue as scheduled. The impact is through the market: a downgrade signals higher perceived credit risk, causing the credit spread to widen and the bond's market price to decline. Option A is incorrect because coupons are contractual and continue unless default occurs. Option C is incorrect because par value is a contractual obligation unaffected by rating changes.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between default risk, spread risk, and downgrade risk"
+        },
+        {
+          "id": "fi14-3",
+          "question": "Senior secured bonds typically have higher recovery rates than senior unsecured bonds in default because senior secured creditors:",
+          "options": [
+            "A) Receive payments first in the bankruptcy waterfall",
+            "B) Have a claim on specific pledged assets",
+            "C) Are exempt from the automatic stay in bankruptcy"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Senior secured creditors have a claim on specific collateral (e.g., real estate, equipment). In default, they can recover value from these pledged assets in addition to their general claim on the issuer. This is why their recovery rates are higher. Option A is partially correct (seniority matters) but the key distinction vs. senior unsecured is the collateral. Option C is incorrect \u2014 the automatic stay applies to all creditors in U.S. bankruptcy.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain factors affecting recovery rates"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the three components of expected loss (PD, LGD, EAD) to a colleague. Then describe why a bond's credit spread is typically larger than the expected loss \u2014 what additional risks does the spread compensate for?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a market-implied default probability differ from a rating agency's published default probability?",
+        "How does the seniority structure of an issuer's debt affect recovery rates in default?",
+        "What are the practical consequences when a bond crosses from investment grade to high yield?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Credit risk types: **default risk**, **spread risk**, **downgrade risk**\n- **Expected loss** = PD \u00d7 LGD \u00d7 EAD\n- **LGD** = 1 \u2212 Recovery rate\n- Recovery rates vary by seniority: senior secured > senior unsecured > subordinated\n- **Credit ratings**: AAA to D (S&P/Fitch); Aaa to C (Moody's)\n- BBB\u2212/Baa3 is the investment-grade boundary\n- **Transition matrices** show rating migration probabilities\n- Credit spread = Expected loss + Credit risk premium + Liquidity premium\n- Rating limitations: lag markets, issuer-paid, through-the-cycle, not a guarantee"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Credit Analysis for Government Issuers**, examining the framework for assessing sovereign credit quality \u2014 including institutional, economic, and fiscal factors that determine a country's ability and willingness to repay its debt."
+    }
+  ]
+}

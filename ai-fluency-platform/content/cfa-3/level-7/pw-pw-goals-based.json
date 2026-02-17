@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PW.6: Goals-Based Investing",
+    "description": "Implement goals-based wealth management including goal classification, probability-weighted outcomes, mental accounting, sub-portfolio construction, and aggregate portfolio analysis.",
+    "level": "level-7",
+    "slug": "pw-pw-goals-based",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Private Wealth Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A client has three goals: retirement income (essential), children's education (important), and a vacation home (aspirational). Should each goal have the same asset allocation? What if the client insists on treating all goals equally?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Goals-Based Investing Framework\n\nTraditional wealth management optimizes a single portfolio for risk and return. Goals-based investing creates **sub-portfolios aligned with specific goals**, each with its own risk tolerance and time horizon.\n\n### Why Goals-Based Works\n\n1. **Aligns with mental accounting**: People naturally think in terms of goals, not portfolio statistics\n2. **Customized risk per goal**: Essential goals get conservative allocation; aspirational goals can take more risk\n3. **Behavioral benefits**: Clients tolerate market volatility better when they see essential goals protected\n4. **Clearer communication**: Progress measured against goals, not benchmarks\n\n### Goal Classification\n\n| Priority | Description | Required Probability | Typical Allocation |\n|---|---|---|---|\n| Essential | Must fund (basic retirement, housing) | 85-95% | Conservative |\n| Important | Should fund (education, travel) | 70-80% | Moderate |\n| Aspirational | Nice to fund (legacy, luxury) | 50-70% | Aggressive |\n\n## Probability-Weighted Expected Outcomes\n\nFor each goal, calculate the probability of achieving the required amount:\n\n$$P(\\text{Goal met}) = P(W_T \\geq G)$$\n\nWhere $W_T$ = portfolio value at horizon $T$, $G$ = goal amount.\n\nUsing a normal distribution approximation:\n\n$$P(\\text{Goal met}) \\approx \\Phi\\left(\\frac{E(W_T) - G}{\\sigma(W_T)}\\right)$$\n\nThe advisor selects an allocation that achieves the required probability for each goal."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A client's essential retirement goal requires $3M in 15 years with 90% probability. Current assets allocated to this goal: $1.5M. Using a moderate allocation (expected return 6%, volatility 10%), can this goal be met?",
+      "answer": "Expected value in 15 years: $1.5M x (1.06)^15 = $3.59M. This exceeds the $3M target, but we need 90% probability, not just expected value. The standard deviation of the terminal value (simplified): $3.59M x 10% x sqrt(15) = $3.59M x 38.7% = $1.39M. For 90% probability: $3.59M - 1.28 x $1.39M = $3.59M - $1.78M = $1.81M. This is below $3M, meaning there is NOT a 90% probability of meeting the goal with a moderate allocation. Options: (1) increase current allocation (more capital), (2) reduce the goal, (3) extend the time horizon, or (4) accept a lower probability. A more conservative allocation with lower volatility might actually achieve 90% probability despite lower expected return, because the downside tail is narrower."
+    },
+    {
+      "type": "markdown",
+      "content": "## Sub-Portfolio Construction\n\n### Step-by-Step Process\n\n1. **Identify goals**: List all goals with required amounts, time horizons, and priority levels\n2. **Assign capital**: Allocate total wealth across goals\n3. **Select allocation per goal**: Choose risk/return profile matching required probability\n4. **Implement**: Select investments within each sub-portfolio\n5. **Monitor**: Track progress toward each goal; rebalance and adjust\n\n### Asset Allocation per Goal\n\n| Goal Type | Equity % | Fixed Income % | Alternatives % |\n|---|---|---|---|\n| Essential (short-term) | 0-20% | 70-90% | 0-10% |\n| Essential (long-term) | 30-50% | 40-60% | 0-10% |\n| Important | 40-60% | 30-40% | 10-20% |\n| Aspirational | 60-90% | 0-20% | 10-30% |\n\n## Mental Accounting and Goals-Based Planning\n\nMental accounting (a behavioral bias) can actually be **harnessed** in goals-based planning:\n- Clients naturally separate money into mental \"buckets\"\n- Goals-based planning formalizes this tendency\n- Each bucket has a clear purpose, reducing anxiety about market fluctuations in higher-risk buckets\n- The key: ensure the **aggregate portfolio** is still efficient\n\n## Aggregate Portfolio Analysis\n\nThe sum of sub-portfolios must be evaluated as a whole:\n\n$$w_{\\text{agg},i} = \\sum_j \\frac{C_j}{C_{\\text{total}}} \\times w_{j,i}$$\n\nWhere $C_j$ = capital in sub-portfolio $j$, $w_{j,i}$ = weight of asset $i$ in sub-portfolio $j$.\n\nCheck that the aggregate:\n- Is reasonably efficient (not dominated by another allocation)\n- Does not have unintended concentrations\n- Reflects appropriate total risk for the client's overall situation"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Goals-Based Portfolio Design\n\nClient: Patricia Owens, age 58, recently divorced.\n- Total investable assets: $5M\n- Annual spending: $180K (essential)\n- Daughter's medical school: $250K needed in 2 years (essential)\n- Home renovation: $150K in 4 years (important)\n- Legacy for grandchildren: $1M+ at death (aspirational)\n- Social Security at 67: $30K/year\n- Risk tolerance: Moderate (shaken by divorce, wants security)\n\nA) Classify and prioritize goals.\nB) Allocate capital across goal sub-portfolios.\nC) Design the asset allocation for each sub-portfolio.\nD) Evaluate the aggregate portfolio.",
+      "solution": "**A) Goal Classification:**\n\n1. **Essential -- Retirement income**: $180K/year, starting now, adjusted for inflation. At 67 (9 years), Social Security covers $30K. Portfolio must generate $150K/year pre-Social Security, $120K after.\n2. **Essential -- Medical school**: $250K in 2 years. Fixed, known amount, short horizon.\n3. **Important -- Home renovation**: $150K in 4 years. Delay is acceptable if needed.\n4. **Aspirational -- Legacy**: $1M+ at death (potentially 25-30 years). Flexible target.\n\n**B) Capital Allocation:**\n\nTotal: $5M\n\nGoal 1 (Retirement income): Using a 4% withdrawal rate framework:\n- Pre-SS (years 1-9): $180K/year. PV at 4% real return: ~$1.35M\n- Post-SS (year 10+): $120K/year for ~20 years. PV at 4%: ~$1.63M\n- Total retirement capital: $2.98M, round to $3.0M\n\nGoal 2 (Medical school): $250K (set aside in full given 2-year horizon)\n\nGoal 3 (Home renovation): $140K (present value of $150K in 4 years at 2%)\n\nGoal 4 (Legacy): Residual = $5M - $3M - $250K - $140K = $1.61M\n\n**C) Sub-Portfolio Allocations:**\n\n**Retirement ($3.0M) -- Essential, long-term, 90% probability target:**\n- 40% equity (diversified global), 50% investment-grade bonds, 10% TIPS\n- Expected return: ~5.5%, volatility: ~8%\n- Strategy: Bucket approach within retirement -- 2 years spending in cash/short bonds ($360K), 3-7 years in intermediate bonds ($900K), 8+ years in equity/balanced ($1.74M)\n\n**Medical school ($250K) -- Essential, short-term, 95% probability:**\n- 0% equity, 90% Treasury bills/short-term bonds, 10% money market\n- Expected return: ~4.5%, volatility: <2%\n- Goal: Preserve capital absolutely; no risk of shortfall\n\n**Home renovation ($140K) -- Important, medium-term, 80% probability:**\n- 30% equity, 60% intermediate bonds, 10% TIPS\n- Expected return: ~5.0%, volatility: ~6%\n- If portfolio underperforms, the renovation can be delayed or scaled back\n\n**Legacy ($1.61M) -- Aspirational, long-term, 60% probability of exceeding $1M:**\n- 75% equity (50% US, 25% international), 10% alternatives (REITs), 15% bonds\n- Expected return: ~7.5%, volatility: ~14%\n- Long horizon justifies aggressive allocation; shortfall is acceptable\n\n**D) Aggregate Portfolio Analysis:**\n\nAggregated weights:\n- Equity: (3.0 x 0.40 + 0.25 x 0 + 0.14 x 0.30 + 1.61 x 0.75) / 5.0 = (1.20 + 0 + 0.042 + 1.21) / 5.0 = 2.452 / 5.0 = 49.0%\n- Fixed Income/Cash: (3.0 x 0.50 + 0.25 x 0.90 + 0.14 x 0.60 + 1.61 x 0.15) / 5.0 = (1.50 + 0.225 + 0.084 + 0.242) / 5.0 = 2.051 / 5.0 = 41.0%\n- TIPS/Alternatives: (3.0 x 0.10 + 0.25 x 0.10 + 0.14 x 0.10 + 1.61 x 0.10) / 5.0 = 0.50 / 5.0 = 10.0%\n\nAggregate: ~49% equity, 41% fixed income, 10% alternatives/TIPS\n\nThis is a moderate allocation (balanced) consistent with Patricia's overall risk tolerance. The aggregate expected return of ~5.8% and volatility of ~8.5% is reasonable for her situation. No unintended concentrations. The goals-based approach achieved a moderate aggregate while protecting essential goals with conservative allocations."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Goals-Based Investing Practice",
+      "problems": [
+        {
+          "id": "l3-pw6-1",
+          "question": "A client's essential retirement goal requires a 90% probability of success. A conservative allocation has an expected terminal value of $2.5M with a standard deviation of $300K. The goal amount is $2.1M. The probability of meeting this goal is closest to:",
+          "options": [
+            "A) 82%",
+            "B) 91%",
+            "C) 95%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "z = (Expected value - Goal) / Standard deviation = ($2.5M - $2.1M) / $300K = $400K / $300K = 1.33.\n\nFrom the standard normal table, P(Z > -1.33) = P(Z < 1.33) = approximately 0.908 or 91%. This exceeds the 90% requirement, so the allocation is adequate. Option A uses z = 0.95. Option C would require z = 1.645. This demonstrates how goals-based planning translates investment statistics into actionable probability assessments.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Calculate the probability of achieving a financial goal"
+        },
+        {
+          "id": "l3-pw6-2",
+          "question": "In a goals-based framework, a client has three sub-portfolios: essential (60% of wealth, conservative), important (25%, moderate), aspirational (15%, aggressive). The aggregate portfolio turns out to be nearly identical to a standard balanced fund. This outcome is:",
+          "options": [
+            "A) Problematic, because it suggests goals-based planning adds no value",
+            "B) Expected, because the weighted sum of sub-portfolios naturally produces a balanced result",
+            "C) Concerning, because the aspirational sub-portfolio may be underfunded"
+          ],
+          "correctAnswer": "B",
+          "explanation": "This is a normal and expected outcome. The weighted combination of conservative (60%), moderate (25%), and aggressive (15%) sub-portfolios will typically produce a balanced aggregate -- similar to what a traditional single-portfolio approach might recommend. The value of goals-based planning is not in producing a different aggregate allocation but in: (1) customizing risk to each goal, (2) improving client understanding and behavioral adherence, and (3) ensuring essential goals are protected even if aggressive goals underperform. Option A misunderstands the purpose of goals-based planning. Option C is a separate issue from the aggregate allocation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Evaluate the aggregate portfolio in goals-based planning"
+        },
+        {
+          "id": "l3-pw6-3",
+          "question": "A client allocates $500K to an aspirational goal (luxury vacation home in 10 years). After 3 years, the sub-portfolio has grown to $700K. The advisor should most likely:",
+          "options": [
+            "A) Reduce risk by shifting to a more conservative allocation",
+            "B) Maintain the current allocation since the time horizon hasn't changed materially",
+            "C) Reassess whether the goal has effectively been reclassified by the client's behavior"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Strong portfolio growth may cause the client to view the vacation home as more achievable and thus more 'important' rather than merely 'aspirational.' If the client has mentally reclassified the goal, the allocation should be adjusted to reflect higher priority (lower risk tolerance for this goal). Additionally, with $700K toward a goal that may only require $600-700K, the client has a choice: lock in the gain by de-risking, or maintain risk and potentially overshoot. The correct first step is to reassess with the client. Option A is premature without understanding the client's evolving view. Option B ignores the changed circumstances.",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Manage goals-based portfolios dynamically as circumstances change"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a client who says 'Just put it all in one account -- I don't need all these separate buckets' why goals-based investing might actually help them sleep better at night, even if the overall allocation ends up being the same."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Is goals-based investing genuinely better than traditional portfolio optimization, or is it just a communication tool?",
+        "How should an advisor handle a client who classifies every goal as 'essential'?",
+        "What happens when goals conflict -- when funding one goal makes another impossible?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Goals classification**: Essential (85-95% probability), important (70-80%), aspirational (50-70%)\n- **Sub-portfolio approach**: Each goal gets its own allocation matched to its priority and horizon\n- **Probability of success**: P(Goal met) = Normal CDF of (Expected value - Goal) / Std deviation\n- **Mental accounting**: A bias that goals-based planning harnesses rather than fights\n- **Aggregate portfolio**: Must be checked for efficiency -- sum of sub-portfolios should make sense overall\n- **Dynamic management**: Reassess goals, reclassify priorities, adjust allocations as circumstances change\n- **Behavioral benefit**: Protected essential goals reduce client anxiety during market volatility"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The final module in the Private Wealth Pathway covers **Client Management** -- the soft skills of behavioral finance, communication, and multi-generational wealth management that make the difference between a technically correct plan and one that actually gets implemented."
+    }
+  ]
+}

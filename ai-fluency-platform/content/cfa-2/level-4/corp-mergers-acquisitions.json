@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "CORP.3: Mergers and Acquisitions",
+    "description": "Analyze merger types, motivations, valuation methods (comparable transactions, DCF), takeover defense mechanisms, takeover premiums, and market concentration (HHI).",
+    "level": "level-4",
+    "slug": "corp-mergers-acquisitions",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When Company A announces it will acquire Company B at a 30% premium, what typically happens to Company A's stock price? Why might an acquisition that seems value-creating for the combined entity actually destroy value for the acquirer's shareholders?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Types of Mergers and Motivations\n\n### Merger Types\n\n| Type | Description | Example |\n|---|---|---|\n| **Horizontal** | Same industry, same stage of production | Two pharmaceutical companies merging |\n| **Vertical** | Same industry, different stages (upstream/downstream) | Oil producer acquiring a refinery |\n| **Conglomerate** | Unrelated businesses | A tech company acquiring a food company |\n\n### Merger Motivations\n\n**Value-creating motivations:**\n- **Synergies**: cost savings (eliminating redundancies), revenue enhancement (cross-selling)\n- **Increased market power**: pricing power, bargaining leverage\n- **Acquiring unique capabilities**: technology, talent, IP, distribution\n- **Tax benefits**: utilizing NOLs, stepping up asset basis\n\n**Questionable motivations:**\n- **Diversification**: shareholders can diversify more cheaply themselves\n- **Manager empire building**: growth for its own sake (agency problem)\n- **Bootstrapping EPS**: acquiring low-P/E targets to mechanically increase EPS without creating value\n\n### Synergy Valuation\n\n$$\\text{Synergies} = V_{AB} - (V_A + V_B)$$\n\nThe combined value must exceed the sum of standalone values. In practice, **50-70% of acquisitions fail to deliver projected synergies** due to integration challenges, cultural conflicts, and overpayment."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Company A (P/E = 20x) acquires Company B (P/E = 10x) in an all-stock deal. After the merger, the combined company's EPS increases. Has value been created?",
+      "answer": "Not necessarily. This is EPS bootstrapping \u2014 a mechanical increase in EPS when a high-P/E acquirer buys a low-P/E target with stock. The combined EPS rises simply because the target's earnings are being valued at a lower multiple. No real economic value has been created unless there are genuine synergies. The market should see through this \u2014 the combined P/E should adjust downward to reflect the blended growth expectations, keeping the stock price approximately unchanged. Analysts should focus on whether NPV-positive synergies exist, not whether EPS increases mechanically."
+    },
+    {
+      "type": "markdown",
+      "content": "## Merger Valuation Methods\n\n### Comparable Transactions Analysis\n\nValue the target based on multiples paid in similar recent acquisitions:\n\n$$\\text{Target Value} = \\text{Target Metric} \\times \\text{Average Multiple from Comparable Deals}$$\n\nCommon multiples: EV/EBITDA, EV/Revenue, P/E, Price/Book\n\n**Advantages**: reflects actual acquisition premiums paid; market-based\n**Limitations**: every deal is unique; deal-specific synergies embedded in multiples; limited sample\n\n### Discounted Cash Flow (DCF)\n\nEstimate standalone value plus synergies using FCFF:\n\n$$V_{\\text{target}} = \\sum_{t=1}^{n} \\frac{\\text{FCFF}_t}{(1+\\text{WACC})^t} + \\frac{\\text{Terminal Value}}{(1+\\text{WACC})^n}$$\n\n**Synergy-adjusted DCF**: Project incremental cash flows from synergies and discount at appropriate rate.\n\n### Takeover Premium\n\n$$\\text{Takeover Premium} = \\frac{\\text{Deal Price} - \\text{Pre-announcement Price}}{\\text{Pre-announcement Price}}$$\n\nTypical premiums: 20-40% above the unaffected market price. The premium should not exceed the present value of expected synergies, or the acquisition destroys value for the acquirer.\n\n### The Winner's Curse\n\nIn competitive bidding situations, the winner tends to overpay. The most optimistic bidder wins \u2014 and their optimistic assumptions about synergies are least likely to be realized."
+    },
+    {
+      "type": "markdown",
+      "content": "## Defense Mechanisms and Market Concentration\n\n### Pre-Offer Defenses\n\n| Defense | Description |\n|---|---|\n| **Poison pill** (shareholder rights plan) | Existing shareholders can buy shares at a deep discount if a hostile bidder acquires >X% \u2014 massively dilutes the bidder |\n| **Staggered (classified) board** | Only a fraction of directors are up for election each year \u2014 prevents immediate board takeover |\n| **Supermajority voting** | Requires 67-80% shareholder approval for mergers \u2014 difficult for hostile bidders |\n| **Golden parachutes** | Generous severance for executives after a change of control \u2014 increases acquisition cost |\n| **Dual-class shares** | Insiders hold superior voting shares \u2014 prevents hostile takeover through share acquisition |\n\n### Post-Offer Defenses\n\n| Defense | Description |\n|---|---|\n| **White knight** | Invite a friendly acquirer to make a competing bid |\n| **White squire** | Friendly party acquires a large but non-controlling stake |\n| **Pac-Man defense** | Target makes a counter-offer to acquire the hostile bidder |\n| **Crown jewel defense** | Sell or threaten to sell the most valuable assets to make the target less attractive |\n| **Greenmail** | Buy back the hostile bidder's shares at a premium to end the threat |\n\n### Herfindahl-Hirschman Index (HHI)\n\nMeasures market concentration; used by regulators to evaluate merger impact on competition:\n\n$$\\text{HHI} = \\sum_{i=1}^{n} s_i^2$$\n\nWhere $s_i$ = market share of firm $i$ (as a whole number, e.g., 30 not 0.30)\n\n| HHI Range | Market Classification | Regulatory Concern |\n|---|---|---|\n| < 1,500 | Unconcentrated | Unlikely to challenge |\n| 1,500\u20132,500 | Moderately concentrated | Challenge if \u0394HHI > 100 |\n| > 2,500 | Highly concentrated | Challenge if \u0394HHI > 100\u2013200 |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Merger Valuation and HHI Analysis",
+      "solution": "PharmaCo (market share: 25%) is acquiring BioTarget (market share: 10%) in a horizontal merger.\n\nOther competitors: Firm C (20%), Firm D (15%), Firm E (10%), Others (20%)\n\nStep 1: Pre-merger HHI\nHHI = 25\u00b2 + 10\u00b2 + 20\u00b2 + 15\u00b2 + 10\u00b2 + (assume 'Others' as 4 firms at 5% each: 4\u00d725)\n= 625 + 100 + 400 + 225 + 100 + 100 = 1,550\n\nStep 2: Post-merger HHI\nCombined PharmaCo+BioTarget = 35%\nHHI = 35\u00b2 + 20\u00b2 + 15\u00b2 + 10\u00b2 + 100\n= 1,225 + 400 + 225 + 100 + 100 = 2,050\n\nStep 3: Change in HHI\n\u0394HHI = 2,050 \u2212 1,550 = 500\n\nStep 4: Regulatory assessment\n- Post-merger HHI (2,050) is in the moderately concentrated range (1,500\u20132,500)\n- \u0394HHI of 500 far exceeds the 100-point threshold for concern\n- This merger would likely face significant regulatory scrutiny\n- Regulators may require divestitures of overlapping product lines\n\nQuick check: \u0394HHI = 2 \u00d7 25 \u00d7 10 = 500 (shortcut: \u0394HHI = 2 \u00d7 s\u2081 \u00d7 s\u2082)"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Mergers and Acquisitions Practice",
+      "problems": [
+        {
+          "id": "corp-ma-1",
+          "vignette": "GlobalTech is considering acquiring DataSoft for $2.4 billion. Pre-announcement, DataSoft trades at a market cap of $1.8 billion. Analyst projections for the combined entity:\n\n| Synergy Source | Annual Amount | Timeline |\n|---|---|---|\n| Cost savings (headcount reduction) | $120M | Years 1-3 (50% Year 1, 100% Years 2+) |\n| Revenue synergies (cross-selling) | $80M | Years 2-5 (25% Year 2, ramp to 100% by Year 4) |\n| Integration costs (one-time) | $200M | Year 1 |\n| Tax rate | 25% | |\n| Discount rate for synergies | 10% | |\n\nGlobalTech's CEO claims the acquisition will create significant shareholder value.",
+          "question": "The takeover premium offered for DataSoft is closest to:",
+          "options": [
+            "A) 25%",
+            "B) 33%",
+            "C) 40%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Takeover premium = (Deal price \u2212 Pre-announcement price) / Pre-announcement price = ($2.4B \u2212 $1.8B) / $1.8B = $0.6B / $1.8B = 33.3%. The key question is whether the present value of synergies exceeds this $600M premium. If synergies are worth less than $600M in present value, GlobalTech's shareholders are overpaying and the deal destroys value for them. Option A understates the premium. Option C overstates it.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate the takeover premium in an acquisition"
+        },
+        {
+          "id": "corp-ma-2",
+          "vignette": "GlobalTech is considering acquiring DataSoft for $2.4 billion. Synergy details:\n\n| Synergy Source | Annual Amount | Timeline |\n|---|---|---|\n| Cost savings | $120M pre-tax | Full run rate by Year 2 |\n| Revenue synergies | $80M pre-tax | Full run rate by Year 4 |\n| Integration costs | $200M one-time | Year 1 |\n| Tax rate | 25% | |\n| Discount rate | 10% | |\n\nAn analyst estimates the PV of all synergies (after tax and integration costs) is approximately $950 million.",
+          "question": "Given the takeover premium of $600 million and estimated synergy PV of $950 million, the acquisition creates value for GlobalTech shareholders of approximately:",
+          "options": [
+            "A) $0 \u2014 the premium equals the synergies",
+            "B) $350 million \u2014 the synergy value exceeds the premium",
+            "C) $950 million \u2014 all synergies accrue to GlobalTech"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Value created for acquirer = PV of synergies \u2212 Premium paid = $950M \u2212 $600M = $350M. The premium ($600M) represents the portion of synergies captured by DataSoft's shareholders. GlobalTech's shareholders capture the remaining $350M. This analysis assumes all projected synergies are realized \u2014 a major assumption, as 50-70% of acquisitions fail to deliver projected synergies. If only 60% of synergies materialize (PV = $570M), the deal barely breaks even ($570M \u2212 $600M = \u2212$30M). Option A incorrectly equates premium to synergies. Option C ignores that the premium transfers value to the target.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate value creation in mergers by comparing synergy estimates to the takeover premium"
+        },
+        {
+          "id": "corp-ma-3",
+          "vignette": "MidCap Inc. is the target of a hostile takeover bid from LargeCorp. MidCap's board takes the following defensive actions:\n\n1. Activates a poison pill with a 15% trigger threshold\n2. Seeks a white knight (FriendlyCorp), which offers $52/share vs LargeCorp's $48/share\n3. MidCap's pre-bid price was $38/share\n\nLargeCorp responds by launching a proxy fight to replace MidCap's staggered board.\n\nA shareholder activist argues that MidCap's defenses are entrenching management at the expense of shareholders.",
+          "question": "The activist's argument is most likely:",
+          "options": [
+            "A) Correct \u2014 all takeover defenses harm shareholders by preventing value-maximizing transactions",
+            "B) Partially correct regarding the poison pill, but the white knight defense appears to benefit shareholders by generating a higher bid of $52 vs $48",
+            "C) Incorrect \u2014 the staggered board ensures continuity and protects long-term value"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The analysis is nuanced. The poison pill can entrench management by making hostile bids prohibitively expensive without shareholder input \u2014 the activist has a point here. However, the white knight strategy has clearly benefited shareholders: FriendlyCorp's $52 bid is 37% above the pre-bid price and $4 above LargeCorp's offer, generating additional value. The board's defense strategy extracted a better price through competitive bidding. The staggered board makes the proxy fight harder for LargeCorp, which delays shareholder choice but also gives the board negotiating leverage. Option A is too absolute \u2014 defenses can create value through competitive bidding. Option C ignores the agency problem inherent in making hostile bids more difficult.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate takeover defense mechanisms from shareholder and management perspectives"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague why most acquisitions fail to create value for the acquiring company's shareholders. Cover the concepts of the winner's curse, synergy overestimation, integration challenges, and how the takeover premium distributes value between acquirer and target shareholders."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a CEO pursue an acquisition even when the NPV analysis suggests marginal value creation?",
+        "How does EPS bootstrapping mislead investors about merger value creation?",
+        "What role should antitrust regulators play in evaluating horizontal mergers, and how effective is the HHI as a tool?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Merger types: horizontal (same industry), vertical (supply chain), conglomerate (unrelated)\n- Value-creating motivations: synergies, market power, unique capabilities\n- Questionable motivations: diversification, empire building, EPS bootstrapping\n- Takeover premium = (Deal price \u2212 Pre-bid price) / Pre-bid price (typical: 20-40%)\n- Value to acquirer = PV of synergies \u2212 Premium paid\n- **50-70% of acquisitions fail** to deliver projected synergies\n- Pre-offer defenses: poison pill, staggered board, supermajority voting\n- Post-offer defenses: white knight, Pac-Man, crown jewel, greenmail\n- HHI = \u03a3(market share\u00b2); \u0394HHI = 2 \u00d7 s\u2081 \u00d7 s\u2082\n- HHI > 2,500 with \u0394HHI > 100-200 likely faces regulatory challenge"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Corporate Restructuring**, where you'll learn about the reverse of M&A \u2014 how companies divest, spin off, and restructure their businesses, including bankruptcy processes that may result from overleveraged acquisitions."
+    }
+  ]
+}

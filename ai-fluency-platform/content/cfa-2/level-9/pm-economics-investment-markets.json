@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.1: Economics and Investment Markets",
+    "description": "Link business cycles to asset returns. Apply the Taylor rule, interpret break-even inflation, yield curve factors, credit spreads, and the equity risk premium.",
+    "level": "level-9",
+    "slug": "pm-economics-investment-markets",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "During a recession, corporate bond credit spreads typically widen while government bond yields fall. Why do these two parts of the fixed-income market move in opposite directions, and what does this mean for portfolio allocation?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Business Cycles and Asset Returns\n\nAsset class returns vary systematically across the business cycle. Understanding these patterns is essential for tactical allocation.\n\n| Cycle Phase | Economy | Equities | Bonds | Credit Spreads | Commodities |\n|------------|---------|----------|-------|----------------|-------------|\n| **Early Expansion** | Recovery from trough | Strong (\u2191\u2191) | Moderate (\u2191) | Narrowing | Rising |\n| **Late Expansion** | Overheating, inflation | Moderate (\u2191) | Weak (\u2193) | Narrow (tight) | Strong (\u2191\u2191) |\n| **Early Contraction** | Slowdown begins | Weak (\u2193\u2193) | Strong (\u2191) | Widening | Falling |\n| **Late Contraction** | Near trough | Recovering | Strong (\u2191\u2191) | Wide (peak) | Weak |\n\n### Key Relationships\n\n- **Equities** lead the cycle: they typically bottom before the economy and peak before it\n- **Government bonds** rally when rates fall (contraction) and decline when rates rise (expansion)\n- **Credit spreads** are countercyclical: they widen in contractions as default risk rises\n- **Commodities** track real economic activity and inflation expectations"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The Taylor rule suggests a policy rate of 4.5%, but the central bank has set the rate at 3.0%. Is monetary policy accommodative or restrictive, and what are the likely implications for asset prices?",
+      "answer": "Monetary policy is accommodative (the actual rate is below the Taylor rule prescription). This stimulates economic activity by making borrowing cheaper. Implications: supports equity valuations through lower discount rates and credit availability, compresses credit spreads, may encourage risk-taking, but increases inflation risk. If the central bank is behind the curve, it may need to raise rates aggressively later, which could disrupt markets."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Taylor Rule and Monetary Policy\n\nThe **Taylor rule** provides a benchmark for where the policy rate should be:\n\n$$r_{target} = r_{neutral} + \\pi + 0.5(\\pi - \\pi^*) + 0.5(y - y^*)$$\n\nWhere:\n- $r_{neutral}$ = real neutral rate (~2%)\n- $\\pi$ = current inflation rate\n- $\\pi^*$ = target inflation rate\n- $y - y^*$ = output gap (actual vs. potential GDP)\n\n### Break-Even Inflation Rate (BEI)\n\n$$BEI = y_{nominal} - y_{real} = y_{Treasury} - y_{TIPS}$$\n\nThe BEI reflects the market's implied inflation expectation. It includes both expected inflation and an **inflation risk premium**.\n\n- Rising BEI \u2192 market expects higher inflation (or demands more inflation protection)\n- Falling BEI \u2192 market expects lower inflation or deflation risk\n\n### Yield Curve Factors\n\nThe yield curve is driven by three primary factors:\n\n1. **Level** (parallel shift): explains ~90% of yield curve movements; all rates move up or down together\n2. **Slope** (steepening/flattening): short and long rates move differently; driven by growth and policy expectations\n3. **Curvature** (butterfly): intermediate rates move relative to short and long ends; less economically intuitive"
+    },
+    {
+      "type": "markdown",
+      "content": "## Credit Spreads and the Equity Risk Premium\n\n### Credit Spread Determinants\n\n$$\\text{Credit Spread} = \\text{Default Risk Premium} + \\text{Liquidity Premium} + \\text{Tax Adjustment}$$\n\n| Factor | Effect on Spreads |\n|--------|-------------------|\n| Recession/slowdown | Wider (higher default risk) |\n| Strong economy | Tighter (lower default risk) |\n| Market stress/illiquidity | Wider (liquidity premium rises) |\n| Central bank easing | Tighter (supports credit markets) |\n| Leverage cycle expansion | Tighter (more capital chasing yield) |\n\nCredit spreads are mean-reverting but can overshoot dramatically during crises.\n\n### Equity Risk Premium (ERP)\n\nThe excess return investors demand for holding equities over risk-free assets:\n\n$$ERP = E(R_{equity}) - R_f$$\n\nEstimation methods:\n- **Historical average**: long-run realized excess returns (~5-6% for US equities)\n- **Gordon growth model (supply-side)**: $ERP = D/P + g - R_f$\n- **Survey-based**: survey investors and analysts for their expectations\n\nThe ERP varies through time: it rises during recessions (fear increases) and falls during expansions (complacency)."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "The real neutral rate is 2%, current inflation is 3.5%, target inflation is 2%, and the output gap is +1.5% (overheating). Calculate the Taylor rule rate. If the actual policy rate is 4%, characterize monetary policy. Then explain what this implies for bond investors.",
+      "solution": "**Taylor Rule Rate:**\n\n$r_{target} = 2\\% + 3.5\\% + 0.5(3.5\\% - 2\\%) + 0.5(1.5\\%)$\n$= 2\\% + 3.5\\% + 0.75\\% + 0.75\\%$\n$= 7.0\\%$\n\n**Policy Characterization:**\n\nThe actual rate (4%) is well below the Taylor rule rate (7%), so monetary policy is highly accommodative despite overheating and above-target inflation. The central bank is significantly behind the curve.\n\n**Implications for Bond Investors:**\n- The central bank will likely need to raise rates substantially, causing bond prices to fall\n- Short-duration positioning is defensive\n- Break-even inflation may rise further, favoring TIPS over nominal bonds\n- Credit spreads may initially benefit from accommodative policy but face risk when tightening begins abruptly"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Economics and Investment Markets \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "pm1-1",
+          "question": "**Vignette: Westfield Capital Strategy Meeting**\n\nWestfield Capital's CIO presents the following macroeconomic data:\n\n- GDP growth has slowed from 3.2% to 1.1% over two quarters\n- Unemployment has risen from 3.8% to 4.5%\n- CPI inflation: 2.8% (down from 4.2% one year ago)\n- 10-year Treasury yield: 3.5% (down from 4.8%)\n- 10-year TIPS yield: 1.2%\n- Investment-grade credit spread: 180bps (up from 110bps)\n- High-yield credit spread: 520bps (up from 340bps)\n\nThe CIO argues the economy is entering an early contraction phase.\n\n---\n\n**Question 1:** The break-even inflation rate implied by the data is closest to:",
+          "options": [
+            "A) 1.6%",
+            "B) 2.3%",
+            "C) 2.8%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "BEI = Nominal yield \u2212 TIPS yield = 3.5% \u2212 1.2% = 2.3%. This market-implied inflation expectation is below the current CPI of 2.8%, suggesting the market expects inflation to continue declining. Option A subtracts incorrectly. Option C confuses BEI with current CPI \u2014 the BEI reflects forward-looking expectations, not current inflation.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate and interpret break-even inflation rates"
+        },
+        {
+          "id": "pm1-2",
+          "question": "**Question 2 (continued):** The widening of credit spreads is most consistent with:",
+          "options": [
+            "A) Expectations of central bank tightening",
+            "B) Increased default risk and reduced risk appetite as the economy slows",
+            "C) Declining inflation expectations reducing nominal bond yields"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In an early contraction, credit spreads widen because: (1) higher expected default rates as corporate earnings decline, (2) reduced risk appetite (flight to quality), and (3) lower liquidity in credit markets. The IG spread widening from 110 to 180bps and HY from 340 to 520bps is a classic contraction pattern. Option A \u2014 tightening would raise government yields, not spreads. Option C describes the Treasury yield decline but not credit spread behavior.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Explain the relationship between the business cycle and credit spreads"
+        },
+        {
+          "id": "pm1-3",
+          "question": "**Question 3 (continued):** If the CIO's early contraction view is correct, the most appropriate tactical allocation shift would be to:",
+          "options": [
+            "A) Increase equity allocation and reduce government bond exposure",
+            "B) Increase government bond duration and reduce credit exposure",
+            "C) Increase commodity allocation and reduce equity exposure"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In early contraction: government bonds rally as the central bank cuts rates (increase duration to benefit), while credit deteriorates (reduce exposure to widening spreads). Equities typically decline in early contraction. Option A is a late-contraction/early-expansion trade (too early). Option C \u2014 commodities decline in contraction as real activity slows. Increasing government bond duration and reducing credit is the classic defensive positioning.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Recommend tactical allocation changes based on business cycle positioning"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a junior analyst how the business cycle systematically affects different asset classes. Use the concepts of discount rates, cash flow expectations, and risk premiums to connect macroeconomics to asset prices."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the Taylor rule sometimes prescribe a very different rate than what the central bank actually sets?",
+        "How can break-even inflation rates be misleading as a pure inflation forecast?",
+        "What makes timing tactical allocation shifts based on the business cycle so difficult in practice?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Taylor rule: $r = r_{neutral} + \\pi + 0.5(\\pi - \\pi^*) + 0.5(y - y^*)$\n- Break-even inflation = Nominal yield \u2212 TIPS yield\n- Yield curve factors: Level (~90% of variance), Slope, Curvature\n- Credit spreads are countercyclical: widen in contractions, tighten in expansions\n- ERP estimation: historical, supply-side (Gordon growth), survey-based\n- Early contraction: favor government bonds, reduce credit and equity exposure\n- Late contraction: position for recovery in equities and credit"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Analysis of Active Portfolio Management**, where you will learn to quantify a manager's skill using the Information Ratio and the Fundamental Law of Active Management. These tools help determine whether active management can add value \u2014 and how much \u2014 given the economic environment you just studied."
+    }
+  ]
+}

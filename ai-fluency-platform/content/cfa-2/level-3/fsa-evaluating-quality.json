@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "FSA.5: Evaluating Financial Report Quality",
+    "description": "Assess earnings quality across the spectrum, identify revenue and expense manipulation, detect balance sheet and cash flow manipulation, and apply the Beneish M-score.",
+    "level": "level-3",
+    "slug": "fsa-evaluating-quality",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company consistently reports earnings that beat analyst estimates by exactly 1 cent per share for 20 consecutive quarters. Its revenue has been growing 15% annually, but operating cash flow has been flat. What might these patterns suggest about earnings quality?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Earnings Quality Spectrum\n\nFinancial reporting quality exists on a continuum:\n\n| Level | Description | Example |\n|---|---|---|\n| **High quality** | Conservative, sustainable, reflects economic reality | Timely loss recognition, consistent policies |\n| **Within GAAP but aggressive** | Biased choices within acceptable boundaries | Aggressive revenue recognition, extended depreciation lives |\n| **Non-compliant** | Violates accounting standards | Premature revenue recognition, improper capitalization |\n| **Fraudulent** | Intentional misrepresentation | Fictitious revenue, hidden liabilities |\n\n### Earnings Quality Indicators\n\n**High quality earnings are:**\n- Sustainable and repeatable\n- Backed by cash flows (accruals ratio is low)\n- Based on conservative accounting choices\n- Transparent and well-disclosed\n\n$$\\text{Accruals Ratio (BS)} = \\frac{\\text{NOA}_{\\text{end}} - \\text{NOA}_{\\text{begin}}}{\\frac{\\text{NOA}_{\\text{end}} + \\text{NOA}_{\\text{begin}}}{2}}$$\n\nWhere NOA = Net Operating Assets = (Total Assets \u2212 Cash) \u2212 (Total Liabilities \u2212 Total Debt)\n\nHigher accruals ratios suggest lower earnings quality \u2014 earnings are driven by accounting accruals rather than cash generation."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Company A reports $100M net income with $120M operating cash flow. Company B reports $100M net income with $40M operating cash flow. Which company likely has higher earnings quality?",
+      "answer": "Company A likely has higher earnings quality. Its operating cash flow exceeds net income, indicating that earnings are well-supported by actual cash generation (negative accruals \u2014 cash exceeds reported earnings). Company B's cash flow is only 40% of reported income, suggesting large positive accruals \u2014 the gap of $60M represents non-cash income recognition that may not be sustainable. This divergence between income and cash flow is a classic red flag."
+    },
+    {
+      "type": "markdown",
+      "content": "## Revenue and Expense Manipulation\n\n### Revenue Manipulation Techniques\n\n| Technique | Red Flag |\n|---|---|\n| **Bill-and-hold** arrangements | Revenue without delivery |\n| **Channel stuffing** | Shipping excess product to distributors near quarter-end |\n| **Round-tripping** | Simultaneous buy/sell with same counterparty |\n| **Premature recognition** | Recognizing long-term contract revenue too early |\n| **Gross vs. net** | Reporting gross revenue when company is an agent (inflates revenue) |\n\n**Revenue red flags:**\n- Revenue growing faster than receivables (could be legitimate) \u2014 but receivables growing faster than revenue \u2192 concern\n- Large fourth-quarter revenue concentration\n- Revenue growth without corresponding cash flow growth\n- Unusual changes in deferred revenue\n\n### Expense Manipulation Techniques\n\n| Technique | Effect | Red Flag |\n|---|---|---|\n| **Capitalizing operating expenses** | Converts OpEx to CapEx \u2192 higher current income | Rising capitalized costs relative to total costs |\n| **Extending depreciation lives** | Lower annual depreciation \u2192 higher income | Longer lives vs. peers |\n| **Under-reserving** | Lower provisions \u2192 higher income | Reserve balance declining relative to exposure |\n| **Cookie-jar reserves** | Over-reserve in good years, release in bad years | Volatile provision patterns uncorrelated with business |\n| **Big bath** | Take massive charges in one period to clean up the balance sheet | Unusually large one-time charges after management change |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Balance Sheet and Cash Flow Manipulation\n\n### Balance Sheet Red Flags\n\n- **Goodwill and intangibles** growing as % of total assets (possible overpayment for acquisitions)\n- **Inventory buildup** faster than revenue growth (obsolescence risk or channel stuffing)\n- **Related-party transactions** that inflate assets or hide liabilities\n- **Off-balance-sheet obligations**: operating leases (pre-IFRS 16/ASC 842), SPVs, guarantees\n\n### Cash Flow Manipulation\n\nCash flow from operations (CFO) can be manipulated through classification:\n\n| Technique | Effect |\n|---|---|\n| Stretching payables | Temporarily boosts CFO |\n| Securitizing receivables | Converts collection to financing cash flow |\n| Classifying as investing | Moves operating outflows to CFI |\n| Tax benefit from stock options (pre-ASU 2016-09) | Inflated CFO |\n\n### The Beneish M-Score\n\nA quantitative model to detect earnings manipulation using eight financial ratios:\n\n$$M = -4.84 + 0.92(\\text{DSRI}) + 0.528(\\text{GMI}) + 0.404(\\text{AQI}) + 0.892(\\text{SGI}) + 0.115(\\text{DEPI}) - 0.172(\\text{SGAI}) + 4.679(\\text{TATA}) - 0.327(\\text{LVGI})$$\n\n**Key variables:**\n- **DSRI** (Days Sales in Receivables Index): large increase suggests revenue manipulation\n- **GMI** (Gross Margin Index): declining margins create pressure to manipulate\n- **AQI** (Asset Quality Index): rising non-current assets (ex PP&E) suggests aggressive capitalization\n- **TATA** (Total Accruals to Total Assets): high accruals signal low earnings quality\n\n**Interpretation:** M-score > \u22121.78 suggests **probable manipulation**"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Earnings Quality Red Flag Analysis",
+      "solution": "Analyze the following data for TechGrowth Inc. over three years:\n\n| Metric | Year 1 | Year 2 | Year 3 |\n|---|---|---|---|\n| Revenue | $500M | $600M | $750M |\n| Net Income | $50M | $75M | $110M |\n| Operating Cash Flow | $60M | $55M | $45M |\n| Accounts Receivable | $80M | $120M | $195M |\n| Days Sales Outstanding | 58 days | 73 days | 95 days |\n| Capitalized software costs | $10M | $25M | $55M |\n\nRed flags identified:\n\n1. **Revenue-cash flow divergence**: Revenue up 50% but OCF down 25% over two years. Net income doubled while OCF declined \u2014 classic accruals-driven earnings.\n\n2. **DSO explosion**: From 58 to 95 days \u2014 a 64% increase. If customers were truly buying more, collection periods shouldn't lengthen this dramatically. Suggests channel stuffing or aggressive revenue recognition.\n\n3. **Capitalized software costs**: Grew from $10M to $55M (450% increase) while revenue grew only 50%. This could be reclassifying operating expenses as capital expenditures to inflate current earnings.\n\n4. **DSRI for Beneish**: Year 3 vs Year 2 = (195/750) / (120/600) = 0.260/0.200 = 1.30 \u2014 above 1.0 indicates potential revenue manipulation.\n\nConclusion: Multiple converging red flags suggest aggressive accounting. An analyst should investigate revenue recognition policies, the nature of capitalized costs, and customer concentration before relying on reported earnings."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Evaluating Financial Report Quality Practice",
+      "problems": [
+        {
+          "id": "fsa-eq-1",
+          "vignette": "Sarah Mitchell, CFA, is evaluating NovaCorp as a potential equity investment. She notices the following patterns in NovaCorp's financial statements over the past three years:\n\n| Metric | Year 1 | Year 2 | Year 3 |\n|---|---|---|---|\n| Revenue growth | 12% | 15% | 22% |\n| Net income growth | 14% | 18% | 28% |\n| OCF growth | 8% | 3% | \u22125% |\n| AR growth | 10% | 25% | 40% |\n| Inventory growth | 5% | 8% | 35% |\n| Capitalized development costs / Total R&D | 15% | 28% | 45% |\n| EPS beats consensus | Yes (+$0.01) | Yes (+$0.01) | Yes (+$0.01) |\n\nMitchell's colleague argues that NovaCorp's accelerating revenue and earnings growth make it an attractive investment.",
+          "question": "Based on the data, Mitchell should be most concerned about:",
+          "options": [
+            "A) Revenue quality \u2014 the divergence between revenue growth and operating cash flow, combined with surging receivables and inventory",
+            "B) The consistency of EPS beats, which demonstrates management's strong forecasting ability",
+            "C) The increase in capitalized development costs, which reflects growing investment in innovation"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The data shows multiple converging red flags: (1) Revenue growth accelerating to 22% while OCF declines 5% \u2014 a classic warning sign of accruals-driven earnings. (2) AR growth of 40% far exceeds revenue growth of 22%, suggesting aggressive revenue recognition or channel stuffing. (3) Inventory growth of 35% vs 22% revenue growth suggests possible demand weakness. (4) Capitalized development costs tripled as a percentage of total R&D \u2014 possible operating expense capitalization. The consistent $0.01 EPS beats (Option B) are actually a red flag suggesting earnings management, not forecasting skill. Option C's capitalization increase should be viewed suspiciously given the other patterns.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Identify red flags indicating potential earnings manipulation"
+        },
+        {
+          "id": "fsa-eq-2",
+          "vignette": "Sarah Mitchell, CFA, further analyzes NovaCorp and calculates the following Beneish M-score inputs:\n\n| Variable | Value | Description |\n|---|---|---|\n| DSRI | 1.32 | Days Sales in Receivables Index |\n| GMI | 1.08 | Gross Margin Index |\n| AQI | 1.25 | Asset Quality Index |\n| SGI | 1.22 | Sales Growth Index |\n| DEPI | 1.15 | Depreciation Index |\n| SGAI | 0.95 | SGA Expense Index |\n| TATA | 0.12 | Total Accruals to Total Assets |\n| LVGI | 1.10 | Leverage Index |\n\nUsing the Beneish model: $M = -4.84 + 0.92(DSRI) + 0.528(GMI) + 0.404(AQI) + 0.892(SGI) + 0.115(DEPI) - 0.172(SGAI) + 4.679(TATA) - 0.327(LVGI)$",
+          "question": "The Beneish M-score for NovaCorp is closest to, and indicates:",
+          "options": [
+            "A) \u22122.50; unlikely manipulation",
+            "B) \u22121.35; probable manipulation",
+            "C) \u22120.80; probable manipulation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Calculating: M = \u22124.84 + 0.92(1.32) + 0.528(1.08) + 0.404(1.25) + 0.892(1.22) + 0.115(1.15) \u2212 0.172(0.95) + 4.679(0.12) \u2212 0.327(1.10) = \u22124.84 + 1.214 + 0.570 + 0.505 + 1.088 + 0.132 \u2212 0.163 + 0.561 \u2212 0.360 = \u22121.293. This is approximately \u22121.3, closest to B (\u22121.35). Since M > \u22121.78, the model flags NovaCorp as a probable manipulator. The largest contributors are the high DSRI (receivables growing faster than sales) and high TATA (large accruals relative to assets). This quantitative result corroborates the qualitative red flags identified earlier.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate and interpret the Beneish M-score"
+        },
+        {
+          "id": "fsa-eq-3",
+          "vignette": "David Thompson, CFA, compares two consumer products companies:\n\n| Metric | ConsumerCo A | ConsumerCo B |\n|---|---|---|\n| Revenue | $3,000M | $3,200M |\n| Net Income | $300M | $320M |\n| OCF | $380M | $250M |\n| Depreciation / Gross PP&E | 5.0% | 3.2% |\n| Peer average depreciation rate | 4.5% | 4.5% |\n| Days payable outstanding | 45 days | 92 days |\n| Peer average DPO | 50 days | 50 days |\n| Change in accrued liabilities | +$10M | +$80M |\n\nThompson is assessing the quality of both companies' reported earnings.",
+          "question": "Which company's earnings are more likely to be of higher quality?",
+          "options": [
+            "A) ConsumerCo A, because its OCF exceeds net income and its accounting policies align with peers",
+            "B) ConsumerCo B, because it reports higher revenue and net income",
+            "C) Both companies have similar earnings quality based on their net income margins"
+          ],
+          "correctAnswer": "A",
+          "explanation": "ConsumerCo A demonstrates higher earnings quality: (1) OCF ($380M) exceeds net income ($300M), indicating cash-backed earnings. (2) Depreciation rate (5.0%) is close to peers (4.5%), suggesting reasonable asset life assumptions. (3) DPO (45 days) is near the peer average (50 days). ConsumerCo B shows multiple concerns: (1) OCF ($250M) is well below net income ($320M) \u2014 accruals-driven earnings. (2) Depreciation rate (3.2%) is far below peers (4.5%), inflating income through under-depreciation. (3) DPO (92 days) is nearly double the peer average, temporarily boosting OCF through payables stretching. (4) Large increase in accrued liabilities ($80M) may represent aggressive expense timing. Option B ignores quality factors. Option C relies only on margins.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Compare earnings quality across companies using multiple indicators"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a junior analyst how to systematically evaluate whether a company's reported earnings are reliable. Walk through the key red flags to look for in the income statement, balance sheet, and cash flow statement, and explain why the divergence between net income and operating cash flow is such a critical signal."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is a company's choice of accounting policies as important as the numbers themselves?",
+        "How might management's incentive structure (e.g., bonuses tied to EPS) affect earnings quality?",
+        "What additional information sources beyond financial statements would help you assess reporting quality?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Earnings quality spectrum: high quality \u2192 aggressive \u2192 non-compliant \u2192 fraudulent\n- **High-quality earnings** are sustainable, cash-backed, and conservatively reported\n- Key red flags: OCF diverging from net income, DSO and inventory rising faster than revenue, aggressive capitalization\n- **Beneish M-score > \u22121.78** suggests probable manipulation\n- Revenue manipulation: channel stuffing, bill-and-hold, premature recognition\n- Expense manipulation: capitalizing OpEx, extending depreciation, under-reserving\n- Cash flow manipulation: stretching payables, securitizing receivables, reclassifying\n- Accruals ratio measures the gap between reported earnings and cash generation"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Integration of FSA Techniques**, where you'll bring together all the analytical tools from previous modules into a comprehensive company analysis framework \u2014 combining ratio analysis, quality assessment, and cross-company comparison."
+    }
+  ]
+}

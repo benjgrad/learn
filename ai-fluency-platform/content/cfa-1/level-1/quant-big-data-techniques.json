@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "QM.11: Big Data Techniques",
+    "description": "Describe big data characteristics, machine learning approaches, NLP basics, and fintech applications in investment management.",
+    "level": "level-1",
+    "slug": "quant-big-data-techniques",
+    "order": 11,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Hedge funds now analyze satellite imagery of parking lots, social media sentiment, and credit card transaction data to predict earnings. How might these 'alternative data' sources create an edge, and what risks do they introduce?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Big Data: The Three V's\n\nBig data is defined by three characteristics:\n\n### Volume\n\nThe sheer amount of data generated. Financial markets produce terabytes daily from trades, quotes, news, and social media. Traditional tools (spreadsheets, relational databases) cannot handle this scale.\n\n### Velocity\n\nThe speed at which data is generated and must be processed. High-frequency trading data arrives in microseconds. Social media sentiment changes in real time. Investment decisions increasingly require near-instantaneous analysis.\n\n### Variety\n\nData comes in diverse formats:\n\n- **Structured data**: Traditional rows and columns (prices, financial statements, economic indicators)\n- **Semi-structured data**: Data with some organization (JSON, XML, email metadata)\n- **Unstructured data**: No predefined format (text, images, audio, video, satellite imagery)\n\nAn estimated 80-90% of data is unstructured, yet traditional finance has focused almost exclusively on structured data.\n\n### Additional Characteristics\n\nSome frameworks add **Veracity** (data quality and reliability) and **Value** (the usefulness of insights extracted). Poor data quality is a critical risk \u2014 biased or incomplete data produces flawed models regardless of their sophistication."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A quantitative fund downloads 10 years of minute-by-minute stock prices (structured), 5 years of earnings call transcripts (unstructured), and real-time Twitter feeds (semi-structured). Which of the three V's does each data source primarily challenge?",
+      "answer": "Minute-by-minute prices over 10 years primarily challenge Volume (millions of data points). Real-time Twitter feeds primarily challenge Velocity (constant, rapid updates requiring near-real-time processing). Earnings call transcripts primarily challenge Variety (unstructured text that must be parsed and interpreted). In practice, all three sources involve elements of each V."
+    },
+    {
+      "type": "markdown",
+      "content": "## Machine Learning Overview\n\nMachine learning (ML) algorithms learn patterns from data without being explicitly programmed. They fall into three categories:\n\n### Supervised Learning\n\nThe algorithm learns from **labeled data** \u2014 inputs with known outputs:\n\n- **Regression**: Predicts a continuous variable (e.g., expected return, house price)\n- **Classification**: Predicts a category (e.g., buy/sell, default/no default, fraud/legitimate)\n\nExamples: linear regression, logistic regression, support vector machines, random forests, neural networks\n\n### Unsupervised Learning\n\nThe algorithm finds **hidden patterns** in data without labels:\n\n- **Clustering**: Groups similar observations (e.g., investor segments, stock clusters)\n- **Dimensionality reduction**: Reduces the number of variables while preserving information (e.g., principal component analysis)\n\n### Reinforcement Learning\n\nThe algorithm learns by **trial and error**, receiving rewards or penalties for actions. Applications include algorithmic trading strategies and dynamic portfolio optimization.\n\n### Key Concepts\n\n- **Overfitting**: The model fits the training data too closely (including noise) and performs poorly on new data. High complexity \u2192 risk of overfitting.\n- **Underfitting**: The model is too simple to capture the underlying pattern.\n- **Bias-variance tradeoff**: More complex models reduce bias (systematic error) but increase variance (sensitivity to training data). The goal is the right balance."
+    },
+    {
+      "type": "markdown",
+      "content": "## NLP, Data Visualization, and Fintech\n\n### Natural Language Processing (NLP)\n\nNLP enables machines to analyze and extract meaning from text. Financial applications:\n\n- **Sentiment analysis**: Classifying text as positive, negative, or neutral. Applied to news articles, earnings calls, analyst reports, and social media.\n- **Topic modeling**: Identifying themes in large document collections\n- **Named entity recognition**: Extracting company names, people, and financial terms from unstructured text\n- **Text summarization**: Condensing long documents into key points\n\n### Data Visualization\n\nEffective visualization makes complex data interpretable:\n\n- **Heat maps**: Correlation matrices, geographic exposure, sector performance\n- **Tree maps**: Hierarchical data (portfolio composition by sector and industry)\n- **Network graphs**: Relationships between entities (ownership, counterparty risk)\n- **Interactive dashboards**: Real-time monitoring of portfolio risk and performance\n\nGood visualizations should not distort data. Common pitfalls include truncated axes, misleading 3D effects, and cherry-picked time periods.\n\n### Fintech Applications\n\n- **Robo-advisors**: Automated portfolio management using algorithms\n- **Algorithmic trading**: Using quantitative models for trade execution\n- **Blockchain and DLT**: Distributed ledger technology for settlement and smart contracts\n- **RegTech**: Technology for regulatory compliance (KYC, AML monitoring)\n- **Alternative data**: Satellite imagery, web traffic, app usage for investment signals"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A fund wants to predict whether companies will miss their earnings estimates (binary outcome). They have historical data on 50 financial variables for 5,000 companies over 10 years. Describe: (a) Is this supervised or unsupervised learning? (b) What type of ML task? (c) What is the risk of overfitting, and how would you mitigate it?",
+      "solution": "**(a) Supervised learning.** The target variable (miss/not miss earnings) is known for historical observations. The algorithm learns from this labeled data.\n\n**(b) Classification.** The outcome is categorical (miss or not miss), not continuous. Appropriate algorithms include logistic regression, random forests, gradient boosting, or neural networks.\n\n**(c) Overfitting risk and mitigation:**\n\nRisk is HIGH because:\n- 50 features with complex interactions can produce models that memorize training data noise\n- Financial data has a low signal-to-noise ratio\n- Patterns may be regime-dependent (working in bull markets but not bear markets)\n\nMitigation strategies:\n- **Train/test split**: Hold out 20-30% of data for testing; never let the model see test data during training\n- **Cross-validation**: Use k-fold cross-validation to estimate out-of-sample performance\n- **Regularization**: Apply L1 (Lasso) or L2 (Ridge) penalties to shrink or eliminate coefficients\n- **Feature selection**: Reduce the number of features to those with genuine predictive power\n- **Out-of-time testing**: Test on future periods the model was not trained on, since financial data is time-dependent\n- **Ensemble methods**: Combine multiple models to reduce variance"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Big Data Techniques Practice Problems",
+      "problems": [
+        {
+          "id": "qm11-1",
+          "question": "Which of the following best describes the 'variety' characteristic of big data?",
+          "options": [
+            "A) The speed at which data is generated",
+            "B) The range of data formats including structured, semi-structured, and unstructured",
+            "C) The total amount of data that must be stored"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Variety refers to the diverse formats in which data exists: structured (databases), semi-structured (JSON, XML), and unstructured (text, images, audio). Option A describes velocity. Option C describes volume.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe the characteristics of big data"
+        },
+        {
+          "id": "qm11-2",
+          "question": "An analyst uses an algorithm to group stocks into clusters based on their price behavior, without predefined categories. This is an example of:",
+          "options": [
+            "A) Supervised learning (classification)",
+            "B) Unsupervised learning (clustering)",
+            "C) Reinforcement learning"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Clustering groups similar items without predefined labels, which is unsupervised learning. Option A requires labeled data (e.g., knowing which category each stock belongs to beforehand). Option C involves learning through rewards/penalties from sequential actions.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Distinguish between supervised and unsupervised learning"
+        },
+        {
+          "id": "qm11-3",
+          "question": "A machine learning model achieves 98% accuracy on training data but only 55% on new test data. This is most likely an example of:",
+          "options": [
+            "A) Underfitting",
+            "B) Overfitting",
+            "C) High bias"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A large gap between training accuracy (98%) and test accuracy (55%) is the hallmark of overfitting \u2014 the model has memorized the training data including its noise and fails to generalize. Option A (underfitting) would show poor performance on both training and test data. Option C (high bias) also indicates underfitting, with consistently poor results.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify overfitting and underfitting"
+        },
+        {
+          "id": "qm11-4",
+          "question": "An investment firm uses NLP to analyze earnings call transcripts. The primary goal of sentiment analysis applied to these transcripts is to:",
+          "options": [
+            "A) Summarize the transcript into bullet points",
+            "B) Determine whether the tone of management commentary is positive, negative, or neutral",
+            "C) Identify the names of companies mentioned in the transcript"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Sentiment analysis specifically classifies the emotional tone or attitude expressed in text. Option A describes text summarization. Option C describes named entity recognition. All three are NLP techniques, but only B is sentiment analysis.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe NLP applications in finance"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the bias-variance tradeoff to a colleague. Why can't we just build the most complex model possible? Use an analogy to help illustrate why simpler models sometimes outperform complex ones on new data."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How might alternative data create ethical concerns for investment managers? Where should the line be drawn?",
+        "Why is overfitting an especially dangerous problem in finance compared to other domains like image recognition?",
+        "How do you think big data and ML will change the role of financial analysts in the next decade?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Big data**: Volume (amount), Velocity (speed), Variety (formats)\n- **Structured** (tables) vs **Unstructured** (text, images) data\n- **Supervised learning**: Labeled data \u2192 regression (continuous) or classification (categorical)\n- **Unsupervised learning**: No labels \u2192 clustering, dimensionality reduction\n- **Overfitting**: Model memorizes training data noise; poor on new data. Mitigate with train/test splits, cross-validation, regularization\n- **Underfitting**: Model too simple to capture patterns\n- **NLP applications**: Sentiment analysis, topic modeling, named entity recognition\n- **Fintech**: Robo-advisors, algorithmic trading, blockchain, RegTech\n- Always validate ML models on out-of-sample data"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have now completed all the content modules in Quantitative Methods. The next module is the **Checkpoint**, which tests your understanding across all QM topics. Review the key formulas from each module and prepare for cross-topic application problems."
+    }
+  ]
+}

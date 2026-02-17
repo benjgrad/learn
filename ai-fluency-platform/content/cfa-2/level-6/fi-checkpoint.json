@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "Fixed Income Checkpoint",
+    "description": "Test your integrated understanding of term structure dynamics, arbitrage-free valuation, embedded options, credit models, and credit default swaps.",
+    "level": "level-6",
+    "slug": "fi-checkpoint",
+    "order": 7,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Fixed Income \u2014 Checkpoint Assessment\n\nThis checkpoint tests your ability to integrate concepts across Level II fixed income topics. You should be able to:\n\n- Extract forward rates from the spot curve and interpret their economic meaning\n- Value bonds using binomial trees with backward induction\n- Analyze callable, putable, and convertible bonds using OAS\n- Apply structural and reduced-form credit models\n- Price and interpret CDS contracts and basis trades"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Fixed Income \u2014 Checkpoint Problems",
+      "problems": [
+        {
+          "id": "fi-cp-1",
+          "vignette": "Jennifer Walsh, CFA, is a senior fixed income analyst. She observes the following government spot rates:\n\n| Maturity | Spot Rate |\n|---|---|\n| 1 year | 3.50% |\n| 2 years | 4.00% |\n| 3 years | 4.30% |\n\nShe also has data on two corporate bonds issued by Nexus Corp (rated BBB+):\n\n| Bond | Coupon | Maturity | Feature | OAS |\n|---|---|---|---|---|\n| Bond A | 5.0% | 3 years | Callable at par in 1 year | 125 bps |\n| Bond B | 4.5% | 3 years | Non-callable | 140 bps |\n\nThe 3-year CDS spread on Nexus Corp is 150 bps with a 40% assumed recovery rate.",
+          "question": "The implied 1-year forward rate two years from now, f(2,1), is closest to:",
+          "options": [
+            "A) 4.30%",
+            "B) 4.90%",
+            "C) 5.50%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "f(2,1) = [(1+z\u2083)\u00b3/(1+z\u2082)\u00b2] - 1 = [(1.043)\u00b3/(1.04)\u00b2] - 1\n\n(1.043)\u00b3 = 1.13491\n(1.04)\u00b2 = 1.08160\n\nf(2,1) = 1.13491/1.08160 - 1 = 1.04930 - 1 = 4.93% \u2248 4.90%\n\nThe forward rate exceeds all spot rates because the upward-sloping curve requires progressively higher forward rates. Option A (4.30%) is just the 3-year spot rate. Option C (5.50%) overstates the forward rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate forward rates from the spot rate curve"
+        },
+        {
+          "id": "fi-cp-2",
+          "vignette": "Jennifer Walsh, CFA, is a senior fixed income analyst. She observes the following data on two corporate bonds issued by Nexus Corp (rated BBB+):\n\n| Bond | Coupon | Maturity | Feature | Z-spread | OAS |\n|---|---|---|---|---|---|\n| Bond A | 5.0% | 3 years | Callable at par in 1 year | 185 bps | 125 bps |\n| Bond B | 4.5% | 3 years | Non-callable | 140 bps | 140 bps |\n\nWalsh wants to determine which bond offers better value for the credit risk of Nexus Corp.",
+          "question": "Walsh should conclude that:",
+          "options": [
+            "A) Bond A offers better value because its Z-spread (185 bps) exceeds Bond B's (140 bps)",
+            "B) Bond B offers better value because its OAS (140 bps) exceeds Bond A's (125 bps)",
+            "C) Both bonds offer equal value because they have the same issuer credit risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "OAS is the correct comparison metric because it removes the option cost, isolating credit and liquidity compensation. Bond A's OAS (125 bps) < Bond B's OAS (140 bps), meaning Bond B provides 15 bps more compensation for the same credit risk. Bond A's higher Z-spread (185 bps) is misleading \u2014 60 bps of that spread is option cost (Z-spread - OAS = 185 - 125 = 60 bps), not compensation for credit risk. Option A is wrong because Z-spread comparisons are inappropriate between callable and non-callable bonds. Option C is wrong because the bonds' OAS values differ, indicating different credit-risk-adjusted pricing.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare bonds with different features using OAS analysis"
+        },
+        {
+          "id": "fi-cp-3",
+          "vignette": "Walsh computes the effective duration of Bond A by shifting all rates in her binomial tree up and down by 25 bps:\n\n| Scenario | Bond A Price | Bond B Price |\n|---|---|---|\n| Rates -25 bps | $101.80 | $102.50 |\n| Base | $101.20 | $100.40 |\n| Rates +25 bps | $100.30 | $98.35 |\n\nShe also calculates key rate durations for Bond A.",
+          "question": "The effective duration of Bond A compared to Bond B indicates that:",
+          "options": [
+            "A) Bond A has higher effective duration because callable bonds are more sensitive to rate changes",
+            "B) Bond A has lower effective duration because the call option limits price appreciation when rates decline",
+            "C) Both bonds have the same effective duration because they have the same maturity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Bond A EffDur = (101.80 - 100.30)/(2 \u00d7 101.20 \u00d7 0.0025) = 1.50/0.506 = 2.96\nBond B EffDur = (102.50 - 98.35)/(2 \u00d7 100.40 \u00d7 0.0025) = 4.15/0.502 = 8.27\n\nBond A's effective duration (\u22483.0) is much less than Bond B's (\u22488.3). The call option caps Bond A's price upside \u2014 when rates fall, the bond's price barely rises above the call price (par), reducing the numerator in the duration formula. This is characteristic of callable bonds: they have truncated upside but full downside, resulting in lower duration. Option A reverses the relationship. Option C is wrong \u2014 same maturity doesn't mean same effective duration when embedded options are present.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare effective duration of callable and non-callable bonds"
+        },
+        {
+          "id": "fi-cp-4",
+          "vignette": "Walsh turns her attention to credit analysis. The 3-year CDS on Nexus Corp trades at a spread of 150 bps with an assumed recovery rate of 40%. The 3-year bond Z-spread for Bond B is 140 bps.\n\nWalsh's credit research team has generated a Merton-model-based estimate that Nexus Corp's assets are currently $2.5 billion, asset volatility is 20%, and total debt (face value, maturing in 3 years) is $1.8 billion.",
+          "question": "The CDS-bond basis for Nexus Corp's 3-year instruments and its implication are:",
+          "options": [
+            "A) +10 bps \u2014 CDS protection is expensive relative to the cash bond",
+            "B) -10 bps \u2014 CDS protection is cheap relative to the cash bond",
+            "C) +10 bps \u2014 CDS protection is cheap relative to the cash bond"
+          ],
+          "correctAnswer": "A",
+          "explanation": "CDS-bond basis = CDS spread - Bond Z-spread = 150 - 140 = +10 bps (positive basis).\n\nA positive basis means CDS protection costs more than the credit spread embedded in the bond \u2014 CDS is 'expensive' relative to the cash bond. This could occur because of: (1) demand for hedging in the CDS market, (2) repo financing advantages in the cash bond market, (3) counterparty risk in CDS contracts. A negative basis trade would not be profitable here \u2014 instead, an investor might sell CDS protection and short the bond (positive basis trade). Option B reverses the sign. Option C has the correct basis but wrong interpretation \u2014 positive means CDS is expensive, not cheap.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate and interpret the CDS-bond basis"
+        },
+        {
+          "id": "fi-cp-5",
+          "vignette": "Walsh estimates the annual hazard rate from the CDS spread and compares it to Merton model outputs:\n\n| Metric | Value |\n|---|---|\n| CDS spread | 150 bps |\n| Recovery rate | 40% |\n| Merton model asset-to-debt ratio | 1.39x |\n| Asset volatility | 20% |\n| Risk-free rate | 4% |\n\nShe wants to reconcile the market-implied and model-based views of Nexus Corp's credit risk.",
+          "question": "The annual hazard rate implied by the CDS market is closest to:",
+          "options": [
+            "A) 0.90%",
+            "B) 1.50%",
+            "C) 2.50%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "CDS spread \u2248 (1 - Recovery) \u00d7 Hazard rate\n150 bps = (1 - 0.40) \u00d7 \u03bb\n0.015 = 0.60 \u00d7 \u03bb\n\u03bb = 0.015/0.60 = 0.025 = 2.50%\n\nThis implies a ~2.5% annual probability of default on a risk-neutral basis. The cumulative 3-year risk-neutral PD \u2248 1 - e^(-0.025\u00d73) = 1 - 0.928 = 7.2%. The Merton model's asset-to-debt ratio of 1.39x with 20% volatility would need to be converted to a distance-to-default to compare: DD \u2248 ln(1.39)/(0.20\u00d7\u221a3) + (0.04-0.02)\u00d73/(0.20\u00d7\u221a3), which gives a physical PD likely lower than 7.2% \u2014 the difference represents the credit risk premium. Option A (0.90%) understates the hazard rate. Option B (1.50%) equals the CDS spread directly without adjusting for recovery.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate implied hazard rates and compare market-implied vs model-based credit risk"
+        }
+      ]
+    }
+  ]
+}

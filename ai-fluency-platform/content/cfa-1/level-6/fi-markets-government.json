@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.6: Markets for Government-Related Issuers",
+    "description": "Explore Treasury securities, sovereign bonds, agency bonds, supranational bonds, and municipal bonds.",
+    "level": "level-6",
+    "slug": "fi-markets-government",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "U.S. Treasury bonds are considered 'risk-free.' But are they truly free of all risk? What risks, if any, do Treasury bond investors still face?"
+    },
+    {
+      "type": "markdown",
+      "content": "## U.S. Treasury Securities\n\nThe U.S. Treasury issues several types of securities to finance government spending:\n\n| Security | Maturity | Coupon | Pricing |\n|---|---|---|---|\n| **T-bills** | 4, 8, 13, 17, 26, 52 weeks | None (zero-coupon) | Issued at discount to par |\n| **T-notes** | 2, 3, 5, 7, 10 years | Semiannual fixed | Issued near par |\n| **T-bonds** | 20, 30 years | Semiannual fixed | Issued near par |\n| **TIPS** | 5, 10, 30 years | Semiannual real coupon | Principal adjusts with CPI |\n| **FRNs** | 2 years | Quarterly (13-week T-bill rate + spread) | Floats with short-term rates |\n\n### T-Bill Pricing\n\nT-bills are quoted on a **bank discount basis**:\n\n$$\\text{Price} = 100 \\times \\left(1 - \\frac{d \\times n}{360}\\right)$$\n\nwhere $d$ = annualized discount rate and $n$ = days to maturity.\n\nThe **bond equivalent yield (BEY)** converts this to an add-on yield for comparison:\n\n$$\\text{BEY} = \\frac{365 \\times d}{360 - (d \\times n)}$$\n\nTreasury securities are considered **free of default risk** but still carry **interest rate risk** (longer-maturity Treasuries), **inflation risk** (except TIPS), and **reinvestment risk**."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A 182-day T-bill has a bank discount yield of 5.00%. Is its bond equivalent yield higher or lower than 5.00%?",
+      "answer": "Higher. The BEY is always higher than the bank discount yield for two reasons: (1) the BEY uses the actual purchase price (which is less than par) as the denominator, increasing the yield, and (2) it uses a 365-day year instead of 360. Using the formula: BEY = (365 \u00d7 0.05) / (360 \u2212 (0.05 \u00d7 182)) = 18.25/350.9 = 5.20%. The BEY is a more accurate measure of the investor's return."
+    },
+    {
+      "type": "markdown",
+      "content": "## Sovereign, Agency, and Supranational Bonds\n\n### Sovereign Bonds\n\nGovernments worldwide issue bonds in their own currencies and sometimes in foreign currencies:\n\n- **Domestic sovereign bonds**: Issued in the sovereign's own currency (e.g., UK gilts in GBP, German Bunds in EUR, JGBs in JPY)\n- **Eurobonds**: Bonds issued in a currency different from the country where they are sold (e.g., a Brazilian company issuing USD-denominated bonds in London)\n- Sovereign credit quality varies widely, from AAA (e.g., Germany) to below investment grade\n\n### Agency Bonds\n\nIssued by **government-sponsored enterprises (GSEs)** or federal agencies:\n\n- **GSEs** (e.g., Fannie Mae, Freddie Mac): Implied but not explicit government guarantee; slightly higher yields than Treasuries\n- **Federal agencies** (e.g., Ginnie Mae): Explicit full-faith-and-credit government guarantee; yields near Treasuries\n\n### Supranational Bonds\n\nIssued by multilateral organizations (e.g., World Bank, European Investment Bank, IMF). Typically high credit quality (AAA), issued in major currencies, and used to fund development projects."
+    },
+    {
+      "type": "markdown",
+      "content": "## Municipal Bonds\n\nMunicipal bonds (\"munis\") are issued by U.S. state and local governments. Their key feature is **tax-exempt interest income** for federal (and often state/local) taxes.\n\n### Types\n\n- **General obligation (GO) bonds**: Backed by the taxing power of the issuer; no specific revenue source pledged\n- **Revenue bonds**: Backed by revenue from a specific project (toll road, airport, hospital); no taxing power pledged\n\n### Tax-Equivalent Yield\n\nTo compare a tax-exempt muni yield to a taxable bond yield:\n\n$$\\text{Tax-Equivalent Yield} = \\frac{\\text{Muni Yield}}{1 - \\text{Marginal Tax Rate}}$$\n\n### Example\n\nA muni bond yields 3.50%. An investor's marginal tax rate is 35%.\n\n$$\\text{TEY} = \\frac{3.50\\%}{1 - 0.35} = \\frac{3.50\\%}{0.65} = 5.38\\%$$\n\nThe investor needs a taxable bond yielding at least 5.38% to match the after-tax return of the 3.50% muni. Munis are most attractive to investors in **high tax brackets**."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A 91-day T-bill has a bank discount yield of 4.80%. Calculate (a) the purchase price per $100 face value and (b) the bond equivalent yield.",
+      "solution": "Part (a): Purchase price\n\n$$\\text{Price} = 100 \\times \\left(1 - \\frac{0.048 \\times 91}{360}\\right) = 100 \\times (1 - 0.01213) = 100 \\times 0.98787 = \\$98.787$$\n\nPart (b): Bond equivalent yield\n\n$$\\text{BEY} = \\frac{365 \\times 0.048}{360 - (0.048 \\times 91)} = \\frac{17.52}{360 - 4.368} = \\frac{17.52}{355.632} = 4.927\\%$$\n\nThe BEY (4.93%) exceeds the discount yield (4.80%) because it uses the actual investment amount ($98.787) as the base and a 365-day year."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Government Bond Markets Practice",
+      "problems": [
+        {
+          "id": "fi6-1",
+          "question": "A municipal bond offers a yield of 4.00%. An investor in the 32% marginal tax bracket is comparing it to a corporate bond. The tax-equivalent yield is closest to:",
+          "options": [
+            "A) 2.72%",
+            "B) 5.28%",
+            "C) 5.88%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Tax-equivalent yield = Muni yield / (1 \u2212 Tax rate) = 4.00% / (1 \u2212 0.32) = 4.00% / 0.68 = 5.88%. The investor would need a taxable bond yielding 5.88% to match the after-tax return of the 4.00% muni. Option A incorrectly multiplied by (1 \u2212 tax rate) instead of dividing. Option B used a 24% tax rate (4.00/0.76 = 5.26%).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the tax-equivalent yield of a municipal bond"
+        },
+        {
+          "id": "fi6-2",
+          "question": "Bonds issued by Ginnie Mae differ from bonds issued by Fannie Mae in that Ginnie Mae bonds:",
+          "options": [
+            "A) Are not backed by mortgage loans",
+            "B) Carry an explicit full-faith-and-credit U.S. government guarantee",
+            "C) Are issued only to foreign investors"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Ginnie Mae (Government National Mortgage Association) is a federal agency whose securities carry an explicit full-faith-and-credit guarantee of the U.S. government. Fannie Mae is a government-sponsored enterprise (GSE) with only an implied (not explicit) government backing. Option A is incorrect \u2014 both Ginnie Mae and Fannie Mae are involved in mortgage markets. Option C is incorrect \u2014 Ginnie Mae securities are widely held by domestic investors.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between agency bonds with explicit and implicit government backing"
+        },
+        {
+          "id": "fi6-3",
+          "question": "A revenue bond and a general obligation bond are issued by the same municipality with similar maturities. The revenue bond will most likely have a:",
+          "options": [
+            "A) Lower yield because it has a specific revenue source",
+            "B) Higher yield because it lacks the issuer's taxing power as backing",
+            "C) Similar yield because both carry the same tax-exempt status"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Revenue bonds typically yield more than GO bonds from the same issuer because they are backed only by the revenue from a specific project, not by the full taxing power of the municipality. If the project underperforms, bondholders may not be fully repaid. GO bonds have the broader backing of the issuer's ability to raise taxes. Option A incorrectly assumes a specific revenue source is safer. Option C ignores the credit risk differences between the two types.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare general obligation and revenue municipal bonds"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a new investor why municipal bonds might be a better choice than corporate bonds for someone in a high tax bracket, even if the muni's stated yield is lower. Use the concept of tax-equivalent yield in your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the U.S. government issue both T-bills and longer-dated T-bonds rather than only one type?",
+        "What are the risks of investing in sovereign bonds issued by a country in a currency other than its own?",
+        "How does the implied vs. explicit government guarantee affect the yield spread between GSE bonds and Treasury bonds?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **T-bills**: Zero-coupon, issued at discount; quoted on bank discount basis\n- **T-notes/bonds**: Semiannual coupon; benchmark risk-free rates\n- **TIPS**: Inflation-protected; principal adjusts with CPI\n- **BEY** converts discount yield to add-on yield: BEY = (365 \u00d7 d) / (360 \u2212 d \u00d7 n)\n- **Agency bonds**: GSEs (implied guarantee) vs. federal agencies (explicit guarantee)\n- **Supranational bonds**: Issued by multilateral organizations (World Bank, EIB)\n- **Municipal bonds**: Tax-exempt; GO bonds (taxing power) vs. revenue bonds (project revenue)\n- **Tax-equivalent yield** = Muni yield / (1 \u2212 Marginal tax rate)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Yield Measures for Fixed-Rate Bonds**, where we explore current yield, YTM, YTC, YTW, and the various yield spreads (G-spread, Z-spread, I-spread, OAS) used to compare bonds across different sectors."
+    }
+  ]
+}

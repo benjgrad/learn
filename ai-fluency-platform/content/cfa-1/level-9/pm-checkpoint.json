@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "title": "Portfolio Management Checkpoint",
+    "description": "Test your understanding across all Portfolio Management topics before moving on.",
+    "level": "level-9",
+    "slug": "pm-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Portfolio Management Checkpoint\n\nThis checkpoint assesses your understanding across all CFA Level I Portfolio Management topics:\n\n- **PM.1:** Portfolio Risk and Return: Part I \u2014 risk measures, diversification, efficient frontier\n- **PM.2:** Portfolio Risk and Return: Part II \u2014 CAPM, beta, SML, performance measures\n- **PM.3:** Portfolio Management: An Overview \u2014 investor types, pooled vehicles\n- **PM.4:** Portfolio Planning and Construction \u2014 IPS, asset allocation, rebalancing\n- **PM.5:** Behavioral Biases \u2014 cognitive errors, emotional biases\n- **PM.6:** Introduction to Risk Management \u2014 VaR, CVaR, stress testing"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Management Checkpoint Assessment",
+      "problems": [
+        {
+          "id": "pm-cp-1",
+          "question": "A portfolio is 40% Stock A (E(R) = 15%, \u03c3 = 30%) and 60% Stock B (E(R) = 9%, \u03c3 = 18%). The correlation between A and B is 0.25. The portfolio's expected return and standard deviation are closest to:\n\n| Measure | Value |\n|---------|-------|\n| E(R_p) | ? |\n| \u03c3_p | ? |",
+          "options": [
+            "A) E(R) = 11.4%, \u03c3 = 17.5%",
+            "B) E(R) = 12.0%, \u03c3 = 22.8%",
+            "C) E(R) = 11.4%, \u03c3 = 22.8%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "E(R_p) = 0.40(15%) + 0.60(9%) = 6% + 5.4% = 11.4%. \u03c3\u00b2_p = (0.40)\u00b2(0.30)\u00b2 + (0.60)\u00b2(0.18)\u00b2 + 2(0.40)(0.60)(0.25)(0.30)(0.18) = 0.0144 + 0.011664 + 0.006480 = 0.032544. \u03c3_p = \u221a0.032544 = 18.04% \u2248 17.5% (closest). Option B has the wrong expected return (12%) and uses the weighted average of standard deviations. Option C has the correct expected return but uses the weighted average standard deviation (0.40 \u00d7 30% + 0.60 \u00d7 18% = 22.8%), ignoring the diversification benefit.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate portfolio expected return and standard deviation"
+        },
+        {
+          "id": "pm-cp-2",
+          "question": "The risk-free rate is 3%, the market return is 10%, and a stock has a beta of 0.7. If the stock's actual return was 11%, the stock's Jensen's alpha is closest to:",
+          "options": [
+            "A) 1.0%",
+            "B) 3.1%",
+            "C) 8.0%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CAPM expected return = 3% + 0.7(10% - 3%) = 3% + 4.9% = 7.9%. Jensen's alpha = 11% - 7.9% = 3.1%. The stock earned 3.1% more than what CAPM predicted for its level of systematic risk. Option A (1.0%) incorrectly subtracts the market return (11% - 10%). Option C (8.0%) incorrectly subtracts only the risk-free rate (11% - 3%).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate and interpret Jensen's alpha using CAPM"
+        },
+        {
+          "id": "pm-cp-3",
+          "question": "A defined benefit pension fund with a mature workforce and many near-retirement participants would most appropriately be described as having:",
+          "options": [
+            "A) a long time horizon and high risk tolerance",
+            "B) a short time horizon and low risk tolerance",
+            "C) a long time horizon and low risk tolerance"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A mature pension fund with many near-retirement participants has a short effective time horizon (benefits must be paid soon) and low risk tolerance (the fund cannot afford significant drawdowns when payouts are imminent). Option A describes a young pension fund with mostly early-career participants. Option C is contradictory for a mature plan \u2014 the short horizon drives the low risk tolerance.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe institutional investor characteristics"
+        },
+        {
+          "id": "pm-cp-4",
+          "question": "An investor keeps separate 'retirement' and 'vacation' investment accounts, taking much higher risk in the vacation account. After losing 40% in the vacation account, she refuses to cut her vacation budget. This behavior is most consistent with:",
+          "options": [
+            "A) loss aversion and status quo bias",
+            "B) mental accounting and self-control bias",
+            "C) overconfidence and representativeness bias"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Mental accounting: she treats the two accounts as separate, unrelated buckets rather than components of her total wealth. The vacation account loss reduces her total net worth, but she doesn't perceive it that way. Self-control bias: she is unable or unwilling to reduce consumption (vacations) despite a material wealth reduction. Option A involves reluctance to realize losses and inertia, which are not the primary issues. Option C involves excessive conviction and pattern-matching, which don't explain the bucket-based thinking.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify behavioral biases in investment scenarios"
+        },
+        {
+          "id": "pm-cp-5",
+          "question": "A firm's daily 1% VaR is $5 million and its daily 1% CVaR is $8 million. These measures indicate that:",
+          "options": [
+            "A) the maximum daily loss is $5 million, and the average loss is $8 million",
+            "B) on the worst 1% of days, the minimum loss is $5 million and the average loss is $8 million",
+            "C) there is a 1% chance of losing between $5 million and $8 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The 1% VaR of $5 million means there is a 1% probability of losing at least $5 million. CVaR of $8 million means that when losses exceed the $5 million VaR threshold, the average loss is $8 million. Together they describe both the frequency and severity of tail losses. Option A incorrectly states VaR is a maximum (losses can far exceed VaR). Option C incorrectly implies losses are capped at $8 million \u2014 actual losses could be much higher than the average.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret VaR and CVaR together"
+        }
+      ]
+    }
+  ]
+}

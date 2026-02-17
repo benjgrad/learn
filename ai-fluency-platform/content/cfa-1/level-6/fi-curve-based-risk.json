@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.13: Curve-Based Risk Measures",
+    "description": "Explore effective duration, effective convexity, key rate duration, empirical duration, spread duration, and portfolio duration contribution.",
+    "level": "level-6",
+    "slug": "fi-curve-based-risk",
+    "order": 13,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A callable bond and an option-free bond have the same modified duration of 7 years. If the yield curve shifts down by 100 bps, will both bonds experience the same price increase? Why or why not?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Effective Duration and Effective Convexity\n\nFor bonds with **embedded options** (callable, putable, MBS), cash flows change when interest rates change. Yield-based (modified) duration assumes fixed cash flows and is therefore inappropriate. **Effective duration** allows cash flows to change.\n\n### Effective Duration\n\n$$\\text{EffDur} = \\frac{P_- - P_+}{2 \\times P_0 \\times \\Delta\\text{Curve}}$$\n\nThe formula looks identical to approximate modified duration, but the key difference:\n- **Modified duration**: $P_-$ and $P_+$ are computed by shifting the bond's **YTM**\n- **Effective duration**: $P_-$ and $P_+$ are computed by shifting the **benchmark yield curve** and repricing with a valuation model (e.g., binomial tree) that accounts for how embedded options change cash flows\n\n### Effective Convexity\n\n$$\\text{EffCon} = \\frac{P_- + P_+ - 2P_0}{(\\Delta\\text{Curve})^2 \\times P_0}$$\n\n### Key Insight\n\n| Bond Type | Modified Duration Appropriate? | Effective Duration Needed? |\n|---|---|---|\n| Option-free fixed rate | Yes | Also valid (results similar) |\n| Callable/Putable | No | Yes (cash flows change with rates) |\n| MBS | No | Yes (prepayments change with rates) |\n| Floating-rate | Limited use | Yes (captures reset dynamics) |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A callable bond has an effective duration of 4.2 years. An otherwise identical option-free bond has a modified duration of 7.1 years. Why is the callable bond's effective duration so much lower?",
+      "answer": "The call option limits the callable bond's price appreciation when rates fall. As rates decline, the probability of the bond being called increases, effectively shortening the bond's expected life and reducing its sensitivity to rate changes. The effective duration of 4.2 reflects this shortened expected maturity. The option-free bond has no such cap, so its full 7.1-year duration applies. In effect, the call option 'steals' upside from the bondholder, reducing the bond's effective interest rate sensitivity."
+    },
+    {
+      "type": "markdown",
+      "content": "## Key Rate Duration\n\nPortfolio duration assumes a **parallel shift** in the yield curve. In reality, the curve often shifts non-parallel (e.g., short rates rise while long rates fall).\n\n**Key rate duration** (partial duration) measures a bond's sensitivity to a change at a **specific maturity point** on the yield curve while holding all other rates constant.\n\n$$\\%\\Delta P \\approx \\sum_{k} -\\text{KeyRateDur}_k \\times \\Delta y_k$$\n\nA bond's key rate durations sum to approximately its effective duration. For example, a 10-year bullet bond has most of its key rate duration concentrated at the 10-year point, while a 10-year amortizing bond has key rate exposures spread across multiple maturities.\n\n## Empirical Duration\n\n**Empirical duration** is estimated by running a **regression** of historical bond price changes against changes in a benchmark yield:\n\n$$\\%\\Delta P = \\alpha + \\beta \\times \\Delta y + \\epsilon$$\n\nThe regression coefficient $\\beta$ is the empirical duration. This is useful for bonds that do not respond to yield changes as analytical models predict (e.g., high-yield bonds, whose prices are driven more by credit factors than interest rates)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Spread Duration and Portfolio Contribution\n\n### Spread Duration\n\n**Spread duration** measures a bond's price sensitivity to changes in its **credit spread** rather than changes in the benchmark yield curve:\n\n$$\\%\\Delta P \\approx -\\text{SpreadDur} \\times \\Delta\\text{Spread}$$\n\nFor investment-grade bonds, spread duration is often similar to effective duration. For floating-rate notes, spread duration is significant (FRNs are sensitive to spread changes even though they have minimal interest rate duration).\n\n### Portfolio Duration Contribution\n\nA bond's **contribution to portfolio duration** measures how much it contributes to the overall portfolio's interest rate sensitivity:\n\n$$\\text{Contribution}_i = w_i \\times \\text{EffDur}_i$$\n\nwhere $w_i$ = market value weight of bond $i$ in the portfolio.\n\nPortfolio managers use duration contributions to understand which positions drive portfolio risk and to make targeted adjustments."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A callable bond is priced at $101.50 using a binomial tree model. When the benchmark curve is shifted down 25 bps, the model price is $103.00. When the curve is shifted up 25 bps, the model price is $99.80. Calculate the effective duration and effective convexity.",
+      "solution": "**Effective duration:**\n\n$$\\text{EffDur} = \\frac{P_- - P_+}{2 \\times P_0 \\times \\Delta\\text{Curve}} = \\frac{103.00 - 99.80}{2 \\times 101.50 \\times 0.0025}$$\n\n$$= \\frac{3.20}{0.5075} = 6.31$$\n\n**Effective convexity:**\n\n$$\\text{EffCon} = \\frac{P_- + P_+ - 2P_0}{(\\Delta\\text{Curve})^2 \\times P_0} = \\frac{103.00 + 99.80 - 203.00}{(0.0025)^2 \\times 101.50}$$\n\n$$= \\frac{-0.20}{0.00000625 \\times 101.50} = \\frac{-0.20}{0.000634} = -315.5$$\n\nThe negative effective convexity (-315.5) confirms this is a callable bond exhibiting negative convexity \u2014 the price increase from a rate decrease ($1.50) is smaller than the price decrease from a rate increase ($1.70)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Curve-Based Risk Measures Practice",
+      "problems": [
+        {
+          "id": "fi13-1",
+          "question": "For which of the following bonds is effective duration, rather than modified duration, most appropriate?",
+          "options": [
+            "A) A 5-year, option-free corporate bond",
+            "B) A 10-year callable municipal bond",
+            "C) A 2-year zero-coupon Treasury bond"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The 10-year callable municipal bond has an embedded option that changes its expected cash flows when interest rates change. Modified duration assumes fixed cash flows and cannot capture the call option's effect on price sensitivity. Effective duration uses a model that revalues the bond under different rate scenarios, properly accounting for the changing probability of the call being exercised. Options A and C are option-free, so modified duration works well.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Determine when effective duration is preferred over modified duration"
+        },
+        {
+          "id": "fi13-2",
+          "question": "A portfolio manager holds a 10-year bullet bond and a 10-year amortizing bond, both with effective duration of 7.0. The yield curve steepens (short rates fall, long rates rise). Which bond is more negatively affected?",
+          "options": [
+            "A) The bullet bond",
+            "B) The amortizing bond",
+            "C) Both are equally affected because they have the same effective duration"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Although both bonds have the same effective duration, their key rate duration profiles differ. The bullet bond has most of its key rate duration concentrated at the 10-year point, making it highly sensitive to the rise in long rates. The amortizing bond has key rate durations spread across multiple maturities, benefiting from the falling short rates and partially offsetting the rising long rates. Option C is incorrect because effective duration only measures sensitivity to parallel shifts, not steepening.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain the importance of key rate duration for non-parallel yield curve shifts"
+        },
+        {
+          "id": "fi13-3",
+          "question": "A floating-rate note has a spread duration of 3.5 years and an effective duration of 0.15 years. If credit spreads widen by 50 bps while the benchmark yield curve remains unchanged, the FRN's price change is closest to:",
+          "options": [
+            "A) \u22120.075%",
+            "B) \u22121.75%",
+            "C) \u22123.50%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "%\u0394P \u2248 \u2212SpreadDur \u00d7 \u0394Spread = \u22123.5 \u00d7 0.005 = \u22121.75%. The FRN has minimal interest rate duration (0.15) but significant spread duration (3.5), meaning it is insensitive to benchmark rate changes but sensitive to credit spread changes. Option A incorrectly uses effective duration (\u22120.15 \u00d7 0.005). Option C fails to convert 50 bps to 0.005 (uses 0.50 instead).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the price impact of spread changes using spread duration"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why effective duration is necessary for bonds with embedded options and why modified duration fails for these bonds. Use a callable bond example to illustrate how changing cash flows make yield-based measures inaccurate."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might the empirical duration of a high-yield bond be much lower than its analytical (model) duration?",
+        "How can a portfolio manager use key rate durations to position a portfolio for an expected yield curve flattening?",
+        "Why does a floating-rate note have high spread duration despite having near-zero effective duration?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Effective duration**: (P\u208b \u2212 P\u208a) / (2 \u00d7 P\u2080 \u00d7 \u0394Curve) \u2014 uses model repricing; appropriate for bonds with embedded options\n- **Effective convexity**: (P\u208b + P\u208a \u2212 2P\u2080) / (\u0394Curve\u00b2 \u00d7 P\u2080)\n- **Key rate duration**: Sensitivity to a single maturity point; captures non-parallel shifts\n- **Empirical duration**: Regression-based; useful when analytical duration is unreliable (e.g., high yield)\n- **Spread duration**: Price sensitivity to credit spread changes; significant for FRNs\n- **Duration contribution** = weight \u00d7 effective duration; measures each bond's contribution to portfolio risk\n- Callable bonds: lower effective duration and potentially negative effective convexity"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Credit Risk**, examining default risk, credit spread risk, expected loss calculations, and the role of credit rating agencies \u2014 the fundamental concepts needed to evaluate the creditworthiness of bond issuers."
+    }
+  ]
+}

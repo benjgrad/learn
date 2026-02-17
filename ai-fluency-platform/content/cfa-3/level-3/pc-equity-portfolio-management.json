@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PC.1: Equity Portfolio Management",
+    "description": "Master passive and active equity strategies including factor investing, smart beta, long-short portfolios, and portfolio construction techniques.",
+    "level": "level-3",
+    "slug": "pc-equity-portfolio-management",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Should a large pension fund use passive indexing or active management for its domestic equity allocation? What factors would drive your recommendation?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Passive Equity Strategies\n\n### Index Replication Methods\n\n| Method | Description | Tracking Error | Cost |\n|---|---|---|---|\n| **Full replication** | Hold all index constituents in proportion | Lowest | Highest (for broad indices) |\n| **Stratified sampling** | Hold representative subset matching key characteristics | Low-moderate | Moderate |\n| **Optimization** | Select securities to minimize predicted tracking error | Low | Moderate |\n| **Synthetic (futures/ETFs)** | Use derivatives to replicate index | Very low | Low (but roll costs) |\n\n### Index Weighting Schemes\n\n| Scheme | Construction | Key Characteristic |\n|---|---|---|\n| **Market-cap weighted** | Weight by market capitalization | Momentum bias \u2014 overweights rising stocks |\n| **Equal weighted** | Equal weight to all stocks | Small-cap tilt, requires frequent rebalancing |\n| **Fundamental weighted** | Weight by revenue, earnings, dividends, book value | Value tilt, avoids overpriced stocks |\n| **Risk-based (min variance)** | Minimize portfolio variance | Low-volatility tilt, concentrated in low-vol sectors |\n\n### Tracking Error Sources\n\n- Transaction costs and commissions\n- Cash drag (uninvested cash from dividends)\n- Corporate actions (IPOs, delistings, mergers)\n- Sampling error (if not full replication)\n- Index rebalancing vs. fund rebalancing timing"
+    },
+    {
+      "type": "markdown",
+      "content": "## Active Equity Strategies\n\n### Fundamental Active\n\n- **Bottom-up**: Security selection based on company analysis (value, growth, GARP)\n- **Top-down**: Sector/country/macro themes \u2192 select best securities within themes\n- Concentrated portfolios (30-60 holdings) with high active share\n- High tracking error, high conviction\n\n### Quantitative Active\n\n- Systematic, rules-based models applied across large universes\n- **Alpha factors**: Value, momentum, quality, earnings revisions, sentiment\n- Many small bets across hundreds of securities\n- Lower tracking error per position, higher diversification\n- Risk: model risk, factor crowding, regime changes\n\n### Factor-Based Investing\n\n| Factor | Definition | Rationale |\n|---|---|---|\n| **Value** | Low P/E, P/B, or high dividend yield | Compensation for distress risk |\n| **Momentum** | Recent strong relative performance | Behavioral under/overreaction |\n| **Quality** | High ROE, low leverage, stable earnings | Flight to quality premium |\n| **Size** | Small market capitalization | Compensation for illiquidity, information risk |\n| **Low Volatility** | Low beta or low total volatility | Leverage constraints, lottery preferences |\n| **Growth** | High earnings growth, revenue growth | Paying for future earnings power |\n\n### Smart Beta\n\nSystematic strategies that target specific factors at lower cost than traditional active:\n- Single-factor (e.g., value ETF) or multi-factor blends\n- Rules-based construction, transparent methodology\n- Lower fees than fundamental active, higher than cap-weighted passive\n- **Key risk**: Factor timing \u2014 factors can underperform for extended periods"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A manager has an active share of 85% and tracking error of 8%. Is this consistent with a fundamental stock-picker or a closet indexer?",
+      "answer": "This is consistent with a concentrated fundamental stock-picker. High active share (>60%) indicates significant deviation from the benchmark in holdings. High tracking error (>4%) confirms the portfolio's returns will diverge meaningfully from the index. A closet indexer would have low active share (<30%) and low tracking error (<2%), essentially mimicking the index while charging active fees. The combination of high active share AND high tracking error suggests genuine active management with high conviction positions."
+    },
+    {
+      "type": "markdown",
+      "content": "## Long-Short Strategies and Portfolio Construction\n\n### Long-Short Equity\n\n- **Long** undervalued stocks, **short** overvalued stocks\n- Net market exposure ranges from market-neutral (0%) to net long (60-100%)\n- **Gross exposure** = long + |short| (e.g., 130% long + 30% short = 160% gross)\n- **Net exposure** = long \u2212 |short| (e.g., 130% \u2212 30% = 100% net)\n\n### Portfolio Construction Considerations\n\n| Dimension | Decision |\n|---|---|\n| **Breadth** | How many securities? (concentrated vs. diversified) |\n| **Active share** | How different from benchmark? |\n| **Tracking error budget** | How much deviation is allowed? |\n| **Factor exposure management** | Intended vs. unintended factor tilts |\n| **Position sizing** | Equal weight, conviction-based, or risk-based |\n| **Sell discipline** | Target price reached, thesis invalidated, better opportunity |\n\n### The Fundamental Law of Active Management\n\n$$IR \\approx IC \\times \\sqrt{BR}$$\n\nWhere:\n- $IR$ = Information Ratio (alpha / tracking error)\n- $IC$ = Information Coefficient (skill \u2014 correlation between forecasts and outcomes)\n- $BR$ = Breadth (number of independent bets)\n\n**Implication**: A quant manager with moderate skill (IC = 0.05) across 1,000 stocks can achieve the same IR as a fundamental manager with high skill (IC = 0.15) across ~110 stocks."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Equity Portfolio Strategy",
+      "solution": "**Part A \u2014 Strategy recommendation:**\n\nFor the $5B pension fund's domestic large-cap equity allocation ($2B):\n\nRecommend a **core-satellite approach**:\n- **Core (60-70%, ~$1.3B)**: Passive index fund tracking the broad market (e.g., S&P 500 or total market index). Rationale: Large-cap domestic equities are highly efficient \u2014 generating consistent alpha is difficult, and active management fees erode returns. Low tracking error, low cost.\n\n- **Satellite 1 (15-20%, ~$350M)**: Multi-factor smart beta strategy tilted toward value + quality + momentum. Rationale: Systematic factor exposure at lower cost than fundamental active, with evidence of long-run factor premiums. Diversified factor exposure reduces single-factor timing risk.\n\n- **Satellite 2 (10-15%, ~$250M)**: Concentrated fundamental active manager with high active share (>80%) and demonstrated alpha generation. Rationale: Capacity for a skilled concentrated manager is limited, so a smaller allocation. High active share ensures differentiation from the core passive position.\n\n**Part B \u2014 Evaluation framework:**\n\nMeasure each component against its benchmark:\n- Core: Track S&P 500; evaluate on tracking error (target <0.20%) and cost\n- Smart beta satellite: Track multi-factor index; evaluate on factor exposure consistency and tracking error vs. factor index\n- Active satellite: Evaluate on information ratio (target >0.5), active share maintenance, and style consistency\n\nAggregate evaluation: Total allocation should be measured on risk-adjusted return vs. the policy benchmark (S&P 500), with a total tracking error budget of ~1.5-2.0%.\n\n**Part C \u2014 Rebalancing between core and satellite:**\n\nUse a corridor-based approach:\n- If passive core drifts above 75% (due to satellite underperformance), rebalance back\n- If active satellite exceeds 25% (due to outperformance), take profits and rebalance to core\n- Quarterly monitoring with annual comprehensive review\n- Derivatives overlay (S&P 500 futures) for quick tactical adjustments if needed"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Equity Portfolio Management Practice",
+      "problems": [
+        {
+          "id": "l3-pc1-1",
+          "question": "A quantitative equity manager with an information coefficient (IC) of 0.04 and 800 independent investment decisions (breadth) has an expected information ratio closest to:",
+          "options": [
+            "A) 0.45",
+            "B) 1.13",
+            "C) 32.0"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the Fundamental Law of Active Management: IR \u2248 IC \u00d7 \u221aBR = 0.04 \u00d7 \u221a800 = 0.04 \u00d7 28.28 = 1.13. Despite modest skill per decision (IC = 0.04), the high breadth (800 independent bets) produces a strong information ratio. This illustrates why quantitative managers pursue many small bets rather than a few large ones.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Apply the Fundamental Law of Active Management"
+        },
+        {
+          "id": "l3-pc1-2",
+          "question": "Which index weighting scheme is most likely to have a built-in value tilt?",
+          "options": [
+            "A) Market-capitalization weighted",
+            "B) Equal weighted",
+            "C) Fundamental weighted (revenue, earnings, book value)"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Fundamental weighting (by revenue, earnings, dividends, or book value) systematically overweights stocks that are cheap relative to their fundamentals \u2014 the definition of a value tilt. Market-cap weighting (A) has a momentum bias (overweights stocks that have appreciated). Equal weighting (B) has a size tilt (overweights smaller companies relative to cap-weighted).",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Compare index weighting methodologies and their implicit tilts"
+        },
+        {
+          "id": "l3-pc1-3",
+          "question": "A fund with 120/20 long-short structure (120% long, 20% short) has a gross exposure and net exposure of:",
+          "options": [
+            "A) Gross: 140%, Net: 100%",
+            "B) Gross: 100%, Net: 120%",
+            "C) Gross: 120%, Net: 20%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Gross exposure = Long + |Short| = 120% + 20% = 140%. Net exposure = Long \u2212 |Short| = 120% \u2212 20% = 100%. The 120/20 structure uses proceeds from short sales to leverage the long portfolio. Net exposure of 100% means the portfolio has full market beta exposure (similar to a long-only portfolio), but gross exposure of 140% means more capital is at risk from individual positions.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate gross and net exposure for long-short portfolios"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Fundamental Law of Active Management to an investment committee deciding between hiring a concentrated fundamental manager and a diversified quantitative manager. Use the formula to show how both can achieve similar information ratios."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "When does active equity management have the best chance of adding value over passive?",
+        "What are the risks of factor crowding in smart beta strategies?",
+        "How would you evaluate whether a manager's alpha is due to skill or unintended factor exposures?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Index replication**: Full replication, stratified sampling, optimization, synthetic\n- **Active share** measures deviation from benchmark; **tracking error** measures return deviation\n- **Factor investing**: Value, momentum, quality, size, low-vol \u2014 systematic risk premiums\n- **Smart beta**: Rules-based factor exposure at lower cost than fundamental active\n- **Fundamental Law**: IR \u2248 IC \u00d7 \u221aBR \u2014 high breadth can compensate for lower skill\n- **Long-short**: Gross = Long + |Short|; Net = Long \u2212 |Short|\n- **Core-satellite**: Combine low-cost passive core with targeted active satellites\n- Closet indexers: Low active share + active fees = value destruction"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we cover **Fixed-Income Portfolio Management** \u2014 liability-driven strategies, immunization, active fixed-income approaches, and benchmark selection for bond portfolios."
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "title": "Economics Checkpoint",
+    "description": "Test your understanding of CFA Level II Economics topics including currency exchange rates, parity conditions, and economic growth models.",
+    "level": "level-2",
+    "slug": "econ-checkpoint",
+    "order": 4,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Economics Checkpoint Assessment",
+      "problems": [
+        {
+          "id": "econ-cp-1",
+          "vignette": "Hiroshi Tanaka, CFA, manages a global fixed-income portfolio. He observes the following market data:\n\n| Item | Value |\n|---|---|\n| Spot CHF/USD | 0.9200 |\n| 1-year Swiss interest rate | 1.50% |\n| 1-year US interest rate | 5.00% |\n| 1-year forward CHF/USD | 0.8875 |\n\nTanaka is considering whether an arbitrage opportunity exists between the forward market and covered interest rate parity.",
+          "question": "The CIP-implied 1-year forward rate for CHF/USD is closest to:",
+          "options": [
+            "A) 0.8875",
+            "B) 0.8893",
+            "C) 0.9510"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using CIRP: $F = S \\times \\frac{1 + r_{\\text{CHF}}}{1 + r_{\\text{USD}}} = 0.9200 \\times \\frac{1.015}{1.050} = 0.9200 \\times 0.96667 = 0.8893$. The CHF has the lower interest rate, so the USD trades at a forward discount (CHF/USD rate declines, meaning fewer CHF per USD forward). The actual forward (0.8875) differs from the CIP-implied rate (0.8893), suggesting a potential arbitrage. Option C incorrectly uses the higher rate in the numerator.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate forward exchange rates using covered interest rate parity"
+        },
+        {
+          "id": "econ-cp-2",
+          "vignette": "Analysts at Global Research Associates compile the following economic data for Country X:\n\n| Metric | Value |\n|---|---|\n| Real GDP growth | 5.5% |\n| Capital stock growth | 9.0% |\n| Labor force growth | 1.0% |\n| Output elasticity of capital (\u03b1) | 0.40 |\n| Savings rate | 30% |\n| Capital per worker relative to steady state | 60% |\n\nThe lead analyst argues that Country X's growth rate will remain above 5% for the foreseeable future.",
+          "question": "The TFP (Solow residual) growth rate for Country X is closest to:",
+          "options": [
+            "A) 0.9%",
+            "B) 1.3%",
+            "C) 5.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Growth decomposition: TFP = Total growth \u2212 Capital contribution \u2212 Labor contribution = 5.5% \u2212 (0.40 \u00d7 9.0%) \u2212 (0.60 \u00d7 1.0%) = 5.5% \u2212 3.6% \u2212 0.6% = 1.3%. Capital deepening accounts for 3.6/5.5 = 65% of growth, suggesting that the lead analyst's expectation of sustained 5%+ growth is questionable \u2014 as capital per worker rises toward steady state, the growth contribution from capital accumulation will diminish. Option A incorrectly calculates the labor contribution. Option C attributes all growth to TFP.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate TFP growth using growth accounting"
+        },
+        {
+          "id": "econ-cp-3",
+          "vignette": "Emily Zhang manages an emerging market currency fund. She evaluates the following carry trade opportunity:\n\n- Borrow in Japanese yen at 0.25%\n- Invest in Brazilian real at 13.50%\n- Expected BRL depreciation vs JPY: 8.0% over the investment period\n- Transaction costs: 0.40%\n\nZhang also notes that carry trades typically suffer significant losses during periods of market stress and risk aversion.",
+          "question": "The expected net return on Zhang's proposed carry trade is closest to:",
+          "options": [
+            "A) 4.85%",
+            "B) 5.25%",
+            "C) 13.25%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Expected carry trade return = Interest earned \u2212 Interest paid \u2212 Expected depreciation \u2212 Transaction costs = 13.50% \u2212 0.25% \u2212 8.00% \u2212 0.40% = 4.85%. The large interest rate differential (13.25%) is substantially offset by the expected currency depreciation of 8.0%. Option B ignores transaction costs. Option C ignores both currency depreciation and transaction costs. Note: the actual return is uncertain because the currency depreciation is an expectation, and carry trades carry significant crash risk.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate expected carry trade returns"
+        },
+        {
+          "id": "econ-cp-4",
+          "vignette": "A research team compares two economies for a long-term investment outlook:\n\n| Factor | Economy R | Economy S |\n|---|---|---|\n| GDP per capita | $45,000 | $6,000 |\n| TFP growth (10-yr avg) | 0.5% | 3.2% |\n| Capital per worker trend | Stable | Rapidly rising |\n| Institutional quality | Strong | Improving |\n| Trade openness | High | Increasing |\n| Population growth | 0.3% | 1.5% |",
+          "question": "Based on the Solow model and conditional convergence, which statement is most accurate?",
+          "options": [
+            "A) Economy R will grow faster because it has higher GDP per capita",
+            "B) Economy S has greater growth potential from both capital deepening and TFP gains, supported by improving institutions",
+            "C) Both economies will converge to the same GDP per capita level"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Economy S has greater growth potential for multiple reasons: (1) It is far below its steady state with rapidly rising capital per worker, indicating capital deepening still contributes significantly. (2) Its TFP growth of 3.2% far exceeds Economy R's 0.5%, indicating sustainable productivity gains. (3) Improving institutions and increasing trade openness suggest its steady state is rising. Economy R appears near its steady state with low TFP growth. Option A confuses income level with growth rate. Option C describes absolute convergence, which is not supported empirically \u2014 conditional convergence means each economy converges to its own steady state.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the Solow model and convergence theory to investment analysis"
+        }
+      ]
+    }
+  ]
+}

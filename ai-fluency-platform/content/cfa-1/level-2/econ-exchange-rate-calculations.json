@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ECON.8: Exchange Rate Calculations",
+    "description": "Master exchange rate quotation conventions, cross rate calculations, bid-ask spreads, forward rates, and the basics of interest rate parity.",
+    "level": "level-2",
+    "slug": "econ-exchange-rate-calculations",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If USD/JPY = 150 and EUR/USD = 1.10, how many Japanese yen does one euro cost? How would you calculate this cross rate?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Exchange Rate Quotation Conventions\n\n### Direct and Indirect Quotes\n\nExchange rates can be quoted from different perspectives:\n\n- **Direct quote** (price quotation): The domestic currency price of one unit of foreign currency. For a U.S. investor, USD/EUR = 1.10 means $1.10 per euro.\n- **Indirect quote** (quantity quotation): The foreign currency price of one unit of domestic currency. For a U.S. investor, EUR/USD = 0.909 means 0.909 euros per dollar.\n\nDirect and indirect quotes are reciprocals:\n\n$$\\text{Direct quote} = \\frac{1}{\\text{Indirect quote}}$$\n\n**CFA Convention**: The CFA exam typically quotes as \"A/B\" meaning the price of one unit of currency B in terms of currency A. So USD/EUR = 1.10 means 1.10 USD per 1 EUR.\n\n### Appreciation and Depreciation\n\nIf USD/EUR moves from 1.10 to 1.15:\n- The EUR has **appreciated** (it costs more USD to buy one EUR)\n- The USD has **depreciated** (each USD buys fewer EUR)\n\nPercentage change in the value of the EUR:\n\n$$\\% \\Delta = \\frac{1.15 - 1.10}{1.10} = \\frac{0.05}{1.10} = 4.55\\%$$\n\nThe euro appreciated by 4.55% against the dollar."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If GBP/USD = 1.25 (meaning 1.25 GBP per 1 USD), and the rate changes to GBP/USD = 1.30, has the U.S. dollar appreciated or depreciated against the British pound?",
+      "answer": "The U.S. dollar has appreciated. The quote GBP/USD = 1.30 means it now costs 1.30 GBP to buy one USD, up from 1.25 GBP. Since the dollar buys more pounds than before, it has strengthened (appreciated). Conversely, the pound has depreciated \u2014 it now takes more pounds to purchase one dollar. The dollar appreciated by (1.30 \u2212 1.25)/1.25 = 4.0% against the pound."
+    },
+    {
+      "type": "markdown",
+      "content": "## Cross Rates\n\nA **cross rate** is the exchange rate between two currencies derived from their exchange rates with a common third currency.\n\n### Calculating Cross Rates\n\nGiven USD/EUR = 1.10 and USD/JPY = 150 (both quoted as units of USD):\n\nTo find JPY/EUR (yen per euro):\n\n$$\\text{JPY/EUR} = \\frac{\\text{USD/EUR}}{\\text{USD/JPY}} = \\frac{1.10}{1/150}$$\n\nAlternatively, think of it as a chain: EUR \u2192 USD \u2192 JPY.\n\n$$1 \\text{ EUR} = 1.10 \\text{ USD} = 1.10 \\times 150 \\text{ JPY} = 165 \\text{ JPY}$$\n\nSo JPY/EUR = 165 (one euro costs 165 yen).\n\n### General Rule for Cross Rates\n\nTo find A/B, use a common currency C:\n\n$$\\frac{A}{B} = \\frac{A}{C} \\times \\frac{C}{B}$$\n\nThe common currency (C) cancels out algebraically.\n\n### Bid-Ask Spreads\n\nDealers quote two prices:\n- **Bid**: The price at which the dealer will **buy** the base currency (you sell at this price)\n- **Ask (offer)**: The price at which the dealer will **sell** the base currency (you buy at this price)\n\nThe ask is always higher than the bid. The **spread** is the dealer's profit:\n\n$$\\text{Spread} = \\text{Ask} - \\text{Bid}$$\n\n$$\\text{Spread \\%} = \\frac{\\text{Ask} - \\text{Bid}}{\\text{Ask}} \\times 100$$\n\n**Example**: USD/EUR bid-ask = 1.0990/1.1010\n- To **buy euros** (sell dollars), you pay 1.1010 USD per EUR (the ask)\n- To **sell euros** (buy dollars), you receive 1.0990 USD per EUR (the bid)\n- Spread = 1.1010 \u2212 1.0990 = 0.0020 USD (20 pips)"
+    },
+    {
+      "type": "markdown",
+      "content": "## Forward Rates and Interest Rate Parity\n\n### Forward Exchange Rates\n\nA **forward rate** is the rate agreed today for a currency exchange at a future date. Forward rates differ from spot rates due to **interest rate differentials** between the two currencies.\n\n$$F = S \\times \\frac{1 + r_d}{1 + r_f}$$\n\nWhere:\n- $F$ = forward rate (domestic per foreign)\n- $S$ = spot rate (domestic per foreign)\n- $r_d$ = domestic interest rate for the period\n- $r_f$ = foreign interest rate for the period\n\n### Forward Premium and Discount\n\n- **Forward premium**: The foreign currency is more expensive in the forward market than the spot market ($F > S$). This occurs when the domestic interest rate exceeds the foreign rate.\n- **Forward discount**: The foreign currency is cheaper in the forward market ($F < S$). This occurs when the foreign interest rate exceeds the domestic rate.\n\n$$\\text{Forward premium/discount} = \\frac{F - S}{S} \\times 100$$\n\n### Example\n\nSpot USD/EUR = 1.1000. U.S. rate = 5%, Eurozone rate = 3% (both annual). One-year forward:\n\n$$F = 1.1000 \\times \\frac{1.05}{1.03} = 1.1000 \\times 1.01942 = 1.1214$$\n\nThe euro trades at a **forward premium** of $(1.1214 - 1.1000)/1.1000 = 1.94\\%$. The higher-rate currency (USD) is expected to depreciate \u2014 this prevents arbitrage.\n\n### Interest Rate Parity (IRP)\n\n**Covered interest rate parity (CIRP)**: Using the forward market to eliminate exchange rate risk, an investor should earn the same return investing domestically or abroad. CIRP is enforced by **arbitrage** and holds very closely in practice.\n\n**Uncovered interest rate parity (UIRP)**: The expected future spot rate equals the forward rate. Higher-yielding currencies are expected to depreciate by the interest rate differential. UIRP is a theory \u2014 it does not hold consistently in practice (the \"forward rate bias\" or \"carry trade\" anomaly)."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Given: Spot CHF/USD = 0.9200 (Swiss francs per U.S. dollar). The 6-month U.S. interest rate is 2.5% (annualized) and the 6-month Swiss interest rate is 1.0% (annualized). Calculate: (a) the 6-month forward rate CHF/USD, (b) whether the USD trades at a forward premium or discount against CHF, and (c) the annualized forward premium or discount.",
+      "solution": "First, convert annualized rates to 6-month rates:\n- U.S. 6-month rate: $2.5\\% / 2 = 1.25\\%$\n- Swiss 6-month rate: $1.0\\% / 2 = 0.50\\%$\n\n**a) 6-month forward rate:**\n\nSince the quote is CHF/USD (CHF is domestic, USD is foreign from this perspective):\n\n$$F = S \\times \\frac{1 + r_{CHF}}{1 + r_{USD}} = 0.9200 \\times \\frac{1.005}{1.0125}$$\n\n$$F = 0.9200 \\times 0.99261 = 0.9132$$\n\n**b) Premium or discount:**\n\nThe forward rate (0.9132) is less than the spot rate (0.9200), meaning each USD buys fewer CHF in the forward market. The USD trades at a **forward discount** against the CHF.\n\nThis makes sense: the U.S. has higher interest rates, so the USD should depreciate (per interest rate parity) to prevent arbitrage.\n\n**c) Annualized forward premium/discount:**\n\n$$\\text{6-month discount} = \\frac{0.9132 - 0.9200}{0.9200} = \\frac{-0.0068}{0.9200} = -0.739\\%$$\n\n$$\\text{Annualized} = -0.739\\% \\times 2 = -1.48\\%$$\n\nThe USD trades at an annualized forward discount of approximately 1.48% against the CHF."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Exchange Rate Calculations Practice Problems",
+      "problems": [
+        {
+          "id": "econ8-1",
+          "question": "Given USD/GBP = 1.2700 and USD/CHF = 0.9100, the cross rate CHF/GBP (Swiss francs per British pound) is closest to:",
+          "options": [
+            "A) 0.7165",
+            "B) 1.1557",
+            "C) 1.3956"
+          ],
+          "correctAnswer": "C",
+          "explanation": "CHF/GBP = (CHF/USD) \u00d7 (USD/GBP). First, CHF/USD = 1/USD/CHF = 1/0.9100 = 1.0989. Then CHF/GBP = 1.0989 \u00d7 1.2700 = 1.3956. One pound costs about 1.40 Swiss francs. Option A (0.7165) is the reciprocal 1/1.3956, which would give GBP/CHF. Option B (1.1557) results from dividing USD/GBP by USD/CHF (1.2700/1.0989 = 1.1557 but with wrong dimensional analysis) or a similar computational error.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate cross exchange rates"
+        },
+        {
+          "id": "econ8-2",
+          "question": "A dealer quotes USD/EUR as 1.0980/1.1020. An investor wants to buy 100,000 euros. The cost in U.S. dollars is closest to:",
+          "options": [
+            "A) $109,800",
+            "B) $110,200",
+            "C) $110,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "To buy euros, the investor must pay the dealer's ask price of 1.1020 USD per EUR. Cost = 100,000 \u00d7 1.1020 = $110,200. The ask (offer) price is always used when the investor is buying the base currency. Option A ($109,800) incorrectly uses the bid price (1.0980), which is the rate at which the dealer buys euros (the investor would receive this if selling euros). Option C ($110,000) uses the midpoint rate, which is not available for actual transactions.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply bid-ask quotes to currency transactions"
+        },
+        {
+          "id": "econ8-3",
+          "question": "Spot USD/EUR = 1.1000. The one-year U.S. interest rate is 4% and the one-year Eurozone interest rate is 2%. The one-year forward rate USD/EUR is closest to:",
+          "options": [
+            "A) 1.0785",
+            "B) 1.1000",
+            "C) 1.1216"
+          ],
+          "correctAnswer": "C",
+          "explanation": "F = S \u00d7 (1 + r_domestic)/(1 + r_foreign) where the quote is USD/EUR, so domestic = USD, foreign = EUR. F = 1.1000 \u00d7 (1.04)/(1.02) = 1.1000 \u00d7 1.01961 = 1.1216. The euro trades at a forward premium because U.S. rates are higher \u2014 the USD is expected to depreciate. Option A (1.0785) results from inverting the interest rate ratio: 1.1000 \u00d7 (1.02/1.04), which incorrectly puts the lower rate in the numerator. Option B assumes the forward rate equals the spot rate, ignoring the interest rate differential entirely.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate forward exchange rates using interest rate parity"
+        },
+        {
+          "id": "econ8-4",
+          "question": "Country A has higher interest rates than Country B. Under covered interest rate parity, Country A's currency should trade at a:",
+          "options": [
+            "A) Forward premium to offset the interest rate advantage",
+            "B) Forward discount to offset the interest rate advantage",
+            "C) No forward premium or discount since markets are efficient"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under covered interest rate parity, the currency of the higher-interest-rate country trades at a forward discount. This discount exactly offsets the higher interest income, ensuring that a hedged (covered) foreign investment yields the same return as a domestic investment. If Country A's currency did not trade at a discount, investors could earn risk-free profits by borrowing in Country B (low rate), investing in Country A (high rate), and covering with a forward contract. Option A reverses the relationship \u2014 a premium would amplify rather than offset the rate advantage. Option C ignores the fundamental arbitrage relationship that enforces CIRP.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain covered interest rate parity and its implications for forward rates"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a fellow CFA candidate how to calculate a cross rate when given two exchange rates with a common currency. Walk through a specific example step by step, explaining the logic of why the common currency cancels out."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What is the most common mistake you could make with exchange rate quotation conventions, and how would you avoid it?",
+        "Why does covered interest rate parity hold almost exactly in practice while uncovered interest rate parity does not?",
+        "How would you decide whether to hedge currency exposure using forward contracts for an international investment?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas:**\n\n- Direct and indirect quotes are reciprocals: $\\text{Direct} = 1/\\text{Indirect}$\n- Cross rate: $A/B = (A/C) \\times (C/B)$\n- Bid-ask spread: $\\text{Ask} - \\text{Bid}$; buy base currency at the ask, sell at the bid\n- Forward rate: $F = S \\times \\frac{1 + r_d}{1 + r_f}$\n- Forward premium/discount: $(F - S)/S \\times 100$\n- Higher interest rate currency trades at a forward **discount**\n- Covered IRP: enforced by arbitrage, holds in practice\n- Uncovered IRP: expected spot = forward rate, does not hold consistently\n- Percentage appreciation: $(\\text{New} - \\text{Old})/\\text{Old} \\times 100$"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module is the **Economics Checkpoint** \u2014 a comprehensive assessment covering all Economics topics from market structures through exchange rate calculations. Review the key formulas and concepts from each module before proceeding."
+    }
+  ]
+}

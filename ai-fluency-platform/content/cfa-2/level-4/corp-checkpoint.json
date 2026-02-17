@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "title": "Corporate Issuers Checkpoint",
+    "description": "Test your understanding of CFA Level II Corporate Issuers topics including dividends, share repurchases, ESG, mergers and acquisitions, and corporate restructuring.",
+    "level": "level-4",
+    "slug": "corp-checkpoint",
+    "order": 6,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Corporate Issuers Checkpoint Assessment",
+      "problems": [
+        {
+          "id": "corp-cp-1",
+          "vignette": "Jennifer Wu, CFA, advises a mature industrial company with the following profile:\n\n| Metric | Value |\n|---|---|\n| Net income | $600M |\n| Shares outstanding | 300M |\n| Stock price | $40 |\n| Current annual dividend | $1.20/share |\n| Target payout ratio | 40% |\n| Planned CapEx (net of depreciation) | $100M |\n| Target capital structure | 50% debt, 50% equity |\n| After-tax cost of debt | 4.0% |\n\nThe board is debating between raising the dividend and initiating a $500M share repurchase program.",
+          "question": "The residual dividend per share and the EPS accretion from the share repurchase (funded by cash) are closest to:",
+          "options": [
+            "A) Residual: $1.83/share; EPS accretion: 4.3%",
+            "B) Residual: $2.00/share; EPS accretion: 6.7%",
+            "C) Residual: $1.83/share; EPS accretion: 6.7%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Residual dividend: Equity needed for investment = 50% \u00d7 $100M = $50M. Residual = ($600M \u2212 $50M) / 300M = $550M / 300M = $1.83/share.\n\nShare repurchase EPS accretion (cash-funded): Shares repurchased = $500M / $40 = 12.5M. New share count = 287.5M. New EPS = $600M / 287.5M = $2.087. Current EPS = $600M / 300M = $2.00. Accretion = ($2.087 \u2212 $2.00) / $2.00 = 4.3%.\n\nOption B incorrectly calculates the residual (ignoring equity funding of investment). Option C uses the wrong accretion percentage.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate residual dividends and share repurchase EPS accretion"
+        },
+        {
+          "id": "corp-cp-2",
+          "vignette": "ESG analyst Marco Bianchi is evaluating two companies in the mining sector for a sustainable investment mandate:\n\n| Factor | MinerA | MinerB |\n|---|---|---|\n| ESG rating (MSCI) | BBB | AA |\n| ESG rating (Sustainalytics) | High Risk | Low Risk |\n| Carbon intensity (tons CO2/revenue) | 50 | 45 |\n| Safety incident rate | 2.1 per 100 workers | 0.8 per 100 workers |\n| Board independence | 40% | 75% |\n| TCFD disclosure | Partial | Comprehensive |\n| Community opposition | Significant | Minimal |\n| Capex allocated to emissions reduction | 5% of total | 20% of total |\n\nBianchi's mandate requires identifying companies with both strong current ESG performance and credible improvement trajectories.",
+          "question": "Based on the data, Bianchi should most likely recommend:",
+          "options": [
+            "A) MinerA, because the ESG rating disagreement between MSCI and Sustainalytics indicates potential for re-rating upward",
+            "B) MinerB, because it demonstrates consistently strong ESG performance across all metrics, comprehensive disclosure, and significant investment in emissions reduction",
+            "C) Neither, because all mining companies inherently have poor ESG profiles"
+          ],
+          "correctAnswer": "B",
+          "explanation": "MinerB demonstrates clear ESG superiority across every metric: better ESG ratings from both providers, lower carbon intensity, significantly lower safety incidents, much higher board independence, comprehensive TCFD disclosure, minimal community opposition, and 4x higher allocation to emissions reduction. The consistency across all dimensions and both rating agencies strengthens the case. For Option A, the rating disagreement for MinerA more likely reflects genuine weakness that one rater captures better than the other \u2014 it does not indicate upside potential. Option C applies an overly broad exclusionary approach that ignores differentiation within the sector.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Integrate ESG data from multiple sources to make investment recommendations"
+        },
+        {
+          "id": "corp-cp-3",
+          "vignette": "AcquireCo (market cap $10B, P/E 18x) is bidding for TargetCo (market cap $3B, P/E 10x) in an all-stock deal at a 35% premium. AcquireCo projects annual cost synergies of $200M (pre-tax) with a tax rate of 25% and capitalizes synergies at 10x.\n\nTargetCo's board has activated a poison pill and is seeking a white knight. The industry HHI is currently 1,800, and the combined market shares of AcquireCo and TargetCo total 28%.",
+          "question": "The value created (or destroyed) for AcquireCo shareholders, and the likely regulatory outcome, are:",
+          "options": [
+            "A) $475M value created; merger likely approved without conditions",
+            "B) $475M value created; merger likely faces regulatory scrutiny given the HHI increase",
+            "C) The deal destroys value because the premium exceeds synergies"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Premium = 35% \u00d7 $3B = $1.05B. PV of synergies = $200M \u00d7 (1 \u2212 0.25) \u00d7 10 = $150M \u00d7 10 = $1.5B. Value created = $1.5B \u2212 $1.05B = $475M (assuming synergies are fully realized).\n\nRegulatory analysis: Pre-merger HHI = 1,800 (moderately concentrated). We need market shares to calculate \u0394HHI precisely, but with 28% combined share, the merger likely increases HHI significantly. Using the shortcut \u0394HHI = 2 \u00d7 s\u2081 \u00d7 s\u2082, if shares are roughly 18% and 10%, \u0394HHI = 2 \u00d7 18 \u00d7 10 = 360 \u2014 well above the 100-point threshold for a moderately concentrated market. Regulatory scrutiny is likely, with possible divestiture requirements. Option A correctly calculates value but underestimates regulatory risk. Option C incorrectly compares premium to synergies \u2014 the synergy PV exceeds the premium.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate merger value creation and regulatory risk"
+        },
+        {
+          "id": "corp-cp-4",
+          "vignette": "DistressedCo is considering restructuring options. Current financial position:\n\n| Item | Amount |\n|---|---|\n| Enterprise value (as going concern) | $1.2B |\n| Liquidation value | $700M |\n| Secured debt | $500M |\n| Senior unsecured debt | $800M |\n| Subordinated debt | $300M |\n| Equity market cap | $50M |\n\nAdvisors present three options:\n1. Prepackaged Chapter 11 bankruptcy\n2. Out-of-court exchange offer (unsecured creditors receive 60 cents on the dollar in new secured debt)\n3. Liquidation\n\nThe company's operating business has positive EBITDA of $150M and a viable turnaround plan.",
+          "question": "The restructuring option that maximizes total recovery for all stakeholders is most likely:",
+          "options": [
+            "A) Liquidation, because it provides certainty of recovery",
+            "B) Prepackaged Chapter 11, because it preserves the going-concern value ($1.2B vs $700M liquidation) while providing a court-supervised framework to restructure claims efficiently",
+            "C) Out-of-court exchange, because it avoids the stigma and cost of bankruptcy"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The going-concern value ($1.2B) significantly exceeds liquidation value ($700M), so liquidation destroys $500M in value \u2014 it should be avoided (eliminating Option A). The prepackaged Chapter 11 is optimal because: (1) It preserves the $1.2B going-concern value. (2) The pre-negotiated plan reduces time and cost vs. traditional Chapter 11. (3) Court supervision ensures fair treatment and binds all creditors (avoiding holdout problems). (4) DIP financing availability supports operations during restructuring. (5) Positive EBITDA and a viable turnaround plan support reorganization success.\n\nThe out-of-court exchange (Option C) avoids stigma but suffers from the holdout problem \u2014 dissenting creditors cannot be forced to accept terms without court involvement, potentially blocking the restructuring.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate restructuring alternatives considering going-concern value preservation and creditor dynamics"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Alternative Investments Checkpoint",
+    "description": "Test your understanding across all Alternative Investments topics before moving on.",
+    "level": "level-8",
+    "slug": "alt-checkpoint",
+    "order": 9,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Checkpoint: Alternative Investments\n\nThis checkpoint tests whether you have internalized the concepts from all seven Alternative Investments modules. The goal is to recall and explain these ideas **without scrolling back** to the modules. If you find yourself struggling with a concept, that is valuable information \u2014 revisit that module before moving to Portfolio Management.\n\n### Concept Recall"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a management fee and an incentive fee. Describe how a high-water mark and a clawback provision protect investors, using a specific numerical example for each."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Compare IRR and MOIC as performance measures for private equity. Why should an investor look at both rather than relying on either one alone? Give an example where a fund with a lower IRR is actually more attractive than a fund with a higher IRR."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Describe three sources of return in a leveraged buyout. Then explain how the same leverage that amplifies gains also amplifies losses, using a numerical example with $100 million purchase price."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Write out the formula for property valuation using the income approach. Explain what a cap rate represents, and describe how rising interest rates affect property values if NOI remains constant."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the three components of commodity futures total return. Describe contango and backwardation, and explain why a commodity ETF investor might underperform the spot commodity price over time."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Describe three different hedge fund strategies (from different categories). For each, explain the source of returns and the key risk the investor faces."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why traditional DCF valuation cannot be applied to Bitcoin. Describe two alternative valuation approaches that analysts use for digital assets and their limitations."
+    },
+    {
+      "type": "markdown",
+      "content": "### Applied Exercises"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A pension fund allocates 5% of its $2 billion portfolio to alternative investments. The allocation committee is considering three options: (A) A private equity fund with a 2/20 fee structure, 10-year lock-up, and target net IRR of 15%; (B) A public REIT ETF with 0.3% expense ratio and daily liquidity; (C) A managed futures fund with a 1/15 fee structure, quarterly redemptions, and low equity correlation. For each option, identify the primary benefit and primary risk. Then recommend a split of the 5% allocation across the three, with your reasoning.",
+      "solution": "**Option A \u2014 Private Equity Fund:**\n- Primary benefit: Highest return potential (15% net IRR target), illiquidity premium\n- Primary risk: 10-year lock-up with no liquidity; J-curve effect means negative early returns; high fees\n\n**Option B \u2014 Public REIT ETF:**\n- Primary benefit: Daily liquidity, low fees, real estate diversification, income from dividends\n- Primary risk: Behaves like equities in the short term (high correlation with stock market); interest rate sensitivity\n\n**Option C \u2014 Managed Futures:**\n- Primary benefit: Low equity correlation, potential crisis alpha (positive returns during equity bear markets)\n- Primary risk: Can underperform during prolonged bull markets; trend-following can produce losses in choppy, directionless markets\n\n**Recommended allocation (of the 5% = $100M):**\n- PE Fund: 2% ($40M) \u2014 for long-term return enhancement; pension fund's long horizon suits the lock-up\n- REIT ETF: 1.5% ($30M) \u2014 for income, liquidity, and real estate exposure\n- Managed Futures: 1.5% ($30M) \u2014 for diversification and crisis hedging\n\nReasoning: The pension fund's long horizon supports illiquid PE. REITs provide income and liquidity. Managed futures add portfolio protection during equity downturns, addressing the pension's liability risk."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate the following: A PE fund charges 2% management fee on committed capital of $500 million and 20% carried interest above an 8% hard hurdle rate. The fund calls $400 million, earns a gross return of 25% on invested capital, and returns all proceeds at the end of Year 3. Calculate the management fee, incentive fee, net return to LPs, and net MOIC.",
+      "solution": "**Management fee (on committed capital):**\n$500M \\times 2\\% \\times 3 \\text{ years} = \\$30M$ total\n\n**Gross gain on invested capital:**\n$400M \\times 25\\% = \\$100M$\nTotal gross proceeds = $400M + $100M = $500M\n\n**Net gain after management fees:**\n$100M - $30M = $70M$\nNet return on invested capital after management fees = $70M / $400M = 17.5\\%$\n\nBut the hurdle rate is 8% annualized over 3 years on invested capital.\nHurdle amount over 3 years (simple): $400M \\times 8\\% \\times 3 = \\$96M$ (simplified)\nMore precisely, the compounded hurdle: $400M \\times (1.08^3 - 1) = 400M \\times 0.2597 = \\$103.9M$\n\nSince $70M net gain < $103.9M hurdle amount, the return has not cleared the hurdle rate.\n\n**Incentive fee: $0** (the hard hurdle has not been met)\n\n**Net return to LPs:**\nLPs invested $400M (called) + $30M (management fees on uncalled portion)\nLPs receive $500M gross - $30M management fees = $470M\nNet gain = $470M - $400M invested = $70M, but LPs also paid $30M in mgmt fees from committed capital\nNet MOIC on invested capital = ($500M - $30M) / $400M = $470M / $400M = **1.175x**\n\nThe 8% hard hurdle protected LPs from paying incentive fees on a return that, after management fees, did not exceed the required minimum."
+    },
+    {
+      "type": "markdown",
+      "content": "### Self-Assessment\n\nRate your confidence on each topic from 1 (cannot explain it) to 5 (could teach it):\n\n| Topic | Confidence (1-5) |\n| :-- | :-- |\n| Alternative investment categories and characteristics | |\n| Fund structures (LP/GP, open-end, closed-end) | |\n| Fee structures (hurdle rate, high-water mark, clawback) | |\n| IRR, MOIC, J-curve, vintage year, PME | |\n| Private equity strategies (LBO, VC, growth equity) | |\n| Private debt (direct lending, mezzanine, venture debt) | |\n| Real estate valuation (NOI, cap rate, income approach) | |\n| Infrastructure (brownfield, greenfield, PPPs) | |\n| Commodity futures returns (spot, roll yield, collateral yield) | |\n| Contango vs. backwardation | |\n| Farmland and timberland characteristics | |\n| Hedge fund strategies (L/S, event-driven, macro, CTA) | |\n| Net and gross exposure | |\n| Fund of funds advantages and disadvantages | |\n| Blockchain, cryptocurrencies, and token types | |\n| DeFi, digital asset valuation, custody, and regulation | |\n\nIf any concept is below a 3, revisit that module before continuing."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Alternative Investments fluency at CFA Level I means understanding the unique structures, fee arrangements, and performance measures that distinguish alternatives from traditional investments. You should be able to calculate management and incentive fees with hurdle rates and high-water marks, interpret IRR and MOIC for private capital, value property using cap rates, decompose commodity futures returns, describe major hedge fund strategies, and articulate the investment case and risks for digital assets. If you can explain these concepts and perform these calculations, you are ready for Portfolio Management."
+    }
+  ]
+}

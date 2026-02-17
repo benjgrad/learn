@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "QM.5: Time-Series Analysis",
+    "description": "Model financial time series using AR, MA, and ARIMA models, test for stationarity, and apply cointegration and error correction.",
+    "level": "level-1",
+    "slug": "quant-time-series",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Stock prices tend to wander unpredictably, yet interest rate spreads tend to revert toward a long-run average. What statistical property distinguishes these two types of time series, and why does it matter for forecasting?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Trend Models and Autoregressive Models\n\n### Linear Trend Model\n\nA linear trend model regresses a variable on time:\n\n$$Y_t = \\beta_0 + \\beta_1 t + \\epsilon_t$$\n\nThis captures a deterministic upward or downward trajectory. However, financial time series often exhibit **stochastic trends** (random movements) rather than deterministic trends, making this model inadequate.\n\n### Autoregressive (AR) Models\n\nAn AR(p) model regresses a variable on its **own lagged values**:\n\n$$Y_t = \\phi_0 + \\phi_1 Y_{t-1} + \\phi_2 Y_{t-2} + \\cdots + \\phi_p Y_{t-p} + \\epsilon_t$$\n\nThe simplest case, AR(1):\n\n$$Y_t = \\phi_0 + \\phi_1 Y_{t-1} + \\epsilon_t$$\n\n- If $|\\phi_1| < 1$: the series is **covariance stationary** and mean-reverting\n- The long-run mean is $\\mu = \\phi_0 / (1 - \\phi_1)$\n- If $\\phi_1 = 1$: the series is a **random walk** (unit root), and shocks are permanent\n\n### Moving Average (MA) Models\n\nAn MA(q) model expresses $Y_t$ as a function of current and past **error terms**:\n\n$$Y_t = \\mu + \\epsilon_t + \\theta_1 \\epsilon_{t-1} + \\cdots + \\theta_q \\epsilon_{t-q}$$\n\nMA models are always stationary. They capture short-lived shock effects that dissipate after $q$ periods."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An AR(1) model for monthly inflation has phi_1 = 0.85 and phi_0 = 0.3. What is the long-run mean of inflation, and does this series mean-revert?",
+      "answer": "Long-run mean = phi_0 / (1 - phi_1) = 0.3 / (1 - 0.85) = 0.3 / 0.15 = 2.0%. Yes, the series mean-reverts because |phi_1| = 0.85 < 1, so the series is covariance stationary. After a shock, inflation will gradually revert toward 2.0%. The speed of mean reversion depends on the magnitude of phi_1 \u2014 a value of 0.85 implies relatively slow mean reversion (about 50% of a shock dissipates after 4 months, since 0.85^4 = 0.52)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Stationarity and Unit Root Tests\n\n### Stationarity\n\nA time series is **covariance stationary** if its mean, variance, and autocovariances are constant over time. This is critical because:\n- Non-stationary series can produce **spurious regressions** \u2014 high R-squared between unrelated variables\n- Forecasts from non-stationary models do not converge to a finite long-run mean\n\n### Random Walk\n\nA random walk (with drift) is a special case of AR(1) with $\\phi_1 = 1$:\n\n$$Y_t = \\delta + Y_{t-1} + \\epsilon_t$$\n\nShocks to a random walk are **permanent** \u2014 the series has no tendency to revert. Stock prices are often modeled as random walks, which implies returns ($\\Delta Y_t$) are unpredictable.\n\n### Dickey-Fuller Test\n\nThe Dickey-Fuller test checks for a unit root by estimating:\n\n$$\\Delta Y_t = \\alpha + \\delta Y_{t-1} + \\epsilon_t$$\n\n- $H_0: \\delta = 0$ (unit root exists, series is non-stationary)\n- $H_A: \\delta < 0$ (no unit root, series is stationary)\n\nThe test uses special critical values (not the standard t-distribution). Rejecting the null means the series is stationary. If we fail to reject, we **difference** the series ($\\Delta Y_t = Y_t - Y_{t-1}$) and re-test."
+    },
+    {
+      "type": "markdown",
+      "content": "## ARIMA, Cointegration, and Error Correction\n\n### ARMA and ARIMA Models\n\nAn ARMA(p,q) model combines AR and MA components:\n\n$$Y_t = \\phi_0 + \\phi_1 Y_{t-1} + \\cdots + \\phi_p Y_{t-p} + \\epsilon_t + \\theta_1 \\epsilon_{t-1} + \\cdots + \\theta_q \\epsilon_{t-q}$$\n\nAn ARIMA(p,d,q) model applies $d$ rounds of differencing before fitting an ARMA model. ARIMA(1,1,0) on $Y_t$ is equivalent to AR(1) on $\\Delta Y_t$.\n\n### Cointegration\n\nTwo non-stationary (I(1)) series are **cointegrated** if a linear combination of them is stationary. For example, stock prices of Coca-Cola and Pepsi may each be random walks, but their spread (price difference) may be mean-reverting.\n\nFormally, if $Y_t$ and $X_t$ are both I(1), they are cointegrated if:\n\n$$Y_t - \\beta X_t = \\epsilon_t \\sim I(0)$$\n\n### Error Correction Model (ECM)\n\nIf two series are cointegrated, the ECM captures both short-run dynamics and the adjustment toward long-run equilibrium:\n\n$$\\Delta Y_t = \\alpha + \\gamma(Y_{t-1} - \\beta X_{t-1}) + \\lambda \\Delta X_t + \\epsilon_t$$\n\nThe term $\\gamma(Y_{t-1} - \\beta X_{t-1})$ is the **error correction term** \u2014 it pulls $Y_t$ back toward the long-run relationship. $\\gamma$ should be negative (correcting deviations) and significant."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Monthly data on the credit spread (Y) shows an AR(1) coefficient of 0.92 with phi_0 = 0.16. (a) Is this series stationary? (b) What is the long-run mean spread? (c) If the current spread is 3.0%, forecast the next month's spread.",
+      "solution": "(a) Yes, the series is stationary because |phi_1| = 0.92 < 1. Although 0.92 is close to 1, the series is still covariance stationary and mean-reverting, just slowly.\n\n(b) Long-run mean = phi_0 / (1 - phi_1) = 0.16 / (1 - 0.92) = 0.16 / 0.08 = **2.0%**\n\n(c) One-step-ahead forecast:\n$\\hat{Y}_{t+1} = 0.16 + 0.92 \\times 3.0 = 0.16 + 2.76 = 2.92\\%$\n\nThe forecast (2.92%) is between the current value (3.0%) and the long-run mean (2.0%), reflecting mean reversion. The spread is expected to decrease by 0.08 percentage points toward the long-run mean.\n\nMulti-step forecast: The $k$-period forecast converges to the long-run mean as $k$ increases. After many months, the forecast approaches 2.0% regardless of the current spread."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Time-Series Analysis in Finance",
+      "vignette": "Lisa Wong, CFA, is analyzing interest rate time series for a fixed income fund. She examines two series: the 10-year Treasury yield (Y1) and the 2-year Treasury yield (Y2), both observed monthly over 15 years (180 observations).\n\nShe estimates AR(1) models for each series and performs unit root tests:\n\n| Metric | Y1 (10-year) | Y2 (2-year) |\n|---|---|---|\n| AR(1) coefficient | 0.988 | 0.975 |\n| Dickey-Fuller t-stat | -1.42 | -1.89 |\n| DF critical value (5%) | -2.88 | -2.88 |\n\nShe then examines the term spread (Y1 - Y2) and finds:\n\n| Metric | Spread (Y1 - Y2) |\n|---|---|\n| AR(1) coefficient | 0.91 |\n| Dickey-Fuller t-stat | -3.45 |\n| DF critical value (5%) | -2.88 |\n| phi_0 | 0.09 |\n\nWong also estimates an error correction model:\n\nDelta(Y1_t) = 0.01 - 0.08(Y1_{t-1} - 1.1*Y2_{t-1} - 0.5) + 0.45*Delta(Y2_t) + epsilon_t",
+      "problems": [
+        {
+          "id": "qm5-1",
+          "question": "Based on the Dickey-Fuller test results, Wong should conclude that the 10-year yield is:",
+          "options": [
+            "A) stationary, because the AR(1) coefficient is less than 1.",
+            "B) non-stationary, because the DF test fails to reject the unit root null.",
+            "C) non-stationary, because the DF test rejects the unit root null."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Dickey-Fuller t-statistic for Y1 is -1.42, which is greater (less negative) than the critical value of -2.88. We fail to reject the null hypothesis of a unit root, so Y1 is non-stationary. Option A is incorrect: although 0.988 < 1, the DF test (not the AR coefficient magnitude) is the proper test for a unit root. Option C reverses the conclusion \u2014 failing to reject means we conclude non-stationarity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret the Dickey-Fuller unit root test"
+        },
+        {
+          "id": "qm5-2",
+          "question": "The term spread (Y1 - Y2) is best described as:",
+          "options": [
+            "A) non-stationary, like its component series.",
+            "B) stationary, providing evidence that Y1 and Y2 are cointegrated.",
+            "C) a random walk with drift."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The DF t-statistic for the spread is -3.45, which is more negative than -2.88, so we reject the unit root null. The spread is stationary. Since Y1 and Y2 are individually non-stationary (I(1)) but their linear combination is stationary (I(0)), they are cointegrated. Option A is incorrect because the spread has been shown to be stationary. Option C is incorrect because the DF test rejects the random walk hypothesis.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify cointegration from unit root test results"
+        },
+        {
+          "id": "qm5-3",
+          "question": "The long-run mean of the term spread is closest to:",
+          "options": [
+            "A) 0.09%",
+            "B) 1.00%",
+            "C) 0.91%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Long-run mean = phi_0 / (1 - phi_1) = 0.09 / (1 - 0.91) = 0.09 / 0.09 = 1.00%. Option A (0.09) is phi_0 itself, not the long-run mean. Option C (0.91) is the AR(1) coefficient. The spread mean-reverts to 1.00%, consistent with a historically positive yield curve.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate the long-run mean of a stationary AR(1) process"
+        },
+        {
+          "id": "qm5-4",
+          "question": "In the error correction model, the coefficient -0.08 on the error correction term implies that:",
+          "options": [
+            "A) 8% of the disequilibrium is corrected each month.",
+            "B) the 10-year yield falls by 0.08% each month.",
+            "C) the model is misspecified because the coefficient should be positive."
+          ],
+          "correctAnswer": "A",
+          "explanation": "The error correction coefficient (-0.08) indicates that 8% of the deviation from the long-run equilibrium (Y1 = 1.1*Y2 + 0.5) is corrected each month. If Y1 is above its equilibrium level relative to Y2, the negative coefficient pulls Delta(Y1) down, moving Y1 back toward equilibrium. Option B incorrectly interprets the coefficient as a constant drift. Option C is incorrect \u2014 the coefficient should be negative for proper error correction (deviations above equilibrium should produce negative changes).",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret the error correction coefficient"
+        },
+        {
+          "id": "qm5-5",
+          "question": "If the current spread is 1.5% (above the long-run mean of 1.0%), the AR(1) model forecasts next month's spread to be closest to:",
+          "options": [
+            "A) 1.46%",
+            "B) 1.37%",
+            "C) 1.50%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Forecast = phi_0 + phi_1 * Y_t = 0.09 + 0.91(1.5) = 0.09 + 1.365 = 1.455%, approximately 1.46%. The forecast is between the current value (1.5%) and the long-run mean (1.0%), reflecting partial mean reversion. Option B would imply faster mean reversion than the model suggests. Option C would imply a random walk with no mean reversion.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Generate forecasts from AR(1) models"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of cointegration using a real-world financial example. Why can two non-stationary series have a stationary linear combination, and what does this imply for trading strategies?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is it dangerous to run a standard regression on two non-stationary time series without testing for cointegration?",
+        "How does the concept of mean reversion relate to AR(1) models and the magnitude of the autoregressive coefficient?",
+        "What is the practical difference between an ARIMA(1,1,0) model and an AR(1) model in terms of what is being modeled?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **AR(1)**: $Y_t = \\phi_0 + \\phi_1 Y_{t-1} + \\epsilon_t$; stationary if $|\\phi_1| < 1$; long-run mean = $\\phi_0/(1-\\phi_1)$\n- **Random walk**: AR(1) with $\\phi_1 = 1$; shocks are permanent; no mean reversion\n- **Dickey-Fuller test**: tests $H_0$: unit root exists; reject = stationary; uses special critical values\n- **ARIMA(p,d,q)**: difference $d$ times, then fit ARMA(p,q)\n- **Cointegration**: non-stationary series with a stationary linear combination\n- **Error correction model**: captures short-run dynamics + long-run equilibrium adjustment; $\\gamma$ should be negative\n- Non-stationary series can produce **spurious regressions** with misleadingly high R-squared"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Machine Learning** \u2014 a modern extension of statistical modeling that goes beyond traditional regression. You will learn about supervised and unsupervised methods, regularization, and techniques like decision trees and ensemble methods that handle the complexity and non-linearity often found in financial data."
+    }
+  ]
+}

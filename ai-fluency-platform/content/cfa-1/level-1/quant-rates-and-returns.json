@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "title": "QM.1: Rates and Returns",
+    "description": "Interpret interest rates as required rates of return, discount rates, and opportunity costs. Calculate and compare holding period, money-weighted, time-weighted, and annualized returns.",
+    "level": "level-1",
+    "slug": "quant-rates-and-returns",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you invest $10,000 in a fund that gains 50% in Year 1, then loses 50% in Year 2, what is your ending balance? Is your average annual return really 0%?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Interest Rates: Three Interpretations\n\nAn interest rate can be viewed in three equivalent ways:\n\n1. **Required rate of return** \u2014 the minimum return an investor demands for parting with capital\n2. **Discount rate** \u2014 the rate used to find the present value of future cash flows\n3. **Opportunity cost** \u2014 the return foregone by choosing one investment over another\n\nInterest rates are composed of several building blocks:\n\n$$r = r_f + \\text{Inflation premium} + \\text{Default risk premium} + \\text{Liquidity premium} + \\text{Maturity premium}$$\n\nWhere $r_f$ is the real risk-free rate. The **nominal risk-free rate** approximates $r_f + \\text{Inflation premium}$.\n\n### Holding Period Return\n\nThe simplest return measure is the **holding period return (HPR)**, which captures total return over the entire investment period:\n\n$$R = \\frac{P_1 - P_0 + D_1}{P_0} = \\frac{P_1 + D_1}{P_0} - 1$$\n\nWhere $P_0$ is the beginning price, $P_1$ is the ending price, and $D_1$ is any income received. The HPR makes no assumptions about the length of the holding period \u2014 it could be a day, a month, or ten years."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A stock is purchased for $50, pays a $2 dividend, and is sold for $55. What is the holding period return?",
+      "answer": "HPR = ($55 + $2 - $50) / $50 = $7 / $50 = 14%. The total return includes both capital appreciation ($5) and income ($2). You divide total gain by the initial investment."
+    },
+    {
+      "type": "markdown",
+      "content": "## Arithmetic vs Geometric Mean Return\n\nWhen summarizing returns over multiple periods, the choice of mean matters enormously.\n\n### Arithmetic Mean\n\nThe simple average of periodic returns:\n\n$$\\bar{R}_A = \\frac{R_1 + R_2 + \\cdots + R_n}{n}$$\n\nThe arithmetic mean is the best **unbiased estimator of the expected single-period return**. It is always greater than or equal to the geometric mean.\n\n### Geometric Mean\n\nThe compound average return that equates starting and ending wealth:\n\n$$\\bar{R}_G = \\left[\\prod_{t=1}^{n}(1+R_t)\\right]^{1/n} - 1$$\n\nThe geometric mean is the better measure of **actual investment performance** over multiple periods because it accounts for compounding.\n\n### Example\n\nAn investment returns +50% in Year 1 and -50% in Year 2:\n\n- Arithmetic mean: $(50\\% + (-50\\%)) / 2 = 0\\%$\n- Geometric mean: $[(1.50)(0.50)]^{1/2} - 1 = (0.75)^{0.5} - 1 = -13.4\\%$\n\nStarting with \\$100: \\$100 \u00d7 1.50 \u00d7 0.50 = \\$75. You lost money, so the geometric mean correctly shows a negative return, while the arithmetic mean misleadingly suggests breakeven."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Under what circumstance are the arithmetic and geometric means equal?",
+      "answer": "They are equal only when every periodic return is identical (zero variance in returns). Any variability in returns causes the geometric mean to fall below the arithmetic mean. The difference increases with the volatility of returns."
+    },
+    {
+      "type": "markdown",
+      "content": "## Money-Weighted vs Time-Weighted Returns\n\nThese two methods answer different questions about portfolio performance.\n\n### Money-Weighted Return (MWR)\n\nThe MWR is the **internal rate of return (IRR)** of all cash flows into and out of the portfolio. It solves:\n\n$$\\sum_{t=0}^{n} \\frac{CF_t}{(1+r)^t} = 0$$\n\nThe MWR is affected by the **timing and size of cash flows**. If an investor adds money before a strong period, the MWR exceeds the TWR (and vice versa). It measures the investor's actual experience.\n\n### Time-Weighted Return (TWR)\n\nThe TWR chains sub-period returns, removing the impact of cash flow timing:\n\n$$R_{TWR} = \\left[\\prod_{t=1}^{n}(1+R_t)\\right] - 1$$\n\nEach sub-period return is calculated between external cash flows. The TWR is the preferred method for **evaluating manager performance** because the manager typically does not control when clients add or withdraw money.\n\n### When to Use Which\n\n| Method | Best For | Affected by Cash Flows? |\n|---|---|---|\n| Money-weighted | Evaluating investor experience | Yes |\n| Time-weighted | Evaluating manager skill | No |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Other Return Measures\n\n### Annualized Return\n\nConverts a holding period return to an annual equivalent:\n\n$$R_{annual} = (1 + R_{period})^{1/n} - 1$$\n\nwhere $n$ is the number of years. For a period less than one year (say 90 days): $R_{annual} = (1 + R_{90d})^{365/90} - 1$.\n\n### Continuously Compounded Return\n\n$$r_{cc} = \\ln(1 + R) = \\ln\\left(\\frac{P_1}{P_0}\\right)$$\n\nContinuously compounded returns are **additive over time**: $r_{cc,total} = r_{cc,1} + r_{cc,2} + \\cdots + r_{cc,n}$, which makes them convenient for mathematical modeling.\n\n### Gross vs Net Returns\n\n- **Gross return**: Return before deducting management fees; used to evaluate the manager's investment skill\n- **Net return**: Return after management fees; what the investor actually earns\n\n### Real vs Nominal Returns\n\n$$1 + R_{real} = \\frac{1 + R_{nominal}}{1 + \\pi}$$\n\nwhere $\\pi$ is the inflation rate. Approximately: $R_{real} \\approx R_{nominal} - \\pi$.\n\n### After-Tax Return\n\n$$R_{after-tax} = R_{pre-tax} \\times (1 - t)$$\n\nwhere $t$ is the marginal tax rate.\n\n### Leveraged Return\n\nIf an investor uses leverage with equity $E$ and borrowed funds $B$ at borrowing cost $r_B$:\n\n$$R_{leveraged} = R_{portfolio} + \\frac{B}{E}(R_{portfolio} - r_B)$$\n\nLeverage magnifies both gains and losses."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio has the following values and cash flows. Calculate both the TWR and MWR.\n\n- Start of Year 1: Portfolio value = $100,000\n- End of Year 1: Portfolio value = $120,000 (before cash flow); investor adds $30,000\n- End of Year 2: Portfolio value = $138,000\n\nWhich return is higher, and why?",
+      "solution": "**Time-Weighted Return:**\n\nSub-period 1: $R_1 = (120{,}000 - 100{,}000) / 100{,}000 = 20\\%$\n\nBeginning of period 2 value: $120{,}000 + 30{,}000 = 150{,}000$\n\nSub-period 2: $R_2 = (138{,}000 - 150{,}000) / 150{,}000 = -8\\%$\n\n$R_{TWR} = (1.20)(0.92) - 1 = 10.4\\%$ over 2 years\n\nAnnualized: $(1.104)^{1/2} - 1 = 5.07\\%$\n\n**Money-Weighted Return (IRR):**\n\nSolve: $0 = -100{,}000 - \\frac{30{,}000}{(1+r)} + \\frac{138{,}000}{(1+r)^2}$\n\nUsing trial and error or a calculator, $r \\approx 2.15\\%$ per year.\n\nThe TWR (5.07%) exceeds the MWR (2.15%) because the investor added $30,000 right before a losing period (-8%), which dragged down the money-weighted result."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Rates and Returns Practice Problems",
+      "problems": [
+        {
+          "id": "qm1-1",
+          "question": "An investor buys a stock at $40, receives a $1.50 dividend, and sells it for $44. The holding period return is closest to:",
+          "options": [
+            "A) 10.0%",
+            "B) 13.8%",
+            "C) 11.3%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "HPR = ($44 + $1.50 - $40) / $40 = $5.50 / $40 = 13.75%, closest to 13.8%. Option A ignores the dividend ($4/$40 = 10%). Option C uses only the dividend and half the capital gain.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate and interpret a holding period return"
+        },
+        {
+          "id": "qm1-2",
+          "question": "An investment has annual returns of +30%, -20%, and +10% over three years. The geometric mean annual return is closest to:",
+          "options": [
+            "A) 6.67%",
+            "B) 4.66%",
+            "C) 5.36%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Geometric mean = [(1.30)(0.80)(1.10)]^(1/3) - 1 = [1.144]^(1/3) - 1 = 4.59%, closest to 4.66%. Option A (6.67%) is the arithmetic mean: (30 - 20 + 10)/3. Option C (5.36%) results from incorrectly taking the simple average of arithmetic and geometric means.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate and interpret arithmetic and geometric mean returns"
+        },
+        {
+          "id": "qm1-3",
+          "question": "A portfolio manager does not control client cash flows. The most appropriate return measure for evaluating the manager's performance is:",
+          "options": [
+            "A) Money-weighted return",
+            "B) Time-weighted return",
+            "C) Holding period return"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The time-weighted return removes the impact of external cash flows (deposits and withdrawals) that the manager does not control. It isolates the manager's investment decisions. Option A (money-weighted) is appropriate for evaluating the investor's experience, since it reflects cash flow timing. Option C (holding period return) measures a single period and does not account for sub-period performance.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compare money-weighted and time-weighted rates of return"
+        },
+        {
+          "id": "qm1-4",
+          "question": "An investment earns a nominal return of 10% and the inflation rate is 3%. The real return is closest to:",
+          "options": [
+            "A) 7.00%",
+            "B) 6.80%",
+            "C) 7.30%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the exact formula: (1 + 0.10)/(1 + 0.03) - 1 = 1.10/1.03 - 1 = 0.06796 = 6.80%. Option A (7.00%) uses the approximation R_real \u2248 R_nominal - inflation, which overstates the real return. Option C adds the inflation premium incorrectly.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate real returns using the exact formula"
+        },
+        {
+          "id": "qm1-5",
+          "question": "An investor puts up $200,000 of equity and borrows $300,000 at 4% to purchase a $500,000 property. If the property returns 7%, the investor's leveraged return on equity is closest to:",
+          "options": [
+            "A) 7.0%",
+            "B) 11.5%",
+            "C) 13.0%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "R_leveraged = R_portfolio + (B/E)(R_portfolio - r_B) = 7% + (300,000/200,000)(7% - 4%) = 7% + 1.5 \u00d7 3% = 7% + 4.5% = 11.5%. Option A ignores the leverage effect entirely. Option C (13.0%) incorrectly uses the total investment value instead of equity, or miscalculates the leverage ratio as 2.0 instead of 1.5.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate leveraged returns"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague who is not a finance professional why the arithmetic mean return can be misleading for evaluating investment performance. Use a simple numerical example to show why the geometric mean gives a more accurate picture."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Before this module, did you think a +50%/-50% sequence would break even? How has your intuition changed?",
+        "In your own investing experience, have you seen reports using arithmetic or geometric mean returns? Which was used and why might that choice matter?",
+        "How would leverage change your analysis of an investment that you expect to return 8% with significant volatility?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- HPR = $(P_1 + D_1 - P_0) / P_0$\n- Arithmetic mean: simple average of returns; best for forecasting single-period returns\n- Geometric mean: $[\\prod(1+R_t)]^{1/n} - 1$; best for measuring actual compound growth\n- Geometric mean $\\leq$ Arithmetic mean (equal only when all returns are identical)\n- TWR: chains sub-period returns; evaluates manager skill\n- MWR (IRR): accounts for cash flow timing; evaluates investor experience\n- Annualized return: $(1+R)^{1/n} - 1$\n- Continuously compounded: $r_{cc} = \\ln(1+R)$ \u2014 additive over time\n- Real return: $(1+R_{nom})/(1+\\pi) - 1$\n- Leveraged return: $R + (B/E)(R - r_B)$"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Time Value of Money**, where you will use interest rates to move cash flows through time. The discount rate concepts from this module \u2014 required return, opportunity cost \u2014 become the rates you plug into PV and FV calculations."
+    }
+  ]
+}

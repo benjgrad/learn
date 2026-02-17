@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "FSA.4: Analysis of Financial Institutions",
+    "description": "Analyze bank financial statements using the CAMELS framework, understand Basel III capital adequacy, and evaluate insurance company financials.",
+    "level": "level-3",
+    "slug": "fsa-financial-institutions",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Why can't you analyze a bank's financial statements the same way you would a manufacturing company? What makes banks fundamentally different in terms of their balance sheet structure and revenue sources?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Bank Financial Statement Structure\n\nBanks differ fundamentally from non-financial companies:\n\n| Feature | Bank | Typical Corporation |\n|---|---|---|\n| Primary assets | Loans, securities | PP&E, inventory, receivables |\n| Primary liabilities | Deposits, borrowings | Bonds, accounts payable |\n| Revenue source | Net interest income + fees | Product/service sales |\n| Leverage | Very high (10\u201315x equity) | Moderate (2\u20134x equity) |\n| Regulation | Extensive (capital requirements) | Industry-specific |\n\n### Key Income Statement Components\n\n- **Net Interest Income (NII)** = Interest income \u2212 Interest expense\n- **Net Interest Margin (NIM)** = NII / Average earning assets\n- **Provision for loan losses** = Estimated credit losses (reduces income)\n- **Non-interest income** = Fees, trading revenue, investment gains\n- **Efficiency ratio** = Non-interest expense / (NII + Non-interest income) \u2014 lower is better\n\n### Key Balance Sheet Metrics\n\n$$\\text{NIM} = \\frac{\\text{Interest Income} - \\text{Interest Expense}}{\\text{Average Earning Assets}}$$\n\nA typical NIM for a well-run bank is 2\u20134%. Compression in NIM indicates competitive pressure or interest rate risk."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A bank has $50 billion in earning assets, $45 billion in interest-bearing liabilities, earns 5.5% on assets, and pays 3.0% on liabilities. What is its NIM?",
+      "answer": "NIM = (Interest income \u2212 Interest expense) / Average earning assets = ($50B \u00d7 5.5% \u2212 $45B \u00d7 3.0%) / $50B = ($2.75B \u2212 $1.35B) / $50B = $1.40B / $50B = 2.80%. This is within the typical range for a well-managed bank. The spread between earning asset yield (5.5%) and funding cost (3.0%) is 2.5%, but NIM is higher than the simple spread because earning assets exceed interest-bearing liabilities."
+    },
+    {
+      "type": "markdown",
+      "content": "## The CAMELS Framework\n\nCAMELS is a supervisory rating system used by bank regulators to assess institutional health:\n\n### C \u2014 Capital Adequacy\n\nBasel III defines minimum capital requirements using **risk-weighted assets (RWA)**:\n\n| Capital Tier | Minimum Ratio |\n|---|---|\n| Common Equity Tier 1 (CET1) | 4.5% of RWA |\n| Tier 1 Capital | 6.0% of RWA |\n| Total Capital | 8.0% of RWA |\n| **Conservation buffer** | +2.5% CET1 |\n| **Countercyclical buffer** | 0\u20132.5% (discretionary) |\n| **G-SIB surcharge** | 1\u20133.5% for systemically important banks |\n\n$$\\text{CET1 Ratio} = \\frac{\\text{Common Equity Tier 1 Capital}}{\\text{Risk-Weighted Assets}}$$\n\n### A \u2014 Asset Quality\n\n- **Non-performing loans (NPL) ratio** = NPLs / Total loans\n- **Loan loss reserve ratio** = Allowance for loan losses / Total loans\n- **Coverage ratio** = Allowance / NPLs (how well are problem loans provisioned?)\n- Watch for trends: rising NPLs or declining coverage ratios signal deterioration\n\n### M \u2014 Management Quality\n\n- Corporate governance, risk culture, strategic direction\n- Difficult to quantify; assess through track record and regulatory actions\n\n### E \u2014 Earnings\n\n- Sustainability and quality of earnings\n- Reliance on trading income vs. stable NII\n- Trends in NIM and efficiency ratio\n\n### L \u2014 Liquidity\n\nBasel III liquidity requirements:\n- **Liquidity Coverage Ratio (LCR)** = High-quality liquid assets / Net cash outflows over 30 days \u2265 100%\n- **Net Stable Funding Ratio (NSFR)** = Available stable funding / Required stable funding \u2265 100%\n\n### S \u2014 Sensitivity to Market Risk\n\n- Interest rate risk: gap analysis, duration of equity\n- Trading book risk: Value at Risk (VaR)\n- Foreign exchange and commodity exposure"
+    },
+    {
+      "type": "markdown",
+      "content": "## Insurance Company Analysis\n\nInsurance companies have distinct characteristics:\n\n### Life Insurance\n- **Long-duration liabilities** (policy reserves)\n- Revenue: premiums + investment income\n- Key risk: interest rate risk (asset-liability mismatch), longevity risk\n- Analyze: embedded value, new business margins, investment portfolio quality\n\n### Property & Casualty (P&C)\n- **Short-duration liabilities** (claim reserves)\n- Key metrics:\n  - **Loss ratio** = Incurred losses / Earned premiums\n  - **Expense ratio** = Underwriting expenses / Written premiums\n  - **Combined ratio** = Loss ratio + Expense ratio (< 100% = underwriting profit)\n- Reserve adequacy: prior-year reserve development (favorable = previously overestimated losses)\n\n$$\\text{Combined Ratio} = \\frac{\\text{Losses + Expenses}}{\\text{Premiums}}$$\n\nA combined ratio below 100% indicates the insurer is profitable from underwriting alone, before investment income."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Bank Capital Adequacy Assessment",
+      "solution": "National Bank reports the following:\n- CET1 Capital: $18 billion\n- Additional Tier 1: $4 billion\n- Tier 2 Capital: $6 billion\n- Risk-Weighted Assets: $200 billion\n- The bank is designated a Global Systemically Important Bank (G-SIB) with a 2% surcharge\n\nStep 1: Calculate capital ratios\n- CET1 ratio = $18B / $200B = 9.0%\n- Tier 1 ratio = ($18B + $4B) / $200B = 11.0%\n- Total capital ratio = ($18B + $4B + $6B) / $200B = 14.0%\n\nStep 2: Compare to requirements\n- CET1 minimum + conservation buffer + G-SIB surcharge = 4.5% + 2.5% + 2.0% = 9.0%\n- Tier 1 minimum = 6.0% + 2.5% + 2.0% = 10.5%\n- Total capital = 8.0% + 2.5% + 2.0% = 12.5%\n\nStep 3: Assessment\n- CET1: 9.0% vs 9.0% required \u2014 exactly at minimum, no buffer for stress\n- Tier 1: 11.0% vs 10.5% \u2014 only 50bp above minimum\n- Total: 14.0% vs 12.5% \u2014 150bp cushion\n\nConclusion: Capital position is tight at the CET1 level. The bank may face restrictions on dividends and buybacks if capital falls below the combined buffer requirement."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Financial Institutions Practice",
+      "problems": [
+        {
+          "id": "fsa-fi-1",
+          "vignette": "Analyst James Park is evaluating First Regional Bank using the CAMELS framework. He compiles the following data:\n\n| Metric | First Regional | Peer Average |\n|---|---|---|\n| CET1 ratio | 10.5% | 12.0% |\n| NPL ratio | 3.8% | 1.5% |\n| Coverage ratio (allowance/NPLs) | 75% | 120% |\n| NIM | 3.2% | 3.0% |\n| Efficiency ratio | 62% | 58% |\n| LCR | 115% | 135% |\n\nPark's supervisor asks him to identify the most concerning metric.",
+          "question": "Based on the CAMELS analysis, which area represents the greatest concern for First Regional Bank?",
+          "options": [
+            "A) Capital adequacy, because CET1 is below peers",
+            "B) Asset quality, because the NPL ratio is 2.5x the peer average with inadequate loss coverage",
+            "C) Earnings, because the efficiency ratio is above peers"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Asset quality is the greatest concern. The NPL ratio of 3.8% is 2.5x the peer average (1.5%), indicating serious loan quality problems. More critically, the coverage ratio (75%) is far below peers (120%), meaning the bank has not adequately provisioned for its problem loans. If NPLs deteriorate further, the bank may need large additional provisions, directly hitting earnings and capital. While CET1 is below peers (Option A), it still exceeds regulatory minimums. The efficiency ratio gap (Option C) is relatively modest and less immediately threatening than inadequate loss coverage on a large NPL portfolio.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply the CAMELS framework to identify areas of concern in bank analysis"
+        },
+        {
+          "id": "fsa-fi-2",
+          "vignette": "Analyst James Park is evaluating First Regional Bank using the CAMELS framework. He also reviews Basel III capital requirements:\n\n| Requirement | Ratio |\n|---|---|\n| Minimum CET1 | 4.5% |\n| Conservation buffer | 2.5% |\n| Countercyclical buffer (current) | 1.0% |\n| G-SIB surcharge | Not applicable |\n\nFirst Regional's CET1 ratio is 10.5%, and its board is considering a $500 million special dividend. The bank's RWA is $40 billion.",
+          "question": "If First Regional pays the special dividend, its CET1 ratio would decline by approximately 125 basis points. Can the bank pay this dividend without breaching combined buffer requirements?",
+          "options": [
+            "A) Yes, because the post-dividend CET1 of 9.25% exceeds all combined requirements",
+            "B) No, because the post-dividend CET1 of 9.25% is below the combined requirement of 8.0%, triggering dividend restrictions",
+            "C) Yes, but only if the countercyclical buffer is reduced"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Combined CET1 requirement = 4.5% (minimum) + 2.5% (conservation) + 1.0% (countercyclical) = 8.0%. Post-dividend CET1 = 10.5% \u2212 1.25% = 9.25%. Since 9.25% > 8.0%, the bank can pay the dividend without breaching buffer requirements. However, the 125bp cushion above the combined requirement is modest, and given the asset quality concerns identified earlier, this dividend may be imprudent from a risk management perspective. Option B incorrectly states 9.25% is below 8.0%. Option C is unnecessary since the buffer is not breached.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Evaluate bank capital adequacy under Basel III requirements"
+        },
+        {
+          "id": "fsa-fi-3",
+          "vignette": "Maria Chen is analyzing two property and casualty insurance companies:\n\n| Metric | Insurer X | Insurer Y |\n|---|---|---|\n| Earned premiums | $8,000M | $6,000M |\n| Incurred losses | $5,600M | $3,900M |\n| Underwriting expenses | $2,640M | $1,860M |\n| Investment income | $800M | $500M |\n| Prior-year reserve development | \u2212$200M (favorable) | +$300M (unfavorable) |\n\nChen notes that Insurer Y has reported unfavorable reserve development for three consecutive years.",
+          "question": "Which insurer has better underlying underwriting performance, and what does Insurer Y's reserve development pattern suggest?",
+          "options": [
+            "A) Insurer X with a 103% combined ratio; Insurer Y's pattern suggests adequate reserving",
+            "B) Insurer Y with a 96% combined ratio; the reserve development is immaterial",
+            "C) Insurer X with a 103% combined ratio; Insurer Y's persistent unfavorable development suggests under-reserving, and its 96% combined ratio may be artificially low"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Combined ratios: Insurer X = (5,600 + 2,640) / 8,000 = 103%. Insurer Y = (3,900 + 1,860) / 6,000 = 96%. While Insurer Y's combined ratio appears better, three consecutive years of unfavorable reserve development ($300M this year) is a serious red flag. It suggests Y has been systematically under-reserving \u2014 setting initial loss estimates too low, which artificially inflates current-year underwriting profitability. When reserves prove inadequate, losses are recognized later. Insurer X's favorable development suggests conservative reserving. Option A ignores the reserve development significance. Option B dismisses a material and persistent problem.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze insurance company underwriting performance and reserve adequacy"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the CAMELS framework to a colleague who analyzes non-financial companies. Focus on why each component matters for assessing bank health and how a weakness in one area (like asset quality) can cascade into problems in other areas (capital, earnings, liquidity)."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is leverage that would be alarming for a manufacturing company considered normal for a bank?",
+        "How do Basel III capital requirements help prevent bank failures, and where might they fall short?",
+        "Why is the combined ratio alone insufficient for evaluating an insurance company?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Banks: high leverage, NII-driven revenue, deposit-funded liabilities\n- NIM = (Interest income \u2212 Interest expense) / Earning assets\n- CAMELS: Capital, Asset quality, Management, Earnings, Liquidity, Sensitivity\n- Basel III minimums: CET1 4.5% + conservation 2.5% = 7.0% (plus countercyclical and G-SIB)\n- NPL ratio, coverage ratio, and provision trends are critical asset quality indicators\n- LCR \u2265 100% and NSFR \u2265 100% ensure adequate liquidity\n- Insurance: Combined ratio < 100% = underwriting profit; watch reserve development patterns\n- Persistent unfavorable reserve development signals under-reserving and overstated earnings"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Evaluating Financial Report Quality**, where you'll develop a framework for detecting earnings manipulation and assessing the quality of reported financial results \u2014 skills particularly valuable when analyzing complex financial institutions."
+    }
+  ]
+}

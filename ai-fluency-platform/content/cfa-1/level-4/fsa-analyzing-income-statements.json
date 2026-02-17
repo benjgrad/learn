@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FSA.2: Analyzing Income Statements",
+    "description": "Master revenue recognition, expense recognition, profitability margins, EPS calculations, and comprehensive income under IFRS and US GAAP.",
+    "level": "level-4",
+    "slug": "fsa-analyzing-income-statements",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A software company signs a 3-year contract worth $900,000. The customer pays the full amount upfront. How much revenue should the company recognize in Year 1? What principle governs this decision?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Revenue Recognition: The Five-Step Model\n\nUnder both IFRS 15 and ASC 606, revenue is recognized using a **five-step model**:\n\n1. **Identify the contract** with the customer\n2. **Identify the performance obligations** \u2014 distinct goods or services promised\n3. **Determine the transaction price** \u2014 the amount the entity expects to receive\n4. **Allocate the transaction price** to each performance obligation (based on standalone selling prices)\n5. **Recognize revenue** when (or as) each performance obligation is satisfied\n\nRevenue is recognized when **control transfers** to the customer \u2014 either at a point in time or over time.\n\n### Over Time vs Point in Time\n\n| Recognition | Criteria | Example |\n|---|---|---|\n| **Over time** | Customer simultaneously receives and consumes benefits; entity's performance creates an asset with no alternative use and entity has right to payment | Construction contracts, SaaS subscriptions |\n| **Point in time** | Control transfers at a specific moment | Sale of goods upon delivery |\n\n### Example\n\nA 3-year software license sold for \\$900,000 with equal annual service obligations:\n\n$$\\text{Annual revenue} = \\frac{\\$900{,}000}{3} = \\$300{,}000 \\text{ per year}$$\n\nThe upfront cash received but not yet earned is recorded as **deferred (unearned) revenue** \u2014 a liability."
+    },
+    {
+      "type": "markdown",
+      "content": "## Expense Recognition and Profitability Margins\n\nExpenses are recognized following the **matching principle**: expenses are matched to the revenues they help generate in the same period.\n\n| Principle | Application |\n|---|---|\n| **Matching** | COGS matched to revenue from the goods sold |\n| **Period costs** | SG&A, R&D expensed in the period incurred |\n| **Systematic allocation** | Depreciation spread over the asset's useful life |\n\n### Profitability Margins\n\n$$\\text{Gross profit margin} = \\frac{\\text{Revenue} - \\text{COGS}}{\\text{Revenue}}$$\n\n$$\\text{Operating profit margin} = \\frac{\\text{Operating income}}{\\text{Revenue}}$$\n\n$$\\text{Net profit margin} = \\frac{\\text{Net income}}{\\text{Revenue}}$$\n\n### Example\n\n| Item | Amount |\n|---|---|\n| Revenue | $500,000 |\n| COGS | $300,000 |\n| Operating expenses | $100,000 |\n| Interest expense | $20,000 |\n| Tax (25%) | $20,000 |\n| Net income | $60,000 |\n\n- Gross margin: $(500{,}000 - 300{,}000) / 500{,}000 = 40\\%$\n- Operating margin: $(500{,}000 - 300{,}000 - 100{,}000) / 500{,}000 = 20\\%$\n- Net margin: $60{,}000 / 500{,}000 = 12\\%$"
+    },
+    {
+      "type": "markdown",
+      "content": "## Earnings Per Share (EPS)\n\n### Basic EPS\n\n$$\\text{Basic EPS} = \\frac{\\text{Net income} - \\text{Preferred dividends}}{\\text{Weighted average common shares outstanding}}$$\n\n### Diluted EPS\n\nDiluted EPS accounts for all potentially dilutive securities (stock options, convertible bonds, convertible preferred stock).\n\n$$\\text{Diluted EPS} = \\frac{\\text{Adjusted net income}}{\\text{Weighted average shares + Dilutive potential shares}}$$\n\n**Treasury stock method** (for options/warrants): Only in-the-money options are dilutive.\n\n$$\\text{Incremental shares} = \\text{Options exercised} - \\frac{\\text{Options} \\times \\text{Exercise price}}{\\text{Market price}}$$\n\n### Example\n\nNet income = \\$1,000,000. Preferred dividends = \\$50,000. Weighted average shares = 500,000. Options outstanding: 20,000 with exercise price \\$30, market price \\$50.\n\n$$\\text{Basic EPS} = \\frac{1{,}000{,}000 - 50{,}000}{500{,}000} = \\$1.90$$\n\nTreasury stock method incremental shares:\n$$20{,}000 - \\frac{20{,}000 \\times 30}{50} = 20{,}000 - 12{,}000 = 8{,}000$$\n\n$$\\text{Diluted EPS} = \\frac{950{,}000}{500{,}000 + 8{,}000} = \\$1.87$$\n\n### Comprehensive Income\n\nComprehensive income = Net income + **Other comprehensive income (OCI)**. OCI items bypass the income statement and include: unrealized gains/losses on available-for-sale securities, foreign currency translation adjustments, pension plan remeasurements, and effective hedging gains/losses."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has net income of $2 million and 1 million weighted average shares outstanding. It also has 100,000 stock options with an exercise price of $60 when the market price is $40. What is diluted EPS?",
+      "answer": "Diluted EPS equals basic EPS of $2.00. The options are out-of-the-money (exercise price $60 > market price $40), so they are anti-dilutive and excluded from the diluted EPS calculation. Dilutive securities must reduce EPS; if including them would increase EPS, they are anti-dilutive and ignored."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate basic and diluted EPS given the following: Net income = $3,600,000. Preferred dividends = $100,000. Weighted average shares = 2,000,000. Convertible bonds: 5,000 bonds convertible into 50,000 shares, interest expense = $200,000, tax rate = 25%. Stock options: 40,000 options with exercise price $25, market price $50.",
+      "solution": "**Basic EPS:**\n$$\\frac{3{,}600{,}000 - 100{,}000}{2{,}000{,}000} = \\frac{3{,}500{,}000}{2{,}000{,}000} = \\$1.75$$\n\n**Convertible bond adjustment:**\n- Numerator add-back: $200{,}000 \\times (1 - 0.25) = \\$150{,}000$\n- Denominator: +50,000 shares\n- Per-share impact: $150{,}000 / 50{,}000 = \\$3.00$ (anti-dilutive since $3.00 > $1.75, so exclude)\n\n**Stock options (treasury stock method):**\n- Incremental shares: $40{,}000 - \\frac{40{,}000 \\times 25}{50} = 40{,}000 - 20{,}000 = 20{,}000$\n- Options are dilutive (they add shares but no numerator income)\n\n**Diluted EPS (options only, bonds excluded as anti-dilutive):**\n$$\\frac{3{,}500{,}000}{2{,}000{,}000 + 20{,}000} = \\frac{3{,}500{,}000}{2{,}020{,}000} = \\$1.73$$"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Income Statement Analysis Practice Problems",
+      "problems": [
+        {
+          "id": "fsa2-1",
+          "question": "A company reports revenue of $800,000, COGS of $480,000, SG&A of $120,000, and interest expense of $40,000. The tax rate is 30%. Net income is closest to:",
+          "options": [
+            "A) $112,000",
+            "B) $140,000",
+            "C) $160,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Revenue $800,000 - COGS $480,000 = Gross profit $320,000. Gross profit $320,000 - SG&A $120,000 = Operating income $200,000. Operating income $200,000 - Interest $40,000 = Pre-tax income $160,000. Tax = $160,000 x 0.30 = $48,000. Net income = $160,000 - $48,000 = $112,000. Option B ($140,000) incorrectly applies the tax rate to operating income. Option C ($160,000) ignores taxes entirely.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate net income from income statement components"
+        },
+        {
+          "id": "fsa2-2",
+          "question": "Under the five-step revenue recognition model (IFRS 15/ASC 606), a company sells a smartphone bundled with a 2-year warranty. The standalone selling price of the phone is $900 and the warranty is $100. The bundle price is $950. How much revenue is allocated to the phone at the point of sale?",
+          "options": [
+            "A) $855",
+            "B) $900",
+            "C) $950"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The transaction price ($950) is allocated based on relative standalone selling prices. Phone allocation = $950 \u00d7 ($900 / ($900 + $100)) = $950 \u00d7 0.90 = $855. The warranty allocation = $950 \u00d7 ($100 / $1,000) = $95, recognized over the 2-year warranty period. Option B ($900) uses the standalone price without adjusting for the bundle discount. Option C ($950) allocates the entire price to the phone, ignoring the separate warranty obligation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply the five-step revenue recognition model"
+        },
+        {
+          "id": "fsa2-3",
+          "question": "A company has net income of $5,000,000 and preferred dividends of $200,000. Weighted average common shares are 4,000,000. There are 100,000 stock options outstanding with an exercise price of $20 and the average market price is $50. Diluted EPS is closest to:",
+          "options": [
+            "A) $1.14",
+            "B) $1.18",
+            "C) $1.20"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Basic EPS = ($5,000,000 - $200,000) / 4,000,000 = $1.20. Treasury stock method: 100,000 options exercised, proceeds = 100,000 \u00d7 $20 = $2,000,000. Shares repurchased at market price = $2,000,000 / $50 = 40,000. Incremental shares = 100,000 - 40,000 = 60,000. Diluted EPS = $4,800,000 / (4,000,000 + 60,000) = $4,800,000 / 4,060,000 = $1.182, closest to $1.18. Option A ($1.14) understates diluted EPS. Option C ($1.20) is the basic EPS and ignores dilution from the in-the-money stock options.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate diluted EPS using the treasury stock method"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the five-step revenue recognition model to someone who runs a small business. Use a concrete example of a product sale that includes both a physical good and a service component."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is revenue recognition considered one of the most important and most abused areas of financial reporting?",
+        "How does the distinction between basic and diluted EPS help investors assess the true earnings power of a company?",
+        "What items flow through OCI instead of net income, and why might that matter for valuation?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Revenue recognition: 5-step model (identify contract \u2192 identify obligations \u2192 determine price \u2192 allocate \u2192 recognize)\n- Expense recognition: matching principle, period costs, systematic allocation\n- Gross margin = (Revenue - COGS) / Revenue\n- Operating margin = Operating income / Revenue\n- Net margin = Net income / Revenue\n- Basic EPS = (Net income - Preferred dividends) / Weighted avg shares\n- Diluted EPS uses treasury stock method for options (only in-the-money) and if-converted method for convertible securities\n- Anti-dilutive securities are excluded from diluted EPS\n- Comprehensive income = Net income + OCI"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Analyzing Balance Sheets**, where you'll learn how assets, liabilities, and equity are classified and measured. The revenue and expense recognition choices you just studied directly affect balance sheet accounts \u2014 deferred revenue appears as a liability, capitalized costs appear as assets, and retained earnings link net income to equity."
+    }
+  ]
+}

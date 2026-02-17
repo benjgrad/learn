@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "title": "DV.11: Derivatives Checkpoint",
+    "description": "Cross-topic assessment covering derivative instruments, markets, pricing of forwards, futures, swaps, and options, put-call parity, and the binomial model.",
+    "level": "level-7",
+    "slug": "deriv-checkpoint",
+    "order": 12,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Checkpoint: Derivatives\n\nThis checkpoint tests your understanding across all Derivatives modules. Attempt each question **without referring back** to the content modules. If you struggle with a concept, that signals which module to revisit.\n\n### Concept Recall"
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between exchange-traded and OTC derivatives. Cover standardization, counterparty risk, and the role of the clearinghouse."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Distinguish between forward commitments and contingent claims. Give one example of each and explain how their obligation structures differ."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "State the cost of carry model for a forward price. Explain each component (financing, storage, yield) and whether it increases or decreases the forward price."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain put-call parity. Write the formula, describe the two equivalent portfolios, and explain why the relationship must hold."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Describe how the one-period binomial model prices an option. What are risk-neutral probabilities, and why don't we need the actual probability of the stock going up?"
+    },
+    {
+      "type": "markdown",
+      "content": "### Applied Problems"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Derivatives Checkpoint Problems",
+      "problems": [
+        {
+          "id": "dv-cp-1",
+          "question": "A non-dividend-paying stock trades at $75. The risk-free rate is 6%. The 1-year forward price is closest to:",
+          "options": [
+            "A) $75.00",
+            "B) $79.50",
+            "C) $81.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "F\u2080 = S\u2080 \u00d7 (1 + r)^T = $75 \u00d7 1.06 = $79.50. Option A ignores carry costs. Option C uses an incorrect rate or compounding method (75 \u00d7 1.08 = $81).",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate forward prices using cost of carry"
+        },
+        {
+          "id": "dv-cp-2",
+          "question": "A futures market is in backwardation. This most likely means that:",
+          "options": [
+            "A) The futures price exceeds the spot price",
+            "B) The convenience yield exceeds the net cost of carry",
+            "C) Storage costs exceed the convenience yield"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Backwardation means F\u2080 < S\u2080. From the cost of carry model, this occurs when carry benefits (convenience yield) exceed carry costs (financing + storage), making the net carry cost negative. Option A describes contango (F\u2080 > S\u2080). Option C describes the condition for contango, not backwardation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Distinguish between contango and backwardation"
+        },
+        {
+          "id": "dv-cp-3",
+          "question": "An interest rate swap has 2 years remaining. The original fixed rate is 3% (annual) on $10 million notional. Current 1-year and 2-year discount factors are 0.97 and 0.93. Since initiation, interest rates have risen. The value of the swap to the fixed-rate payer is closest to:",
+          "options": [
+            "A) \u2212$130,000",
+            "B) +$130,000",
+            "C) +$339,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The current par swap rate = (1 \u2212 d\u2082)/(d\u2081 + d\u2082) = (1 \u2212 0.93)/(0.97 + 0.93) = 0.07/1.90 = 3.684%. Since rates have risen, the fixed-rate payer benefits (paying 3% while the market rate is 3.684%). Value to fixed payer = (new swap rate \u2212 old swap rate) \u00d7 \u03a3d_i \u00d7 notional = (0.03684 \u2212 0.03) \u00d7 1.90 \u00d7 $10M = 0.00684 \u00d7 1.90 \u00d7 $10M = $129,960 \u2248 $130,000. Option A has the correct magnitude but the wrong sign \u2014 it would be the value to the floating-rate payer. Option C uses incorrect discount factors.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Value an interest rate swap after initiation"
+        },
+        {
+          "id": "dv-cp-4",
+          "question": "A European call option is priced at $9. The underlying stock trades at $70. The strike price is $65. The time value of the option is:",
+          "options": [
+            "A) $4",
+            "B) $5",
+            "C) $9"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Intrinsic value = max(0, S \u2212 X) = max(0, 70 \u2212 65) = $5. Time value = option price \u2212 intrinsic value = $9 \u2212 $5 = $4. Option B confuses intrinsic value with time value. Option C assumes the entire premium is time value (only true for OTM options).",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate intrinsic value and time value"
+        },
+        {
+          "id": "dv-cp-5",
+          "question": "A stock trades at $100. A European call with strike $100 costs $8. The risk-free rate is 5% and time to expiration is 1 year. Using put-call parity, the European put price is closest to:",
+          "options": [
+            "A) $3.24",
+            "B) $8.00",
+            "C) $12.76"
+          ],
+          "correctAnswer": "A",
+          "explanation": "p = c + PV(X) \u2212 S = 8 + 100/1.05 \u2212 100 = 8 + 95.24 \u2212 100 = $3.24. Option B assumes put and call prices are equal at-the-money (they are not because of the interest rate effect). Option C adds PV(X) \u2212 S to the call price incorrectly.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate option prices using put-call parity"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A stock is at $80. Over one period it can go to $96 (u = 1.20) or $68 (d = 0.85). The risk-free rate is 4%. Price a European call with a strike of $80 using the binomial model. Show your work for both the risk-neutral probability method and the hedge ratio.",
+      "solution": "**Risk-Neutral Probability Method:**\n\n\u03c0_u = (1.04 \u2212 0.85)/(1.20 \u2212 0.85) = 0.19/0.35 = 0.5429\n\n\u03c0_d = 1 \u2212 0.5429 = 0.4571\n\nc_u = max(0, 96 \u2212 80) = $16; c_d = max(0, 68 \u2212 80) = $0\n\nc = (0.5429 \u00d7 16 + 0.4571 \u00d7 0)/1.04 = 8.686/1.04 = $8.35\n\n**Hedge Ratio Method:**\n\n\u0394 = (c_u \u2212 c_d)/(S_u \u2212 S_d) = (16 \u2212 0)/(96 \u2212 68) = 16/28 = 0.5714\n\nReplicating portfolio: 0.5714 shares of stock + borrowing B\n\nB = (\u0394 \u00d7 S_d \u2212 c_d)/(1 + r) = (0.5714 \u00d7 68 \u2212 0)/1.04 = 38.857/1.04 = $37.36\n\nc = \u0394 \u00d7 S\u2080 \u2212 B = 0.5714 \u00d7 80 \u2212 37.36 = 45.71 \u2212 37.36 = $8.35\n\nBoth methods confirm the call price is **$8.35**."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "The spot USD/GBP rate is $1.30/\u00a3. The US risk-free rate is 4% and the UK risk-free rate is 2%. Calculate the 1-year forward rate. If the quoted forward rate is $1.35/\u00a3, describe the arbitrage.",
+      "solution": "**Fair forward rate:**\n\nF\u2080 = S\u2080 \u00d7 (1 + r_d)/(1 + r_f) = 1.30 \u00d7 (1.04)/(1.02) = 1.30 \u00d7 1.01961 = $1.3255/\u00a3\n\n**Arbitrage:** The quoted forward ($1.35) exceeds the fair value ($1.3255). The forward is overpriced.\n\n1. Sell GBP forward at $1.35/\u00a3 (agree to deliver GBP and receive USD)\n2. Borrow USD: borrow $1.30/1.02 = $1.2745 today at 4%\n3. Convert to GBP at spot: receive \u00a30.9804\n4. Invest GBP at 2%: grows to \u00a30.9804 \u00d7 1.02 = \u00a31.00\n\nAt expiration:\n- Deliver \u00a31.00 under the forward, receive $1.35\n- Repay USD loan: $1.2745 \u00d7 1.04 = $1.3255\n- Profit = $1.35 \u2212 $1.3255 = $0.0245 per GBP \u2014 risk-free."
+    },
+    {
+      "type": "markdown",
+      "content": "### Self-Assessment\n\nRate your confidence on each Derivatives concept from 1 (cannot explain) to 5 (could teach it):\n\n| Concept | Confidence (1-5) |\n|:--|:--|\n| Derivative types and market structure | |\n| Forward commitments vs. contingent claims | |\n| Benefits and risks of derivatives | |\n| Arbitrage, replication, and cost of carry | |\n| Pricing forwards (equity, FX) | |\n| Futures: margin, convergence, contango/backwardation | |\n| Swap mechanics and pricing | |\n| Option value: intrinsic + time, six factors | |\n| Put-call parity and synthetic positions | |\n| One-period binomial model | |\n\nIf any concept is below a 3, revisit that module before continuing."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Derivatives fluency at CFA Level I means you can: define and classify derivative instruments, apply the no-arbitrage principle and cost of carry model, price forwards and futures, understand swap mechanics, decompose option value into intrinsic and time components, apply put-call parity, and price options using the binomial model. These concepts form the foundation for more advanced derivative analysis at Level II."
+    }
+  ]
+}

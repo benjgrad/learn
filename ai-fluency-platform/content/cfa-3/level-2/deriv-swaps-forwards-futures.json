@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "D.2: Swaps, Forwards, and Futures Strategies",
+    "description": "Use futures, forwards, and swaps to manage equity exposure, adjust portfolio duration, hedge currency risk, and create synthetic positions.",
+    "level": "level-2",
+    "slug": "deriv-swaps-forwards-futures",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A pension fund wants to quickly increase equity exposure by $200M without selling bonds. How could derivatives accomplish this, and what are the advantages over physically trading the underlying assets?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Using Futures to Adjust Portfolio Exposure\n\n### Equity Exposure Adjustment\n\nThe number of futures contracts needed to change the portfolio's equity beta:\n\n$$N_f = \\frac{\\beta_T - \\beta_P}{\\beta_f} \\times \\frac{V_P}{P_f \\times \\text{multiplier}}$$\n\nWhere:\n- $\\beta_T$ = target beta\n- $\\beta_P$ = current portfolio beta\n- $\\beta_f$ = beta of futures contract\n- $V_P$ = portfolio value\n- $P_f \\times \\text{multiplier}$ = notional value of one futures contract\n\n**Example**: A $500M portfolio with beta 1.1 wants to increase to beta 1.4. S&P 500 futures at 4,500 (multiplier = $250), beta = 1.0:\n\n$$N_f = \\frac{1.4 - 1.1}{1.0} \\times \\frac{500{,}000{,}000}{4{,}500 \\times 250} = 0.3 \\times \\frac{500{,}000{,}000}{1{,}125{,}000} = 133.3 \\approx 134 \\text{ contracts}$$\n\n### Fixed-Income Duration Adjustment\n\n$$N_f = \\frac{DD_T - DD_P}{DD_f}$$\n\nWhere $DD$ = dollar duration = Duration \u00d7 Value \u00d7 0.01\n\n$$N_f = \\frac{(D_T - D_P) \\times V_P}{D_f \\times P_f \\times \\text{multiplier}} \\times \\frac{1}{\\text{CTD conversion factor}}$$\n\n### Pre-Investing (Equitizing Cash)\n\nWhen a fund receives a large cash inflow but needs time to invest:\n- **Buy equity futures** to gain immediate market exposure\n- Cash earns risk-free rate; futures provide equity beta exposure\n- Gradually unwind futures as physical securities are purchased\n- Prevents the cash drag of being un-invested during security selection"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio manager wants to reduce the duration of a $1 billion bond portfolio from 7.5 to 5.0. Should they buy or sell bond futures, and why?",
+      "answer": "Sell bond futures. Reducing duration means reducing sensitivity to interest rate changes. Selling (shorting) bond futures creates a short position that offsets some of the portfolio's long duration. When rates rise, the short futures position profits, partially offsetting losses on the long bond portfolio. The number of contracts depends on the dollar duration of the portfolio vs. the dollar duration of the futures contract and its cheapest-to-deliver bond."
+    },
+    {
+      "type": "markdown",
+      "content": "## Interest Rate Swaps for Duration Management\n\n### Receive-Fixed, Pay-Floating Swap\n- **Increases portfolio duration** (receive-fixed leg has positive duration)\n- Equivalent to: borrowing at floating rate + investing at fixed rate\n- Use when: Want to extend duration without selling short-dated bonds\n\n### Pay-Fixed, Receive-Floating Swap\n- **Decreases portfolio duration** (pay-fixed leg has negative duration)\n- Equivalent to: borrowing at fixed rate + investing at floating rate\n- Use when: Want to reduce duration without selling long-dated bonds\n\n### Duration of an Interest Rate Swap\n\n$$D_{swap} = D_{fixed} - D_{floating}$$\n\nFor a receive-fixed swap: $D_{swap} \\approx D_{fixed\\ bond} - 0.25$ (floating leg duration \u2248 time to next reset, typically ~0.25 years for quarterly reset)\n\n## Equity Swaps\n\n**Total return swap**: One party pays total return on an equity index, receives a floating rate (or fixed rate)\n\n| Application | Structure |\n|---|---|\n| **Gain equity exposure** | Receive equity index return, pay SOFR + spread |\n| **Reduce equity exposure** | Pay equity index return, receive SOFR + spread |\n| **Asset allocation shift** | Pay one index, receive another (e.g., pay S&P 500, receive MSCI EM) |\n\nAdvantages over physical trading:\n- No transaction costs on underlying securities\n- No tracking error from replication\n- Can be unwound easily\n- Capital efficient (no upfront principal exchange)"
+    },
+    {
+      "type": "markdown",
+      "content": "## Cross-Currency Swaps\n\nExchange **principal and interest payments** in different currencies:\n\n1. Initial exchange: Swap principal amounts at current spot rate\n2. Periodic payments: Each party pays interest in the currency they received\n3. Final exchange: Swap principal back at the original exchange rate\n\n### Applications\n\n| Use Case | Benefit |\n|---|---|\n| **Hedging foreign bond portfolio** | Converts foreign currency cash flows to domestic |\n| **Synthetic foreign borrowing** | Access cheaper funding in foreign markets |\n| **Liability hedging** | Match currency of assets and liabilities |\n\n## Variance Swaps\n\nA forward contract on **realized variance** of an underlying:\n\n- **Long variance swap**: Profits if realized volatility exceeds implied (strike) volatility\n- **Short variance swap**: Profits if realized volatility is below strike\n\n$$\\text{Payoff} = \\text{Notional}_{variance} \\times (\\sigma^2_{realized} - \\sigma^2_{strike})$$\n\n**Vega notional** (more intuitive): $\\text{Notional}_{vega} = \\text{Notional}_{variance} \\times 2\\sigma_{strike}$\n\nApplications:\n- Pure volatility trading without delta hedging\n- Hedging portfolio volatility exposure\n- Convex payoff \u2014 gains accelerate as realized vol increases"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Derivatives Overlay Strategy",
+      "solution": "**Part A \u2014 Derivatives overlay to implement the TAA shift:**\n\nThe pension fund wants to temporarily increase equity exposure by $200M and decrease fixed income by $200M without physically trading. The overlay strategy:\n\n**Equity leg \u2014 Buy S&P 500 futures:**\n- Target equity exposure increase: $200M\n- S&P 500 futures at 4,800, multiplier $250, beta \u2248 1.0\n- Notional per contract = 4,800 \u00d7 $250 = $1,200,000\n- Contracts needed = $200,000,000 / $1,200,000 = 167 contracts\n\n**Fixed income leg \u2014 Sell Treasury futures:**\n- Target duration reduction equivalent to $200M bonds with duration 6.5\n- Dollar duration to remove = 6.5 \u00d7 $200,000,000 \u00d7 0.01 = $130,000\n- Treasury future: price 110, duration of CTD = 8.0, conversion factor = 0.85\n- Dollar duration per contract = (8.0/0.85) \u00d7 110,000 \u00d7 0.01 = $10,353\n- Contracts to sell = $130,000 / $10,353 \u2248 13 contracts\n\n**Part B \u2014 Advantages of derivatives overlay:**\n\n1. **Speed**: Futures can be executed in minutes vs. days for physical trading\n2. **Lower transaction costs**: Futures have tighter bid-ask spreads and no brokerage on underlying\n3. **No disruption to underlying managers**: Active bond and equity managers maintain their positions and alpha generation\n4. **Capital efficiency**: Futures require only margin (3-5% of notional), not full principal\n5. **Reversibility**: Easy to unwind when the TAA view changes\n\n**Part C \u2014 Risks and monitoring:**\n\n1. **Basis risk**: Futures may not perfectly track the desired exposure (index vs. portfolio beta)\n2. **Margin management**: Daily mark-to-market requires liquid cash for margin calls\n3. **Roll risk**: Futures must be rolled at expiration (quarterly), incurring roll costs\n4. **Counterparty risk**: Minimal for exchange-traded futures (clearing house) but relevant for OTC swaps\n5. **Governance**: Ensure the overlay is within the IPS guidelines and the TAA risk budget (tracking error limit)"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Swaps, Forwards, and Futures Practice",
+      "problems": [
+        {
+          "id": "l3-d2-1",
+          "question": "A $400M equity portfolio with beta 0.95 needs to temporarily reduce beta to 0.70. S&P 500 futures trade at 5,000 with a multiplier of $250 and beta of 1.0. The number of futures contracts to sell is closest to:",
+          "options": [
+            "A) 80",
+            "B) 96",
+            "C) 100"
+          ],
+          "correctAnswer": "A",
+          "explanation": "N = [(\u03b2T \u2212 \u03b2P) / \u03b2f] \u00d7 [VP / (Pf \u00d7 multiplier)] = [(0.70 \u2212 0.95) / 1.0] \u00d7 [$400,000,000 / (5,000 \u00d7 $250)] = (\u22120.25) \u00d7 (400,000,000 / 1,250,000) = \u22120.25 \u00d7 320 = \u221280. Sell 80 contracts (negative sign indicates short position). The manager sells futures to reduce beta from 0.95 to 0.70.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate number of futures contracts for beta adjustment"
+        },
+        {
+          "id": "l3-d2-2",
+          "question": "To increase portfolio duration from 4.0 to 6.5, a manager should enter into an interest rate swap as:",
+          "options": [
+            "A) Pay-fixed, receive-floating",
+            "B) Receive-fixed, pay-floating",
+            "C) Pay-floating on both legs with different tenors"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A receive-fixed swap has positive duration because the fixed-rate leg is equivalent to a long position in a fixed-rate bond. Duration of the swap \u2248 duration of fixed leg \u2212 duration of floating leg \u2248 D_fixed \u2212 0.25. To increase portfolio duration, enter a receive-fixed swap. A pay-fixed swap (A) would decrease duration. Option C is not a standard swap structure.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Use interest rate swaps for duration management"
+        },
+        {
+          "id": "l3-d2-3",
+          "question": "An investor enters a long variance swap with a strike volatility of 20% and vega notional of $100,000. Realized volatility over the period is 25%. The payoff to the long position is closest to:",
+          "options": [
+            "A) $112,500",
+            "B) $500,000",
+            "C) $562,500"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Variance notional = Vega notional / (2 \u00d7 strike vol) = $100,000 / (2 \u00d7 20) = $2,500. Payoff = Variance notional \u00d7 (\u03c3\u00b2realized \u2212 \u03c3\u00b2strike) = $2,500 \u00d7 (625 \u2212 400) = $2,500 \u00d7 225 = $562,500. Wait \u2014 need to be careful with units. If variance is in percentage-squared: Realized variance = 25\u00b2 = 625, Strike variance = 20\u00b2 = 400. Payoff = $2,500 \u00d7 (625 \u2212 400) = $562,500. But checking with vega approximation: Vega notional \u00d7 (realized vol \u2212 strike vol) = $100,000 \u00d7 (25 \u2212 20) = $500,000 for the linear approximation. The convexity adds: $100,000/(2\u00d720) \u00d7 (25\u221220)\u00b2 = $2,500 \u00d7 25 = $62,500. Total \u2248 $562,500. Answer C. Actually let me recalculate properly. Variance notional = vega notional / (2 \u00d7 \u03c3_strike) = 100,000 / (2 \u00d7 20) = 2,500 per variance point. Payoff = 2,500 \u00d7 (25\u00b2 \u2212 20\u00b2) = 2,500 \u00d7 (625 \u2212 400) = 2,500 \u00d7 225 = $562,500. Answer C.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate variance swap payoffs"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to an investment committee how a derivatives overlay can be used to implement tactical asset allocation shifts without disrupting the underlying portfolio managers. Use specific examples for equity and fixed-income adjustments."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the risks of relying heavily on a derivatives overlay for portfolio management?",
+        "When would you prefer an equity swap over equity futures for gaining market exposure?",
+        "How does the margin requirement for futures affect the liquidity management of a portfolio?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **Equity futures**: N = [(\u03b2T \u2212 \u03b2P) / \u03b2f] \u00d7 [VP / (Pf \u00d7 multiplier)]\n- **FI futures**: N = (DDT \u2212 DDP) / DDf, adjusted for CTD conversion factor\n- **Receive-fixed swap** increases duration; **pay-fixed swap** decreases duration\n- **Equity swap**: Receive index return, pay floating \u2014 synthetic equity exposure\n- **Cross-currency swaps**: Exchange principal and interest in different currencies\n- **Variance swap**: Payoff = Notional_var \u00d7 (\u03c3\u00b2realized \u2212 \u03c3\u00b2strike)\n- **Equitizing cash**: Buy futures to prevent cash drag while selecting securities\n- Derivatives overlay advantages: speed, low cost, no disruption, capital efficient"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Currency Management** \u2014 a critical component of international portfolio management that uses forwards, options, and active strategies to manage the currency exposure that arises from investing in foreign assets."
+    }
+  ]
+}

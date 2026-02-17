@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "PM.4: Basics of Portfolio Planning and Construction",
+    "description": "Create an investment policy statement. Describe strategic and tactical asset allocation approaches.",
+    "level": "level-9",
+    "slug": "pm-portfolio-planning",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Before investing a client's money, what information would you need to gather? Try to list at least five factors you'd want to know before making any investment decisions."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Investment Policy Statement (IPS)\n\nThe **Investment Policy Statement (IPS)** is the governing document for portfolio management. It translates an investor's needs into a clear, actionable plan. The IPS has two major components: **objectives** and **constraints**.\n\n### Return Objectives\n\nThe return objective specifies the required or desired rate of return. It should be:\n- **Realistic** given capital market expectations\n- **Consistent** with the investor's risk tolerance\n- Stated in **nominal or real terms** (after or before inflation)\n- Specified as **total return** (income + capital appreciation) or income-only\n\n### Risk Tolerance\n\nRisk tolerance has two dimensions:\n\n| Dimension | Description | Example |\n|---|---|---|\n| **Ability** to take risk | Determined by financial circumstances (time horizon, wealth, income stability) | A young professional with stable income has high ability |\n| **Willingness** to take risk | Determined by psychology and preferences | The same individual may be psychologically conservative |\n\nWhen ability and willingness conflict, the **more conservative** assessment typically governs. An investor with high ability but low willingness should not be pushed into aggressive strategies."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A 60-year-old retiree with a $5 million portfolio and no pension income needs $150,000/year for living expenses. What is her minimum required return (before inflation), and how would you describe her risk tolerance?",
+      "answer": "Minimum required return = $150,000 / $5,000,000 = 3.0% per year (nominal, before inflation adjustment). If she needs to maintain purchasing power, the real return target would be 3% plus the expected inflation rate. Her ability to take risk is moderate \u2014 she has a large portfolio relative to spending needs but no other income source, and her time horizon may be 25-30 years. She needs her portfolio to last. Risk tolerance depends on willingness as well, but the ability side suggests a moderate, balanced approach."
+    },
+    {
+      "type": "markdown",
+      "content": "## IPS Constraints\n\nBeyond return and risk objectives, the IPS must address five constraints:\n\n| Constraint | Description | Example |\n|---|---|---|\n| **Time horizon** | Investment period until funds are needed | Retirement in 20 years; or perpetual for an endowment |\n| **Liquidity** | Need for cash or easily convertible assets | Emergency fund, upcoming tuition payments |\n| **Tax considerations** | Tax status and optimization | Tax-exempt endowment vs. high-bracket individual |\n| **Legal/Regulatory** | Laws and regulations that apply | ERISA rules for US pension funds; prudent investor rule |\n| **Unique circumstances** | Any special needs or restrictions | ESG/SRI preferences, concentrated stock holdings, restricted shares |\n\nThe acronym **RRTTLLU** is commonly used: Return, Risk, Time horizon, Tax, Liquidity, Legal, Unique."
+    },
+    {
+      "type": "markdown",
+      "content": "## Asset Allocation\n\nAsset allocation is the most important determinant of portfolio risk and return over time. Studies attribute roughly **90% of return variation** across diversified portfolios to asset allocation decisions.\n\n### Strategic Asset Allocation (SAA)\n\nThe **long-term, policy-level** mix of asset classes designed to meet the IPS objectives. SAA reflects the investor's long-term risk-return tradeoff and is typically revisited annually or when circumstances change materially.\n\nExample: 60% equities / 30% fixed income / 10% alternatives\n\n### Tactical Asset Allocation (TAA)\n\n**Short-term deviations** from the SAA to exploit perceived market opportunities. TAA involves overweighting asset classes expected to outperform and underweighting those expected to underperform.\n\nExample: Temporarily shifting to 65% equities because the manager believes stocks are undervalued.\n\n### Rebalancing\n\nOver time, asset weights drift due to differential returns. **Rebalancing** restores the portfolio to its target allocation. Common approaches:\n\n- **Calendar rebalancing:** Rebalance at fixed intervals (monthly, quarterly)\n- **Percentage-of-portfolio rebalancing:** Rebalance when an asset class deviates beyond a threshold (e.g., \u00b15%)\n\nRebalancing involves a tradeoff: it maintains the desired risk profile but incurs transaction costs and potential tax consequences."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Draft the key elements of an IPS for the following client: Maria, age 45, earns $200,000/year as a physician, has $1.2 million saved, wants to retire at 65, has no pension, needs $120,000/year in retirement (today's dollars), is moderately risk-averse, and wants to avoid tobacco stocks.",
+      "solution": "**Return objective:** Maria needs her $1.2M portfolio to grow over 20 years to fund ~$120,000/year (inflation-adjusted) in retirement lasting ~25 years. Assuming 2.5% inflation, her real spending need is $120,000, requiring a portfolio of approximately $2.5-3.0M at retirement. This implies a required real return of roughly 4-5% per year during the accumulation phase.\n\n**Risk tolerance:** Ability is moderate to high (20-year horizon, high stable income, adequate savings). Willingness is moderate (described as moderately risk-averse). Overall: moderate risk tolerance.\n\n**Time horizon:** Two stages \u2014 20 years of accumulation, then ~25 years of distribution. Long overall horizon.\n\n**Liquidity:** Low near-term needs (high income covers expenses). May need an emergency reserve of 3-6 months' expenses.\n\n**Tax:** High income bracket \u2014 should prioritize tax-advantaged accounts and tax-efficient investments.\n\n**Legal/Regulatory:** Standard individual investor regulations; prudent investor rule.\n\n**Unique circumstances:** ESG screen excluding tobacco stocks. No other special constraints mentioned.\n\n**Suggested SAA:** 70% equities / 25% fixed income / 5% alternatives (consistent with long horizon and moderate risk tolerance)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Planning Practice Problems",
+      "problems": [
+        {
+          "id": "pm4-1",
+          "question": "When an investor's ability to take risk is high but willingness to take risk is low, the portfolio manager should most appropriately:",
+          "options": [
+            "A) construct a portfolio based on the investor's high ability to take risk",
+            "B) construct a portfolio based on the investor's low willingness to take risk",
+            "C) construct a portfolio that reflects the average of ability and willingness"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When ability and willingness conflict, the more conservative assessment should govern. The manager should educate the client about risk-return tradeoffs but ultimately respect the client's lower willingness. Option A ignores the client's psychological comfort and could lead to panic selling during downturns. Option C has no basis in IPS guidelines \u2014 there is no prescribed averaging method.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe risk tolerance components"
+        },
+        {
+          "id": "pm4-2",
+          "question": "Which of the following is most accurately described as an IPS constraint rather than an objective?",
+          "options": [
+            "A) The investor requires a 6% real return",
+            "B) The investor has a 15-year time horizon until retirement",
+            "C) The investor is willing to accept moderate volatility"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Time horizon is one of the five IPS constraints (Time, Tax, Liquidity, Legal, Unique). Option A is a return objective. Option C describes risk tolerance, which is also an objective. The distinction matters: objectives define what the investor wants to achieve; constraints define the boundaries within which the manager must operate.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Distinguish between IPS objectives and constraints"
+        },
+        {
+          "id": "pm4-3",
+          "question": "A manager's strategic asset allocation is 60% equities / 40% bonds. After strong equity performance, the actual allocation has drifted to 70% equities / 30% bonds. The manager's rebalancing threshold is \u00b15%. The manager should most likely:",
+          "options": [
+            "A) take no action because drift is within the 5% threshold",
+            "B) sell equities and buy bonds to restore the 60/40 target",
+            "C) increase the equity target to reflect the new market conditions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The equity allocation has drifted from 60% to 70%, a deviation of 10 percentage points \u2014 well beyond the \u00b15% threshold. The manager should rebalance by selling equities and buying bonds to return to the 60/40 SAA target. Option A is incorrect because the 10-point drift exceeds the \u00b15% threshold. Option C confuses tactical asset allocation (deliberate deviation) with unmanaged drift \u2014 changing the SAA should only happen when the investor's circumstances or long-term outlook materially change.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe rebalancing approaches"
+        },
+        {
+          "id": "pm4-4",
+          "question": "Research on diversified portfolio performance suggests that the most important determinant of long-term return variability is:",
+          "options": [
+            "A) security selection within asset classes",
+            "B) strategic asset allocation",
+            "C) market timing and tactical allocation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Studies (including the Brinson, Hood, Beebower research) consistently find that approximately 90% of the variation in portfolio returns over time is attributable to strategic asset allocation \u2014 the policy-level decision of how to divide the portfolio among asset classes. Option A (security selection) and Option C (market timing) together account for only about 10% of return variability. This is why the IPS and SAA are the foundation of portfolio management.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe the importance of asset allocation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a friend who just received a large inheritance why they should create an Investment Policy Statement before investing any money. Describe what it contains and why it matters."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How would your own IPS differ from that of a large university endowment?",
+        "Why is rebalancing counterintuitive (selling winners, buying losers), and why does it work?",
+        "What unique circumstances in your life might affect your investment constraints?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- IPS = governing document: objectives (return + risk) and constraints (TTLLU: Time, Tax, Liquidity, Legal, Unique)\n- Risk tolerance = ability + willingness; when they conflict, use the more conservative\n- Strategic asset allocation (SAA) is the long-term policy mix \u2014 drives ~90% of return variability\n- Tactical asset allocation (TAA) = short-term deviations to exploit opportunities\n- Rebalancing restores target weights; calendar-based or threshold-based approaches\n- RRTTLLU: Return, Risk, Time, Tax, Liquidity, Legal, Unique"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Behavioral Biases**, which explores the psychological errors that cause investors to deviate from the rational framework outlined in the IPS. Understanding biases helps explain why clients (and portfolio managers) often make suboptimal decisions \u2014 and how to mitigate these tendencies."
+    }
+  ]
+}

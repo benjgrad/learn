@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "Ethics.2: Guidance for Standards L2",
+    "description": "Navigate advanced application scenarios for all seven Standards of Professional Conduct, focusing on gray areas, judgment calls, and real-world case studies.",
+    "level": "level-10",
+    "slug": "ethics-guidance-standards-l2",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Ethics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A portfolio manager discovers that a junior analyst on her team has been exaggerating backtest results in client presentations by selectively choosing favorable time periods. No client has lost money yet. What are her obligations, and does the absence of actual harm change the analysis?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Standard I: Professionalism \u2014 Advanced Scenarios\n\n### I(A) Knowledge of the Law\n\n**Gray area**: when local law is less strict than CFA Standards, the stricter standard applies. When local law is stricter, follow local law.\n\n**Complex scenario**: an analyst working in Country A covers companies in Country B, for clients in Country C. Which jurisdiction's laws apply?\n- Follow the **strictest** of: CFA Standards, laws of Country A (where you work), Country B (where the company is), and Country C (where clients are)\n- When in doubt, follow CFA Standards as the baseline\n\n### I(B) Independence and Objectivity \u2014 Gifts and Entertainment\n\n| Acceptable | Problematic |\n|-----------|-------------|\n| Modest business lunch | Lavish vacation as incentive to recommend |\n| Industry conference attendance | All-expenses-paid trip from a covered company |\n| Small promotional items | Gifts that could reasonably influence judgment |\n\nThe test is whether the gift or benefit could **reasonably be expected** to compromise objectivity \u2014 not whether it actually does.\n\n### I(D) Misconduct\n\nExtends to conduct outside professional activities if it reflects on professional integrity. Examples: fraud convictions, dishonesty in business dealings, substance abuse affecting professional duties."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio manager in London manages accounts for clients in Saudi Arabia, where certain short-selling restrictions exist that are stricter than CFA Standards. The manager uses short selling in a global equity strategy. Must the manager comply with Saudi short-selling rules?",
+      "answer": "Yes. Standard I(A) requires following the strictest applicable law. Since the clients are in Saudi Arabia and that jurisdiction imposes stricter short-selling restrictions than CFA Standards or UK law, the manager must comply with Saudi rules for those specific client accounts. The manager could still use short selling for other clients not subject to those restrictions. Practically, this may require separate account management or strategy modifications for Saudi clients."
+    },
+    {
+      "type": "markdown",
+      "content": "## Standards II-IV: Advanced Application\n\n### II(A) Material Nonpublic Information \u2014 Complex Cases\n\n**Expert networks**: using expert consultants is permissible, but the analyst must ensure that experts are not providing MNPI from their former employers or current positions.\n\n**Social media**: information posted by a company executive on a personal social media account may or may not be 'public' depending on the platform's reach and the company's disclosure policies.\n\n### III(A) Loyalty, Prudence, Care \u2014 Fiduciary Complexity\n\n**Multiple client types**: duties differ based on relationship:\n- **Discretionary accounts**: highest fiduciary standard\n- **Advisory accounts**: duty to provide suitable recommendations\n- **Employer assets**: fiduciary duty to beneficiaries (e.g., pension participants)\n\n**Proxy voting**: must be exercised in the best interest of clients, not for the manager's business convenience. The firm must have a proxy voting policy.\n\n### III(B) Fair Dealing\n\n**IPO allocation**: must be allocated fairly, not favoring accounts that generate the most fees or that belong to the PM's preferred clients. Use a systematic, pre-established allocation policy.\n\n### IV(A) Loyalty to Employer\n\n**Competing activities**: leaving to start a competing firm is permissible, but you cannot solicit clients or take proprietary information before departing. Preparation (forming an entity, renting space) is allowed; solicitation of current clients is not."
+    },
+    {
+      "type": "markdown",
+      "content": "## Standards V-VII: Judgment and Gray Areas\n\n### V(A) Diligence and Reasonable Basis\n\n**Reliance on third-party research**: permissible if the analyst:\n- Evaluates the methodology and assumptions of the third-party research\n- Understands the models used and their limitations\n- Does not blindly adopt conclusions without independent assessment\n- Verifies the research provider's objectivity and competence\n\n**Quantitative models**: must understand model assumptions, test for robustness, and disclose limitations. Blindly following a model's output is not a 'reasonable basis.'\n\n### V(B) Communication with Clients\n\n- **Distinguish fact from opinion**: clearly label forecasts, estimates, and opinions\n- **Disclose model limitations**: if a recommendation is based on a model, explain key assumptions\n- **Changes in methodology**: notify clients of significant changes\n- **Fair presentation**: include both risks and potential rewards\n\n### VI(B) Priority of Transactions\n\nOrder of priority: **client accounts \u2192 employer accounts \u2192 personal accounts**\n\nThe analyst's personal trades must not front-run or disadvantage client or employer trades. Pre-clearance and holding period requirements are best practice.\n\n### VII(B) Reference to CFA Institute and the CFA Designation\n\n- \"CFA charterholder\" (lowercase 'c', 'h') \u2014 correct as a noun\n- \"Passed all three levels on the first attempt\" \u2014 improper; suggesting superiority\n- Must not claim CFA Institute endorses any product or strategy"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Scenario: James Lee is a PM leaving Acme Capital to join a competitor. Before resigning, he: (1) copies his client contact list to his personal laptop, (2) informs three of his largest clients he is leaving and invites them to follow him, (3) takes his personal notes on investment ideas he developed while at Acme. Analyze each action against the Standards.",
+      "solution": "**Action 1 \u2014 Copying client contact list:**\nVIOLATION of Standard IV(A) Loyalty to Employer. Client lists developed during employment are typically the employer's property. Copying proprietary information before departure is not permissible.\n\n**Action 2 \u2014 Soliciting clients before leaving:**\nVIOLATION of Standard IV(A). While James can inform clients of his departure after he leaves, actively soliciting them to move while still employed is disloyal to his employer. He may not solicit until after his departure, and even then must comply with any non-compete or non-solicitation agreements.\n\n**Action 3 \u2014 Taking personal investment notes:**\nGRAY AREA. If the notes contain proprietary models, research, or strategies developed using the firm's resources, they belong to the employer. If they are purely personal observations and general investment knowledge, they may be James's property. The key test: were the notes created using firm resources and as part of his duties? If so, they are the firm's property.\n\n**Best practice for James:** resign, serve notice period, leave proprietary materials behind, and only contact clients after departure within the bounds of any contractual restrictions."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Guidance for Standards L2 \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "eth2-1",
+          "question": "**Vignette: Pacific Rim Investment Advisors**\n\nPacific Rim manages equity portfolios for institutional clients. Recent events:\n\n- Analyst Kevin Park receives a call from a former college roommate who now works at MegaCorp's treasury department. The roommate casually mentions that MegaCorp's CFO is considering a large share buyback, but 'nothing is finalized yet.'\n- PM Diana Song allocates shares from a hot IPO primarily to three large institutional clients, reasoning that 'they pay the most in fees and deserve priority.'\n- Junior analyst Tom Zhang publishes a 'Buy' recommendation based entirely on a report from an external research provider, without independently evaluating the methodology.\n\n---\n\n**Question 1:** Kevin Park's most appropriate action after the phone call is to:",
+          "options": [
+            "A) Trade on the information since 'nothing is finalized'",
+            "B) Place MegaCorp on the restricted list and avoid trading until the information is public",
+            "C) Conduct his own analysis to form a mosaic and then trade based on his conclusions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The buyback information is material (would affect stock price) and nonpublic (shared privately by an insider). Standard II(A) prohibits trading on MNPI regardless of whether the action is 'finalized.' The fact that 'nothing is finalized yet' does not make it non-material \u2014 the consideration of a buyback by the CFO is itself material. Option A directly violates II(A). Option C misapplies mosaic theory \u2014 mosaic involves combining non-material public pieces, not laundering MNPI through additional analysis.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Apply Standard II(A) to informal receipt of material nonpublic information"
+        },
+        {
+          "id": "eth2-2",
+          "question": "**Question 2 (continued):** Diana Song's IPO allocation approach most likely violates:",
+          "options": [
+            "A) Standard III(B) Fair Dealing, by favoring fee-generating clients over smaller clients",
+            "B) Standard V(A) Diligence and Reasonable Basis, by not analyzing the IPO thoroughly",
+            "C) Standard VI(A) Conflicts of Interest, by not disclosing her allocation methodology"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Standard III(B) requires fair dealing with all clients. IPO allocations must follow a systematic, fair allocation policy \u2014 typically pro rata based on order size or predetermined criteria. Allocating primarily to fee-paying clients violates fair dealing by disadvantaging smaller clients who have equal entitlement to fair treatment. While disclosure of methodology (C) is also important, the fundamental violation is the unfair allocation itself. Option B is not relevant to the allocation decision.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Apply Standard III(B) Fair Dealing to investment allocation decisions"
+        },
+        {
+          "id": "eth2-3",
+          "question": "**Question 3 (continued):** Tom Zhang's Buy recommendation based solely on external research violates:",
+          "options": [
+            "A) Standard I(C) Misrepresentation, by presenting the recommendation as his own original work",
+            "B) Standard V(A) Diligence and Reasonable Basis, by failing to evaluate the external research methodology",
+            "C) Both A and B"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Tom violates both standards. Standard V(A) requires that he independently evaluate the methodology, assumptions, and soundness of the external research before relying on it \u2014 he cannot simply adopt its conclusion as his recommendation. Standard I(C) is violated if he presents the recommendation without attributing the underlying work to the external provider, implying it is his own analysis. If he merely forwarded the report with proper attribution but without evaluating it, only V(A) would be violated. Publishing it as his own Buy recommendation violates both.",
+          "difficulty": "advanced",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Identify multiple standard violations in a single action"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a group of junior analysts why 'gray area' ethical situations are more important to master than clear-cut violations. Use examples to show how reasonable people might disagree about the right course of action, and how the CFA Standards provide a framework for navigating ambiguity."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the 'reasonable person' test important for evaluating whether a gift compromises objectivity?",
+        "How does the priority of transactions rule protect clients from front-running?",
+        "What makes expert networks particularly risky from a material nonpublic information perspective?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Principles:**\n\n- Follow the strictest of CFA Standards and all applicable laws across jurisdictions\n- MNPI remains material even if 'not yet finalized' \u2014 materiality is based on likely impact, not certainty\n- Mosaic theory: combining non-material public information is allowed; it cannot 'launder' MNPI\n- Fair dealing: systematic allocation policies, no favoritism based on fee revenue\n- Reasonable basis: independently evaluate third-party research before relying on it\n- Employer loyalty: do not take proprietary information or solicit clients before departure\n- Transaction priority: clients \u2192 employer \u2192 personal accounts\n- When multiple standards are violated by one action, identify all violations"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Application of Ethics L2**, where you will work through complex, multi-stakeholder vignettes that require integrating knowledge of all Standards simultaneously \u2014 the exact format tested on the CFA Level II exam."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "EQ.5: Introduction to Company Analysis",
+    "description": "Learn the framework for analyzing companies, including competitive positioning, financial condition assessment, performance forecasting, and the distinction between absolute and relative valuation.",
+    "level": "level-5",
+    "slug": "eq-intro-company-analysis",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When deciding whether to invest in a company, what factors would you consider beyond just looking at its stock price? How would you determine if a stock is 'cheap' or 'expensive'?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Elements of Company Analysis\n\nCompany analysis is a systematic process of evaluating a business to determine whether its equity is fairly priced. The framework has several interconnected elements:\n\n### 1. Understanding the Business\n\nBefore any quantitative analysis, an analyst must understand:\n- **What does the company sell?** Products, services, or both\n- **Who are its customers?** Consumer, enterprise, government\n- **How does it make money?** Revenue model and key profit drivers\n- **What is its competitive position?** Market share, brand, cost advantages\n\n### 2. Industry Context\n\nA company's prospects are heavily influenced by its industry:\n- **Industry growth rate** \u2014 is the overall market expanding or contracting?\n- **Competitive intensity** \u2014 how many firms compete and on what basis (price, quality, innovation)?\n- **Regulatory environment** \u2014 what legal or regulatory constraints exist?\n- **Barriers to entry** \u2014 how difficult is it for new competitors to enter?\n\n### 3. Revenue and Earnings Quality\n\nNot all revenue is equal. Analysts assess **quality** by examining:\n- **Sustainability** \u2014 recurring revenue vs. one-time gains\n- **Growth trajectory** \u2014 organic growth vs. acquisition-driven growth\n- **Accounting choices** \u2014 aggressive vs. conservative recognition policies\n- **Cash conversion** \u2014 the ratio of operating cash flow to reported earnings (higher is better)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Company A reports $100M in net income but only $60M in operating cash flow. Company B reports $80M in net income and $95M in operating cash flow. Which company has higher earnings quality, and why?",
+      "answer": "Company B has higher earnings quality. Its operating cash flow ($95M) exceeds its net income ($80M), giving a cash conversion ratio of 1.19. This means the reported earnings are well-supported by actual cash generation. Company A's operating cash flow ($60M) is only 60% of net income ($100M), suggesting that a significant portion of earnings comes from non-cash accruals (like receivables growth, deferred revenue, or aggressive accounting). Earnings backed by cash are more reliable and sustainable."
+    },
+    {
+      "type": "markdown",
+      "content": "## Financial Condition Assessment\n\nAssessing a company's financial health involves analyzing four dimensions:\n\n### Profitability Ratios\n\n| Ratio | Formula | Measures |\n|---|---|---|\n| Gross margin | $\\frac{\\text{Revenue} - \\text{COGS}}{\\text{Revenue}}$ | Production efficiency |\n| Operating margin | $\\frac{\\text{EBIT}}{\\text{Revenue}}$ | Operating efficiency |\n| Net profit margin | $\\frac{\\text{Net Income}}{\\text{Revenue}}$ | Overall profitability |\n| ROE | $\\frac{\\text{Net Income}}{\\text{Shareholders' Equity}}$ | Return to shareholders |\n| ROA | $\\frac{\\text{Net Income}}{\\text{Total Assets}}$ | Asset utilization |\n\n### Liquidity Ratios\n\n$$\\text{Current Ratio} = \\frac{\\text{Current Assets}}{\\text{Current Liabilities}}$$\n\n$$\\text{Quick Ratio} = \\frac{\\text{Cash + Receivables + Short-term Investments}}{\\text{Current Liabilities}}$$\n\n### Solvency Ratios\n\n$$\\text{Debt-to-Equity} = \\frac{\\text{Total Debt}}{\\text{Total Equity}} \\qquad \\text{Interest Coverage} = \\frac{\\text{EBIT}}{\\text{Interest Expense}}$$\n\n### Efficiency Ratios\n\n$$\\text{Receivables Turnover} = \\frac{\\text{Revenue}}{\\text{Average Receivables}} \\qquad \\text{Days Sales Outstanding} = \\frac{365}{\\text{Receivables Turnover}}$$\n\nTrend analysis (comparing ratios over time) and peer comparison (comparing to industry averages) add context that a single ratio cannot provide."
+    },
+    {
+      "type": "markdown",
+      "content": "## Absolute vs. Relative Valuation\n\n### Absolute Valuation (Intrinsic Value Models)\n\nAbsolute valuation estimates a security's value based on its **own fundamentals**, independent of how similar securities are priced.\n\n$$V_0 = \\sum_{t=1}^{\\infty} \\frac{CF_t}{(1+r)^t}$$\n\nThe intrinsic value is the present value of all expected future cash flows, discounted at the required rate of return. Common models include:\n- **Dividend discount models (DDM)** \u2014 cash flows are dividends\n- **Free cash flow models** \u2014 cash flows are FCFF or FCFE\n- **Residual income models** \u2014 excess earnings above required return on equity\n\n### Relative Valuation (Market Multiples)\n\nRelative valuation compares a company's price to a fundamental metric, then compares that multiple to peers or historical averages:\n\n$$\\text{P/E Ratio} = \\frac{\\text{Market Price per Share}}{\\text{Earnings per Share}}$$\n\n| Approach | Question Answered | Advantage | Limitation |\n|---|---|---|---|\n| **Absolute** | What is this stock worth intrinsically? | Grounded in fundamentals | Highly sensitive to assumptions |\n| **Relative** | Is this stock cheap/expensive vs. peers? | Simple, intuitive, widely used | Assumes peers are fairly valued |\n\nBoth approaches are complementary. A thorough analysis uses **multiple valuation methods** and triangulates toward a conclusion."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Assess a company's financial condition using the ratio framework.",
+      "solution": "Given the following data for Company X:\n- Revenue: $800M, COGS: $480M, EBIT: $160M, Net income: $100M, Interest expense: $30M\n- Current assets: $300M, Current liabilities: $200M, Cash + receivables: $180M\n- Total assets: $1,000M, Total debt: $400M, Total equity: $500M\n- Average receivables: $120M\n\n**Profitability:**\n- Gross margin = ($800M \u2212 $480M) / $800M = 40%\n- Operating margin = $160M / $800M = 20%\n- Net margin = $100M / $800M = 12.5%\n- ROE = $100M / $500M = 20%\n- ROA = $100M / $1,000M = 10%\n\n**Liquidity:**\n- Current ratio = $300M / $200M = 1.5\u00d7\n- Quick ratio = $180M / $200M = 0.9\u00d7\n\n**Solvency:**\n- D/E = $400M / $500M = 0.8\u00d7\n- Interest coverage = $160M / $30M = 5.3\u00d7\n\n**Efficiency:**\n- Receivables turnover = $800M / $120M = 6.7\u00d7\n- DSO = 365 / 6.7 = 54.5 days\n\nThe company shows solid profitability and solvency. The quick ratio below 1.0 suggests some reliance on inventory for short-term liquidity. The ~55-day DSO should be compared to industry peers to assess whether collections are timely."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Company Analysis Practice Problems",
+      "problems": [
+        {
+          "id": "eq5-1",
+          "question": "Which of the following best indicates high earnings quality?",
+          "options": [
+            "A) Net income growing faster than revenue",
+            "B) Operating cash flow consistently exceeding net income",
+            "C) Increasing use of deferred revenue recognition"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Operating cash flow consistently exceeding net income indicates high earnings quality because it means reported profits are supported by actual cash generation. Option A (net income growing faster than revenue) could indicate improving margins, but it could also signal aggressive accounting if not supported by cash flows. Option C (increasing deferred revenue) indicates conservative revenue recognition, but it does not directly measure cash conversion \u2014 and the question asks what 'best indicates' high quality.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Evaluate the quality of a company's earnings"
+        },
+        {
+          "id": "eq5-2",
+          "question": "A company has EBIT of $50 million and interest expense of $10 million. Its interest coverage ratio is:",
+          "options": [
+            "A) 0.2\u00d7",
+            "B) 4.0\u00d7",
+            "C) 5.0\u00d7"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Interest coverage = EBIT / Interest expense = $50M / $10M = 5.0\u00d7. This means the company earns 5 times its interest obligations, indicating comfortable debt servicing ability. Option A (0.2\u00d7) divides interest by EBIT, which is the inverse. Option B (4.0\u00d7) results from an arithmetic error.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate and interpret solvency ratios"
+        },
+        {
+          "id": "eq5-3",
+          "question": "An analyst values a stock at $85 using a dividend discount model. The stock currently trades at $72. Using the P/E approach with industry peers, the implied value is $78. Based on these two methods, the analyst would most likely conclude that the stock is:",
+          "options": [
+            "A) Overvalued",
+            "B) Undervalued",
+            "C) Fairly valued"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Both valuation approaches suggest the stock is undervalued. The DDM (absolute) gives an intrinsic value of $85 versus the market price of $72 (18% upside). The relative valuation gives $78, also above the current price of $72 (8% upside). When multiple methods agree on the direction, the conclusion is stronger. Option A is incorrect because both values exceed the market price. Option C is incorrect because there is a meaningful gap between estimated values and market price in both approaches.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Apply absolute and relative valuation to assess whether a stock is mispriced"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between absolute and relative valuation to someone who asks: 'Why can't I just look at the stock price to know if a company is a good investment?' Use an analogy to make the concept intuitive."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the risks of relying solely on relative valuation (e.g., P/E multiples)?",
+        "How might a company's competitive position affect the assumptions in an absolute valuation model?",
+        "Why is it important to analyze a company within the context of its industry rather than in isolation?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Company analysis requires understanding the business, industry, and financial condition\n- **Earnings quality** is indicated by strong cash flow conversion and sustainable revenue\n- Four ratio categories: profitability, liquidity, solvency, efficiency\n- **Absolute valuation** estimates intrinsic value from fundamentals ($V_0 = \\sum CF_t / (1+r)^t$)\n- **Relative valuation** compares multiples (P/E, P/B) to peers or history\n- Use multiple valuation methods and triangulate toward a conclusion\n- Trend analysis and peer comparison add essential context to ratios"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Industry and Competitive Analysis**, which provides the framework for understanding the industry context that shapes every company's prospects. Porter's five forces and industry life cycle analysis give you the tools to assess whether an industry is attractive and how a company is positioned within it."
+    }
+  ]
+}

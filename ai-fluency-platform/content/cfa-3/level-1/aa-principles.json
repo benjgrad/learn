@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "AA.4: Principles of Asset Allocation",
+    "description": "Master MVO, Black-Litterman, reverse optimization, Monte Carlo simulation, risk budgeting, and factor-based approaches to building optimal portfolios.",
+    "level": "level-1",
+    "slug": "aa-principles",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Asset Allocation"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Mean-variance optimization often produces extreme, concentrated portfolios. What are three specific techniques you could use to produce more reasonable, diversified allocations?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Mean-Variance Optimization (MVO)\n\nMVO selects portfolio weights to **maximize expected return for a given level of risk** (or minimize risk for a given return).\n\n### The Optimization Problem\n\n$$\\max_w \\left[ w'\\mu - \\frac{\\lambda}{2} w' \\Sigma w \\right]$$\n\nWhere:\n- $w$ = vector of asset weights\n- $\\mu$ = vector of expected returns\n- $\\Sigma$ = covariance matrix\n- $\\lambda$ = risk aversion parameter\n\n### Limitations of Unconstrained MVO\n\n| Problem | Description |\n|---|---|\n| **Concentrated allocations** | Small differences in expected returns produce dramatically different weights |\n| **Input sensitivity** | Results are highly sensitive to expected return estimates (garbage in, garbage out) |\n| **Single-period framework** | Ignores multi-period effects like rebalancing, taxes, cash flows |\n| **Estimation error** | Maximizes exposure to estimation errors \u2014 overweights assets with overestimated returns |\n| **Unstable solutions** | Small changes in inputs produce large changes in optimal weights |\n\nMVO is sometimes called an **\"estimation error maximizer\"** because it allocates most heavily to assets whose returns are most likely overestimated."
+    },
+    {
+      "type": "markdown",
+      "content": "## Addressing MVO Limitations\n\n### 1. Reverse Optimization\n\nStart from **observed market capitalization weights** and back out the implied expected returns:\n\n$$\\mu_{implied} = \\lambda \\Sigma w_{market}$$\n\nThese market-implied returns represent **equilibrium returns** \u2014 if all investors are rational and markets are efficient, the market portfolio is the tangency portfolio, and these are the implied returns.\n\n**Advantage**: Produces a stable starting point; no need to estimate expected returns from scratch.\n\n### 2. Black-Litterman Model\n\nCombines **equilibrium (reverse-optimized) returns** with **investor views**:\n\n1. Start with equilibrium expected returns (from reverse optimization)\n2. Express investor views as deviations from equilibrium with confidence levels\n3. Blend equilibrium and views using Bayesian updating\n4. Optimize using the blended returns\n\n$$E(R)_{BL} = [(\\tau\\Sigma)^{-1} + P'\\Omega^{-1}P]^{-1} [(\\tau\\Sigma)^{-1}\\Pi + P'\\Omega^{-1}Q]$$\n\nWhere:\n- $\\Pi$ = equilibrium returns\n- $P$ = matrix linking views to assets\n- $Q$ = vector of view returns\n- $\\Omega$ = uncertainty of views\n- $\\tau$ = scalar (weight on equilibrium)\n\n**Key benefit**: Produces **intuitive, diversified portfolios** that tilt toward investor views without extreme concentrations.\n\n### 3. Resampled MVO (Michaud)\n\nGenerate many sets of simulated returns/covariances \u2192 optimize each \u2192 **average the resulting weights**. Produces more diversified, stable portfolios but can over-diversify and lacks theoretical foundation."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In Black-Litterman, what happens to the optimal portfolio if the investor has NO views (all confidence levels are zero)?",
+      "answer": "The optimal portfolio collapses to the market-capitalization-weighted portfolio. With no views, the model uses only the equilibrium (reverse-optimized) returns, which by construction produce market weights as the optimal solution. This is a key feature \u2014 the market portfolio is the neutral starting point, and views cause tilts away from market weights in proportion to the strength and confidence of the views."
+    },
+    {
+      "type": "markdown",
+      "content": "## Monte Carlo Simulation in Asset Allocation\n\nMonte Carlo simulation addresses the **multi-period** limitation of MVO:\n\n### Process\n1. Specify return distributions and correlations for each asset class\n2. Generate thousands of random return paths over the investment horizon\n3. For each path, simulate portfolio evolution (including contributions, withdrawals, rebalancing, taxes)\n4. Analyze the **distribution of outcomes** (terminal wealth, funding ratio, goal achievement probability)\n\n### Applications\n- **Retirement planning**: Probability of not outliving assets\n- **Pension management**: Distribution of funding ratios\n- **Stress testing**: How allocations perform under tail scenarios\n- **Path dependency**: Captures sequence-of-returns risk that single-period models miss\n\n## Risk Budgeting\n\n**Risk budgeting** allocates a total risk budget across asset classes, managers, or strategies.\n\n$$MCTR_i = \\beta_i \\times \\sigma_p$$\n\n$$ACTR_i = w_i \\times MCTR_i$$\n\nWhere:\n- $MCTR_i$ = marginal contribution to total risk of asset $i$\n- $ACTR_i$ = absolute contribution to total risk\n- $\\sum ACTR_i = \\sigma_p$ (total portfolio risk)\n\n**Equal risk contribution (risk parity)**: Set weights so that each asset class contributes **equally** to total portfolio risk. This typically overweights bonds relative to equities.\n\n## Factor-Based Asset Allocation\n\nInstead of allocating to **asset classes**, allocate to **risk factors**:\n\n| Factor | Description | Traditional Asset Class Mapping |\n|---|---|---|\n| Equity risk | Compensation for systematic equity exposure | Stocks |\n| Duration/rate risk | Compensation for interest rate sensitivity | Bonds |\n| Credit risk | Compensation for default risk | Credit bonds, loans |\n| Inflation risk | Sensitivity to unexpected inflation | TIPS, commodities, real estate |\n| Liquidity risk | Compensation for illiquidity | Private equity, real estate |\n\n**Advantage**: Reveals hidden concentration \u2014 a traditional portfolio of stocks + corporate bonds + real estate may appear diversified across asset classes but be concentrated in equity risk factor."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Portfolio Optimization Approaches",
+      "solution": "**Part A \u2014 Limitations of unconstrained MVO for the endowment:**\n\n1. **Input sensitivity**: Unconstrained MVO is extremely sensitive to expected return estimates. Small changes in CMEs (e.g., 0.5% change in equity return assumption) could produce dramatically different allocations \u2014 perhaps swinging from 60% equities to 30% or 90%. This instability makes it impractical for a governing board seeking a stable policy.\n\n2. **Concentrated allocations**: MVO tends to produce corner solutions \u2014 all-or-nothing allocations to a few asset classes. The endowment would likely see extreme allocations (e.g., 80% to the asset class with the highest estimated Sharpe ratio) rather than the diversified portfolio the board expects.\n\n3. **Single-period limitation**: The endowment has a perpetual time horizon with annual spending. MVO doesn't capture the path dependency of sequential returns, the impact of the 5% spending rule on portfolio sustainability, or the asymmetric consequences of deep drawdowns.\n\n**Part B \u2014 Black-Litterman solution:**\n\nThe CIO should use Black-Litterman to:\n1. Start with market-cap-weighted equilibrium returns (reverse optimization)\n2. Express two views: (a) EM equities will outperform DM by 2% (moderate confidence), (b) real assets will outperform nominal bonds by 1.5% (high confidence given inflation outlook)\n3. The resulting portfolio will tilt toward EM and real assets relative to market weights, but the magnitude of tilts will be proportional to confidence levels\n4. The portfolio remains well-diversified because views only adjust the equilibrium \u2014 they don't dominate it\n\n**Part C \u2014 Monte Carlo supplement:**\n\nThe CIO should use Monte Carlo simulation to stress-test the Black-Litterman allocation over the endowment's perpetual horizon with the 5% spending rule. Key outputs: (1) probability of maintaining real purchasing power over 50+ years, (2) distribution of terminal funding levels, (3) worst-case drawdown scenarios and recovery times. If the simulation shows >20% probability of the endowment being unable to sustain spending, the allocation should shift more conservatively \u2014 or the spending policy should be revised."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Asset Allocation Principles Practice",
+      "problems": [
+        {
+          "id": "l3-aa4-1",
+          "question": "In reverse optimization, the implied expected returns are derived from:",
+          "options": [
+            "A) Historical average returns for each asset class",
+            "B) The current market-capitalization weights and the covariance matrix",
+            "C) A survey of institutional investor expectations"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Reverse optimization uses the formula \u03bc = \u03bb\u03a3w_market to back out the expected returns implied by current market-cap weights and the covariance matrix. The logic: if markets are in equilibrium and the market portfolio is optimal, these are the returns that would make a mean-variance optimizer hold market weights. This is more stable than using historical averages (A) or surveys (C) as the starting point for optimization.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe reverse optimization and its role in asset allocation"
+        },
+        {
+          "id": "l3-aa4-2",
+          "question": "A portfolio has two asset classes. Asset A has weight 60%, MCTR of 12%, and Asset B has weight 40%, MCTR of 5%. The total portfolio risk and percentage contribution of Asset A to total risk are closest to:",
+          "options": [
+            "A) Portfolio risk: 9.2%; Asset A contribution: 78%",
+            "B) Portfolio risk: 7.2%; Asset A contribution: 60%",
+            "C) Portfolio risk: 9.2%; Asset A contribution: 50%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "ACTR_A = w_A \u00d7 MCTR_A = 0.60 \u00d7 12% = 7.2%. ACTR_B = w_B \u00d7 MCTR_B = 0.40 \u00d7 5% = 2.0%. Total portfolio risk = \u03a3ACTR = 7.2% + 2.0% = 9.2%. Asset A's percentage contribution = 7.2%/9.2% = 78.3%. Even though Asset A is 60% of portfolio weight, it contributes 78% of total risk \u2014 highlighting the difference between capital allocation and risk allocation.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Calculate absolute and marginal contributions to total risk"
+        },
+        {
+          "id": "l3-aa4-3",
+          "question": "Compared to traditional asset class-based allocation, factor-based allocation is most likely to reveal:",
+          "options": [
+            "A) The optimal number of asset classes to include",
+            "B) Hidden risk concentrations across seemingly diversified asset classes",
+            "C) The expected alpha from active management"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Factor-based allocation decomposes portfolio risk into underlying risk factors (equity, duration, credit, inflation, liquidity). This reveals that seemingly diversified portfolios (e.g., stocks + corporate bonds + real estate) may actually be concentrated in a single factor like equity risk. It does not determine optimal number of classes (A) or measure manager alpha (C).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Contrast asset class-based and factor-based allocation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Black-Litterman model to an investment committee that currently uses unconstrained MVO. Focus on why it produces better results, using a concrete example of how views are incorporated."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is MVO described as an 'estimation error maximizer'? Can you construct a specific example?",
+        "How would you decide between risk budgeting and MVO for a particular client?",
+        "What are the practical challenges of implementing factor-based allocation?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **MVO** maximizes expected utility but suffers from input sensitivity and concentrated allocations\n- **Reverse optimization**: \u03bc = \u03bb\u03a3w \u2014 back out equilibrium returns from market weights\n- **Black-Litterman**: Blends equilibrium returns with investor views; no views \u2192 market portfolio\n- **Resampled MVO**: Averages weights across simulated optimizations; more stable but less theoretically grounded\n- **Monte Carlo**: Captures multi-period, path-dependent dynamics (spending, rebalancing, sequence risk)\n- **Risk budgeting**: ACTR = w \u00d7 MCTR; reveals true risk contribution vs. capital weight\n- **Factor-based AA**: Allocates to risk factors, not asset classes; reveals hidden concentrations"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Real-World Constraints** on asset allocation \u2014 how liquidity, taxes, regulations, transaction costs, and rebalancing strategies modify the theoretically optimal portfolio into a practical investment policy."
+    }
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "ALT: Alternative Investments Practice Drill",
+    "description": "20 practice problems covering all Alternative Investments topics.",
+    "level": "level-8",
+    "slug": "alt-practice",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Alternative Investments Practice Drill\n\nThis set contains 20 problems across all Alternative Investments topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "alt-p-001",
+          "question": "Alternative investments generally share all of the following characteristics EXCEPT:",
+          "options": [
+            "A) High liquidity and daily pricing",
+            "B) Limited transparency and complex strategies",
+            "C) Higher fees and longer lock-up periods"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Alternative investments (hedge funds, private equity, real estate, commodities, infrastructure) are generally characterized by:\n\n- **Low liquidity** \u2014 not easily traded on public exchanges, often with lock-up periods\n- **Limited transparency** \u2014 less regulatory disclosure than public securities\n- **Complex strategies** \u2014 leverage, derivatives, short selling\n- **Higher fees** \u2014 management fees plus performance fees (e.g., 2 and 20)\n- **Infrequent valuation** \u2014 may use appraisal-based rather than market-based pricing\n\nHigh liquidity and daily pricing (option A) characterize traditional investments like publicly traded stocks and bonds.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the general characteristics of alternative investments."
+        },
+        {
+          "id": "alt-p-002",
+          "question": "A hedge fund charges a 2% management fee and a 20% incentive fee with a high-water mark. The fund starts the year at $100 million (also the high-water mark), declines to $90 million, then recovers to $105 million. The incentive fee is based on:",
+          "options": [
+            "A) The gain from $90M to $105M ($15 million)",
+            "B) The gain above the high-water mark from $100M to $105M ($5 million)",
+            "C) No incentive fee is earned because the fund declined during the year"
+          ],
+          "correctAnswer": "B",
+          "explanation": "With a high-water mark provision, the incentive fee is calculated only on gains above the previous highest NAV:\n\n- Previous high-water mark: $100 million\n- Year-end NAV: $105 million\n- Gain above HWM: $105M - $100M = $5 million\n\n$$\\text{Incentive Fee} = 20\\% \\times \\$5{,}000{,}000 = \\$1{,}000{,}000$$\n\nThe high-water mark protects investors from paying incentive fees on recovered losses. Without it, the manager could earn a fee on the $15M recovery ($3M), rewarding them for recouping prior losses.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate incentive fees with a high-water mark provision."
+        },
+        {
+          "id": "alt-p-003",
+          "question": "Venture capital is best classified as a form of:",
+          "options": [
+            "A) Hedge fund strategy",
+            "B) Private equity that focuses on early-stage companies",
+            "C) Real estate investment"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Venture capital (VC) is a subset of private equity that provides funding to early-stage, high-growth-potential companies. VC stages include:\n\n1. **Seed/Angel:** Concept development and initial product\n2. **Early stage:** Product launch and initial market entry\n3. **Expansion/Growth:** Scaling operations and market share\n4. **Later stage:** Pre-IPO preparation\n\nVC differs from buyout PE, which acquires mature companies using leverage. VC involves higher risk, longer time horizons, and higher failure rates but potential for extraordinary returns.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Classify venture capital within the private equity spectrum."
+        },
+        {
+          "id": "alt-p-004",
+          "question": "The capitalization rate (cap rate) for a commercial real estate property is defined as:",
+          "options": [
+            "A) $\\frac{\\text{Net Operating Income}}{\\text{Property Value}}$",
+            "B) $\\frac{\\text{Gross Rental Income}}{\\text{Property Value}}$",
+            "C) $\\frac{\\text{Net Income After Debt Service}}{\\text{Equity Invested}}$"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The capitalization rate:\n\n$$\\text{Cap Rate} = \\frac{NOI}{\\text{Property Value}}$$\n\nwhere NOI = Gross rental income - Operating expenses (excluding financing costs and depreciation).\n\nCap rate is analogous to an unlevered yield \u2014 it reflects the property's return independent of financing. A lower cap rate implies higher valuation (lower required return or higher growth expectations). Cap rates vary by property type, location, and market conditions. Option C describes the cash-on-cash return (levered return).",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Define and calculate the capitalization rate for real estate investments."
+        },
+        {
+          "id": "alt-p-005",
+          "question": "A private equity fund reports an IRR of 25% and a multiple of invested capital (MOIC) of 2.5x over a 5-year holding period. An investor committed $10 million. The total value distributed and remaining is closest to:",
+          "options": [
+            "A) $25 million",
+            "B) $30 million",
+            "C) $12.5 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "MOIC (or TVPI \u2014 Total Value to Paid-In) measures the total return on invested capital:\n\n$$MOIC = \\frac{\\text{Distributed Capital} + \\text{Remaining Value}}{\\text{Invested Capital}} = 2.5$$\n\n$$\\text{Total Value} = 2.5 \\times \\$10{,}000{,}000 = \\$25{,}000{,}000$$\n\nNote: MOIC ignores the time value of money, while IRR accounts for it. A 2.5x MOIC over 5 years implies an annualized return (assuming a single investment/return): $(2.5)^{1/5} - 1 = 20.1\\%$. The actual IRR of 25% reflects the timing of cash flows (earlier distributions boost IRR).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate and interpret the multiple of invested capital for private equity."
+        },
+        {
+          "id": "alt-p-006",
+          "question": "Infrastructure investments are attractive to institutional investors primarily because they offer:",
+          "options": [
+            "A) High volatility and rapid capital appreciation",
+            "B) Stable, predictable cash flows often linked to inflation with long asset lives",
+            "C) Short investment horizons and high liquidity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Infrastructure investments (roads, utilities, airports, pipelines) are attractive because:\n\n- **Stable cash flows** from essential services with inelastic demand\n- **Inflation linkage** \u2014 many revenues are explicitly or implicitly indexed to inflation (tolls, regulated tariffs)\n- **Long asset lives** (30-99 years) matching long-duration liabilities of pension funds and insurers\n- **Low correlation** with traditional asset classes\n- **Monopolistic/oligopolistic** market positions (natural monopolies, regulated utilities)\n\nThey typically have low volatility and long investment horizons, the opposite of options A and C.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the investment characteristics of infrastructure assets."
+        },
+        {
+          "id": "alt-p-007",
+          "question": "A REIT (Real Estate Investment Trust) is required to distribute at least what percentage of its taxable income to maintain its tax-advantaged status?",
+          "options": [
+            "A) 75%",
+            "B) 90%",
+            "C) 100%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In the US, to qualify for REIT status and avoid corporate-level taxation, a REIT must distribute at least 90% of its taxable income to shareholders as dividends. Additional requirements include:\n\n- At least 75% of total assets must be in real estate\n- At least 75% of gross income must come from real estate sources\n- Must be an entity taxable as a corporation\n- Must have at least 100 shareholders\n\nThe high payout requirement means REITs must access capital markets (debt or equity) for growth, as they retain minimal earnings.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the distribution requirements and tax treatment of REITs."
+        },
+        {
+          "id": "alt-p-008",
+          "question": "A commodity futures investor experiences a negative roll yield. This most likely occurs when the futures curve is in:",
+          "options": [
+            "A) Backwardation",
+            "B) Contango",
+            "C) A flat structure"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Roll yield arises when an investor must roll an expiring futures contract into a new contract:\n\n- **Contango** ($F > S$): The new (longer-dated) contract costs more than the expiring one. Rolling requires selling low and buying high, generating negative roll yield.\n- **Backwardation** ($F < S$): The new contract costs less. Rolling generates positive roll yield (sell high, buy low).\n\nTotal commodity return = Spot return + Roll yield + Collateral return. Persistent contango can significantly erode returns for long-only commodity investors.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain roll yield and its relationship to the shape of the futures curve."
+        },
+        {
+          "id": "alt-p-009",
+          "question": "A property has gross rental income of $500,000, vacancy losses of $50,000, operating expenses of $180,000, and debt service of $120,000. The net operating income (NOI) is:",
+          "options": [
+            "A) $270,000",
+            "B) $150,000",
+            "C) $320,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "NOI is calculated before financing costs:\n\n$$NOI = \\text{Gross Rental Income} - \\text{Vacancy Losses} - \\text{Operating Expenses}$$\n\n$$= 500{,}000 - 50{,}000 - 180{,}000 = \\$270{,}000$$\n\nDebt service ($120,000) is a financing cost, not an operating expense, and is excluded from NOI. If debt service were included, the result ($150,000) would be cash flow after debt service (cash-on-cash return metric).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate net operating income for a real estate property."
+        },
+        {
+          "id": "alt-p-010",
+          "question": "The J-curve effect in private equity describes:",
+          "options": [
+            "A) The pattern of negative returns in early years followed by positive returns as investments mature",
+            "B) The exponential growth of portfolio companies over time",
+            "C) The relationship between fund size and returns"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The J-curve in PE describes the typical return pattern:\n\n**Early years (negative returns):**\n- Management fees are charged on committed capital\n- Portfolio companies have not yet appreciated\n- Investments are carried at cost or may be marked down\n- Fund expenses reduce NAV\n\n**Later years (positive returns):**\n- Portfolio companies mature, grow, and are exited (IPO, trade sale)\n- Realized gains exceed management fees and early losses\n- Distributions to LPs begin\n\nThe overall pattern \u2014 initial dip followed by rising returns \u2014 traces a J-shaped curve when cumulative returns are plotted over time.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the J-curve effect in private equity fund performance."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "alt-p-011",
+          "question": "A hedge fund employs a long/short equity strategy with a gross exposure of 160% and a net exposure of 40%. This means the fund is:",
+          "options": [
+            "A) 100% long and 60% short, with a net long bias",
+            "B) 80% long and 80% short, with zero net exposure",
+            "C) 160% long and 0% short"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Gross exposure = Long + Short = 160%\nNet exposure = Long - Short = 40%\n\nSolving: Long = (160 + 40) / 2 = 100%, Short = (160 - 40) / 2 = 60%\n\nThe fund is 100% long and 60% short, with a net long bias of 40%. This means:\n- The fund profits from overall market increases (net long)\n- Short positions hedge some market risk\n- Gross exposure > 100% implies leverage\n- The 60% short book provides partial downside protection and potential alpha from short positions",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate and interpret gross and net exposure for long/short equity funds."
+        },
+        {
+          "id": "alt-p-012",
+          "question": "Smoothed (appraisal-based) returns for private real estate investments tend to:",
+          "options": [
+            "A) Understate volatility and overstate risk-adjusted returns (Sharpe ratios)",
+            "B) Overstate volatility and understate risk-adjusted returns",
+            "C) Have no effect on measured risk or return"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Appraisal-based valuation (used for private real estate, PE, and other illiquid assets) creates return smoothing because:\n\n- Appraisals lag market conditions (stale pricing)\n- Appraisers anchor to previous values\n- Infrequent revaluation misses interim volatility\n\nConsequences:\n- **Understated standard deviation** (measured volatility < true volatility)\n- **Overstated Sharpe ratios** (artificially low denominator)\n- **Understated correlations** with other asset classes\n\nAnalysts should unsmooth returns (using Geltner unsmoothing or similar techniques) for meaningful risk comparisons with liquid assets.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Analyze the impact of appraisal-based returns on risk and return measurement."
+        },
+        {
+          "id": "alt-p-013",
+          "question": "A leveraged buyout (LBO) fund acquires a company for $500 million using $150 million in equity and $350 million in debt. After 4 years, the company is sold for $800 million and debt has been reduced to $200 million. The equity IRR (ignoring interim cash flows) is closest to:",
+          "options": [
+            "A) 60.0%",
+            "B) 41.4%",
+            "C) 26.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Equity invested: $150 million\nEquity at exit: $800M - $200M = $600 million\n\nMOIC = $600M / $150M = 4.0x\n\n$$IRR = \\left(\\frac{600}{150}\\right)^{1/4} - 1 = (4.0)^{0.25} - 1 = 1.4142 - 1 = 41.4\\%$$\n\nLeverage amplifies returns: the asset appreciated $300M/$500M = 60%, but equity returned 4.0x because debt paydown ($150M) contributed to equity value growth. This leverage effect works in both directions \u2014 if the asset declined in value, equity losses would be magnified.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate the equity IRR of a leveraged buyout transaction."
+        },
+        {
+          "id": "alt-p-014",
+          "question": "Digital assets (cryptocurrencies) differ from traditional financial assets in that they:",
+          "options": [
+            "A) Generate predictable cash flows from operations",
+            "B) Are decentralized, recorded on a distributed ledger, and typically lack intrinsic cash flow generation",
+            "C) Are always backed by physical collateral"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Digital assets (Bitcoin, Ethereum, etc.) have unique characteristics:\n\n- **Decentralized:** No central authority controls issuance or transactions\n- **Distributed ledger (blockchain):** Transactions recorded on a transparent, immutable ledger\n- **No intrinsic cash flows:** Most cryptocurrencies do not generate earnings, dividends, or interest (unlike stocks or bonds)\n- **Valuation challenges:** Without cash flows, traditional DCF models are inapplicable; value is derived from network effects, scarcity, and adoption\n- **High volatility:** Significantly more volatile than traditional asset classes\n- **Regulatory uncertainty:** Evolving and jurisdiction-dependent regulation",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the unique characteristics of digital assets as an alternative investment."
+        },
+        {
+          "id": "alt-p-015",
+          "question": "The Sharpe ratio of a hedge fund is 1.2, while the Sharpe ratio of a traditional equity benchmark is 0.6. After adjusting for illiquidity and return smoothing, the hedge fund's Sharpe ratio is most likely to:",
+          "options": [
+            "A) Increase further above 1.2",
+            "B) Decrease toward or below the benchmark's 0.6",
+            "C) Remain unchanged at 1.2"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Hedge fund Sharpe ratios are often inflated due to:\n\n1. **Return smoothing:** Illiquid assets are valued infrequently, understating true volatility\n2. **Survivorship bias:** Failed funds are excluded from databases\n3. **Backfill bias:** Funds report only after establishing good track records\n4. **Non-normal returns:** Sharpe ratio assumes normal distribution; hedge funds often have negative skew and fat tails\n\nAfter adjusting for these biases, the true risk-adjusted performance is typically lower \u2014 sometimes significantly so. Illiquidity premiums may account for a portion of the apparent outperformance.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Evaluate hedge fund performance after adjusting for biases in reported returns."
+        },
+        {
+          "id": "alt-p-016",
+          "question": "Natural resource investments are most likely to provide a portfolio benefit through:",
+          "options": [
+            "A) Negative correlation with inflation, offering deflation protection",
+            "B) Positive correlation with inflation, offering inflation protection",
+            "C) Zero correlation with all other asset classes"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Natural resources (oil, gas, minerals, timber, farmland) tend to be positively correlated with inflation because:\n\n- Commodity prices are a component of inflation indices\n- Rising input costs pass through to commodity prices\n- Real assets retain value as the purchasing power of money declines\n- Farmland and timber provide both inflation protection and biological growth\n\nThis positive inflation correlation makes natural resources a valuable diversifier in portfolios dominated by nominal assets (bonds) that lose value with inflation. However, natural resources do have meaningful correlations with other asset classes, so option C is incorrect.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain the inflation-hedging properties of natural resource investments."
+        },
+        {
+          "id": "alt-p-017",
+          "question": "A fund of hedge funds charges a 1% management fee and a 10% performance fee, layered on top of the underlying hedge funds' 2% and 20% fees. If the underlying funds collectively earn a gross return of 15%, the net return to the fund-of-funds investor is closest to:",
+          "options": [
+            "A) 8.4%",
+            "B) 10.4%",
+            "C) 12.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Layer 1 \u2014 Underlying hedge fund fees:\n- Management fee: 2% of AUM\n- Net return before performance fee: 15% - 2% = 13%\n- Performance fee: 20% of 13% = 2.6%\n- Net return after HF fees: 13% - 2.6% = 10.4%\n\nLayer 2 \u2014 Fund of funds fees:\n- Management fee: 1% of AUM\n- Net return before FoF performance fee: 10.4% - 1% = 9.4%\n- Performance fee: 10% of 9.4% = 0.94%\n- Net return to investor: 9.4% - 0.94% = 8.46% \u2248 8.4%\n\nThe double fee layer consumes 6.6 percentage points of the 15% gross return \u2014 a 44% fee drag.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate net returns through a fund-of-funds fee structure."
+        },
+        {
+          "id": "alt-p-018",
+          "question": "Compared to core real estate strategies, opportunistic real estate strategies typically involve:",
+          "options": [
+            "A) Lower leverage, stable cash flows, and lower target returns",
+            "B) Higher leverage, significant redevelopment risk, and higher target returns",
+            "C) No leverage and only government-leased properties"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Real estate investment strategies range from conservative to aggressive:\n\n| Strategy | Leverage | Risk | Target Return |\n|----------|----------|------|---------------|\n| Core | Low (0-30%) | Low | 6-8% |\n| Core-plus | Moderate (30-50%) | Moderate | 8-12% |\n| Value-added | Higher (50-65%) | Higher | 12-16% |\n| Opportunistic | High (60-80%+) | Highest | 16%+ |\n\nOpportunistic strategies involve: ground-up development, major repositioning, distressed assets, emerging markets, or significant operational risk. Core strategies focus on stabilized, high-quality, well-leased properties in prime locations.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Compare real estate investment strategies across the risk-return spectrum."
+        },
+        {
+          "id": "alt-p-019",
+          "question": "A commodity index that rolls expiring contracts into the nearest-month contract experiences persistent contango. An alternative index that selects contracts further along the curve to minimize contango drag is using which approach?",
+          "options": [
+            "A) Enhanced or optimized roll strategy",
+            "B) Spot return strategy",
+            "C) Physical delivery strategy"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Enhanced or optimized roll strategies (also called 'smart beta' commodity strategies) aim to improve returns by:\n\n- **Selecting contract months** that minimize negative roll yield (avoiding the steepest part of the contango curve)\n- **Rolling earlier or later** than the standard roll schedule\n- **Using implied roll yield** as a signal for contract selection\n\nTraditional indices (like S&P GSCI) mechanically roll into the nearest contract regardless of curve shape, which can result in significant negative roll yield during persistent contango. Enhanced strategies have historically improved returns by 2-4% per annum in contango-prone markets.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe enhanced roll strategies for commodity index investing."
+        },
+        {
+          "id": "alt-p-020",
+          "question": "Due diligence for alternative investments should include all of the following EXCEPT:",
+          "options": [
+            "A) Evaluation of the investment manager's track record and team stability",
+            "B) Assessment of operational risk, including valuation policies and counterparty exposure",
+            "C) Sole reliance on historical returns as the primary selection criterion"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Proper due diligence for alternative investments should include:\n\n- **Investment due diligence:** Strategy analysis, track record verification, risk management processes, portfolio construction\n- **Operational due diligence:** Valuation policies, compliance, counterparty risk, service provider quality (admin, auditor, custodian)\n- **Manager assessment:** Team experience, stability, alignment of interests, co-investment\n- **Legal/structural:** Fund terms, liquidity provisions, governance, regulatory compliance\n\nSole reliance on historical returns (option C) is poor practice because: past performance does not predict future results, survivorship bias inflates historical averages, and strategy capacity constraints may prevent replication of past returns.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Identify key components of due diligence for alternative investment selection."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers alternative investment features, real estate basics, hedge fund fees, PE metrics, and infrastructure/natural resources. Set B covers advanced hedge fund analysis, LBO returns, return smoothing bias, digital assets, and commodity roll strategies."
+    }
+  ]
+}

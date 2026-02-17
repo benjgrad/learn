@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "QM.1: Multiple Regression Basics",
+    "description": "Specify and estimate multiple regression models, interpret coefficients, test hypotheses, and evaluate OLS assumptions.",
+    "level": "level-1",
+    "slug": "quant-multiple-regression-basics",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "In a simple regression, adding a second independent variable can change the coefficient on the first variable. Why would this happen, and what does it tell you about the relationship between the two independent variables?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Model Specification and OLS Estimation\n\nA multiple regression model extends simple linear regression by including two or more independent variables:\n\n$$Y_i = \\beta_0 + \\beta_1 X_{1i} + \\beta_2 X_{2i} + \\cdots + \\beta_k X_{ki} + \\epsilon_i$$\n\nThe **ordinary least squares (OLS)** method estimates the coefficients $\\hat{\\beta}_j$ by minimizing the sum of squared residuals:\n\n$$\\min \\sum_{i=1}^{n} \\hat{\\epsilon}_i^2 = \\min \\sum_{i=1}^{n} (Y_i - \\hat{Y}_i)^2$$\n\n### Interpreting Coefficients\n\nEach slope coefficient $\\hat{\\beta}_j$ represents the **partial effect** of $X_j$ on $Y$, holding all other independent variables constant. This \"ceteris paribus\" interpretation is what distinguishes multiple regression from running separate simple regressions.\n\n### Example\n\nA model of stock returns: $R_i = 0.02 + 1.2 \\cdot R_{market} - 0.3 \\cdot \\Delta r_{interest} + \\epsilon_i$\n\n- A 1% increase in market return is associated with a 1.2% increase in stock return, **holding interest rate changes constant**\n- A 1 percentage point rise in interest rates is associated with a 0.3% decrease in stock return, **holding market return constant**"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In a regression with 3 independent variables and 100 observations, how many degrees of freedom does the error term have?",
+      "answer": "96. Degrees of freedom = n - k - 1 = 100 - 3 - 1 = 96, where n is the number of observations and k is the number of independent variables. The '-1' accounts for the intercept term. Each estimated parameter (3 slopes + 1 intercept = 4 parameters) uses up one degree of freedom."
+    },
+    {
+      "type": "markdown",
+      "content": "## OLS Assumptions (Classical Linear Regression Model)\n\nFor OLS estimators to be **BLUE** (Best Linear Unbiased Estimators), the following assumptions must hold:\n\n| Assumption | Meaning | Violation |\n|---|---|---|\n| Linearity | $Y$ is a linear function of the independent variables | Misspecified functional form |\n| Independence | Errors are independent of each other | Serial correlation |\n| Homoskedasticity | Error variance is constant: $\\text{Var}(\\epsilon_i) = \\sigma^2$ | Heteroskedasticity |\n| Normality | Errors are normally distributed | Unreliable hypothesis tests in small samples |\n| No multicollinearity | Independent variables are not perfectly correlated | Coefficients cannot be estimated |\n| Exogeneity | $E(\\epsilon_i | X) = 0$ | Biased and inconsistent estimators |\n\nWhen these assumptions hold, OLS is efficient (minimum variance among linear unbiased estimators). Violations and their remedies are covered in detail in module QM.3."
+    },
+    {
+      "type": "markdown",
+      "content": "## Hypothesis Testing and Confidence Intervals\n\n### Testing Individual Coefficients (t-test)\n\nTo test whether $\\beta_j$ is statistically significant:\n\n$$t = \\frac{\\hat{\\beta}_j - \\beta_{j,0}}{SE(\\hat{\\beta}_j)}$$\n\nwith $n - k - 1$ degrees of freedom. The most common null hypothesis is $H_0: \\beta_j = 0$ (no effect).\n\nA **confidence interval** for $\\beta_j$:\n\n$$\\hat{\\beta}_j \\pm t_{\\alpha/2, \\, n-k-1} \\cdot SE(\\hat{\\beta}_j)$$\n\n### Joint Hypothesis Testing (F-test)\n\nThe F-test evaluates whether a **group of coefficients** is jointly significant. For example, testing $H_0: \\beta_1 = \\beta_2 = 0$:\n\n$$F = \\frac{(SSR_{\\text{restricted}} - SSR_{\\text{unrestricted}}) / q}{SSR_{\\text{unrestricted}} / (n - k - 1)}$$\n\nwhere $q$ is the number of restrictions. A significant F-statistic means at least one of the tested variables has a non-zero effect.\n\n### ANOVA Decomposition\n\n$$\\underbrace{SST}_{\\text{Total}} = \\underbrace{SSR}_{\\text{Regression}} + \\underbrace{SSE}_{\\text{Error}}$$\n\nThe regression sum of squares (SSR) captures explained variation; the error sum of squares (SSE) captures unexplained variation."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A regression of quarterly GDP growth on inflation rate and unemployment rate yields: GDP = 4.2 - 0.6(Inflation) - 1.1(Unemployment). The SE of the unemployment coefficient is 0.4, and there are 80 observations. Test whether unemployment significantly affects GDP growth at the 5% level.",
+      "solution": "The t-statistic for the unemployment coefficient:\n\n$t = \\frac{-1.1 - 0}{0.4} = -2.75$\n\nDegrees of freedom: $n - k - 1 = 80 - 2 - 1 = 77$\n\nThe critical t-value at the 5% significance level (two-tailed) with 77 df is approximately $\\pm 1.99$.\n\nSince $|-2.75| > 1.99$, we reject the null hypothesis $H_0: \\beta_{\\text{unemp}} = 0$.\n\nConclusion: The unemployment rate has a statistically significant negative effect on GDP growth at the 5% level. Each 1 percentage point increase in unemployment is associated with a 1.1 percentage point decrease in GDP growth, holding inflation constant.\n\n95% confidence interval: $-1.1 \\pm 1.99 \\times 0.4 = (-1.896, -0.304)$. The interval does not contain zero, consistent with rejecting the null."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Multiple Regression Analysis",
+      "vignette": "Jennifer Walsh, CFA, is an equity analyst at Pemberton Capital. She is building a multiple regression model to explain quarterly returns for a technology ETF. Her model uses three independent variables: S&P 500 return (X1), change in the 10-year Treasury yield in percentage points (X2), and change in the VIX index (X3). She estimates the model using 60 quarters of data.\n\nHer regression output is as follows:\n\n| Variable | Coefficient | Standard Error | t-Statistic |\n|---|---|---|---|\n| Intercept | 0.008 | 0.004 | 2.00 |\n| X1 (S&P 500) | 1.35 | 0.15 | 9.00 |\n| X2 (Treasury) | -2.10 | 1.20 | -1.75 |\n| X3 (VIX) | -0.04 | 0.01 | -4.00 |\n\nR-squared = 0.82, F-statistic = 85.1, Durbin-Watson = 1.95\n\nThe critical t-value at 5% significance (two-tailed) with 56 degrees of freedom is approximately 2.003.",
+      "problems": [
+        {
+          "id": "qm1-1",
+          "question": "Based on Walsh's regression output, which independent variable is NOT statistically significant at the 5% level?",
+          "options": [
+            "A) X1 (S&P 500 return)",
+            "B) X2 (Change in Treasury yield)",
+            "C) X3 (Change in VIX)"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The t-statistic for X2 is -1.75. The absolute value (1.75) is less than the critical value of 2.003, so we fail to reject the null hypothesis that the coefficient equals zero. X2 is not statistically significant at the 5% level. X1 (|t| = 9.00) and X3 (|t| = 4.00) both exceed the critical value and are significant.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Determine statistical significance using t-statistics"
+        },
+        {
+          "id": "qm1-2",
+          "question": "The coefficient on X1 (S&P 500 return) is best interpreted as: the tech ETF return is expected to increase by 1.35 percentage points for each 1 percentage point increase in the S&P 500 return, holding:",
+          "options": [
+            "A) all other variables at their mean values.",
+            "B) changes in Treasury yields and VIX constant.",
+            "C) the error term equal to zero."
+          ],
+          "correctAnswer": "B",
+          "explanation": "In multiple regression, each slope coefficient measures the partial effect of that variable on the dependent variable, holding all other independent variables constant. The correct interpretation is that the tech ETF return increases by 1.35% for each 1% increase in S&P 500 return, holding changes in Treasury yield and VIX constant. Option A is incorrect because the variables are held constant, not at their means. Option C is incorrect because the interpretation relates to the systematic component of the model.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret regression coefficients in a multiple regression"
+        },
+        {
+          "id": "qm1-3",
+          "question": "Walsh's model has 60 observations and 3 independent variables. The degrees of freedom for the error term is closest to:",
+          "options": [
+            "A) 56",
+            "B) 57",
+            "C) 59"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Degrees of freedom = n - k - 1 = 60 - 3 - 1 = 56, where n is the number of observations, k is the number of independent variables, and the additional 1 accounts for the intercept. Option B (57) incorrectly omits the intercept from the calculation. Option C (59) only subtracts the intercept.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate degrees of freedom in multiple regression"
+        },
+        {
+          "id": "qm1-4",
+          "question": "The F-statistic of 85.1 is used to test the null hypothesis that:",
+          "options": [
+            "A) each individual coefficient is equal to zero.",
+            "B) all slope coefficients are jointly equal to zero.",
+            "C) the intercept is equal to zero."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The overall F-test evaluates the joint hypothesis that all slope coefficients equal zero: H0: beta1 = beta2 = beta3 = 0. A significant F-statistic (85.1 is highly significant) means at least one independent variable has explanatory power. Option A describes individual t-tests, not the F-test. Option C is tested by the t-statistic on the intercept, not the F-statistic.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret the F-statistic in multiple regression"
+        },
+        {
+          "id": "qm1-5",
+          "question": "A 95% confidence interval for the coefficient on X3 (VIX) is closest to:",
+          "options": [
+            "A) (-0.060, -0.020)",
+            "B) (-0.044, -0.036)",
+            "C) (-0.030, -0.010)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The 95% confidence interval is calculated as: coefficient +/- (critical t-value x SE) = -0.04 +/- (2.003 x 0.01) = -0.04 +/- 0.020 = (-0.060, -0.020). Option B uses too narrow an interval (not using the correct critical value). Option C is centered incorrectly.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Construct confidence intervals for regression coefficients"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a t-test and an F-test in the context of multiple regression. When would you use each one, and what question does each answer?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the 'holding other variables constant' interpretation of regression coefficients so important for investment analysis?",
+        "What practical problems might arise if one of the OLS assumptions is violated in a financial model?",
+        "How does understanding ANOVA decomposition help you assess whether a model is useful?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Multiple regression: $Y = \\beta_0 + \\beta_1 X_1 + \\cdots + \\beta_k X_k + \\epsilon$\n- Each coefficient measures the **partial effect** holding other variables constant\n- OLS assumptions: linearity, independence, homoskedasticity, normality, no perfect multicollinearity, exogeneity\n- **t-test**: tests individual coefficient significance with $n - k - 1$ df\n- **F-test**: tests joint significance of multiple coefficients\n- **ANOVA**: SST = SSR + SSE decomposes total variation into explained and unexplained\n- Degrees of freedom = $n - k - 1$"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Evaluating Model Fit** \u2014 how to determine whether your regression model actually explains the variation in the dependent variable well. You will learn about R-squared, adjusted R-squared, and model comparison criteria that build directly on the ANOVA decomposition introduced here."
+    }
+  ]
+}

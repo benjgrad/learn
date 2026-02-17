@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "title": "CI.6: Capital Structure",
+    "description": "Analyze Modigliani-Miller propositions, optimal capital structure, WACC, and methods for estimating the cost of equity and debt.",
+    "level": "level-3",
+    "slug": "corp-capital-structure",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If debt is cheaper than equity (because interest rates are lower than equity returns and interest is tax-deductible), why don't companies finance themselves entirely with debt?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Modigliani-Miller Propositions\n\nThe **Modigliani-Miller (MM) propositions** form the theoretical foundation of capital structure theory.\n\n### MM Proposition I (No Taxes): Capital Structure Irrelevance\n\nIn a world with no taxes, no bankruptcy costs, and perfect capital markets:\n\n$$V_L = V_U$$\n\nThe value of a levered firm ($V_L$) equals the value of an unlevered firm ($V_U$). Capital structure is irrelevant \u2014 the total pie is the same regardless of how it is sliced between debt and equity.\n\n### MM Proposition II (No Taxes): Cost of Equity Increases with Leverage\n\n$$r_E = r_0 + (r_0 - r_D) \\times \\frac{D}{E}$$\n\nWhere $r_0$ is the cost of capital for an all-equity firm, $r_D$ is the cost of debt, and $D/E$ is the debt-to-equity ratio.\n\nAs leverage increases, equity becomes riskier, so equity holders demand a higher return. This exactly offsets the benefit of cheaper debt, keeping WACC constant.\n\n### MM Proposition I (With Taxes)\n\nWhen corporate taxes exist, debt creates a **tax shield** because interest is tax-deductible:\n\n$$V_L = V_U + t_c \\times D$$\n\nThe value of the levered firm exceeds the unlevered firm by the present value of the interest tax shield ($t_c \\times D$ for perpetual debt). This implies firms should use **maximum debt** \u2014 which clearly contradicts reality."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If MM with taxes says firms should use maximum debt, what real-world factors prevent this?",
+      "answer": "Several factors limit debt usage: (1) **Bankruptcy costs** \u2014 as debt increases, the probability of financial distress rises, creating direct costs (legal, administrative) and indirect costs (lost customers, suppliers, and employees). (2) **Agency costs of debt** \u2014 asset substitution, underinvestment, and excessive risk-taking. (3) **Loss of financial flexibility** \u2014 high debt limits the ability to raise capital for future opportunities. (4) **Personal taxes** \u2014 can offset some of the corporate tax advantage of debt. The **trade-off theory** balances the tax benefits of debt against these costs to find an optimal capital structure."
+    },
+    {
+      "type": "markdown",
+      "content": "## Weighted Average Cost of Capital (WACC)\n\nThe **WACC** is the blended cost of a company's financing sources, weighted by their proportions in the **target capital structure**.\n\n$$\\text{WACC} = w_E \\times r_E + w_D \\times r_D \\times (1 - t_c)$$\n\nWhere:\n- $w_E$ = weight of equity = $E / (D + E)$\n- $w_D$ = weight of debt = $D / (D + E)$\n- $r_E$ = cost of equity\n- $r_D$ = cost of debt (pre-tax)\n- $t_c$ = corporate tax rate\n\nThe $(1 - t_c)$ adjustment reflects the tax deductibility of interest.\n\n### Example\n\nA company has 60% equity and 40% debt. Cost of equity = 12%, pre-tax cost of debt = 6%, tax rate = 25%.\n\n$$\\text{WACC} = 0.60 \\times 0.12 + 0.40 \\times 0.06 \\times (1 - 0.25)$$\n$$= 0.072 + 0.018 = 0.090 = 9.0\\%$$\n\n### Optimal Capital Structure\n\nThe **optimal capital structure** minimizes WACC and maximizes firm value. At low levels of debt, increasing leverage reduces WACC (tax shield benefit). Beyond a point, financial distress costs rise faster than tax benefits, and WACC increases. The minimum WACC corresponds to the optimal debt level."
+    },
+    {
+      "type": "markdown",
+      "content": "## Estimating the Cost of Equity and Debt\n\n### Cost of Equity \u2014 CAPM\n\nThe **Capital Asset Pricing Model** is the most commonly used method:\n\n$$r_E = r_f + \\beta \\times (r_m - r_f)$$\n\nWhere $r_f$ is the risk-free rate, $\\beta$ is the stock's systematic risk, and $(r_m - r_f)$ is the equity risk premium.\n\n**Example**: $r_f$ = 4%, $\\beta$ = 1.3, equity risk premium = 6%:\n\n$$r_E = 4\\% + 1.3 \\times 6\\% = 4\\% + 7.8\\% = 11.8\\%$$\n\n### Cost of Equity \u2014 Dividend Discount Model (DDM)\n\n$$r_E = \\frac{D_1}{P_0} + g$$\n\nWhere $D_1$ is next year's expected dividend, $P_0$ is the current stock price, and $g$ is the sustainable growth rate.\n\n**Example**: $D_1$ = $2.50, $P_0$ = $40, $g$ = 5%:\n\n$$r_E = \\frac{2.50}{40} + 0.05 = 0.0625 + 0.05 = 11.25\\%$$\n\n### Cost of Equity \u2014 Bond Yield Plus Risk Premium\n\n$$r_E = r_D + \\text{Risk Premium}$$\n\nAdd a risk premium (typically 3-5%) to the company's own bond yield. Simple but subjective.\n\n### Cost of Debt\n\nThe **yield to maturity** on the company's existing bonds or the rate on new borrowing. The after-tax cost of debt is:\n\n$$r_D \\times (1 - t_c)$$\n\nFor companies without publicly traded bonds, use the yield on comparable-rated bonds."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate WACC for a company with the following information: Market value of equity = $800 million, Market value of debt = $200 million, Risk-free rate = 3%, Beta = 1.2, Equity risk premium = 5.5%, Pre-tax cost of debt = 5%, Corporate tax rate = 21%. Also calculate the cost of equity using CAPM.",
+      "solution": "**Step 1: Calculate capital structure weights**\n\nTotal capital = $800M + $200M = $1,000M\n\n$w_E = \\frac{800}{1{,}000} = 0.80$ (80%)\n\n$w_D = \\frac{200}{1{,}000} = 0.20$ (20%)\n\n**Step 2: Calculate cost of equity using CAPM**\n\n$r_E = r_f + \\beta \\times (r_m - r_f) = 3\\% + 1.2 \\times 5.5\\% = 3\\% + 6.6\\% = 9.6\\%$\n\n**Step 3: Calculate WACC**\n\n$\\text{WACC} = w_E \\times r_E + w_D \\times r_D \\times (1 - t_c)$\n\n$= 0.80 \\times 9.6\\% + 0.20 \\times 5\\% \\times (1 - 0.21)$\n\n$= 7.68\\% + 0.20 \\times 3.95\\%$\n\n$= 7.68\\% + 0.79\\% = 8.47\\%$\n\nThe company's WACC is **8.47%**. This is the minimum return the company must earn on its investments to maintain value for its capital providers."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Capital Structure Practice Problems",
+      "problems": [
+        {
+          "id": "ci6-1",
+          "question": "According to MM Proposition I with taxes, the value of a levered firm exceeds the value of an otherwise identical unlevered firm by:",
+          "options": [
+            "A) the present value of financial distress costs.",
+            "B) the present value of the interest tax shield.",
+            "C) the cost of equity minus the cost of debt."
+          ],
+          "correctAnswer": "B",
+          "explanation": "MM Proposition I with taxes states V_L = V_U + t_c x D. The levered firm's value exceeds the unlevered firm's value by the present value of the tax shield created by the deductibility of interest payments. Financial distress costs (A) are not part of the basic MM framework \u2014 they are introduced by the trade-off theory. The cost difference between equity and debt (C) does not represent a value component.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Describe Modigliani-Miller propositions"
+        },
+        {
+          "id": "ci6-2",
+          "question": "A company's stock has a beta of 1.5. The risk-free rate is 3.5% and the equity risk premium is 6%. Using CAPM, the cost of equity is closest to:",
+          "options": [
+            "A) 9.5%",
+            "B) 12.5%",
+            "C) 14.3%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "r_E = r_f + beta x ERP = 3.5% + 1.5 x 6% = 3.5% + 9.0% = 12.5%. Option A (9.5%) incorrectly uses beta of 1.0. Option C (14.3%) may result from using an incorrect risk-free rate or premium.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate cost of equity using CAPM"
+        },
+        {
+          "id": "ci6-3",
+          "question": "A company has 50% debt and 50% equity. Its pre-tax cost of debt is 7%, cost of equity is 14%, and tax rate is 30%. WACC is closest to:",
+          "options": [
+            "A) 9.45%",
+            "B) 10.50%",
+            "C) 9.80%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "WACC = w_E x r_E + w_D x r_D x (1-t) = 0.50 x 14% + 0.50 x 7% x (1-0.30) = 7.0% + 0.50 x 4.9% = 7.0% + 2.45% = 9.45%. Option B (10.50%) fails to apply the tax adjustment to the cost of debt: 0.50 x 14% + 0.50 x 7% = 10.50%. Option C does not match any standard calculation approach.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate WACC"
+        },
+        {
+          "id": "ci6-4",
+          "question": "According to the trade-off theory, the optimal capital structure is reached when:",
+          "options": [
+            "A) the cost of equity equals the cost of debt.",
+            "B) the marginal tax benefit of debt equals the marginal cost of financial distress.",
+            "C) the firm uses no debt financing."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The trade-off theory states that the optimal capital structure balances the tax benefits of debt against the costs of financial distress. The optimal point is where the marginal benefit of an additional dollar of debt (tax shield) equals the marginal cost (increased probability and cost of financial distress). The cost of equity never equals the cost of debt (A) because equity is riskier. Using no debt (C) would forgo tax benefits entirely, which is suboptimal under the trade-off theory.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Describe the trade-off theory of capital structure"
+        },
+        {
+          "id": "ci6-5",
+          "question": "A stock currently trades at $50 per share and is expected to pay a dividend of $3.00 next year. The dividend growth rate is 4%. Using the dividend discount model, the cost of equity is closest to:",
+          "options": [
+            "A) 4.0%",
+            "B) 10.0%",
+            "C) 6.0%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the DDM: r_E = D_1/P_0 + g = $3.00/$50 + 4% = 6% + 4% = 10.0%. Option A (4%) is just the growth rate. Option C (6%) is just the dividend yield without adding the growth component.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate cost of equity using the dividend discount model"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to someone new to finance why a company cannot simply minimize its cost of capital by using 100% debt (the cheapest source). Walk through the logic from MM without taxes, to MM with taxes, to the trade-off theory."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the cost of equity increase as a company takes on more debt?",
+        "How do you reconcile MM's theoretical predictions with real-world capital structure decisions?",
+        "What are the strengths and limitations of each method for estimating the cost of equity (CAPM, DDM, bond yield plus risk premium)?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **MM I (no taxes)**: $V_L = V_U$ \u2014 capital structure irrelevant\n- **MM II (no taxes)**: $r_E = r_0 + (r_0 - r_D)(D/E)$ \u2014 cost of equity rises with leverage\n- **MM I (with taxes)**: $V_L = V_U + t_c D$ \u2014 debt adds value via tax shield\n- **Trade-off theory**: Optimal structure balances tax shield vs. distress costs\n- **WACC** = $w_E r_E + w_D r_D(1-t_c)$\n- **CAPM**: $r_E = r_f + \\beta(r_m - r_f)$\n- **DDM**: $r_E = D_1/P_0 + g$\n- **Bond yield plus risk premium**: $r_E = r_D + \\text{premium}$\n- After-tax cost of debt: $r_D(1 - t_c)$\n- Optimal capital structure minimizes WACC"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Capital structure determines how a company finances its operations. The next module explores **Business Models** \u2014 how companies actually create, deliver, and capture value. Understanding business models helps analysts assess whether a company's strategy can generate the returns needed to exceed its cost of capital."
+    }
+  ]
+}

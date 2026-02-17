@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "title": "E.5: Ethics Application",
+    "description": "Practice applying the Code of Ethics, Standards of Professional Conduct, and ethical decision-making framework to complex, multi-issue scenarios.",
+    "level": "level-10",
+    "slug": "ethics-application",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Ethical and Professional Standards"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A senior portfolio manager discovers that her firm's star trader has been front-running client orders. She confronts the trader, who says 'everyone does it' and reminds her that he generates 40% of the firm's revenue. Her boss tells her to 'let it go.' What should she do? Walk through every step of your reasoning, including who the stakeholders are and what Standards are involved."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Case Study Approach\n\nThe CFA exam tests ethics primarily through **scenario-based questions**. Success requires a systematic approach, not just knowledge of the Standards.\n\n### Step-by-Step Case Analysis\n\n**Step 1: Read the entire scenario before answering.** Ethical questions often contain details at the end that change the analysis. Avoid jumping to conclusions from the first sentence.\n\n**Step 2: Identify ALL relevant Standards.** Most exam scenarios involve multiple Standards. A common trap is identifying the most obvious violation while missing a subtler one.\n\n**Step 3: Identify the stakeholders.** Who is affected? Clients, the firm, the market, colleagues, the profession? Each stakeholder triggers different duties.\n\n**Step 4: Apply the specific guidance.** What do the Standards say about this exact situation? Focus on the recommended procedures and specific prohibitions.\n\n**Step 5: Eliminate distractors.** On the CFA exam, wrong answers often cite a real Standard that is not relevant to the specific facts, or state a correct principle but apply it incorrectly.\n\n### Common Exam Traps\n\n- Confusing \"fair dealing\" with \"equal dealing\" (different service levels are acceptable)\n- Assuming all gifts violate independence (token/modest gifts generally do not)\n- Thinking local law always takes precedence (CFA standard applies when stricter)\n- Forgetting that suitability is assessed at the **portfolio level**, not the individual security level\n- Confusing the mosaic theory with acting on MNPI"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An analyst receives a text from a friend who works at a biotech company: 'Big day tomorrow, wish us luck!' The analyst knows the company has a drug under FDA review. Can the analyst trade on this information?",
+      "answer": "Probably yes. The text is vague \u2014 'big day' and 'wish us luck' do not convey specific material information. The analyst already knows (from public sources) that the FDA is reviewing the drug, so the fact that something is happening is not nonpublic. However, if the analyst interprets this as confirmation of a specific outcome (e.g., 'they know the approval is coming'), the line gets blurrier. The key test: does the message convey specific, material information that is not available to the public? A vague expression of excitement likely does not cross that threshold, but the analyst should err on the side of caution and consult compliance."
+    },
+    {
+      "type": "markdown",
+      "content": "## Common Ethical Scenarios\n\n### Conflicts of Interest\nConflicts are the most frequently tested area. Key patterns:\n- Analyst covers a company where she owns stock (must disclose per VI(A))\n- Portfolio manager's compensation is tied to assets under management, creating incentive to gather assets rather than optimize returns (must disclose)\n- Financial advisor receives referral fees for recommending certain products (must disclose per VI(C))\n\n**The rule:** Conflicts do not need to be eliminated \u2014 they need to be **disclosed** in a manner that allows clients to evaluate the potential impact.\n\n### Material Nonpublic Information\n- The \"materiality\" test: Would a reasonable investor consider this information important?\n- The \"nonpublic\" test: Has the information been broadly disseminated to the marketplace?\n- Mosaic theory is a legitimate defense only when no single piece of information is both material AND nonpublic\n- If you receive MNPI, you should: (1) not trade, (2) not communicate the info to others, (3) contact compliance\n\n### Fair Dealing and Suitability\n- All clients must receive investment recommendations at approximately the same time\n- IPO allocations must follow a documented, fair process (typically pro-rata)\n- Suitability requires understanding the client's full financial picture before recommending investments\n- An investment unsuitable on its own may be suitable within a diversified portfolio context"
+    },
+    {
+      "type": "markdown",
+      "content": "## Whistleblowing and Escalation\n\nWhen you discover or suspect a violation:\n\n**1. Attempt to resolve internally first:**\n- Speak with the person involved (if appropriate)\n- Escalate to your supervisor\n- Report to the compliance department\n- Escalate to senior management or the board if compliance is unresponsive\n\n**2. External reporting:**\n- If the firm fails to act, you may need to report to regulatory authorities\n- In some jurisdictions, you may be legally required to report certain violations\n- Standard I(A) may require dissociation \u2014 you cannot continue participating in the violating activity\n- **Dissociation may include resignation** if the firm refuses to address the violation\n\n**3. Reporting to CFA Institute:**\n- Members have an obligation to cooperate with CFA Institute's Professional Conduct Program\n- CFA Institute investigates complaints through its Disciplinary Review Committee\n- Sanctions range from private censure to permanent revocation of the CFA charter\n\n### The Reporting Obligation\n\nA common misconception: Standard I(A) does not explicitly require you to report violations by others to regulatory authorities or CFA Institute. It does require you to:\n- Not participate in the violation\n- Attempt to stop the violation through appropriate internal channels\n- Dissociate from the activity if it continues\n\nHowever, applicable law may independently require reporting, and members must comply with the stricter standard."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Multi-Issue Case Study: Read the following scenario and identify ALL Standards that are violated, by whom, and what the correct course of action should be.\n\nAlex Rivera, CFA, is a portfolio manager at Pinnacle Wealth Advisors. Consider the following facts:\n\n(a) Alex manages both the firm's Growth Fund (a pooled fund) and separate accounts for high-net-worth individuals.\n\n(b) Alex's brother-in-law, who is CFO of TechCorp, tells Alex at a family dinner that TechCorp will announce a major acquisition next week. Alex does not trade on this information in client accounts, but he does tell his colleague, Beth, about the acquisition without mentioning the source.\n\n(c) Beth, not knowing the information is MNPI, buys TechCorp shares for her personal account.\n\n(d) Alex recently published a research report on TechCorp. The report uses a valuation model from a well-known research firm, but Alex presents the analysis as his own.\n\n(e) When Pinnacle allocates a hot IPO, Alex gives his high-net-worth separate account clients first priority, then the Growth Fund receives any remaining allocation.",
+      "solution": "**(b) Alex violates Standard II(A) \u2014 Material Nonpublic Information.** Even though Alex did not trade himself, he \"caused others to act\" on MNPI by telling Beth about the acquisition. The information is clearly material (an acquisition would affect TechCorp's stock price) and nonpublic (learned at a private family dinner).\n\n**(c) Beth likely does not violate Standard II(A)** because she did not know the information was MNPI. However, she may have failed to exercise adequate diligence in questioning the source of the tip. If she had reason to suspect the information was MNPI (e.g., Alex mentioned his brother-in-law works at TechCorp), she could be held to a higher standard.\n\n**(d) Alex violates Standard I(C) \u2014 Misrepresentation (plagiarism).** Presenting another firm's valuation model as his own, without attribution, constitutes misrepresentation regardless of whether the underlying analysis is correct.\n\n**(e) Alex violates Standard III(B) \u2014 Fair Dealing.** By systematically giving high-net-worth clients priority over the pooled fund, Alex is not dealing fairly with all clients. IPO allocations should be distributed on a pro-rata or other documented fair basis across all participating accounts.\n\n**Correct course of action for Alex regarding the MNPI:** He should have (1) not shared the information with anyone, (2) reported the situation to Pinnacle's compliance department, and (3) placed TechCorp on the firm's restricted list until the information became public."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Ethics Application Practice Problems",
+      "problems": [
+        {
+          "id": "e5-1",
+          "question": "Karen Okafor, CFA, is a financial advisor. A long-time client, Mr. Tanaka, asks Karen to invest his entire retirement portfolio in a single cryptocurrency because his neighbor made a fortune doing so. Mr. Tanaka's IPS specifies a conservative risk tolerance and a need for stable income. Karen believes cryptocurrency is unsuitable but wants to keep Mr. Tanaka as a client. What is the most appropriate action?",
+          "options": [
+            "A) Execute the trade because Mr. Tanaka has explicitly requested it and it is his money.",
+            "B) Refuse to make the investment, explain why it is inconsistent with his IPS, and document the conversation.",
+            "C) Invest a small portion (5%) in cryptocurrency as a compromise and invest the rest conservatively."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under Standard III(C) \u2014 Suitability, Karen must ensure investments are consistent with the client's IPS. Investing an entire retirement portfolio in a single speculative asset directly contradicts a conservative risk tolerance and income need. Karen should refuse, explain why, and document the discussion. If Mr. Tanaka insists after being fully informed, Karen should consider whether to continue the relationship. Option A is incorrect because client requests do not override suitability obligations for discretionary accounts. Even for non-discretionary accounts, Karen has a duty to advise against unsuitable investments. Option C may seem like a reasonable compromise but does not address the fundamental suitability concern \u2014 the client requested 100% allocation, and a 5% allocation does not fulfill the request while pretending to.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Apply suitability requirements when client requests conflict with the investment policy statement"
+        },
+        {
+          "id": "e5-2",
+          "question": "Roberto Garcia, CFA, is a buy-side analyst. During a site visit to a manufacturing company he covers, the CEO casually mentions: 'We just signed a contract with a major automaker, but we can't announce it until next month.' Roberto had already been building a bullish thesis on the company based on public industry data and competitor announcements. Which of the following is most appropriate?",
+          "options": [
+            "A) Roberto may continue with his original recommendation because his thesis was developed before receiving the MNPI.",
+            "B) Roberto should place the stock on the firm's restricted list and refrain from trading or making recommendations until the information is public.",
+            "C) Roberto may apply the mosaic theory because his thesis is based primarily on public information."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Once Roberto possesses material nonpublic information (a signed contract with a major automaker, not yet announced), he must refrain from trading or recommending the stock until the information becomes public. Standard II(A) applies regardless of when his thesis was developed. Option A is incorrect because the timing of the thesis development does not matter \u2014 once you have MNPI, you cannot act on it. Option C incorrectly applies the mosaic theory. The mosaic theory allows combining public information with non-material nonpublic information. The contract information is clearly material (it would affect a reasonable investor's decision), so the mosaic theory does not apply here.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Determine the appropriate course of action when an analyst inadvertently receives MNPI"
+        },
+        {
+          "id": "e5-3",
+          "question": "Helena Park, CFA, discovers that her firm's head of trading has been systematically executing personal trades in small-cap stocks minutes before executing the same trades for client accounts. Helena raises the issue with her supervisor, who tells her: 'He brings in too much revenue. Don't worry about it.' What should Helena do next?",
+          "options": [
+            "A) Accept her supervisor's judgment because supervisors bear the ultimate compliance responsibility.",
+            "B) Escalate the matter to the firm's compliance department or senior management, and if the firm takes no action, consider whether she must dissociate from the activity.",
+            "C) Report the trading directly to the securities regulator without first exhausting internal channels."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under Standard I(A) \u2014 Knowledge of the Law, when a member discovers a violation that the immediate supervisor will not address, the member should escalate internally \u2014 first to compliance, then to senior management or the board. If the firm still takes no action, the member must consider dissociating from the activity, which may include resignation. Option A is incorrect because a supervisor's refusal to act does not relieve Helena of her own obligations under the Standards. Option C is premature \u2014 while regulatory reporting may ultimately be necessary, the Standards require that internal channels be exhausted first (unless the violation involves illegal activity that requires immediate external reporting under applicable law).",
+          "difficulty": "advanced",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Apply the escalation and dissociation requirements under Standard I(A)"
+        },
+        {
+          "id": "e5-4",
+          "question": "A CFA candidate creates a study blog where she posts detailed summaries of CFA exam questions she remembers from the exam she just took, including specific numbers and answer choices. Which Standard does this most directly violate?",
+          "options": [
+            "A) Standard I(C) \u2014 Misrepresentation",
+            "B) Standard VII(A) \u2014 Conduct as Participants in CFA Institute Programs",
+            "C) Standard I(D) \u2014 Misconduct"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Standard VII(A) specifically prohibits conduct that compromises the reputation or integrity of CFA Institute or the CFA designation. Sharing specific exam content violates the exam confidentiality agreement and compromises exam integrity. This is the most directly applicable standard. Option A (Misrepresentation) is not applicable because the candidate is not misrepresenting her qualifications or analysis. Option C (Misconduct) covers dishonesty and fraud broadly, but Standard VII(A) is the specific standard designed for conduct related to CFA Institute programs.",
+          "difficulty": "basic",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Identify violations related to CFA exam integrity and candidate conduct"
+        },
+        {
+          "id": "e5-5",
+          "question": "Michael Torres, CFA, is a financial advisor who receives a $5,000 referral fee from a private equity fund each time he directs a client to invest in the fund. Michael discloses the referral fee arrangement in a footnote on page 47 of his firm's 60-page compliance manual, which all clients receive. Has Michael satisfied his obligations under Standard VI(C)?",
+          "options": [
+            "A) Yes, because the disclosure is in writing and provided to all clients.",
+            "B) No, because referral fees must be disclosed prominently and in a manner that clients are likely to understand and notice.",
+            "C) No, because referral fee arrangements are prohibited under the Standards regardless of disclosure."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Standard VI(C) \u2014 Referral Fees requires disclosure that is meaningful and effective. Burying the disclosure in a footnote on page 47 of a 60-page document does not constitute adequate disclosure because clients are unlikely to notice or understand it. Disclosure must be prominent enough for clients to evaluate whether the referral fee creates a conflict that might affect Michael's objectivity. Option A is technically accurate in that the disclosure exists, but the Standards require disclosure that is actually effective, not merely present. Option C is incorrect because referral fees are not prohibited \u2014 they must be disclosed so clients can assess potential conflicts.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Evaluate whether a disclosure of referral fees meets the requirements of Standard VI(C)"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Walk through the escalation process that a CFA member should follow when they discover a colleague is violating the Standards. Explain each step, why the order matters, and at what point dissociation (including possible resignation) becomes necessary."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In the multi-issue case study above, which violation do you think would be hardest to detect in practice, and why?",
+        "Why does the CFA Institute require internal escalation before external reporting? Can you think of situations where this order should be reversed?",
+        "How do you distinguish between a genuine application of the mosaic theory and a rationalization for trading on MNPI?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts for Ethics Application:**\n\n- **Read the entire scenario** before answering \u2014 details at the end often change the analysis\n- **Identify ALL relevant Standards** \u2014 exam scenarios typically involve multiple violations\n- **Conflicts must be disclosed**, not necessarily eliminated\n- **MNPI test:** Is it material (would a reasonable investor care)? Is it nonpublic (not broadly disseminated)?\n- **Mosaic theory defense fails** if any single piece of information is both material AND nonpublic\n- **Suitability is assessed at the portfolio level**, not the individual security level\n- **Fair dealing \u2260 equal dealing** \u2014 different service levels are acceptable if disclosed\n- **Escalation order:** Direct conversation \u2192 Supervisor \u2192 Compliance \u2192 Senior management \u2192 Dissociation\n- **Disclosure must be effective** \u2014 burying disclosures in fine print does not satisfy the Standards\n- **Standard VII(A)** prohibits sharing specific CFA exam content"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module is the **Ethics Checkpoint** \u2014 a comprehensive assessment that tests your ability to apply everything from this topic area: the ethical decision-making framework, the Code of Ethics, all seven Standards, GIPS, and scenario-based analysis. Treat it like a mini-exam for the Ethics section."
+    }
+  ]
+}

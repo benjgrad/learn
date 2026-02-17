@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "AA.3: Overview of Asset Allocation",
+    "description": "Understand the three major approaches to asset allocation \u2014 asset-only, liability-relative, and goals-based \u2014 along with strategic vs. tactical implementation.",
+    "level": "level-1",
+    "slug": "aa-overview",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Asset Allocation"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A defined-benefit pension fund and an individual saving for retirement both need to allocate assets. Would you use the same approach for each? Why or why not?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Three Approaches to Asset Allocation\n\n### 1. Asset-Only Approach\n\nFocuses on the **asset portfolio** in isolation, seeking to maximize risk-adjusted returns without explicit reference to liabilities or spending goals.\n\n- **Primary tool**: Mean-variance optimization (MVO)\n- **Risk measure**: Portfolio standard deviation or VaR\n- **Best suited for**: Investors without explicit liabilities (endowments, individuals in accumulation)\n- **Limitation**: Ignores the interaction between assets and obligations\n\n### 2. Liability-Relative Approach\n\nExplicitly considers the relationship between **assets and liabilities** (or obligations).\n\n- **Objective**: Minimize surplus risk or fund the liability stream\n- **Risk measure**: Surplus volatility = \u03c3(Assets \u2212 Liabilities)\n- **Best suited for**: DB pension funds, insurance companies, banks\n- **Key methods**:\n  - **Surplus optimization**: MVO applied to surplus (A \u2212 L)\n  - **Liability-driven investing (LDI)**: Duration-match assets to liabilities\n  - **Hedging/return-seeking portfolio**: Split assets into a liability-hedging portfolio and a return-seeking portfolio\n\n### 3. Goals-Based Approach\n\nSegments the portfolio into **sub-portfolios** aligned with specific goals, each with a probability of success.\n\n- **Objective**: Maximize probability of achieving each goal\n- **Best suited for**: Individual investors, private wealth clients, family offices\n- **Structure**: Mental accounting layers\n  - **Essential goals** (needs): High probability, conservative allocation\n  - **Important goals** (wants): Moderate probability, balanced allocation\n  - **Aspirational goals** (wishes): Lower probability, aggressive allocation"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A university endowment with no explicit liabilities but a 5% annual spending requirement is deciding on an asset allocation approach. Which of the three approaches is most appropriate?",
+      "answer": "The asset-only approach is most commonly used, as endowments have no explicit liabilities in the traditional sense. However, a strong case can be made for a hybrid: the spending requirement could be treated as a liability-like obligation (liability-relative), or the endowment could adopt a goals-based framework with goals like 'maintain real purchasing power' (essential) and 'grow to support new programs' (aspirational). In practice, most endowments use asset-only MVO with a return target at least equal to spending rate + inflation + costs."
+    },
+    {
+      "type": "markdown",
+      "content": "## Strategic vs. Tactical Asset Allocation\n\n| Feature | Strategic AA (SAA) | Tactical AA (TAA) |\n|---|---|---|\n| **Time horizon** | Long-term (5-10+ years) | Short-term (months to 1-2 years) |\n| **Basis** | Long-run CMEs, investor objectives | Short-term market views, mispricings |\n| **Frequency of change** | Infrequent (annual review) | Frequent (monthly/quarterly) |\n| **Risk budget** | Defines the policy portfolio | Uses a portion of total risk budget |\n| **Benchmark** | Represents the investor's policy weights | SAA policy weights are the benchmark |\n\n### Implementation Approaches\n\n| Approach | Description | Characteristics |\n|---|---|---|\n| **Passive** | Track the SAA benchmark weights | Low cost, low tracking error, no manager alpha |\n| **Active** | Deviate from benchmark to generate alpha | Higher cost, higher tracking error, requires skill |\n| **Semi-active (enhanced index)** | Small, controlled deviations from benchmark | Moderate cost, modest tracking error |\n\n## Asset Classes and Sub-Classes\n\n### Criteria for Defining an Asset Class\n1. Assets should be **relatively homogeneous**\n2. Asset classes should be **mutually exclusive**\n3. Asset classes should be **diversifying** (not perfectly correlated)\n4. Together, asset classes should make up a **preponderance** of investable wealth\n5. Each class should have **sufficient capacity** to absorb meaningful allocation\n\n### Currency Considerations\n\n- Currency exposure is a **separate risk factor** from asset class returns\n- Strategic currency hedging policy is part of SAA\n- Partial hedging is common (50-100% of foreign exposure)\n- Currency as a separate return source for TAA"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Selecting an Asset Allocation Approach",
+      "solution": "**Part A \u2014 Appropriate approach for each client:**\n\n**Corporate DB pension fund (80% funded):** Liability-relative approach. The fund has explicit, quantifiable liabilities (pension obligations). Being underfunded (80%) makes surplus risk management critical. A hedging/return-seeking portfolio structure would be appropriate: the hedging portfolio matches liability duration (predominantly long-duration bonds), while the return-seeking portfolio targets the return needed to close the funding gap.\n\n**High-net-worth individual, age 55, planning for retirement at 65:** Goals-based approach. The individual has multiple goals with different time horizons and priority levels:\n- Essential: Maintain living standard in retirement (high probability target, conservative sub-portfolio)\n- Important: Fund children's education, travel (moderate probability, balanced)\n- Aspirational: Leave significant legacy, philanthropic impact (lower probability, growth-oriented)\n\n**Sovereign wealth fund with intergenerational mandate:** Asset-only approach. The fund has no explicit liabilities, an extremely long time horizon, and an objective to maximize long-term real returns for future generations. MVO with constraints (liquidity, ESG) is appropriate, potentially enhanced with factor-based allocation given the fund's capacity to bear illiquidity.\n\n**Part B \u2014 Why the DB fund should not use asset-only:**\n\nAn asset-only approach for the DB fund would ignore the critical relationship between asset returns and liability movements. If both assets and liabilities are sensitive to interest rates, an asset-only optimization might recommend a portfolio that maximizes asset-only Sharpe ratio but has poor surplus risk characteristics \u2014 for example, overweighting equities while liabilities remain rate-sensitive. When rates fall, liabilities grow while the equity-heavy portfolio does not offset this. Surplus optimization ensures the asset portfolio hedges the liability exposure, reducing the risk of funding shortfalls."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Asset Allocation Overview Practice",
+      "problems": [
+        {
+          "id": "l3-aa3-1",
+          "question": "A defined-benefit pension fund with 90% funding ratio and significant rate-sensitive liabilities should most appropriately use which asset allocation approach?",
+          "options": [
+            "A) Asset-only",
+            "B) Liability-relative",
+            "C) Goals-based"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A DB pension fund has explicit liabilities (pension obligations) that are sensitive to interest rate movements. The liability-relative approach explicitly manages the surplus (assets \u2212 liabilities) and ensures the asset portfolio hedges liability risks. An asset-only approach (A) would ignore the critical asset-liability interaction. Goals-based (C) is more appropriate for individual investors with multiple qualitative goals.",
+          "difficulty": "basic",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Recommend an appropriate asset allocation approach for a given investor"
+        },
+        {
+          "id": "l3-aa3-2",
+          "question": "Which of the following is least likely a valid criterion for defining an asset class in a strategic asset allocation?",
+          "options": [
+            "A) Assets within the class should be relatively homogeneous",
+            "B) The asset class should have generated positive historical returns",
+            "C) The asset class should provide diversification benefits"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The criteria for defining an asset class include: homogeneity (A), mutual exclusivity, diversification benefits (C), preponderance of investable wealth, and sufficient capacity. Historical positive returns (B) is NOT a criterion \u2014 an asset class can be valid for diversification or hedging purposes even if its unconditional expected return is low (e.g., commodities, TIPS).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe criteria for defining asset classes"
+        },
+        {
+          "id": "l3-aa3-3",
+          "question": "In a goals-based asset allocation framework, a client's 'essential' goals sub-portfolio would most likely be characterized by:",
+          "options": [
+            "A) High expected return and high volatility to maximize long-term growth",
+            "B) High probability of success and conservative asset allocation",
+            "C) Equal allocation across all asset classes to maximize diversification"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In goals-based allocation, essential goals (needs \u2014 basic living expenses, fixed obligations) require the highest probability of achievement, which means conservative allocation with lower volatility. This sub-portfolio prioritizes safety and certainty over growth. High return/volatility (A) is appropriate for aspirational goals. Equal allocation (C) is not a principle of goals-based allocation.",
+          "difficulty": "basic",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe the goals-based approach to asset allocation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between asset-only, liability-relative, and goals-based asset allocation to a board of trustees. Use a specific example for each to illustrate when each approach is most appropriate."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the choice of asset allocation approach affect the types of risk being managed?",
+        "Can you think of situations where a hybrid of two approaches would be most appropriate?",
+        "Why is strategic asset allocation considered the most important driver of long-term portfolio returns?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Asset-only**: Maximize risk-adjusted return; best for investors without explicit liabilities\n- **Liability-relative**: Manage surplus risk (A \u2212 L); best for DB pensions, insurance\n- **Goals-based**: Sub-portfolios per goal with target probabilities; best for individuals\n- **SAA** = long-term policy weights; **TAA** = short-term deviations based on market views\n- **Implementation**: passive, active, or semi-active (enhanced index)\n- Asset class criteria: homogeneous, mutually exclusive, diversifying, sufficient capacity\n- Currency is a separate risk factor requiring a strategic hedging decision"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Principles of Asset Allocation** \u2014 the quantitative methods used to implement these approaches, including MVO, Black-Litterman, risk budgeting, and Monte Carlo simulation."
+    }
+  ]
+}

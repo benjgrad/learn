@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "ECON: Economics Practice Drill",
+    "description": "20 practice problems covering all Economics topics.",
+    "level": "level-2",
+    "slug": "econ-practice",
+    "order": 9,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Economics Practice Drill\n\nThis set contains 20 problems across all Economics topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "econ-p-001",
+          "question": "When the government imposes a price ceiling below the equilibrium price, the most likely result is:",
+          "options": [
+            "A) A surplus of the good",
+            "B) A shortage of the good",
+            "C) No change in quantity supplied or demanded"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A price ceiling set below the equilibrium price creates a shortage because the quantity demanded at the lower price exceeds the quantity supplied. Producers are less willing to supply at the artificially low price, while consumers demand more. A price ceiling above equilibrium would have no effect; a price floor above equilibrium would create a surplus.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe the effects of price ceilings and price floors on market outcomes."
+        },
+        {
+          "id": "econ-p-002",
+          "question": "A firm in a perfectly competitive market faces a horizontal demand curve at $P = \\$20$. Its total cost function is $TC = 50 + 5Q + 0.5Q^2$. What is the profit-maximizing output?",
+          "options": [
+            "A) 15 units",
+            "B) 20 units",
+            "C) 30 units"
+          ],
+          "correctAnswer": "A",
+          "explanation": "In perfect competition, the firm maximizes profit where $P = MC$.\n\n$$MC = \\frac{dTC}{dQ} = 5 + Q$$\n\nSetting $P = MC$:\n\n$$20 = 5 + Q \\implies Q = 15$$\n\nAt $Q = 15$: Revenue = $20 \\times 15 = \\$300$. Total cost = $50 + 5(15) + 0.5(15)^2 = 50 + 75 + 112.5 = \\$237.50$. Profit = $\\$62.50$.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Determine profit-maximizing output for a perfectly competitive firm."
+        },
+        {
+          "id": "econ-p-003",
+          "question": "The natural rate of unemployment includes:",
+          "options": [
+            "A) Only frictional unemployment",
+            "B) Frictional and structural unemployment",
+            "C) Frictional, structural, and cyclical unemployment"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The natural rate of unemployment consists of frictional unemployment (workers transitioning between jobs) and structural unemployment (mismatch between workers' skills and job requirements). Cyclical unemployment results from economic downturns and is not included in the natural rate. At the natural rate, the economy is considered to be at full employment.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe the components of the natural rate of unemployment."
+        },
+        {
+          "id": "econ-p-004",
+          "question": "A monopolist faces a demand curve $P = 100 - 2Q$ and has a marginal cost of $MC = 20$. What price will the monopolist charge to maximize profit?",
+          "options": [
+            "A) $60",
+            "B) $40",
+            "C) $20"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The monopolist maximizes profit where $MR = MC$. Total revenue is $TR = PQ = (100 - 2Q)Q = 100Q - 2Q^2$.\n\n$$MR = \\frac{dTR}{dQ} = 100 - 4Q$$\n\nSetting $MR = MC$:\n\n$$100 - 4Q = 20 \\implies Q = 20$$\n\nSubstituting back: $P = 100 - 2(20) = \\$60$.\n\nNote the deadweight loss: in perfect competition, $P = MC = 20$ and $Q = 40$, yielding greater total surplus.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate profit-maximizing price and quantity for a monopolist."
+        },
+        {
+          "id": "econ-p-005",
+          "question": "According to the quantity theory of money, if the money supply increases by 8%, velocity is constant, and real GDP grows by 3%, the expected inflation rate is approximately:",
+          "options": [
+            "A) 5%",
+            "B) 8%",
+            "C) 11%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The quantity theory of money states: $MV = PY$, which in growth rate form becomes:\n\n$$\\%\\Delta M + \\%\\Delta V = \\%\\Delta P + \\%\\Delta Y$$\n\nWith $\\%\\Delta V = 0$:\n\n$$8\\% + 0\\% = \\%\\Delta P + 3\\% \\implies \\%\\Delta P = 5\\%$$\n\nInflation equals money supply growth minus real GDP growth when velocity is constant.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the quantity theory of money to estimate inflation."
+        },
+        {
+          "id": "econ-p-006",
+          "question": "An expansionary fiscal policy that increases government spending financed by borrowing is most likely to cause:",
+          "options": [
+            "A) Lower interest rates and a depreciation of the domestic currency",
+            "B) Higher interest rates and an appreciation of the domestic currency",
+            "C) Higher interest rates and a depreciation of the domestic currency"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Expansionary fiscal policy financed by borrowing increases demand for loanable funds, pushing interest rates higher (crowding out effect). Higher domestic interest rates attract foreign capital inflows, increasing demand for the domestic currency and causing it to appreciate. This is the standard 'twin deficits' dynamic \u2014 fiscal expansion can lead to both a budget deficit and a trade deficit (as the stronger currency reduces exports).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Analyze the effects of fiscal policy on interest rates and exchange rates."
+        },
+        {
+          "id": "econ-p-007",
+          "question": "The spot exchange rate is USD/EUR = 1.1200 (1 EUR costs 1.1200 USD). The one-year interest rate is 4% in the US and 2% in Europe. According to covered interest rate parity, the one-year forward rate (USD/EUR) is closest to:",
+          "options": [
+            "A) 1.1419",
+            "B) 1.0985",
+            "C) 1.1420"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Covered interest rate parity states:\n\n$$F = S \\times \\frac{1 + r_d}{1 + r_f} = 1.1200 \\times \\frac{1 + 0.04}{1 + 0.02} = 1.1200 \\times \\frac{1.04}{1.02}$$\n\n$$= 1.1200 \\times 1.01961 = 1.1420$$\n\nThe higher interest rate currency (USD) trades at a forward premium in direct quote terms \u2014 the euro costs more USD forward than spot, reflecting the interest rate differential.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate forward exchange rates using covered interest rate parity."
+        },
+        {
+          "id": "econ-p-008",
+          "question": "In an oligopolistic market, the kinked demand curve model predicts that:",
+          "options": [
+            "A) Firms will frequently change prices in response to cost changes.",
+            "B) Prices tend to be rigid because firms believe rivals will match price cuts but not price increases.",
+            "C) Firms always collude to maximize joint profits."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The kinked demand curve model explains price rigidity in oligopolies. A firm believes that if it raises its price, competitors will not follow (demand is elastic above the current price), but if it lowers its price, competitors will match the cut (demand is inelastic below the current price). This creates a kink at the current price and a discontinuity in the marginal revenue curve, meaning moderate changes in marginal cost may not alter the profit-maximizing price.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe the kinked demand curve model and its implications for oligopolistic pricing."
+        },
+        {
+          "id": "econ-p-009",
+          "question": "If a country's nominal GDP is $800 billion and its real GDP is $750 billion (base year prices), the GDP deflator is closest to:",
+          "options": [
+            "A) 93.75",
+            "B) 106.67",
+            "C) 6.67"
+          ],
+          "correctAnswer": "B",
+          "explanation": "$$\\text{GDP Deflator} = \\frac{\\text{Nominal GDP}}{\\text{Real GDP}} \\times 100 = \\frac{800}{750} \\times 100 = 106.67$$\n\nThis indicates that the overall price level has increased by approximately 6.67% relative to the base year.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate and interpret the GDP deflator."
+        },
+        {
+          "id": "econ-p-010",
+          "question": "According to the theory of comparative advantage, a country should export goods for which it has:",
+          "options": [
+            "A) The lowest absolute cost of production",
+            "B) The lowest opportunity cost of production",
+            "C) The highest labor productivity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Comparative advantage is based on relative opportunity costs, not absolute costs. A country benefits from trade by specializing in and exporting goods for which it has the lowest opportunity cost \u2014 even if it is less efficient in absolute terms than its trading partner in producing that good. This is the key distinction between comparative advantage (Ricardo) and absolute advantage (Smith).",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Distinguish between absolute and comparative advantage in international trade."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "econ-p-011",
+          "question": "A central bank lowers the policy rate from 3.5% to 2.0%. According to the transmission mechanism, the most immediate effect is on:",
+          "options": [
+            "A) Long-term government bond yields",
+            "B) Short-term interbank lending rates",
+            "C) Consumer price inflation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The monetary policy transmission mechanism begins with short-term rates. When the central bank lowers the policy rate, short-term interbank lending rates (like SOFR or the federal funds rate) fall almost immediately. This then transmits to longer-term rates, asset prices, lending conditions, aggregate demand, and eventually inflation \u2014 but those effects occur with longer and more variable lags.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe the monetary policy transmission mechanism."
+        },
+        {
+          "id": "econ-p-012",
+          "question": "Country A has a current account deficit of $50 billion. Assuming no errors or omissions and no changes in official reserves, the capital account balance must be:",
+          "options": [
+            "A) A surplus of $50 billion",
+            "B) A deficit of $50 billion",
+            "C) Zero"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The balance of payments must sum to zero: $\\text{Current Account} + \\text{Capital Account} + \\text{Financial Account} = 0$ (ignoring statistical discrepancies). If the current account has a deficit of $50 billion, the capital and financial account combined must have a surplus of $50 billion. In simplified two-account analysis, a current account deficit is offset by a capital account surplus \u2014 meaning the country is a net borrower from abroad.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the balance of payments identity to relate current and capital accounts."
+        },
+        {
+          "id": "econ-p-013",
+          "question": "An economy is at full employment. The government increases spending without raising taxes. According to the AD-AS model, the most likely short-run outcome is:",
+          "options": [
+            "A) Higher output and higher price level",
+            "B) Higher output and lower price level",
+            "C) No change in output or price level"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Starting from full employment (long-run equilibrium), an increase in government spending shifts the aggregate demand (AD) curve to the right. In the short run, with the short-run aggregate supply (SRAS) curve upward-sloping, this leads to both higher output (above potential GDP) and a higher price level. In the long run, wages and input costs adjust upward, shifting SRAS left, returning output to potential but at a permanently higher price level.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Analyze the short-run effects of fiscal policy using the AD-AS model."
+        },
+        {
+          "id": "econ-p-014",
+          "question": "The cross-price elasticity of demand between goods X and Y is \u22121.5. This indicates that X and Y are:",
+          "options": [
+            "A) Substitutes",
+            "B) Complements",
+            "C) Unrelated goods"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Cross-price elasticity of demand measures the percentage change in quantity demanded of good X in response to a percentage change in the price of good Y:\n\n$$E_{XY} = \\frac{\\%\\Delta Q_X}{\\%\\Delta P_Y}$$\n\nA negative cross-price elasticity (\u22121.5) indicates that when the price of Y increases, the quantity demanded of X decreases \u2014 they are complements (used together). Substitutes have positive cross-price elasticity; unrelated goods have zero.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Interpret cross-price elasticity to classify goods as substitutes or complements."
+        },
+        {
+          "id": "econ-p-015",
+          "question": "Under a fixed exchange rate regime, if a country experiences persistent current account deficits and downward pressure on its currency, the central bank will most likely need to:",
+          "options": [
+            "A) Buy its own currency using foreign reserves, reducing the domestic money supply",
+            "B) Sell its own currency, increasing the domestic money supply",
+            "C) Raise import tariffs to reduce the deficit"
+          ],
+          "correctAnswer": "A",
+          "explanation": "To defend a fixed exchange rate against depreciation pressure, the central bank must buy its own currency by selling foreign reserves. This reduces the domestic money supply (contractionary effect), raises short-term interest rates, and helps support the currency. However, this is only sustainable as long as the central bank has sufficient foreign reserves. Persistent deficits may eventually force a devaluation.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain how central banks defend fixed exchange rates."
+        },
+        {
+          "id": "econ-p-016",
+          "question": "The Taylor rule suggests a target policy rate based on inflation and output gaps. If the neutral real rate is 2%, the current inflation rate is 4%, the inflation target is 2%, and the output gap is \u22121% (below potential), the Taylor rule target rate is closest to:",
+          "options": [
+            "A) 5.5%",
+            "B) 6.5%",
+            "C) 4.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Taylor rule:\n\n$$i = r^* + \\pi + 0.5(\\pi - \\pi^*) + 0.5(y - y^*)$$\n\nwhere $r^* = 2\\%$, $\\pi = 4\\%$, $\\pi^* = 2\\%$, $(y - y^*) = -1\\%$:\n\n$$i = 2\\% + 4\\% + 0.5(4\\% - 2\\%) + 0.5(-1\\%) = 2\\% + 4\\% + 1\\% - 0.5\\% = 6.5\\%$$",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the Taylor rule to determine the appropriate policy interest rate."
+        },
+        {
+          "id": "econ-p-017",
+          "question": "A country with a floating exchange rate implements quantitative easing (QE). The most likely effect on the exchange rate is:",
+          "options": [
+            "A) Appreciation of the domestic currency",
+            "B) Depreciation of the domestic currency",
+            "C) No change in the exchange rate"
+          ],
+          "correctAnswer": "B",
+          "explanation": "QE increases the money supply and lowers domestic interest rates, making domestic assets less attractive to foreign investors. Capital outflows increase, reducing demand for the domestic currency and causing depreciation. This is a key channel through which QE stimulates the economy \u2014 a weaker currency boosts exports and makes imports more expensive, shifting demand toward domestically produced goods.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Analyze the exchange rate effects of unconventional monetary policy."
+        },
+        {
+          "id": "econ-p-018",
+          "question": "Geopolitical risk typically affects financial markets through all of the following channels EXCEPT:",
+          "options": [
+            "A) Higher risk premiums on affected assets",
+            "B) Supply chain disruptions affecting commodity prices",
+            "C) Reduction in the natural rate of unemployment"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Geopolitical risk affects markets through: (1) increased risk premiums and uncertainty, (2) supply chain and commodity price disruptions, (3) trade restrictions and sanctions, (4) capital flow shifts to safe havens. It does not directly reduce the natural rate of unemployment \u2014 if anything, geopolitical disruptions can increase structural unemployment through trade dislocations and industry shifts.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Identify the channels through which geopolitical risk affects financial markets."
+        },
+        {
+          "id": "econ-p-019",
+          "question": "The J-curve effect describes what happens to a country's trade balance after a currency depreciation. In the short run:",
+          "options": [
+            "A) The trade balance improves immediately because exports become cheaper",
+            "B) The trade balance initially worsens before improving as trade volumes adjust",
+            "C) The trade balance is unaffected because import and export prices adjust simultaneously"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The J-curve effect explains that a currency depreciation initially worsens the trade balance because: (1) import prices rise immediately in domestic currency terms, (2) export prices fall in foreign currency terms, but (3) trade volumes adjust slowly due to existing contracts and recognition lags. Over time, as exports become more competitive and imports become more expensive, trade volumes shift and the trade balance improves \u2014 tracing a path that resembles the letter J.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain the J-curve effect on the trade balance following currency depreciation."
+        },
+        {
+          "id": "econ-p-020",
+          "question": "According to the Mundell-Fleming model, in a small open economy with a floating exchange rate and perfect capital mobility, fiscal policy is:",
+          "options": [
+            "A) Highly effective at stimulating output",
+            "B) Ineffective because the resulting currency appreciation offsets the fiscal stimulus",
+            "C) Effective only if combined with monetary expansion"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under the Mundell-Fleming model with floating exchange rates and perfect capital mobility, expansionary fiscal policy raises interest rates, attracting capital inflows. This causes the domestic currency to appreciate, which reduces net exports. The reduction in net exports fully offsets the increase in government spending, leaving output unchanged. By contrast, monetary policy is highly effective under these conditions because lower interest rates cause capital outflows and currency depreciation, boosting net exports.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the Mundell-Fleming model to assess policy effectiveness under different exchange rate regimes."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers demand/supply, market structures, monetary theory, and trade. Set B covers monetary/fiscal policy interactions, exchange rates, and geopolitical risk."
+    }
+  ]
+}

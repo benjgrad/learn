@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "EQ.8: Equity Valuation Concepts and Basic Tools",
+    "description": "Master present value models including the Gordon Growth and two-stage DDM, price multiples (P/E, P/B, P/S, P/CF, EV/EBITDA), asset-based valuation, and the concept of intrinsic value.",
+    "level": "level-5",
+    "slug": "eq-equity-valuation",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A stock pays a $2 annual dividend that grows at 5% per year. If investors require a 10% return, what would you expect the stock to be worth? What happens to the price if the required return drops to 8%?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Intrinsic Value and Present Value Models\n\n### Intrinsic Value vs. Market Price\n\nThe **intrinsic value** of a stock is its true underlying worth based on fundamentals, while the **market price** is what it currently trades for. The analyst's job is to estimate intrinsic value and compare it to market price:\n\n- If $V_0 > P_0$: the stock is **undervalued** (buy)\n- If $V_0 < P_0$: the stock is **overvalued** (sell or avoid)\n- If $V_0 \\approx P_0$: the stock is **fairly valued**\n\n### General Dividend Discount Model (DDM)\n\nSince shareholders receive cash flows through **dividends**, the value of a stock equals the present value of all expected future dividends:\n\n$$V_0 = \\sum_{t=1}^{\\infty} \\frac{D_t}{(1+r)^t}$$\n\nWhere $D_t$ is the expected dividend in period $t$ and $r$ is the required rate of return on equity.\n\n### Gordon Growth Model (Constant Growth DDM)\n\nIf dividends grow at a **constant rate** $g$ forever:\n\n$$V_0 = \\frac{D_1}{r - g} = \\frac{D_0(1+g)}{r - g}$$\n\n**Example:** A stock just paid $D_0 = \\$2.00$, with $g = 5\\%$ and $r = 10\\%$:\n\n$$V_0 = \\frac{2.00 \\times 1.05}{0.10 - 0.05} = \\frac{2.10}{0.05} = \\$42.00$$\n\n**Assumptions:** $g$ must be less than $r$, and $g$ must be sustainable indefinitely (typically at or below long-term GDP growth)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Using the Gordon Growth Model, a stock is valued at $50 with a required return of 12% and a growth rate of 4%. If the growth rate increases to 6% (all else equal), what happens to the value and by how much?",
+      "answer": "At g = 4%: V\u2080 = D\u2081/(0.12 \u2212 0.04) = D\u2081/0.08 = $50, so D\u2081 = $4.00. At g = 6%: V\u2080 = D\u2081(1+0.06)/(0.12 \u2212 0.06). But D\u2081 was based on the old growth rate. If D\u2080 is the same, then D\u2080 = $4.00/1.04 = $3.846. New D\u2081 = $3.846 \u00d7 1.06 = $4.077. V\u2080 = $4.077/0.06 = $67.95. Alternatively, if we simply re-price with the same $4.00 as D\u2081: V\u2080 = $4.00/(0.12 \u2212 0.06) = $4.00/0.06 = $66.67. The value increases significantly (from $50 to ~$67) because a higher growth rate both increases future dividends and narrows the denominator (r \u2212 g), amplifying the effect. This sensitivity to growth assumptions is a key limitation of the model."
+    },
+    {
+      "type": "markdown",
+      "content": "## Two-Stage DDM and Price Multiples\n\n### Two-Stage DDM\n\nFor companies with **above-average growth** that will eventually normalize:\n\n$$V_0 = \\sum_{t=1}^{n} \\frac{D_0(1+g_H)^t}{(1+r)^t} + \\frac{V_n}{(1+r)^n}$$\n\nWhere $g_H$ is the high growth rate for the first $n$ years, and the terminal value:\n\n$$V_n = \\frac{D_{n+1}}{r - g_L} = \\frac{D_0(1+g_H)^n(1+g_L)}{r - g_L}$$\n\n**Example:** $D_0 = \\$1.50$, $g_H = 15\\%$ for 3 years, $g_L = 4\\%$, $r = 11\\%$:\n\n| Year | Dividend | PV |\n|------|----------|----|\n| 1 | $1.50 \u00d7 1.15 = $1.725 | $1.725/1.11 = $1.554 |\n| 2 | $1.725 \u00d7 1.15 = $1.984 | $1.984/1.11\u00b2 = $1.610 |\n| 3 | $1.984 \u00d7 1.15 = $2.281 | $2.281/1.11\u00b3 = $1.668 |\n\n$V_3 = \\frac{2.281 \\times 1.04}{0.11 - 0.04} = \\frac{2.372}{0.07} = \\$33.89$\n\n$\\text{PV of } V_3 = \\frac{33.89}{1.11^3} = \\$24.78$\n\n$$V_0 = 1.554 + 1.610 + 1.668 + 24.78 = \\$29.61$$\n\n### Price Multiples\n\n| Multiple | Formula | When Most Useful |\n|---|---|---|\n| **P/E** | Price / EPS | Profitable companies with stable earnings |\n| **P/B** | Price / Book Value per Share | Asset-heavy companies (banks, utilities) |\n| **P/S** | Price / Sales per Share | Companies with negative earnings |\n| **P/CF** | Price / Cash Flow per Share | Capital-intensive businesses |\n| **EV/EBITDA** | Enterprise Value / EBITDA | Cross-capital-structure comparisons |"
+    },
+    {
+      "type": "markdown",
+      "content": "## EV/EBITDA and Asset-Based Valuation\n\n### Enterprise Value\n\nEnterprise value (EV) represents the total value of a firm to all capital providers:\n\n$$\\text{EV} = \\text{Market Cap} + \\text{Total Debt} - \\text{Cash}$$\n\nEV/EBITDA is preferred for comparing companies with **different capital structures** because EBITDA is a pre-interest, pre-tax measure.\n\n**Example:** Company A has market cap = \\$500M, debt = \\$200M, cash = \\$50M, EBITDA = \\$100M.\n\n$$\\text{EV} = 500 + 200 - 50 = \\$650\\text{M}$$\n$$\\text{EV/EBITDA} = 650/100 = 6.5\\times$$\n\nIf peer companies trade at 8.0\u00d7 EV/EBITDA, this company appears undervalued.\n\n### Justified P/E from the Gordon Growth Model\n\nThe Gordon Growth Model implies a **justified (fundamental) P/E ratio**:\n\n$$\\frac{P_0}{E_1} = \\frac{D_1/E_1}{r - g} = \\frac{\\text{Payout Ratio}}{r - g}$$\n\nA higher justified P/E results from: higher payout ratio, lower required return, or higher growth rate.\n\n### Asset-Based Valuation\n\nValue the company as the **sum of its assets minus liabilities**, with adjustments to fair market value:\n\n$$V = \\text{Fair Value of Assets} - \\text{Fair Value of Liabilities}$$\n\nMost appropriate for:\n- Liquidation scenarios\n- Companies with primarily tangible assets (real estate, natural resources)\n- Holding companies and investment companies\n\n**Limitation:** Does not capture going-concern value, growth opportunities, or intangible assets like brand and talent."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Value a stock using both the Gordon Growth Model and the P/E multiple approach, then compare the results.",
+      "solution": "**Company XYZ:**\n- Current dividend (D\u2080) = $3.00\n- Dividend growth rate = 6%\n- Required return = 11%\n- Current EPS = $5.00\n- Payout ratio = $3.00/$5.00 = 60%\n- Industry average P/E = 14\u00d7\n\n**Gordon Growth Model:**\n$V_0 = D_1/(r - g) = $3.00 \u00d7 1.06/(0.11 - 0.06) = $3.18/0.05 = $63.60$\n\n**Justified P/E:**\nP/E = Payout ratio / (r - g) = 0.60 / (0.11 - 0.06) = 0.60 / 0.05 = 12.0\u00d7\nImplied price = 12.0 \u00d7 $5.00 = $60.00\n\n**Industry P/E approach:**\nImplied price = 14\u00d7 \u00d7 $5.00 = $70.00\n\n**Comparison:**\nThe DDM gives $63.60, the justified P/E gives $60.00 (these are mathematically consistent \u2014 the small difference is because the DDM uses next year's dividend while the justified P/E uses current EPS), and the industry multiple gives $70.00. The industry P/E is higher, which could mean the company deserves a lower multiple than peers (perhaps due to slower growth or higher risk) or that peers are overvalued."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Equity Valuation Practice Problems",
+      "problems": [
+        {
+          "id": "eq8-1",
+          "question": "A stock just paid a dividend of $1.80. Dividends are expected to grow at 4% indefinitely. If the required rate of return is 9%, the intrinsic value of the stock using the Gordon Growth Model is closest to:",
+          "options": [
+            "A) $36.00",
+            "B) $37.44",
+            "C) $40.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "V\u2080 = D\u2081/(r \u2212 g) = D\u2080(1 + g)/(r \u2212 g) = $1.80 \u00d7 1.04/(0.09 \u2212 0.04) = $1.872/0.05 = $37.44. Note that D\u2081 = $1.80 \u00d7 1.04 = $1.872, not $1.80 (the most recent dividend was D\u2080, and we must use next year's expected dividend D\u2081). Option A ($36.00) incorrectly uses D\u2080 = $1.80 in the numerator instead of D\u2081. Option C ($40.00) uses an incorrect growth rate or discount rate.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate intrinsic value using the Gordon Growth Model"
+        },
+        {
+          "id": "eq8-2",
+          "question": "A company has a market capitalization of $800 million, total debt of $300 million, and cash of $100 million. Its EBITDA is $150 million. The company's EV/EBITDA multiple is closest to:",
+          "options": [
+            "A) 5.3\u00d7",
+            "B) 6.7\u00d7",
+            "C) 7.3\u00d7"
+          ],
+          "correctAnswer": "B",
+          "explanation": "EV = Market cap + Debt \u2212 Cash = $800M + $300M \u2212 $100M = $1,000M. EV/EBITDA = $1,000M/$150M = 6.67\u00d7, closest to 6.7\u00d7. Option A (5.3\u00d7) uses only market cap ($800M/$150M). Option C (7.3\u00d7) adds cash instead of subtracting it ($800M + $300M + $100M = $1,200M; $1,200M/$150M = 8.0\u00d7, but is still incorrect).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate enterprise value and EV/EBITDA"
+        },
+        {
+          "id": "eq8-3",
+          "question": "Using a two-stage DDM, a stock pays D\u2080 = $2.00, has a high growth rate of 12% for 2 years, then a stable growth rate of 3% thereafter. The required return is 10%. The intrinsic value is closest to:",
+          "options": [
+            "A) $30.67",
+            "B) $34.62",
+            "C) $39.42"
+          ],
+          "correctAnswer": "B",
+          "explanation": "D\u2081 = $2.00 \u00d7 1.12 = $2.24. D\u2082 = $2.24 \u00d7 1.12 = $2.5088. D\u2083 = $2.5088 \u00d7 1.03 = $2.5841. Terminal value at end of year 2: V\u2082 = D\u2083/(r \u2212 g_L) = $2.5841/(0.10 \u2212 0.03) = $36.916. Now discount all cash flows to present: PV of D\u2081 = $2.24/1.10 = $2.036. PV of D\u2082 = $2.5088/1.21 = $2.074. PV of V\u2082 = $36.916/1.21 = $30.509. V\u2080 = $2.036 + $2.074 + $30.509 = $34.62. Option A ($30.67) omits the present value of the high-growth dividends and only discounts the terminal value. Option C ($39.42) fails to discount the terminal value to the present (adding D\u2082 + V\u2082 without discounting).",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate intrinsic value using a two-stage DDM"
+        },
+        {
+          "id": "eq8-4",
+          "question": "All else being equal, the justified trailing P/E ratio of a stock will increase if the:",
+          "options": [
+            "A) Required rate of return increases",
+            "B) Expected dividend growth rate increases",
+            "C) Dividend payout ratio decreases"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The justified P/E = Payout ratio / (r \u2212 g). An increase in g reduces the denominator (r \u2212 g), which increases the P/E ratio. Option A is incorrect because a higher required return (r) increases the denominator, reducing the justified P/E. Option C is incorrect because a lower payout ratio reduces the numerator, lowering the justified P/E.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Explain the factors that determine justified price multiples"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Gordon Growth Model to someone who has never studied finance. Why does a higher growth rate make a stock more valuable? And why must the growth rate be less than the required return for the formula to work?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the Gordon Growth Model so sensitive to small changes in the growth rate and required return?",
+        "When would you choose to use EV/EBITDA over P/E, and why?",
+        "What are the practical challenges of applying the DDM to companies that don't pay dividends?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Intrinsic value** is what a stock is worth; market price is what it trades for\n- **Gordon Growth Model:** $V_0 = D_1 / (r - g)$; requires $g < r$\n- **Two-stage DDM:** High growth for $n$ years, then stable growth; useful for growth companies\n- **Justified P/E** = Payout ratio / ($r - g$)\n- **Price multiples:** P/E, P/B, P/S, P/CF for relative valuation\n- **EV/EBITDA:** EV = Market cap + Debt \u2212 Cash; best for cross-capital-structure comparison\n- **Asset-based valuation:** Fair value of assets minus liabilities; best for liquidation or asset-heavy firms\n- Use multiple valuation methods to triangulate"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module is the **Equity Investments Checkpoint**, where you'll test your knowledge across all eight modules \u2014 from market organization through valuation. The checkpoint integrates concepts across topics, just as the CFA exam does."
+    }
+  ]
+}

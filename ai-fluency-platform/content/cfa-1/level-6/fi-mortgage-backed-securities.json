@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FI.19: Mortgage-Backed Securities",
+    "description": "Analyze mortgage types, pass-through securities, prepayment risk models (CPR, PSA, SMM), CMO structures, and IO/PO strips.",
+    "level": "level-6",
+    "slug": "fi-mortgage-backed-securities",
+    "order": 19,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When interest rates drop sharply, homeowners rush to refinance their mortgages. If you own a mortgage-backed security, is this good or bad for you? Consider both the price effect and the cash flow effect."
+    },
+    {
+      "type": "markdown",
+      "content": "## Mortgage Types and Pass-Through Securities\n\n### Mortgage Types\n\n| Type | Payment Structure | Interest Rate Risk |\n|---|---|---|\n| **Fixed-rate mortgage (FRM)** | Level payment (interest + principal); interest portion declines over time | Borrower locked in; lender bears rate risk |\n| **Adjustable-rate mortgage (ARM)** | Payments adjust periodically with a reference rate | Less rate risk for lender; borrower bears rate risk |\n| **Interest-only mortgage** | Only interest for initial period, then fully amortizing | Higher payment shock when amortization begins |\n| **Hybrid ARM** | Fixed rate for initial period (e.g., 5 years), then adjustable | Combines both features |\n\n### Mortgage Pass-Through Securities\n\nA **pass-through security** represents a pro-rata share of a pool of mortgages. Each investor receives a proportional share of:\n- Monthly interest payments (net of servicing fee)\n- Scheduled principal payments\n- **Prepayments** (unscheduled principal)\n\n**Weighted Average Coupon (WAC)**: The weighted average of the mortgage rates in the pool.\n\n**Weighted Average Maturity (WAM)**: The weighted average remaining term of the mortgages.\n\nThe **pass-through rate** (coupon to investors) = WAC \u2212 Servicing fee \u2212 Guarantee fee."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A mortgage pass-through has a WAC of 5.50% and a pass-through rate of 5.00%. What accounts for the 0.50% difference?",
+      "answer": "The 0.50% difference represents the servicing fee and guarantee fee. The servicer (who collects mortgage payments and manages delinquencies) receives a portion (e.g., 0.25%), and the guarantor (e.g., Ginnie Mae, Fannie Mae, Freddie Mac) receives a guarantee fee (e.g., 0.25%) for providing their credit guarantee. Together, these fees reduce the interest passed through to investors from the 5.50% WAC to the 5.00% pass-through rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Prepayment Risk and Prepayment Models\n\n**Prepayment risk** is the most significant risk for MBS investors. Borrowers prepay mortgages due to:\n- **Refinancing** (rates fall \u2192 biggest driver)\n- **Home sales** (relocation, upgrading/downsizing)\n- **Curtailments** (extra principal payments)\n- **Defaults** (insured mortgages: insurance pays off the loan)\n\n### Prepayment Measures\n\n**Single Monthly Mortality (SMM)**: The percentage of the remaining pool balance that prepays in a given month.\n\n$$\\text{SMM} = \\frac{\\text{Prepayment in month}}{\\text{Beginning balance} - \\text{Scheduled principal}}$$\n\n**Conditional Prepayment Rate (CPR)**: The annualized prepayment rate.\n\n$$\\text{CPR} = 1 - (1 - \\text{SMM})^{12}$$\n\n$$\\text{SMM} = 1 - (1 - \\text{CPR})^{1/12}$$\n\n### PSA Prepayment Model\n\nThe **Public Securities Association (PSA)** benchmark assumes:\n- CPR starts at 0.2% in month 1 and increases by 0.2% per month\n- CPR reaches 6% in month 30 and remains at 6% thereafter\n\n**100% PSA** = the benchmark. **200% PSA** = double the benchmark (CPR reaches 12% in month 30). **50% PSA** = half the benchmark."
+    },
+    {
+      "type": "markdown",
+      "content": "## CMO Structures\n\n**Collateralized Mortgage Obligations (CMOs)** redistribute the cash flows from a mortgage pool into tranches with different prepayment risk profiles.\n\n### Sequential-Pay CMO\n\nPrincipal payments (scheduled + prepayments) go to **Tranche A first** until it is fully retired, then to **Tranche B**, then **Tranche C**, etc. All tranches receive their coupon interest simultaneously.\n\n- Early tranches have shorter average lives and bear more prepayment risk\n- Later tranches are protected from prepayment until earlier tranches are retired\n\n### Planned Amortization Class (PAC) Tranches\n\n**PAC tranches** have a **predetermined principal payment schedule** that holds as long as actual prepayments fall within a specified band (e.g., 100-300% PSA).\n\n- **PAC tranche**: Stable, predictable cash flows (like a corporate bond)\n- **Support (companion) tranche**: Absorbs prepayment variability. When prepayments are fast, the support tranche receives excess principal. When prepayments are slow, the support tranche receives less.\n\n### IO and PO Strips\n\n- **Interest-Only (IO) strip**: Receives only interest. Benefits when rates **rise** (slower prepayments \u2192 more interest over longer period). Falls in value when rates fall.\n- **Principal-Only (PO) strip**: Receives only principal. Benefits when rates **fall** (faster prepayments \u2192 principal returned sooner at full value). Falls in value when rates rise.\n\nIO and PO strips have **opposite interest rate sensitivities**, making them useful hedging tools."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An MBS pool has a beginning balance of $100 million. Scheduled principal for the month is $300,000. Actual prepayments are $600,000. Calculate the SMM and the CPR.",
+      "solution": "**Step 1: Calculate SMM**\n\n$$\\text{SMM} = \\frac{\\text{Prepayment}}{\\text{Beginning balance} - \\text{Scheduled principal}} = \\frac{\\$600{,}000}{\\$100{,}000{,}000 - \\$300{,}000}$$\n\n$$= \\frac{600{,}000}{99{,}700{,}000} = 0.006018 = 0.6018\\%$$\n\n**Step 2: Convert to CPR (annualize)**\n\n$$\\text{CPR} = 1 - (1 - 0.006018)^{12} = 1 - (0.993982)^{12}$$\n\n$$= 1 - 0.9302 = 0.0698 = 6.98\\%$$\n\nThe pool is prepaying at approximately 7% CPR, slightly above the 6% CPR of the 100% PSA steady-state, suggesting about 117% PSA."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Mortgage-Backed Securities Practice",
+      "problems": [
+        {
+          "id": "fi19-1",
+          "question": "A mortgage pool prepays at 200% PSA. At month 30, the CPR is closest to:",
+          "options": [
+            "A) 6%",
+            "B) 12%",
+            "C) 24%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "At 100% PSA, CPR reaches 6% at month 30 (the steady state). At 200% PSA, all prepayment rates are doubled, so CPR = 2 \u00d7 6% = 12% at month 30. The CPR would have been increasing by 0.4% per month (instead of 0.2%) and reaches 12% at month 30. Option A is the 100% PSA rate. Option C would correspond to 400% PSA.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Apply the PSA prepayment model"
+        },
+        {
+          "id": "fi19-2",
+          "question": "In a sequential-pay CMO with three tranches (A, B, C), if prepayment speeds increase, the tranche most negatively affected is:",
+          "options": [
+            "A) Tranche A (shortest maturity)",
+            "B) Tranche B (middle maturity)",
+            "C) Tranche C (longest maturity)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Tranche A receives all principal payments first. Faster prepayments accelerate the return of principal to Tranche A holders, who must reinvest at potentially lower rates (since faster prepayments usually coincide with falling rates). Tranche A has the most prepayment risk because it directly absorbs the variability in timing. Tranches B and C are insulated from prepayments until Tranche A is retired. Option C is most affected by extension risk (slow prepayments), not contraction risk.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the prepayment risk distribution in a sequential-pay CMO"
+        },
+        {
+          "id": "fi19-3",
+          "question": "An investor expects interest rates to decline. To profit from this view using MBS strips, the investor should buy:",
+          "options": [
+            "A) An IO strip, because interest payments increase when rates fall",
+            "B) A PO strip, because principal is returned faster when rates fall",
+            "C) Both IO and PO strips in equal amounts to be hedged"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When rates fall, prepayments increase (borrowers refinance). A PO strip benefits because it receives the same total principal but faster, and the present value of receiving principal sooner is higher. A PO strip's price rises when rates fall. Option A is incorrect \u2014 an IO strip loses value when rates fall because faster prepayments reduce the outstanding balance on which interest is calculated. Option C would create an approximately hedged position, not a directional bet.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the interest rate sensitivity of IO and PO strips"
+        },
+        {
+          "id": "fi19-4",
+          "question": "A PAC tranche in a CMO maintains its scheduled principal payments as long as prepayments stay within the PAC band. If prepayments exceed the upper band, the tranche most affected is the:",
+          "options": [
+            "A) PAC tranche",
+            "B) Support (companion) tranche",
+            "C) Both tranches equally"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The support tranche absorbs prepayment variability to stabilize the PAC tranche. When prepayments exceed the upper PAC band, excess principal flows to the support tranche first. The support tranche's average life shortens dramatically (contraction risk). The PAC tranche maintains its schedule as long as the support tranche can absorb the excess. Option A would only be correct if prepayments are so extreme that the support tranche is retired and can no longer protect the PAC. Option C ignores the entire purpose of the PAC/support structure.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain the relationship between PAC and support tranches"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain prepayment risk to someone unfamiliar with MBS. Describe why falling interest rates create problems for MBS investors (even though falling rates usually help bond prices), and explain how CMO structures attempt to address this problem."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does prepayment risk make MBS exhibit negative convexity at low interest rates?",
+        "How do PAC tranches provide more predictable cash flows, and what is the cost to support tranche holders?",
+        "In what sense are IO and PO strips 'mirror images' of each other in terms of interest rate sensitivity?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **Pass-through security**: Pro-rata share of mortgage pool cash flows; rate = WAC \u2212 fees\n- **SMM** = Prepayment / (Beginning balance \u2212 Scheduled principal)\n- **CPR** = 1 \u2212 (1 \u2212 SMM)\u00b9\u00b2; **SMM** = 1 \u2212 (1 \u2212 CPR)^(1/12)\n- **PSA model**: 100% PSA = CPR of 0.2%/month ramp to 6% at month 30\n- **Sequential-pay CMO**: Tranches retired in order; early tranches absorb prepayment risk\n- **PAC tranche**: Scheduled payments within a band; **Support tranche** absorbs variability\n- **IO strip**: Benefits from rising rates (slower prepayments); **PO strip**: Benefits from falling rates (faster prepayments)\n- MBS exhibit **negative convexity** at low rates due to the prepayment cap on price appreciation"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have now covered all the core Fixed Income content for CFA Level I. The next module is the **Fixed Income Checkpoint** \u2014 a comprehensive assessment that tests your understanding across all FI topics from bond pricing to securitization."
+    }
+  ]
+}

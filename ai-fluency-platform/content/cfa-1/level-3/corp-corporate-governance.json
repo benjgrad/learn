@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "CI.3: Corporate Governance",
+    "description": "Analyze board structures, shareholder rights, proxy voting, executive compensation, and the role of ESG in corporate governance.",
+    "level": "level-3",
+    "slug": "corp-corporate-governance",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If a company's CEO is also the chairman of the board, how might this affect the board's ability to oversee management? What safeguards could be put in place?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Board of Directors\n\nThe board of directors is the **primary governance mechanism** in a corporation. Elected by shareholders, the board oversees management, sets strategic direction, and protects shareholder interests.\n\n### Board Structure\n\n**One-tier (unitary) board**: A single board that includes both executive (inside) directors and non-executive (outside/independent) directors. Common in the US and UK.\n\n**Two-tier board**: A supervisory board (entirely non-executive) oversees a separate management board. Common in Germany and other European countries.\n\n### Director Independence\n\n**Independent directors** have no material relationship with the company beyond their board seat. Independence is critical because independent directors can objectively evaluate management performance without conflicts of interest.\n\nBest practices recommend that a **majority of the board** should be independent, and the board chair should ideally be separate from the CEO (**separation of chair and CEO roles**). When the same person serves as both, a **lead independent director** should be appointed to provide independent oversight.\n\n### Key Board Committees\n\n| Committee | Role | Composition |\n|---|---|---|\n| **Audit** | Oversee financial reporting, internal controls, external auditor | Entirely independent |\n| **Compensation/Remuneration** | Set executive pay and incentive structures | Entirely independent |\n| **Nomination/Governance** | Identify and recommend board candidates | Majority independent |\n| **Risk** | Oversee enterprise risk management | Majority independent |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is it considered a governance weakness for the CEO to also serve as board chairman?",
+      "answer": "When the CEO is also the board chairman, the same person is both the primary agent being monitored and the leader of the body responsible for monitoring. This concentrates power and can compromise the board's independence and oversight effectiveness. The CEO-chairman can control board meeting agendas, influence director nominations, and discourage dissent. Separating the roles ensures the board can independently evaluate the CEO's performance."
+    },
+    {
+      "type": "markdown",
+      "content": "## Shareholder Rights and Proxy Voting\n\nShareholders exercise control through **voting rights** at annual general meetings (AGMs) or through **proxy voting** (delegating their vote to another party).\n\n### Key Voting Mechanisms\n\n**Statutory voting (straight voting)**: Each share gets one vote per director seat. Shareholders vote on each seat separately. This favors majority shareholders because they can win every seat.\n\n**Cumulative voting**: Shareholders can allocate all their votes to one or a few candidates. If electing 5 directors and a shareholder has 100 shares, they have 500 total votes to distribute. This helps minority shareholders gain board representation.\n\n**Proxy fights**: Dissident shareholders solicit proxies from other shareholders to vote against management's proposals or to elect alternative director candidates.\n\n### Shareholder Proposals and Say-on-Pay\n\nShareholders can submit proposals for vote at the AGM. **Say-on-pay** votes give shareholders a non-binding vote on executive compensation packages. While advisory, a significant vote against pay signals investor dissatisfaction and can pressure boards to make changes.\n\n### Takeover Defenses\n\nSome governance provisions reduce shareholder rights:\n- **Staggered (classified) boards**: Only a portion of directors stand for election each year, making hostile takeovers more difficult\n- **Poison pills**: Allow existing shareholders to buy shares at a discount if an acquirer crosses an ownership threshold\n- **Dual-class share structures**: Founders retain superior voting shares, reducing outside shareholders' influence"
+    },
+    {
+      "type": "markdown",
+      "content": "## Executive Compensation and Governance Failures\n\n### Compensation Design\n\nEffective executive compensation should **align management's interests with shareholders**. Common components include:\n\n- **Base salary**: Fixed compensation, provides stability\n- **Annual bonus**: Tied to short-term performance metrics (revenue, earnings)\n- **Stock options**: Right to buy shares at a set price, incentivizes share price appreciation\n- **Restricted stock**: Shares that vest over time, promotes retention and long-term focus\n- **Performance shares**: Vest based on achieving specific targets (ROE, TSR)\n\nPoorly designed compensation can create perverse incentives \u2014 excessive stock options may encourage risk-taking or earnings manipulation to inflate the share price.\n\n### ESG Considerations in Governance\n\nInvestors increasingly evaluate **Environmental, Social, and Governance (ESG)** factors:\n- **E**: Carbon emissions, resource usage, environmental policies\n- **S**: Labor practices, diversity, community impact, data privacy\n- **G**: Board independence, executive pay, shareholder rights, audit quality\n\n### Governance Failures\n\nNotable governance failures share common patterns: weak board oversight, conflicts of interest, inadequate internal controls, excessive risk-taking, and lack of transparency. Examples include situations where boards failed to challenge management's aggressive accounting, excessive leverage, or related-party transactions."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company is electing 4 directors. Shareholder A owns 1,000 shares (10% of total) and Shareholder B owns 9,000 shares (90%). Under statutory voting, how many directors can A elect? Under cumulative voting, can A guarantee at least one board seat? Show the math.",
+      "solution": "**Statutory voting:**\n\nEach seat is voted on separately. For each seat, A casts 1,000 votes and B casts 9,000 votes. B wins every seat. A elects **0 directors**.\n\n**Cumulative voting:**\n\nTotal votes = shares x number of seats to be filled.\n\nA has: 1,000 x 4 = 4,000 votes\nB has: 9,000 x 4 = 36,000 votes\n\nTo guarantee electing one director, A needs more votes on one candidate than B can spread across all seats:\n\nMinimum votes needed to guarantee one seat:\n\n$$\\text{Votes needed} = \\frac{\\text{Total shares}}{\\text{Seats} + 1} + 1 = \\frac{10{,}000}{4 + 1} + 1 = 2{,}001$$\n\nA has 4,000 votes and can concentrate them on one candidate, exceeding the 2,001 threshold. **Yes, A can guarantee one seat** under cumulative voting. A could even potentially guarantee a second seat (needing 2 x 2,001 = 4,002 votes \u2014 just barely short with 4,000)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Corporate Governance Practice Problems",
+      "problems": [
+        {
+          "id": "ci3-1",
+          "question": "Which board committee is most directly responsible for overseeing the integrity of a company's financial statements?",
+          "options": [
+            "A) Nomination committee",
+            "B) Audit committee",
+            "C) Compensation committee"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The audit committee oversees financial reporting, internal controls, and the relationship with external auditors. It is directly responsible for the integrity of financial statements. The nomination committee (A) identifies board candidates. The compensation committee (C) sets executive pay structures. Both are important governance functions but are not directly responsible for financial statement oversight.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Describe the roles of board committees"
+        },
+        {
+          "id": "ci3-2",
+          "question": "A minority shareholder who wants to elect at least one representative to a company's board would most benefit from:",
+          "options": [
+            "A) statutory voting.",
+            "B) cumulative voting.",
+            "C) a staggered board structure."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Cumulative voting allows shareholders to concentrate all their votes on one or a few candidates, giving minority shareholders a chance to elect at least one director. Under statutory voting (A), each seat is voted on separately, so the majority can win every seat. A staggered board (C) actually makes it harder for minority shareholders or activists to gain control because only a portion of seats are up for election each year.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Compare voting methods and their impact on shareholder representation"
+        },
+        {
+          "id": "ci3-3",
+          "question": "An executive compensation package heavily weighted toward stock options with a short vesting period would most likely incentivize the executive to:",
+          "options": [
+            "A) focus on long-term value creation.",
+            "B) take excessive risks to increase the short-term share price.",
+            "C) reduce the company's financial leverage."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Stock options with short vesting periods incentivize executives to boost the share price quickly, potentially through excessive risk-taking, aggressive accounting, or short-term strategies. Options provide unlimited upside if the stock rises but no downside below the exercise price, creating asymmetric payoffs that encourage risk. Long-term value creation (A) requires longer vesting periods and broader performance metrics. Reducing leverage (C) would not directly benefit option holders.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate executive compensation structures and incentive alignment"
+        },
+        {
+          "id": "ci3-4",
+          "question": "A company with a dual-class share structure where the founder holds 51% of voting rights but only 10% of economic interest most likely has:",
+          "options": [
+            "A) strong alignment between management and shareholders.",
+            "B) enhanced protection for minority shareholders.",
+            "C) a governance risk due to concentration of control."
+          ],
+          "correctAnswer": "C",
+          "explanation": "Dual-class structures concentrate control in the hands of founders or insiders who may have limited economic interest. With 51% voting control but only 10% economic interest, the founder bears little of the financial consequences of poor decisions but has full control over corporate direction. This creates governance risk. It does not align management with shareholders (A) since the economic stakes are mismatched. It weakens, not enhances, minority shareholder protection (B).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate governance risks of dual-class share structures"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a new investor why corporate governance matters for their investment returns. Give specific examples of how weak governance can destroy shareholder value and how strong governance can protect it."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the trade-offs between shareholder-friendly governance and management's need for operational flexibility?",
+        "How might ESG considerations create tension between short-term profitability and long-term sustainability?",
+        "Should say-on-pay votes be binding rather than advisory? What are the arguments for and against?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Board of directors**: Primary governance mechanism; should be majority independent\n- **Key committees**: Audit, compensation, nomination, risk \u2014 audit and compensation should be entirely independent\n- **CEO duality**: Combining CEO and chair roles weakens oversight; mitigated by lead independent director\n- **Statutory voting**: One vote per share per seat (favors majority)\n- **Cumulative voting**: Concentrate votes on fewer candidates (helps minority shareholders)\n- **Say-on-pay**: Advisory shareholder vote on executive compensation\n- **Takeover defenses**: Staggered boards, poison pills, dual-class shares reduce shareholder control\n- **ESG in governance**: Board independence, executive pay, shareholder rights, transparency"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Governance provides the framework for corporate decision-making. The next module examines a critical operational decision: **Working Capital and Liquidity** \u2014 how companies manage their short-term assets and liabilities to ensure they can meet day-to-day obligations while maximizing efficiency."
+    }
+  ]
+}

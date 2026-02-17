@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "MK.3: Private Real Estate",
+    "description": "Master real estate investment analysis including property types, valuation methods, cap rate decomposition, real estate cycles, leverage analysis, and REIT comparison.",
+    "level": "level-8",
+    "slug": "pw-mk-private-real-estate",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An office building has a cap rate of 6% and an industrial warehouse has a cap rate of 4.5%. Does the lower cap rate mean the warehouse is overvalued? What other explanation could account for the difference?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Property Types and Characteristics\n\n| Type | Lease Structure | Demand Drivers | Cyclicality |\n|---|---|---|---|\n| Office | 5-15 year leases, tenant improvements | Employment, corporate expansion | High |\n| Retail | Anchor + in-line tenants, % rent | Consumer spending, demographics | High |\n| Industrial/Logistics | Net leases, 3-10 years | E-commerce, manufacturing, trade | Medium |\n| Residential (multifamily) | 1-year leases | Population, employment, housing costs | Low |\n| Specialty (data centers, life sciences) | 10-20 year leases | Technology, research | Varies |\n\n## Valuation Methods\n\n### Income Capitalization (Direct Cap)\n\n$$V = \\frac{NOI}{\\text{Cap Rate}}$$\n\nWhere NOI = Revenue - Operating expenses (before debt service and capital expenditures).\n\n### Cap Rate Decomposition\n\n$$\\text{Cap Rate} = r_f + \\text{Risk premium} - g_{\\text{NOI}}$$\n\nA lower cap rate reflects: lower risk, higher expected growth, or lower required returns.\n\n### DCF Analysis\n\n$$V = \\sum_{t=1}^{n} \\frac{NOI_t - CapEx_t}{(1+r)^t} + \\frac{V_n}{(1+r)^n}$$\n\nTerminal value ($V_n$) typically uses a terminal cap rate applied to year n+1 NOI.\n\nTerminal cap rate is usually **higher** than the going-in cap rate (older property, shorter remaining useful life).\n\n### Sales Comparison\n- Adjust comparable transactions for differences in location, size, age, condition\n- Per-unit metrics: $/sq ft (office/retail), $/unit (multifamily), $/acre (land)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A property generates $500K NOI with a cap rate of 5%. Interest rates rise by 100 bps. If the cap rate adjusts fully to 6%, what happens to the property value?",
+      "answer": "Original value: $500K / 0.05 = $10M. New value: $500K / 0.06 = $8.33M. Decline: $1.67M or 16.7%. This illustrates the sensitivity of real estate values to cap rate changes. However, cap rates rarely adjust one-for-one with interest rates because: (1) higher rates may coincide with stronger economic growth, boosting NOI expectations; (2) the risk premium component may compress as investors accept lower spreads; (3) real estate markets are slow to reprice due to infrequent transactions. Historical evidence suggests a 100 bps rate increase leads to roughly 25-75 bps cap rate increase, not the full 100 bps."
+    },
+    {
+      "type": "markdown",
+      "content": "## Real Estate Cycles\n\n| Phase | Vacancy | Rents | Construction | Cap Rates |\n|---|---|---|---|---|\n| Recovery | Declining from peak | Stabilizing | Minimal | Compressing |\n| Expansion | Low and falling | Rising rapidly | Increasing | Low |\n| Hypersupply | Rising | Decelerating | Peaking | Expanding |\n| Recession | High and rising | Declining | Minimal | High |\n\nKey insight: Construction decisions are made during expansion but completed during hypersupply -- the **construction lag** causes oversupply at the worst time.\n\n## Leverage in Real Estate\n\n$$R_{\\text{equity}} = R_{\\text{property}} + \\frac{D}{E}(R_{\\text{property}} - r_d)$$\n\nWhere $R_{\\text{property}}$ = unlevered return, $r_d$ = cost of debt.\n\nLeverage amplifies returns when property return exceeds debt cost, but amplifies losses when it doesn't.\n\n**Loan-to-value (LTV)**: Typically 50-75% for commercial real estate\n**Debt service coverage ratio (DSCR)**: NOI / Debt service > 1.2-1.5x required\n\n## Development Analysis\n\n$$\\text{Development margin} = \\frac{\\text{Stabilized value} - \\text{Total development cost}}{\\text{Total development cost}}$$\n\nDevelopment costs: Land + hard costs (construction) + soft costs (design, permits, legal) + financing\n\nTypical hurdle: 15-25% development margin to compensate for construction risk, lease-up risk, and time\n\n## Listed vs Private Real Estate (REITs)\n\n| Feature | Private | REITs |\n|---|---|---|\n| Liquidity | Low (months to sell) | High (trade daily) |\n| Valuation | Appraisal-based (lagged) | Market-based (real-time) |\n| Leverage | Customized | Often higher, corporate-level |\n| Diversification | Property-specific | Broad portfolio |\n| Correlation to stocks | Low (short-term) | Higher (trades like equity) |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Real Estate Investment Analysis\n\nYou are evaluating a Class A office building acquisition:\n- Location: CBD, major metro area\n- Gross leasable area: 200,000 sq ft\n- Current occupancy: 88% (market average: 92%)\n- In-place average rent: $42/sq ft (market rent: $48/sq ft)\n- Operating expenses: $18/sq ft\n- Cap ex reserve: $2/sq ft\n- Comparable cap rate: 5.5%\n- Financing available: 65% LTV at 5.5% interest, 30-year amortization\n\nA) Calculate current and stabilized NOI.\nB) Estimate value using income capitalization.\nC) Analyze the leveraged return if NOI stabilizes in Year 3.\nD) Identify the key risks.",
+      "solution": "**A) Current and Stabilized NOI:**\n\nCurrent:\n- Gross potential rent: 200,000 x $42 = $8.4M\n- Vacancy loss: 12% x $8.4M = ($1.008M)\n- Effective gross income: $7.392M\n- Operating expenses: 200,000 x $18 = ($3.6M)\n- NOI: $3.792M\n\nStabilized (market rent, market occupancy):\n- Gross potential rent: 200,000 x $48 = $9.6M\n- Vacancy loss: 8% x $9.6M = ($768K)\n- Effective gross income: $8.832M\n- Operating expenses: $3.6M (assume stable)\n- NOI: $5.232M\n\nNOI upside: $5.232M - $3.792M = $1.44M (38% increase through lease-up and mark-to-market)\n\n**B) Value Estimation:**\n\nCurrent NOI basis: $3.792M / 0.055 = $68.9M\nStabilized NOI basis: $5.232M / 0.055 = $95.1M\n\nThe property should be purchased closer to the current NOI value since stabilization requires execution. A reasonable offer: $72-78M (reflecting some credit for upside but discounting execution risk).\n\nAssume purchase at $75M.\n\n**C) Leveraged Return Analysis:**\n\nDebt: 65% x $75M = $48.75M at 5.5%\nEquity: 35% x $75M = $26.25M\n\nAnnual debt service (30-year amortization): $48.75M x 0.0681 (constant) = $3.32M/year\n(Monthly payment factor for 5.5%/12 over 360 months)\n\nYear 1 (current NOI):\n- NOI: $3.792M\n- Debt service: $3.32M\n- Cash flow to equity: $472K\n- Less cap ex: 200K x $2 = $400K\n- Net cash flow: $72K\n- Cash-on-cash yield: $72K / $26.25M = 0.3% (thin but improving)\n\nYear 3 (stabilized NOI of $5.232M):\n- NOI: $5.232M\n- Debt service: $3.32M\n- Cash flow to equity: $1.912M\n- Less cap ex: $400K\n- Net cash flow: $1.512M\n- Cash-on-cash yield: $1.512M / $26.25M = 5.8%\n\nYear 5 exit at stabilized cap rate of 5.75% (higher terminal cap):\n- Year 6 NOI (3% growth from stabilized): $5.232M x 1.03^2 = $5.55M\n- Exit value: $5.55M / 0.0575 = $96.5M\n- Debt balance at Year 5: ~$45.5M (amortization)\n- Exit equity: $96.5M - $45.5M = $51.0M\n- Equity IRR: Solve for r in -$26.25M + $72K/(1+r) + ... + ($1.51M + $51.0M)/(1+r)^5 \u2248 15-17%\n\n**D) Key Risks:**\n\n1. **Lease-up risk**: Below-market occupancy (88%) may not recover to 92% if remote work reduces office demand. Each 1% vacancy = $96K lost revenue.\n\n2. **Mark-to-market risk**: In-place rents ($42) may not reach market ($48) if leases expire during a downturn. 14% rent increase assumptions may be optimistic.\n\n3. **Interest rate risk**: Floating rate exposure or refinancing risk. A 100 bps rate increase adds $487K to annual debt service.\n\n4. **Obsolescence**: Class A office must maintain amenities, technology, sustainability standards. Deferred capital expenditure could exceed $2/sq ft reserve.\n\n5. **Structural demand shift**: Remote/hybrid work permanently reducing office demand. CBD office may face secular headwinds.\n\n6. **Liquidity risk**: Office assets are increasingly difficult to sell; exit cap rate assumption (5.75%) may be optimistic."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Real Estate Practice",
+      "problems": [
+        {
+          "id": "l3-mk3-1",
+          "question": "A property has NOI of $400K, a going-in cap rate of 5%, and financing at 60% LTV with 5% interest (interest-only). The equity dividend rate is:",
+          "options": [
+            "A) 5.0%",
+            "B) 5.5%",
+            "C) 5.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Property value: $400K / 0.05 = $8M\nDebt: 60% x $8M = $4.8M\nEquity: 40% x $8M = $3.2M\nInterest expense: $4.8M x 5% = $240K\nCash flow to equity: $400K - $240K = $160K\nEquity dividend rate: $160K / $3.2M = 5.0%\n\nIn this case, the property cap rate equals the debt cost (both 5%), so leverage provides no benefit to the equity yield. This is the 'neutral leverage' point. If the cap rate exceeded the debt cost, leverage would boost equity returns. If the debt cost exceeded the cap rate, leverage would be negative (reducing equity returns below the property-level return).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate equity dividend rate with leverage"
+        },
+        {
+          "id": "l3-mk3-2",
+          "question": "During which phase of the real estate cycle is the construction pipeline most likely to peak?",
+          "options": [
+            "A) Recovery",
+            "B) Expansion",
+            "C) Hypersupply"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Construction peaks during the hypersupply phase because: (1) projects initiated during the expansion phase are being completed (2-3 year construction lag); (2) new starts may still be occurring based on stale demand projections from the expansion; (3) delivery of new supply is exceeding absorption. The irony of real estate cycles is that the most supply hits the market just as demand is slowing. During recovery (A), construction is minimal. During expansion (B), new construction is increasing but hasn't peaked yet.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the phases of the real estate cycle"
+        },
+        {
+          "id": "l3-mk3-3",
+          "question": "A developer's total project cost is $40M (land $8M, hard costs $25M, soft costs $7M). The stabilized property value is $52M. The development margin is:",
+          "options": [
+            "A) 23%",
+            "B) 30%",
+            "C) 77%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Development margin = (Stabilized value - Total cost) / Total cost = ($52M - $40M) / $40M = $12M / $40M = 30%. This exceeds the typical 15-25% hurdle, suggesting an attractive development opportunity. However, this margin must compensate for: (1) 2-3 years of construction time (opportunity cost), (2) construction cost overruns (hard costs can escalate 10-20%), (3) lease-up risk (may take 6-18 months to stabilize), (4) interest carry during construction. After accounting for these risks, the risk-adjusted margin may be closer to 15-20%.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate and evaluate development margin"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to an investor who only owns stocks and bonds why they should consider adding private real estate to their portfolio. Address the diversification benefit, income characteristics, and the key risks they might not expect."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do cap rates vary across property types and locations?",
+        "How has the rise of e-commerce and remote work changed real estate investment analysis?",
+        "When does leverage help and when does it hurt in real estate investing?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Valuation**: NOI / Cap Rate (income cap); DCF with terminal cap; sales comparison\n- **Cap rate decomposition**: Risk-free rate + risk premium - expected NOI growth\n- **Leverage effect**: Amplifies returns when cap rate > debt cost; destroys value when reversed\n- **Real estate cycle**: Recovery -> Expansion -> Hypersupply -> Recession; construction lag causes mis-timing\n- **Development margin**: (Stabilized value - Cost) / Cost; target 15-25%+\n- **DSCR**: NOI / Debt service; lenders require 1.2-1.5x minimum\n- **REITs vs private**: Liquidity, valuation frequency, correlation to equities differ significantly"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we examine **Infrastructure** investing -- similar to real estate in its tangible asset base and income characteristics, but with unique features like regulated returns, inflation linkage, and essential-service demand profiles."
+    }
+  ]
+}

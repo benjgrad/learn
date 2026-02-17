@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "title": "Checkpoint: Portfolio Management Pathway",
+    "description": "Assess your mastery of liability-driven strategies, yield curve positioning, credit analysis, equity strategies, multi-asset approaches, and private wealth management.",
+    "level": "level-6",
+    "slug": "pw-pm-checkpoint",
+    "order": 9,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Pathway: Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Across the Portfolio Management pathway, which concept do you feel most confident applying, and which would you struggle to implement in a real portfolio? Be specific about what you'd need to strengthen."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Management Pathway Assessment",
+      "problems": [
+        {
+          "id": "l3-pm-cp-1",
+          "question": "A pension fund immunizes a $50M liability due in 8 years. The portfolio has Macaulay duration of 8 years and convexity of 90. After a parallel yield shift, the immunization holds. However, a subsequent yield curve twist causes a $1.2M shortfall. The most likely explanation is:",
+          "options": [
+            "A) The portfolio's convexity was too low",
+            "B) The portfolio's cash flow dispersion was too high relative to the liability",
+            "C) The portfolio's duration drifted due to the passage of time"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For single-liability immunization, high cash flow dispersion (widely spread maturities) increases vulnerability to non-parallel yield curve shifts (twists). Even though the parallel shift test passed (duration was matched), the twist exposed the structural risk from having cash flows at maturities far from the 8-year liability horizon. Option A is misleading -- higher convexity actually increases dispersion and would worsen the problem. Option C describes a real concern (duration drift) but would affect parallel shift immunization, which the question states held.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify the role of cash flow dispersion in immunization failure"
+        },
+        {
+          "id": "l3-pm-cp-2",
+          "question": "A manager expects the yield curve to flatten with short rates rising 50 bps and long rates falling 25 bps. She constructs a duration-neutral position: long 30-year bonds and short 2-year bonds. The portfolio also has a CDS-bond basis trade (long cash, long protection) on an IG issuer with a negative basis of -30 bps. Which component contributes to return if spreads widen 20 bps?",
+          "options": [
+            "A) The yield curve position only",
+            "B) The basis trade only",
+            "C) Both the curve position and the basis trade"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The yield curve flattener (long 30Y, short 2Y) profits from the expected curve move: long rates falling benefits the long 30Y position, and short rates rising benefits the short 2Y position. This generates positive returns. The basis trade (long cash bond, long CDS protection) is a hedged position that profits from basis convergence, not from spread direction. If spreads widen 20 bps, the cash bond loses value but the CDS protection gains value -- the net P&L depends on the basis change, not the spread level. The spread widening alone doesn't help the basis trade unless it causes the basis to converge.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Integrate yield curve and credit strategies"
+        },
+        {
+          "id": "l3-pm-cp-3",
+          "question": "A quantitative equity manager has IR = 0.80, tracking error = 4%, and active share = 60%. A fundamental manager has IR = 0.50, tracking error = 8%, and active share = 92%. For a $300M institutional mandate with a 6% tracking error budget, the optimal approach is most likely:",
+          "options": [
+            "A) Allocate 100% to the quantitative manager and lever up active risk",
+            "B) Blend 60% quantitative / 40% fundamental to maximize combined IR within the risk budget",
+            "C) Allocate 100% to the fundamental manager and constrain tracking error to 6%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A blend maximizes the combined information ratio by diversifying alpha sources. The quantitative manager has higher IR (0.80 vs 0.50) but lower expected alpha (3.2% vs 4.0%). Assuming low correlation of active returns between the two managers (different alpha sources), the combined portfolio achieves a higher IR than either alone. Option A would lever the quant to 6% TE (alpha = 4.8%) but concentrates in a single alpha source. Option C has higher alpha (4.0%) but lower IR and concentrates in a single manager with higher key-person risk. The blend at 60/40 produces approximately: TE of 6% (assuming correlation of active returns ~0.3) and combined alpha of ~3.5%, with better diversification of alpha sources.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Optimize active risk allocation across multiple managers"
+        },
+        {
+          "id": "l3-pm-cp-4",
+          "question": "A client's portfolio uses portable alpha: S&P 500 futures for equity beta plus a hedge fund generating 5% return with 0.2 correlation to the S&P 500. During a market downturn, the S&P drops 20%. The hedge fund also drops 8%. The total portfolio return is closest to:",
+          "options": [
+            "A) -20%",
+            "B) -28%",
+            "C) -12%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Total return = Beta return + Alpha source return. The S&P 500 futures produce -20% (full beta exposure). The hedge fund drops 8% (its return is independent of the correlation metric for this calculation -- the actual return is given). Total: -20% + (-8%) = -28%. This illustrates a key risk of portable alpha: in a crisis, the alpha source can lose money simultaneously with the beta exposure, creating compounding losses. The 0.2 correlation is a historical average that understates crisis-period correlation. Option A ignores the hedge fund loss. Option C incorrectly offsets the losses.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate total return of a portable alpha strategy during market stress"
+        },
+        {
+          "id": "l3-pm-cp-5",
+          "question": "A retired client (age 65) has $4M in investments, $300K annual spending need, and $2M in concentrated company stock (cost basis $200K). She has both a taxable account and a Roth IRA ($800K). The most tax-efficient sequence of actions is:",
+          "options": [
+            "A) Sell concentrated stock first to diversify, then draw from Roth for spending",
+            "B) Use taxable account for spending, sell concentrated stock gradually while harvesting losses elsewhere, preserve Roth for last",
+            "C) Convert the concentrated stock to the Roth IRA, then sell within the Roth tax-free"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Optimal withdrawal sequencing for tax efficiency: (1) Spend from the taxable account first (taxed at lower capital gains rates, benefits from step-up in basis at death); (2) Sell concentrated stock gradually over multiple years to spread capital gains across tax brackets and harvest losses in other positions to offset gains; (3) Preserve the Roth IRA for last because it grows tax-free and has no required minimum distributions -- maximum value comes from decades of additional tax-free compounding. Option A triggers a massive capital gain ($1.8M) upfront. Option C would require the stock to be in the Roth (it's presumably in the taxable account) and converting would trigger ordinary income tax on the full $2M value.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Design tax-efficient withdrawal and diversification strategies"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Integrated Case Study: Multi-Strategy Portfolio Management\n\nYou are the CIO of a family office managing $500M across three generations. The current allocation is 50% global equity, 30% fixed income, 10% alternatives, 10% cash.\n\nMarket outlook: You expect a late-cycle environment with rising rates, flattening yield curve, widening credit spreads, and equity market volatility increasing.\n\nThe family patriarch (age 78) needs $5M annually. The second generation (ages 45-55) has moderate growth needs. The third generation (ages 18-25) has a very long horizon.\n\nA) How would you restructure the fixed income allocation? Reference specific LDI, yield curve, and credit concepts.\nB) How would you adjust the equity allocation? Reference specific active strategies.\nC) How would you redesign the overall portfolio using multi-asset concepts?\nD) What private wealth considerations affect the implementation?",
+      "solution": "**A) Fixed Income Restructuring:**\n\nCurrent 30% ($150M) in FI should be restructured for a rising rate, flattening curve, widening spread environment:\n\n1. Shorten duration from benchmark (~6 years) to 3-4 years to reduce rate sensitivity\n2. Implement a flattener: overweight long bonds (which benefit from flattening) funded by underweighting intermediate maturities. Use a barbell structure.\n3. Reduce credit exposure: Move from IG corporate overweight to government/agency overweight. Credit spreads widen in late cycle. Sell BBB- exposure (fallen angel risk).\n4. Add CDS protection: Buy CDX IG index protection ($50M notional) as portfolio insurance against spread widening\n5. LDI component: Cash flow match the patriarch's $5M annual need for 5 years using a dedicated bond ladder ($25M). This immunizes the spending requirement against rate movements.\n6. Preserve optionality: Hold 2% in TIPS for inflation protection\n\n**B) Equity Allocation Adjustment:**\n\nCurrent 50% ($250M) in global equity, restructured for late-cycle volatility:\n\n1. Reduce beta: Trim total equity to 40% ($200M). Increase quality factor exposure (high ROE, low leverage, stable earnings) as quality outperforms in late cycle.\n2. Shift from growth to value/defensive: Rotate into utilities, healthcare, consumer staples away from high-beta cyclicals\n3. Add active equity overlay: Implement a long/short equity strategy ($50M) that is market-neutral -- captures stock-selection alpha without market exposure\n4. Reduce international equity allocation modestly if dollar strengthening is expected in a rate-hiking environment\n5. Use put spreads on equity indices to provide downside protection at reasonable cost\n\n**C) Multi-Asset Redesign:**\n\nNew allocation: 40% equity, 25% fixed income (including LDI), 5% cash flow matching bonds, 15% alternatives, 10% real assets, 5% cash\n\n- Alternatives (15%): Split between market-neutral hedge funds (10%) and private credit with strong covenants (5%) -- private credit offers premium but select carefully in widening spread environment\n- Real assets (10%): Infrastructure (5%) for inflation protection and stable cash flows; gold/commodities (5%) as late-cycle hedge\n- Dynamic allocation: Implement a volatility-targeting overlay that reduces equity exposure when realized vol exceeds 20% (VIX trigger)\n- Cash (5%): At higher rates, cash earns meaningful return while providing dry powder for opportunities in a downturn\n\n**D) Private Wealth Implementation Considerations:**\n\n1. **Tax management**: The patriarch's $5M spending should come from the most tax-efficient sources (e.g., return of capital, long-term gains at preferential rates). Roth conversions for the second generation while rates are high and portfolio values may be temporarily depressed.\n2. **Multi-generational time horizons**: The LDI component serves the patriarch; the second generation's assets can be moderately allocated; the third generation's share should be aggressively invested (illiquid alternatives, PE, growth equity).\n3. **Estate planning integration**: Any concentrated positions should be addressed now with gifting/trust strategies while values may decline. GRATs are attractive when interest rates are rising.\n4. **Behavioral management**: Late-cycle anxiety may cause family members to demand excessive conservatism. Educate using the goals-based framework -- essential spending is protected by LDI, while aspirational goals can tolerate volatility.\n5. **Liquidity management**: Ensure sufficient liquidity for all three generations' needs before committing to illiquid alternatives."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "You are presenting to the family office's investment committee. Summarize in 3 minutes how the portfolio management pathway concepts work together: how LDI protects near-term needs, yield curve positioning adds value, credit management reduces downside, equity strategies capture alpha, and multi-asset thinking ties it all together."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which portfolio management concept from this pathway would you prioritize implementing first in practice?",
+        "Where do the different strategies potentially conflict with each other?",
+        "How has this pathway changed your understanding of the relationship between risk and return?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Portfolio Management Pathway Summary:**\n\n- **LDI**: Match assets to liabilities using cash flow matching, immunization, or contingent approaches\n- **Yield curve**: Profit from level, slope, and curvature changes using bullet/barbell/butterfly strategies\n- **Credit**: Position across the credit cycle; use CDS for hedging and relative value\n- **Active equity**: Fundamental (bottom-up/top-down), quantitative (factor models), event-driven\n- **Portfolio construction**: Risk budgeting, factor management, position sizing, IR = IC x sqrt(BR)\n- **Multi-asset**: Risk parity, TAA, CPPI, portable alpha; beware correlation regime shifts\n- **Private wealth**: IPS, tax management, concentrated positions, behavioral biases\n\nIntegration is key: the best portfolio managers combine these tools based on the specific client situation and market environment."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Congratulations on completing the Portfolio Management Pathway. You can now proceed to the **Private Wealth Pathway** for deep expertise in individual wealth management, or the **Private Markets Pathway** for alternative investments."
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "ALT.3: Investments in Private Capital: Equity and Debt",
+    "description": "Describe private equity and private debt strategies, structures, and performance measurement.",
+    "level": "level-8",
+    "slug": "alt-private-capital",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A private equity firm buys a company for $500 million using $150 million of equity and $350 million of debt. If the company is sold for $700 million five years later and the debt has been repaid, what is the equity return? How does leverage amplify both gains and losses?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Private Equity Strategies\n\nPrivate equity (PE) involves investing in companies that are **not publicly traded** or taking public companies private. The main strategies differ by company stage, risk, and return profile.\n\n### Leveraged Buyouts (LBOs)\n\nThe GP acquires a mature company using a **significant amount of debt** (leverage), typically 50-75% of the purchase price. Returns are generated through:\n\n1. **Operational improvements** \u2014 cost cutting, revenue growth, management upgrades\n2. **Financial engineering** \u2014 using cash flows to repay debt, increasing equity value\n3. **Multiple expansion** \u2014 selling at a higher EV/EBITDA multiple than purchase price\n\n### Venture Capital (VC)\n\nInvests in **early-stage companies** with high growth potential but unproven business models:\n\n| Stage | Description | Risk Level |\n|---|---|---|\n| Seed/Angel | Pre-revenue, concept stage | Very high |\n| Early stage | Product developed, initial revenue | High |\n| Late stage/Growth | Proven model, scaling | Moderate-high |\n\nVC portfolios follow a **power law distribution**: most investments fail, but a few \"home runs\" (10-100x returns) drive overall fund performance.\n\n### Growth Equity\n\nInvests in **established, profitable companies** seeking capital to expand. Less leverage than LBOs, less risk than VC. Typically takes a **minority stake**."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In a leveraged buyout, what happens to the equity investor's return if the acquired company's value declines by 20%?",
+      "answer": "Leverage amplifies losses just as it amplifies gains. If a company is purchased for $500M with $150M equity and $350M debt, and its value falls 20% to $400M, the equity value drops from $150M to $50M ($400M - $350M debt). That is a 67% loss on equity, even though the company declined only 20%. If the value falls to $350M or below, the equity is completely wiped out (100% loss). This asymmetric risk is why LBO investors demand high expected returns."
+    },
+    {
+      "type": "markdown",
+      "content": "## Exit Strategies\n\nPE firms hold investments for 3-7 years on average and exit through:\n\n| Exit Route | Description | When Preferred |\n|---|---|---|\n| **IPO** | List on a public exchange | Strong public markets, growth story |\n| **Trade sale** | Sell to a strategic buyer (competitor, adjacent company) | Synergy value exceeds standalone value |\n| **Secondary sale** | Sell to another PE firm | Company needs more time or different expertise |\n| **Recapitalization** | Refinance with new debt, return equity to investors | Strong cash flows, favorable debt markets |\n| **Write-off** | Company fails | Venture capital common outcome |\n\n## Private Debt\n\nPrivate debt is **non-bank lending** to companies, typically illiquid and held to maturity.\n\n| Strategy | Description | Risk/Return |\n|---|---|---|\n| **Direct lending** | Senior secured loans to mid-market companies | Lower risk, floating rate |\n| **Mezzanine debt** | Subordinated debt, often with equity warrants or conversion rights | Higher yield, higher risk |\n| **Venture debt** | Loans to VC-backed startups, often with warrants | Complements equity financing |\n| **Infrastructure debt** | Loans to infrastructure projects (toll roads, airports) | Long duration, stable cash flows |\n\nMezzanine debt sits **between senior debt and equity** in the capital structure. If the company defaults, mezzanine lenders are repaid after senior lenders but before equity holders."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A PE firm acquires a company for $400 million using $120 million of equity and $280 million of debt. After 4 years, the company is sold for $600 million. The debt balance at exit is $200 million (principal repaid from cash flows). Calculate: (1) the equity return multiple (MOIC), (2) the approximate equity IRR, and (3) what the MOIC would be if no leverage were used.",
+      "solution": "**Step 1: Equity MOIC (with leverage)**\nEquity at entry = $120M\nEquity at exit = $600M sale price - $200M remaining debt = $400M\n\n$$MOIC = \\frac{400}{120} = 3.33\\times$$\n\n**Step 2: Approximate equity IRR**\nUsing the relationship: $120M \\times (1 + IRR)^4 = 400M$\n\n$(1 + IRR)^4 = 3.33$\n$1 + IRR = 3.33^{0.25} = 1.351$\n$IRR \\approx 35.1\\%$\n\n**Step 3: MOIC without leverage**\nIf the PE firm used all equity ($400M) and sold for $600M:\n\n$$MOIC = \\frac{600}{400} = 1.50\\times$$\n\nLeverage amplified the MOIC from 1.50x to 3.33x. The unlevered IRR would be approximately $(1.50)^{0.25} - 1 = 10.7\\%$. Leverage nearly tripled the IRR from ~11% to ~35%."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Capital Practice Problems",
+      "problems": [
+        {
+          "id": "alt3-1",
+          "question": "Which private equity strategy is most likely to use significant financial leverage as a primary source of return?",
+          "options": [
+            "A) Venture capital",
+            "B) Leveraged buyout",
+            "C) Growth equity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Leveraged buyouts use substantial debt (typically 50-75% of the purchase price) to acquire mature companies. Returns are generated partly through financial engineering \u2014 using company cash flows to pay down debt, which accrues to equity holders. Option A is incorrect because VC-backed companies are typically pre-profit and cannot support significant debt. Option C typically involves minority stakes with limited or no leverage.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe private equity strategies"
+        },
+        {
+          "id": "alt3-2",
+          "question": "A venture capital fund invests $2 million in each of 10 startups. Eight fail completely, one returns $5 million, and one returns $50 million. What is the fund's MOIC?",
+          "options": [
+            "A) 2.75x",
+            "B) 5.00x",
+            "C) 2.50x"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Total invested = 10 x $2M = $20M. Total returned = $0 + $5M + $50M = $55M. MOIC = $55M / $20M = 2.75x. This illustrates the power law distribution in VC: 80% of investments failed, but the single home run ($50M on $2M = 25x) drove nearly all the fund's returns. Option B would require $100M in total returns. Option C would require $50M in total returns.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate MOIC for a venture capital portfolio"
+        },
+        {
+          "id": "alt3-3",
+          "question": "Where does mezzanine debt rank in the capital structure, and what feature compensates investors for its subordinated position?",
+          "options": [
+            "A) Senior to all debt; compensated with lower interest rates",
+            "B) Between senior debt and equity; compensated with higher yields and often equity warrants",
+            "C) Junior to equity; compensated with the highest potential returns in the capital structure"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Mezzanine debt is subordinated (junior) to senior debt but senior to equity in the capital structure. Because mezzanine lenders bear more risk than senior lenders (they are repaid only after senior claims are satisfied), they receive higher coupon rates and frequently receive equity warrants or conversion rights that provide additional upside. Option A describes senior debt. Option C is incorrect \u2014 nothing is junior to equity.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe private debt strategies and their position in the capital structure"
+        },
+        {
+          "id": "alt3-4",
+          "question": "A PE firm acquires a company for $200M ($60M equity, $140M debt). Three years later, the company is sold for $160M with $120M in debt remaining. What is the equity MOIC?",
+          "options": [
+            "A) 0.67x",
+            "B) 0.80x",
+            "C) -0.33x"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Equity at exit = Sale price - Remaining debt = $160M - $120M = $40M. MOIC = $40M / $60M = 0.67x. The investors lost one-third of their equity investment. While the company's value declined by only 20% ($200M to $160M), the equity MOIC of 0.67x represents a 33% loss \u2014 demonstrating how leverage amplifies losses. Option B incorrectly calculates $160M / $200M (total value decline, not equity return). Option C is wrong because MOIC cannot be negative; it is a ratio, not a dollar amount.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate equity returns in a leveraged transaction"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a non-finance friend how leverage works in a leveraged buyout. Use a simple analogy \u2014 such as buying a house with a mortgage \u2014 to illustrate how using borrowed money can amplify both gains and losses on the equity investment."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does venture capital follow a power law distribution while LBOs typically have a more normal distribution of outcomes?",
+        "What risks does an investor in mezzanine debt face that a senior secured lender does not?",
+        "How do the different exit routes (IPO, trade sale, secondary) reflect different stages of a company's development?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **LBOs**: acquire mature companies with 50-75% debt; returns from operations, debt paydown, and multiple expansion\n- **Venture capital**: early-stage, high-risk; power law returns \u2014 most fail, few home runs drive performance\n- **Growth equity**: minority stakes in profitable companies seeking expansion capital\n- Leverage **amplifies** both gains and losses on equity\n- **Exit strategies**: IPO, trade sale, secondary sale, recapitalization, write-off\n- **Private debt**: direct lending (senior, lower risk), mezzanine (subordinated, higher yield + warrants), venture debt, infrastructure debt\n- Mezzanine debt ranks between senior debt and equity in the capital structure\n- Always evaluate equity returns (not total value changes) in leveraged transactions"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Real Estate and Infrastructure**, where you will learn about another major category of alternative investments \u2014 tangible real assets. You will see how valuation approaches differ from private equity, including cap rates, NOI, and the distinction between direct and indirect real estate investing."
+    }
+  ]
+}

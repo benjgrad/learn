@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "title": "Fixed Income Checkpoint",
+    "description": "Comprehensive assessment covering all Fixed Income topics: bond features, pricing, yield measures, duration, convexity, credit risk, securitization, and MBS.",
+    "level": "level-6",
+    "slug": "fi-checkpoint",
+    "order": 21,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Fixed Income Checkpoint\n\nThis checkpoint assesses your mastery across all Fixed Income topics for CFA Level I. The questions span bond features and pricing, yield measures, duration and convexity, term structure, credit analysis, securitization, and mortgage-backed securities.\n\nTake your time and show your work for calculations. Aim for at least 70% correct before moving on."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Fixed Income Comprehensive Assessment",
+      "problems": [
+        {
+          "id": "fi-cp-1",
+          "question": "A 5-year, 4% annual coupon bond has a YTM of 5%. Its price per $100 par is closest to:",
+          "options": [
+            "A) $95.67",
+            "B) $100.00",
+            "C) $104.33"
+          ],
+          "correctAnswer": "A",
+          "explanation": "P = 4/1.05 + 4/1.05\u00b2 + 4/1.05\u00b3 + 4/1.05\u2074 + 104/1.05\u2075 = 3.810 + 3.628 + 3.455 + 3.291 + 81.491 = $95.67. Since YTM (5%) > coupon (4%), the bond trades at a discount. Option B would require YTM = coupon. Option C would require YTM < coupon (premium).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate bond price given YTM"
+        },
+        {
+          "id": "fi-cp-2",
+          "question": "A U.S. corporate bond (30/360 convention) with a 5% semiannual coupon and $1,000 par has coupon dates on January 15 and July 15. A trade settles on April 15. The accrued interest is closest to:",
+          "options": [
+            "A) $12.50",
+            "B) $25.00",
+            "C) $37.50"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under 30/360: January 15 to April 15 = 3 months \u00d7 30 days = 90 days. Full period = 180 days. Semiannual coupon = $1,000 \u00d7 5%/2 = $25. Accrued = (90/180) \u00d7 $25 = $12.50. Option B is the full semiannual coupon (not prorated). Option C assumes 270 days elapsed (three-quarters of the period).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate accrued interest using day-count conventions"
+        },
+        {
+          "id": "fi-cp-3",
+          "question": "An FRN pays SOFR + 175 bps, reset quarterly. Since issuance, the issuer's credit quality has deteriorated and the market now requires SOFR + 225 bps. This FRN most likely trades:",
+          "options": [
+            "A) At par",
+            "B) Above par",
+            "C) Below par"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The required margin (225 bps) exceeds the quoted margin (175 bps), meaning the FRN pays 50 bps less than the market demands. Investors will only buy at a discount to compensate. Option A requires QM = DM. Option B requires QM > DM (credit improvement).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Determine FRN pricing based on quoted vs. required margin"
+        },
+        {
+          "id": "fi-cp-4",
+          "question": "A municipal bond yields 3.80%. For an investor in the 37% marginal tax bracket, the tax-equivalent yield is closest to:",
+          "options": [
+            "A) 2.39%",
+            "B) 5.06%",
+            "C) 6.03%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "TEY = Muni yield / (1 \u2212 Tax rate) = 3.80% / (1 \u2212 0.37) = 3.80% / 0.63 = 6.03%. Option A multiplies by (1 \u2212 0.37) instead of dividing. Option B uses a lower tax rate (approximately 25%).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate tax-equivalent yield"
+        },
+        {
+          "id": "fi-cp-5",
+          "question": "The 1-year spot rate is 3.50% and the 2-year spot rate is 4.50%. The 1-year forward rate one year from now is closest to:",
+          "options": [
+            "A) 4.00%",
+            "B) 4.50%",
+            "C) 5.51%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "f\u2081,\u2081 = (1 + z\u2082)\u00b2/(1 + z\u2081) \u2212 1 = (1.045)\u00b2/1.035 \u2212 1 = 1.09203/1.035 \u2212 1 = 1.05510 \u2212 1 = 5.51%. The forward rate must be higher than both spot rates to compensate for the lower first-year rate. Option A is the simple average. Option B equals the 2-year spot rate (incorrect).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate forward rates from spot rates"
+        },
+        {
+          "id": "fi-cp-6",
+          "question": "A bond's Macaulay duration is 6.8 years and its YTM is 4% (semiannual). If yields rise by 50 bps, the estimated percentage price change using modified duration is closest to:",
+          "options": [
+            "A) \u22123.33%",
+            "B) \u22123.40%",
+            "C) \u22126.67%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "ModDur = MacDur / (1 + YTM/2) = 6.8 / 1.02 = 6.667. %\u0394P \u2248 \u2212ModDur \u00d7 \u0394y = \u22126.667 \u00d7 0.005 = \u22123.33%. Option B divides by (1 + 0.04) instead of (1 + 0.02), getting ModDur = 6.538. Option C uses the Macaulay duration directly without converting to modified, and applies a 1% yield change.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate modified duration and estimate price change"
+        },
+        {
+          "id": "fi-cp-7",
+          "question": "A bond has modified duration of 5.5 and convexity of 40. If yields decrease by 200 bps, the estimated percentage price change is closest to:",
+          "options": [
+            "A) +10.20%",
+            "B) +11.00%",
+            "C) +11.80%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "%\u0394P \u2248 (\u2212ModDur \u00d7 \u0394y) + (0.5 \u00d7 Con \u00d7 \u0394y\u00b2) = (\u22125.5 \u00d7 \u22120.02) + (0.5 \u00d7 40 \u00d7 0.0004) = 11.00% + 0.80% = 11.80%. The duration component gives +11.00% and the convexity adjustment adds +0.80%. Option A subtracts the convexity adjustment. Option B uses duration only.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Estimate price change using duration and convexity"
+        },
+        {
+          "id": "fi-cp-8",
+          "question": "Expected loss on a bond with a probability of default of 4%, a loss given default of 60%, and an exposure at default of $5 million is closest to:",
+          "options": [
+            "A) $12,000",
+            "B) $120,000",
+            "C) $200,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Expected loss = PD \u00d7 LGD \u00d7 EAD = 0.04 \u00d7 0.60 \u00d7 $5,000,000 = $120,000. Option A uses 0.4% PD instead of 4%. Option C uses only PD \u00d7 EAD without LGD ($5M \u00d7 4% = $200,000).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate expected loss from credit risk components"
+        },
+        {
+          "id": "fi-cp-9",
+          "question": "A country has a debt-to-GDP ratio of 75%, an effective interest rate of 3.5%, and nominal GDP growth of 5%. For debt sustainability, the country:",
+          "options": [
+            "A) Must run a primary surplus of at least 1.125% of GDP",
+            "B) Can run a primary deficit and still see its debt ratio decline",
+            "C) Must reduce spending by 3.5% of GDP immediately"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Required primary surplus = (r \u2212 g) \u00d7 d = (0.035 \u2212 0.05) \u00d7 0.75 = \u22120.015 \u00d7 0.75 = \u22121.125% of GDP. The negative result means the country can run a primary deficit of up to 1.125% of GDP while still reducing its debt-to-GDP ratio. When g > r, economic growth naturally reduces the debt burden. Option A reverses the sign. Option C is an arbitrary austerity measure not derived from the formula.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Assess sovereign debt sustainability"
+        },
+        {
+          "id": "fi-cp-10",
+          "question": "In a securitization, the subordination level for the senior tranche is 25%. This means the senior tranche is protected against losses up to:",
+          "options": [
+            "A) 25% of the senior tranche value",
+            "B) 25% of the total asset pool value",
+            "C) 75% of the total asset pool value"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A subordination level of 25% means 25% of the total deal structure sits below the senior tranche (mezzanine + equity tranches). The asset pool must lose more than 25% of its value before the senior tranche experiences any loss. Option A confuses subordination as a percentage of the senior tranche. Option C would mean only 25% of the pool backs the senior tranche, which is inverted.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Interpret subordination levels in securitization"
+        },
+        {
+          "id": "fi-cp-11",
+          "question": "A mortgage pool has an SMM of 0.8% in a given month. The conditional prepayment rate (CPR) is closest to:",
+          "options": [
+            "A) 7.21%",
+            "B) 9.17%",
+            "C) 9.60%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CPR = 1 \u2212 (1 \u2212 SMM)\u00b9\u00b2 = 1 \u2212 (1 \u2212 0.008)\u00b9\u00b2 = 1 \u2212 (0.992)\u00b9\u00b2 = 1 \u2212 0.9083 = 0.0917 = 9.17%. Option A uses 9 months instead of 12. Option C simply multiplies SMM \u00d7 12 (0.8% \u00d7 12 = 9.6%), which ignores compounding.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Convert between SMM and CPR"
+        },
+        {
+          "id": "fi-cp-12",
+          "question": "An investor holds a PO (principal-only) strip from a mortgage pass-through. If interest rates decline sharply, the value of this PO strip will most likely:",
+          "options": [
+            "A) Decrease because coupon income is lost",
+            "B) Remain unchanged because principal payments are fixed",
+            "C) Increase because prepayments accelerate and principal is returned sooner"
+          ],
+          "correctAnswer": "C",
+          "explanation": "A PO strip receives only principal payments. When rates decline, homeowners refinance and prepay faster, returning the same total principal but sooner. The present value of receiving principal sooner at lower discount rates is higher, so the PO strip's value increases. Option A confuses PO with IO (PO receives no coupons). Option B ignores the time value of money \u2014 earlier receipt of the same principal has higher present value.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the interest rate sensitivity of IO and PO strips"
+        },
+        {
+          "id": "fi-cp-13",
+          "question": "For a callable bond trading at a premium, the yield-to-worst is most likely the:",
+          "options": [
+            "A) Yield to maturity",
+            "B) Yield to first call",
+            "C) Current yield"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When a callable bond trades at a premium (above call price), the issuer has incentive to call. The YTC is lower than the YTM because the investor receives the lower call price sooner. YTW = min(YTM, all YTCs), which is typically the YTC for a premium callable bond. Option A is the highest yield among the options (not the minimum). Option C is not used in YTW calculations.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Determine yield-to-worst for callable bonds"
+        },
+        {
+          "id": "fi-cp-14",
+          "question": "A company's debt-to-EBITDA ratio has risen from 2.5x to 4.8x over two years while its interest coverage has fallen from 7.0x to 3.2x. This trend most likely indicates:",
+          "options": [
+            "A) Improving credit quality due to growth in leverage",
+            "B) Stable credit quality if the company is in a cyclical industry",
+            "C) Deteriorating credit quality that may lead to a downgrade"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Rising leverage (higher debt-to-EBITDA) combined with declining coverage (lower EBITDA/interest) is a classic pattern of credit deterioration. The company is taking on more debt while its ability to service that debt weakens. This two-year trend is significant and would concern credit analysts. Option A incorrectly views rising leverage as positive. Option B dismisses the severity of the decline.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify trends indicating deteriorating corporate credit quality"
+        },
+        {
+          "id": "fi-cp-15",
+          "question": "A bond is priced at $100.00. When the benchmark curve shifts down by 25 bps, a pricing model gives $102.00. When the curve shifts up by 25 bps, the model gives $97.80. The effective duration is closest to:",
+          "options": [
+            "A) 4.20",
+            "B) 8.40",
+            "C) 16.80"
+          ],
+          "correctAnswer": "B",
+          "explanation": "EffDur = (P\u208b \u2212 P\u208a) / (2 \u00d7 P\u2080 \u00d7 \u0394Curve) = (102.00 \u2212 97.80) / (2 \u00d7 100.00 \u00d7 0.0025) = 4.20 / 0.50 = 8.40. Option A divides by 2 \u00d7 P\u2080 \u00d7 \u0394Curve but uses \u0394Curve = 0.005 instead of 0.0025. Option C uses \u0394Curve = 0.00125 in the denominator (or forgets the factor of 2).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate effective duration from model-based prices"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Fixed Income Review \u2014 Essential Formulas:**\n\n- Bond price: $P = \\sum C/(1+y)^t + F/(1+y)^n$\n- Accrued interest: (Days elapsed / Days in period) \u00d7 Coupon\n- Forward rate: $f_{1,1} = (1+z_2)^2 / (1+z_1) - 1$\n- Modified duration: MacDur / (1 + y/m)\n- Price change: $\\approx (-\\text{ModDur} \\times \\Delta y) + (0.5 \\times \\text{Con} \\times \\Delta y^2)$\n- Expected loss: PD \u00d7 LGD \u00d7 EAD\n- Tax-equivalent yield: Muni yield / (1 \u2212 Tax rate)\n- CPR: $1 - (1 - \\text{SMM})^{12}$\n- Debt sustainability: Primary surplus needed = (r \u2212 g) \u00d7 d"
+    }
+  ]
+}

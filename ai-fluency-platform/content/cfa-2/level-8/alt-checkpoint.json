@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "Alternative Investments Checkpoint",
+    "description": "Test your understanding of private capital, real estate, natural resources, and hedge fund strategies.",
+    "level": "level-8",
+    "slug": "alt-checkpoint",
+    "order": 6,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Alternative Investments Checkpoint",
+      "problems": [
+        {
+          "id": "alt-cp-1",
+          "question": "A PE fund has called $300M of $500M committed capital, distributed $180M, and the remaining portfolio NAV is $250M. The fund's DPI and TVPI are closest to:",
+          "options": [
+            "A) DPI = 0.60x, TVPI = 1.43x",
+            "B) DPI = 0.36x, TVPI = 0.86x",
+            "C) DPI = 0.60x, TVPI = 0.86x"
+          ],
+          "correctAnswer": "A",
+          "explanation": "DPI = $180M/$300M = 0.60x. TVPI = ($180M + $250M)/$300M = $430M/$300M = 1.43x. The denominator is paid-in (called) capital ($300M), not committed capital ($500M). Option B incorrectly uses committed capital as the denominator. Option C mixes the correct DPI with the wrong TVPI.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate PE performance metrics using correct denominators"
+        },
+        {
+          "id": "alt-cp-2",
+          "question": "A property has NOI of $800,000. Comparable cap rates are 5.5%. If cap rates rise to 6.5% due to higher interest rates, the property's value changes by approximately:",
+          "options": [
+            "A) \u2212$2.3M (decline of about 15%)",
+            "B) \u2212$1.0M (decline of about 7%)",
+            "C) +$2.3M (increase of about 15%)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "At 5.5%: V = $800K/0.055 = $14.55M. At 6.5%: V = $800K/0.065 = $12.31M. Change = \u2212$2.24M \u2248 \u2212$2.3M, a decline of 15.4%. Cap rate expansion (rising cap rates) decreases property values, analogous to rising yields decreasing bond prices. Option C has the direction wrong.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Analyze the impact of cap rate changes on property values"
+        },
+        {
+          "id": "alt-cp-3",
+          "question": "A commodity futures market is in contango with the spot price at $50 and the 6-month futures at $53. An investor who buys and holds the futures contract will experience a roll yield that is:",
+          "options": [
+            "A) Positive, as the futures price converges down to the spot",
+            "B) Negative, as the investor must roll into a more expensive contract",
+            "C) Zero, as roll yield only exists in backwardated markets"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In contango (futures > spot), the futures price converges down to the spot price as expiration approaches, generating a loss on the position. When rolling, the investor sells the expiring contract (now near spot) and buys the next, more expensive contract. This negative roll yield is a persistent drag on returns for long-only commodity index funds in contango markets. Roll yield exists in both contango (negative) and backwardation (positive).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain how the shape of the futures curve affects roll yield"
+        }
+      ]
+    }
+  ]
+}

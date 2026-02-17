@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ECON.4: Monetary Policy",
+    "description": "Understand central bank roles, money supply and demand, policy tools, the transmission mechanism, and frameworks like inflation targeting and the Taylor rule.",
+    "level": "level-2",
+    "slug": "econ-monetary-policy",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When a central bank raises interest rates, how does that decision eventually affect the price you pay for groceries or the likelihood of getting a raise? Trace the chain of effects from the policy announcement to everyday prices."
+    },
+    {
+      "type": "markdown",
+      "content": "## Central Banking and the Money Supply\n\n### Roles of a Central Bank\n\nCentral banks serve several critical functions:\n- **Monetary policy**: Setting interest rates and controlling money supply to achieve price stability and support economic growth\n- **Lender of last resort**: Providing emergency liquidity to banks facing short-term funding crises\n- **Bank regulation and supervision**: Ensuring stability of the financial system\n- **Currency issuance**: Managing the nation's currency and payment systems\n\n### Money Supply and the Money Multiplier\n\nThe central bank controls the **monetary base** (currency in circulation plus bank reserves). Through the banking system, this base is multiplied into a larger money supply via the **money multiplier**:\n\n$$\\text{Money multiplier} = \\frac{1}{\\text{Reserve requirement}}$$\n\n**Example**: If the reserve requirement is 10%, the money multiplier is $1/0.10 = 10$. A $1 billion increase in the monetary base can support up to $10 billion in new money supply.\n\nIn practice, the actual multiplier is smaller because banks may hold **excess reserves** and the public holds some currency outside the banking system.\n\n### Money Demand\n\nPeople hold money for three reasons (Keynes):\n- **Transactions demand**: To fund daily purchases (increases with income and GDP)\n- **Precautionary demand**: As a buffer against unexpected expenses\n- **Speculative demand**: To take advantage of future investment opportunities (decreases as interest rates rise, because the opportunity cost of holding money increases)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If the central bank lowers the reserve requirement from 10% to 5%, what happens to the theoretical money multiplier and the money supply?",
+      "answer": "The money multiplier doubles from 10 (1/0.10) to 20 (1/0.05). This means each dollar of reserves can now support $20 in deposits instead of $10. The potential money supply expands significantly because banks can lend a larger fraction of their deposits. In practice, the expansion would be smaller if banks choose to hold excess reserves or if loan demand is weak. This is an expansionary monetary policy action \u2014 by reducing reserves banks must hold, the central bank increases the funds available for lending."
+    },
+    {
+      "type": "markdown",
+      "content": "## Monetary Policy Tools\n\n### Conventional Tools\n\n| Tool | How It Works | Expansionary | Contractionary |\n|---|---|---|---|\n| **Policy rate** (fed funds rate, repo rate) | Interest rate at which banks lend to each other overnight | Lower the rate | Raise the rate |\n| **Open market operations (OMOs)** | Central bank buys or sells government securities | Buy securities (injects reserves) | Sell securities (drains reserves) |\n| **Reserve requirements** | Minimum reserves banks must hold | Lower requirements | Raise requirements |\n| **Discount rate** | Rate at which banks borrow from the central bank | Lower the rate | Raise the rate |\n\n### Unconventional Tools\n\nWhen conventional tools are exhausted (interest rates near zero \u2014 the **zero lower bound**):\n\n- **Quantitative easing (QE)**: Central bank purchases large quantities of longer-term securities (government bonds, mortgage-backed securities) to lower long-term interest rates and inject liquidity\n- **Forward guidance**: Communicating future policy intentions to shape market expectations\n- **Negative interest rates**: Charging banks for holding excess reserves, incentivizing lending\n\n### The Transmission Mechanism\n\nMonetary policy affects the real economy through several channels:\n\n1. **Interest rate channel**: Lower rates \u2192 cheaper borrowing \u2192 more investment and consumption\n2. **Asset price channel**: Lower rates \u2192 higher stock and bond prices \u2192 wealth effect increases spending\n3. **Exchange rate channel**: Lower rates \u2192 currency depreciates \u2192 exports become cheaper \u2192 net exports rise\n4. **Credit channel**: Lower rates \u2192 banks lend more freely \u2192 businesses and consumers have greater access to credit"
+    },
+    {
+      "type": "markdown",
+      "content": "## Policy Frameworks\n\n### Inflation Targeting\n\nMost major central banks now explicitly target a specific inflation rate (commonly **2%**). The framework involves:\n- Announcing a numerical inflation target\n- Using the policy rate as the primary instrument\n- Publishing inflation forecasts and minutes to maintain transparency\n- Central bank **independence** from political pressure\n\nThe target is typically symmetric: 2% inflation is the goal, and both above-target and below-target inflation are considered undesirable.\n\n### The Taylor Rule\n\nThe Taylor rule provides a formula for determining the appropriate policy interest rate:\n\n$$i = r^* + \\pi + 0.5(\\pi - \\pi^*) + 0.5(y - y^*)$$\n\nWhere:\n- $i$ = target nominal policy rate\n- $r^*$ = real equilibrium interest rate (commonly assumed at 2%)\n- $\\pi$ = current inflation rate\n- $\\pi^*$ = target inflation rate\n- $y - y^*$ = output gap (actual GDP minus potential GDP, as a percentage)\n\n**Example**: Assume $r^* = 2\\%$, $\\pi = 3\\%$, $\\pi^* = 2\\%$, and the output gap is $+1\\%$:\n\n$$i = 2\\% + 3\\% + 0.5(3\\% - 2\\%) + 0.5(1\\%) = 2 + 3 + 0.5 + 0.5 = 6\\%$$\n\nThe Taylor rule suggests a 6% policy rate. If the actual rate is lower, the central bank may be running a policy that is too expansionary.\n\n### Limitations of Monetary Policy\n\n- **Liquidity trap**: At very low interest rates, further rate cuts have little effect \u2014 people hoard cash rather than spend or invest\n- **Long and variable lags**: Monetary policy affects the real economy with delays of 6\u201324 months\n- **Pushing on a string**: The central bank can make borrowing cheaper, but cannot force businesses and consumers to borrow and spend"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Using the Taylor rule, calculate the recommended policy rate given: equilibrium real rate = 2%, current inflation = 4%, target inflation = 2%, actual GDP growth = 1%, potential GDP growth = 3% (output gap = -2%). Then explain whether the central bank should adopt an expansionary or contractionary stance.",
+      "solution": "**Taylor rule calculation:**\n\n$$i = r^* + \\pi + 0.5(\\pi - \\pi^*) + 0.5(y - y^*)$$\n\n$$i = 2\\% + 4\\% + 0.5(4\\% - 2\\%) + 0.5(-2\\%)$$\n\n$$i = 2 + 4 + 1 - 1 = 6\\%$$\n\n**Interpretation**: The Taylor rule recommends a 6% policy rate. The two objectives pull in opposite directions:\n\n- **Inflation above target** (+1% contribution): Inflation is 4% vs. the 2% target, calling for tighter policy\n- **Negative output gap** (\u22121% contribution): GDP is below potential, calling for easier policy\n\nThe net recommendation of 6% is still above what a pure inflation-neutral stance (2% + 4% = 6%) would suggest, because the inflation overshoot exactly offsets the output gap in this case. The central bank faces a trade-off: tightening to control inflation risks worsening the output gap. This is similar to the stagflation dilemma \u2014 the optimal response depends on which objective the central bank prioritizes."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Monetary Policy Practice Problems",
+      "problems": [
+        {
+          "id": "econ4-1",
+          "question": "A central bank purchases government bonds in the open market. This action most likely leads to:",
+          "options": [
+            "A) Higher short-term interest rates",
+            "B) A decrease in the monetary base",
+            "C) An increase in bank reserves and lower short-term interest rates"
+          ],
+          "correctAnswer": "C",
+          "explanation": "When the central bank buys government bonds, it pays for them by crediting the selling banks' reserve accounts, directly increasing bank reserves and the monetary base. The increased supply of reserves in the interbank market pushes short-term interest rates down. This is expansionary open market operations. Option A is incorrect because buying bonds injects reserves, which reduces (not increases) interest rates. Option B is incorrect because buying bonds increases (not decreases) the monetary base.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe the effects of open market operations"
+        },
+        {
+          "id": "econ4-2",
+          "question": "Given: equilibrium real rate = 2%, current inflation = 5%, target inflation = 2%, output gap = 0%. Using the Taylor rule, the recommended policy rate is closest to:",
+          "options": [
+            "A) 5.5%",
+            "B) 7.0%",
+            "C) 8.5%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Taylor rule: i = r* + \u03c0 + 0.5(\u03c0 \u2212 \u03c0*) + 0.5(y \u2212 y*) = 2% + 5% + 0.5(5% \u2212 2%) + 0.5(0%) = 2 + 5 + 1.5 + 0 = 8.5%. Option A (5.5%) omits the inflation adjustment term, computing only r* + \u03c0 + 0.5(y \u2212 y*) = 2 + 5 + 0 \u2212 1.5 or a similar error. Option B (7.0%) is the result of computing r* + \u03c0 = 2 + 5 = 7, forgetting the 0.5(\u03c0 \u2212 \u03c0*) adjustment for above-target inflation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate the target policy rate using the Taylor rule"
+        },
+        {
+          "id": "econ4-3",
+          "question": "During a severe recession, the central bank has lowered its policy rate to near zero but the economy remains weak. This situation is best described as:",
+          "options": [
+            "A) Crowding out",
+            "B) A liquidity trap",
+            "C) Ricardian equivalence"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A liquidity trap occurs when interest rates are at or near zero and monetary policy becomes ineffective \u2014 further rate cuts are impossible, and economic agents prefer holding cash to investing or spending. The central bank is 'pushing on a string.' Option A (crowding out) describes a fiscal policy phenomenon where government borrowing raises interest rates and reduces private investment \u2014 not relevant to the zero-lower-bound scenario. Option C (Ricardian equivalence) describes consumer behavior in response to deficit spending \u2014 a fiscal policy concept unrelated to the central bank's interest rate dilemma.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain limitations of monetary policy including the liquidity trap"
+        },
+        {
+          "id": "econ4-4",
+          "question": "A central bank lowers its policy rate. Through the exchange rate channel of the transmission mechanism, this action most likely causes:",
+          "options": [
+            "A) Currency appreciation and increased imports",
+            "B) Currency depreciation and increased exports",
+            "C) Currency depreciation and decreased exports"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Lower domestic interest rates reduce the return on domestic assets relative to foreign assets. Capital flows out seeking higher returns abroad, increasing the supply of the domestic currency in foreign exchange markets. The domestic currency depreciates. A weaker currency makes domestic goods cheaper for foreign buyers, increasing exports and boosting aggregate demand. Option A reverses the direction \u2014 lower rates cause depreciation, not appreciation. Option C correctly identifies depreciation but incorrectly states that exports decrease; a weaker currency makes exports more competitive, increasing them.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe the transmission mechanisms of monetary policy"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain how a central bank's decision to raise interest rates eventually leads to lower inflation. Walk through the transmission mechanism step by step, as if explaining to someone who understands that higher rates mean more expensive loans but doesn't know why that affects prices in the broader economy."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do central banks target a positive inflation rate (like 2%) rather than zero inflation?",
+        "How does the Taylor rule help evaluate whether a central bank's policy is appropriate?",
+        "What are the trade-offs between using fiscal policy versus monetary policy to stimulate the economy?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Money multiplier: $1 / \\text{Reserve requirement}$\n- Taylor rule: $i = r^* + \\pi + 0.5(\\pi - \\pi^*) + 0.5(y - y^*)$\n- Conventional tools: policy rate, open market operations, reserve requirements, discount rate\n- Unconventional tools: QE, forward guidance, negative rates\n- Transmission channels: interest rate, asset price, exchange rate, credit\n- Buy securities = expansionary (injects reserves, lowers rates)\n- Sell securities = contractionary (drains reserves, raises rates)\n- Liquidity trap: rates at zero, monetary policy ineffective\n- Central bank independence is critical for credibility and effectiveness"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Introduction to Geopolitics** \u2014 how political risks, sanctions, and international conflicts affect financial markets. You'll see how geopolitical events can override the carefully planned monetary and fiscal policies we've been studying, forcing central banks and governments to respond to external shocks."
+    }
+  ]
+}

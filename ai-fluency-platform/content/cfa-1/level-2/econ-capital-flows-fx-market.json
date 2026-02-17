@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ECON.7: Capital Flows and the FX Market",
+    "description": "Understand the balance of payments framework, foreign exchange market structure, exchange rate regimes, and the role of central bank intervention.",
+    "level": "level-2",
+    "slug": "econ-capital-flows-fx-market",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If a country consistently imports more goods than it exports (a trade deficit), what must be true about the flow of capital into that country? Why can't a trade deficit exist in isolation?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Balance of Payments\n\nThe **balance of payments (BOP)** is an accounting record of all economic transactions between a country's residents and the rest of the world over a period. It must always sum to zero by construction.\n\n### BOP Components\n\n| Account | Records | Key Items |\n|---|---|---|\n| **Current account** | Trade in goods and services, income, and transfers | Exports/imports of goods, services, investment income, remittances |\n| **Capital account** | Transfers of capital assets and non-financial assets | Debt forgiveness, migrant transfers, sale of patents |\n| **Financial account** | Investment flows | Foreign direct investment (FDI), portfolio investment, reserve assets, other investment |\n\nThe fundamental identity:\n\n$$\\text{Current account} + \\text{Capital account} + \\text{Financial account} = 0$$\n\n### Current Account Details\n\nThe current account is the most watched component:\n\n$$\\text{Current account} = (X - M) + \\text{Net income} + \\text{Net transfers}$$\n\nWhere $X$ = exports, $M$ = imports.\n\n- **Trade balance** ($X - M$): The largest component. A deficit means imports exceed exports.\n- **Net income**: Investment income received from abroad minus income paid to foreign investors\n- **Net transfers**: Remittances, foreign aid, gifts\n\nA **current account deficit** means the country consumes more than it produces. To finance this, it must attract capital inflows (a financial account surplus). In other words, a trade deficit is financed by foreign investment \u2014 borrowing from or selling assets to foreigners."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The United States has run persistent current account deficits for decades. What does this imply about the financial account, and why might this be sustainable?",
+      "answer": "A persistent current account deficit implies a persistent financial account surplus \u2014 the U.S. attracts net capital inflows. Foreign investors buy U.S. assets (Treasury bonds, equities, real estate, direct investments). This can be sustainable because: (1) the U.S. dollar is the world's primary reserve currency, creating constant demand for U.S. assets; (2) U.S. financial markets are deep, liquid, and considered safe; (3) the U.S. economy is large and innovative, offering attractive investment returns. However, sustainability depends on continued foreign willingness to hold U.S. assets. If confidence erodes, capital inflows could slow, the dollar could depreciate, and financing the deficit would become more expensive."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Foreign Exchange Market\n\n### Market Structure\n\nThe FX market is the **largest financial market in the world**, with daily turnover exceeding $7 trillion. Key features:\n\n- **Over-the-counter (OTC)**: No centralized exchange; trading occurs through a network of banks, dealers, and electronic platforms\n- **24-hour trading**: Follows the sun across major financial centers (London, New York, Tokyo)\n- **Participants**: Central banks, commercial banks, hedge funds, corporations, retail traders\n- **Settlement**: Most spot trades settle in two business days (T+2)\n\n### Exchange Rate Quotation\n\nAn exchange rate is the price of one currency in terms of another:\n\n- **EUR/USD = 1.10** means 1 euro costs 1.10 U.S. dollars\n- The first currency (EUR) is the **base currency**\n- The second currency (USD) is the **quote (price) currency**\n\nWhen EUR/USD rises from 1.10 to 1.15, the euro has **appreciated** (it buys more dollars) and the dollar has **depreciated** (it costs more dollars to buy one euro).\n\n### Factors Affecting Exchange Rates\n\n- **Interest rate differentials**: Higher rates attract capital inflows, strengthening the currency\n- **Inflation differentials**: Higher inflation weakens the currency (purchasing power parity)\n- **Economic growth**: Strong growth attracts investment, supporting the currency\n- **Current account balance**: Surpluses create demand for the domestic currency\n- **Political stability**: Instability causes capital flight and currency depreciation\n- **Market sentiment and speculation**: Short-term flows driven by expectations"
+    },
+    {
+      "type": "markdown",
+      "content": "## Exchange Rate Regimes\n\nCountries choose how their exchange rate is determined:\n\n### Fixed (Pegged) Exchange Rate\n\nThe central bank commits to maintaining the exchange rate at a specific level (or within a narrow band). To defend the peg:\n- **Currency under depreciation pressure**: Central bank sells foreign reserves and buys domestic currency\n- **Currency under appreciation pressure**: Central bank buys foreign reserves and sells domestic currency\n\n**Advantages**: Reduces exchange rate uncertainty for trade, provides a nominal anchor for inflation.\n**Disadvantages**: Requires large foreign reserves, limits monetary policy independence, vulnerable to speculative attacks if markets doubt the peg's sustainability.\n\n### Floating Exchange Rate\n\nThe exchange rate is determined by market forces of supply and demand without central bank intervention.\n\n**Advantages**: Automatic adjustment mechanism (deficits cause depreciation, boosting exports), monetary policy independence.\n**Disadvantages**: Exchange rate volatility creates uncertainty for businesses, may overshoot fundamental values.\n\n### Managed Float\n\nA hybrid where the rate is primarily market-determined, but the central bank intervenes occasionally to smooth volatility or prevent misalignment. Most major economies use this approach.\n\n### The Impossible Trinity (Trilemma)\n\nA country cannot simultaneously achieve all three of:\n1. **Free capital mobility**\n2. **Fixed exchange rate**\n3. **Independent monetary policy**\n\nA country can only choose **two of the three**. For example, the Eurozone has a fixed exchange rate (shared currency) and free capital mobility, but member countries gave up independent monetary policy. The U.S. has free capital mobility and independent monetary policy, but a floating exchange rate.\n\n### Central Bank Intervention\n\nWhen central banks intervene in FX markets:\n- **Unsterilized intervention**: Buying/selling foreign currency changes the domestic money supply (buying foreign currency with newly created domestic currency increases money supply)\n- **Sterilized intervention**: The central bank offsets the money supply effect with domestic open market operations (buying foreign currency but simultaneously selling domestic bonds)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Country Z has the following balance of payments data (in billions): exports of goods = $200, imports of goods = $350, services exports = $80, services imports = $50, net investment income = -$30, net transfers = -$10, capital account = $5. Calculate: (a) the trade balance in goods, (b) the current account balance, and (c) the required financial account balance.",
+      "solution": "**a) Trade balance in goods:**\n\n$$\\text{Goods balance} = X_{\\text{goods}} - M_{\\text{goods}} = 200 - 350 = -\\$150\\text{B}$$\n\nCountry Z has a goods trade deficit of $150 billion.\n\n**b) Current account balance:**\n\n$$\\text{Services balance} = 80 - 50 = +\\$30\\text{B}$$\n\n$$\\text{Current account} = (200 - 350) + (80 - 50) + (-30) + (-10)$$\n$$= -150 + 30 - 30 - 10 = -\\$160\\text{B}$$\n\nCountry Z has a current account deficit of $160 billion.\n\n**c) Required financial account balance:**\n\nUsing the BOP identity: Current account + Capital account + Financial account = 0\n\n$$-160 + 5 + \\text{Financial account} = 0$$\n\n$$\\text{Financial account} = +\\$155\\text{B}$$\n\nCountry Z must attract $155 billion in net capital inflows (foreign investment) to finance its current account deficit. This could come through FDI, portfolio investment (foreign purchases of stocks and bonds), bank lending, or reserve asset changes."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Capital Flows and FX Market Practice Problems",
+      "problems": [
+        {
+          "id": "econ7-1",
+          "question": "A country with a current account deficit of $80 billion and a capital account surplus of $5 billion must have a financial account balance closest to:",
+          "options": [
+            "A) -$85 billion",
+            "B) +$75 billion",
+            "C) +$85 billion"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the BOP identity: Current account + Capital account + Financial account = 0. Therefore: \u2212$80B + $5B + Financial account = 0, so Financial account = +$75B. The country must attract $75 billion in net capital inflows to finance its deficit. Option A (\u2212$85B) incorrectly adds the deficit and capital account with the wrong sign, implying capital outflows on top of a current account deficit. Option C (+$85B) adds 80 + 5 = 85, ignoring that the capital account surplus partially offsets the current account deficit.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the balance of payments identity"
+        },
+        {
+          "id": "econ7-2",
+          "question": "According to the impossible trinity, a country with free capital mobility and a fixed exchange rate must give up:",
+          "options": [
+            "A) Independent monetary policy",
+            "B) Control of fiscal policy",
+            "C) Membership in trade agreements"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The impossible trinity states that a country can only maintain two of: (1) free capital mobility, (2) fixed exchange rate, and (3) independent monetary policy. With free capital mobility and a fixed rate, the central bank must use monetary policy to defend the peg (buying/selling reserves), so it cannot independently set interest rates to manage domestic economic conditions. Option B (fiscal policy) is not part of the trilemma \u2014 fiscal policy independence is unrelated to the exchange rate regime choice. Option C (trade agreements) is unrelated to the trilemma.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain the impossible trinity and its implications for policy"
+        },
+        {
+          "id": "econ7-3",
+          "question": "A country with a fixed exchange rate faces persistent capital outflows. To defend the peg, the central bank would most likely:",
+          "options": [
+            "A) Buy domestic currency and sell foreign reserves",
+            "B) Sell domestic currency and buy foreign reserves",
+            "C) Lower interest rates to stimulate the economy"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When capital outflows create depreciation pressure, the central bank must support the domestic currency by buying it (increasing demand) and selling foreign reserves (supplying the foreign currency investors want). This intervention reduces foreign reserves and contracts the domestic money supply. Option B reverses the correct action \u2014 selling domestic currency would accelerate depreciation. Option C would make the situation worse: lower rates would widen the interest rate differential, encouraging even more capital outflows and adding to depreciation pressure.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe central bank intervention to defend a fixed exchange rate"
+        },
+        {
+          "id": "econ7-4",
+          "question": "A central bank conducts a sterilized foreign exchange intervention, purchasing foreign currency. Compared to an unsterilized intervention, the sterilized intervention is most likely to have:",
+          "options": [
+            "A) A larger effect on the exchange rate",
+            "B) No effect on the domestic money supply",
+            "C) A larger effect on interest rates"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In a sterilized intervention, the central bank buys foreign currency (injecting domestic currency) but simultaneously sells domestic bonds in open market operations to absorb the excess domestic currency. The net effect on the domestic money supply is zero. Option A is incorrect \u2014 sterilized intervention has a smaller (not larger) effect on the exchange rate because the money supply is unchanged, so interest rates and fundamental currency drivers are unaffected. Option C is incorrect because sterilization is specifically designed to prevent changes in interest rates by offsetting the money supply impact.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Distinguish between sterilized and unsterilized intervention"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the impossible trinity to a fellow candidate who is confused about why a country with a fixed exchange rate can't also have free capital flows and independent monetary policy. Use a concrete example \u2014 such as a country trying to defend a peg while also lowering interest rates during a recession."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do persistent current account deficits sometimes lead to currency crises?",
+        "How does the choice of exchange rate regime affect a country's ability to respond to economic shocks?",
+        "What are the advantages and risks for an emerging market that pegs its currency to the U.S. dollar?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts and Formulas:**\n\n- BOP identity: Current account + Capital account + Financial account = 0\n- Current account = (X \u2212 M) + Net income + Net transfers\n- A current account deficit must be financed by a financial account surplus (capital inflows)\n- FX market: OTC, $7T+ daily volume, T+2 settlement\n- Exchange rate regimes: fixed, floating, managed float\n- Impossible trinity: cannot have all three of free capital mobility, fixed exchange rate, and independent monetary policy\n- To defend a peg under depreciation pressure: buy domestic currency, sell foreign reserves\n- Sterilized intervention offsets the money supply effect; unsterilized intervention does not\n- Currency drivers: interest rates, inflation, growth, current account, political stability"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Exchange Rate Calculations** \u2014 the practical mechanics of working with exchange rates, including direct and indirect quotes, cross rates, bid-ask spreads, and forward rates. These calculations are essential for the CFA exam and build directly on the FX market concepts covered here."
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "meta": {
+    "title": "FSA: Financial Statement Analysis Practice Drill",
+    "description": "30 practice problems covering all Financial Statement Analysis topics.",
+    "level": "level-4",
+    "slug": "fsa-practice",
+    "order": 13,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Financial Statement Analysis Practice Drill\n\nThis set contains 30 problems across all FSA topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "fsa-p-001",
+          "question": "Under IFRS, research costs are:",
+          "options": [
+            "A) Capitalized as intangible assets",
+            "B) Expensed as incurred",
+            "C) Capitalized only if they meet specific criteria"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under IFRS (IAS 38), research costs are always expensed as incurred because the future economic benefits are too uncertain at the research stage. Development costs can be capitalized if specific criteria are met (technical feasibility, intention to complete, ability to use or sell, probable future benefits, adequate resources, reliable measurement). Under US GAAP, both research and development costs are generally expensed, with limited exceptions for software development.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Distinguish between the accounting treatment of research and development costs under IFRS and US GAAP."
+        },
+        {
+          "id": "fsa-p-002",
+          "question": "A company reports net income of $500,000. Depreciation expense is $80,000, accounts receivable increased by $30,000, and accounts payable decreased by $20,000. Using the indirect method, cash flow from operations is:",
+          "options": [
+            "A) $530,000",
+            "B) $630,000",
+            "C) $470,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Starting with net income and adjusting for non-cash items and working capital changes:\n\n$$CFO = NI + \\text{Depreciation} - \\Delta AR - \\Delta AP_{\\text{decrease}}$$\n\n$$= 500{,}000 + 80{,}000 - 30{,}000 - 20{,}000 = \\$530{,}000$$\n\nDepreciation is added back (non-cash expense). AR increase means revenue was recognized but cash not yet collected (subtract). AP decrease means cash was paid to suppliers (subtract).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate cash flow from operations using the indirect method."
+        },
+        {
+          "id": "fsa-p-003",
+          "question": "A company uses FIFO inventory accounting in a period of rising prices. Compared to LIFO, the company will report:",
+          "options": [
+            "A) Higher COGS, higher net income, and lower inventory",
+            "B) Lower COGS, higher net income, and higher ending inventory",
+            "C) Higher COGS, lower net income, and higher ending inventory"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In a period of rising prices, FIFO assigns the oldest (lower) costs to COGS and the newest (higher) costs remain in inventory:\n\n| Metric | FIFO | LIFO |\n|--------|------|------|\n| COGS | Lower | Higher |\n| Net Income | Higher | Lower |\n| Ending Inventory | Higher | Lower |\n| Taxes | Higher | Lower |\n\nFIFO better reflects current inventory values on the balance sheet, while LIFO better matches current costs to current revenues on the income statement.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Compare the effects of FIFO and LIFO on financial statements in rising price environments."
+        },
+        {
+          "id": "fsa-p-004",
+          "question": "A company purchased equipment for $200,000 with a useful life of 10 years and no salvage value. Using straight-line depreciation, the annual depreciation expense is $20,000. After 4 years, the equipment's carrying value (book value) is:",
+          "options": [
+            "A) $120,000",
+            "B) $160,000",
+            "C) $80,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$\\text{Accumulated Depreciation} = 4 \\times \\$20{,}000 = \\$80{,}000$$\n\n$$\\text{Carrying Value} = \\text{Cost} - \\text{Accumulated Depreciation} = \\$200{,}000 - \\$80{,}000 = \\$120{,}000$$",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate the carrying value of a long-term asset under straight-line depreciation."
+        },
+        {
+          "id": "fsa-p-005",
+          "question": "A company has the following data: Net income = $300,000; Total assets = $2,000,000; Total equity = $800,000. The return on equity (ROE) and return on assets (ROA) are:",
+          "options": [
+            "A) ROE = 37.5%, ROA = 15.0%",
+            "B) ROE = 15.0%, ROA = 37.5%",
+            "C) ROE = 37.5%, ROA = 25.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$ROE = \\frac{\\text{Net Income}}{\\text{Total Equity}} = \\frac{300{,}000}{800{,}000} = 37.5\\%$$\n\n$$ROA = \\frac{\\text{Net Income}}{\\text{Total Assets}} = \\frac{300{,}000}{2{,}000{,}000} = 15.0\\%$$\n\nROE exceeds ROA because of financial leverage. The equity multiplier is $2{,}000{,}000 / 800{,}000 = 2.5$, and $ROE = ROA \\times \\text{Equity Multiplier} = 15\\% \\times 2.5 = 37.5\\%$ (simplified DuPont).",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate and interpret ROE and ROA."
+        },
+        {
+          "id": "fsa-p-006",
+          "question": "A company capitalizes a $1 million expenditure instead of expensing it. In the year of the expenditure, compared to expensing, the company will report:",
+          "options": [
+            "A) Higher net income, higher operating cash flow, and higher total assets",
+            "B) Higher net income, lower operating cash flow, and higher total assets",
+            "C) Higher net income, same operating cash flow, and higher total assets"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When a cost is capitalized rather than expensed:\n- **Net income is higher** because only a portion (depreciation/amortization) is expensed instead of the full amount.\n- **Total assets are higher** because the expenditure is recorded as an asset.\n- **Operating cash flow is higher** because the full cash outflow is classified as investing (CFI), not operating (CFO).\n\nThis is a common quality-of-earnings concern \u2014 aggressive capitalization inflates both profitability and operating cash flows.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the financial statement impact of capitalizing versus expensing costs."
+        },
+        {
+          "id": "fsa-p-007",
+          "question": "The DuPont decomposition of ROE into three components is:",
+          "options": [
+            "A) Net profit margin x Asset turnover x Equity multiplier",
+            "B) Gross margin x Debt ratio x Revenue growth",
+            "C) Operating margin x Current ratio x Leverage ratio"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The three-component DuPont decomposition:\n\n$$ROE = \\underbrace{\\frac{\\text{Net Income}}{\\text{Revenue}}}_{\\text{Net Profit Margin}} \\times \\underbrace{\\frac{\\text{Revenue}}{\\text{Total Assets}}}_{\\text{Asset Turnover}} \\times \\underbrace{\\frac{\\text{Total Assets}}{\\text{Equity}}}_{\\text{Equity Multiplier}}$$\n\nThis separates ROE into profitability, efficiency, and leverage components, allowing analysts to identify the drivers of return on equity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply the DuPont decomposition to analyze return on equity."
+        },
+        {
+          "id": "fsa-p-008",
+          "question": "Under IFRS, a company revalues its property upward by $500,000. This revaluation gain is reported in:",
+          "options": [
+            "A) The income statement as other income",
+            "B) Other comprehensive income (OCI), increasing revaluation surplus in equity",
+            "C) The cash flow statement as investing income"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under IFRS, when an asset is revalued upward for the first time (using the revaluation model under IAS 16), the gain is recognized in other comprehensive income (OCI) and accumulated as revaluation surplus in equity \u2014 not in the income statement. However, if the asset was previously written down through the income statement, the revaluation gain reverses that loss through the income statement first, with any excess going to OCI. US GAAP does not permit revaluation of most long-term assets above historical cost.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Account for asset revaluations under IFRS and their impact on financial statements."
+        },
+        {
+          "id": "fsa-p-009",
+          "question": "A company has a tax rate of 25%. Its pretax income is $400,000 and it has a $50,000 temporary difference (taxable income exceeds accounting income). The deferred tax effect is:",
+          "options": [
+            "A) A deferred tax asset of $12,500",
+            "B) A deferred tax liability of $12,500",
+            "C) No deferred tax effect"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When taxable income exceeds accounting income (a deductible temporary difference), the company pays more tax now than accounting income suggests. This creates a deferred tax asset (DTA) because the excess tax paid will reverse in future periods:\n\n$$DTA = \\text{Temporary Difference} \\times \\text{Tax Rate} = 50{,}000 \\times 0.25 = \\$12{,}500$$\n\nThis DTA represents future tax savings when the difference reverses. A deferred tax liability would arise if accounting income exceeded taxable income.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate and classify deferred tax assets and liabilities from temporary differences."
+        },
+        {
+          "id": "fsa-p-010",
+          "question": "Which financial statement provides information about a company's financial position at a specific point in time?",
+          "options": [
+            "A) Income statement",
+            "B) Balance sheet",
+            "C) Cash flow statement"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The balance sheet (statement of financial position) is the only financial statement that reports a company's financial position at a specific point in time \u2014 a snapshot of assets, liabilities, and equity. The income statement, cash flow statement, and statement of changes in equity all report activity over a period (quarter, year). The fundamental accounting equation: Assets = Liabilities + Equity.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Identify the characteristics of the primary financial statements."
+        },
+        {
+          "id": "fsa-p-011",
+          "question": "A company has beginning inventory of $100,000, purchases of $600,000, and ending inventory of $120,000. Its cost of goods sold (COGS) is:",
+          "options": [
+            "A) $580,000",
+            "B) $620,000",
+            "C) $720,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$COGS = \\text{Beginning Inventory} + \\text{Purchases} - \\text{Ending Inventory}$$\n\n$$= 100{,}000 + 600{,}000 - 120{,}000 = \\$580{,}000$$\n\nThe inventory equation reflects the flow of goods: goods available for sale (BI + Purchases) either end up sold (COGS) or remain in ending inventory.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate cost of goods sold from inventory data."
+        },
+        {
+          "id": "fsa-p-012",
+          "question": "An analyst calculates the following ratios for a company:\n\n- Inventory turnover: 8 times\n- Receivables turnover: 12 times\n- Payables turnover: 10 times\n\nThe cash conversion cycle is closest to:",
+          "options": [
+            "A) 39.9 days",
+            "B) 45.6 days",
+            "C) 30.4 days"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Convert turnovers to days:\n\n$$DOH = \\frac{365}{8} = 45.6 \\text{ days}$$\n$$DSO = \\frac{365}{12} = 30.4 \\text{ days}$$\n$$DPO = \\frac{365}{10} = 36.5 \\text{ days}$$\n\n$$CCC = DOH + DSO - DPO = 45.6 + 30.4 - 36.5 = 39.5 \\approx 39.9 \\text{ days}$$\n\nA shorter CCC is generally preferable as it indicates faster conversion of inventory investment to cash.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate the cash conversion cycle from turnover ratios."
+        },
+        {
+          "id": "fsa-p-013",
+          "question": "A company issues a $1,000,000 bond at a discount for $950,000 with a coupon rate of 5% and an effective interest rate of 6%. In the first year, the interest expense reported on the income statement is closest to:",
+          "options": [
+            "A) $50,000",
+            "B) $57,000",
+            "C) $60,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under the effective interest method, interest expense is based on the carrying value times the effective rate:\n\n$$\\text{Interest Expense} = \\text{Carrying Value} \\times \\text{Effective Rate} = 950{,}000 \\times 0.06 = \\$57{,}000$$\n\nThe coupon payment is $1{,}000{,}000 \\times 0.05 = \\$50{,}000$. The difference ($7,000) is the amortization of the bond discount, increasing the carrying value to $957,000.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply the effective interest method to bonds issued at a discount."
+        },
+        {
+          "id": "fsa-p-014",
+          "question": "An operating lease for equipment requires annual payments of $100,000 for 5 years. Under IFRS 16, the lessee must:",
+          "options": [
+            "A) Recognize a right-of-use asset and lease liability on the balance sheet",
+            "B) Expense each payment as rent expense on the income statement only",
+            "C) Classify the lease as either finance or operating with different balance sheet treatment for each"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under IFRS 16, virtually all leases (with limited exceptions for short-term and low-value leases) require the lessee to recognize a right-of-use asset and a corresponding lease liability on the balance sheet. This eliminated the distinction between operating and finance leases for lessees. The right-of-use asset is depreciated, and the lease liability accrues interest \u2014 changing the income statement pattern from straight-line rent expense to front-loaded total expense.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Describe the lessee accounting for leases under IFRS 16."
+        },
+        {
+          "id": "fsa-p-015",
+          "question": "A company has a gross profit margin of 40%, an operating margin of 15%, and a net profit margin of 10%. The difference between gross margin and operating margin is most likely explained by:",
+          "options": [
+            "A) Interest expense and taxes",
+            "B) Selling, general, and administrative (SGA) expenses and other operating costs",
+            "C) Cost of goods sold"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The progression from gross profit to operating income involves deducting operating expenses (SGA, R&D, depreciation, etc.) that are not included in COGS:\n\n- Gross margin (40%) = Revenue - COGS\n- Operating margin (15%) = Gross profit - Operating expenses (SGA, etc.)\n- Net margin (10%) = Operating income - Interest - Taxes\n\nThe 25 percentage point gap between gross and operating margin is due to operating expenses. The 5 percentage point gap between operating and net margin is due to interest and taxes.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Interpret the relationship between different profitability margins."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "fsa-p-016",
+          "question": "A company converts from LIFO to FIFO in a period of consistently rising prices. The LIFO reserve is $200,000 and the tax rate is 30%. The adjustment to equity when converting to FIFO is closest to:",
+          "options": [
+            "A) $200,000 increase",
+            "B) $140,000 increase",
+            "C) $60,000 increase"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When converting from LIFO to FIFO:\n\n- Inventory increases by the LIFO reserve: +$200,000\n- But higher inventory means historically lower COGS, higher income, and thus higher taxes paid.\n- The after-tax equity adjustment:\n\n$$\\Delta \\text{Equity} = \\text{LIFO Reserve} \\times (1 - t) = 200{,}000 \\times (1 - 0.30) = \\$140{,}000$$\n\nThe remaining $60,000 represents the additional tax liability that would have been incurred under FIFO.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Adjust financial statements for LIFO to FIFO conversion using the LIFO reserve."
+        },
+        {
+          "id": "fsa-p-017",
+          "question": "A company reports the following: Net income = $250,000; Depreciation = $50,000; Capital expenditures = $80,000; Increase in working capital = $20,000. Free cash flow to the firm (FCFF) starting from net income (assuming no interest and a 25% tax rate) is closest to:",
+          "options": [
+            "A) $200,000",
+            "B) $300,000",
+            "C) $220,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Starting from net income (assuming no interest, so NI = NOPAT):\n\n$$FCFF = NI + \\text{Depreciation} - \\text{CapEx} - \\Delta WC$$\n\n$$= 250{,}000 + 50{,}000 - 80{,}000 - 20{,}000 = \\$200{,}000$$\n\nNote: If there were interest expense, we would add back $\\text{Interest} \\times (1-t)$ since FCFF is available to all capital providers.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate free cash flow to the firm from net income."
+        },
+        {
+          "id": "fsa-p-018",
+          "question": "An analyst suspects that a company is using channel stuffing to inflate revenues. Which of the following financial statement patterns would most strongly support this suspicion?",
+          "options": [
+            "A) Revenue growing faster than accounts receivable",
+            "B) Accounts receivable growing significantly faster than revenue, with increasing DSO",
+            "C) Stable DSO and consistent operating cash flow relative to net income"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Channel stuffing involves shipping excess inventory to customers (or recording sales prematurely) to inflate reported revenues. Key red flags include:\n\n- Accounts receivable growing much faster than revenue (customers not paying because goods were pushed)\n- Increasing days sales outstanding (DSO)\n- Operating cash flow lagging net income (revenues not converting to cash)\n- Subsequent period revenue declines or high returns\n\nStable DSO (option C) would suggest normal revenue quality. Revenue growing faster than AR (option A) actually suggests improving collection efficiency.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Identify red flags in financial reporting that indicate potential revenue manipulation."
+        },
+        {
+          "id": "fsa-p-019",
+          "question": "Using the five-component DuPont decomposition, a company has: Tax burden = 0.75, Interest burden = 0.85, Operating margin = 18%, Asset turnover = 1.2, Equity multiplier = 2.0. The ROE is closest to:",
+          "options": [
+            "A) 27.5%",
+            "B) 22.0%",
+            "C) 36.7%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The five-component DuPont:\n\n$$ROE = \\frac{NI}{EBT} \\times \\frac{EBT}{EBIT} \\times \\frac{EBIT}{\\text{Revenue}} \\times \\frac{\\text{Revenue}}{\\text{Assets}} \\times \\frac{\\text{Assets}}{\\text{Equity}}$$\n\n$$= 0.75 \\times 0.85 \\times 0.18 \\times 1.2 \\times 2.0 = 0.2754 = 27.5\\%$$\n\nThis decomposition separates tax efficiency, interest burden, operating profitability, asset efficiency, and leverage.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate ROE using the five-component DuPont decomposition."
+        },
+        {
+          "id": "fsa-p-020",
+          "question": "A company capitalizes interest costs on a construction project. During the year, it incurs $2 million in interest on project-specific borrowing and $500,000 in interest on general borrowings allocated to the project. The total capitalized interest is:",
+          "options": [
+            "A) $2,000,000",
+            "B) $2,500,000",
+            "C) $500,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under both IFRS (IAS 23) and US GAAP (ASC 835-20), borrowing costs directly attributable to the acquisition, construction, or production of a qualifying asset are capitalized. This includes:\n\n- Interest on project-specific borrowings: $2,000,000\n- Interest on general borrowings to the extent they finance the project: $500,000\n\n$$\\text{Total Capitalized Interest} = 2{,}000{,}000 + 500{,}000 = \\$2{,}500{,}000$$\n\nCapitalized interest increases the asset value and is subsequently depreciated over the asset's useful life.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Determine the amount of borrowing costs eligible for capitalization."
+        },
+        {
+          "id": "fsa-p-021",
+          "question": "A company reports basic EPS of $3.50 and diluted EPS of $3.20. The most likely explanation for the difference is:",
+          "options": [
+            "A) The company has outstanding stock options or convertible securities that would increase shares if exercised",
+            "B) The company repurchased shares during the period",
+            "C) The company declared a stock split"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Diluted EPS is lower than basic EPS because potentially dilutive securities (stock options, warrants, convertible bonds, convertible preferred stock) would increase the weighted-average number of shares outstanding if exercised or converted:\n\n$$\\text{Basic EPS} = \\frac{NI - \\text{Preferred Dividends}}{\\text{Weighted Avg Shares}}$$\n\n$$\\text{Diluted EPS} = \\frac{NI - \\text{Pref Div} + \\text{Convertible Adjustments}}{\\text{WA Shares} + \\text{Dilutive Securities}}$$\n\nShare repurchases reduce share count (increasing EPS). Stock splits affect both basic and diluted EPS equally.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Explain the difference between basic and diluted EPS."
+        },
+        {
+          "id": "fsa-p-022",
+          "question": "Using double-declining balance (DDB) depreciation, an asset costing $100,000 with a 5-year useful life and $10,000 salvage value will have depreciation expense in Year 2 of:",
+          "options": [
+            "A) $24,000",
+            "B) $36,000",
+            "C) $21,600"
+          ],
+          "correctAnswer": "A",
+          "explanation": "DDB rate = $2 / \\text{useful life} = 2/5 = 40\\%$\n\nYear 1: $100{,}000 \\times 0.40 = \\$40{,}000$ (Book value = $60,000)\n\nYear 2: $60{,}000 \\times 0.40 = \\$24{,}000$ (Book value = $36,000)\n\nNote: DDB ignores salvage value in the calculation but cannot depreciate below it. The asset will be depreciated down to $10,000 and no further.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate depreciation expense using the double-declining balance method."
+        },
+        {
+          "id": "fsa-p-023",
+          "question": "A company has a deferred tax liability (DTL) of $50,000 arising from accelerated depreciation. If the tax rate increases from 25% to 30%, the DTL will:",
+          "options": [
+            "A) Increase to $60,000, with a deferred tax expense on the income statement",
+            "B) Remain at $50,000 because deferred taxes are fixed",
+            "C) Decrease because higher tax rates reduce the incentive for accelerated depreciation"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Deferred tax balances are adjusted when tax rates change. If the underlying temporary difference is $200,000 ($50,000 / 0.25):\n\nNew DTL = $200{,}000 \\times 0.30 = \\$60{,}000$\n\nThe $10,000 increase is recognized as additional deferred tax expense on the income statement, reducing net income in the period the rate change is enacted. Conversely, a rate decrease would reduce the DTL and create a deferred tax benefit.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the impact of tax rate changes on deferred tax balances."
+        },
+        {
+          "id": "fsa-p-024",
+          "question": "When analyzing cash flows, an analyst reclassifies interest paid from operating activities to financing activities. This adjustment will:",
+          "options": [
+            "A) Increase reported CFO and decrease reported CFF",
+            "B) Decrease reported CFO and increase reported CFF",
+            "C) Have no effect on total cash flow"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under US GAAP, interest paid is classified as an operating cash flow. Under IFRS, companies may classify it as operating or financing. If an analyst reclassifies interest paid from operating to financing:\n\n- CFO increases (removing a cash outflow from operating)\n- CFF decreases (adding a cash outflow to financing)\n- Total cash flow is unchanged\n\nThis adjustment is common when comparing companies across GAAP frameworks or when computing 'clean' operating cash flow before financing costs.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Adjust cash flow classifications for cross-framework comparability."
+        },
+        {
+          "id": "fsa-p-025",
+          "question": "A company's financial statements show the following trend over three years:\n\n| Year | Revenue Growth | Net Income Growth | CFO Growth |\n|------|---------------|-------------------|------------|\n| 1 | 15% | 20% | 18% |\n| 2 | 12% | 25% | 5% |\n| 3 | 8% | 30% | -10% |\n\nThis pattern most likely indicates:",
+          "options": [
+            "A) Improving operational efficiency driving margin expansion",
+            "B) Declining earnings quality, as net income growth increasingly diverges from cash flow",
+            "C) Normal business cycle fluctuations"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The divergence between accelerating net income growth and decelerating (then declining) CFO growth is a significant red flag for earnings quality. While net income grows 20-30%, operating cash flow declines from +18% to -10%. This pattern can indicate:\n\n- Aggressive revenue recognition (accruals not converting to cash)\n- Capitalizing costs that should be expensed\n- Changing working capital assumptions\n- Possible accounting manipulation\n\nHigh-quality earnings are characterized by CFO tracking or exceeding net income growth.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Evaluate earnings quality by comparing income trends with cash flow trends."
+        },
+        {
+          "id": "fsa-p-026",
+          "question": "An analyst is building a financial model and needs to forecast depreciation expense. The company's gross PP&E is $500 million and accumulated depreciation is $200 million. The average useful life of assets can be estimated as:",
+          "options": [
+            "A) 10 years, using Gross PP&E divided by annual depreciation expense",
+            "B) 2.5 years, using accumulated depreciation divided by annual depreciation",
+            "C) Both A and B provide useful estimates of different things"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Both ratios are useful in financial modeling:\n\n- **Estimated total useful life** = $\\frac{\\text{Gross PP\\&E}}{\\text{Annual Depreciation}}$ \u2014 estimates the average depreciable life of all assets\n- **Average age of assets** = $\\frac{\\text{Accumulated Depreciation}}{\\text{Annual Depreciation}}$ \u2014 estimates how old the asset base is on average\n- **Remaining useful life** = $\\frac{\\text{Net PP\\&E}}{\\text{Annual Depreciation}}$ = Total life - Average age\n\nThese are key inputs for modeling future capex needs and depreciation expense.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Estimate useful life and asset age from financial statement data for modeling purposes."
+        },
+        {
+          "id": "fsa-p-027",
+          "question": "A company uses the percentage-of-completion method for a long-term construction contract. The total contract price is $10 million, estimated total costs are $7 million, and costs incurred to date are $3.5 million. Revenue recognized to date is:",
+          "options": [
+            "A) $5,000,000",
+            "B) $3,500,000",
+            "C) $10,000,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Percentage of completion:\n\n$$\\% \\text{Complete} = \\frac{\\text{Costs Incurred}}{\\text{Total Estimated Costs}} = \\frac{3{,}500{,}000}{7{,}000{,}000} = 50\\%$$\n\n$$\\text{Revenue Recognized} = \\% \\text{Complete} \\times \\text{Total Contract Price} = 50\\% \\times 10{,}000{,}000 = \\$5{,}000{,}000$$\n\nProfit recognized to date = $5{,}000{,}000 - 3{,}500{,}000 = \\$1{,}500{,}000$.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply the percentage-of-completion method to recognize revenue on long-term contracts."
+        },
+        {
+          "id": "fsa-p-028",
+          "question": "A company has an effective tax rate of 22% while the statutory rate is 25%. The most likely explanation for the difference is:",
+          "options": [
+            "A) The company has permanent differences such as tax-exempt interest income",
+            "B) The company has only temporary differences between accounting and taxable income",
+            "C) The company is using more aggressive depreciation for tax purposes"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The effective tax rate (income tax expense / pretax income) differs from the statutory rate due to permanent differences \u2014 items that affect accounting income but never affect taxable income (or vice versa). Examples include:\n\n- Tax-exempt municipal bond interest (reduces effective rate)\n- Non-deductible fines or penalties (increases effective rate)\n- Tax credits (reduces effective rate)\n\nTemporary differences (option B, C) create deferred taxes but do not affect the effective tax rate in total over the life of the asset. Accelerated depreciation is a temporary difference that creates a DTL but affects timing, not the overall rate.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Distinguish between permanent and temporary differences in income tax accounting."
+        },
+        {
+          "id": "fsa-p-029",
+          "question": "A company writes down inventory by $30,000 due to obsolescence. The immediate impact on financial ratios is:",
+          "options": [
+            "A) Lower current ratio, lower inventory turnover",
+            "B) Lower current ratio, higher inventory turnover",
+            "C) Higher current ratio, lower inventory turnover"
+          ],
+          "correctAnswer": "B",
+          "explanation": "An inventory write-down reduces both inventory (current assets) and net income (through COGS or a separate loss):\n\n- **Current ratio** decreases: Numerator (current assets) falls while denominator (current liabilities) stays the same.\n- **Inventory turnover** increases: $\\frac{COGS}{\\text{Average Inventory}}$ \u2014 the denominator (inventory) decreases, increasing the ratio.\n\nThe write-down also reduces the gross profit margin and net profit margin for the period.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the ratio impact of inventory write-downs."
+        },
+        {
+          "id": "fsa-p-030",
+          "question": "An analyst compares two companies. Company X capitalizes software development costs while Company Y expenses them. Which adjustments should the analyst make to compare the companies on an equal basis?",
+          "options": [
+            "A) Add back amortization of capitalized costs to Company X's expenses and remove the capitalized asset",
+            "B) Capitalize Company Y's software costs by adding them to assets and removing them from expenses",
+            "C) Either approach achieves comparability; the analyst should choose one consistently"
+          ],
+          "correctAnswer": "C",
+          "explanation": "To compare companies with different accounting policies, the analyst can either:\n\n1. Convert Company X to expensing: Remove capitalized software from assets, add cumulative costs back to expenses, reverse accumulated amortization\n2. Convert Company Y to capitalizing: Add development costs to assets, remove from expenses, add computed amortization\n\nEither approach achieves comparability. The key is consistency \u2014 the analyst must apply the same policy to both companies. This affects multiple ratios: ROA, asset turnover, profit margins, and leverage ratios.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Make accounting policy adjustments to achieve cross-company comparability."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers income statement and balance sheet basics, inventories, cash flow analysis, and financial ratios. Set B covers LIFO/FIFO conversions, DuPont analysis, earnings quality, deferred taxes, and advanced modeling topics."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FSA.10: Financial Reporting Quality",
+    "description": "Assess the quality spectrum from conservative to fraudulent reporting, identify earnings management techniques, recognize warning signs, and distinguish GAAP from non-GAAP measures.",
+    "level": "level-4",
+    "slug": "fsa-financial-reporting-quality",
+    "order": 10,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company consistently beats analyst earnings estimates by exactly one cent per share every quarter. Is this a sign of good management, or should it raise red flags? What might the company be doing behind the scenes?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Quality Spectrum\n\nFinancial reporting quality exists on a **continuum**, ranging from high-quality to fraudulent.\n\n### Reporting Quality Spectrum\n\n| Level | Description | Example |\n|---|---|---|\n| **Conservative** | Choices that tend to understate income/assets | Accelerated depreciation, aggressive write-downs |\n| **Within GAAP \u2014 unbiased** | Neutral application of standards | Best estimate assumptions, consistent policies |\n| **Within GAAP \u2014 biased (aggressive)** | Choices within GAAP that overstate income | Capitalizing borderline costs, optimistic useful lives |\n| **Non-compliant** | Violates GAAP but not necessarily intentional | Errors, misapplication of standards |\n| **Fraudulent** | Intentional misrepresentation | Fictitious revenue, hidden liabilities |\n\n### Two Dimensions of Quality\n\n1. **Reporting quality**: Are the financials decision-useful? Do they faithfully represent economic reality? (GAAP compliance, transparency)\n2. **Earnings quality**: Are earnings sustainable and adequate? Do they predict future cash flows? (Persistence, predictability)\n\nHigh-quality reporting does not guarantee high-quality earnings. A company can report poor results with complete transparency (high reporting quality, low earnings quality).\n\n### The Analyst's Task\n\nThe analyst must assess both dimensions. Low reporting quality makes it impossible to evaluate earnings quality because the numbers themselves cannot be trusted."
+    },
+    {
+      "type": "markdown",
+      "content": "## Earnings Management Techniques\n\nEarnings management uses **accounting choices and estimates** to achieve desired financial outcomes. While often within GAAP, it reduces the informativeness of financial statements.\n\n### Revenue Manipulation\n\n| Technique | Mechanism |\n|---|---|\n| **Channel stuffing** | Shipping excess product to distributors before period-end to accelerate revenue |\n| **Bill-and-hold** | Recognizing revenue before delivery on a \"bill-and-hold\" basis |\n| **Premature recognition** | Recognizing long-term contract revenue before performance obligations are satisfied |\n| **Round-tripping** | Simultaneous buy/sell transactions to inflate revenue |\n\n### Expense Manipulation\n\n| Technique | Mechanism |\n|---|---|\n| **Capitalizing operating expenses** | Recording period costs as assets to defer expense recognition |\n| **Extending useful lives** | Reducing depreciation/amortization by assuming longer asset lives |\n| **Cookie jar reserves** | Over-accruing expenses in good years, then releasing reserves in bad years |\n| **Big bath** | Taking excessive write-offs in one period to improve future reported earnings |\n\n### Cash Flow Manipulation\n\n| Technique | Mechanism |\n|---|---|\n| **Stretching payables** | Delaying payments to suppliers to inflate CFO |\n| **Securitizing receivables** | Selling receivables to report cash inflows from \"operating\" activities |\n| **Capitalizing expenditures** | Shifting cash outflows from operating to investing |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Warning Signs and Detection\n\n### Quantitative Red Flags\n\n- Revenue growing faster than peers or the industry without clear explanation\n- Net income growing faster than CFO over multiple periods\n- Accounts receivable growing faster than revenue (possible channel stuffing)\n- Inventory growing faster than revenue (possible obsolescence or overstated inventory)\n- Declining asset turnover ratios\n- Unusual increases in deferred tax assets\n- Frequent changes in accounting policies or estimates\n\n### Beneish M-Score Concepts\n\nThe Beneish M-score is a quantitative model using **eight financial ratios** to detect earnings manipulation. An M-score greater than -1.78 suggests a higher probability of manipulation. Key variables include:\n\n- **DSRI** (Days Sales in Receivables Index): large increase \u2192 potential revenue manipulation\n- **GMI** (Gross Margin Index): declining margins may motivate manipulation\n- **AQI** (Asset Quality Index): increase in non-current assets relative to total assets\n- **SGI** (Sales Growth Index): high growth companies face more pressure\n- **TATA** (Total Accruals to Total Assets): high accruals relative to assets\n\n### GAAP vs Non-GAAP Measures\n\nCompanies increasingly report **non-GAAP** (adjusted) earnings that exclude certain items:\n- Restructuring charges, stock-based compensation, amortization of intangibles\n- Non-GAAP earnings are **not standardized** and vary across companies\n- SEC requires reconciliation to the nearest GAAP measure\n- Analysts should evaluate whether excluded items are truly non-recurring"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company's revenue grew 20% last year, but accounts receivable grew 45% over the same period. What might this suggest about the quality of reported revenue?",
+      "answer": "The disproportionate growth in receivables relative to revenue is a red flag suggesting potential revenue quality issues. Possible explanations: (1) channel stuffing \u2014 pushing product to customers who may return it, (2) relaxed credit terms to boost revenue, (3) difficulty collecting from customers, or (4) premature revenue recognition. The increase in the Days Sales in Receivables Index (DSRI) would flag this in a Beneish M-score analysis. An analyst should investigate by comparing to industry peers, examining allowance for doubtful accounts, and reviewing revenue recognition policies in the notes."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Classify each of the following as conservative, aggressive (within GAAP), or potentially fraudulent: (1) Capitalizing $5M in routine maintenance costs as an asset, (2) Using accelerated depreciation when straight-line is more common in the industry, (3) Recording revenue for goods shipped to a fictitious warehouse, (4) Taking a large restructuring charge in a year when earnings are already low (big bath), (5) Using a 20-year useful life for software when industry norm is 5-7 years.",
+      "solution": "1. **Capitalizing routine maintenance** \u2014 **Aggressive/potentially non-compliant**. GAAP requires expensing routine maintenance. If the costs clearly do not extend the asset's useful life, capitalizing them overstates assets and income.\n\n2. **Accelerated depreciation** \u2014 **Conservative**. Using higher depreciation than peers understates near-term income and assets. This is within GAAP and represents a conservative choice.\n\n3. **Fictitious warehouse revenue** \u2014 **Fraudulent**. Recording revenue for goods that haven't been delivered to a real customer is fabrication, violating GAAP entirely.\n\n4. **Big bath restructuring** \u2014 **Aggressive (within GAAP)**. While restructuring charges may be legitimate, over-accruing charges in a bad year creates a reserve that can be released in future periods to inflate future earnings. This is within GAAP but biased.\n\n5. **20-year life for software** \u2014 **Aggressive**. Using a much longer useful life than the industry norm reduces annual depreciation, overstating income. While the specific estimate may be within GAAP boundaries, it is clearly aggressive and reduces comparability."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Financial Reporting Quality Practice Problems",
+      "problems": [
+        {
+          "id": "fsa10-1",
+          "question": "Which of the following is most likely a warning sign of potential earnings manipulation?",
+          "options": [
+            "A) Net income and CFO growing at similar rates",
+            "B) Accounts receivable growing significantly faster than revenue",
+            "C) Consistent use of conservative accounting policies across periods"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Accounts receivable growing faster than revenue suggests the company may be recognizing revenue that has not been collected, potentially through channel stuffing or relaxed credit terms. This is captured by the Days Sales in Receivables Index (DSRI) in the Beneish M-score. Option A (NI and CFO growing similarly) indicates high-quality earnings with low accruals. Option C (consistent conservative policies) suggests high reporting quality and no manipulation.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Identify warning signs of earnings manipulation"
+        },
+        {
+          "id": "fsa10-2",
+          "question": "A company takes a $200 million 'big bath' restructuring charge in Year 1 when earnings are already depressed. In Years 2 and 3, it reverses $40 million and $30 million of the charge respectively. The primary effect of this strategy is to:",
+          "options": [
+            "A) Increase earnings in Year 1 and decrease earnings in Years 2-3",
+            "B) Decrease earnings in Year 1 and increase earnings in Years 2-3",
+            "C) Have no effect on total earnings over the three-year period"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A big bath strategy front-loads expenses into a bad year ($200M charge reduces Year 1 earnings) and then reverses excess reserves in subsequent years ($40M and $30M increase Years 2-3 earnings). While total earnings over the three years are the same (C is partially correct about the total), the question asks about the primary effect, which is income shifting between periods. Option A reverses the direction. The strategy makes the bad year look worse and future years look better.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the impact of big bath accounting on financial statements"
+        },
+        {
+          "id": "fsa10-3",
+          "question": "A technology company reports non-GAAP earnings that exclude stock-based compensation expense of $500 million per year. An analyst should most appropriately:",
+          "options": [
+            "A) Use non-GAAP earnings because stock compensation is a non-cash expense",
+            "B) Use GAAP earnings because stock compensation is a real economic cost to shareholders",
+            "C) Ignore both measures and focus solely on cash flow from operations"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Stock-based compensation is a real economic cost because it dilutes existing shareholders' ownership. Excluding it from earnings overstates profitability and understates the true cost of compensating employees. While it is non-cash, it represents value transferred from shareholders to employees. Option A incorrectly treats all non-cash items as non-economic. Option C ignores the income statement entirely, which is too extreme \u2014 CFO is important but does not replace earnings analysis.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Evaluate the appropriateness of GAAP vs non-GAAP earnings measures"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a friend who invests in stocks why they should not simply trust the reported earnings numbers. Describe at least two ways companies can legally manage their earnings within GAAP, and explain how an investor can spot potential manipulation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is it important to distinguish between reporting quality and earnings quality?",
+        "What are the incentives for management to engage in earnings management, and how do corporate governance mechanisms attempt to prevent it?",
+        "When a company reports non-GAAP earnings significantly higher than GAAP earnings, what questions should you ask?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Quality spectrum: Conservative \u2192 Unbiased \u2192 Aggressive \u2192 Non-compliant \u2192 Fraudulent\n- Two dimensions: Reporting quality (faithful representation) and Earnings quality (sustainability)\n- Revenue manipulation: channel stuffing, premature recognition, round-tripping\n- Expense manipulation: aggressive capitalization, extended useful lives, cookie jar reserves, big bath\n- Warning signs: A/R growing faster than revenue, NI growing faster than CFO, frequent policy changes\n- Beneish M-score: quantitative model using 8 ratios; M-score > -1.78 suggests manipulation\n- Non-GAAP measures: not standardized, must be reconciled to GAAP, evaluate whether exclusions are justified\n- Stock-based compensation is a real economic cost despite being non-cash"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Financial Analysis Techniques**, where you'll learn common-size analysis, DuPont decomposition, and comprehensive ratio analysis. These tools are essential for detecting the reporting quality issues discussed here \u2014 ratio anomalies often reveal the first signs of manipulation."
+    }
+  ]
+}

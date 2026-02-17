@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PM.5: Active Equity Portfolio Construction",
+    "description": "Learn risk budgeting, tracking error management, factor exposure control, position sizing, and portfolio optimization for active equity mandates.",
+    "level": "level-6",
+    "slug": "pw-pm-equity-portfolio-construction",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A portfolio manager has strong stock-picking ability but poor factor timing skills. How should she construct her portfolio differently than a manager with strong macro/factor views but average stock selection?"
+    },
+    {
+      "type": "markdown",
+      "content": "## From Alpha Signals to Portfolio\n\nPortfolio construction is the bridge between investment ideas and a tradeable portfolio. The goal: **maximize expected alpha per unit of active risk**.\n\n### Risk Budgeting\n\nTotal active risk is allocated across different sources:\n\n$$\\text{Active Risk}^2 = \\sum_{i} w_i^2 \\sigma_i^2 + \\sum_{i} \\sum_{j \\neq i} w_i w_j \\sigma_i \\sigma_j \\rho_{ij}$$\n\nWhere $w_i$ is the active weight (portfolio weight - benchmark weight).\n\n**Risk budget allocation principles:**\n- Allocate more risk to sources where you have higher skill (higher information coefficient)\n- Reduce risk from sources with no expected alpha (unintended bets)\n- Diversify across independent alpha sources\n\n### Tracking Error Management\n\n$$\\text{Tracking Error} = \\sigma(R_p - R_b) = \\sqrt{\\text{Var}(\\text{Active Returns})}$$\n\nTracking error decomposition:\n- **Factor tracking error**: From systematic factor tilts (sector, style, country)\n- **Stock-specific tracking error**: From individual security over/underweights\n\nFor a stock picker, most active risk should come from stock-specific sources. For a top-down manager, factor tracking error dominates."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio has a tracking error of 4% but an active share of only 25%. What does this combination suggest about the portfolio's construction?",
+      "answer": "This unusual combination -- low active share but moderate tracking error -- suggests the portfolio has few stock-specific bets but significant factor/sector tilts. The holdings are similar to the benchmark (low active share), but the portfolio has large sector overweights/underweights or style tilts that create tracking error. This is characteristic of a top-down or factor-tilted manager, not a stock picker. It could also indicate the portfolio is making concentrated sector bets (e.g., significantly overweighting energy) that create tracking error without changing many individual holdings. This is the opposite of a diversified stock picker (high active share, low tracking error)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Factor Exposure Management\n\nUnintended factor exposures are the most common source of unexpected tracking error.\n\n**Common unintended exposures:**\n- A value stock picker inadvertently underweights growth/momentum\n- A small-cap manager takes on unintended sector bets\n- A concentrated manager has excessive sensitivity to single factors\n\n**Neutralization approaches:**\n- **Factor-neutral construction**: Constrain portfolio factor exposures to match benchmark\n- **Factor hedging**: Use factor-mimicking portfolios or derivatives to offset unintended tilts\n- **Optimization constraints**: Set bounds on factor deviations in the optimizer\n\n## Position Sizing\n\n### Approaches:\n\n1. **Equal weighting**: Simple; gives equal conviction to all positions\n2. **Alpha-weighted**: Size proportional to expected alpha signal strength\n3. **Risk-parity within active positions**: Size inversely proportional to position risk\n4. **Optimization-based**: Maximize expected alpha subject to risk constraints\n\n### Practical constraints:\n- **Maximum position size**: Typically 3-5% for diversified, 8-10% for concentrated\n- **Minimum position size**: Must be large enough to impact portfolio returns\n- **Liquidity**: Position should be exitable within target horizon (e.g., <10% of ADV)\n- **Benchmark-relative**: Maximum active weight (over/underweight) limits\n\n## Portfolio Optimization\n\n$$\\max_{w} \\quad \\alpha'w - \\lambda w' \\Sigma w$$\n\nSubject to: weight constraints, factor constraints, turnover limits, transaction costs\n\nWhere $\\alpha$ = expected active returns vector, $\\Sigma$ = covariance matrix, $\\lambda$ = risk aversion parameter.\n\n**Practical issues:**\n- Estimation error in expected returns dominates; use **shrinkage estimators** or **Black-Litterman**\n- Resampled efficient frontiers reduce sensitivity to input assumptions\n- Transaction cost penalties prevent excessive turnover\n\n## Benchmark-Aware vs Benchmark-Agnostic\n\n| Feature | Benchmark-Aware | Benchmark-Agnostic |\n|---|---|---|\n| Objective | Maximize IR (alpha/TE) | Maximize Sharpe ratio |\n| Risk measure | Tracking error | Total volatility |\n| Constraints | Active weight limits | Absolute weight limits |\n| Use case | Institutional mandates | Absolute return, hedge funds |\n| Downside | Benchmark hugging | Style drift |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Portfolio Construction Analysis\n\nA fundamental equity manager presents the following portfolio characteristics:\n- 35 holdings, active share 82%, tracking error 6.5%\n- Information ratio: 0.55 (3-year)\n- Factor exposures vs benchmark: Value +0.4, Momentum -0.3, Size -0.2, Quality +0.1\n- Top 5 positions represent 35% of the portfolio\n- Annual turnover: 80%\n\nA) Decompose the sources of active risk.\nB) Identify potential construction issues.\nC) Recommend specific improvements to portfolio construction.",
+      "solution": "**A) Active Risk Decomposition:**\n\nWith tracking error of 6.5% and moderate factor tilts:\n- Factor-related active risk (estimated): The value tilt (+0.4) and momentum tilt (-0.3) are significant. Value and momentum tend to be negatively correlated, partially offsetting each other. Estimated factor contribution to tracking error: approximately 3-4%\n- Stock-specific active risk: Remaining ~4-5% from individual security selection\n- Concentration risk: Top 5 at 35% (average 7% each) creates significant idiosyncratic risk\n\nThe split is roughly 40-50% factor-driven and 50-60% stock-specific. For a fundamental bottom-up manager claiming stock-picking skill, too much risk comes from factor exposures.\n\n**B) Potential Construction Issues:**\n\n1. **Unintended momentum underweight**: The -0.3 momentum exposure suggests the manager is systematically buying stocks with poor recent performance. This is common for value managers but drags returns in trending markets\n2. **Excessive concentration**: Top 5 at 35% creates outsized single-stock risk; a -20% move in any top holding costs 1.4-2% portfolio return\n3. **High turnover for a fundamental manager**: 80% annual turnover is high for 35 holdings (implies ~2-year average holding period). Combined with 6.5% tracking error, this generates significant transaction costs that erode alpha\n4. **Factor bet mismatch**: If the manager's skill is stock selection, the value/momentum factor bets are consuming active risk budget that should go to idiosyncratic positions\n\n**C) Recommended Improvements:**\n\n1. **Neutralize momentum exposure**: Use an optimizer constraint to keep momentum exposure within +/-0.1. This reduces unintended factor risk without eliminating the value tilt (which may be intentional)\n2. **Reduce concentration**: Cap maximum position size at 5% (from current ~7%+ for top holdings). Reallocate to lower-conviction positions or increase the number of holdings to 40-45\n3. **Add transaction cost penalty to optimization**: Targeting 40-50% turnover would save approximately 50-80 bps annually in implementation costs\n4. **Monitor factor attribution**: Separate factor alpha from stock-selection alpha monthly. If factor timing alpha is consistently negative, fully neutralize all factor exposures\n\nExpected impact: Reduce tracking error to ~5% while maintaining alpha, improving IR from 0.55 to approximately 0.70."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Equity Portfolio Construction Practice",
+      "problems": [
+        {
+          "id": "l3-pm5-1",
+          "question": "A portfolio manager has an information coefficient (IC) of 0.05 and makes 200 independent investment decisions per year. According to the Fundamental Law of Active Management, the expected information ratio is closest to:",
+          "options": [
+            "A) 0.35",
+            "B) 0.50",
+            "C) 0.71"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The Fundamental Law: IR = IC x sqrt(BR), where BR = breadth (number of independent decisions).\n\nIR = 0.05 x sqrt(200) = 0.05 x 14.14 = 0.707, approximately 0.71.\n\nOption A assumes BR = 50. Option B uses IC x BR / 10. This demonstrates that even a small forecasting edge (IC = 0.05) can generate a good IR when applied across many independent decisions, which is the core argument for quantitative strategies.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Apply the Fundamental Law of Active Management"
+        },
+        {
+          "id": "l3-pm5-2",
+          "question": "An optimizer recommends a 12% allocation to a mid-cap stock that the manager expects to outperform by 3%. The stock has average daily volume of $2M. If the portfolio size is $500M, the most serious implementation concern is:",
+          "options": [
+            "A) The expected alpha is too low to justify the position size",
+            "B) The position ($60M) represents 30 days of average volume, creating significant market impact",
+            "C) The tracking error contribution from a single 12% position exceeds typical guidelines"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Position size = 12% x $500M = $60M. At $2M average daily volume (ADV), this represents 30 days of trading. A common guideline is that a position should not exceed 5-10 days of ADV to ensure reasonable liquidity. 30 days of ADV means: (1) building the position will create significant market impact, pushing the stock price up and eroding the expected alpha, (2) exiting under stress could take weeks, (3) the manager is effectively a liquidity provider, not a liquidity taker. Option A is incorrect -- 3% expected alpha for a 12% position is reasonable. Option C is a concern but secondary to the liquidity issue, which could make the position untradeable.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Evaluate implementation constraints in position sizing"
+        },
+        {
+          "id": "l3-pm5-3",
+          "question": "When constructing a factor-neutral portfolio, a manager constrains sector weights to within +/-2% of the benchmark. This constraint most directly affects the portfolio's:",
+          "options": [
+            "A) Stock-specific active risk",
+            "B) Factor-related active risk",
+            "C) Total portfolio beta"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Sector weight constraints directly limit factor-related active risk by preventing large sector bets. Sectors are a primary source of common factor exposure (e.g., technology exposure drives growth/momentum factors, energy drives value/commodity factors). Constraining sectors within +/-2% keeps factor exposures close to the benchmark. Option A is incorrect -- stock-specific risk depends on individual position sizes, not sector constraints. Option C is incorrect -- beta is mainly affected by market sensitivity, and a sector-neutral portfolio can still have beta different from 1.0.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Understand the relationship between portfolio constraints and risk sources"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Fundamental Law of Active Management (IR = IC x sqrt(BR)) to someone who understands basic statistics. Why does breadth matter as much as skill? What are the practical limitations of this formula?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How do you distinguish between intentional and unintentional factor exposures in your portfolio?",
+        "Why might a perfectly optimized portfolio perform poorly in practice?",
+        "What tradeoffs does a manager face when deciding between concentrated and diversified approaches?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Risk budgeting**: Allocate active risk to sources with highest expected skill\n- **Tracking error decomposition**: Factor-related + stock-specific components\n- **Fundamental Law**: IR = IC x sqrt(BR); small edge applied broadly can match deep insight applied narrowly\n- **Position sizing**: Balance conviction against liquidity, concentration, and constraint limits\n- **Unintended factor bets**: Most common portfolio construction error; neutralize when skill is in stock selection\n- **Optimization pitfalls**: Input sensitivity, estimation error, transaction costs; use shrinkage, resampling, cost penalties\n- **Benchmark-aware vs agnostic**: Institutional mandates optimize IR; absolute return optimizes Sharpe"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Multi-Asset Strategies** -- extending portfolio construction beyond single asset classes. How do you combine equities, fixed income, alternatives, and currencies into a coherent multi-asset portfolio with risk parity, tactical allocation, and portable alpha?"
+    }
+  ]
+}

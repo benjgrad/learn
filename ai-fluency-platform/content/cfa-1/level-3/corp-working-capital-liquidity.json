@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "CI.4: Working Capital and Liquidity",
+    "description": "Analyze working capital management through liquidity ratios, the cash conversion cycle, and short-term financing decisions.",
+    "level": "level-3",
+    "slug": "corp-working-capital-liquidity",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company has strong revenue growth and healthy profit margins, yet it is struggling to pay its suppliers on time. How is this possible? What might explain the disconnect between profitability and the ability to pay bills?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Working Capital Fundamentals\n\n**Working capital** measures a company's short-term financial health and operational efficiency.\n\n$$\\text{Net Working Capital} = \\text{Current Assets} - \\text{Current Liabilities}$$\n\nPositive working capital means the company can cover its short-term obligations. However, too much working capital may signal inefficiency \u2014 excess cash, bloated inventory, or slow collections.\n\n### Liquidity Ratios\n\n**Current ratio**:\n\n$$\\text{Current Ratio} = \\frac{\\text{Current Assets}}{\\text{Current Liabilities}}$$\n\nA broad measure of liquidity. A ratio above 1.0 indicates current assets exceed current liabilities. However, it includes potentially illiquid assets like inventory.\n\n**Quick ratio (acid-test)**:\n\n$$\\text{Quick Ratio} = \\frac{\\text{Cash + Marketable Securities + Receivables}}{\\text{Current Liabilities}}$$\n\nA stricter measure that excludes inventory and prepaid expenses, focusing only on assets that can be quickly converted to cash.\n\n### Example\n\nA company reports: Cash $50, Receivables $120, Inventory $200, Prepaid expenses $30, Current liabilities $250.\n\n$$\\text{Current Ratio} = \\frac{50 + 120 + 200 + 30}{250} = \\frac{400}{250} = 1.60$$\n\n$$\\text{Quick Ratio} = \\frac{50 + 120}{250} = \\frac{170}{250} = 0.68$$\n\nThe gap between 1.60 and 0.68 reveals heavy reliance on inventory \u2014 a concern if the inventory is slow-moving or perishable."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Company A has a current ratio of 2.5 and Company B has a current ratio of 1.1. Does this necessarily mean Company A is in a better financial position?",
+      "answer": "Not necessarily. A very high current ratio (2.5) may indicate inefficiency \u2014 too much cash sitting idle, excessive inventory, or slow receivables collection. Company B's ratio of 1.1 could reflect efficient working capital management. The optimal ratio depends on the industry: grocery stores operate well with low ratios (fast inventory turnover, cash sales), while manufacturers may need higher ratios (slow inventory cycles). Quality of current assets matters more than the ratio alone."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Cash Conversion Cycle\n\nThe **cash conversion cycle (CCC)** measures the number of days between paying for inventory and collecting cash from sales. It captures the full operating liquidity picture.\n\n$$\\text{CCC} = \\text{DOH} + \\text{DSO} - \\text{DPO}$$\n\nWhere:\n\n**Days of inventory on hand (DOH):**\n$$\\text{DOH} = \\frac{\\text{Average Inventory}}{\\text{COGS / 365}}$$\n\n**Days sales outstanding (DSO):**\n$$\\text{DSO} = \\frac{\\text{Average Receivables}}{\\text{Revenue / 365}}$$\n\n**Days payable outstanding (DPO):**\n$$\\text{DPO} = \\frac{\\text{Average Payables}}{\\text{COGS / 365}}$$\n\n### Interpretation\n\n- **Lower CCC is generally better** \u2014 less time and capital tied up in operations\n- A **negative CCC** (like Amazon) means the company collects from customers before paying suppliers\n- Improvements come from: selling inventory faster (lower DOH), collecting receivables faster (lower DSO), or negotiating longer payment terms (higher DPO)\n\n### Example\n\nDOH = 45 days, DSO = 30 days, DPO = 40 days:\n\n$$\\text{CCC} = 45 + 30 - 40 = 35 \\text{ days}$$\n\nThe company needs to fund 35 days of operations from the time it pays for inventory until it collects cash from customers."
+    },
+    {
+      "type": "markdown",
+      "content": "## Managing Working Capital Components\n\n### Accounts Receivable Management\n\nCompanies extend **trade credit** to customers to encourage sales. Key decisions include:\n- **Credit terms**: e.g., \"2/10 net 30\" means a 2% discount if paid within 10 days, otherwise full payment in 30 days\n- **Credit standards**: How strict to be in granting credit\n- **Collection policies**: How aggressively to pursue overdue accounts\n\nThe annualized cost of not taking the discount \"2/10 net 30\":\n\n$$\\text{Cost} = \\frac{\\text{Discount}}{1 - \\text{Discount}} \\times \\frac{365}{\\text{Full period} - \\text{Discount period}} = \\frac{0.02}{0.98} \\times \\frac{365}{20} \\approx 37.2\\%$$\n\n### Inventory Management\n\nBalancing too much inventory (storage costs, obsolescence risk) against too little (stockouts, lost sales). Just-in-time (JIT) systems minimize inventory but require reliable supply chains.\n\n### Accounts Payable Management\n\nStretching payables improves the CCC but may damage supplier relationships or forfeit early payment discounts. Companies should pay within terms unless the financing cost of early payment exceeds alternative borrowing costs.\n\n### Short-Term Financing\n\nWhen the CCC creates a financing gap, companies use:\n- **Bank lines of credit**: Committed or uncommitted revolving facilities\n- **Commercial paper**: Unsecured short-term notes issued by creditworthy firms\n- **Factoring**: Selling receivables to a third party at a discount\n- **Banker's acceptances**: Bank-guaranteed time drafts used in trade finance"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate the cash conversion cycle for the following company: Revenue = $10,000,000, COGS = $7,000,000, Average Inventory = $1,200,000, Average Receivables = $900,000, Average Payables = $600,000. Then determine the cost of not taking a discount of \"3/15 net 45.\"",
+      "solution": "**Cash Conversion Cycle:**\n\n$\\text{DOH} = \\frac{1{,}200{,}000}{7{,}000{,}000 / 365} = \\frac{1{,}200{,}000}{19{,}178} = 62.6 \\text{ days}$\n\n$\\text{DSO} = \\frac{900{,}000}{10{,}000{,}000 / 365} = \\frac{900{,}000}{27{,}397} = 32.9 \\text{ days}$\n\n$\\text{DPO} = \\frac{600{,}000}{7{,}000{,}000 / 365} = \\frac{600{,}000}{19{,}178} = 31.3 \\text{ days}$\n\n$\\text{CCC} = 62.6 + 32.9 - 31.3 = 64.2 \\text{ days}$\n\nThe company needs to finance approximately 64 days of operations.\n\n**Cost of not taking the discount (3/15 net 45):**\n\n$\\text{Cost} = \\frac{0.03}{1 - 0.03} \\times \\frac{365}{45 - 15} = \\frac{0.03}{0.97} \\times \\frac{365}{30} = 0.03093 \\times 12.167 = 37.6\\%$\n\nThe annualized cost of forgoing the discount is approximately 37.6%, which is very expensive compared to most bank financing. The company should take the discount if it can borrow at less than 37.6%."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Working Capital and Liquidity Practice Problems",
+      "problems": [
+        {
+          "id": "ci4-1",
+          "question": "A company has current assets of $500,000 (including inventory of $200,000) and current liabilities of $300,000. Its quick ratio is closest to:",
+          "options": [
+            "A) 0.67",
+            "B) 1.00",
+            "C) 1.67"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Quick ratio = (Current Assets - Inventory) / Current Liabilities = ($500,000 - $200,000) / $300,000 = $300,000 / $300,000 = 1.00. Option A (0.67) would result from dividing inventory by current liabilities. Option C (1.67) is the current ratio ($500,000 / $300,000), not the quick ratio.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate and interpret the quick ratio"
+        },
+        {
+          "id": "ci4-2",
+          "question": "A company has DOH of 50 days, DSO of 35 days, and DPO of 60 days. Its cash conversion cycle is:",
+          "options": [
+            "A) 25 days",
+            "B) 45 days",
+            "C) 145 days"
+          ],
+          "correctAnswer": "A",
+          "explanation": "CCC = DOH + DSO - DPO = 50 + 35 - 60 = 25 days. The company needs to finance 25 days of operations. The high DPO (60 days) significantly reduces the cycle. Option B (45) incorrectly adds DPO. Option C (145) adds all three components instead of subtracting DPO.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate the cash conversion cycle"
+        },
+        {
+          "id": "ci4-3",
+          "question": "The annualized cost of not taking the discount under terms of \"2/10 net 60\" is closest to:",
+          "options": [
+            "A) 14.9%",
+            "B) 24.5%",
+            "C) 37.2%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Cost = [0.02 / (1 - 0.02)] x [365 / (60 - 10)] = (0.02 / 0.98) x (365 / 50) = 0.02041 x 7.30 = 14.9%. The 50-day gap between the discount period and the full payment period makes this less costly than typical 2/10 net 30 terms. Option B would result from using 30 in the denominator instead of 50. Option C (37.2%) is the cost of 2/10 net 30 terms.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate the cost of trade credit"
+        },
+        {
+          "id": "ci4-4",
+          "question": "Which of the following actions would most likely shorten a company's cash conversion cycle?",
+          "options": [
+            "A) Extending more generous credit terms to customers.",
+            "B) Negotiating longer payment terms with suppliers.",
+            "C) Increasing inventory levels to avoid stockouts."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Negotiating longer payment terms increases DPO, which reduces the CCC (CCC = DOH + DSO - DPO). Extending more generous credit terms to customers (A) would increase DSO, lengthening the CCC. Increasing inventory levels (C) would increase DOH, also lengthening the CCC.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate strategies to improve working capital management"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the cash conversion cycle to a small business owner. Use their perspective \u2014 buying goods from suppliers, selling to customers, and managing the timing of cash flows \u2014 to make the concept concrete. Why should they care about reducing their CCC?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a profitable company still face liquidity problems?",
+        "How does the cash conversion cycle differ across industries (e.g., grocery retail vs. aircraft manufacturing)?",
+        "What are the risks of aggressively stretching payables to improve the CCC?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Net Working Capital = Current Assets - Current Liabilities\n- Current Ratio = Current Assets / Current Liabilities\n- Quick Ratio = (Cash + Securities + Receivables) / Current Liabilities\n- **CCC = DOH + DSO - DPO** (lower is better)\n- DOH = Avg Inventory / (COGS/365)\n- DSO = Avg Receivables / (Revenue/365)\n- DPO = Avg Payables / (COGS/365)\n- Cost of not taking discount = $\\frac{d}{1-d} \\times \\frac{365}{\\text{Full} - \\text{Disc period}}$\n- Negative CCC: collect before paying suppliers\n- Short-term financing: credit lines, commercial paper, factoring"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Working capital focuses on short-term operational decisions. The next module shifts to **Capital Investments and Capital Allocation** \u2014 how companies evaluate and select long-term investment projects using NPV, IRR, and other capital budgeting techniques."
+    }
+  ]
+}

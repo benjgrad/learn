@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.18: Asset-Backed Securities",
+    "description": "Explore auto loan ABS, credit card ABS, CLOs, structural features, prepayment considerations, and credit analysis of ABS.",
+    "level": "level-6",
+    "slug": "fi-asset-backed-securities",
+    "order": 18,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Credit card companies package their receivables into ABS, but credit card balances are revolving \u2014 cardholders can borrow, repay, and borrow again. How can you securitize an asset that keeps changing? What structural feature addresses this?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Auto Loan ABS\n\nAuto loan ABS are backed by pools of automobile loans. Their structure is relatively straightforward:\n\n- **Amortizing assets**: Auto loans are fully amortizing (borrowers make fixed monthly payments of interest + principal), so the ABS receives a predictable declining balance of cash flows\n- **Prepayment risk**: Exists but is lower than for mortgages because auto loans are smaller, have shorter maturities (3-7 years), and there is less incentive to refinance\n- **Credit enhancement**: Typically uses subordination, overcollateralization, excess spread, and reserve accounts\n- **Average life**: Decreases as principal is repaid; usually 1-3 years depending on the tranche\n\n### Key Risk Factors\n\n- Default rates on the underlying auto loans (correlated with unemployment)\n- Recovery rates on repossessed vehicles (depends on used car market)\n- Prepayment speeds (affected by interest rates, though less than mortgages)\n\n## Credit Card ABS\n\nCredit card ABS are backed by credit card receivables. They have a unique **revolving structure**:\n\n### Revolving Period vs. Amortization Period\n\n- **Revolving period** (typically 2-5 years): Principal payments from cardholders are used to purchase new receivables, maintaining the pool size. Investors receive only interest.\n- **Amortization period**: Principal is passed through to investors (no new purchases). The ABS amortizes and eventually matures.\n\nThis structure solves the problem of securitizing revolving credit \u2014 during the revolving period, the pool is continuously refreshed with new receivables."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why do credit card ABS typically have a revolving period while auto loan ABS do not?",
+      "answer": "Credit card receivables are revolving by nature \u2014 cardholders continuously borrow, repay, and borrow again, so the outstanding balance fluctuates. Without a revolving period, the ABS would quickly pay down as cardholders made payments, creating very short-lived securities that would be impractical for investors. The revolving period maintains a stable pool by reinvesting principal payments into new receivables. Auto loans, by contrast, are installment loans with fixed schedules \u2014 the borrower takes one loan and pays it back. The cash flows are predictable without needing a revolving feature."
+    },
+    {
+      "type": "markdown",
+      "content": "## Collateralized Loan Obligations (CLOs)\n\nCLOs are securitizations backed by portfolios of **leveraged loans** (bank loans to below-investment-grade companies).\n\n### CLO Structure\n\n| Tranche | Rating | Typical Size | Return |\n|---|---|---|---|\n| Senior (AAA/AA) | AAA/AA | 60-70% | SOFR + 100-150 bps |\n| Mezzanine (A/BBB/BB) | A to BB | 20-25% | SOFR + 200-500 bps |\n| Equity (first-loss) | Unrated | 8-12% | Target 12-20% |\n\n### Key Features\n\n- **Actively managed**: A CLO manager can buy and sell loans in the portfolio (unlike static ABS pools)\n- **Reinvestment period**: Typically 4-5 years during which the manager can reinvest principal proceeds\n- **Coverage tests**: Overcollateralization and interest coverage tests protect senior tranches; if breached, cash flows are redirected from junior to senior tranches\n- **Floating rate**: Both the underlying loans and CLO tranches typically pay floating rates, reducing interest rate risk\n\nCLOs differ from traditional ABS in their **active management** and focus on **corporate credit risk** rather than consumer credit risk."
+    },
+    {
+      "type": "markdown",
+      "content": "## Credit Analysis of ABS\n\nAnalyzing ABS credit quality differs from corporate bond analysis:\n\n### Key Factors\n\n1. **Asset pool quality**: Historical default rates, delinquency trends, loss severity, diversification (geographic, borrower)\n2. **Credit enhancement levels**: Amount of subordination, overcollateralization, excess spread \u2014 are they sufficient for the rating?\n3. **Servicer quality**: The servicer collects payments and manages delinquencies. A weak servicer can reduce recoveries.\n4. **Structural features**: Payment waterfall, triggers (early amortization events), reserve accounts\n5. **Legal structure**: True sale opinion, bankruptcy remoteness\n\n### Stress Testing\n\nRating agencies and investors stress-test ABS structures by applying:\n- Higher-than-historical default rate assumptions\n- Lower-than-historical recovery rate assumptions\n- Varying prepayment speed assumptions\n\nThe credit rating on each tranche reflects the level of losses the structure can absorb before that tranche is impaired.\n\n### Early Amortization Triggers\n\nFor revolving ABS (like credit cards), **early amortization events** (e.g., excess spread falls below a threshold, originator defaults) can force an immediate shift from the revolving to the amortization period, protecting investors."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A CLO has the following structure: Senior tranche $300M, Mezzanine $80M, Equity $40M, backed by a $420M loan portfolio. Calculate the overcollateralization amount and the OC ratio for the senior tranche.",
+      "solution": "**Overcollateralization amount:**\n$$\\text{OC Amount} = \\text{Portfolio Value} - \\text{Total Debt Tranches} = \\$420M - (\\$300M + \\$80M) = \\$420M - \\$380M = \\$40M$$\n\nNote: The equity tranche is not a debt obligation \u2014 it represents the residual interest.\n\n**Senior OC Ratio:**\n$$\\text{Senior OC Ratio} = \\frac{\\text{Portfolio Value}}{\\text{Senior Tranche}} = \\frac{\\$420M}{\\$300M} = 1.40\\times \\text{ (or 140\\%)}$$\n\nThe senior tranche is overcollateralized by 40% \u2014 the portfolio would need to lose more than $120M (28.6% of its value) before the senior tranche experiences any principal loss. The $40M of OC plus the $80M mezzanine tranche provides a total $120M buffer."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Asset-Backed Securities Practice",
+      "problems": [
+        {
+          "id": "fi18-1",
+          "question": "The revolving period feature of credit card ABS primarily benefits investors by:",
+          "options": [
+            "A) Reducing default risk through diversification",
+            "B) Maintaining a stable pool size and extending the security's life",
+            "C) Providing a guaranteed return regardless of cardholder behavior"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The revolving period maintains a stable pool by using principal payments to purchase new receivables. Without it, the security would rapidly amortize as cardholders repay, creating an impractically short-lived investment. Option A is partially true (new receivables add diversification) but not the primary purpose. Option C is incorrect \u2014 there is no guaranteed return; investors still face default risk.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the revolving structure of credit card ABS"
+        },
+        {
+          "id": "fi18-2",
+          "question": "Compared to auto loan ABS, CLOs are distinguished primarily by:",
+          "options": [
+            "A) Lower credit risk due to corporate loan diversification",
+            "B) Active management of the underlying portfolio",
+            "C) Fixed-rate coupon structures"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The key distinguishing feature of CLOs is active management \u2014 a CLO manager can buy and sell loans in the portfolio during the reinvestment period. Traditional ABS (auto, credit card) have static or passively managed pools. Option A is incorrect \u2014 CLOs backed by leveraged loans typically have higher, not lower, underlying credit risk. Option C is incorrect \u2014 CLOs are typically floating rate, not fixed rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare CLOs with other ABS types"
+        },
+        {
+          "id": "fi18-3",
+          "question": "An early amortization trigger in a credit card ABS is most likely activated when:",
+          "options": [
+            "A) Interest rates in the economy decline significantly",
+            "B) The excess spread on the portfolio falls below a specified threshold",
+            "C) The revolving period ends on its scheduled date"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Early amortization triggers are protective mechanisms activated by adverse events. A common trigger is excess spread falling below a threshold, which signals that the portfolio is experiencing higher-than-expected losses. This forces the ABS to stop purchasing new receivables and begin returning principal to investors. Option A is unrelated to credit card ABS triggers. Option C describes a normal scheduled event, not a trigger.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe early amortization triggers in ABS"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a fellow candidate how a CLO structure works. Describe the roles of the CLO manager, the tranching structure, and how the coverage tests protect senior investors. How does a CLO differ from a traditional static ABS?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is prepayment risk generally less significant for auto loan ABS than for mortgage-backed securities?",
+        "What role does servicer quality play in the performance of an ABS?",
+        "How do early amortization triggers protect credit card ABS investors?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Auto loan ABS**: Amortizing assets, lower prepayment risk, straightforward structure\n- **Credit card ABS**: Revolving structure (revolving period \u2192 amortization period), early amortization triggers\n- **CLOs**: Backed by leveraged loans, actively managed, reinvestment period, floating rate, coverage tests\n- **Credit analysis of ABS**: Asset pool quality, credit enhancement levels, servicer quality, structural features, legal structure\n- **Stress testing**: Apply higher defaults, lower recovery, varying prepayments to assess tranche resilience\n- **Early amortization triggers**: Protect investors by forcing amortization when performance deteriorates\n- CLOs differ from static ABS primarily through **active management** of the loan portfolio"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The final content module covers **Mortgage-Backed Securities (MBS)**, the largest sector of the securitized market. We'll examine mortgage types, pass-through securities, prepayment models, and CMO structures designed to redistribute prepayment risk."
+    }
+  ]
+}

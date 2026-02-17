@@ -8,11 +8,25 @@ import type {
 
 const PROGRESS_KEY = "aif_progress";
 
+let migrationRun = false;
+
 function getStore(): ProgressStore {
   if (typeof window === "undefined") return { modules: {} };
   try {
     const raw = localStorage.getItem(PROGRESS_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const store = JSON.parse(raw);
+      // Run migration once per session
+      if (!migrationRun) {
+        migrationRun = true;
+        const storeAny = store as unknown as Record<string, unknown>;
+        if (!storeAny.migrated || !storeAny.migratedTopics) {
+          // Defer migration to after this call completes
+          setTimeout(() => migrateProgressKeys(), 0);
+        }
+      }
+      return store;
+    }
   } catch {
     // Corrupted data
   }
@@ -109,4 +123,60 @@ export function getLevelCompletionCount(levelId: string): number {
 
 export function getAllProgress(): ProgressStore {
   return getStore();
+}
+
+// Migration map: old CFA single-level paths -> new topic-level paths
+import cfaLevelMigration from "./cfa-level-migration.json";
+
+// One-time migration: prefix existing progress keys with course ID
+// and remap CFA single-level paths to topic-level paths
+export function migrateProgressKeys() {
+  const store = getStore();
+  const storeAny = store as unknown as Record<string, unknown>;
+  const needsCoursePrefix = !storeAny.migrated;
+  const needsTopicSplit = !storeAny.migratedTopics;
+
+  if (!needsCoursePrefix && !needsTopicSplit) return;
+
+  const cfaPrefixes = [
+    "quant-", "econ-", "fi-", "fsa-", "eq-", "corp-", "deriv-",
+    "alt-", "pm-", "ethics-", "index",
+  ];
+  const cfaL2Prefixes = [...cfaPrefixes.filter(p => p !== "index")];
+  const cfaL3Prefixes = [
+    "aa-", "deriv-", "pc-", "perf-", "ethics-", "pw-pm-", "pw-pw-", "pw-mk-", "index",
+  ];
+
+  const migration = cfaLevelMigration as Record<string, string>;
+  const newModules: Record<string, ModuleProgressState> = {};
+
+  for (const [key, value] of Object.entries(store.modules)) {
+    let newKey = key;
+
+    // Phase 1: Add course prefix to 2-part keys
+    if (needsCoursePrefix && key.split("/").length === 2) {
+      const [level, slug] = key.split("/");
+      if (level === "level-2" && cfaL2Prefixes.some(p => slug.startsWith(p))) {
+        newKey = `cfa-2/${key}`;
+      } else if (level === "level-3" && cfaL3Prefixes.some(p => slug.startsWith(p))) {
+        newKey = `cfa-3/${key}`;
+      } else if (level === "level-1" && cfaPrefixes.some(p => slug.startsWith(p))) {
+        newKey = `cfa-1/${key}`;
+      } else {
+        newKey = `ai-fluency/${key}`;
+      }
+    }
+
+    // Phase 2: Remap CFA single-level to topic-level
+    if (needsTopicSplit && migration[newKey]) {
+      newKey = migration[newKey];
+    }
+
+    newModules[newKey] = { ...value, modulePath: newKey };
+  }
+
+  store.modules = newModules;
+  storeAny.migrated = true;
+  storeAny.migratedTopics = true;
+  saveStore(store);
 }

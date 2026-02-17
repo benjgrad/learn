@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FSA.7: Analysis of Long-Term Assets",
+    "description": "Master capitalization vs expensing, depreciation methods, amortization, impairment testing, the revaluation model under IFRS, and derecognition of long-term assets.",
+    "level": "level-4",
+    "slug": "fsa-long-term-assets",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company spends $10 million on a new piece of equipment that will last 5 years. Should this $10 million hit the income statement immediately as an expense, or should it be spread over the 5-year life? What are the financial statement consequences of each approach?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Capitalization vs Expensing\n\nWhen a company incurs a cost, it must decide whether to **capitalize** (record as an asset) or **expense** (charge to the income statement immediately).\n\n### Impact Comparison\n\n| Effect | Capitalize | Expense |\n|---|---|---|\n| **Year 1 assets** | Higher | Lower |\n| **Year 1 net income** | Higher | Lower |\n| **Year 1 CFO** | Higher (cost in CFI) | Lower (cost in CFO) |\n| **Year 1 equity** | Higher | Lower |\n| **Later years' income** | Lower (depreciation) | Higher (no future charge) |\n| **Total income over life** | Same | Same |\n\n### Capitalization Criteria\n\nA cost should be capitalized if it provides **future economic benefits** beyond the current period:\n- Purchase price and directly attributable costs (delivery, installation)\n- Borrowing costs (interest during construction \u2014 both IFRS and US GAAP require capitalization)\n- Costs that extend the useful life or enhance the asset\n\nExpense immediately:\n- Repairs and maintenance (restore to original condition)\n- Research costs (IFRS and US GAAP)\n- Training costs\n- Start-up costs (generally)\n\n### Aggressive vs Conservative\n\nA company that **capitalizes aggressively** reports higher assets and income in the near term, potentially overstating profitability. Analysts adjust by examining the ratio of capex to total assets and comparing capitalization policies across peers."
+    },
+    {
+      "type": "markdown",
+      "content": "## Depreciation Methods\n\nDepreciation allocates an asset's **depreciable base** over its useful life.\n\n$$\\text{Depreciable base} = \\text{Cost} - \\text{Residual (salvage) value}$$\n\n### Straight-Line\n\n$$\\text{Annual depreciation} = \\frac{\\text{Cost} - \\text{Residual value}}{\\text{Useful life}}$$\n\n### Declining Balance (Double Declining Balance)\n\n$$\\text{DDB depreciation} = \\frac{2}{\\text{Useful life}} \\times \\text{Beginning book value}$$\n\nNote: DDB ignores residual value in the formula but stops depreciating when book value reaches residual value.\n\n### Units of Production\n\n$$\\text{Depreciation} = \\frac{\\text{Cost} - \\text{Residual value}}{\\text{Total estimated units}} \\times \\text{Units produced}$$\n\n### Example\n\nEquipment: Cost = \\$100,000, Residual = \\$10,000, Life = 5 years.\n\n| Year | Straight-Line | DDB | \n|---|---|---|\n| 1 | $18,000 | $40,000 |\n| 2 | $18,000 | $24,000 |\n| 3 | $18,000 | $14,400 |\n| 4 | $18,000 | $1,600* |\n| 5 | $18,000 | $0 |\n\n*DDB Year 4: BV = $21,600; depreciation limited to $21,600 - $10,000 = $11,600 to reach residual. So Year 4 = $11,600 and Year 5 = $0.\n\nAccelerated methods front-load expenses, reducing early-year income but increasing later-year income."
+    },
+    {
+      "type": "markdown",
+      "content": "## Impairment, Revaluation, and Derecognition\n\n### Impairment\n\n| Step | IFRS | US GAAP |\n|---|---|---|\n| **Trigger** | Indicators of impairment exist | Indicators of impairment exist |\n| **Test** | Compare carrying amount to **recoverable amount** (higher of fair value less costs of disposal and value in use) | **Step 1**: Compare carrying amount to undiscounted future cash flows |\n| **Measurement** | Write down to recoverable amount | **Step 2** (if Step 1 fails): Write down to fair value |\n| **Reversal** | Permitted (up to original depreciated cost) | **Not permitted** |\n\n$$\\text{Impairment loss} = \\text{Carrying amount} - \\text{Recoverable amount (IFRS) or Fair value (US GAAP)}$$\n\n### Revaluation Model (IFRS Only)\n\nUnder IFRS, companies may elect to carry PP&E at **revalued amount** (fair value at revaluation date less subsequent depreciation). US GAAP does not permit revaluation.\n\n- Revaluation **increases**: credited to OCI (revaluation surplus in equity)\n- Revaluation **decreases**: charged to income statement (unless reversing a prior surplus)\n\n### Derecognition\n\nWhen an asset is sold or retired:\n\n$$\\text{Gain/loss} = \\text{Proceeds} - \\text{Carrying amount}$$\n\nExample: Equipment with cost $100,000 and accumulated depreciation $70,000 is sold for $35,000.\n$$\\text{Gain} = 35{,}000 - (100{,}000 - 70{,}000) = 35{,}000 - 30{,}000 = \\$5{,}000$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A machine costs $200,000 with a residual value of $20,000 and a useful life of 10 years. After 6 years of straight-line depreciation, indicators of impairment arise. The machine's fair value is $50,000 and its undiscounted future cash flows are $95,000. Is an impairment recognized under US GAAP?",
+      "answer": "No impairment under US GAAP. After 6 years, carrying amount = $200,000 - 6 \u00d7 ($200,000 - $20,000)/10 = $200,000 - $108,000 = $92,000. Under US GAAP Step 1, compare carrying amount ($92,000) to undiscounted future cash flows ($95,000). Since $95,000 > $92,000, the asset passes the recoverability test and no impairment is recognized. Under IFRS, however, the recoverable amount ($50,000 fair value, assuming value in use is lower) is below carrying amount ($92,000), so a $42,000 impairment would be recognized."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Equipment costs $500,000, has a residual value of $50,000, and a useful life of 10 years. Calculate depreciation expense for Year 1 and Year 2 under (a) straight-line, (b) double declining balance, and (c) units of production if Year 1 produces 15,000 units and Year 2 produces 12,000 units out of 100,000 total estimated units.",
+      "solution": "**Depreciable base** = $500,000 - $50,000 = $450,000\n\n**(a) Straight-Line:**\n- Annual = $450,000 / 10 = **$45,000** per year\n- Year 1: $45,000 | Year 2: $45,000\n\n**(b) Double Declining Balance:**\n- Rate = 2/10 = 20%\n- Year 1: $500,000 \u00d7 20% = **$100,000** (BV = $400,000)\n- Year 2: $400,000 \u00d7 20% = **$80,000** (BV = $320,000)\n\n**(c) Units of Production:**\n- Rate per unit = $450,000 / 100,000 = $4.50/unit\n- Year 1: 15,000 \u00d7 $4.50 = **$67,500**\n- Year 2: 12,000 \u00d7 $4.50 = **$54,000**"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Long-Term Asset Analysis Practice Problems",
+      "problems": [
+        {
+          "id": "fsa7-1",
+          "question": "Compared to expensing a cost immediately, capitalizing a cost in Year 1 will most likely result in:",
+          "options": [
+            "A) Lower total assets and lower net income",
+            "B) Higher total assets and higher net income",
+            "C) Higher total assets and lower cash flow from operations"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Capitalizing a cost records it as an asset rather than an immediate expense. In Year 1, this increases total assets (the cost appears on the balance sheet) and increases net income (only a partial depreciation charge hits the income statement instead of the full cost). CFO is also higher because the cash outflow is classified as investing, not operating. Option A describes the effects of expensing, not capitalizing. Option C is incorrect because capitalizing increases (not decreases) CFO \u2014 the cash outflow shifts from operating to investing activities.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the financial statement effects of capitalizing vs expensing"
+        },
+        {
+          "id": "fsa7-2",
+          "question": "Equipment with a cost of $300,000 and accumulated depreciation of $180,000 is tested for impairment. Its fair value is $90,000 and undiscounted future cash flows are $130,000. Under US GAAP, the impairment loss is:",
+          "options": [
+            "A) $0",
+            "B) $30,000",
+            "C) $90,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Carrying amount = $300,000 - $180,000 = $120,000. Under US GAAP, Step 1 compares carrying amount to undiscounted future cash flows: $120,000 vs $130,000. Since undiscounted cash flows ($130,000) exceed carrying amount ($120,000), the asset passes the recoverability test and NO impairment is recognized. Under IFRS, using fair value ($90,000) as the recoverable amount, a $30,000 impairment would be recognized. Option B ($30,000) applies IFRS logic. Option C ($90,000) confuses the fair value with the impairment amount.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply the US GAAP impairment test for long-lived assets"
+        },
+        {
+          "id": "fsa7-3",
+          "question": "Under IFRS, a company revalues a building upward by $500,000. Where is this increase reported?",
+          "options": [
+            "A) As a gain on the income statement",
+            "B) In other comprehensive income (OCI)",
+            "C) Directly in retained earnings"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under the IFRS revaluation model, an increase in the carrying amount of an asset is credited to OCI and accumulated in a revaluation surplus within equity, unless it reverses a previous revaluation decrease that was recognized in profit or loss. Option A is incorrect \u2014 revaluation increases go to OCI, not the income statement (unless reversing a prior decrease). Option C is incorrect \u2014 revaluation surplus is a separate equity component, not retained earnings.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Describe the revaluation model under IFRS"
+        },
+        {
+          "id": "fsa7-4",
+          "question": "A company using straight-line depreciation has equipment with a cost of $800,000, residual value of $80,000, and useful life of 8 years. At the end of Year 5, the equipment is sold for $450,000. The gain or loss on the sale is closest to:",
+          "options": [
+            "A) Gain of $0",
+            "B) Gain of $100,000",
+            "C) Loss of $100,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Annual depreciation = ($800,000 - $80,000) / 8 = $90,000. Accumulated depreciation after 5 years = $90,000 \u00d7 5 = $450,000. Carrying amount = $800,000 - $450,000 = $350,000. Gain = Proceeds - Carrying amount = $450,000 - $350,000 = $100,000. Option A ($0) would require proceeds to equal carrying amount. Option C (loss of $100,000) reverses the calculation \u2014 proceeds exceed carrying amount, resulting in a gain, not a loss.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate gain or loss on disposal of a long-term asset"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a non-accountant why two companies with identical equipment might report very different depreciation expenses, and how this affects their reported profitability. Cover at least two different depreciation methods in your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the US GAAP two-step impairment test considered less conservative than the IFRS approach?",
+        "How might a company use the capitalization vs expensing decision to manage reported earnings?",
+        "What are the pros and cons of the IFRS revaluation model from an analyst's perspective?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Capitalize = future benefit; Expense = current period consumption\n- Capitalizing increases Year 1 assets, income, and CFO\n- SL depreciation = (Cost - Residual) / Useful life\n- DDB depreciation = (2 / Life) \u00d7 Beginning BV\n- Units of production = (Cost - Residual) / Total units \u00d7 Units produced\n- US GAAP impairment: Step 1 (undiscounted CF vs carrying amount); Step 2 (write down to FV)\n- IFRS impairment: Compare to recoverable amount (higher of FV less disposal costs and value in use)\n- IFRS allows reversal of impairment; US GAAP does not\n- IFRS revaluation model: increase \u2192 OCI; decrease \u2192 income statement\n- Gain/loss on disposal = Proceeds - Carrying amount"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Long-Term Liabilities and Equity**, including bond accounting, lease accounting, and equity transactions. The depreciation and capitalization decisions you just learned about affect the asset side of the balance sheet \u2014 now you'll see the corresponding financing decisions on the liability and equity side."
+    }
+  ]
+}

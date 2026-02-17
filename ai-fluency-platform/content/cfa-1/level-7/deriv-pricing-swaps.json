@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "DV.7: Pricing Swaps",
+    "description": "Understand interest rate swaps (fixed-for-floating), swap rate determination, currency swaps, equity swaps, swap valuation, and netting.",
+    "level": "level-7",
+    "slug": "deriv-pricing-swaps",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Company A has a floating-rate loan and wants fixed-rate payments for stability. Company B has a fixed-rate loan and prefers floating-rate exposure. How could both companies benefit by exchanging cash flows with each other? What determines the 'fair' fixed rate in such an exchange?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Interest Rate Swaps\n\nA **plain vanilla interest rate swap** is an agreement to exchange **fixed-rate payments for floating-rate payments** on a notional principal over a specified period.\n\n### Key Features\n\n- **Notional principal** \u2014 the reference amount for calculating payments (not exchanged)\n- **Fixed-rate payer** \u2014 pays fixed, receives floating (effectively \"long\" the floating rate)\n- **Floating-rate payer** \u2014 pays floating, receives fixed (effectively \"long\" the fixed rate)\n- **Settlement** \u2014 typically **netted**: only the difference between fixed and floating is paid\n\n### Swap as a Series of Forwards\n\nEach payment date in a swap can be viewed as a **forward rate agreement (FRA)**. A 3-year annual swap is equivalent to three FRAs \u2014 one for each settlement date. The swap rate is set so that the present value of fixed payments equals the present value of expected floating payments.\n\n### The Swap Rate\n\nThe **swap rate** is the fixed rate that makes the swap have **zero value at initiation**:\n\n$$PV(\\text{fixed payments}) = PV(\\text{floating payments})$$\n\nUsing discount factors $d_i$ for each payment date:\n\n$$r_{\\text{swap}} = \\frac{1 - d_n}{\\sum_{i=1}^{n} d_i}$$\n\nWhere $d_i = \\frac{1}{(1 + r_i)^i}$ are the discount factors from the zero curve."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In a plain vanilla interest rate swap, if SOFR rises above the swap fixed rate, who makes a net payment to whom?",
+      "answer": "The floating-rate payer makes a net payment to the fixed-rate payer. The floating-rate payer owes SOFR \u00d7 notional, which exceeds the fixed rate \u00d7 notional. After netting, the difference flows from the floating payer to the fixed payer. Equivalently: the fixed-rate payer (who receives floating) benefits when rates rise."
+    },
+    {
+      "type": "markdown",
+      "content": "## Currency Swaps and Equity Swaps\n\n### Currency Swaps\n\nIn a **currency swap**, two parties exchange:\n1. **Principal amounts** in different currencies at initiation (at the current spot rate)\n2. **Periodic interest payments** in their respective currencies\n3. **Principal amounts** at maturity (at the original exchange rate)\n\nUnlike interest rate swaps, currency swaps **do exchange notional principal** (at the beginning and end).\n\n### Equity Swaps\n\nIn an **equity swap**, one party pays the return on an equity index (or stock) and receives either a fixed rate, a floating rate, or the return on a different equity index.\n\nExample: Party A pays the S&P 500 total return and receives SOFR + 50 bps on a $10 million notional.\n\n## Swap Valuation After Initiation\n\nAfter initiation, the swap's value changes as interest rates or underlying values move. For a fixed-rate payer in an interest rate swap:\n\n$$V_{\\text{swap}} = PV(\\text{remaining floating}) - PV(\\text{remaining fixed})$$\n\nIf rates have risen since initiation, the swap has **positive value** to the fixed-rate payer (receiving now-higher floating payments) and **negative value** to the floating-rate payer."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A 2-year annual-pay interest rate swap has a notional principal of $10 million. The 1-year spot rate is 4% and the 2-year spot rate is 5%. Calculate the swap fixed rate using the formula: r_swap = (1 \u2212 d\u2082) / (d\u2081 + d\u2082).",
+      "solution": "**Step 1:** Calculate discount factors:\n\n$$d_1 = \\frac{1}{(1.04)^1} = 0.96154$$\n\n$$d_2 = \\frac{1}{(1.05)^2} = 0.90703$$\n\n**Step 2:** Calculate the swap rate:\n\n$$r_{\\text{swap}} = \\frac{1 - d_2}{d_1 + d_2} = \\frac{1 - 0.90703}{0.96154 + 0.90703} = \\frac{0.09297}{1.86857} = 0.04975 = 4.975\\%$$\n\n**Step 3:** Verify \u2014 the annual fixed payment is $10,000,000 \u00d7 4.975% = $497,500. The PV of fixed payments should equal the PV of floating payments, and both should equal $1 \u2212 d_2 = 0.09297 per dollar of notional, which it does: $497,500 \u00d7 (0.96154 + 0.90703) = $497,500 \u00d7 1.86857 \u2248 $929,700 = $10M \u00d7 0.09297."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Pricing Swaps Practice",
+      "problems": [
+        {
+          "id": "dv7-1",
+          "question": "In a plain vanilla interest rate swap, the notional principal is:",
+          "options": [
+            "A) Exchanged at the beginning and end of the swap",
+            "B) Used only to calculate the interest payments that are exchanged",
+            "C) Exchanged at each settlement date along with interest payments"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In a plain vanilla interest rate swap, the notional principal is never exchanged \u2014 it serves only as the basis for calculating the fixed and floating payments. Option A describes a currency swap, where notional amounts in different currencies are exchanged at initiation and maturity. Option C is incorrect for any standard swap structure.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the features of a plain vanilla interest rate swap"
+        },
+        {
+          "id": "dv7-2",
+          "question": "The 1-year discount factor is 0.97 and the 2-year discount factor is 0.93. The 2-year annual swap rate is closest to:",
+          "options": [
+            "A) 3.5%",
+            "B) 3.7%",
+            "C) 5.0%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Swap rate = (1 \u2212 d\u2082)/(d\u2081 + d\u2082) = (1 \u2212 0.93)/(0.97 + 0.93) = 0.07/1.90 = 0.03684 \u2248 3.7%. Option A (3.5%) is an approximation error. Option C (5.0%) likely uses (1 \u2212 d\u2082)/d\u2082 instead of the correct formula, or confuses the swap rate with the 2-year spot rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the swap fixed rate from discount factors"
+        },
+        {
+          "id": "dv7-3",
+          "question": "After initiation, interest rates increase. The value of the swap to the fixed-rate payer will most likely:",
+          "options": [
+            "A) Increase",
+            "B) Decrease",
+            "C) Remain unchanged"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The fixed-rate payer receives floating payments. When rates rise, the floating payments increase while the fixed payments remain the same. The PV of expected floating receipts rises relative to the PV of fixed obligations, increasing the swap's value to the fixed-rate payer. Option B would be true for the floating-rate payer. Option C is only true if rates don't change.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Determine how interest rate changes affect swap value"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain how a plain vanilla interest rate swap works using a concrete example with two companies. Describe why both parties might benefit, how the swap rate is determined, and how settlement netting works."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is a swap described as a 'series of forward rate agreements'?",
+        "How does a currency swap differ from an interest rate swap in terms of principal exchange?",
+        "If the swap rate equals the par rate on a fixed-rate bond, what does that tell you about swap pricing?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- A swap is an exchange of cash flows: typically fixed-for-floating\n- **Swap rate** makes the contract worth zero at initiation: $r_{\\text{swap}} = (1 - d_n) / \\sum d_i$\n- Payments are **netted** \u2014 only the difference is exchanged\n- Interest rate swaps: notional is **not** exchanged\n- Currency swaps: notional **is** exchanged (at initiation and maturity)\n- A swap = series of FRAs (each settlement date is a forward commitment)\n- After initiation: rising rates benefit the fixed-rate payer"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Pricing Options** \u2014 understanding option value as intrinsic value plus time value, the factors that affect option prices, and the upper and lower bounds on option values."
+    }
+  ]
+}

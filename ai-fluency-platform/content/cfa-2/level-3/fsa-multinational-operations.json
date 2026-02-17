@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "FSA.3: Multinational Operations",
+    "description": "Determine functional currency, apply the current rate and temporal methods, analyze translation adjustments, and understand hyperinflationary economy reporting.",
+    "level": "level-3",
+    "slug": "fsa-multinational-operations",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A US parent company owns a subsidiary in Brazil that conducts most of its business in Brazilian reais. If the real depreciates significantly against the dollar, how does this affect the parent's consolidated financial statements? Does revenue go up or down?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Functional Currency Determination\n\nThe **functional currency** is the currency of the primary economic environment in which the subsidiary operates. This determination drives the translation method used.\n\n### Indicators for Functional Currency\n\n| Factor | Points to Local Currency | Points to Parent Currency |\n|---|---|---|\n| Sales market | Primarily local | Primarily parent's country or denominated in parent currency |\n| Cost structure | Primarily local inputs | Primarily imported from parent country |\n| Financing | Primarily local debt | Primarily parent-currency debt |\n| Cash flows | Retained locally | Remitted to parent frequently |\n| Operations | Autonomous | Extension of parent |\n\n### Translation Method Selection\n\n| Scenario | Method |\n|---|---|\n| Functional currency = local currency | **Current rate method** (translation) |\n| Functional currency = parent currency | **Temporal method** (remeasurement) |\n| Hyperinflationary economy (IFRS) | Restate for inflation first, then translate at current rate |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A Japanese subsidiary of a US parent earns all revenue in yen, pays expenses in yen, and retains most cash locally. Is its functional currency the yen or the dollar?",
+      "answer": "The functional currency is the yen (local currency). All indicators point to the local currency: local revenue, local expenses, and local cash retention. The subsidiary operates autonomously in the Japanese economy. Therefore, the current rate method would be used to translate the subsidiary's financial statements into USD for consolidation."
+    },
+    {
+      "type": "markdown",
+      "content": "## Current Rate Method (Translation)\n\nUsed when the functional currency is the **local currency** \u2014 the subsidiary operates independently.\n\n### Exchange Rates Applied\n\n| Financial Statement Item | Exchange Rate Used |\n|---|---|\n| **Assets and liabilities** | Current (closing) rate |\n| **Common stock** | Historical rate (at issuance) |\n| **Revenue and expenses** | Average rate for the period |\n| **Dividends** | Rate on date of declaration |\n\n### Cumulative Translation Adjustment (CTA)\n\nBecause different rates are applied to different items, the balance sheet won't balance. The **CTA** is the plug that goes into **shareholders' equity (OCI)**.\n\n**Key exposure**: Under the current rate method, **net assets** (equity) are exposed to currency risk.\n\n- Local currency **depreciates** \u2192 CTA is **negative** (equity decreases)\n- Local currency **appreciates** \u2192 CTA is **positive** (equity increases)\n\nThe CTA is accumulated in OCI and only recognized in the income statement when the subsidiary is sold or substantially liquidated."
+    },
+    {
+      "type": "markdown",
+      "content": "## Temporal Method (Remeasurement)\n\nUsed when the functional currency is the **parent's currency** \u2014 the subsidiary is an extension of the parent.\n\n### Exchange Rates Applied\n\n| Financial Statement Item | Exchange Rate Used |\n|---|---|\n| **Monetary assets/liabilities** (cash, receivables, debt) | Current rate |\n| **Non-monetary assets** (inventory at cost, PP&E) | Historical rate |\n| **Revenue and most expenses** | Average rate |\n| **COGS** (if inventory at cost) | Historical rate |\n| **Depreciation** | Historical rate (matching the PP&E rate) |\n\n### Remeasurement Gain/Loss\n\nThe temporal method produces a **remeasurement gain or loss** that is recognized in the **income statement** (not OCI).\n\n**Key exposure**: **Net monetary assets** (or liabilities) are exposed.\n\n| If subsidiary has net monetary liabilities... | Local currency depreciates \u2192 | Remeasurement **gain** (owe less in parent currency) |\n|---|---|---|\n| If subsidiary has net monetary assets... | Local currency depreciates \u2192 | Remeasurement **loss** (worth less in parent currency) |\n\n### Impact on Financial Ratios\n\n| Ratio | Current Rate | Temporal Method |\n|---|---|---|\n| **Profit margin** | Relatively stable (revenue and expenses at avg rate) | More volatile (mixed rates for expenses) |\n| **Asset turnover** | Changes with currency (assets at current rate) | More stable (non-monetary assets at historical rate) |\n| **Leverage** | Pure balance sheet ratios maintained | Can be distorted by mixed rates |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Hyperinflationary Economies\n\nA hyperinflationary economy experiences cumulative inflation of approximately **100% or more over three years**.\n\n### IFRS Treatment (IAS 29)\n1. **Restate** the subsidiary's financial statements for inflation using a general price index\n2. Then translate all items at the **current rate**\n3. The result: non-monetary items are effectively at current purchasing power\n\n### US GAAP Treatment\n- Use the **temporal method** (treat parent currency as functional currency)\n- Remeasurement gains/losses flow through the income statement\n- Rationale: the local currency is too unstable to serve as a faithful measurement unit\n\n### Analytical Considerations\n- Hyperinflation accounting creates significant distortions in trend analysis\n- Historical comparisons become unreliable\n- Real vs. nominal distinctions become critical for analysis"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Current Rate Method Translation",
+      "solution": "A UK subsidiary (functional currency = GBP) has the following simplified balance sheet:\n- Total Assets: GBP 1,000\n- Total Liabilities: GBP 600\n- Common Stock: GBP 200 (issued when rate was 1.50 USD/GBP)\n- Retained Earnings: GBP 200 (beginning balance, previously translated at USD 340)\n- Net Income for the year: GBP 80 (average rate: 1.35 USD/GBP)\n- Dividends: GBP 20 (declared when rate was 1.33 USD/GBP)\n- Current (year-end) rate: 1.30 USD/GBP\n\nStep 1: Translate assets and liabilities at current rate\n- Assets: 1,000 \u00d7 1.30 = USD 1,300\n- Liabilities: 600 \u00d7 1.30 = USD 780\n\nStep 2: Translate equity components\n- Common Stock: 200 \u00d7 1.50 = USD 300 (historical)\n- Beginning RE: USD 340 (given, previously translated)\n- + Net Income: 80 \u00d7 1.35 = USD 108 (average rate)\n- \u2212 Dividends: 20 \u00d7 1.33 = USD 26.60 (rate at declaration)\n- Ending RE = 340 + 108 \u2212 26.60 = USD 421.40\n\nStep 3: Calculate CTA (plug)\n- Total equity needed: 1,300 \u2212 780 = USD 520\n- Translated equity before CTA: 300 + 421.40 = USD 721.40\n- CTA = 520 \u2212 721.40 = \u2212USD 201.40\n\nThe negative CTA reflects the GBP's depreciation \u2014 the subsidiary's net assets are worth less in USD terms."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Multinational Operations Practice",
+      "problems": [
+        {
+          "id": "fsa-mno-1",
+          "vignette": "Sophia Laurent, CFA, analyzes EuroManufacturing, a French subsidiary of US-based AmeriCorp. The subsidiary sells primarily in France, sources materials locally, and retains profits for local reinvestment. Current exchange rates:\n\n| Rate | EUR/USD |\n|---|---|\n| Beginning of year | 1.10 |\n| Average for year | 1.08 |\n| End of year | 1.05 |\n\nThe subsidiary's net assets in euros remained constant at EUR 500 million throughout the year.",
+          "question": "The appropriate translation method and the direction of the CTA for the year are:",
+          "options": [
+            "A) Current rate method; negative CTA (reduces equity)",
+            "B) Temporal method; remeasurement loss in income",
+            "C) Current rate method; positive CTA (increases equity)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The subsidiary operates autonomously in France (local sales, local sourcing, local reinvestment), so the functional currency is the EUR and the current rate method applies. The EUR depreciated from 1.10 to 1.05 USD/EUR during the year. Under the current rate method, net assets are exposed \u2014 when the EUR depreciates, translating EUR-denominated net assets produces fewer USD, creating a negative CTA that reduces equity through OCI. Option B is wrong because the temporal method applies when the functional currency is the parent's currency. Option C has the wrong CTA direction given EUR depreciation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Determine the appropriate translation method and direction of translation adjustments"
+        },
+        {
+          "id": "fsa-mno-2",
+          "vignette": "Sophia Laurent, CFA, is now analyzing BritSales, a UK subsidiary that acts as a sales office for AmeriCorp. BritSales sells AmeriCorp products (priced in USD), has minimal local assets, and remits cash to the US parent weekly. Laurent is determining the appropriate functional currency.\n\nBritSales has the following simplified balance sheet items:\n- Cash: GBP 5M\n- Accounts receivable: GBP 20M\n- Inventory (at cost): GBP 15M\n- PP&E: GBP 8M\n- Accounts payable: GBP 12M\n- Intercompany payable to AmeriCorp: GBP 25M",
+          "question": "For BritSales, the functional currency is most likely the USD, and the net monetary exposure under the temporal method is:",
+          "options": [
+            "A) Net monetary liability of GBP 12M, and GBP depreciation creates a remeasurement gain",
+            "B) Net monetary asset of GBP 13M, and GBP depreciation creates a remeasurement loss",
+            "C) Net monetary liability of GBP 12M, and GBP depreciation creates a remeasurement loss"
+          ],
+          "correctAnswer": "A",
+          "explanation": "BritSales is an extension of the US parent (sells parent products, remits cash frequently, USD-priced sales), so USD is the functional currency and the temporal method applies. Net monetary position: Monetary assets (cash 5 + AR 20) = 25M. Monetary liabilities (AP 12 + intercompany 25) = 37M. Net monetary liabilities = \u221212M. When the local currency (GBP) depreciates, net monetary liabilities decline in parent currency terms \u2192 remeasurement gain (the subsidiary owes less in USD terms). Option B incorrectly includes non-monetary items. Option C has the wrong gain/loss direction.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate net monetary exposure and determine remeasurement gain or loss direction"
+        },
+        {
+          "id": "fsa-mno-3",
+          "vignette": "Marco Rossi, CFA, is comparing two subsidiaries of the same parent company. Both operate in Country Z, which has experienced cumulative inflation of 120% over the past three years.\n\n- Subsidiary A reports under IFRS\n- Subsidiary B reports under US GAAP\n\nRossi wants to understand how hyperinflationary accounting affects comparability.",
+          "question": "The key difference in how Subsidiary A (IFRS) and Subsidiary B (US GAAP) account for hyperinflationary conditions is:",
+          "options": [
+            "A) IFRS restates financial statements for inflation then translates at the current rate, while US GAAP uses the temporal method with remeasurement gains/losses in income",
+            "B) Both IFRS and US GAAP use identical approaches for hyperinflationary economies",
+            "C) IFRS ignores hyperinflation while US GAAP requires the temporal method"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under IFRS (IAS 29), financial statements are first restated using a general price index to reflect current purchasing power, then all items are translated at the current exchange rate. Under US GAAP, the parent currency is designated as the functional currency, and the temporal method is used, with remeasurement gains/losses flowing through the income statement. This creates comparability challenges \u2014 IFRS-reported figures reflect inflation-adjusted values while GAAP figures use historical cost with mixed exchange rates. Option B is incorrect as the approaches differ significantly. Option C is wrong; IFRS explicitly addresses hyperinflation through IAS 29.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Compare IFRS and US GAAP treatment of hyperinflationary economies"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between the current rate method and the temporal method to a colleague. Focus on which items get translated at which rates, where the resulting adjustment appears (OCI vs income statement), and what economic exposure each method captures."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the choice of functional currency fundamentally change the financial picture presented to investors?",
+        "Why might a company prefer one functional currency determination over another, and how should analysts evaluate this?",
+        "How does a large cumulative translation adjustment in OCI affect your assessment of a company's equity?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Functional currency = currency of the primary economic environment\n- **Current rate method**: all assets/liabilities at current rate, equity at historical, income at average \u2192 CTA in OCI\n- **Temporal method**: monetary items at current rate, non-monetary at historical, mixed expense rates \u2192 gain/loss in P&L\n- Current rate exposure: **net assets** | Temporal exposure: **net monetary assets/liabilities**\n- Local currency depreciation + net assets exposed \u2192 negative CTA (current rate)\n- Local currency depreciation + net monetary liabilities \u2192 remeasurement gain (temporal)\n- Hyperinflation: IFRS restates then translates; GAAP uses temporal method"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Analysis of Financial Institutions**, where you'll apply specialized analytical frameworks including CAMELS and Basel III capital adequacy \u2014 institutions whose complex balance sheets require different analytical tools than typical corporate entities."
+    }
+  ]
+}

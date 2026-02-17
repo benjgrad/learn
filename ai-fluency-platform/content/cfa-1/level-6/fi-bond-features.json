@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FI.2: Fixed-Income Instrument Features",
+    "description": "Understand bond indentures, coupon structures, day-count conventions, accrued interest, embedded options, and covenants.",
+    "level": "level-6",
+    "slug": "fi-bond-features",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A bond pays a 6% coupon semiannually. You buy it exactly halfway between coupon dates. Do you pay only the quoted 'clean' price, or do you owe something extra? Why might the seller demand more than the listed price?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Bond Indenture and Coupon Structures\n\nThe **bond indenture** (or trust deed) is the legal contract between the issuer and bondholders. It specifies all terms: coupon rate, maturity date, par value, covenants, and any embedded options. A **trustee** (typically a bank) is appointed to act on behalf of bondholders.\n\n### Coupon Structures\n\n| Type | Description |\n|---|---|\n| **Fixed-rate** | Coupon is constant for the bond's life (e.g., 5% annually) |\n| **Floating-rate (FRN)** | Coupon resets periodically: Reference rate + Spread (e.g., SOFR + 150 bps) |\n| **Zero-coupon** | No periodic coupons; issued at a discount and redeems at par |\n| **Step-up** | Coupon increases on a predetermined schedule |\n| **Deferred coupon** | No coupons in early years, then begins paying |\n| **Payment-in-kind (PIK)** | Issuer can pay coupons with additional bonds instead of cash |\n\nA floating-rate note coupon is typically calculated as:\n\n$$\\text{Coupon} = \\text{Reference Rate} + \\text{Quoted Margin}$$\n\nFRNs usually have a **reset date** (when the new rate is determined) and a **payment date** (when the coupon is paid). Many FRNs include **caps** (maximum coupon) and **floors** (minimum coupon)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A step-up bond has coupons of 3% for years 1-3 and 5% for years 4-7. If market yields are 4% throughout, does this bond initially trade at a premium or discount?",
+      "answer": "It initially trades at a discount. In years 1-3 the coupon (3%) is below the market yield (4%), so the bond is worth less than par during that period. The higher 5% coupons in later years partially offset this, but the early below-market coupons are weighted more heavily in present value terms because they are discounted fewer periods. The overall price depends on the exact PV calculation, but the below-market early coupons pull the price below par at issuance."
+    },
+    {
+      "type": "markdown",
+      "content": "## Day-Count Conventions and Accrued Interest\n\nWhen a bond is bought between coupon dates, the buyer must compensate the seller for interest earned but not yet paid. This is **accrued interest**.\n\n$$\\text{Accrued Interest} = \\frac{\\text{Days since last coupon}}{\\text{Days in coupon period}} \\times \\text{Coupon Payment}$$\n\nThe **day-count convention** determines how days are counted:\n\n| Convention | Numerator | Denominator | Typical Use |\n|---|---|---|---|\n| **30/360** | Assumes 30-day months | 360-day year | U.S. corporate bonds |\n| **Actual/Actual** | Actual days elapsed | Actual days in period | U.S. Treasury bonds |\n| **Actual/360** | Actual days elapsed | 360-day year | Money market instruments |\n\n### Clean vs. Dirty Price\n\n- **Full (dirty) price** = Clean price + Accrued interest\n- **Clean (flat) price** = Quoted price without accrued interest\n\nBond prices are quoted as **clean prices** but settled at **dirty prices**. This prevents coupon payments from creating artificial price jumps in quoted prices."
+    },
+    {
+      "type": "markdown",
+      "content": "## Embedded Options and Covenants\n\n### Embedded Options\n\nSome bonds contain options that give rights to the issuer or bondholder:\n\n| Option | Holder | Effect on Bond Value |\n|---|---|---|\n| **Call option** | Issuer | Issuer can redeem early; benefits issuer when rates fall. Reduces value to bondholder \u2192 higher yield |\n| **Put option** | Bondholder | Bondholder can sell back at par; benefits holder when rates rise. Increases value to bondholder \u2192 lower yield |\n| **Conversion option** | Bondholder | Convert bond into issuer's equity. Increases value \u2192 lower yield |\n\nPricing relationships:\n\n$$\\text{Value of callable bond} = \\text{Value of straight bond} - \\text{Value of call option}$$\n$$\\text{Value of putable bond} = \\text{Value of straight bond} + \\text{Value of put option}$$\n\n### Covenants\n\n**Affirmative covenants** require the issuer to do something (e.g., maintain insurance, make timely interest payments, comply with laws). **Negative covenants** restrict the issuer from doing something (e.g., limits on additional debt issuance, restrictions on asset sales, dividend limitations). Covenants protect bondholders by constraining issuer behavior that could increase credit risk."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A U.S. corporate bond (30/360 convention) has a 6% semiannual coupon, $1,000 par, with coupon dates on June 15 and December 15. You settle a trade on September 15. Calculate the accrued interest.",
+      "solution": "Under the 30/360 convention, count from June 15 to September 15:\n\nJune 15 to July 15 = 30 days\nJuly 15 to August 15 = 30 days\nAugust 15 to September 15 = 30 days\nTotal = 90 days\n\nThe full semiannual coupon period = 180 days (6 months \u00d7 30 days)\n\nSemiannual coupon payment = $1,000 \u00d7 6%/2 = $30\n\n$$\\text{Accrued Interest} = \\frac{90}{180} \\times \\$30 = \\$15$$\n\nThe buyer pays the clean price plus $15 in accrued interest."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Fixed-Income Instrument Features Practice",
+      "problems": [
+        {
+          "id": "fi2-1",
+          "question": "A bond's indenture includes a provision that the issuer cannot pledge any existing assets to other creditors. This is best described as a:",
+          "options": [
+            "A) Affirmative covenant",
+            "B) Negative covenant",
+            "C) Credit enhancement"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A restriction on what the issuer cannot do (pledging assets to others) is a negative covenant. It protects existing bondholders by preventing the issuer from subordinating their claims. Option A is incorrect because affirmative covenants require the issuer to take action (e.g., maintain insurance). Option C is incorrect because credit enhancements are structural features that improve credit quality, not contractual restrictions.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between affirmative and negative covenants"
+        },
+        {
+          "id": "fi2-2",
+          "question": "A floating-rate note pays SOFR + 200 bps, reset quarterly. If SOFR is 4.50% at the reset date, the annualized coupon for the next quarter is closest to:",
+          "options": [
+            "A) 4.50%",
+            "B) 6.50%",
+            "C) 2.00%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The FRN coupon = Reference rate + Quoted margin = 4.50% + 2.00% = 6.50%. The quoted margin (spread) of 200 bps = 2.00% is added to the current reference rate. Option A ignores the spread entirely. Option C represents only the spread without the reference rate.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate coupon rate for a floating-rate note"
+        },
+        {
+          "id": "fi2-3",
+          "question": "Compared to an otherwise identical option-free bond, a callable bond will most likely have a:",
+          "options": [
+            "A) Higher price and lower yield",
+            "B) Lower price and higher yield",
+            "C) Higher price and higher yield"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A callable bond is worth less than an identical straight bond because the embedded call option benefits the issuer (not the bondholder). Value of callable = Value of straight \u2212 Value of call. The lower price means investors demand a higher yield as compensation for the call risk. Option A describes a putable bond (put option benefits the holder). Option C is impossible \u2014 higher price implies lower yield, not higher.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain the effect of embedded options on bond prices and yields"
+        },
+        {
+          "id": "fi2-4",
+          "question": "A U.S. Treasury bond (actual/actual convention) pays semiannual coupons on March 1 and September 1. The bond has a 4% coupon and $100 par. A trade settles on May 1. The number of days from March 1 to May 1 is 61, and from March 1 to September 1 is 184. The accrued interest is closest to:",
+          "options": [
+            "A) $0.66",
+            "B) $1.00",
+            "C) $1.33"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Using actual/actual: Accrued interest = (61/184) \u00d7 ($100 \u00d7 4%/2) = (61/184) \u00d7 $2.00 = 0.3315 \u00d7 $2.00 = $0.663, closest to $0.66. Option B incorrectly assumes 50% of the period has elapsed. Option C would result from using 30/360 (60/180 \u00d7 $2 = $0.667) or miscounting days \u2014 the actual/actual convention yields a slightly different result because the actual period is 184 days, not 180.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate accrued interest using different day-count conventions"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague the difference between a clean price and a dirty price. Why do bond markets quote clean prices when the dirty price is what you actually pay?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why would an issuer choose a step-up coupon structure instead of a fixed coupon?",
+        "How do caps and floors on floating-rate notes affect both the issuer and the investor?",
+        "In what economic environment would a callable bond's embedded option be most valuable to the issuer?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- The **bond indenture** is the legal contract specifying all bond terms\n- Coupon types: fixed, floating (reference + spread), zero-coupon, step-up, deferred, PIK\n- **Accrued interest** = (Days elapsed / Days in period) \u00d7 Coupon payment\n- Day-count conventions: 30/360 (corporate), actual/actual (Treasury), actual/360 (money market)\n- **Clean price** = quoted; **Dirty price** = clean + accrued interest (settlement price)\n- Callable bond value = Straight bond \u2212 Call option (lower price, higher yield)\n- Putable bond value = Straight bond + Put option (higher price, lower yield)\n- **Affirmative covenants** = must do; **Negative covenants** = must not do"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module explores **Fixed-Income Cash Flows and Types**, where we examine how different bond structures (bullet, amortizing, sinking fund, inflation-linked) create distinct cash flow patterns that affect pricing and risk characteristics."
+    }
+  ]
+}

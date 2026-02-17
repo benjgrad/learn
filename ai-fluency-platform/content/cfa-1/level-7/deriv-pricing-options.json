@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "DV.8: Pricing Options",
+    "description": "Understand option value as intrinsic value plus time value, the six factors affecting option prices, upper and lower bounds, and early exercise considerations.",
+    "level": "level-7",
+    "slug": "deriv-pricing-options",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two call options on the same stock have the same strike price of $50, but one expires in 1 month and the other in 6 months. The stock currently trades at $48. Which option is worth more and why? What if the stock were at $60 instead?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Option Value: Intrinsic + Time Value\n\nAn option's total value (premium) consists of two components:\n\n$$\\text{Option value} = \\text{Intrinsic value} + \\text{Time value}$$\n\n### Intrinsic Value\n\nThe payoff if the option were exercised immediately:\n\n- **Call intrinsic value** = $\\max(0, S - X)$\n- **Put intrinsic value** = $\\max(0, X - S)$\n\n| Moneyness | Call ($S$ vs $X$) | Put ($S$ vs $X$) |\n|---|---|---|\n| In-the-money (ITM) | $S > X$ | $S < X$ |\n| At-the-money (ATM) | $S = X$ | $S = X$ |\n| Out-of-the-money (OTM) | $S < X$ | $S > X$ |\n\n### Time Value\n\nThe excess of the option's market price over its intrinsic value:\n\n$$\\text{Time value} = \\text{Option price} - \\text{Intrinsic value}$$\n\nTime value reflects the probability that the option will become more profitable before expiration. It is always **non-negative** and decreases as expiration approaches (**time decay** or **theta**).\n\n**Example:** A call with strike $50 when the stock trades at $53, priced at $5:\n- Intrinsic value = $53 \u2212 $50 = $3\n- Time value = $5 \u2212 $3 = $2"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A put option has a strike price of $40. The stock trades at $42. The option is trading at $1.50. What are its intrinsic value and time value? Is the option in-the-money or out-of-the-money?",
+      "answer": "Intrinsic value = max(0, $40 \u2212 $42) = max(0, \u2212$2) = $0. The put is out-of-the-money because S > X. Time value = $1.50 \u2212 $0 = $1.50. The entire option premium is time value \u2014 it reflects the probability that the stock will fall below $40 before expiration."
+    },
+    {
+      "type": "markdown",
+      "content": "## Six Factors Affecting Option Prices\n\n| Factor | Call Value | Put Value | Intuition |\n|---|---|---|---|\n| \u2191 Underlying price ($S$) | \u2191 Increases | \u2193 Decreases | Higher $S$ makes calls more likely ITM, puts less |\n| \u2191 Strike price ($X$) | \u2193 Decreases | \u2191 Increases | Higher $X$ makes calls less likely ITM, puts more |\n| \u2191 Volatility ($\\sigma$) | \u2191 Increases | \u2191 Increases | More uncertainty = more chance of large payoff |\n| \u2191 Time to expiration ($T$) | \u2191 Increases | \u2191 Increases* | More time = more chance of favorable move |\n| \u2191 Risk-free rate ($r$) | \u2191 Increases | \u2193 Decreases | Higher $r$ reduces PV of strike (benefits calls) |\n| \u2191 Dividends | \u2193 Decreases | \u2191 Increases | Dividends reduce $S$ on ex-date |\n\n*For European puts, the effect of time is ambiguous \u2014 longer time increases the chance of a favorable move but also increases the PV discounting of the payoff.\n\n## Upper and Lower Bounds\n\n**Call option bounds:**\n- Upper bound: $c \\leq S$ (a call can never be worth more than the stock)\n- Lower bound (European): $c \\geq \\max(0, S - PV(X))$\n\n**Put option bounds:**\n- Upper bound (European): $p \\leq PV(X)$ (the most a put can pay is $X$, discounted)\n- Lower bound (European): $p \\geq \\max(0, PV(X) - S)$"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A European call option on a non-dividend-paying stock has a strike of $60, 1 year to expiration, and the risk-free rate is 5%. The stock trades at $65. Calculate the lower bound for this call. If the call is trading at $4, is there an arbitrage opportunity?",
+      "solution": "**Lower bound:**\n\n$$c \\geq \\max(0, S - PV(X)) = \\max(0, 65 - \\frac{60}{1.05}) = \\max(0, 65 - 57.14) = \\$7.86$$\n\n**Arbitrage check:** The call is trading at $4, which is below the lower bound of $7.86. Yes, there is an arbitrage opportunity.\n\n**Arbitrage strategy:**\n1. Buy the underpriced call for $4\n2. Short the stock for $65\n3. Invest $57.14 (PV of strike) at the risk-free rate\n\nNet cash inflow today: $65 \u2212 $4 \u2212 $57.14 = $3.86\n\nAt expiration:\n- If $S_T > 60$: exercise call, buy stock at $60, return to short. Investment matures to $60. Net = $0.\n- If $S_T \\leq 60$: call expires worthless, buy stock at $S_T$ to cover short. Investment matures to $60, net = $60 \u2212 $S_T \\geq 0.\n\nThe $3.86 initial inflow is a risk-free profit."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Pricing Options Practice",
+      "problems": [
+        {
+          "id": "dv8-1",
+          "question": "A call option with a strike price of $30 is trading at $7 when the underlying stock is at $34. The time value of this option is:",
+          "options": [
+            "A) $3",
+            "B) $4",
+            "C) $7"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Intrinsic value = max(0, S \u2212 X) = max(0, 34 \u2212 30) = $4. Time value = option price \u2212 intrinsic value = $7 \u2212 $4 = $3. Option B ($4) confuses intrinsic value with time value. Option C ($7) incorrectly treats the entire premium as time value, which would only be true if the option were out-of-the-money.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate intrinsic value and time value of an option"
+        },
+        {
+          "id": "dv8-2",
+          "question": "All else equal, which of the following changes would most likely increase the value of a European put option?",
+          "options": [
+            "A) An increase in the underlying stock price",
+            "B) An increase in the volatility of the underlying",
+            "C) An increase in the risk-free interest rate"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Higher volatility increases both call and put values because it increases the probability of large price movements, expanding the potential payoff. Since the option holder's downside is limited to the premium, only the upside from greater uncertainty matters. Option A (higher stock price) decreases put value. Option C (higher risk-free rate) decreases put value by reducing the PV of the strike price received at exercise.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the factors affecting option prices"
+        },
+        {
+          "id": "dv8-3",
+          "question": "A non-dividend-paying stock trades at $50. The risk-free rate is 6%. The lower bound for a 1-year European call with a strike of $45 is closest to:",
+          "options": [
+            "A) $5.00",
+            "B) $7.55",
+            "C) $7.45"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Lower bound = max(0, S \u2212 PV(X)) = max(0, 50 \u2212 45/1.06) = max(0, 50 \u2212 42.45) = $7.55. Option A ($5) uses S \u2212 X = 50 \u2212 45, ignoring the time value of the strike price. Option C ($7.45) uses an incorrect discount factor.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate upper and lower bounds for European option prices"
+        },
+        {
+          "id": "dv8-4",
+          "question": "An American call option on a non-dividend-paying stock should:",
+          "options": [
+            "A) Never be exercised early",
+            "B) Be exercised early if the option is deep in-the-money",
+            "C) Always be exercised early when in-the-money to capture intrinsic value"
+          ],
+          "correctAnswer": "A",
+          "explanation": "For a non-dividend-paying stock, it is never optimal to exercise an American call early. Early exercise sacrifices the time value and the benefit of delaying payment of the strike price (earning interest on cash). Selling the option always yields more than exercising because option value \u2265 intrinsic value. Option B is incorrect \u2014 even deep ITM calls retain some time value advantage. Option C is wrong \u2014 exercising destroys time value.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain early exercise considerations for American options"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why higher volatility increases the value of both calls and puts. This seems counterintuitive \u2014 how can more uncertainty benefit the option holder in both directions?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the risk-free rate affect calls and puts in opposite directions?",
+        "An option's time value is highest when the option is at-the-money. Why?",
+        "Why is it never optimal to exercise an American call early on a non-dividend-paying stock, but it can be optimal to exercise an American put early?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Option value = **intrinsic value + time value**\n- Call intrinsic = $\\max(0, S - X)$; Put intrinsic = $\\max(0, X - S)$\n- Six factors: $S$ \u2191 helps calls, hurts puts; $X$ \u2191 hurts calls, helps puts; $\\sigma$ \u2191 helps both; $T$ \u2191 helps both (usually); $r$ \u2191 helps calls, hurts puts; dividends help puts, hurt calls\n- **Lower bound (European call):** $\\max(0, S - PV(X))$\n- **Lower bound (European put):** $\\max(0, PV(X) - S)$\n- Never exercise American calls early on non-dividend stocks\n- Time value is greatest at-the-money and decays toward expiration"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Put-Call Parity** \u2014 a fundamental relationship linking call prices, put prices, the underlying, and a risk-free bond. It shows how to create synthetic positions and identify arbitrage opportunities."
+    }
+  ]
+}

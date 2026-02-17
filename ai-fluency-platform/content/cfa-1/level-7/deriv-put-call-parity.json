@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "DV.9: Put-Call Parity",
+    "description": "Derive put-call parity, create synthetic positions, understand protective put equals fiduciary call, and identify arbitrage from put-call parity violations.",
+    "level": "level-7",
+    "slug": "deriv-put-call-parity",
+    "order": 9,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A European call on a stock costs $8. A European put on the same stock with the same strike and expiration costs $3. The stock trades at $50 and the strike is $45. The risk-free rate is 4% annually and expiration is in 1 year. Does something seem off about these prices? How would you check?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Deriving Put-Call Parity\n\nPut-call parity is a **no-arbitrage relationship** between European call and put prices on the same underlying with the same strike and expiration.\n\nConsider two portfolios:\n\n**Portfolio A (Fiduciary Call):** Buy a European call + invest $PV(X)$ in a risk-free bond\n\n**Portfolio B (Protective Put):** Buy the underlying stock + buy a European put\n\n### Payoffs at Expiration\n\n| Scenario | Portfolio A: Call + Bond | Portfolio B: Stock + Put |\n|---|---|---|\n| $S_T > X$ | $(S_T - X) + X = S_T$ | $S_T + 0 = S_T$ |\n| $S_T \\leq X$ | $0 + X = X$ | $S_T + (X - S_T) = X$ |\n\nBoth portfolios produce **identical payoffs** in every scenario. By the law of one price, they must have the **same cost today**:\n\n$$c + PV(X) = p + S$$\n\nThis is **put-call parity** for European options on non-dividend-paying stocks.\n\n### With Dividends\n\nFor stocks paying known dividends with present value $PV(D)$:\n\n$$c + PV(X) = p + S - PV(D)$$\n\nOr equivalently:\n\n$$c + PV(X) + PV(D) = p + S$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Using put-call parity, if you know the call price, strike, risk-free rate, and stock price, can you determine the put price? Write the formula.",
+      "answer": "Yes. Rearranging put-call parity: p = c + PV(X) \u2212 S. For a non-dividend-paying stock: p = c + X/(1+r)^T \u2212 S. If c = $5, X = $50, r = 4%, T = 1, S = $52: p = 5 + 50/1.04 \u2212 52 = 5 + 48.08 \u2212 52 = $1.08."
+    },
+    {
+      "type": "markdown",
+      "content": "## Synthetic Positions\n\nPut-call parity can be rearranged to create **synthetic** versions of any component:\n\n| Synthetic Position | Formula | Components |\n|---|---|---|\n| Synthetic call | $c = p + S - PV(X)$ | Long put + long stock + borrow $PV(X)$ |\n| Synthetic put | $p = c - S + PV(X)$ | Long call + short stock + invest $PV(X)$ |\n| Synthetic stock | $S = c - p + PV(X)$ | Long call + short put + invest $PV(X)$ |\n| Synthetic bond | $PV(X) = p - c + S$ | Long put + short call + long stock |\n\n## Arbitrage from Put-Call Parity Violations\n\nIf the market prices violate put-call parity, an arbitrage profit is available:\n\n**If $c + PV(X) > p + S$:** The left side is overpriced. Sell the call, sell the bond (borrow $PV(X)$), buy the put, and buy the stock.\n\n**If $c + PV(X) < p + S$:** The right side is overpriced. Buy the call, buy the bond (invest $PV(X)$), sell the put, and sell the stock short.\n\nThe arbitrage profit equals the absolute difference: $|[c + PV(X)] - [p + S]|$."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A non-dividend-paying stock trades at $100. A European call with strike $95 and 6 months to expiration is priced at $12. The risk-free rate is 4%. Using put-call parity, calculate the fair price of the corresponding European put. If the put is actually trading at $6, describe the arbitrage trade.",
+      "solution": "**Step 1: Calculate fair put price using put-call parity:**\n\n$$p = c + PV(X) - S = 12 + \\frac{95}{(1.04)^{0.5}} - 100$$\n\n$$p = 12 + \\frac{95}{1.01980} - 100 = 12 + 93.15 - 100 = \\$5.15$$\n\n**Step 2: The market put price ($6) exceeds the fair value ($5.15), so the put is overpriced.**\n\nArbitrage profit = $6.00 \u2212 $5.15 = $0.85\n\n**Step 3: Arbitrage trade \u2014 sell the overpriced side, buy the underpriced side:**\n- Sell the put at $6.00\n- Sell the stock short at $100\n- Buy the call at $12.00\n- Invest $93.15 (PV of $95) at the risk-free rate\n\nNet cash flow today: $6 + $100 \u2212 $12 \u2212 $93.15 = $0.85 (risk-free profit)\n\nAt expiration, the combined position nets to zero regardless of the stock price, and the $0.85 is locked in."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Put-Call Parity Practice",
+      "problems": [
+        {
+          "id": "dv9-1",
+          "question": "For European options on a non-dividend-paying stock, put-call parity states that:",
+          "options": [
+            "A) c + S = p + PV(X)",
+            "B) c + PV(X) = p + S",
+            "C) c + X = p + S"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Put-call parity: c + PV(X) = p + S, where PV(X) = X/(1+r)^T. A fiduciary call (call + bond) equals a protective put (stock + put). Option A has the stock on the wrong side. Option C uses the undiscounted strike price instead of PV(X).",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "State the put-call parity relationship"
+        },
+        {
+          "id": "dv9-2",
+          "question": "A European call is priced at $6, the stock trades at $55, the strike is $52, the risk-free rate is 3%, and time to expiration is 1 year. The European put price consistent with put-call parity is closest to:",
+          "options": [
+            "A) $1.49",
+            "B) $2.49",
+            "C) $3.00"
+          ],
+          "correctAnswer": "A",
+          "explanation": "p = c + PV(X) \u2212 S = 6 + 52/1.03 \u2212 55 = 6 + 50.485 \u2212 55 = $1.485 \u2248 $1.49. Option B ($2.49) incorrectly uses X instead of PV(X): 6 + 52 \u2212 55 = $3, which is also wrong. Option C ($3) uses the undiscounted strike.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate option prices using put-call parity"
+        },
+        {
+          "id": "dv9-3",
+          "question": "A synthetic long stock position is constructed by:",
+          "options": [
+            "A) Buying a call and selling a put with the same strike and expiration, plus investing PV(X)",
+            "B) Buying a call and buying a put with the same strike and expiration",
+            "C) Selling a call and buying a put with the same strike and expiration, plus investing PV(X)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "From put-call parity: S = c \u2212 p + PV(X). A synthetic long stock = long call + short put + invest PV(X) in a risk-free bond. This replicates the payoff of holding the stock. Option B (long call + long put) creates a long straddle, which profits from volatility. Option C (short call + long put) creates a synthetic short stock.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Create synthetic positions using put-call parity"
+        },
+        {
+          "id": "dv9-4",
+          "question": "Market prices show: c = $4, p = $2, S = $40, X = $38, r = 5%, T = 1 year. Is there an arbitrage opportunity?",
+          "options": [
+            "A) No, put-call parity holds",
+            "B) Yes, the call is overpriced relative to parity",
+            "C) Yes, the put is overpriced relative to parity"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Check parity: c + PV(X) = 4 + 38/1.05 = 4 + 36.19 = $40.19. And: p + S = 2 + 40 = $42.00. Since $40.19 \u2260 $42.00, parity is violated and an arbitrage exists. The implied put from parity is p = c + PV(X) \u2212 S = 4 + 36.19 \u2212 40 = $0.19. The market put ($2.00) exceeds the parity-implied put ($0.19), so the put is overpriced. The arbitrage: sell the put ($2), sell the stock ($40), buy the call ($4), invest $36.19 at the risk-free rate. Net cash inflow = $42 \u2212 $40.19 = $1.81. Option A is wrong because parity does not hold. Option B is wrong because the call is actually underpriced (or fairly priced) relative to the put.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Identify arbitrage opportunities from put-call parity violations"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain put-call parity by walking through the protective put and fiduciary call portfolios. Show why their payoffs must be identical at expiration and therefore must cost the same today."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does put-call parity only apply to European options?",
+        "If you can create a synthetic stock position using options and a bond, why would anyone hold the actual stock?",
+        "How does the concept of replication from the arbitrage module connect to put-call parity?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas:**\n\n- **Put-call parity:** $c + PV(X) = p + S$\n- **With dividends:** $c + PV(X) + PV(D) = p + S$\n- **Fiduciary call** = call + risk-free bond = **protective put** = stock + put\n- Synthetic call: $c = p + S - PV(X)$\n- Synthetic put: $p = c - S + PV(X)$\n- Violation of parity \u2192 arbitrage: sell the overpriced side, buy the underpriced side\n- Applies only to **European** options (American options have inequality: $c + PV(X) \\geq p + S$ possible)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers the **One-Period Binomial Model** \u2014 a powerful framework for pricing options using risk-neutral probabilities. You will learn how to construct replicating portfolios and price options without needing to know investors' risk preferences."
+    }
+  ]
+}

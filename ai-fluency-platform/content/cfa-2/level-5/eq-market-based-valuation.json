@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "EQ.4: Market-Based Valuation",
+    "description": "Apply price multiples (P/E, P/B, P/S, EV/EBITDA), compute justified multiples, and understand cross-border comparison challenges.",
+    "level": "level-5",
+    "slug": "eq-market-based-valuation",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Company A has a P/E ratio of 30 and Company B has a P/E of 10, both in the same industry. Does that automatically mean A is overvalued relative to B? What additional information would you need?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Price Multiples Overview\n\nRelative valuation uses **price multiples** to compare a stock's pricing to peers, the broader market, or its own history.\n\n| Multiple | Formula | Best For |\n|---|---|---|\n| Trailing P/E | $P_0 / EPS_0$ | Stable earnings, backward-looking |\n| Forward P/E | $P_0 / EPS_1$ | Incorporating analyst forecasts |\n| P/B | $P_0 / BVPS$ | Asset-heavy firms, financials |\n| P/S | $P_0 / SPS$ | Loss-making firms, cyclicals at trough |\n| P/CF | $P_0 / CFPS$ | Capital-intensive firms |\n| EV/EBITDA | $EV / EBITDA$ | Cross-capital-structure comparisons |\n\n### Trailing vs Forward P/E\n\n- **Trailing P/E** uses last 12 months' EPS \u2014 objective but backward-looking\n- **Forward P/E** uses next 12 months' forecast EPS \u2014 forward-looking but subject to analyst error\n- Analysts generally prefer forward P/E because stock prices reflect future expectations\n\n### Enterprise Value Multiples\n\n$$EV = Market\\ cap + Debt - Cash$$\n\nEV/EBITDA is particularly useful because:\n- It's **capital-structure neutral** \u2014 allows comparison across different leverage levels\n- EBITDA approximates pre-tax operating cash flow\n- Useful for acquisition analysis (acquirer buys the whole enterprise)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has a P/E of 25 and its industry average is 18. An intern concludes it is 'overvalued by 39%.' What is wrong with this analysis?",
+      "answer": "A higher P/E does not automatically mean overvaluation. The company may justify a higher multiple through: (1) faster expected earnings growth, (2) lower risk/beta, (3) higher profit margins or ROE, (4) more conservative accounting policies that depress current earnings but will reverse. The intern is comparing a raw multiple without controlling for fundamentals. A proper analysis would compute the 'justified P/E' from the company's fundamentals: Justified P/E = (1-b)/(r-g) from the Gordon Growth Model. If the justified P/E is 25 or higher, the stock is fairly valued despite being above the industry average."
+    },
+    {
+      "type": "markdown",
+      "content": "## Justified Multiples from Fundamentals\n\nA **justified multiple** derives the 'correct' multiple from fundamental valuation models.\n\n### Justified Forward P/E (from GGM)\n\nStarting from $P_0 = D_1 / (r-g)$ and noting $D_1 = EPS_1 \\times (1-b)$:\n\n$$\\text{Justified } P/E = \\frac{1-b}{r-g}$$\n\nHigher justified P/E with: higher payout ratio $(1-b)$, lower required return $(r)$, higher growth $(g)$.\n\n### Justified P/B (from Residual Income)\n\n$$\\text{Justified } P/B = \\frac{ROE - g}{r - g}$$\n\n- If ROE > r: P/B > 1 (the firm creates value above its cost of capital)\n- If ROE = r: P/B = 1 (the firm earns exactly its cost of capital)\n- If ROE < r: P/B < 1 (the firm destroys value)\n\n### Justified P/S\n\n$$\\text{Justified } P/S = \\frac{(E_1/S_1)(1-b)}{r-g} = \\frac{\\text{Net margin} \\times (1-b)}{r-g}$$\n\n### PEG Ratio\n\n$$PEG = \\frac{P/E}{g \\times 100}$$\n\nA PEG of 1.0 is often considered \"fair value\" \u2014 the P/E is proportional to growth. PEG < 1 suggests undervaluation. However, PEG has limitations: it assumes a linear relationship between P/E and growth, ignores risk differences, and is undefined for negative-growth companies."
+    },
+    {
+      "type": "markdown",
+      "content": "## Peer Comparison and Cross-Border Issues\n\n### Selecting Comparable Companies\n\nThe ideal peer group shares:\n- Same industry and business model\n- Similar size, growth profile, and risk\n- Comparable accounting policies and geographic exposure\n\n### Using the Harmonic Mean\n\nWhen averaging P/E ratios across a peer group, the **harmonic mean** is preferred over the arithmetic mean:\n\n$$\\text{Harmonic mean P/E} = \\frac{n}{\\sum_{i=1}^{n} \\frac{1}{(P/E)_i}}$$\n\nThe harmonic mean reduces the upward bias caused by outlier high P/E stocks and is mathematically equivalent to computing the weighted-average E/P and inverting it.\n\n### Cross-Border Comparison Challenges\n\n| Issue | Impact on Multiples |\n|---|---|\n| Accounting standards (IFRS vs GAAP) | Earnings definitions differ |\n| Tax regimes | After-tax earnings not comparable |\n| Industry classification | Sector mix may differ across countries |\n| Growth/inflation differentials | Higher nominal growth inflates multiples |\n| Risk and political environment | Required returns vary by country |\n\nAnalysts must adjust for these differences before making cross-border multiple comparisons."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Three companies in the consumer staples sector have the following characteristics:\n\n| Company | P/E | Growth (g) | ROE | Beta |\n|---|---|---|---|---|\n| AlphaCo | 22 | 8% | 18% | 0.9 |\n| BetaCo | 15 | 5% | 12% | 1.1 |\n| GammaCo | 28 | 12% | 22% | 1.3 |\n\nRisk-free rate = 4%, equity risk premium = 6%. (a) Compute PEG ratios. (b) Compute justified P/B for each. (c) Which stock appears most attractively valued?",
+      "solution": "**Part (a): PEG ratios**\n\n- AlphaCo: 22/8 = 2.75\n- BetaCo: 15/5 = 3.00\n- GammaCo: 28/12 = 2.33\n\nGammaCo has the lowest PEG, suggesting the best value per unit of growth.\n\n**Part (b): Justified P/B**\n\nFirst, compute required returns using CAPM: r = 4% + \u03b2 \u00d7 6%\n- AlphaCo: r = 4% + 0.9(6%) = 9.4%. Justified P/B = (0.18 - 0.08)/(0.094 - 0.08) = 0.10/0.014 = 7.14\n- BetaCo: r = 4% + 1.1(6%) = 10.6%. Justified P/B = (0.12 - 0.05)/(0.106 - 0.05) = 0.07/0.056 = 1.25\n- GammaCo: r = 4% + 1.3(6%) = 11.8%. Justified P/B = (0.22 - 0.12)/(0.118 - 0.12) = 0.10/(-0.002) = -50\n\nGammaCo's justified P/B is negative because g > r! The Gordon Growth model is invalid when g \u2265 r \u2014 this growth rate is unsustainable long-term.\n\n**Part (c): Most attractive**\n\nAlphaCo appears most attractive \u2014 it has the highest justified P/B (7.14) relative to where it likely trades, a reasonable PEG, and the lowest risk (beta 0.9). BetaCo's justified P/B of only 1.25 suggests limited value creation. GammaCo's growth exceeds its required return, which is unsustainable \u2014 the 12% growth assumption needs revisiting."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Market-Based Valuation \u2014 Vignette Practice",
+      "problems": [
+        {
+          "id": "eq-mb-1",
+          "vignette": "David Kim, CFA, is screening the retail sector for undervalued stocks. He has compiled the following data for four mid-cap retailers:\n\n| Company | Price | EPS (trailing) | EPS (forward) | BVPS | Sales/Share | EBITDA/Share | Debt/Share | Cash/Share |\n|---|---|---|---|---|---|---|---|---|\n| RetailOne | $45 | $3.00 | $3.50 | $18.00 | $60 | $5.50 | $8 | $2 |\n| RetailTwo | $32 | $2.00 | $2.40 | $22.00 | $55 | $4.00 | $3 | $1 |\n| RetailThree | $58 | $4.00 | $4.20 | $30.00 | $80 | $7.50 | $12 | $5 |\n| RetailFour | $25 | -$1.00 | $0.50 | $10.00 | $40 | $2.00 | $6 | $3 |\n\nKim notes that RetailFour has been loss-making due to a restructuring and is expected to return to profitability next year.",
+          "question": "For RetailFour, the most appropriate valuation multiple to use is:",
+          "options": [
+            "A) trailing P/E",
+            "B) P/B",
+            "C) P/S"
+          ],
+          "correctAnswer": "C",
+          "explanation": "RetailFour has negative trailing EPS (-$1.00), making trailing P/E meaningless (negative P/E ratios are not interpretable). While forward P/E could be computed ($25/$0.50 = 50x), the forward earnings estimate is highly uncertain given the restructuring. P/B could work ($25/$10 = 2.5x), but book value may be distorted by restructuring charges. P/S = $25/$40 = 0.625x \u2014 this is most appropriate because sales are positive, less subject to accounting manipulation, and relatively stable even during restructurings. Option A is clearly wrong due to negative trailing EPS. Option B is viable but less ideal given potential restructuring-related book value distortions.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Select the most appropriate price multiple for a given company"
+        },
+        {
+          "id": "eq-mb-2",
+          "vignette": "David Kim, CFA, is screening the retail sector for undervalued stocks. He has compiled the following data for four mid-cap retailers:\n\n| Company | Price | EPS (trailing) | EPS (forward) | BVPS | Sales/Share | EBITDA/Share | Debt/Share | Cash/Share |\n|---|---|---|---|---|---|---|---|---|\n| RetailOne | $45 | $3.00 | $3.50 | $18.00 | $60 | $5.50 | $8 | $2 |\n| RetailTwo | $32 | $2.00 | $2.40 | $22.00 | $55 | $4.00 | $3 | $1 |\n| RetailThree | $58 | $4.00 | $4.20 | $30.00 | $80 | $7.50 | $12 | $5 |\n| RetailFour | $25 | -$1.00 | $0.50 | $10.00 | $40 | $2.00 | $6 | $3 |\n\nKim calculates the forward P/E ratios for the three profitable companies and wants to compute a representative sector multiple.",
+          "question": "Kim should calculate the sector average forward P/E using the:",
+          "options": [
+            "A) arithmetic mean",
+            "B) harmonic mean",
+            "C) geometric mean"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The harmonic mean is recommended by the CFA curriculum for averaging price multiples. Forward P/Es: RetailOne = 45/3.50 = 12.86, RetailTwo = 32/2.40 = 13.33, RetailThree = 58/4.20 = 13.81.\n\nHarmonic mean = 3 / (1/12.86 + 1/13.33 + 1/13.81) = 3 / (0.0777 + 0.0750 + 0.0724) = 3 / 0.2251 = 13.33.\n\nArithmetic mean = (12.86 + 13.33 + 13.81)/3 = 13.33. In this case they're similar because the P/Es are close together. The harmonic mean matters more when there are outliers \u2014 it reduces the upward bias from high-P/E stocks. Option A (arithmetic mean) produces upward-biased estimates. Option C (geometric mean) is not standard for this application.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate the harmonic mean of price multiples"
+        },
+        {
+          "id": "eq-mb-3",
+          "vignette": "Kim is also comparing EV/EBITDA ratios and computing justified multiples. For RetailOne, he estimates:\n\n- Required return on equity: 11%\n- Expected long-term growth rate: 4%\n- Sustainable ROE: 16%\n- Dividend payout ratio: 40%\n- Forward EPS: $3.50\n- Current price: $45",
+          "question": "The justified forward P/E for RetailOne based on the Gordon Growth Model is closest to:",
+          "options": [
+            "A) 5.7x",
+            "B) 8.6x",
+            "C) 12.9x"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Justified forward P/E = (1-b)/(r-g) = Payout ratio/(r-g) = 0.40/(0.11-0.04) = 0.40/0.07 = 5.71x.\n\nRetailOne's actual forward P/E = $45/$3.50 = 12.86x, which is more than double the justified P/E of 5.71x. This suggests significant overvaluation based on these fundamental assumptions \u2014 the market is pricing in much higher growth or lower risk than Kim's estimates.\n\nOption B (8.6x) would correspond to a payout of 60%. Option C (12.9x) matches the actual forward P/E, not the justified multiple.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate justified forward P/E from fundamental inputs"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a portfolio manager why a stock with a P/E of 40 might actually be cheaper than a stock with a P/E of 10, using the concept of justified multiples and fundamentals."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the CFA curriculum recommend the harmonic mean for averaging P/E ratios rather than the arithmetic mean?",
+        "What are the biggest pitfalls of relying on EV/EBITDA as the sole valuation metric?",
+        "How would differences in accounting standards (IFRS vs GAAP) affect a cross-border P/E comparison?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Forward P/E preferred over trailing \u2014 reflects expectations, not history\n- EV/EBITDA is capital-structure neutral \u2014 best for cross-leverage comparisons\n- **Justified P/E** = $(1-b)/(r-g)$ \u2014 links multiples to fundamental drivers\n- **Justified P/B** = $(ROE-g)/(r-g)$ \u2014 P/B > 1 when ROE > r\n- **PEG** = P/E \u00f7 (g\u00d7100) \u2014 quick growth-adjusted screen, but has limitations\n- Use **harmonic mean** when averaging multiples across a peer group\n- P/S is most useful for loss-making or cyclical firms at earnings troughs\n- Cross-border comparisons require adjustments for accounting, taxes, and risk"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Residual Income Valuation**, which bridges the gap between absolute and relative valuation. The justified P/B ratio you just learned has a direct connection to the residual income model \u2014 both depend on whether a firm earns above or below its cost of equity."
+    }
+  ]
+}

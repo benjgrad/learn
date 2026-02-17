@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "CI.7: Business Models",
+    "description": "Analyze types of business models, revenue models, network effects, platform businesses, competitive advantages, and their implications for valuation.",
+    "level": "level-3",
+    "slug": "corp-business-models",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Why are some companies (like Apple or Google) able to earn consistently high returns while competitors in similar industries earn much lower returns? What protects their profitability?"
+    },
+    {
+      "type": "markdown",
+      "content": "## What Is a Business Model?\n\nA **business model** describes how a company creates, delivers, and captures value. It answers three fundamental questions:\n\n1. **Value creation**: What product or service does the company offer, and why do customers choose it?\n2. **Value delivery**: How does the company produce and deliver its offering?\n3. **Value capture**: How does the company generate revenue and profit?\n\n### Types of Business Models\n\n| Model | Description | Example |\n|---|---|---|\n| **Asset-light** | Minimal physical assets; relies on intellectual property, brand, or platform | Software companies, consulting firms |\n| **Asset-heavy** | Significant capital investment in physical infrastructure | Airlines, utilities, manufacturing |\n| **Subscription** | Recurring revenue from ongoing access to a product or service | Netflix, SaaS companies |\n| **Freemium** | Free basic service; revenue from premium features or upgrades | Spotify, LinkedIn |\n| **Marketplace/Platform** | Connects buyers and sellers, earns fees or commissions | Amazon Marketplace, Airbnb |\n| **Franchise** | Licenses brand and operating model to independent operators | McDonald's, hotel chains |\n| **Razor-and-blade** | Sell base product cheaply; profit from consumables or add-ons | Printers and ink, gaming consoles |\n\nEach model implies different capital requirements, risk profiles, scalability, and margin structures \u2014 all of which affect valuation."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A SaaS company has 10,000 subscribers paying $100/month with a 95% annual retention rate. A traditional software company sells licenses for $1,000 each and sold 12,000 licenses last year. Which has more predictable revenue, and why?",
+      "answer": "The SaaS company has more predictable revenue. With 95% annual retention, it can reasonably forecast that approximately 9,500 subscribers will continue next year, providing a baseline of about $11.4 million in annual recurring revenue (ARR). The traditional software company must find 12,000 new buyers each year with no guaranteed repeat purchases. Subscription models create **recurring revenue** with high visibility, which is why SaaS companies often command higher valuation multiples than traditional license-based software companies."
+    },
+    {
+      "type": "markdown",
+      "content": "## Revenue Models and Network Effects\n\n### Revenue Models\n\nHow a company monetizes its value proposition:\n\n- **Product sales**: One-time sale of goods (e.g., automobiles)\n- **Service fees**: Charges for services rendered (e.g., consulting, banking)\n- **Subscription**: Recurring periodic payments (e.g., streaming services)\n- **Advertising**: Revenue from displaying ads to users (e.g., search engines, social media)\n- **Licensing**: Fees for using intellectual property (e.g., patents, software)\n- **Transaction fees**: Commission on each transaction facilitated (e.g., payment processors)\n\nCompanies often combine multiple revenue models. Amazon earns from product sales, marketplace commissions, subscription (Prime), advertising, and cloud services (AWS).\n\n### Network Effects\n\nA **network effect** occurs when the value of a product or service increases as more people use it.\n\n**Direct network effects**: Each additional user directly increases value for all other users. A telephone network becomes more valuable as more people can be called.\n\n**Indirect (two-sided) network effects**: More users on one side of a platform attract more users on the other side. More riders attract more drivers to a ride-sharing platform, which in turn attracts more riders.\n\nNetwork effects create powerful **winner-take-most dynamics** because once a platform achieves critical mass, switching costs become high and competing platforms struggle to attract users."
+    },
+    {
+      "type": "markdown",
+      "content": "## Competitive Advantages (Moats)\n\nA **competitive advantage** (or economic moat) is a sustainable feature that allows a company to earn returns above its cost of capital over an extended period.\n\n### Sources of Competitive Advantage\n\n- **Cost advantage**: Ability to produce at lower cost than competitors (economies of scale, proprietary processes, favorable access to inputs)\n- **Intangible assets**: Brands, patents, licenses, regulatory approvals that competitors cannot easily replicate\n- **Switching costs**: When customers face significant cost, effort, or risk in changing providers (enterprise software, banking relationships)\n- **Network effects**: Value increases with user base, creating barriers to entry\n- **Efficient scale**: Market served by a small number of firms, where new entry would reduce returns below the cost of capital for all participants (utilities, railroads)\n\n### Business Model Analysis for Valuation\n\nAnalysts evaluate business models to assess **sustainability of returns**:\n\n- **Revenue quality**: Recurring vs. one-time? Diversified vs. concentrated?\n- **Margin profile**: Gross margins indicate pricing power; operating margins reflect efficiency\n- **Capital intensity**: Asset-light models typically generate higher returns on invested capital (ROIC)\n- **Scalability**: Can revenue grow without proportional increases in costs?\n- **Customer concentration**: Heavy dependence on a few customers increases risk\n\nA company with a strong moat, recurring revenue, and high scalability typically commands a **higher valuation multiple** than a company with commodity products, cyclical revenue, and high capital requirements."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Compare two companies:\n\nCompany A (Asset-heavy manufacturer): Revenue = $500M, Operating income = $50M, Total assets = $1 billion, Equity = $400M.\n\nCompany B (Asset-light SaaS): Revenue = $200M, Operating income = $60M, Total assets = $150M, Equity = $120M.\n\nCalculate operating margin, return on assets (ROA = Operating income / Total assets), and return on equity (ROE = Net income / Equity, assuming net income = operating income x (1-25% tax rate)) for each. What do these differences tell you about their business models?",
+      "solution": "**Company A (Asset-heavy):**\n\nOperating margin = $50M / $500M = **10.0%**\n\nROA = $50M / $1,000M = **5.0%**\n\nNet income = $50M x (1 - 0.25) = $37.5M\n\nROE = $37.5M / $400M = **9.4%**\n\n**Company B (Asset-light SaaS):**\n\nOperating margin = $60M / $200M = **30.0%**\n\nROA = $60M / $150M = **40.0%**\n\nNet income = $60M x (1 - 0.25) = $45M\n\nROE = $45M / $120M = **37.5%**\n\n**Analysis:**\n\nCompany B generates higher margins (30% vs 10%), dramatically higher ROA (40% vs 5%), and much higher ROE (37.5% vs 9.4%) despite having less than half the revenue. The asset-light SaaS model requires far less capital to generate profit. This explains why SaaS companies often trade at much higher valuation multiples \u2014 they convert a larger share of revenue into profit and need minimal capital reinvestment to grow."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Business Models Practice Problems",
+      "problems": [
+        {
+          "id": "ci7-1",
+          "question": "A company that connects homeowners with local service providers and earns a 15% commission on each transaction is best described as using which business model?",
+          "options": [
+            "A) Subscription model",
+            "B) Marketplace/platform model",
+            "C) Franchise model"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A marketplace or platform model connects two sides of a market (homeowners and service providers) and earns revenue through transaction fees or commissions. A subscription model (A) charges recurring fees for ongoing access, not per-transaction commissions. A franchise model (C) licenses a brand and operating system to independent operators.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify types of business models"
+        },
+        {
+          "id": "ci7-2",
+          "question": "A social media platform becomes more valuable to advertisers as more users join, and more users join because their friends are already on the platform. This is best described as:",
+          "options": [
+            "A) direct network effects only.",
+            "B) indirect (two-sided) network effects only.",
+            "C) both direct and indirect network effects."
+          ],
+          "correctAnswer": "C",
+          "explanation": "Users joining because friends are on the platform is a direct network effect (more users = more value for each user). Advertisers finding the platform more valuable because of more users is an indirect (two-sided) network effect (more users on one side attract more participants on the other side). The platform exhibits both types. Option A ignores the advertiser dynamic. Option B ignores the friend-to-friend dynamic.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Distinguish between direct and indirect network effects"
+        },
+        {
+          "id": "ci7-3",
+          "question": "An analyst comparing two companies finds that Company X has an ROIC of 25% and Company Y has an ROIC of 8%. If both companies have a cost of capital of 10%, the analyst should conclude that:",
+          "options": [
+            "A) Company X is creating value while Company Y is destroying value.",
+            "B) both companies are creating value because they are profitable.",
+            "C) Company Y is the better investment because it has more room for improvement."
+          ],
+          "correctAnswer": "A",
+          "explanation": "Value is created when ROIC exceeds the cost of capital. Company X (ROIC 25% > WACC 10%) earns returns well above its cost of capital, creating value. Company Y (ROIC 8% < WACC 10%) earns less than its cost of capital, destroying value despite being profitable. Being profitable (B) is not sufficient \u2014 the returns must exceed the opportunity cost of capital. Having room for improvement (C) is speculative and does not justify a better investment conclusion.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate whether a business model creates or destroys value"
+        },
+        {
+          "id": "ci7-4",
+          "question": "Which of the following competitive advantages is most likely to be sustainable over the long term?",
+          "options": [
+            "A) Lowest price in the market achieved through temporary cost-cutting.",
+            "B) A regulatory license that limits competition to three firms in the market.",
+            "C) A 10% improvement in product quality over competitors."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Regulatory barriers (efficient scale) create durable competitive advantages because they legally restrict competition. A temporary cost advantage (A) from cost-cutting is easily replicated and not sustainable. A quality advantage (C) of 10% can be eroded as competitors invest in R&D and close the gap. Regulatory licenses are the most difficult to overcome because they require government action to change.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate sources of competitive advantage"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a non-finance friend why two profitable companies in the same industry might deserve very different stock valuations. Use the concepts of business models, competitive advantages, and return on invested capital to support your argument."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How might a company with a strong competitive advantage today lose that advantage over time?",
+        "What are the risks of investing in platform businesses that have not yet achieved profitability?",
+        "How does understanding a company's business model help you forecast its future cash flows?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Business model**: How a company creates, delivers, and captures value\n- **Asset-light vs. asset-heavy**: Different capital requirements, margins, and return profiles\n- **Revenue models**: Product sales, subscriptions, advertising, licensing, transaction fees\n- **Direct network effects**: More users = more value for each user\n- **Indirect network effects**: More users on one side attract more on the other side\n- **Economic moats**: Cost advantage, intangible assets, switching costs, network effects, efficient scale\n- **Value creation**: ROIC > WACC creates value; ROIC < WACC destroys value\n- **Valuation implications**: Recurring revenue, scalability, and strong moats command higher multiples"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have now covered all the major topics in Corporate Issuers: organizational forms, stakeholders, governance, working capital, capital investments, capital structure, and business models. The next module is a **Checkpoint** that tests your integrated understanding across all these topics with cross-cutting practice problems."
+    }
+  ]
+}

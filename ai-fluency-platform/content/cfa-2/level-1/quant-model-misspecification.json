@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "QM.3: Model Misspecification",
+    "description": "Detect and correct violations of OLS assumptions including heteroskedasticity, serial correlation, multicollinearity, and omitted variable bias.",
+    "level": "level-1",
+    "slug": "quant-model-misspecification",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If the residuals of a regression model are larger for large-cap stocks than for small-cap stocks, which OLS assumption is violated? What consequence does this have for hypothesis testing?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Heteroskedasticity\n\nHeteroskedasticity occurs when the variance of the error term is **not constant** across observations: $\\text{Var}(\\epsilon_i) \\neq \\sigma^2$ for all $i$.\n\n### Consequences\n- OLS coefficient estimates remain **unbiased and consistent**\n- Standard errors are **biased**, making t-statistics and F-tests unreliable\n- Confidence intervals are invalid \u2014 typically too narrow, leading to false rejections\n\n### Detection: Breusch-Pagan Test\n\n1. Estimate the regression and obtain residuals $\\hat{\\epsilon}_i$\n2. Regress $\\hat{\\epsilon}_i^2$ on the independent variables\n3. Test statistic: $BP = n \\times R^2_{\\text{auxiliary}}$, distributed as $\\chi^2$ with $k$ degrees of freedom\n4. Reject homoskedasticity if $BP > \\chi^2_{\\text{critical}}$\n\n### Correction: White Robust Standard Errors\n\nWhite's heteroskedasticity-consistent standard errors (also called robust standard errors) adjust the standard error estimates without changing the coefficient estimates. The corrected standard errors are typically **larger** than the OLS standard errors, resulting in lower t-statistics and wider confidence intervals."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If heteroskedasticity is present but you use ordinary (non-robust) standard errors, are you more likely to commit a Type I or Type II error?",
+      "answer": "Type I error (false positive). Heteroskedasticity typically causes OLS standard errors to be understated, making t-statistics appear larger than they should be. This leads to rejecting the null hypothesis too often \u2014 concluding a variable is significant when it may not be. Robust standard errors correct this by providing accurate (usually larger) standard errors."
+    },
+    {
+      "type": "markdown",
+      "content": "## Serial Correlation (Autocorrelation)\n\nSerial correlation occurs when error terms are **correlated across observations**: $\\text{Corr}(\\epsilon_t, \\epsilon_{t-s}) \\neq 0$. This is especially common in time-series data.\n\n### Consequences\n- OLS coefficients remain **unbiased and consistent** (same as heteroskedasticity)\n- Standard errors are **biased** (typically understated for positive serial correlation)\n- The Durbin-Watson statistic and R-squared may be misleading\n\n### Detection: Durbin-Watson Test\n\n$$DW = \\frac{\\sum_{t=2}^{n}(\\hat{\\epsilon}_t - \\hat{\\epsilon}_{t-1})^2}{\\sum_{t=1}^{n} \\hat{\\epsilon}_t^2} \\approx 2(1 - \\hat{\\rho})$$\n\n| DW Value | Interpretation |\n|---|---|\n| $\\approx 2$ | No serial correlation |\n| $\\ll 2$ (near 0) | Positive serial correlation |\n| $\\gg 2$ (near 4) | Negative serial correlation |\n\nCompare DW to critical values $d_L$ and $d_U$ from the Durbin-Watson table.\n\n### Correction: Newey-West Standard Errors\n\nNewey-West standard errors are **HAC** (heteroskedasticity and autocorrelation consistent). They correct for both serial correlation and heteroskedasticity simultaneously, making them broadly applicable for time-series regressions."
+    },
+    {
+      "type": "markdown",
+      "content": "## Multicollinearity and Omitted Variable Bias\n\n### Multicollinearity\n\nMulticollinearity occurs when independent variables are **highly correlated** with each other. Perfect multicollinearity (exact linear relationship) makes estimation impossible; near-perfect multicollinearity causes practical problems.\n\n**Symptoms:**\n- High R-squared but few individually significant t-statistics\n- Coefficient estimates change dramatically when variables are added or removed\n- Inflated standard errors on collinear variables\n\n**Detection:** The Variance Inflation Factor (VIF) for variable $j$:\n\n$$VIF_j = \\frac{1}{1 - R_j^2}$$\n\nwhere $R_j^2$ is the R-squared from regressing $X_j$ on all other independent variables. A VIF above 5-10 suggests problematic multicollinearity.\n\n**Remedies:** Drop one of the correlated variables, combine them into a composite, or use principal components.\n\n### Omitted Variable Bias\n\nIf a relevant variable is excluded and it is correlated with an included variable, the coefficient on the included variable is **biased**. The direction of bias depends on the correlation between the omitted and included variables and the sign of the omitted variable's true effect. Unlike the other violations, omitted variable bias makes OLS coefficients **biased and inconsistent** \u2014 no standard error correction can fix it."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A regression of bond returns on GDP growth and inflation using 80 quarterly observations yields a Durbin-Watson statistic of 0.85. The critical values at 5% are d_L = 1.56 and d_U = 1.69. What do you conclude, and what correction would you apply?",
+      "solution": "Since DW = 0.85 < d_L = 1.56, we reject the null hypothesis of no serial correlation. The low DW statistic indicates **positive serial correlation** in the residuals (DW near 0 implies positive autocorrelation).\n\nUsing DW $\\approx$ 2(1 - $\\hat{\\rho}$), we can estimate $\\hat{\\rho} \\approx 1 - 0.85/2 = 0.575$, indicating substantial positive autocorrelation.\n\n**Correction:** Apply **Newey-West (HAC) standard errors** to obtain valid t-statistics and confidence intervals. The coefficient estimates themselves remain unbiased, but the original standard errors are unreliable. Newey-West standard errors will be larger than the original OLS standard errors, resulting in lower t-statistics. Some previously \"significant\" variables may become insignificant after correction.\n\nNote: If DW had fallen between d_L and d_U (the inconclusive zone), the test result would be ambiguous."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Regression Diagnostics",
+      "vignette": "Priya Sharma, CFA, is building a model to predict corporate bond spreads using 200 quarterly observations. Her regression model is:\n\nSpread = b0 + b1(Leverage) + b2(Coverage) + b3(GDP_Growth) + b4(VIX) + epsilon\n\nShe runs several diagnostic tests and obtains the following results:\n\n| Diagnostic | Result |\n|---|---|\n| Durbin-Watson statistic | 1.12 |\n| DW critical values (5%) | d_L = 1.63, d_U = 1.74 |\n| Breusch-Pagan chi-squared | 14.8 |\n| BP critical value (5%, 4 df) | 9.49 |\n| VIF (Leverage) | 2.1 |\n| VIF (Coverage) | 8.7 |\n| VIF (GDP Growth) | 1.4 |\n| VIF (VIX) | 1.8 |\n\nRegression output (original OLS standard errors):\n\n| Variable | Coefficient | OLS SE | Robust SE |\n|---|---|---|---|\n| Leverage | 0.45 | 0.12 | 0.19 |\n| Coverage | -0.30 | 0.15 | 0.22 |\n| GDP Growth | -0.18 | 0.06 | 0.09 |\n| VIX | 0.08 | 0.02 | 0.03 |",
+      "problems": [
+        {
+          "id": "qm3-1",
+          "question": "Based on the Durbin-Watson statistic, Sharma should most likely conclude that:",
+          "options": [
+            "A) there is no serial correlation in the residuals.",
+            "B) there is significant positive serial correlation.",
+            "C) the test result is inconclusive."
+          ],
+          "correctAnswer": "B",
+          "explanation": "DW = 1.12 < d_L = 1.63, so we reject the null hypothesis of no serial correlation. Since DW is well below 2 (and below the lower bound), there is evidence of positive serial correlation. Option A would require DW near 2 or above d_U. Option C would apply only if d_L < DW < d_U (the inconclusive zone).",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret the Durbin-Watson test for serial correlation"
+        },
+        {
+          "id": "qm3-2",
+          "question": "The Breusch-Pagan test result indicates that:",
+          "options": [
+            "A) the error variance is constant across observations.",
+            "B) heteroskedasticity is present at the 5% significance level.",
+            "C) multicollinearity is a concern in the model."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Breusch-Pagan test statistic (14.8) exceeds the critical chi-squared value (9.49) at the 5% level with 4 degrees of freedom. We reject the null hypothesis of homoskedasticity \u2014 heteroskedasticity is present. Option A would require a test statistic below 9.49. Option C is incorrect because the Breusch-Pagan test detects heteroskedasticity, not multicollinearity (VIF is used for that).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply the Breusch-Pagan test for heteroskedasticity"
+        },
+        {
+          "id": "qm3-3",
+          "question": "Which variable is most likely affected by multicollinearity?",
+          "options": [
+            "A) Leverage (VIF = 2.1)",
+            "B) Coverage (VIF = 8.7)",
+            "C) GDP Growth (VIF = 1.4)"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Coverage has a VIF of 8.7, which approaches or exceeds the commonly used threshold of 5-10 for problematic multicollinearity. This means approximately 88.5% (1 - 1/8.7 = 0.885) of the variation in Coverage is explained by the other independent variables. The other variables have VIFs well below 5. Note that high VIF for Coverage likely inflates its standard error, contributing to a potentially insignificant t-statistic despite the variable being economically important.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Detect multicollinearity using VIF"
+        },
+        {
+          "id": "qm3-4",
+          "question": "Given both heteroskedasticity and serial correlation are detected, the most appropriate correction for Sharma's standard errors is:",
+          "options": [
+            "A) White robust standard errors.",
+            "B) Newey-West (HAC) standard errors.",
+            "C) Generalized least squares estimation."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Newey-West standard errors are heteroskedasticity and autocorrelation consistent (HAC), correcting for both problems simultaneously. Since both heteroskedasticity (Breusch-Pagan) and serial correlation (Durbin-Watson) are detected, Newey-West is the appropriate choice. Option A (White SE) only corrects for heteroskedasticity, not serial correlation. Option C (GLS) is a valid alternative but changes the estimation method entirely and is more complex to implement.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Select appropriate standard error corrections"
+        },
+        {
+          "id": "qm3-5",
+          "question": "Using robust standard errors instead of OLS standard errors, the t-statistic for Leverage changes from approximately 3.75 to approximately:",
+          "options": [
+            "A) 1.92",
+            "B) 2.37",
+            "C) 4.50"
+          ],
+          "correctAnswer": "B",
+          "explanation": "OLS t-statistic = 0.45/0.12 = 3.75. Robust t-statistic = 0.45/0.19 = 2.37. The robust standard error (0.19) is larger than the OLS standard error (0.12), reducing the t-statistic. The coefficient (0.45) does not change \u2014 only the standard error is corrected. Option A (0.45/0.235) uses an incorrect SE. Option C would require a smaller standard error, which contradicts the pattern of robust SE being larger when heteroskedasticity is present.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate t-statistics using robust standard errors"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between heteroskedasticity and serial correlation. For each, describe what causes it, how you detect it, and how you correct it. Why do both problems affect standard errors but not coefficient estimates?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is omitted variable bias fundamentally different from heteroskedasticity and serial correlation in terms of its effect on coefficient estimates?",
+        "In financial data, why is serial correlation especially common, and what types of models are most susceptible?",
+        "If a regression has a high R-squared but most t-statistics are insignificant, what is the likely diagnosis?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Heteroskedasticity**: non-constant error variance; detect with Breusch-Pagan ($n \\times R^2_{aux} \\sim \\chi^2_k$); correct with White robust SE\n- **Serial correlation**: correlated errors over time; detect with Durbin-Watson (DW $\\approx$ 2 means no autocorrelation); correct with Newey-West HAC SE\n- **Multicollinearity**: correlated independent variables; detect with VIF ($> 5$-$10$ is problematic); remedy by dropping or combining variables\n- **Omitted variable bias**: excluded correlated variable biases coefficients \u2014 no SE correction can fix this\n- Heteroskedasticity and serial correlation bias **standard errors** but not coefficients\n- Omitted variables bias **both coefficients and standard errors**\n- Newey-West SE corrects for both heteroskedasticity and serial correlation simultaneously"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Extensions of Multiple Regression** \u2014 dummy variables, interaction terms, and qualitative dependent variables (logistic regression). These extensions allow you to model categorical outcomes and non-linear relationships while building on the regression framework and diagnostic tools you have learned."
+    }
+  ]
+}

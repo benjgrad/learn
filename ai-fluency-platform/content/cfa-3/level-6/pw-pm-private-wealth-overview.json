@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PM.7: Private Wealth Management (PM Pathway)",
+    "description": "Understand client discovery, IPS development, taxation overview, estate planning, concentrated positions, and behavioral considerations for individual investors.",
+    "level": "level-6",
+    "slug": "pw-pm-private-wealth-overview",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A 55-year-old executive has 80% of her net worth in company stock. She wants to diversify but faces a very low cost basis (meaning huge capital gains tax). How does the tax consideration change the 'optimal' portfolio versus a tax-free analysis?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Client Discovery and IPS Development\n\n### Client Discovery\n\nThe foundation of private wealth management is understanding the **complete financial picture**:\n\n- **Financial capital**: Investment portfolios, real estate, business interests\n- **Human capital**: Present value of future earnings (younger = more human capital)\n- **Liabilities**: Mortgages, education funding, retirement spending needs\n- **Risk tolerance**: Ability to take risk (financial) vs willingness (behavioral)\n- **Time horizon**: Multiple horizons (near-term needs, retirement, estate)\n\n### Investment Policy Statement (IPS)\n\nThe IPS for private clients must address:\n\n1. **Return objective**: Required return to meet goals (after tax, after inflation)\n2. **Risk tolerance**: Both ability and willingness; resolve conflicts conservatively\n3. **Time horizon**: Often multi-stage (accumulation, transition, distribution, estate)\n4. **Liquidity needs**: Emergency fund, known near-term expenditures\n5. **Tax considerations**: Tax status, asset location, loss harvesting opportunities\n6. **Legal/regulatory**: Trust structures, jurisdictional requirements\n7. **Unique circumstances**: Ethical/ESG constraints, concentrated positions, family dynamics\n\n$$\\text{Required return (after-tax, real)} = \\frac{\\text{Annual spending need}}{\\text{Investable assets}} + \\text{Inflation target}$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A new client says she has 'moderate' risk tolerance, but her financial situation reveals: 25 years to retirement, stable government job, no debt, significant inheritance expected. Is her stated risk tolerance consistent with her ability to take risk?",
+      "answer": "No, there is a mismatch. Her ability to take risk is high: long time horizon, stable employment (low human capital risk), no debt, and an expected inheritance providing a financial cushion. Her stated 'moderate' tolerance reflects her willingness, which is a behavioral/emotional characteristic. When ability and willingness conflict, the CFA curriculum recommends resolving in favor of the more conservative position (moderate). However, the advisor should educate the client about how a too-conservative allocation may jeopardize her return objectives. A suitable compromise might be a moderately aggressive allocation with downside protection strategies to address her behavioral discomfort."
+    },
+    {
+      "type": "markdown",
+      "content": "## Taxation Overview for Private Wealth\n\n### Key Tax Concepts\n\n- **Tax drag**: The reduction in return due to taxes; typically 1-3% annually\n- **Asset location**: Place tax-inefficient assets (bonds, REITs) in tax-advantaged accounts; tax-efficient assets (index equity) in taxable accounts\n- **Tax-loss harvesting**: Realize losses to offset gains; maintain exposure through substitutes\n- **After-tax return**: $R_{\\text{after-tax}} = R_{\\text{pre-tax}} \\times (1 - t)$ for annual income; unrealized gains defer tax\n\n### Accrual Equivalent Tax Rate\n\n$$R_{AE} = R_{\\text{pre-tax}} \\times (1 - T_{AE})$$\n\nwhere $T_{AE}$ accounts for the time value of tax deferral. Longer deferral = lower effective tax rate.\n\n## Estate Planning Basics\n\n- **Goals**: Efficient wealth transfer, minimize transfer taxes, maintain control\n- **Tools**: Trusts, gifting strategies, charitable vehicles, insurance\n- **Relative value**: PV of after-tax wealth received by heirs vs alternative uses\n\n## Concentrated Positions\n\nStrategies for diversifying concentrated stock:\n- **Outright sale**: Simplest but triggers full capital gains tax\n- **Exchange fund**: Contribute stock to a diversified fund; defer taxes\n- **Hedging with options**: Collars, protective puts (may trigger constructive sale rules)\n- **Prepaid variable forward**: Receive upfront cash, deliver shares later\n- **Charitable remainder trust**: Donate shares, receive income stream, get tax deduction\n\n## Behavioral Considerations\n\n| Bias | Impact on Private Clients | Advisor Response |\n|---|---|---|\n| Loss aversion | Reluctance to sell losers or concentrated positions | Frame diversification as risk reduction, not loss realization |\n| Status quo | Inertia in making changes | Use default options, automatic rebalancing |\n| Overconfidence | Excessive trading, concentrated bets | Benchmark performance, show costs |\n| Mental accounting | Separate buckets instead of integrated portfolio | Use goals-based approach to align with this tendency |\n| Anchoring | Focus on purchase price, not current fundamentals | Redirect to forward-looking analysis |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: IPS Development\n\nClient profile: James Chen, age 52, recently retired tech executive.\n- Portfolio: $8M investable assets, $4M in company stock (cost basis $500K), $1.5M in 401(k)\n- Real estate: $2M primary residence (paid off)\n- Income needs: $250,000 annual spending (inflation-adjusted)\n- Goals: Maintain lifestyle, fund two children's graduate school ($200K total in 3 years), leave $5M estate\n- Health: Good, family history of longevity\n- Risk tolerance: States 'conservative' after seeing tech downturn losses\n\nA) Develop return requirements.\nB) Assess risk tolerance (ability vs willingness).\nC) Identify the three most critical investment management issues.\nD) Outline a strategy for the concentrated stock position.",
+      "solution": "**A) Return Requirements:**\n\nTotal investable assets: $8M + $1.5M = $9.5M\nAnnual spending: $250,000\nRequired return (before inflation): $250,000 / $9,500,000 = 2.63%\nAdd inflation assumption (2.5%): Required real return = 2.63%\nRequired nominal return = approximately 5.1%\nEstate goal: $5M in ~35 years requires portfolio growth beyond spending; this is achievable at a 5-6% return with modest net saving\n\nNear-term liquidity: $200K for education in 3 years (set aside in low-risk allocation)\n\n**B) Risk Tolerance Assessment:**\n\nAbility to take risk: ABOVE AVERAGE\n- Long time horizon (potentially 35+ years given longevity)\n- Low spending rate (2.63% of investable assets)\n- Paid-off residence provides housing security\n- No debt obligations\n- 401(k) and concentrated stock provide buffer\n\nWillingness to take risk: BELOW AVERAGE\n- Self-described as 'conservative'\n- Recent losses in tech downturn created anchoring to loss experience\n- No longer has human capital (retired) which psychologically reduces comfort\n\nResolution: The conservative stance is partially driven by recency bias. Recommend a moderate allocation -- more conservative than ability alone would suggest, but not as conservative as stated willingness, because an overly conservative allocation risks shortfall over a 35-year horizon. Educate about the risk of not taking enough risk.\n\n**C) Three Most Critical Issues:**\n\n1. **Concentrated stock position**: $4M (42% of investable assets) in a single tech stock with $3.5M unrealized gain. Tax cost of outright sale: ~$700K (at 20% LTCG). Must diversify but in a tax-efficient manner.\n\n2. **Sequence of returns risk**: Recently retired with no human capital to recover from early portfolio losses. The first 5-10 years of retirement are critical -- a major drawdown could permanently impair the portfolio.\n\n3. **Tax management**: The large unrealized gain, different tax treatments of 401(k) (ordinary income on withdrawal) vs taxable account, and the estate goal all require coordinated tax planning. Asset location and withdrawal sequencing are essential.\n\n**D) Concentrated Stock Strategy:**\n\nPhased approach over 3-5 years:\n1. Year 1: Sell $1M of company stock, realizing ~$438K gain (~$88K tax). Invest proceeds in diversified portfolio. Use any available capital losses to offset.\n2. Year 1: Implement a collar (buy puts, sell calls) on $1.5M of remaining stock to protect downside while deferring tax.\n3. Year 2-3: Contribute $1M to an exchange fund to achieve diversification with tax deferral.\n4. Year 3-5: Sell remaining $500K-$1M over time, harvesting losses elsewhere to offset gains.\n5. Consider donating $200-300K of appreciated stock to charitable remainder trust if charitable intent exists (tax deduction + income stream).\n\nTarget: Reduce concentration from 42% to under 10% within 5 years while managing total tax cost below $500K."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Wealth Management Practice",
+      "problems": [
+        {
+          "id": "l3-pm7-1",
+          "question": "An investor has a pre-tax return of 8% and a 30% tax rate. She holds investments for an average of 10 years before selling. Her accrual equivalent tax rate is closest to:",
+          "options": [
+            "A) 15%",
+            "B) 22%",
+            "C) 30%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "With tax deferral for 10 years, the effective tax rate is lower than the statutory rate. After-tax future value per $1 invested: FV = (1 + 0.08)^10 x (1 - 0.30) + 0.30 = 2.159 x 0.70 + 0.30 = 1.511 + 0.30 = 1.811. The accrual equivalent after-tax return r_ae satisfies: (1 + r_ae)^10 = 1.811, so r_ae = 1.811^(1/10) - 1 = 6.12%. Accrual equivalent tax rate = 1 - (r_ae / r_pretax) = 1 - (6.12/8.0) = 1 - 0.765 = 23.5%, closest to 22%. Tax deferral reduces the effective rate from 30% to about 22-24%, illustrating the power of deferral.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate the accrual equivalent tax rate"
+        },
+        {
+          "id": "l3-pm7-2",
+          "question": "When a client's ability to take risk is high but willingness is low, the advisor should most appropriately:",
+          "options": [
+            "A) Follow the client's stated willingness and invest conservatively",
+            "B) Override the client's preference and invest aggressively based on ability",
+            "C) Educate the client about the mismatch and resolve toward a moderate allocation"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The CFA curriculum recommends that when ability and willingness conflict, advisors should first educate the client about the implications of each approach. If the client's understanding improves and willingness increases, a moderate allocation is appropriate. If the client remains firm, the advisor should generally respect willingness but document the risk of insufficient returns. Simply overriding the client (B) violates the advisory relationship. Blindly following willingness (A) without educating risks return shortfall. The best approach is to find a sustainable middle ground through education and communication.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Resolve conflicts between risk ability and willingness"
+        },
+        {
+          "id": "l3-pm7-3",
+          "question": "An investor holds $2M in concentrated stock (cost basis $300K). She contributes $1M of this stock to a charitable remainder trust (CRT) that pays her 6% annually for 20 years. Which of the following is NOT a benefit of this strategy?",
+          "options": [
+            "A) Immediate income tax deduction for the charitable portion",
+            "B) Avoidance of capital gains tax on the contributed shares",
+            "C) Complete elimination of estate tax on the trust assets"
+          ],
+          "correctAnswer": "C",
+          "explanation": "A CRT provides: (A) an immediate income tax deduction based on the present value of the remainder interest going to charity, and (B) the trust can sell the contributed shares without paying capital gains tax, allowing the full amount to be reinvested and generate income. However, (C) is incorrect because the CRT income payments are taxable to the beneficiary (as ordinary income, capital gains, or return of principal depending on the tier system), and while the remainder goes to charity (removing it from the estate), the income stream received during the 20 years is part of the estate if the beneficiary dies during the term. The CRT does not completely eliminate estate tax on all trust-related assets.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Evaluate strategies for managing concentrated stock positions"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of 'asset location' (not asset allocation) to a client who has both a taxable brokerage account and a tax-deferred 401(k). Why does it matter which investments go in which account?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the absence of human capital change the risk management approach for retirees?",
+        "What behavioral biases are you most susceptible to in your own financial decisions?",
+        "Why is tax management sometimes called the only 'free lunch' in investing?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **IPS**: Return objective, risk tolerance, time horizon, liquidity, taxes, legal, unique circumstances\n- **Risk tolerance**: Ability vs willingness; resolve conflicts conservatively with education\n- **Human capital**: Younger investors have more; affects risk capacity and asset allocation\n- **Tax drag**: 1-3% annual return reduction; mitigate with asset location, tax-loss harvesting, deferral\n- **Accrual equivalent tax rate**: Effective tax rate accounting for deferral; always less than statutory rate\n- **Concentrated positions**: Exchange funds, collars, prepaid forwards, CRTs; balance tax cost vs diversification benefit\n- **Behavioral biases**: Loss aversion, status quo, overconfidence, mental accounting; use goals-based planning to work with biases"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "This concludes the Portfolio Management Pathway. The next checkpoint will test your ability to integrate concepts across liability-driven strategies, yield curve positioning, credit analysis, equity strategies, multi-asset approaches, and private wealth management."
+    }
+  ]
+}

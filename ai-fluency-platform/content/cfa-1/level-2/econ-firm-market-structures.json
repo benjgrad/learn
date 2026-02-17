@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ECON.1: The Firm and Market Structures",
+    "description": "Analyze the characteristics of perfect competition, monopolistic competition, oligopoly, and pure monopoly, including pricing, output decisions, and market concentration measures.",
+    "level": "level-2",
+    "slug": "econ-firm-market-structures",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Why can a pharmaceutical company charge $500 for a drug that costs $2 to manufacture, while a wheat farmer must accept the market price? What determines a firm's pricing power?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Market Structure Overview\n\nMarket structure describes the competitive environment in which firms operate. The CFA curriculum identifies **four market structures** along a spectrum of pricing power:\n\n| Feature | Perfect Competition | Monopolistic Competition | Oligopoly | Pure Monopoly |\n|---|---|---|---|---|\n| Number of firms | Very many | Many | Few | One |\n| Barriers to entry | None | Low | High | Very high |\n| Product | Identical | Differentiated | Identical or differentiated | Unique |\n| Pricing power | None | Some | Some to significant | Significant |\n| Long-run economic profit | Zero | Zero | Possible | Possible |\n\n### Perfect Competition\n\nIn perfect competition, firms are **price takers** \u2014 they accept the market price and can sell any quantity at that price. The demand curve facing each firm is **perfectly elastic** (horizontal). Key conditions include: many buyers and sellers, homogeneous products, free entry and exit, and perfect information.\n\nA perfectly competitive firm maximizes profit by producing where **marginal revenue (MR) equals marginal cost (MC)**. Since the firm is a price taker, $MR = P$, so the profit-maximizing rule becomes:\n\n$$P = MR = MC$$\n\nIn the long run, economic profit attracts new entrants, increasing supply until price falls to the minimum of average total cost (ATC), yielding **zero economic profit**."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A perfectly competitive firm is earning positive economic profits in the short run. What will happen in the long run, and why?",
+      "answer": "New firms will enter the market, attracted by the positive economic profits. Entry increases market supply, which pushes the market price downward. This continues until price equals the minimum of average total cost (ATC), and economic profit falls to zero. At that point, there is no further incentive for new firms to enter. Note that zero economic profit still means the firm earns a normal accounting profit \u2014 enough to cover all opportunity costs."
+    },
+    {
+      "type": "markdown",
+      "content": "## Shutdown and Breakeven Analysis\n\n### Short-Run Shutdown Decision\n\nA firm should continue operating in the short run as long as it can cover its **variable costs**. Even if the firm is losing money, it loses less by operating than by shutting down (since fixed costs must be paid regardless).\n\n- **Breakeven point**: $P = ATC$ (total revenue covers all costs)\n- **Shutdown point**: $P = AVC$ (total revenue just covers variable costs)\n- If $P < AVC$: the firm should shut down \u2014 losses exceed fixed costs\n- If $AVC \\leq P < ATC$: the firm operates at a loss but covers some fixed costs\n- If $P \\geq ATC$: the firm earns economic profit\n\n### Economies and Diseconomies of Scale\n\nThe long-run average total cost (LRATC) curve is U-shaped due to:\n\n- **Economies of scale**: As output increases, LRATC falls. Sources include specialization, bulk purchasing, and spreading fixed costs.\n- **Constant returns to scale**: LRATC is flat \u2014 output and costs increase proportionally.\n- **Diseconomies of scale**: Beyond a certain point, LRATC rises. Causes include coordination problems, bureaucracy, and communication breakdowns.\n\nThe **minimum efficient scale (MES)** is the smallest output level at which LRATC is minimized. Industries with high MES relative to market demand tend toward fewer, larger firms (oligopoly or monopoly)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Monopolistic Competition, Oligopoly, and Monopoly\n\n### Monopolistic Competition\n\nFirms sell **differentiated products** (branding, quality, location) but face many competitors. Each firm has a downward-sloping demand curve and some pricing power. Short-run profits are possible, but free entry drives long-run economic profit to **zero** \u2014 similar to perfect competition, but firms produce at a point above minimum ATC (excess capacity).\n\n### Oligopoly\n\nA market dominated by a **few large firms** whose actions are interdependent. Key models include:\n\n- **Kinked demand curve**: Competitors match price decreases but not increases, creating price rigidity\n- **Cournot model**: Firms choose quantities simultaneously; equilibrium output is between competitive and monopoly levels\n- **Nash equilibrium**: Each firm's strategy is optimal given the other firms' strategies\n- **Prisoner's dilemma**: Firms have incentives to cheat on collusive agreements\n\n### Pure Monopoly\n\nA single seller faces the entire market demand curve. The monopolist maximizes profit where $MR = MC$, but charges a price **above MC** (read from the demand curve). This creates **deadweight loss** \u2014 a reduction in total economic welfare.\n\n$$MR = P\\left(1 - \\frac{1}{|E_d|}\\right)$$\n\nWhere $E_d$ is the price elasticity of demand. A monopolist always operates on the **elastic portion** of the demand curve (where $|E_d| > 1$), because MR is positive only in this range.\n\n### Measuring Market Concentration\n\n- **N-firm concentration ratio**: Sum of market shares of the N largest firms (e.g., four-firm CR)\n- **Herfindahl-Hirschman Index (HHI)**: Sum of squared market shares of all firms\n\n$$HHI = \\sum_{i=1}^{N} s_i^2$$\n\nWhere $s_i$ is the market share of firm $i$ expressed as a percentage. HHI ranges from near 0 (perfect competition) to 10,000 (pure monopoly). A market with HHI above 2,500 is considered highly concentrated."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An industry has five firms with market shares of 35%, 25%, 20%, 12%, and 8%. Calculate the four-firm concentration ratio and the HHI. Is this market highly concentrated?",
+      "solution": "**Four-firm concentration ratio:**\n\n$CR_4 = 35 + 25 + 20 + 12 = 92\\%$\n\nThis is very high \u2014 the top four firms control 92% of the market.\n\n**HHI:**\n\n$HHI = 35^2 + 25^2 + 20^2 + 12^2 + 8^2$\n$HHI = 1{,}225 + 625 + 400 + 144 + 64 = 2{,}458$\n\nThe HHI of 2,458 is just below the 2,500 threshold for \"highly concentrated\" but well above 1,500 (moderately concentrated). Combined with a CR4 of 92%, this market exhibits significant concentration and likely oligopolistic behavior. Regulators would scrutinize any proposed merger among these firms."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Market Structures Practice Problems",
+      "problems": [
+        {
+          "id": "econ1-1",
+          "question": "In the short run, a perfectly competitive firm should shut down if the market price falls below its:",
+          "options": [
+            "A) Average total cost",
+            "B) Average variable cost",
+            "C) Marginal cost"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A firm should shut down in the short run when price falls below average variable cost (AVC). At that point, the firm cannot cover its variable costs and loses more by operating than by shutting down. Option A is the breakeven point \u2014 below ATC the firm has losses but should still operate as long as P >= AVC. Option C is incorrect because MC is the profit-maximizing output rule (P = MC), not the shutdown criterion.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe a firm's short-run shutdown decision"
+        },
+        {
+          "id": "econ1-2",
+          "question": "An industry has three firms with market shares of 50%, 30%, and 20%. The Herfindahl-Hirschman Index (HHI) for this market is closest to:",
+          "options": [
+            "A) 1,000",
+            "B) 3,800",
+            "C) 10,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "HHI = 50\u00b2 + 30\u00b2 + 20\u00b2 = 2,500 + 900 + 400 = 3,800. This indicates a highly concentrated market (HHI > 2,500). Option A (1,000) would result from 10 equal-sized firms (10 \u00d7 10\u00b2 = 1,000) \u2014 a common error of dividing 100 by the number of firms and squaring. Option C (10,000) is the maximum HHI, representing a pure monopoly (100\u00b2 = 10,000) \u2014 an error of summing the shares then squaring the total.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate and interpret the Herfindahl-Hirschman Index"
+        },
+        {
+          "id": "econ1-3",
+          "question": "Which market structure most likely results in excess capacity in long-run equilibrium?",
+          "options": [
+            "A) Perfect competition",
+            "B) Monopolistic competition",
+            "C) Pure monopoly"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In monopolistic competition, the downward-sloping demand curve is tangent to the ATC curve at a point to the left of minimum ATC in long-run equilibrium. This means firms produce less than the output at minimum ATC, creating excess capacity. Option A is wrong because perfectly competitive firms produce at minimum ATC in the long run (no excess capacity). Option C is wrong because while monopolists may not produce at minimum ATC, 'excess capacity' specifically describes the monopolistic competition outcome where free entry drives profits to zero at a sub-optimal scale.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe characteristics of monopolistic competition"
+        },
+        {
+          "id": "econ1-4",
+          "question": "A monopolist faces a demand curve where the price elasticity of demand is \u22120.8. To increase total revenue, the monopolist should:",
+          "options": [
+            "A) Increase price",
+            "B) Decrease price",
+            "C) Maintain current price"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When demand is inelastic (|Ed| < 1, here |Ed| = 0.8), a price increase leads to a proportionally smaller decrease in quantity demanded, so total revenue rises. The monopolist should increase price to move toward the elastic portion of the demand curve where MR > 0. Option B is incorrect because decreasing price when demand is inelastic would reduce total revenue. Option C is incorrect because the firm is not maximizing revenue at this point \u2014 it should adjust price upward until |Ed| = 1 for revenue maximization, or to where MR = MC for profit maximization.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain the relationship between a monopolist's marginal revenue, price elasticity, and pricing decisions"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a classmate why a monopolist always operates on the elastic portion of the demand curve. Use the relationship between marginal revenue and price elasticity to support your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which market structure was hardest to distinguish from the others, and what feature helped you differentiate it?",
+        "Can you think of real-world examples for each of the four market structures?",
+        "Why does the CFA curriculum emphasize market structure for investment analysis?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts and Formulas:**\n\n- Four market structures: perfect competition, monopolistic competition, oligopoly, pure monopoly\n- Profit maximization: produce where $MR = MC$\n- Breakeven: $P = ATC$; Shutdown: $P < AVC$\n- Long-run economic profit is zero under perfect and monopolistic competition (free entry)\n- Monopolist's MR: $MR = P(1 - 1/|E_d|)$; operates on elastic portion of demand curve\n- HHI = $\\sum s_i^2$; ranges from ~0 (competitive) to 10,000 (monopoly)\n- HHI > 2,500 = highly concentrated; 1,500\u20132,500 = moderately concentrated\n- Economies of scale \u2192 fewer firms; minimum efficient scale determines industry structure"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Understanding Business Cycles** \u2014 the macroeconomic fluctuations that affect all firms regardless of market structure. You'll see how expansion and contraction phases change demand conditions, unemployment, and inflation, shifting the environment in which these market structures operate."
+    }
+  ]
+}

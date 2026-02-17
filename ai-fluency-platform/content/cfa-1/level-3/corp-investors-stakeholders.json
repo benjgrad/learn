@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "CI.2: Investors and Other Stakeholders",
+    "description": "Distinguish between equity and debt investors, understand types of equity investors, and analyze stakeholder conflicts and corporate social responsibility.",
+    "level": "level-3",
+    "slug": "corp-investors-stakeholders",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When a company makes a risky investment that could either double its value or lead to bankruptcy, who benefits more \u2014 equity investors or debt investors? Why might their interests diverge?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Equity vs. Debt Investors\n\nCorporations raise capital from two fundamental sources: **equity investors** (owners) and **debt investors** (creditors). Their claims, risks, and incentives differ substantially.\n\n### Equity Investors\n\nEquity investors hold **residual claims** on the company's assets and cash flows. They receive what remains after all obligations are paid.\n\n- **Upside**: Unlimited potential gains from share price appreciation and dividends\n- **Downside**: Can lose their entire investment, but no more (limited liability)\n- **Control**: Voting rights on major corporate decisions\n- **Priority**: Last in line during liquidation\n\n### Debt Investors\n\nDebt investors hold **fixed contractual claims** \u2014 they are promised specific interest payments and return of principal.\n\n- **Upside**: Limited to contractual interest payments\n- **Downside**: Can lose principal if the borrower defaults\n- **Control**: No voting rights, but protective covenants in loan agreements\n- **Priority**: Senior to equity in liquidation\n\n| Feature | Equity | Debt |\n|---|---|---|\n| Claim type | Residual | Fixed/contractual |\n| Return | Variable (dividends + capital gains) | Fixed (interest + principal) |\n| Voting rights | Yes | No (typically) |\n| Liquidation priority | Last | Senior to equity |\n| Tax treatment | Dividends not deductible | Interest is tax-deductible |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has assets worth $80 million and debt of $60 million. What is the value of equity? If the assets decline to $50 million, what happens to equity and debt investors?",
+      "answer": "Initially, equity = $80M - $60M = $20M. If assets decline to $50M, equity is wiped out (now worth $0 since the firm is insolvent), and debt investors suffer a $10M loss (receiving only $50M of their $60M claim). Equity absorbs losses first. Debt investors only lose money after equity value reaches zero, which illustrates why equity is considered riskier and demands a higher expected return."
+    },
+    {
+      "type": "markdown",
+      "content": "## Types of Equity Investors\n\nEquity investors range from individuals buying small positions to institutions managing billions.\n\n### Retail Investors\n\nIndividual investors who buy shares for personal accounts. They typically hold smaller positions, may have shorter time horizons, and often lack the resources for deep fundamental analysis. Retail investors have grown in importance with the rise of commission-free trading platforms.\n\n### Institutional Investors\n\nOrganizations that invest on behalf of others, including:\n\n- **Pension funds**: Invest retirement assets for employees; long time horizon, focus on steady returns\n- **Mutual funds**: Pool capital from many investors; managed by professional portfolio managers\n- **Insurance companies**: Invest policyholder premiums; focus on asset-liability matching\n- **Sovereign wealth funds**: Government-owned investment vehicles; very long horizon\n- **Hedge funds**: Use diverse strategies including leverage and short-selling; often activist\n- **Endowments and foundations**: University and charitable assets; perpetual time horizon\n\nInstitutional investors hold the majority of shares in large corporations and can exert significant influence through **shareholder activism** \u2014 using their ownership stake and voting power to push for changes in corporate strategy, governance, or management."
+    },
+    {
+      "type": "markdown",
+      "content": "## Stakeholder Theory and Conflicts\n\n**Stakeholder theory** holds that corporations should consider the interests of all parties affected by their operations, not just shareholders.\n\n### Key Stakeholders\n\n- **Shareholders**: Want to maximize share value and dividends\n- **Bondholders**: Want the company to minimize risk and honor obligations\n- **Employees**: Want job security, fair compensation, and safe working conditions\n- **Customers**: Want quality products at fair prices\n- **Suppliers**: Want reliable payment and ongoing business relationships\n- **Government/regulators**: Want tax compliance and adherence to laws\n- **Communities**: Want environmental responsibility and local economic benefit\n\n### Common Conflicts\n\n**Shareholder vs. bondholder**: Shareholders may prefer riskier projects because they capture the upside while bondholders bear downside risk. This is called the **asset substitution problem** or **risk-shifting**.\n\n**Shareholder vs. manager**: Managers may pursue empire building, excessive perks, or risk avoidance to protect their jobs \u2014 at shareholders' expense.\n\n**Shareholder vs. other stakeholders**: Maximizing short-term profits might harm employees (layoffs), communities (pollution), or customers (cost-cutting on safety).\n\n### Corporate Social Responsibility (CSR)\n\nCSR reflects a company's commitment to operating ethically and contributing to economic development while improving quality of life for stakeholders. **ESG (Environmental, Social, Governance)** frameworks provide investors with metrics to evaluate a company's stakeholder management."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company has two potential projects. Project A has expected cash flows of $10 million with low variance. Project B has expected cash flows of $10 million with very high variance (50% chance of $20M, 50% chance of $0). The company has $8 million in debt. Analyze the expected payoffs to equity and debt holders under each project.",
+      "solution": "**Project A (low risk): Expected cash flow = $10M**\n\nDebt holders receive: $8M (full repayment)\n\nEquity holders receive: $10M - $8M = $2M\n\n**Project B (high risk): Expected cash flow = $10M**\n\n- Good outcome (50%): Cash flow = $20M. Debt receives $8M, equity receives $12M.\n- Bad outcome (50%): Cash flow = $0. Debt receives $0, equity receives $0.\n\nExpected payoff to debt: 0.5 x $8M + 0.5 x $0 = $4M\n\nExpected payoff to equity: 0.5 x $12M + 0.5 x $0 = $6M\n\n**Analysis**: Equity holders prefer Project B ($6M vs $2M expected) despite it having the same total expected cash flow as Project A. Debt holders prefer Project A ($8M vs $4M expected). This demonstrates the **risk-shifting problem**: equity holders benefit from increased risk at the expense of debt holders because equity captures all the upside while limited liability protects them on the downside."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Investors and Stakeholders Practice Problems",
+      "problems": [
+        {
+          "id": "ci2-1",
+          "question": "Compared to equity investors, debt investors most likely:",
+          "options": [
+            "A) have higher priority in liquidation and unlimited upside potential.",
+            "B) have lower priority in liquidation but receive tax-deductible payments.",
+            "C) have higher priority in liquidation and fixed contractual claims."
+          ],
+          "correctAnswer": "C",
+          "explanation": "Debt investors are senior to equity in liquidation (higher priority) and hold fixed contractual claims (interest and principal). Their upside is limited to these contractual payments, not unlimited (eliminating A). Debt investors receive interest payments that are tax-deductible to the corporation, but the payments are not deductible to the investor, and B incorrectly states debt has lower priority in liquidation.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Compare characteristics of equity and debt investors"
+        },
+        {
+          "id": "ci2-2",
+          "question": "The asset substitution problem refers to a conflict between:",
+          "options": [
+            "A) managers and regulators over compliance costs.",
+            "B) shareholders and bondholders over risk-taking.",
+            "C) retail and institutional investors over voting rights."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The asset substitution problem (risk-shifting) is a conflict between shareholders and bondholders. After debt is issued, shareholders may incentivize managers to substitute riskier assets or projects because equity captures the upside while limited liability limits their downside \u2014 but bondholders bear increased default risk with no additional compensation. This is not a manager-regulator conflict (A) or an investor-type conflict (C).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Describe conflicts between equity and debt investors"
+        },
+        {
+          "id": "ci2-3",
+          "question": "Which type of institutional investor is most likely to engage in shareholder activism to change a company's strategic direction?",
+          "options": [
+            "A) Insurance company",
+            "B) Hedge fund",
+            "C) Pension fund"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Hedge funds are the most likely to engage in activist strategies, taking concentrated positions and publicly pushing for changes such as board restructuring, asset sales, or strategic shifts to unlock value. Insurance companies (A) typically focus on asset-liability matching and take passive positions. Pension funds (C) may engage in governance but generally prefer quieter engagement rather than aggressive activism.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Describe types of institutional investors and their roles"
+        },
+        {
+          "id": "ci2-4",
+          "question": "A company's board decides to cut 20% of its workforce to boost short-term profitability and increase the share price. This decision most directly illustrates a conflict between:",
+          "options": [
+            "A) shareholders and bondholders.",
+            "B) shareholders and employees.",
+            "C) managers and regulators."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The layoffs benefit shareholders (higher profits and share price) at the expense of employees (job losses). This is a classic stakeholder conflict where maximizing shareholder value can harm other stakeholders. It is not a shareholder-bondholder conflict (A), which involves risk-shifting. It is not a manager-regulator conflict (C), as the action does not involve regulatory compliance.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify conflicts among corporate stakeholders"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the risk-shifting (asset substitution) problem to someone who understands basic probability but not finance. Use a simple numerical example to show why equity holders might prefer a riskier project even when it has the same expected return."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How do protective covenants in bond agreements help address the shareholder-bondholder conflict?",
+        "Should corporations prioritize shareholders or all stakeholders? What are the arguments for each side?",
+        "How has the rise of ESG investing changed the relationship between corporations and their stakeholders?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Equity investors**: Residual claims, unlimited upside, voting rights, last in liquidation\n- **Debt investors**: Fixed claims, limited upside, no votes, senior in liquidation\n- **Retail investors**: Individuals; **Institutional investors**: Pensions, mutual funds, hedge funds, etc.\n- **Stakeholder theory**: Consider all affected parties, not just shareholders\n- **Asset substitution (risk-shifting)**: Shareholders benefit from increased risk at bondholders' expense\n- **Principal-agent conflict**: Managers may not maximize owner value\n- **CSR/ESG**: Frameworks for evaluating corporate responsibility to stakeholders\n- Interest on debt is tax-deductible; dividends on equity are not"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Understanding who the stakeholders are and how their interests conflict naturally leads to the question: how do we govern these conflicts? The next module covers **Corporate Governance** \u2014 the structures, processes, and mechanisms that align the interests of managers, shareholders, and other stakeholders."
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PM.6: Multi-Asset Strategies",
+    "description": "Master risk parity, global macro, tactical and dynamic asset allocation, portable alpha, and multi-asset risk management approaches.",
+    "level": "level-6",
+    "slug": "pw-pm-multi-asset",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A traditional 60/40 stock-bond portfolio has roughly 90% of its risk coming from equities. A risk-parity approach equalizes risk contributions. Which portfolio would you expect to have a higher Sharpe ratio, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Risk Parity\n\nRisk parity allocates based on **risk contribution**, not capital:\n\n$$RC_i = w_i \\cdot \\frac{\\partial \\sigma_p}{\\partial w_i} = w_i \\cdot \\frac{(\\Sigma w)_i}{\\sigma_p}$$\n\nIn equal risk parity: $RC_1 = RC_2 = ... = RC_n$\n\nThis typically results in:\n- **Higher bond allocation** (bonds are lower vol, so need more capital to match equity risk contribution)\n- **Lower equity allocation** than traditional portfolios\n- **Leverage** applied to the overall portfolio to achieve target return\n- **Higher Sharpe ratio** but requires leverage to match traditional portfolio return levels\n\n### Key Assumptions and Criticisms\n- Assumes risk = volatility (ignores tail risk, liquidity risk)\n- Relies on leverage (introduces financing risk, margin calls)\n- Works best when asset class Sharpe ratios are similar\n- Historically benefited from 40-year bond bull market\n\n## Global Macro Strategies\n\n- **Discretionary macro**: Manager forms views on economies, rates, currencies, commodities\n- **Systematic macro**: Rules-based trend-following across asset classes\n- **Thematic macro**: Concentrated bets on structural themes\n\nInstruments: Futures (rates, equity indices, commodities, currencies), options, swaps, ETFs\n\nRisk management: Position-level stop-losses, portfolio-level VaR limits, stress testing"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A risk-parity fund has been leveraged 2.5x to achieve a 7% expected return. During a liquidity crisis, borrowing costs spike and bond-equity correlations increase to 0.7 (from the usual 0.1). What happens to this fund?",
+      "answer": "The fund faces a double crisis. First, increased correlations mean the diversification benefit that risk parity relies on collapses -- bonds and equities sell off together, so the portfolio's realized volatility is much higher than the model predicted. Second, with 2.5x leverage, losses are amplified. Third, spiking borrowing costs increase the carry cost of leverage, directly reducing returns. Fourth, the fund may face margin calls, forcing liquidation at the worst time. This scenario is the primary critique of leveraged risk parity -- it can fail precisely when its diversification assumptions break down, which tends to happen during crises when you need diversification most. The 2020 COVID crash illustrated this dynamic."
+    },
+    {
+      "type": "markdown",
+      "content": "## Tactical Asset Allocation (TAA)\n\nShort-term deviations from strategic allocation based on market views:\n\n$$w_{TAA} = w_{SAA} + \\Delta w_{\\text{tactical}}$$\n\n**Signals for TAA:**\n- Valuation: Cyclically-adjusted P/E, credit spreads, term premium\n- Momentum: Trend-following across asset classes\n- Sentiment: VIX, fund flows, positioning data\n- Macro: Leading indicators, surprise indices\n\n**Implementation**: Futures overlays (avoid disrupting underlying portfolios), ETFs, swaps\n\n## Dynamic Asset Allocation (DAA)\n\nSystematic rules that adjust allocation based on changing conditions:\n\n- **CPPI (Constant Proportion Portfolio Insurance)**: $\\text{Equity exposure} = m \\times (\\text{Portfolio value} - \\text{Floor})$, where $m$ = multiplier. Increases equity after gains, reduces after losses.\n- **Volatility targeting**: Scale exposure inversely to realized volatility\n- **Momentum-based**: Overweight asset classes with positive trends\n\n## Portable Alpha\n\nSeparate alpha generation from beta exposure:\n\n1. Obtain beta exposure through derivatives (futures, swaps)\n2. Invest cash in an alpha-generating strategy (hedge fund, active fixed income)\n3. Total return = Beta return + Alpha - Implementation cost\n\n$$R_{\\text{total}} = R_{\\text{beta}} + \\alpha - \\text{basis risk} - \\text{financing cost}$$\n\n**Risks**: Basis risk (futures roll), alpha strategy drawdown, correlation between alpha and beta\n\n## Multi-Asset Risk Management\n\n- **Correlation regime shifts**: Diversification benefits disappear in crises\n- **Liquidity management**: Alternative assets may be illiquid when cash is most needed\n- **Currency hedging**: Hedging decisions across multiple currency exposures\n- **Rebalancing**: Calendar vs threshold-based; consider transaction costs"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Multi-Asset Portfolio Design\n\nAn endowment with $2 billion in assets has a spending rate of 5% and an inflation target of 2.5%. The board requires a minimum 7.5% nominal return. Current allocation: 55% US equity, 15% international equity, 25% fixed income, 5% cash.\n\nA) Critique the current allocation relative to the return objective.\nB) Propose a risk-parity-informed reallocation that includes alternatives.\nC) Design a portable alpha strategy for the fixed income allocation.",
+      "solution": "**A) Critique of Current Allocation:**\n\nReturn requirement: 7.5% nominal (5% spending + 2.5% inflation)\n\nCurrent allocation issues:\n- 70% equity concentration means ~90% of portfolio risk comes from equity, making the endowment essentially a leveraged equity bet\n- 25% fixed income at current yields (~4-5%) drags expected return\n- 5% cash is dead weight for a long-horizon investor\n- No alternatives (private equity, real estate, real assets) -- missing diversification and illiquidity premium\n- Expected return estimate: 0.55(9%) + 0.15(8%) + 0.25(4.5%) + 0.05(3%) = 4.95 + 1.20 + 1.125 + 0.15 = 7.425%, barely meeting the target with no margin of safety\n\n**B) Risk-Parity-Informed Reallocation:**\n\nProposed allocation:\n- US equity: 25% (reduced)\n- International equity: 15% (maintained)\n- Private equity: 12% (new, illiquidity premium)\n- Fixed income (leveraged): 20% nominal, 40% effective via leverage\n- Real assets (real estate, infrastructure, commodities): 15%\n- Hedge funds (diversified alpha): 10%\n- Cash: 3%\n\nRisk contribution target: Equity-related risk ~40%, rates risk ~25%, real assets ~20%, alternatives ~15%\n\nKey design principles:\n- Leverage bonds to equalize their risk contribution (risk parity concept) without full 2-3x leverage\n- Include alternatives for illiquidity premium (PE) and inflation protection (real assets)\n- Hedge funds provide alpha with low beta\n- Expected return: 0.25(9%) + 0.15(8%) + 0.12(13%) + 0.20(4.5%) + 0.15(7%) + 0.10(6%) + 0.03(3%) + leverage contribution = approximately 8.0-8.5%\n\n**C) Portable Alpha Strategy for Fixed Income:**\n\nInstead of holding $400M in passive bonds:\n1. Obtain bond beta via $400M notional in Treasury futures (marginal requirement ~5%, or $20M)\n2. Invest the freed-up $380M in an alpha strategy:\n   - $200M in a market-neutral equity strategy (expected alpha: 3-4%)\n   - $180M in a credit long/short strategy (expected alpha: 2-3%)\n3. Expected total return: Bond beta (4.5%) + Alpha (2.5-3.5%) - Futures roll cost (0.2%) - Management fees (1.0%) = approximately 5.8-6.8%\n4. This adds 1.3-2.3% return above passive bonds without changing the portfolio's rate exposure\n\nRisks to monitor: Alpha strategy drawdowns (could coincide with rate losses), futures roll cost variability, margin management, correlation between alpha strategies and bond returns"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Multi-Asset Strategies Practice",
+      "problems": [
+        {
+          "id": "l3-pm6-1",
+          "question": "A CPPI strategy has a multiplier of 4, a floor of $80M, and a current portfolio value of $100M. The equity allocation should be:",
+          "options": [
+            "A) $40M",
+            "B) $80M",
+            "C) $100M"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CPPI equity allocation = m x (Portfolio value - Floor) = 4 x ($100M - $80M) = 4 x $20M = $80M.\n\nThe remaining $20M is in the risk-free asset. If the portfolio drops to $90M, the new equity allocation would be: 4 x ($90M - $80M) = $40M, requiring selling $40M of equity. This pro-cyclical behavior (selling after drops, buying after gains) is a key feature of CPPI. Option A uses a multiplier of 2. Option C would require investing more than 100% in equity, which could happen theoretically but would indicate leverage.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate CPPI equity allocation"
+        },
+        {
+          "id": "l3-pm6-2",
+          "question": "A portable alpha strategy uses S&P 500 futures for beta and invests cash in a hedge fund generating 8% return with 0.3 beta to the S&P 500. The S&P 500 returns 12% and the risk-free rate is 3%. The strategy's actual alpha is closest to:",
+          "options": [
+            "A) 5.0%",
+            "B) 2.3%",
+            "C) 8.0%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The hedge fund's return of 8% includes some market exposure (beta = 0.3). True alpha = Return - Risk-free - Beta x (Market return - Risk-free) = 8% - 3% - 0.3 x (12% - 3%) = 8% - 3% - 2.7% = 2.3%.\n\nOption C (8%) mistakes gross return for alpha. Option A (5%) is the raw excess return (8% - 3%) without adjusting for beta. This illustrates a critical portable alpha concern: the alpha source may have hidden beta exposure, meaning you're double-counting market exposure (once through futures, once through the hedge fund's beta). The total portfolio would have an effective beta of 1.3, not 1.0.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Evaluate alpha in a portable alpha strategy accounting for hidden beta"
+        },
+        {
+          "id": "l3-pm6-3",
+          "question": "During 2008, a risk-parity fund experienced much larger losses than its model predicted. The most likely explanation is:",
+          "options": [
+            "A) The fund's leverage was too low to capture the risk premium",
+            "B) Cross-asset correlations increased dramatically, reducing diversification benefits",
+            "C) Interest rates fell too quickly for the fund to rebalance"
+          ],
+          "correctAnswer": "B",
+          "explanation": "During crises, correlations across asset classes spike toward 1.0 -- the very diversification that risk parity relies on breaks down. In 2008, equities, credit, commodities, and even some government bonds sold off simultaneously as investors deleveraged. Risk parity models using historical correlations (typically 0.0 to 0.3 for stock-bond) dramatically understated true risk in the crisis. Combined with leverage, this caused losses far exceeding model predictions. Option A is backwards (leverage amplified losses). Option C describes a situation that would actually benefit a bond-heavy risk-parity portfolio.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify the primary risk to risk parity strategies"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain portable alpha to a pension fund trustee who understands basic stock and bond investing. Use a concrete example and address the key risks they should understand before approving this approach."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Under what conditions would you abandon a risk-parity approach in favor of traditional allocation?",
+        "How should the frequency and triggers of tactical rebalancing be determined?",
+        "What makes portable alpha strategies fragile in stressed markets?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Risk parity**: Equalize risk contributions; typically overweights bonds, requires leverage; higher Sharpe but fragile in correlation spikes\n- **TAA**: Short-term deviations from SAA based on valuation, momentum, sentiment\n- **CPPI**: Equity = m x (Value - Floor); pro-cyclical dynamic allocation\n- **Portable alpha**: Beta via derivatives + alpha from separate strategy; watch for hidden beta\n- **Correlation regime shifts**: Diversification disappears when most needed (crises)\n- **Leverage risks**: Financing costs, margin calls, amplified losses\n- **Real return strategies**: Include inflation-linked bonds, real assets, commodities for purchasing power protection"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we examine **Private Wealth Management** from the portfolio management perspective -- how these multi-asset concepts apply to individual investors with unique tax, estate, and behavioral considerations."
+    }
+  ]
+}

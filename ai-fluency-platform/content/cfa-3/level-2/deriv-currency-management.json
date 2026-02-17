@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "D.3: Currency Management",
+    "description": "Master strategic and tactical currency management including passive hedging, active strategies, cross-hedges, carry trade, and options-based approaches.",
+    "level": "level-2",
+    "slug": "deriv-currency-management",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A U.S.-based portfolio manager holds EUR-denominated European equities. If the euro weakens 5% against the dollar while European stocks rise 10%, what is the manager's return in USD? How could the currency impact have been managed?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Currency Risk in International Portfolios\n\n### Return Decomposition\n\nThe domestic-currency return on a foreign asset:\n\n$$R_{DC} \\approx R_{FC} + R_{FX}$$\n\nMore precisely: $R_{DC} = (1 + R_{FC})(1 + R_{FX}) - 1$\n\nWhere:\n- $R_{DC}$ = return in domestic currency\n- $R_{FC}$ = return in foreign currency (asset return)\n- $R_{FX}$ = return on the foreign currency (appreciation/depreciation)\n\n**Example**: European stocks return +10% in EUR, but EUR depreciates 5% vs. USD:\n$R_{DC} = (1.10)(0.95) - 1 = 4.5\\%$ (not simply 10% - 5% = 5%)\n\n### Strategic Currency Decisions\n\n| Approach | Description | Typical Hedge Ratio |\n|---|---|---|\n| **Full hedge** | Eliminate all currency exposure | 100% |\n| **No hedge** | Accept all currency risk | 0% |\n| **Partial hedge** | Neutral starting point | 50% (common) |\n| **Currency overlay** | Active manager adjusts hedge ratio | Varies |\n\n### Arguments for and Against Hedging\n\n**For hedging**: Currency risk adds volatility without commensurate return; short-term currency moves are largely unpredictable; reduces total portfolio volatility.\n\n**Against hedging**: Currencies provide diversification over long horizons; hedging has costs (transaction, roll); currencies may be correlated with asset returns (natural hedge)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If the forward rate for EUR/USD is lower than the spot rate (forward discount on EUR), what does this imply about the cost of hedging for a USD-based investor holding European assets?",
+      "answer": "The forward discount on EUR means the investor can sell EUR forward at a rate lower than the current spot rate. This creates a negative hedging return \u2014 the investor gives up the interest rate differential (EUR rates are lower than USD rates, per covered interest rate parity). The 'cost' of hedging equals approximately the interest rate differential: the USD investor earns higher domestic rates but gives this up through the forward. However, this is an opportunity cost, not a direct cash cost \u2014 the unhedged position is exposed to currency risk that may or may not be rewarded."
+    },
+    {
+      "type": "markdown",
+      "content": "## Passive Hedging with Forward Contracts\n\n### Rolling Forward Hedge\n\nThe most common hedging approach: sell the foreign currency forward on a rolling basis.\n\n**Hedge return** = Forward premium/discount \u2248 $i_{domestic} - i_{foreign}$\n\nIf domestic rates > foreign rates:\n- Forward premium on domestic currency\n- Positive roll yield from hedging (earning the rate differential)\n\nIf domestic rates < foreign rates:\n- Forward discount on domestic currency\n- Negative roll yield from hedging (paying the rate differential)\n\n### Hedge Ratio Considerations\n\n- **Over-hedging risk**: If the foreign asset value falls, the hedge (based on initial value) is too large\n- **Under-hedging risk**: If the foreign asset value rises, the hedge is too small\n- **Dynamic hedging**: Adjust hedge ratio as asset values change (more expensive)\n- **Basis risk**: Hedge maturity may not match portfolio holding period\n\n## Active Currency Strategies\n\n### 1. Carry Trade\n\nBorrow in low-interest-rate currencies, invest in high-interest-rate currencies:\n- Profits if exchange rate movement doesn't offset the interest rate differential\n- **Risk**: \"Carry trade unwinds\" \u2014 sudden, sharp reversals when risk sentiment shifts\n- Carry trades tend to produce **small, frequent gains and large, infrequent losses** (negative skew)\n\n### 2. Momentum Strategies\n\n- Trend-following: currencies that have been appreciating tend to continue\n- Typical holding period: 1-12 months\n- Can be combined with carry for diversification of currency alpha sources\n\n### 3. Valuation-Based Strategies\n\n- Based on purchasing power parity (PPP) deviations\n- Buy undervalued currencies, sell overvalued\n- Long-horizon strategy \u2014 PPP reversion can take years\n\n### 4. Volatility Trading\n\n- Sell options on currencies with high implied vol vs. expected realized vol\n- Straddle/strangle selling to capture volatility risk premium"
+    },
+    {
+      "type": "markdown",
+      "content": "## Cross-Hedges and Proxy Hedges\n\n### Cross-Hedge\n\nHedge exposure to currency A using a forward on a **correlated** currency B:\n- Used when forwards on currency A are expensive, illiquid, or unavailable\n- Introduces **basis risk** (correlation between A and B is imperfect)\n- Example: Hedge Korean won exposure using Japanese yen forwards (both Asian export economies)\n\n### Proxy Hedge\n\nSimilar to cross-hedge but using a more liquid currency that historically tracks the target currency.\n\n### Minimum-Variance Hedge Ratio\n\n$$h^* = \\rho_{A,B} \\times \\frac{\\sigma_A}{\\sigma_B}$$\n\nWhere:\n- $h^*$ = optimal hedge ratio using currency B to hedge currency A\n- $\\rho_{A,B}$ = correlation between currency A and B returns\n- $\\sigma_A, \\sigma_B$ = standard deviations of currency returns\n\n## Options-Based Currency Hedging\n\n| Strategy | Structure | When to Use |\n|---|---|---|\n| **Protective put on foreign currency** | Buy put on foreign currency | Want downside protection, keep upside |\n| **Risk reversal** | Buy put + Sell call on foreign currency | Reduce cost of protection, accept cap on upside |\n| **Seagull** | Buy put + Sell call + Sell further OTM put | Even cheaper than risk reversal, but has a gap in protection |\n| **Put spread** | Buy ATM put + Sell OTM put | Cheaper than outright put, limited protection |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Currency Management Strategy",
+      "solution": "**Part A \u2014 Strategic hedge ratio recommendation:**\n\nFor the Japanese equity allocation (JPY-denominated):\n- JPY is a safe-haven currency \u2014 tends to strengthen in risk-off episodes when equities fall\n- This creates a **natural hedge**: currency gains partially offset equity losses in downturns\n- Recommendation: Lower hedge ratio (25-50%) to preserve this natural diversification benefit\n\nFor the UK bond allocation (GBP-denominated):\n- Fixed income is held for stability \u2014 adding unhedged currency risk defeats this purpose\n- GBP does not provide a reliable natural hedge for bond returns\n- Recommendation: Higher hedge ratio (75-90%) to preserve the risk-reduction role of bonds\n\n**Part B \u2014 Cost-benefit of hedging:**\n\nCurrent interest rates: USD 5.0%, JPY 0.5%, GBP 4.8%\n\n- **JPY hedge**: Rolling forward at ~4.5% annualized gain (USD > JPY rates). Hedging earns positive carry, making it cheaper in opportunity cost terms. However, the natural hedge benefit argues for less hedging.\n\n- **GBP hedge**: Rolling forward at ~0.2% annualized gain (USD slightly > GBP rates). Very low cost, strong argument for high hedge ratio.\n\n**Part C \u2014 Active currency overlay:**\n\nThe overlay manager should have a risk budget (tracking error limit, e.g., 1.5% annualized) and could implement:\n\n1. **Carry strategy**: Short JPY (lowest rates), long AUD/NZD (higher rates) \u2014 exploits the interest rate differential\n2. **Momentum signals**: If GBP is trending down, increase GBP hedge ratio above strategic; if trending up, reduce\n3. **Valuation triggers**: If JPY becomes significantly undervalued on PPP basis, reduce hedge (expect JPY appreciation)\n\nThe overlay should be evaluated on its incremental risk-adjusted return contribution, measured by information ratio relative to the strategic hedge benchmark."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Currency Management Practice",
+      "problems": [
+        {
+          "id": "l3-d3-1",
+          "question": "A U.S. investor holds a EUR 50 million European equity position. The current EUR/USD spot rate is 1.08 and the 3-month forward rate is 1.0750. Hedging with forwards will result in a roll yield that is:",
+          "options": [
+            "A) Positive, because the forward rate is at a premium to spot",
+            "B) Negative, because the investor is selling EUR at a discount to spot",
+            "C) Zero, because the forward rate simply reflects interest rate parity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The forward rate (1.0750) is below the spot rate (1.08), meaning EUR is at a forward discount to USD. The U.S. investor hedging by selling EUR forward receives fewer dollars per euro in the forward market than in the spot market. This negative roll yield reflects the fact that EUR interest rates are higher than USD rates in this example (the forward discount equals the interest rate differential per covered interest rate parity).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate roll yield on currency hedges"
+        },
+        {
+          "id": "l3-d3-2",
+          "question": "A currency carry trade strategy most likely exhibits which return distribution characteristic?",
+          "options": [
+            "A) Positive skew with fat tails",
+            "B) Normal distribution with thin tails",
+            "C) Negative skew with fat tails"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Carry trades produce small, frequent gains (collecting the interest rate differential) punctuated by large, infrequent losses (sudden carry unwinds during risk-off events). This creates negative skew (the left tail is fatter and longer than the right) and excess kurtosis (fat tails). The 2008 crisis demonstrated this dramatically when carry trades suffered severe losses as investors unwound positions simultaneously.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the risk characteristics of carry trade strategies"
+        },
+        {
+          "id": "l3-d3-3",
+          "question": "An investor wants to hedge exposure to the Thai baht (THB) but THB forwards are illiquid. The investor instead uses Singapore dollar (SGD) forwards based on the historical correlation between THB and SGD. This is an example of:",
+          "options": [
+            "A) A macro hedge",
+            "B) A cross-hedge",
+            "C) A delta hedge"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A cross-hedge uses a correlated but different instrument to hedge the target exposure when the direct instrument is unavailable or illiquid. The investor hedges THB using SGD based on their historical correlation (both are Asian currencies with co-movement). The key risk is basis risk \u2014 if the correlation breaks down, the hedge will be imperfect. A macro hedge (A) refers to hedging the overall portfolio. A delta hedge (C) is an options concept.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Distinguish between direct hedges, cross-hedges, and proxy hedges"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the carry trade strategy in currencies, including how it works, why it generates returns, what risks are involved, and how the 2008 financial crisis illustrated those risks."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Should a long-term investor hedge all currency exposure, or are there arguments for accepting some currency risk?",
+        "How does the interest rate environment affect the cost-benefit analysis of currency hedging?",
+        "Why might options-based hedging be preferable to forward-based hedging in certain scenarios?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Return decomposition**: R_DC \u2248 R_FC + R_FX\n- **Forward hedge roll yield** \u2248 i_domestic \u2212 i_foreign (positive when domestic rates higher)\n- **Carry trade**: Borrow low-rate currency, invest in high-rate; negative skew risk\n- **Cross-hedge**: Use correlated currency when target currency forwards are illiquid\n- **Minimum-variance hedge ratio**: h* = \u03c1 \u00d7 \u03c3_A / \u03c3_B\n- Natural hedges exist when currency and asset returns are negatively correlated\n- Fixed-income allocations generally warrant higher hedge ratios than equities\n- Options-based hedging (puts, risk reversals, seagulls) allows asymmetric protection"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "This completes the Derivatives and Risk Management section. The **checkpoint** follows to assess your integrated understanding of option strategies, derivatives overlay, and currency management in portfolio construction."
+    }
+  ]
+}

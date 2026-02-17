@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FI.11: Yield-Based Bond Duration",
+    "description": "Master Macaulay duration, modified duration, approximate modified duration, money duration, PVBP, and portfolio duration.",
+    "level": "level-6",
+    "slug": "fi-yield-based-duration",
+    "order": 11,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two bonds both have 10-year maturities. Bond A has a 2% coupon; Bond B has an 8% coupon. If yields rise by 50 bps, which bond's price drops more in percentage terms? Why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Macaulay and Modified Duration\n\n### Macaulay Duration\n\n**Macaulay duration** is the weighted average time to receive a bond's cash flows, where the weights are the present values of each cash flow as a proportion of the bond's price:\n\n$$\\text{MacDur} = \\sum_{t=1}^{n} t \\times \\frac{PV(CF_t)}{P}$$\n\nFor a zero-coupon bond: Macaulay duration = maturity (all cash flow is at maturity).\nFor a coupon bond: Macaulay duration < maturity (earlier coupons pull the average forward).\n\n### Modified Duration\n\n**Modified duration** measures the approximate percentage price change for a 1% change in yield:\n\n$$\\text{ModDur} = \\frac{\\text{MacDur}}{1 + y/m}$$\n\nwhere $y$ = YTM and $m$ = number of coupon periods per year.\n\n$$\\%\\Delta P \\approx -\\text{ModDur} \\times \\Delta y$$\n\n### Example\n\nA bond has a Macaulay duration of 7.5 years and a YTM of 6% (semiannual):\n\n$$\\text{ModDur} = \\frac{7.5}{1 + 0.06/2} = \\frac{7.5}{1.03} = 7.282$$\n\nIf yields rise by 0.50%: $\\%\\Delta P \\approx -7.282 \\times 0.005 = -3.64\\%$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A 10-year zero-coupon bond has a YTM of 5% (annual). What is its Macaulay duration and modified duration?",
+      "answer": "Macaulay duration = 10 years (exactly equal to maturity for a zero-coupon bond, since all cash flow occurs at maturity). Modified duration = 10 / (1 + 0.05) = 10 / 1.05 = 9.524 years. The modified duration is slightly less than the Macaulay duration \u2014 the difference increases with higher yields."
+    },
+    {
+      "type": "markdown",
+      "content": "## Approximate Modified Duration and Money Duration\n\n### Approximate Modified Duration\n\nWhen the analytical formula is impractical, modified duration can be estimated numerically:\n\n$$\\text{ApproxModDur} = \\frac{P_- - P_+}{2 \\times P_0 \\times \\Delta y}$$\n\nwhere $P_-$ = price if yield decreases by $\\Delta y$, $P_+$ = price if yield increases by $\\Delta y$, and $P_0$ = current price.\n\n### Example\n\nA bond is priced at $100. If yields rise 25 bps, the price falls to $98.50. If yields fall 25 bps, the price rises to $101.60.\n\n$$\\text{ApproxModDur} = \\frac{101.60 - 98.50}{2 \\times 100 \\times 0.0025} = \\frac{3.10}{0.50} = 6.20$$\n\n### Money Duration (Dollar Duration)\n\n**Money duration** gives the absolute dollar price change (not percentage) for a 1% yield change:\n\n$$\\text{MoneyDur} = \\text{ModDur} \\times P$$\n\n$$\\Delta P \\approx -\\text{MoneyDur} \\times \\Delta y$$\n\n### Price Value of a Basis Point (PVBP)\n\n**PVBP** (or DV01) measures the price change for a 1 basis point (0.01%) yield change:\n\n$$\\text{PVBP} = \\text{ModDur} \\times P \\times 0.0001 = \\frac{P_- - P_+}{2}$$\n\nwhere $P_-$ and $P_+$ are prices for a 1 bp yield change."
+    },
+    {
+      "type": "markdown",
+      "content": "## Duration Properties and Portfolio Duration\n\n### Duration Properties\n\n| Factor | Effect on Duration |\n|---|---|\n| Longer maturity | Higher duration (more distant cash flows) |\n| Lower coupon rate | Higher duration (less weight on early coupons) |\n| Lower YTM | Higher duration (distant cash flows have higher PV weights) |\n| Zero coupon | Duration = maturity (maximum duration for given maturity) |\n\n### Special Cases\n\n- Duration of a **perpetuity** (no maturity): $\\text{MacDur} = (1 + y)/y$\n- Duration of a **floating-rate note**: Approximately equal to the time until the next reset date (e.g., 0.25 years for quarterly reset)\n\n### Portfolio Duration\n\nPortfolio duration is the **market-value-weighted average** of individual bond durations:\n\n$$\\text{Portfolio Duration} = \\sum_{i=1}^{n} w_i \\times \\text{ModDur}_i$$\n\nwhere $w_i$ = market value of bond $i$ / total portfolio market value.\n\nThis assumes a **parallel shift** in the yield curve (all yields change by the same amount). If the curve shifts non-parallel, portfolio duration may not accurately predict the price change."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A bond portfolio contains: Bond A (market value $4M, modified duration 3.2), Bond B (market value $6M, modified duration 7.8). Calculate the portfolio duration and estimate the portfolio value change if yields rise by 75 bps.",
+      "solution": "Step 1: Calculate portfolio weights.\n\n$w_A = \\frac{4}{10} = 0.40$, $w_B = \\frac{6}{10} = 0.60$\n\nStep 2: Portfolio duration.\n\n$$D_p = 0.40 \\times 3.2 + 0.60 \\times 7.8 = 1.28 + 4.68 = 5.96$$\n\nStep 3: Estimate price change.\n\n$$\\%\\Delta P \\approx -5.96 \\times 0.0075 = -4.47\\%$$\n\n$$\\Delta V \\approx -4.47\\% \\times \\$10{,}000{,}000 = -\\$447{,}000$$\n\nThe portfolio would lose approximately $447,000 in value for a 75 bp yield increase."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Duration Practice",
+      "problems": [
+        {
+          "id": "fi11-1",
+          "question": "A bond has a Macaulay duration of 8.4 years and a YTM of 5% (semiannual coupons). Its modified duration is closest to:",
+          "options": [
+            "A) 7.60 years",
+            "B) 8.00 years",
+            "C) 8.17 years"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Modified duration = Macaulay duration / (1 + YTM/m) = 8.4 / (1 + 0.05/2) = 8.4 / 1.025 = 8.195, closest to 8.17. Option A uses annual compounding (8.4/1.05 = 8.00) and then applies an additional discount. Option B divides by (1 + 0.05) instead of (1 + 0.025), using annual rather than semiannual periods.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate modified duration from Macaulay duration"
+        },
+        {
+          "id": "fi11-2",
+          "question": "A bond priced at $95 has a modified duration of 6.50. If yields fall by 40 bps, the estimated percentage price change is closest to:",
+          "options": [
+            "A) \u22122.60%",
+            "B) +2.60%",
+            "C) +6.18%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "%\u0394P \u2248 \u2212ModDur \u00d7 \u0394y = \u22126.50 \u00d7 (\u22120.004) = +2.60%. When yields fall, prices rise (inverse relationship). The modified duration of 6.50 means approximately 6.50% price change per 1% yield change. For 40 bps: 6.50 \u00d7 0.40 = 2.60%. Option A has the wrong sign (price should rise when yields fall). Option C uses 0.40 instead of 0.004 (basis point error).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Estimate bond price change using modified duration"
+        },
+        {
+          "id": "fi11-3",
+          "question": "Which of the following bonds most likely has the highest modified duration?\n\n| Bond | Maturity | Coupon | YTM |\n|------|----------|--------|-----|\n| P | 10 years | 0% (zero) | 5% |\n| Q | 10 years | 5% | 5% |\n| R | 7 years | 5% | 5% |",
+          "options": [
+            "A) Bond P",
+            "B) Bond Q",
+            "C) Bond R"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Bond P (zero-coupon, 10 years) has the highest duration because: (1) its Macaulay duration equals its maturity (10 years) since all cash flow is at maturity, and (2) zero-coupon bonds always have higher duration than otherwise identical coupon bonds. Bond Q (10-year, 5% coupon) has duration less than 10 due to coupon payments pulling the weighted average forward. Bond R has lower duration than Q due to its shorter 7-year maturity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the relationship between duration and maturity, coupon, and yield"
+        },
+        {
+          "id": "fi11-4",
+          "question": "A bond is priced at $102.50. When yields rise 10 bps, the price falls to $101.70. When yields fall 10 bps, the price rises to $103.33. The approximate modified duration is closest to:",
+          "options": [
+            "A) 6.32",
+            "B) 7.95",
+            "C) 15.90"
+          ],
+          "correctAnswer": "B",
+          "explanation": "ApproxModDur = (P\u208b \u2212 P\u208a) / (2 \u00d7 P\u2080 \u00d7 \u0394y) = (103.33 \u2212 101.70) / (2 \u00d7 102.50 \u00d7 0.001) = 1.63 / 0.205 = 7.95. Option A would result from a calculation error in the denominator. Option C uses \u0394y = 0.0005 instead of 0.001 (forgot to convert 10 bps properly) or forgot the factor of 2 in the denominator.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate approximate modified duration from price changes"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to someone new to fixed income what duration measures and why it is useful. Include the difference between Macaulay and modified duration, using an intuitive analogy if helpful."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does a floating-rate note have near-zero duration despite potentially having a long maturity?",
+        "What is the limitation of using portfolio duration to estimate price changes when the yield curve shifts non-parallel?",
+        "How does the concept of money duration differ from modified duration, and when is each more useful?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas:**\n\n- **Macaulay duration**: Weighted average time to cash flows; equals maturity for zero-coupon bonds\n- **Modified duration**: MacDur / (1 + y/m); %\u0394P \u2248 \u2212ModDur \u00d7 \u0394y\n- **Approximate ModDur**: (P\u208b \u2212 P\u208a) / (2 \u00d7 P\u2080 \u00d7 \u0394y)\n- **Money duration**: ModDur \u00d7 P; gives dollar price change\n- **PVBP**: ModDur \u00d7 P \u00d7 0.0001; price change per 1 bp\n- **Portfolio duration**: \u03a3(w\u1d62 \u00d7 ModDur\u1d62); assumes parallel yield shift\n- Higher duration with: longer maturity, lower coupon, lower yield\n- Perpetuity MacDur = (1 + y) / y; FRN duration \u2248 time to next reset"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Yield-Based Bond Convexity**, the second-order measure that improves duration's accuracy for larger yield changes. Convexity captures the curvature in the price-yield relationship that duration alone misses."
+    }
+  ]
+}

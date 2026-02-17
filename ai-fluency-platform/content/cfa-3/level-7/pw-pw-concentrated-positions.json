@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PW.4: Concentrated Positions",
+    "description": "Master equity monetization strategies, real estate concentration techniques, and private business exit planning including exchange funds, derivatives, and completion portfolios.",
+    "level": "level-7",
+    "slug": "pw-pw-concentrated-positions",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Private Wealth Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A tech founder has 90% of her $50M net worth in company stock. She knows she should diversify but refuses to sell because of the tax bill and emotional attachment. What approaches might allow her to reduce risk without an outright sale?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Concentrated Position Problem\n\nConcentrated positions create:\n- **Company-specific risk**: Undiversified exposure to one firm\n- **Sector risk**: Correlated with industry trends\n- **Liquidity risk**: Large positions may be difficult to sell without market impact\n- **Emotional attachment**: Founders, executives feel loyalty, optimism bias\n- **Tax friction**: Low cost basis creates large embedded capital gains\n\n### Decision Framework\n\n1. **Quantify the risk**: What is the probability of permanent capital loss? (Single stocks have ~40% probability of losing 75%+ of value over 20 years)\n2. **Determine constraints**: Tax cost, lockup periods, insider trading restrictions, emotional factors\n3. **Select strategies**: Balance diversification benefit against tax and transaction costs\n4. **Implement gradually**: Phase diversification over time to manage tax impact\n\n## Equity Monetization Strategies\n\n### Exchange Funds (Swap Funds)\n- Contribute concentrated stock to a partnership alongside other investors with different concentrated stocks\n- Receive a diversified interest in the pooled fund\n- **Tax treatment**: No taxable event at contribution (tax-deferred exchange)\n- **Requirements**: Must hold for minimum 7 years; fund must hold 20% illiquid assets\n- **Limitations**: Limited availability, partnership terms, illiquidity\n\n### Hedging with Derivatives\n\n**Protective put**: Buy put options on the stock\n- Limits downside while preserving upside\n- Cost: Put premium (expensive for volatile stocks)\n- No constructive sale concern\n\n**Costless collar**: Buy put + sell call at higher strike\n- Call premium finances the put\n- Limits both downside and upside\n- Risk: May be treated as constructive sale if collar is too tight\n\n**Prepaid variable forward (PVF)**:\n- Receive upfront cash (typically 75-90% of stock value)\n- Deliver shares at a future date (3-5 years)\n- Number of shares delivered varies with stock price (like a collar)\n- Tax: No current recognition; capital gains when shares are delivered\n- Very popular with tech executives"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A client enters a prepaid variable forward contract on $10M of stock, receiving $8M upfront (80% of value). The delivery price range is $80-$120 per share (current price $100). At expiration the stock is at $150. How many shares does the client deliver?",
+      "answer": "At $150, above the upper delivery price of $120, the client delivers the minimum number of shares. The PVF is structured like a collar: below $80, deliver maximum shares (like the put was exercised); between $80-$120, delivery is interpolated; above $120, deliver minimum shares (like the call was sold). The minimum shares = Advance received / Upper strike = $8M / $120 = 66,667 shares. The client keeps the remaining shares plus the $8M cash. This is the best outcome for the client -- they got liquidity ($8M) and the stock appreciated significantly, but they capped their upside between $100 and $120. The $30 per share gain above $120 on the un-delivered shares is retained."
+    },
+    {
+      "type": "markdown",
+      "content": "## Completion Portfolio\n\nRather than selling the concentrated stock, build a portfolio around it:\n\n- **Construct complementary holdings** that diversify factor, sector, and stock-specific risk\n- Tax-efficient: No sale of concentrated position required\n- The completion portfolio underweights the sector of the concentrated stock\n- Optimization: Minimize overall portfolio tracking error to a target benchmark\n\n$$\\sigma_{\\text{total}}^2 = w_c^2 \\sigma_c^2 + w_{cp}^2 \\sigma_{cp}^2 + 2w_c w_{cp} \\sigma_c \\sigma_{cp} \\rho$$\n\nTarget: $\\rho_{\\text{total, benchmark}} \\rightarrow 1$\n\n## Real Estate Concentration Strategies\n\n- **Installment sale**: Spread capital gains recognition over multiple years\n- **1031 exchange**: Swap like-kind property and defer all capital gains\n- **Charitable remainder trust**: Contribute property, receive income stream, avoid immediate capital gains\n- **DST (Delaware Statutory Trust)**: 1031 exchange into fractional ownership for diversification\n\n## Private Business Exit Strategies\n\n- **ESOP (Employee Stock Ownership Plan)**: Sell to employees; tax deferral under Section 1042\n- **Management buyout (MBO)**: Sell to management team; seller financing common\n- **IPO**: Public listing; provides liquidity but with lockup periods\n- **Strategic sale**: Sell to competitor or PE firm; typically highest valuation\n- **Partial sale**: Sell majority stake, retain minority interest\n- **Recapitalization**: Sell equity to PE, receive cash + retained equity (\"second bite\")"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Concentrated Position Strategy\n\nClient: Michael Torres, age 55, CFO of a publicly traded biotech company.\n- Net worth: $25M total\n- Company stock: $18M (72% of net worth), cost basis $2M, held >1 year\n- Insider trading restrictions: Can only trade during open windows (4 per year, 2 weeks each)\n- Company stock options: $3M in vested options (strike $40, current $95)\n- Other assets: $3M in 401(k), $1M in taxable diversified portfolio\n- Needs: Retirement in 5 years, $400K annual spending\n- Tax rate: 37% ordinary income, 23.8% LTCG (including NIIT)\n\nA) Quantify the risk of maintaining the current concentration.\nB) Design a multi-strategy diversification plan.\nC) Address the stock options within the plan.\nD) Calculate the after-tax cost of various approaches.",
+      "solution": "**A) Risk Quantification:**\n\nConcentration: $18M in single biotech stock = 72% of net worth\nCost basis: $2M (effective cost basis = 11% of current value)\nEmbedded gain: $16M\nTax cost of immediate sale: $16M x 23.8% = $3.808M\n\nRisk analysis:\n- Biotech stocks are extremely volatile (average annual vol ~50-60%)\n- A 50% decline in the stock would reduce his net worth from $25M to $16M (36% decline)\n- A 75% decline (not uncommon for biotech on drug trial failure) would reduce net worth to $10.5M\n- At $10.5M with $400K annual spending, his retirement is severely compromised\n- Historical probability of a single stock losing 50%+ over 5 years: approximately 30-40% for biotech\n- The rational case for diversification is overwhelming; the question is how to do it tax-efficiently\n\n**B) Multi-Strategy Diversification Plan (5-year phased approach):**\n\n**Year 1-2: Prepaid Variable Forward ($6M)**\n- Enter PVF on $6M of stock, receiving ~$5M cash (83% advance)\n- Delivery in 3 years with collar range of -20%/+25%\n- No current tax; provides immediate liquidity for diversified investing\n- Invest $5M in diversified portfolio\n\n**Year 1-5: Systematic Sales ($6M over 5 years)**\n- Sell $1.2M of stock during each open window period (4x per year = $4.8M/year capacity)\n- Actual target: $1.2M/year to spread capital gains across tax years\n- Annual tax: $1.2M gain x 23.8% = ~$256K per year (manageable)\n- Over 5 years: Sell $6M, pay $1.28M in tax, net $4.72M reinvested\n\n**Year 1: Exchange Fund ($3M)**\n- Contribute $3M of stock to an exchange fund\n- Receive diversified portfolio interest with deferred tax\n- 7-year lockup acceptable given long horizon\n- Must hold minimum 7 years but provides immediate diversification\n\n**Year 1-2: Completion Portfolio ($1M from existing taxable assets)**\n- Use the $1M existing diversified portfolio to construct a completion portfolio\n- Underweight biotech/healthcare; overweight sectors that reduce correlation with company stock\n- Tax-efficient: No additional selling required\n\n**Year 1: Charitable Strategy ($2M)**\n- Donate $1M of appreciated stock to donor-advised fund\n- Donate $1M to charitable remainder trust (15-year term, 5% payout)\n- Tax savings: Avoid $476K in capital gains + receive ~$740K in charitable deductions (saving ~$274K in income tax)\n- Total tax benefit: ~$750K\n\nTotal $18M addressed: $6M PVF + $6M sales + $3M exchange fund + $2M charitable + $1M completion portfolio (remaining stock as concentrated core that declines to ~15% of portfolio over time)\n\n**C) Stock Options Strategy:**\n\n$3M in vested options (strike $40, current $95, intrinsic value = $55/share)\n- Exercise in tranches over 2-3 years to avoid bunching income\n- Year 1: Exercise $1M worth, hold shares for >1 year, then include in sale/PVF strategy\n- Year 2-3: Exercise remaining $2M\n- If options have expiration approaching, exercise earlier regardless of tax planning\n- Consider using option proceeds to fund the completion portfolio\n- Coordinate exercise timing with open trading windows\n\n**D) Tax Cost Analysis:**\n\n| Strategy | Amount | Tax Cost | Effective Tax Rate |\n|---|---|---|---|\n| Outright sale (all at once) | $18M | $3.808M | 23.8% on gain |\n| Systematic sales (5 years) | $6M | $1.28M | 23.8% but spread over 5 years |\n| PVF (deferred 3 years) | $6M | ~$1.14M in year 3 | ~19% effective (PV of deferred tax) |\n| Exchange fund | $3M | Deferred 7+ years | ~15% accrual equivalent |\n| Charitable | $2M | $0 (plus savings) | Net tax benefit of $750K |\n| Completion portfolio | $1M | $0 | 0% (no sale) |\n\nTotal estimated tax cost: ~$2.42M + deferred amounts\nVs outright sale: $3.808M\nTax savings from multi-strategy approach: ~$1.4M in present value terms\n\nPlus: Diversification achieved over 5 years reduces concentration from 72% to ~15%, dramatically reducing single-stock risk."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Concentrated Positions Practice",
+      "problems": [
+        {
+          "id": "l3-pw4-1",
+          "question": "A client holds $5M of stock with a $500K cost basis. She enters a costless collar: buy $45 put, sell $60 call (current price $50). Which risk does this strategy NOT address?",
+          "options": [
+            "A) Downside price risk below $45",
+            "B) Capital gains tax liability",
+            "C) Upside participation above $60"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The collar addresses downside risk (put at $45 limits losses) and gives up upside above $60 (call sold). However, it does NOT address the embedded capital gains tax liability -- the $4.5M gain remains unrealized. When the collar expires or the stock is eventually sold, capital gains tax will still be owed. Additionally, if the collar is structured too tightly (put and call close to current price), the IRS may treat it as a constructive sale, triggering immediate recognition of the gain. Option C describes a known tradeoff of the collar, not an unaddressed risk.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Evaluate the limitations of derivative-based hedging for concentrated positions"
+        },
+        {
+          "id": "l3-pw4-2",
+          "question": "An investor contributes $3M of concentrated stock (cost basis $400K) to an exchange fund. After the 7-year holding period, the fund is worth $5M (her proportional share). Her tax basis in the exchange fund interest is:",
+          "options": [
+            "A) $400K (original basis carries over)",
+            "B) $3M (fair value at contribution)",
+            "C) $5M (current fair value)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "In an exchange fund (a tax-deferred exchange under Section 721), the investor's tax basis carries over from the contributed property. The $400K basis attaches to her interest in the partnership. When she eventually liquidates or sells her interest, she will recognize gains based on this $400K basis, not the $3M contribution value or $5M current value. This is the tradeoff: tax deferral now, but the embedded gain persists. The fund effectively allows diversification without current tax, but it does not eliminate the tax -- it defers it.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Understand tax basis treatment in exchange fund contributions"
+        },
+        {
+          "id": "l3-pw4-3",
+          "question": "A business owner considering exit strategies wants to defer capital gains, maintain some ownership, and receive significant upfront liquidity. The most suitable strategy is:",
+          "options": [
+            "A) Full strategic sale to a competitor",
+            "B) Recapitalization with a private equity firm",
+            "C) ESOP sale with Section 1042 rollover"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A PE recapitalization provides all three: (1) significant upfront liquidity (PE firm buys majority stake for cash); (2) continued ownership (owner retains minority equity stake, the 'second bite of the apple'); (3) potential tax deferral through installment sale treatment or qualified small business stock exclusion. Option A provides maximum liquidity but no retained ownership. Option C (ESOP with 1042 rollover) provides tax deferral but requires reinvesting in qualified replacement property (US stocks/bonds), and the owner loses operational control. The PE recap uniquely balances all three objectives.",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Compare business exit strategies based on client objectives"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a tech founder who has never worked with a financial advisor why holding 80% of her wealth in company stock is dangerous, even though she 'knows the company better than any analyst.' Address both the financial and psychological arguments."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do so many wealthy individuals maintain dangerously concentrated positions despite knowing the risks?",
+        "When is the tax cost of diversification truly prohibitive versus merely uncomfortable?",
+        "How do insider trading restrictions complicate otherwise straightforward diversification plans?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Concentration risk**: Single stocks have 30-40% chance of 50%+ decline over 5 years\n- **Exchange funds**: Contribute concentrated stock, receive diversified interest; tax-deferred; 7-year lockup\n- **Costless collar**: Buy put + sell call; limits downside and upside; constructive sale risk if too tight\n- **Prepaid variable forward**: Upfront cash (75-90%), deliver shares later; popular with executives\n- **Completion portfolio**: Build diversifying portfolio around the concentrated position; no sale required\n- **Real estate**: 1031 exchange, installment sale, CRT, DST\n- **Business exit**: ESOP, MBO, IPO, strategic sale, PE recapitalization\n- **Tax basis**: Carries over in exchange funds and tax-deferred transactions"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we cover **Risk Management for Individuals** -- including insurance products that protect against mortality, longevity, disability, and liability risks. These tools complement the investment strategies for concentrated positions by protecting against non-market risks."
+    }
+  ]
+}

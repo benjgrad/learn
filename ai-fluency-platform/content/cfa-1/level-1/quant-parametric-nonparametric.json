@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "QM.9: Parametric and Non-Parametric Tests",
+    "description": "Distinguish between parametric and non-parametric tests, apply tests of independence and correlation, and determine when to use each approach.",
+    "level": "level-1",
+    "slug": "quant-parametric-nonparametric",
+    "order": 9,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you want to test whether two variables are related but you suspect the data contains extreme outliers and is not normally distributed, can you still use standard statistical tests? What might go wrong?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Parametric vs Non-Parametric Tests\n\n### Parametric Tests\n\nParametric tests make **specific assumptions** about the population distribution (usually normality). They include:\n\n- t-tests for means\n- F-tests for variances\n- Chi-square tests for variance\n- Tests based on the Pearson correlation coefficient\n\n**Requirements for valid parametric tests:**\n- Data is drawn from a specified distribution (often normal)\n- Observations are independent\n- Population variance is finite\n- For comparing groups: equal variances (homoscedasticity)\n\n### Non-Parametric Tests\n\nNon-parametric tests make **fewer assumptions** about the underlying distribution. Use them when:\n\n- Data is not normally distributed and sample sizes are small\n- Data is measured on an **ordinal** or **nominal** scale (ranks, categories)\n- There are significant **outliers** that would distort parametric results\n- The sample size is too small to invoke the Central Limit Theorem\n\n### Tradeoffs\n\n| Feature | Parametric | Non-Parametric |\n|---|---|---|\n| Distribution assumptions | Strong | Minimal |\n| Statistical power | Higher (when assumptions met) | Lower |\n| Applicable data types | Interval/ratio | Any scale |\n| Sensitivity to outliers | High | Low |\n| Sample size needs | Moderate | Can work with small n |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An analyst has a sample of 15 observations that appear to come from a highly skewed distribution. Should she use a parametric or non-parametric test for the population mean?",
+      "answer": "Non-parametric. With only 15 observations and a skewed distribution, the Central Limit Theorem cannot be relied upon to make the sampling distribution approximately normal. Parametric tests (like the t-test) assume normality of the sampling distribution. With a small, skewed sample, non-parametric alternatives like the Wilcoxon signed-rank test are more appropriate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Parametric Tests of Independence\n\n### Pearson Correlation Test\n\nTo test whether the population correlation $\\rho = 0$ (i.e., no linear relationship):\n\n$$t = \\frac{r\\sqrt{n-2}}{\\sqrt{1-r^2}} \\quad (df = n-2)$$\n\nWhere $r$ is the sample correlation coefficient. This test assumes:\n- Both variables are normally distributed\n- The relationship is linear\n- Observations are independent\n\n### Chi-Square Test of Independence\n\nTests whether two categorical variables are independent:\n\n$$\\chi^2 = \\sum \\frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$\n\nWhere $O_{ij}$ is the observed frequency and $E_{ij} = \\frac{(\\text{row total})(\\text{column total})}{\\text{grand total}}$ is the expected frequency under independence.\n\nDegrees of freedom: $(r-1)(c-1)$ where $r$ is the number of rows and $c$ the number of columns.\n\nReject $H_0$ (independence) if the chi-square statistic exceeds the critical value."
+    },
+    {
+      "type": "markdown",
+      "content": "## Non-Parametric Alternatives\n\n### Spearman Rank Correlation\n\nThe Spearman rank correlation ($r_s$) measures the **monotonic** (not necessarily linear) relationship between two variables using **ranks** instead of raw values:\n\n$$r_s = 1 - \\frac{6\\sum d_i^2}{n(n^2 - 1)}$$\n\nWhere $d_i$ is the difference between the ranks of corresponding observations.\n\n**Advantages over Pearson:**\n- Robust to outliers (uses ranks, not raw values)\n- Detects non-linear monotonic relationships\n- Works with ordinal data\n- Does not require normality\n\n### Runs Test\n\nThe runs test checks whether a sequence of observations is **random**. A \"run\" is a consecutive sequence of the same type (e.g., + + + is one run, - - is another).\n\nIf the number of runs is:\n- **Too few**: The data shows clustering or trending (positive serial correlation)\n- **Too many**: The data shows excessive alternation (negative serial correlation)\n- **About average**: The data appears random\n\nThe expected number of runs for $n_1$ observations of type 1 and $n_2$ of type 2:\n\n$$E(R) = \\frac{2n_1 n_2}{n_1 + n_2} + 1$$\n\n### When to Use Each\n\n| Situation | Recommended Test |\n|---|---|\n| Test linear correlation, normal data | Pearson correlation |\n| Test association, non-normal or ordinal data | Spearman rank correlation |\n| Test randomness of a sequence | Runs test |\n| Test independence of categorical variables | Chi-square test |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An analyst ranks the performance of 6 funds by two different metrics (alpha and Sharpe ratio). Calculate the Spearman rank correlation.\n\n| Fund | Alpha Rank | Sharpe Rank |\n|------|-----------|-------------|\n| A    | 1         | 2           |\n| B    | 2         | 1           |\n| C    | 3         | 4           |\n| D    | 4         | 3           |\n| E    | 5         | 6           |\n| F    | 6         | 5           |",
+      "solution": "**Step 1: Calculate rank differences ($d_i$) and squared differences ($d_i^2$):**\n\n| Fund | Alpha Rank | Sharpe Rank | $d_i$ | $d_i^2$ |\n|------|-----------|-------------|-------|--------|\n| A    | 1         | 2           | -1    | 1      |\n| B    | 2         | 1           | 1     | 1      |\n| C    | 3         | 4           | -1    | 1      |\n| D    | 4         | 3           | 1     | 1      |\n| E    | 5         | 6           | -1    | 1      |\n| F    | 6         | 5           | 1     | 1      |\n\n$\\sum d_i^2 = 6$\n\n**Step 2: Apply the formula:**\n\n$$r_s = 1 - \\frac{6(6)}{6(36-1)} = 1 - \\frac{36}{210} = 1 - 0.1714 = 0.8286$$\n\n**Interpretation**: A Spearman rank correlation of 0.83 indicates a strong positive monotonic relationship between alpha and Sharpe ratio rankings. Funds that rank highly on one metric tend to rank highly on the other."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Parametric and Non-Parametric Tests Practice",
+      "problems": [
+        {
+          "id": "qm9-1",
+          "question": "Non-parametric tests are most appropriate when:",
+          "options": [
+            "A) The sample size is large and data is normally distributed",
+            "B) Data is measured on an ordinal scale or contains significant outliers",
+            "C) The analyst wants maximum statistical power"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Non-parametric tests are designed for situations where parametric assumptions (especially normality) are violated, including ordinal data and data with significant outliers. Option A describes ideal conditions for parametric tests. Option C is incorrect because parametric tests have more power when their assumptions are met \u2014 the tradeoff for robustness is reduced power.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Determine when to use non-parametric tests"
+        },
+        {
+          "id": "qm9-2",
+          "question": "A sample of 20 paired observations yields a Pearson correlation of 0.45. The t-statistic for testing H\u2080: \u03c1 = 0 is closest to:",
+          "options": [
+            "A) 2.14",
+            "B) 0.45",
+            "C) 1.96"
+          ],
+          "correctAnswer": "A",
+          "explanation": "t = r\u221a(n-2) / \u221a(1-r\u00b2) = 0.45\u221a18 / \u221a(1-0.2025) = 0.45(4.2426) / \u221a0.7975 = 1.9092 / 0.8930 = 2.139, closest to 2.14. With df = 18, the critical value at \u03b1 = 0.05 (two-tailed) is about 2.101, so this would be significant. Option B simply uses r as the test statistic. Option C is the z critical value, not the test statistic.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Test the significance of a correlation coefficient"
+        },
+        {
+          "id": "qm9-3",
+          "question": "The Spearman rank correlation is preferred over the Pearson correlation when:",
+          "options": [
+            "A) Both variables are normally distributed",
+            "B) The relationship between variables is non-linear but monotonic",
+            "C) The sample size exceeds 100"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Spearman captures monotonic relationships (consistently increasing or decreasing, but not necessarily in a straight line), while Pearson only captures linear relationships. Spearman is also robust to outliers and works with ordinal data. Option A favors Pearson, which is more powerful under normality. Option C is irrelevant \u2014 the choice depends on data characteristics, not sample size.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compare Pearson and Spearman correlation"
+        },
+        {
+          "id": "qm9-4",
+          "question": "A sequence of 30 positive and negative returns has 8 runs. The expected number of runs (given 18 positive and 12 negative returns) is closest to 15.4. This suggests the returns exhibit:",
+          "options": [
+            "A) Randomness",
+            "B) Positive serial correlation (trending)",
+            "C) Negative serial correlation (mean-reverting)"
+          ],
+          "correctAnswer": "B",
+          "explanation": "E(R) = 2(18)(12)/(18+12) + 1 = 432/30 + 1 = 14.4 + 1 = 15.4. With only 8 runs (far below the expected 15.4), returns are clustering \u2014 positive returns follow positive, negative follow negative. This indicates trending behavior (positive serial correlation). Option A would require runs close to 15.4. Option C would show too many runs (excessive alternation).",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret a runs test for randomness"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague the practical difference between Pearson and Spearman correlation. Give an example of a dataset where Pearson would give a misleading result but Spearman would correctly capture the relationship."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In practice, how would you decide between a parametric and non-parametric test? What diagnostic checks would you perform on the data first?",
+        "Why might the runs test be useful for evaluating whether a trading strategy generates truly random entry/exit signals?",
+        "How does the chi-square test of independence differ conceptually from correlation-based tests?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts and Formulas:**\n\n- **Parametric tests** assume a specific distribution (usually normal); higher power when assumptions hold\n- **Non-parametric tests** make minimal distribution assumptions; robust to outliers and non-normality\n- Pearson correlation test: $t = r\\sqrt{n-2} / \\sqrt{1-r^2}$, $df = n-2$\n- Chi-square independence: $\\chi^2 = \\sum (O - E)^2 / E$, $df = (r-1)(c-1)$\n- Spearman rank: $r_s = 1 - 6\\sum d_i^2 / [n(n^2-1)]$ \u2014 works with ordinal data, robust to outliers\n- Runs test: few runs \u2192 trending; many runs \u2192 mean-reverting; expected runs \u2192 random\n- Use Spearman when relationship is monotonic but non-linear, or when data has outliers"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Simple Linear Regression**, where you will model the linear relationship between two variables formally. Regression builds directly on the correlation concepts from this module \u2014 the correlation coefficient is related to R-squared, the key measure of regression fit."
+    }
+  ]
+}

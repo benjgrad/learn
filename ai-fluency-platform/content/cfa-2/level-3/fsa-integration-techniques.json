@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "FSA.6: Integration of FSA Techniques",
+    "description": "Build a comprehensive company analysis framework integrating income statement, balance sheet, and cash flow analysis with forecasting, ratio synthesis, and cross-company comparison.",
+    "level": "level-3",
+    "slug": "fsa-integration-techniques",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When analyzing a company, you have its income statement, balance sheet, and cash flow statement. If these three statements tell different stories \u2014 say, rising profits but declining cash flow and growing debt \u2014 which statement should you trust most, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Comprehensive Financial Analysis Framework\n\nIntegrated financial analysis combines multiple tools into a structured approach. No single metric tells the full story \u2014 the power lies in **triangulation** across multiple data sources.\n\n### The Analysis Process\n\n1. **Understand the business**: Industry dynamics, competitive position, strategy\n2. **Assess accounting quality**: Policies, estimates, reporting quality (from prior module)\n3. **Analyze profitability**: DuPont decomposition, margin analysis, trends\n4. **Evaluate financial position**: Leverage, liquidity, solvency\n5. **Examine cash flows**: Operating, investing, financing patterns\n6. **Develop forecasts**: Revenue, expenses, capital needs\n7. **Perform valuation**: Based on adjusted and forecasted financials\n\n### DuPont Decomposition (5-Factor)\n\n$$\\text{ROE} = \\frac{\\text{NI}}{\\text{EBT}} \\times \\frac{\\text{EBT}}{\\text{EBIT}} \\times \\frac{\\text{EBIT}}{\\text{Revenue}} \\times \\frac{\\text{Revenue}}{\\text{Assets}} \\times \\frac{\\text{Assets}}{\\text{Equity}}$$\n\n| Component | Measures |\n|---|---|\n| NI/EBT | Tax burden |\n| EBT/EBIT | Interest burden |\n| EBIT/Revenue | Operating margin |\n| Revenue/Assets | Asset turnover (efficiency) |\n| Assets/Equity | Financial leverage |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Two companies both have 15% ROE. Company A achieves this through high margins (12% net margin) and low leverage (1.5x). Company B uses low margins (3%) and high leverage (5x). Which company's ROE is more sustainable?",
+      "answer": "Company A's ROE is more sustainable. Its ROE is driven by genuine profitability (high margins), which is more durable and less risky. Company B relies on aggressive financial leverage (5x), meaning it has significant debt. High leverage amplifies both gains and losses \u2014 in a downturn, Company B's thin margins may be insufficient to cover interest costs, potentially leading to losses or financial distress. Company A has more room to absorb negative shocks. The DuPont decomposition reveals that the same ROE can come from very different risk profiles."
+    },
+    {
+      "type": "markdown",
+      "content": "## Cross-Statement Integration\n\n### Income Statement \u2194 Balance Sheet\n\n| Signal | What to Investigate |\n|---|---|\n| Revenue growing, AR growing faster | Aggressive revenue recognition? |\n| COGS stable, inventory building | Potential obsolescence or demand weakness |\n| Rising depreciation as % of sales | Aging or expanding asset base |\n| Goodwill impairments | Prior overpayment for acquisitions |\n\n### Income Statement \u2194 Cash Flow Statement\n\n| Signal | What to Investigate |\n|---|---|\n| Net income >> OCF | High positive accruals, poor earnings quality |\n| OCF >> Net income | Conservative accounting, or non-recurring items depressing income |\n| CapEx >> Depreciation | Growing/investing company |\n| CapEx << Depreciation | Underinvestment, milking assets |\n\n### Balance Sheet \u2194 Cash Flow Statement\n\n| Signal | What to Investigate |\n|---|---|\n| Debt rising, FCF negative | Borrowing to fund operations (unsustainable) |\n| Cash declining, dividends high | Dividends may be at risk |\n| Working capital spike | Potential efficiency problems |\n| Asset sales providing most cash inflows | Running out of organic growth |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Forecasting and Ratio Synthesis\n\n### Revenue Forecasting Approaches\n\n1. **Top-down**: Market size \u00d7 market share \u00d7 pricing\n2. **Bottom-up**: Units \u00d7 price per unit by segment\n3. **Trend extrapolation**: Historical growth rates (least reliable alone)\n4. **Capacity-based**: Production capacity \u00d7 utilization \u00d7 selling price\n\n### Building an Integrated Forecast\n\n| Item | Typical Approach |\n|---|---|\n| Revenue | Industry analysis + company-specific drivers |\n| COGS | Gross margin trend \u00d7 forecasted revenue |\n| SG&A | Fixed/variable split; historical % of revenue |\n| Depreciation | PP&E balances \u00d7 depreciation rate |\n| Interest expense | Debt balances \u00d7 effective interest rate |\n| Working capital | DSO, DIO, DPO applied to forecasted revenue/COGS |\n| CapEx | Maintenance (\u2248 depreciation) + growth investment |\n| Tax | Effective tax rate \u00d7 pre-tax income |\n\n### Cross-Company Comparison Adjustments\n\nWhen comparing companies, adjust for:\n- **Different accounting policies** (e.g., FIFO vs. weighted average, lease capitalization)\n- **Different capital structures** (use ROIC or unlevered metrics)\n- **Different geographic mix** (currency effects, tax rates)\n- **Off-balance-sheet items** (operating leases, pension obligations, VIEs)\n- **One-time items** (restructuring charges, legal settlements)\n\n$$\\text{ROIC} = \\frac{\\text{NOPAT}}{\\text{Invested Capital}} = \\frac{\\text{EBIT} \\times (1 - t)}{\\text{Equity} + \\text{Debt} - \\text{Cash}}$$\n\nROIC is a better profitability metric than ROE for cross-company comparison because it removes the effect of capital structure."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Integrated Financial Analysis",
+      "solution": "Perform a DuPont analysis and cross-statement check for IndustrialCo:\n\n| Metric | Year 1 | Year 2 | Year 3 |\n|---|---|---|---|\n| Revenue | $2,000M | $2,200M | $2,500M |\n| EBIT | $300M | $310M | $280M |\n| Net Income | $180M | $175M | $150M |\n| Total Assets | $3,000M | $3,400M | $4,200M |\n| Equity | $1,500M | $1,500M | $1,500M |\n| OCF | $250M | $200M | $140M |\n\nDuPont ROE decomposition (Year 3):\n- Net margin: 150/2,500 = 6.0% (declining from 9.0%)\n- Asset turnover: 2,500/4,200 = 0.595 (declining from 0.667)\n- Leverage: 4,200/1,500 = 2.80 (rising from 2.00)\n- ROE = 6.0% \u00d7 0.595 \u00d7 2.80 = 10.0% (declining from 12.0%)\n\nCross-statement signals:\n1. Revenue +25% but EBIT \u22127%: margin compression (operating leverage or cost issues)\n2. Assets +40% but revenue +25%: declining efficiency (possible poor acquisitions)\n3. OCF declining from $250M to $140M while revenue grows: severe earnings quality concern\n4. Equity flat while assets grew by $1.2B: entirely debt-funded expansion\n5. Net income/OCF ratio: Year 1 = 0.72, Year 3 = 1.07 \u2014 earnings no longer cash-backed\n\nConclusion: Despite apparent revenue growth, IndustrialCo is deteriorating: margins compressing, efficiency declining, leverage rising, and cash generation weakening. The ROE decline understates the problem because rising leverage partially masks declining profitability."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Integration of FSA Techniques Practice",
+      "problems": [
+        {
+          "id": "fsa-int-1",
+          "vignette": "Portfolio manager Lisa Chen is evaluating two competitors in the industrial sector:\n\n| Metric | AlphaInd | BetaInd |\n|---|---|---|\n| Revenue | $5,000M | $4,800M |\n| EBIT | $750M | $600M |\n| Net Income | $400M | $380M |\n| Total Assets | $8,000M | $12,000M |\n| Equity | $4,000M | $2,400M |\n| Total Debt | $3,500M | $8,800M |\n| OCF | $550M | $420M |\n| CapEx | $300M | $250M |\n| Depreciation | $280M | $350M |\n\nChen wants to compare their profitability on a capital-structure-neutral basis. Assume a 25% tax rate.",
+          "question": "The ROIC for AlphaInd and BetaInd are closest to:",
+          "options": [
+            "A) AlphaInd: 7.5%, BetaInd: 4.2%",
+            "B) AlphaInd: 10.0%, BetaInd: 8.3%",
+            "C) AlphaInd: 10.0%, BetaInd: 15.8%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "ROIC = NOPAT / Invested Capital = EBIT \u00d7 (1\u2212t) / (Equity + Debt \u2212 Cash). Assuming minimal cash for simplicity: AlphaInd: NOPAT = 750 \u00d7 0.75 = $562.5M. Invested Capital = 4,000 + 3,500 = $7,500M. ROIC = 562.5/7,500 = 7.5%. BetaInd: NOPAT = 600 \u00d7 0.75 = $450M. Invested Capital = 2,400 + 8,800 = $11,200M (approx. $10,800 if some cash). ROIC = 450/10,800 \u2248 4.2%. Despite similar net income, AlphaInd generates much higher returns on invested capital. BetaInd's ROE might look reasonable (380/2,400 = 15.8%) but only because of extreme leverage (5x). ROIC reveals the true operating efficiency gap. Option B and C don't reflect the invested capital correctly.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate and compare ROIC across companies with different capital structures"
+        },
+        {
+          "id": "fsa-int-2",
+          "vignette": "Portfolio manager Lisa Chen is evaluating two competitors in the industrial sector. She performs a 5-factor DuPont decomposition for BetaInd:\n\n| Component | BetaInd |\n|---|---|\n| Tax burden (NI/EBT) | 0.76 |\n| Interest burden (EBT/EBIT) | 0.83 |\n| Operating margin (EBIT/Revenue) | 12.5% |\n| Asset turnover (Revenue/Assets) | 0.40 |\n| Financial leverage (Assets/Equity) | 5.00 |\n| ROE | 15.8% |\n\nChen compares this to AlphaInd's DuPont components: tax burden 0.80, interest burden 0.95, operating margin 15.0%, asset turnover 0.625, leverage 2.00, ROE 10.0%.",
+          "question": "The most significant risk factor revealed by the DuPont analysis of BetaInd is:",
+          "options": [
+            "A) Its operating margin is lower than AlphaInd's, suggesting cost management issues",
+            "B) Its financial leverage of 5.0x drives most of its ROE advantage, while its interest burden of 0.83 shows significant earnings consumed by interest",
+            "C) Its tax burden is lower, suggesting it may be using aggressive tax planning"
+          ],
+          "correctAnswer": "B",
+          "explanation": "BetaInd's ROE (15.8%) exceeds AlphaInd's (10.0%), but the DuPont decomposition reveals this is almost entirely driven by leverage (5.0x vs 2.0x). BetaInd is weaker on every operational dimension: lower operating margin (12.5% vs 15.0%), lower asset turnover (0.40 vs 0.625), and a lower interest burden ratio (0.83 vs 0.95), meaning 17% of its operating income goes to interest costs vs only 5% for AlphaInd. This leverage-dependent ROE is fragile \u2014 a modest decline in operating income could quickly erode equity returns and create financial distress. Option A identifies a real issue but not the most significant risk. Option C misreads the data \u2014 0.76 reflects a slightly higher effective tax rate than 0.80.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Interpret DuPont decomposition to identify key risk factors"
+        },
+        {
+          "id": "fsa-int-3",
+          "vignette": "Analyst Robert Kim is building a revenue forecast for RetailCo, which operates in a mature market. He has the following data:\n\n| Metric | Current Year |\n|---|---|\n| Number of stores | 500 |\n| Revenue per store | $4.0M |\n| Same-store sales growth (3-yr avg) | 2.5% |\n| Planned new store openings | 25 |\n| New store avg revenue (year 1) | $2.8M |\n| Industry revenue growth | 3.0% |\n| Market share trend | Stable |\n\nKim's colleague projects 8% total revenue growth based on the new store openings plus same-store growth.",
+          "question": "Is the colleague's 8% revenue growth projection reasonable?",
+          "options": [
+            "A) Yes, new stores add 5% and same-store growth adds 2.5%, giving approximately 7.5% rounded to 8%",
+            "B) No, the correct estimate is approximately 6.0%: same-store growth of 2.5% on existing stores ($50M) plus new store revenue ($70M) on a base of $2,000M",
+            "C) No, it is too low because it ignores potential market share gains"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Current revenue = 500 stores \u00d7 $4.0M = $2,000M. Same-store sales increase: $2,000M \u00d7 2.5% = $50M. New store revenue: 25 \u00d7 $2.8M = $70M. Total forecasted revenue = $2,000M + $50M + $70M = $2,120M. Growth = $120M / $2,000M = 6.0%. The colleague's error was adding percentages directly (5% store growth + 2.5% same-store) rather than computing dollar impacts. New store growth in dollar terms is 70/2,000 = 3.5%, not 5%, because new stores generate lower revenue ($2.8M vs $4.0M). This is a common forecasting error. Option A makes the additive percentage mistake. Option C is speculative \u2014 the data shows stable market share.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Build and evaluate revenue forecasts using bottom-up analysis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague how to use the DuPont decomposition to understand why two companies with similar ROE can have very different risk profiles. Use a concrete example contrasting a high-margin, low-leverage company with a low-margin, high-leverage company."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "When analyzing a company, which cross-statement signal would concern you most: rising receivables, declining cash flow, or increasing leverage?",
+        "How would you adjust financial statements for comparability when one company uses IFRS and another uses US GAAP?",
+        "Why is ROIC often a better measure than ROE for comparing companies in the same industry?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- 5-factor DuPont: ROE = Tax burden \u00d7 Interest burden \u00d7 Operating margin \u00d7 Asset turnover \u00d7 Leverage\n- Same ROE can come from very different (and differently risky) combinations\n- **ROIC** = NOPAT / Invested Capital \u2014 removes capital structure effects\n- Cross-statement analysis: compare income trends with balance sheet changes and cash flow patterns\n- Key warning: Net income growing while OCF declines = serious earnings quality concern\n- Revenue forecasting: bottom-up (units \u00d7 price) is more reliable than trend extrapolation\n- Always adjust for accounting policy differences, one-time items, and off-balance-sheet obligations when comparing companies"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've now completed the Financial Statement Analysis section for Level II. The **FSA Checkpoint** is next, testing your ability to integrate intercorporate investments, pensions, multinational operations, financial institution analysis, and quality assessment into comprehensive analysis."
+    }
+  ]
+}

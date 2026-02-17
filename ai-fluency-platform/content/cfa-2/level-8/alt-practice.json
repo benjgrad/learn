@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "title": "ALT: Alternative Investments Practice Drill",
+    "description": "15 practice problems covering Level II Alternative Investments.",
+    "level": "level-8",
+    "slug": "alt-practice",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Alternative Investments Practice Drill\n\nThis set contains 15 problems covering hedge fund strategies, private capital, real estate investment, and natural resources. Level II Alternatives requires understanding of strategy-specific risk/return profiles, valuation approaches, and performance measurement."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "alt2-p-1",
+          "question": "A long/short equity hedge fund has gross long exposure of 130% and gross short exposure of 50%. The net market exposure and gross exposure are:",
+          "options": [
+            "A) Net = 80%; Gross = 180%",
+            "B) Net = 130%; Gross = 50%",
+            "C) Net = 80%; Gross = 80%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Net exposure = Long - Short = 130% - 50% = 80% (net long bias). Gross exposure = Long + Short = 130% + 50% = 180% (total market involvement). A 180% gross exposure implies leverage. The 80% net exposure means the fund has a directional long bias. Option B reverses the calculations. Option C confuses net and gross exposure.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate net and gross exposure for long/short equity funds"
+        },
+        {
+          "id": "alt2-p-2",
+          "question": "An equity market-neutral hedge fund earns returns by:",
+          "options": [
+            "A) Maintaining net long exposure to capture the equity risk premium",
+            "B) Eliminating systematic (beta) exposure through offsetting long and short positions, earning alpha from stock selection",
+            "C) Investing exclusively in index derivatives to hedge tail risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Market-neutral strategies maintain approximately zero beta by balancing long and short positions. Returns come from the manager's ability to identify mispriced securities (alpha) rather than directional market moves. The fund aims to profit regardless of market direction. Option A describes a directional long/short strategy with net long bias. Option C describes a tail-risk hedging strategy, not market-neutral.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain the return sources of equity market-neutral strategies"
+        },
+        {
+          "id": "alt2-p-3",
+          "question": "A merger arbitrage fund buys shares of a target company at $48 and simultaneously shorts the acquirer. The announced deal price is $52 in an all-cash deal. If the deal closes in 3 months, the annualized return is closest to:",
+          "options": [
+            "A) 33.3%",
+            "B) 8.3%",
+            "C) 16.7%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Return over 3 months = ($52 - $48)/$48 = 8.33%. Annualized: $(1.0833)^4 - 1 = 37.5\\%$. Using simple annualization: $8.33\\% \\times 4 = 33.3\\%$. The strategy captures the deal spread (the discount from the offer price), which narrows as the deal closes. The key risk is deal failure, which would cause the spread to widen sharply. Option B is the 3-month return, not annualized. Option C annualizes at 2x instead of 4x.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate annualized returns for merger arbitrage strategies"
+        },
+        {
+          "id": "alt2-p-4",
+          "question": "A global macro hedge fund manager believes that the Japanese yen will depreciate significantly against the US dollar. The most likely trade to express this view is:",
+          "options": [
+            "A) Short JPY futures or buy USD/JPY call options",
+            "B) Buy Japanese government bonds",
+            "C) Short US Treasury futures"
+          ],
+          "correctAnswer": "A",
+          "explanation": "To profit from JPY depreciation, the manager should short JPY (or equivalently go long USD/JPY). This can be done via short JPY futures, forward contracts, or buying call options on USD/JPY (which give the right to buy USD/sell JPY). Global macro funds use these instruments to express top-down macroeconomic views. Option B would benefit from JPY appreciation and lower Japanese rates. Option C expresses a view on US interest rates, not currency.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Identify appropriate instruments for global macro currency trades"
+        },
+        {
+          "id": "alt2-p-5",
+          "question": "A private equity fund has a committed capital of $500 million, a management fee of 2% on committed capital, and a carried interest of 20% above an 8% hurdle rate. In Year 1, $100 million is drawn down and invested. The management fee in Year 1 is closest to:",
+          "options": [
+            "A) $10 million",
+            "B) $2 million",
+            "C) $8 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The management fee is calculated on committed capital ($500M), not drawn-down capital. Fee = 2% x $500M = $10M. This is a common structure in private equity -- LPs pay fees on the full commitment from inception, even before capital is deployed. Some funds switch to invested capital after the investment period. Option B calculates on drawn-down capital. Option C uses an incorrect percentage.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate private equity management fees based on committed capital"
+        },
+        {
+          "id": "alt2-p-6",
+          "question": "A private equity fund returns the following to its limited partners: initial investment = $200M, total distributions = $600M. The TVPI (Total Value to Paid-In) multiple is:",
+          "options": [
+            "A) 2.0x",
+            "B) 3.0x",
+            "C) 4.0x"
+          ],
+          "correctAnswer": "B",
+          "explanation": "TVPI = (Distributions + Remaining NAV) / Paid-In Capital. Assuming all investments are realized: TVPI = $600M / $200M = 3.0x. This means the fund returned 3 times the invested capital. DPI (Distributions to Paid-In) = $600M / $200M = 3.0x as well (fully realized). Option A uses the net gain ($400M) divided by invested. Option C uses an incorrect denominator.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate and interpret the TVPI multiple for private equity"
+        },
+        {
+          "id": "alt2-p-7",
+          "question": "A venture capital fund invests $5 million in a startup at a $20 million pre-money valuation. The post-money valuation and the fund's ownership percentage are:",
+          "options": [
+            "A) Post-money = $25M; Ownership = 20%",
+            "B) Post-money = $20M; Ownership = 25%",
+            "C) Post-money = $25M; Ownership = 25%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Post-money valuation = Pre-money + Investment = $20M + $5M = $25M. Fund's ownership = Investment / Post-money = $5M / $25M = 20%. The pre-money valuation reflects the company's value before the new investment; the post-money value includes the new capital. Option B uses pre-money as post-money. Option C calculates ownership incorrectly ($5/$20 = 25% would use pre-money as denominator).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate post-money valuation and ownership percentage in VC investing"
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "vignette": "Capital Property Fund is evaluating a commercial office building for acquisition. Key data:\n\n- Net Operating Income (NOI) Year 1: $4.0 million\n- Expected NOI growth: 3% per year\n- Cap rate for comparable properties: 6.5%\n- Discount rate (required return): 9.0%\n- Purchase price: $60 million\n- Holding period: 5 years\n- Terminal cap rate at sale: 7.0%\n- Vacancy rate: 8%\n- Gross potential rent: $5.5 million\n- Operating expenses: $1.37 million",
+      "problems": [
+        {
+          "id": "alt2-p-8",
+          "question": "The value of the property using the direct capitalization method (Year 1 NOI / Cap rate) is closest to:",
+          "options": [
+            "A) $61.5 million",
+            "B) $57.1 million",
+            "C) $66.7 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Direct capitalization value = NOI / Cap rate = $4.0M / 0.065 = $61.54M, closest to $61.5M. At the purchase price of $60M, the property appears slightly undervalued relative to the market cap rate. Option B uses a higher cap rate. Option C uses a lower cap rate (6%).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Value real estate using the direct capitalization method"
+        },
+        {
+          "id": "alt2-p-9",
+          "question": "The effective gross income (EGI) and the NOI derivation are consistent with which calculation?",
+          "options": [
+            "A) EGI = $5.5M x (1 - 0.08) = $5.06M; NOI = $5.06M - $1.37M = $3.69M",
+            "B) EGI = $5.5M; NOI = $5.5M - $1.37M = $4.13M",
+            "C) EGI = $5.5M x 0.08 = $0.44M; NOI = $0.44M - $1.37M = negative"
+          ],
+          "correctAnswer": "A",
+          "explanation": "EGI = Gross Potential Rent x (1 - Vacancy rate) + Other income = $5.5M x 0.92 = $5.06M. NOI = EGI - Operating expenses = $5.06M - $1.37M = $3.69M. The stated NOI of $4.0M may include additional income sources or slightly different assumptions. The key concept is the deduction sequence: GPR -> EGI (after vacancy) -> NOI (after expenses). Option B ignores vacancy. Option C calculates vacancy loss, not EGI.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate effective gross income and NOI for real estate"
+        },
+        {
+          "id": "alt2-p-10",
+          "question": "Using the discounted cash flow approach with a 5-year holding period, the terminal value at the end of Year 5 (using Year 6 NOI and terminal cap rate of 7%) is closest to:",
+          "options": [
+            "A) $66.3 million",
+            "B) $61.5 million",
+            "C) $57.1 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Year 6 NOI = Year 1 NOI x $(1.03)^5 = 4.0 \\times 1.15927 = $4.637M$. Terminal value = Year 6 NOI / Terminal cap rate = $4.637M / 0.07 = $66.24M$, closest to $66.3M.\n\nThe terminal cap rate (7%) is higher than the going-in cap rate (6.5%), reflecting the assumption that the property will be older and less competitive at sale. Option B uses the going-in cap rate. Option C uses Year 5 NOI instead of Year 6.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate terminal value using the terminal cap rate approach"
+        },
+        {
+          "id": "alt2-p-11",
+          "question": "A REIT trades at a price/FFO ratio of 15x. The REIT's FFO per share is $3.20. If the analyst believes the appropriate P/FFO multiple should be 18x based on the REIT's growth profile, the implied upside is closest to:",
+          "options": [
+            "A) 20%",
+            "B) 15%",
+            "C) 12%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Current price = 15 x $3.20 = $48.00. Fair value = 18 x $3.20 = $57.60. Upside = ($57.60 - $48.00) / $48.00 = $9.60/$48.00 = 20%. FFO (Funds From Operations) is the preferred earnings metric for REITs because it adds back depreciation (which is large for real estate but does not reflect economic decline in value for well-maintained properties). Option B and C use incorrect multiples.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Value a REIT using the P/FFO multiple approach"
+        },
+        {
+          "id": "alt2-p-12",
+          "question": "Commodity futures exhibit backwardation when:",
+          "options": [
+            "A) The futures price exceeds the expected future spot price",
+            "B) The futures price is below the current spot price, often due to high convenience yield",
+            "C) The futures price equals the spot price plus full storage costs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Backwardation occurs when the futures price is below the spot price (or below the expected future spot price, in the theory of normal backwardation). This often happens when the convenience yield (benefit of holding physical inventory) exceeds storage costs and the financing cost. Commodity consumers bid up the spot price relative to futures during supply shortages. Option A describes contango. Option C describes full carry (no convenience yield).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain backwardation and its relationship to convenience yield"
+        },
+        {
+          "id": "alt2-p-13",
+          "question": "The total return from a fully collateralized long commodity futures position consists of:",
+          "options": [
+            "A) Spot return only",
+            "B) Spot return + roll yield + collateral return",
+            "C) Roll yield + collateral return only"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Total return = Spot return (change in commodity price) + Roll yield (gain or loss from rolling expiring contracts to the next contract) + Collateral return (interest earned on the margin/collateral, typically T-bills). In backwardation, roll yield is positive (buying cheaper deferred contracts). In contango, roll yield is negative. Option A ignores roll yield and collateral. Option C ignores the spot price change.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Decompose commodity futures returns into components"
+        },
+        {
+          "id": "alt2-p-14",
+          "question": "Timberland as an alternative investment has a unique feature compared to most other commodities in that:",
+          "options": [
+            "A) It has zero correlation with inflation",
+            "B) Biological growth acts as a 'natural storage' mechanism -- unharvested timber continues to grow and increase in value, providing optionality on harvest timing",
+            "C) It can only be accessed through publicly traded equities"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Timberland's key differentiator is biological growth. Unlike oil or metals that do not grow in quantity while stored, trees continue to grow, adding volume and potentially moving into higher-value categories (pulpwood to sawtimber). Owners can time harvests based on market conditions, providing real option value. Option A is incorrect -- timber has historically shown positive inflation correlation. Option C is incorrect -- timber can be accessed through direct ownership, TIMOs, and REITs.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Identify unique characteristics of timberland as an alternative investment"
+        },
+        {
+          "id": "alt2-p-15",
+          "question": "A fund of hedge funds (FoHF) charges a 1% management fee and 10% performance fee on top of the underlying hedge funds' 2-and-20 fee structure. If the gross return before all fees is 15%, the approximate net return to the FoHF investor is closest to:",
+          "options": [
+            "A) 8.6%",
+            "B) 10.0%",
+            "C) 7.2%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Step 1: Underlying hedge fund fees. Management fee = 2%, Performance fee = 20% of (15% - 2%) = 20% x 13% = 2.6%. After HF fees: 15% - 2% - 2.6% = 10.4%. Step 2: FoHF fees. Management fee = 1%. Performance fee = 10% of (10.4% - 1%) = 10% x 9.4% = 0.94%. After FoHF fees: 10.4% - 1% - 0.94% = 8.46%, closest to 8.6%. The double layer of fees significantly erodes returns. Option B ignores the FoHF layer. Option C may apply fees differently.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate net returns through double fee layers in fund of hedge funds"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** Focus on areas where you scored below 70%. Key Level II Alternatives concepts: net exposure = long - short, gross exposure = long + short, TVPI = distributions/paid-in, post-money = pre-money + investment, direct cap value = NOI/cap rate, commodity return = spot + roll + collateral, and double fee layers in FoHF significantly reduce net returns."
+    }
+  ]
+}

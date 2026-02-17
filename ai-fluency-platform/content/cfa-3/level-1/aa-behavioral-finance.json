@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "AA.6: Behavioral Finance in Asset Allocation",
+    "description": "Understand how cognitive and emotional biases affect investment decisions, and learn frameworks for behavioral investor types and choice architecture.",
+    "level": "level-1",
+    "slug": "aa-behavioral-finance",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Asset Allocation"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "After a significant market decline, a client calls demanding to sell all equities and move to cash. What behavioral biases are likely driving this reaction, and how would you respond?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Behavioral Finance and Portfolio Construction\n\n### Prospect Theory (Kahneman & Tversky)\n\nPeople evaluate outcomes relative to a **reference point**, not absolute wealth:\n\n1. **Loss aversion**: Losses are felt ~2-2.5x more intensely than equivalent gains\n2. **Diminishing sensitivity**: Marginal impact decreases with distance from reference point\n3. **Probability weighting**: Overweight small probabilities, underweight moderate-to-high ones\n\n**Portfolio implications**:\n- Investors hold losing positions too long (hoping to recover to reference point)\n- Sell winners too early (lock in gains relative to reference)\n- This creates the **disposition effect** \u2014 selling winners, holding losers\n- Overweight tail-risk hedges (overvalue small-probability catastrophe insurance)\n\n### Mental Accounting\n\nInvestors create separate **mental accounts** for different purposes, violating the principle of portfolio-level optimization:\n\n- Retirement money vs. \"play money\" vs. emergency fund\n- Money from different sources treated differently (salary vs. inheritance vs. windfall)\n- Goals-based investing actually **leverages** mental accounting constructively\n\n**Portfolio implication**: A client may be overly conservative in their \"retirement\" account while taking excessive risk in a \"fun\" brokerage account. The combined portfolio may be suboptimal."
+    },
+    {
+      "type": "markdown",
+      "content": "## Cognitive Errors in Asset Allocation\n\n### Belief Perseverance Biases\n\n| Bias | Description | Impact on AA |\n|---|---|---|\n| **Conservatism** | Slow to update beliefs with new evidence | Fail to adjust CMEs when conditions change |\n| **Confirmation** | Seek information confirming existing views | Overconfident in current allocation |\n| **Representativeness** | Judge by similarity to familiar patterns | Chase recent winners; assume past = future |\n| **Illusion of control** | Overestimate ability to influence outcomes | Over-trade, excessive TAA |\n| **Hindsight** | \"I knew it all along\" | Overestimate forecasting ability |\n\n### Processing Errors\n\n| Bias | Description | Impact on AA |\n|---|---|---|\n| **Anchoring** | Over-rely on initial information | Anchor to entry prices or historical norms |\n| **Availability** | Overweight easily recalled events | Overreact to recent/vivid market events |\n| **Framing** | Decisions depend on how choices are presented | Risk tolerance changes with gain/loss framing |\n| **Recency** | Overweight recent observations | Pro-cyclical allocation (buy high, sell low) |\n\n### Emotional Biases\n\n| Bias | Description | Impact on AA |\n|---|---|---|\n| **Loss aversion** | Fear of losses exceeds desire for gains | Under-allocation to equities; premature selling |\n| **Overconfidence** | Overestimate own knowledge/ability | Concentrated positions, excessive trading |\n| **Status quo** | Prefer current state, resist change | Fail to rebalance; hold legacy positions |\n| **Endowment** | Overvalue what you already own | Hold concentrated positions (founder stock) |\n| **Regret aversion** | Avoid actions that might cause regret | Herding, index-hugging, decision paralysis |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An investor who diversified broadly still feels intense regret when one sector they did not overweight performs well. Which bias best explains this?",
+      "answer": "Regret aversion \u2014 specifically, regret of omission. The investor regrets not taking an action (overweighting the sector) even though their diversified approach was rational and appropriate. This bias can lead investors to chase performance, deviate from disciplined allocation, and make pro-cyclical bets. The antidote is a pre-commitment to a written investment policy statement that anchors decisions to long-term goals rather than short-term relative performance."
+    },
+    {
+      "type": "markdown",
+      "content": "## Behavioral Investor Types (BITs)\n\nPompian's classification helps advisors tailor their approach:\n\n| Type | Risk Tolerance | Primary Biases | Advisory Approach |\n|---|---|---|---|\n| **Passive Preserver** | Low | Loss aversion, status quo, endowment, anchoring | High-touch, goals-focused, gradual changes |\n| **Friendly Follower** | Low-to-moderate | Regret aversion, availability, framing, hindsight | Education-based, provide clear guidance |\n| **Independent Individualist** | Moderate-to-high | Overconfidence, conservatism, availability, confirmation | Allow some latitude but challenge assumptions |\n| **Active Accumulator** | High | Overconfidence, illusion of control | Set clear boundaries, risk limits, pre-commitment |\n\n## Nudging and Choice Architecture\n\n### Debiasing Techniques\n\n1. **Default options**: Opt-out enrollment in 401(k) increases participation from ~50% to ~90%\n2. **Pre-commitment devices**: Agree to future actions (\"save more tomorrow\")\n3. **Framing effects**: Present returns in long-term (annual) vs. short-term (daily) frames\n4. **Automation**: Automatic rebalancing removes emotional decision-making\n5. **Cooling-off periods**: Require delay before executing major portfolio changes\n6. **Narrative framing**: Connect allocations to life goals rather than abstract numbers\n\n### Behavioral Policy Portfolio\n\nInstead of fighting biases, design the process to **accommodate** them:\n- Goals-based allocation leverages mental accounting productively\n- Layered portfolios (floor + upside) address loss aversion\n- Systematic rebalancing removes timing decisions\n- Regular but not too frequent reporting (reduces myopic loss aversion)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Behavioral Finance Application",
+      "solution": "**Part A \u2014 Behavioral biases identification:**\n\n1. **Recency bias / Availability**: The client's demand to sell after a market decline is driven by the vivid, recent experience of losses, which makes further losses feel more probable than they actually are.\n\n2. **Loss aversion**: The pain of the recent decline is felt approximately twice as intensely as the pleasure from equivalent past gains. The client is disproportionately motivated to avoid further losses.\n\n3. **Representativeness**: The client may be pattern-matching the current decline to a previous crisis (e.g., 2008) and assuming a similar trajectory, ignoring base rates and different current conditions.\n\n4. **Framing effect**: If the client is viewing returns on a short-term (daily/weekly) basis, the frequency of loss observations triggers myopic loss aversion. The same portfolio viewed annually would show far fewer loss periods.\n\n**Part B \u2014 Advisory response:**\n\n1. **Acknowledge the emotion** \u2014 validate that the discomfort is real and natural (loss aversion is hardwired), then redirect to the plan.\n\n2. **Reframe the time horizon** \u2014 show the portfolio's performance over rolling 5-year and 10-year periods to demonstrate that short-term declines are normal and historically temporary for diversified portfolios.\n\n3. **Reference the IPS** \u2014 remind the client that the current allocation was chosen to achieve their specific long-term goals. Selling now would lock in losses and create a new problem: when to re-enter.\n\n4. **Offer a partial accommodation** \u2014 if the client cannot be reasoned out of the panic, offer a small reduction (5-10%) as a compromise that preserves most of the strategic allocation while giving the client a sense of control. This is better than capitulating entirely.\n\n**Part C \u2014 Structural prevention:**\n\nTo prevent this from recurring, implement:\n- Quarterly (not daily) reporting to reduce myopic loss aversion\n- Automatic rebalancing to remove emotional timing decisions\n- A written escalation protocol in the IPS: \"In the event of a >15% drawdown, the advisor will schedule a review meeting within 5 business days before any changes are implemented\" (cooling-off period)\n- Goals-based reporting that shows progress toward retirement/spending goals rather than mark-to-market portfolio value"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Behavioral Finance Practice",
+      "problems": [
+        {
+          "id": "l3-aa6-1",
+          "question": "A client who inherited a concentrated stock position refuses to diversify, stating 'my father built this company \u2014 I can't sell it.' This behavior is most consistent with which combination of biases?",
+          "options": [
+            "A) Overconfidence and illusion of control",
+            "B) Endowment effect and status quo bias",
+            "C) Anchoring and representativeness"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The endowment effect causes the client to overvalue the inherited position simply because they own it (and the emotional connection to the father reinforces this). Status quo bias creates resistance to changing the current state. Together, they produce an irrational attachment to a concentrated, undiversified position. Overconfidence (A) would involve believing the stock will outperform. Anchoring (C) would involve fixating on a price level.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Identify behavioral biases affecting investment decisions"
+        },
+        {
+          "id": "l3-aa6-2",
+          "question": "Automatic enrollment in 401(k) plans with default allocation to a target-date fund is an example of:",
+          "options": [
+            "A) Overcoming anchoring bias through education",
+            "B) Choice architecture using defaults and framing",
+            "C) Eliminating all behavioral biases in retirement planning"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Automatic enrollment is a classic example of choice architecture \u2014 designing the decision environment to leverage behavioral tendencies (status quo bias, inertia) in a beneficial direction. Rather than fighting biases, it uses the power of defaults: employees who would otherwise not enroll (due to procrastination and status quo bias) are automatically included. It does not eliminate biases (C) or specifically address anchoring (A).",
+          "difficulty": "basic",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe nudging and choice architecture techniques"
+        },
+        {
+          "id": "l3-aa6-3",
+          "question": "An 'Active Accumulator' behavioral investor type is most likely to exhibit which problematic portfolio behavior?",
+          "options": [
+            "A) Excessive conservatism and refusal to invest in equities",
+            "B) Herding and following consensus investment advice",
+            "C) Excessive trading and concentrated positions due to overconfidence"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Active Accumulators have high risk tolerance and are driven by overconfidence and illusion of control. They tend to trade excessively, take concentrated positions, and believe they can time markets. The advisory approach is to set clear risk limits and pre-commitment devices. Excessive conservatism (A) describes Passive Preservers. Herding (B) describes Friendly Followers.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Classify behavioral investor types and recommend advisory approaches"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain prospect theory to an investment committee and demonstrate how it leads to the disposition effect (selling winners too early, holding losers too long). Include how this bias reduces portfolio returns."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which behavioral biases do you recognize in your own investment decision-making?",
+        "How can goals-based investing constructively leverage mental accounting?",
+        "Is it more effective to educate clients about their biases or design systems that work around them?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Prospect theory**: Loss aversion (~2.5x), reference dependence, diminishing sensitivity, probability weighting\n- **Disposition effect**: Sell winners too early, hold losers too long (driven by prospect theory)\n- **Mental accounting**: Separate mental buckets; violated by traditional finance but leveraged by goals-based\n- **Cognitive biases**: Anchoring, recency, representativeness, confirmation, conservatism\n- **Emotional biases**: Loss aversion, overconfidence, status quo, endowment, regret\n- **BITs**: Passive Preserver, Friendly Follower, Independent Individualist, Active Accumulator\n- **Choice architecture**: Defaults, pre-commitment, framing, automation, cooling-off periods"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "This completes the Asset Allocation section. The **checkpoint** that follows will test your ability to integrate all six modules \u2014 from developing CMEs through behavioral considerations \u2014 in comprehensive asset allocation scenarios."
+    }
+  ]
+}

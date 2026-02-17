@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FSA.9: Analysis of Income Taxes",
+    "description": "Understand the differences between accounting profit and taxable income, deferred tax assets and liabilities, temporary vs permanent differences, valuation allowances, and effective tax rates.",
+    "level": "level-4",
+    "slug": "fsa-income-taxes",
+    "order": 9,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company reports $100 million in pre-tax accounting income, but its taxable income on the tax return is only $80 million. How is this possible, and what impact does this difference have on the financial statements?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Accounting Profit vs Taxable Income\n\nFinancial reporting (GAAP/IFRS) and tax reporting follow **different rules**, creating differences between accounting income and taxable income.\n\n| Term | Definition |\n|---|---|\n| **Accounting profit** (pre-tax income) | Income per financial statements, based on accrual accounting under GAAP/IFRS |\n| **Taxable income** | Income per tax return, based on tax law |\n| **Income tax expense** | Tax reported on the income statement (financial reporting) |\n| **Income tax payable** | Tax actually owed to the government (per tax return) |\n\n$$\\text{Income tax expense} = \\text{Income tax payable} + \\Delta\\text{DTL} - \\Delta\\text{DTA}$$\n\n### Types of Differences\n\n| Type | Description | Effect on Deferred Tax | Example |\n|---|---|---|---|\n| **Temporary** | Difference that will reverse in future periods | Creates DTA or DTL | Accelerated vs straight-line depreciation |\n| **Permanent** | Difference that will never reverse | No deferred tax; affects effective tax rate | Tax-exempt municipal bond interest, fines/penalties |\n\n### Key Insight\n\nTemporary differences create **deferred tax assets (DTAs)** or **deferred tax liabilities (DTLs)** on the balance sheet. Permanent differences do not create deferred taxes but cause the **effective tax rate** to differ from the **statutory tax rate**."
+    },
+    {
+      "type": "markdown",
+      "content": "## Deferred Tax Liabilities (DTL)\n\nA DTL arises when **taxable income < accounting income** temporarily, meaning the company pays less tax now but will pay more in the future.\n\n### Common Source: Accelerated Depreciation for Tax\n\nIf a company uses straight-line depreciation for books but accelerated depreciation for tax:\n\n| Year | Book Depreciation | Tax Depreciation | Difference |\n|---|---|---|---|\n| 1 | $20,000 | $40,000 | $20,000 |\n| 2 | $20,000 | $30,000 | $10,000 |\n| 3 | $20,000 | $15,000 | ($5,000) |\n| 4 | $20,000 | $10,000 | ($10,000) |\n| 5 | $20,000 | $5,000 | ($15,000) |\n\nIn Years 1-2, tax depreciation > book depreciation, so taxable income < accounting income. The company pays less tax now, creating a DTL.\n\n$$\\text{DTL} = \\text{Temporary difference} \\times \\text{Tax rate}$$\n\nYear 1: DTL = $20,000 \u00d7 25% = $5,000\n\nThe DTL represents the **taxes deferred** \u2014 taxes the company will pay in the future when the difference reverses (Years 3-5).\n\n### Balance Sheet Presentation\n\n- DTL is a **non-current liability** (even if it will partially reverse within one year)\n- A growing DTL that never reverses (due to ongoing capex) may behave more like equity than a true liability"
+    },
+    {
+      "type": "markdown",
+      "content": "## Deferred Tax Assets (DTA) and Valuation Allowance\n\n### Deferred Tax Assets\n\nA DTA arises when **taxable income > accounting income** temporarily, meaning the company pays more tax now but will pay less in the future.\n\n| Common Sources | Why |\n|---|---|\n| Warranty expense | Accrued for books, deductible when paid for tax |\n| Bad debt expense | Estimated for books, deductible when written off for tax |\n| Restructuring charges | Accrued for books, deductible when paid |\n| Tax loss carryforwards | Prior losses that reduce future taxable income |\n\n$$\\text{DTA} = \\text{Temporary difference} \\times \\text{Tax rate}$$\n\n### Valuation Allowance\n\nIf it is **more likely than not** (>50%) that some or all of the DTA will not be realized (i.e., the company may not have sufficient future taxable income), a **valuation allowance** is required.\n\n$$\\text{Net DTA} = \\text{Gross DTA} - \\text{Valuation allowance}$$\n\nAn increase in the valuation allowance **increases** income tax expense and **reduces** net income. Analysts watch for changes in the valuation allowance as a signal of management's expectations about future profitability.\n\n### Tax Rate Reconciliation\n\n$$\\text{Effective tax rate} = \\frac{\\text{Income tax expense}}{\\text{Pre-tax income}}$$\n\nPermanent differences cause the effective rate to differ from the statutory rate:\n- Tax-exempt income \u2192 lowers effective rate\n- Non-deductible expenses \u2192 raises effective rate\n\nThe tax rate reconciliation in the notes explains the gap between statutory and effective rates."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has pre-tax income of $500,000 and a statutory tax rate of 25%. It received $40,000 in tax-exempt municipal bond interest (included in pre-tax income). What is the effective tax rate?",
+      "answer": "Taxable income = $500,000 - $40,000 = $460,000. Tax payable = $460,000 \u00d7 25% = $115,000. Since the municipal bond interest is a permanent difference (no deferred tax), income tax expense = tax payable = $115,000. Effective tax rate = $115,000 / $500,000 = 23.0%. The effective rate is below the statutory rate because of the permanent tax-exempt income."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company reports pre-tax accounting income of $1,000,000. It uses straight-line depreciation ($200,000) for books and accelerated depreciation ($350,000) for tax. It also has $50,000 in non-deductible fines. The statutory tax rate is 30%. Calculate: (1) taxable income, (2) income tax payable, (3) income tax expense, (4) the change in DTL, and (5) effective tax rate.",
+      "solution": "**1. Taxable income:**\nStart with accounting income and adjust:\n$1,000,000 + $200,000 (add back book depreciation) - $350,000 (deduct tax depreciation) + $50,000 (fines not deductible, but they were already deducted in accounting income \u2014 add back since non-deductible for tax).\n\nActually, let's think about it differently:\n- Depreciation difference: tax depreciation exceeds book by $150,000, reducing taxable income\n- Fines: non-deductible for tax (permanent difference), so add back $50,000 to taxable income\n\nTaxable income = $1,000,000 - $150,000 + $50,000 = $900,000\n\n**2. Income tax payable:**\n$900,000 \u00d7 30% = $270,000\n\n**3. Change in DTL:**\nTemporary difference (depreciation) = $150,000\n\u0394DTL = $150,000 \u00d7 30% = $45,000 increase\n\n**4. Income tax expense:**\nTax payable + \u0394DTL = $270,000 + $45,000 = $315,000\n\nAlternatively: ($1,000,000 + $50,000 permanent difference) \u00d7 30% = $1,050,000 \u00d7 30% \u2014 wait, that's not right.\nSimpler: Tax expense = Tax payable + \u0394DTL = $270,000 + $45,000 = $315,000\n\n**5. Effective tax rate:**\n$315,000 / $1,000,000 = 31.5%\n\nThe effective rate exceeds the statutory rate (30%) because of the non-deductible fines ($50,000 \u00d7 30% = $15,000 added to tax expense)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Income Tax Analysis Practice Problems",
+      "problems": [
+        {
+          "id": "fsa9-1",
+          "question": "A company uses accelerated depreciation for tax purposes and straight-line for financial reporting. In the early years of an asset's life, this will most likely create a:",
+          "options": [
+            "A) Deferred tax asset",
+            "B) Deferred tax liability",
+            "C) Permanent difference"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In early years, accelerated tax depreciation exceeds book depreciation, making taxable income lower than accounting income. The company pays less tax now than the tax expense recognized on the income statement. This creates a deferred tax liability \u2014 taxes that are deferred to future periods when the difference reverses (tax depreciation falls below book depreciation). Option A would arise if taxable income exceeded accounting income. Option C is incorrect because the depreciation difference reverses over the asset's life, making it temporary, not permanent.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Determine whether a temporary difference creates a DTA or DTL"
+        },
+        {
+          "id": "fsa9-2",
+          "question": "A company has pre-tax income of $2,000,000, a statutory tax rate of 25%, and $100,000 in tax-exempt interest income included in pre-tax income. The effective tax rate is closest to:",
+          "options": [
+            "A) 23.75%",
+            "B) 25.00%",
+            "C) 26.25%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Taxable income = $2,000,000 - $100,000 = $1,900,000 (tax-exempt income is a permanent difference). Income tax expense = $1,900,000 \u00d7 25% = $475,000. Effective tax rate = $475,000 / $2,000,000 = 23.75%. The effective rate is below the statutory rate because tax-exempt income reduces taxes without reducing pre-tax accounting income. Option B (25%) ignores the permanent difference. Option C (26.25%) would result from a non-deductible expense, not tax-exempt income.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate the effective tax rate and explain differences from the statutory rate"
+        },
+        {
+          "id": "fsa9-3",
+          "question": "A company increases its valuation allowance against deferred tax assets by $500,000. The most likely impact on the income statement is:",
+          "options": [
+            "A) Income tax expense decreases by $500,000",
+            "B) Income tax expense increases by $500,000",
+            "C) No impact on income tax expense"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Increasing the valuation allowance reduces the net DTA on the balance sheet. Since DTA represents future tax benefits, reducing it means recognizing that some benefits may not be realized. This increases income tax expense by $500,000 and reduces net income. An increase in the valuation allowance signals management's doubt about future profitability sufficient to utilize the DTA. Option A reverses the effect. Option C is incorrect \u2014 changes in the valuation allowance directly impact income tax expense.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the impact of changes in the valuation allowance"
+        },
+        {
+          "id": "fsa9-4",
+          "question": "A company has a tax loss carryforward of $3,000,000 and a statutory tax rate of 20%. The DTA from this carryforward is $600,000. If the company establishes a valuation allowance of $200,000, the net DTA reported on the balance sheet is:",
+          "options": [
+            "A) $400,000",
+            "B) $600,000",
+            "C) $800,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Net DTA = Gross DTA - Valuation allowance = $600,000 - $200,000 = $400,000. The valuation allowance reflects management's assessment that it is more likely than not that $200,000 of the DTA will not be realized (i.e., the company may not generate enough taxable income to utilize all $3M in carryforwards). Option B ($600,000) ignores the valuation allowance. Option C ($800,000) is not derivable from the given data.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate net DTA after valuation allowance"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a fellow CFA candidate why a company's income tax expense on the income statement almost never equals the actual tax payment to the government. Use the concepts of temporary differences, permanent differences, and deferred taxes in your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a growing company's DTL from accelerated depreciation never actually reverse, and how should analysts treat this 'permanent' DTL?",
+        "What does an increase in the valuation allowance tell you about management's view of the company's future?",
+        "How do permanent differences help you identify the sources of a company's tax advantage or disadvantage?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Income tax expense = Tax payable + \u0394DTL - \u0394DTA\n- Temporary differences \u2192 DTA or DTL (reverse in future periods)\n- Permanent differences \u2192 affect effective tax rate only (no deferred taxes)\n- DTL arises when taxable income < accounting income (tax deferred to future)\n- DTA arises when taxable income > accounting income (tax prepaid)\n- DTA/DTL = Temporary difference \u00d7 Tax rate\n- Valuation allowance reduces net DTA; increase \u2192 higher tax expense\n- Effective tax rate = Tax expense / Pre-tax income\n- Tax-exempt income lowers effective rate; non-deductible expenses raise it\n- Tax loss carryforwards create DTAs"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Financial Reporting Quality**, where you'll learn to assess whether financial statements faithfully represent economic reality. Income tax provisions are one of the areas most susceptible to earnings management \u2014 companies can use the valuation allowance, deferred tax assumptions, and tax rate estimates to smooth or inflate reported earnings."
+    }
+  ]
+}

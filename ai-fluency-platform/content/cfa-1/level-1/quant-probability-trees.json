@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "QM.4: Probability Trees and Conditional Expectations",
+    "description": "Apply probability rules, Bayes' theorem, and probability trees to calculate conditional expectations and variance of random variables.",
+    "level": "level-1",
+    "slug": "quant-probability-trees",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A medical test is 95% accurate. If a rare disease affects 1% of the population and you test positive, what do you think is the probability you actually have the disease? Is it close to 95%?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Probability Fundamentals\n\nA **random variable** is a quantity whose outcome is uncertain. **Probability** measures the likelihood of an event occurring, ranging from 0 (impossible) to 1 (certain).\n\n### Types of Probability\n\n- **Empirical probability**: based on historical frequency \u2014 $P(A) = n_A / n$\n- **A priori probability**: based on logical analysis (e.g., dice, cards)\n- **Subjective probability**: based on personal judgment or experience\n\n### Fundamental Rules\n\n**Complement rule**: $P(A^c) = 1 - P(A)$\n\n**Addition rule**: $P(A \\text{ or } B) = P(A) + P(B) - P(A \\text{ and } B)$\n\nFor **mutually exclusive** events: $P(A \\text{ or } B) = P(A) + P(B)$\n\n**Multiplication rule**: $P(A \\text{ and } B) = P(A|B) \\times P(B)$\n\nFor **independent** events: $P(A \\text{ and } B) = P(A) \\times P(B)$\n\n### Conditional Probability\n\n$$P(A|B) = \\frac{P(A \\text{ and } B)}{P(B)}$$\n\nThis reads: \"the probability of A given B has occurred.\" Two events are independent if and only if $P(A|B) = P(A)$."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "P(A) = 0.6, P(B) = 0.3, P(A and B) = 0.18. Are events A and B independent?",
+      "answer": "Yes. For independence, we need P(A and B) = P(A) \u00d7 P(B). Check: 0.6 \u00d7 0.3 = 0.18 = P(A and B). Since the condition holds, A and B are independent. Equivalently, P(A|B) = 0.18/0.3 = 0.6 = P(A), confirming independence."
+    },
+    {
+      "type": "markdown",
+      "content": "## Bayes' Theorem\n\nBayes' theorem **updates probabilities** when new information arrives:\n\n$$P(A|B) = \\frac{P(B|A) \\times P(A)}{P(B)}$$\n\nUsing the **total probability rule** for the denominator:\n\n$$P(B) = P(B|A) \\times P(A) + P(B|A^c) \\times P(A^c)$$\n\n### Example: Updating Investment Views\n\nSuppose you believe there's a 60% chance the economy expands. An economic indicator is released that is \"positive\" 80% of the time during expansions and 30% of the time during recessions.\n\nThe indicator comes in positive. What is the updated probability of expansion?\n\n$$P(\\text{Expand}|+) = \\frac{P(+|\\text{Expand}) \\times P(\\text{Expand})}{P(+)}$$\n\n$$P(+) = P(+|\\text{Expand}) \\times P(\\text{Expand}) + P(+|\\text{Recession}) \\times P(\\text{Recession})$$\n$$= 0.80 \\times 0.60 + 0.30 \\times 0.40 = 0.48 + 0.12 = 0.60$$\n\n$$P(\\text{Expand}|+) = \\frac{0.80 \\times 0.60}{0.60} = \\frac{0.48}{0.60} = 0.80$$\n\nThe positive indicator increased your probability of expansion from 60% (prior) to 80% (posterior)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Probability Trees and Expected Value\n\n### Probability Trees\n\nA **probability tree** visually represents sequential decisions and outcomes. Each branch shows a conditional probability, and the probability of reaching any endpoint is the product of probabilities along the path.\n\nThe probabilities at each node must sum to 1, and the total probability across all endpoints must sum to 1.\n\n### Expected Value\n\nThe **expected value** of a random variable is its probability-weighted average:\n\n$$E(X) = \\sum_{i=1}^{n} P(X_i) \\times X_i$$\n\n### Total Probability Rule for Expected Value\n\nConditioning on scenarios:\n\n$$E(X) = \\sum_{i=1}^{n} P(S_i) \\times E(X|S_i)$$\n\n### Variance of a Random Variable\n\n$$\\text{Var}(X) = E[(X - E(X))^2] = \\sum_{i=1}^{n} P(X_i) \\times [X_i - E(X)]^2$$\n\nAlternative formula: $\\text{Var}(X) = E(X^2) - [E(X)]^2$\n\n### Example\n\nA stock has a 40% chance of returning 15% and a 60% chance of returning -5%:\n\n$$E(R) = 0.40 \\times 15\\% + 0.60 \\times (-5\\%) = 6\\% - 3\\% = 3\\%$$\n\n$$\\text{Var}(R) = 0.40 \\times (15-3)^2 + 0.60 \\times (-5-3)^2 = 0.40 \\times 144 + 0.60 \\times 64 = 57.6 + 38.4 = 96$$\n\n$$\\sigma = \\sqrt{96} = 9.80\\%$$"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Use Bayes' theorem: A company's stock either rises (70% probability) or falls (30% probability) on earnings day. A quantitative model predicts 'up' 85% of the time when the stock actually rises, and 'up' 20% of the time when the stock actually falls. If the model predicts 'up', what is the updated probability the stock will rise?",
+      "solution": "**Define events:**\n- $R$ = stock rises, $P(R) = 0.70$\n- $F$ = stock falls, $P(F) = 0.30$\n- $U$ = model predicts up\n\n**Given likelihoods:**\n- $P(U|R) = 0.85$\n- $P(U|F) = 0.20$\n\n**Step 1: Total probability of 'up' prediction**\n\n$P(U) = P(U|R) \\times P(R) + P(U|F) \\times P(F)$\n$= 0.85 \\times 0.70 + 0.20 \\times 0.30$\n$= 0.595 + 0.060 = 0.655$\n\n**Step 2: Apply Bayes' theorem**\n\n$P(R|U) = \\frac{P(U|R) \\times P(R)}{P(U)} = \\frac{0.85 \\times 0.70}{0.655} = \\frac{0.595}{0.655} = 0.9084$\n\nThe model's 'up' prediction increases the probability of a rise from 70% to approximately 90.8%."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Probability Trees and Conditional Expectations Practice",
+      "problems": [
+        {
+          "id": "qm4-1",
+          "question": "P(A) = 0.5, P(B) = 0.4, and A and B are independent. P(A or B) is closest to:",
+          "options": [
+            "A) 0.70",
+            "B) 0.90",
+            "C) 0.30"
+          ],
+          "correctAnswer": "A",
+          "explanation": "For independent events: P(A and B) = P(A) \u00d7 P(B) = 0.5 \u00d7 0.4 = 0.20. Addition rule: P(A or B) = P(A) + P(B) - P(A and B) = 0.5 + 0.4 - 0.2 = 0.70. Option B (0.90) simply adds P(A) + P(B) without subtracting the intersection. Option C (0.30) confuses P(A or B) with P(A and B) + 0.10.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply probability rules including the addition and multiplication rules"
+        },
+        {
+          "id": "qm4-2",
+          "question": "An analyst estimates a 30% probability of recession. During recessions, a portfolio's expected return is -10%. During expansions, the expected return is 15%. The unconditional expected return is closest to:",
+          "options": [
+            "A) 2.5%",
+            "B) 7.5%",
+            "C) 5.0%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the total probability rule for expected value: E(R) = P(recession) \u00d7 E(R|recession) + P(expansion) \u00d7 E(R|expansion) = 0.30 \u00d7 (-10%) + 0.70 \u00d7 15% = -3% + 10.5% = 7.5%. Option A (2.5%) uses equal probabilities: 0.5(-10%) + 0.5(15%). Option C (5.0%) averages the two returns without weighting: (-10% + 15%)/2.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate expected value using the total probability rule"
+        },
+        {
+          "id": "qm4-3",
+          "question": "A disease affects 2% of the population. A test is 90% sensitive (positive when disease present) and 95% specific (negative when disease absent). If a person tests positive, the probability they have the disease is closest to:",
+          "options": [
+            "A) 90%",
+            "B) 27%",
+            "C) 50%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using Bayes' theorem: P(D|+) = P(+|D) \u00d7 P(D) / P(+). P(+) = P(+|D)P(D) + P(+|D^c)P(D^c) = 0.90 \u00d7 0.02 + 0.05 \u00d7 0.98 = 0.018 + 0.049 = 0.067. P(D|+) = 0.018/0.067 = 26.9%, closest to 27%. Option A (90%) confuses the sensitivity P(+|D) with the posterior P(D|+). This is the classic 'base rate neglect' error. Option C (50%) is an arbitrary guess.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply Bayes' theorem to update probabilities"
+        },
+        {
+          "id": "qm4-4",
+          "question": "A random variable X can take values of 10, 20, or 30 with probabilities 0.2, 0.5, and 0.3. The variance of X is closest to:",
+          "options": [
+            "A) 49",
+            "B) 56",
+            "C) 64"
+          ],
+          "correctAnswer": "A",
+          "explanation": "E(X) = 0.2(10) + 0.5(20) + 0.3(30) = 2 + 10 + 9 = 21. Var(X) = 0.2(10-21)\u00b2 + 0.5(20-21)\u00b2 + 0.3(30-21)\u00b2 = 0.2(121) + 0.5(1) + 0.3(81) = 24.2 + 0.5 + 24.3 = 49. Option B (56) uses the population formula on a sample. Option C (64) miscalculates E(X) as 20 and recomputes.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate variance of a discrete random variable"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain Bayes' theorem to someone unfamiliar with it. Use the disease testing example to show why the 'base rate' (how common the disease is) matters so much, and why a positive test result does not necessarily mean a high probability of having the disease."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Were you surprised by the disease testing result in the predictPrompt? How does base rate neglect appear in real-world investment decisions?",
+        "When might subjective probabilities be more appropriate than empirical probabilities in finance?",
+        "How would you construct a probability tree for a two-stage investment decision?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Addition rule: $P(A \\text{ or } B) = P(A) + P(B) - P(A \\text{ and } B)$\n- Multiplication rule: $P(A \\text{ and } B) = P(A|B) \\times P(B)$\n- Independence: $P(A|B) = P(A)$\n- Bayes' theorem: $P(A|B) = P(B|A) \\times P(A) / P(B)$\n- Total probability: $P(B) = \\sum P(B|S_i) \\times P(S_i)$\n- Expected value: $E(X) = \\sum P(X_i) \\times X_i$\n- Variance: $\\text{Var}(X) = \\sum P(X_i) \\times [X_i - E(X)]^2$\n- Beware base rate neglect when applying Bayes' theorem"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Portfolio Mathematics**, where you will use expected values, variances, and a new concept \u2014 covariance \u2014 to calculate portfolio risk and return. The probability-weighted calculations from this module directly underpin portfolio theory."
+    }
+  ]
+}

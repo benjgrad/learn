@@ -34,7 +34,7 @@ export function Header() {
         </Sheet>
 
         <Link href="/" className="font-bold text-lg">
-          AI Fluency
+          Learning Platform
         </Link>
 
         <nav className="hidden md:flex items-center gap-4 ml-6">

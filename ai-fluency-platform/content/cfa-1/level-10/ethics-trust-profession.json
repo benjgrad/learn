@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "E.1: Ethics and Trust in the Investment Profession",
+    "description": "Understand why ethics matter in investment management, the role of trust, ethical frameworks, and structured approaches to ethical decision-making.",
+    "level": "level-10",
+    "slug": "ethics-trust-profession",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Ethical and Professional Standards"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An investment manager discovers that a popular strategy she recommends generates higher fees for her firm but has consistently underperformed a cheaper alternative. What ethical obligations does she have? How would you decide what to do, and what framework would you use?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why Ethics Matter in Investment Management\n\nThe investment profession depends on **trust**. Clients entrust their wealth \u2014 retirement savings, education funds, institutional assets \u2014 to professionals they cannot fully monitor. This creates an inherent **information asymmetry**: investment professionals know far more about what they are doing with client money than clients themselves.\n\nWithout trust, capital markets cannot function effectively. If investors lose confidence that professionals are acting in their interest, they withdraw capital, markets become less liquid, and the cost of capital rises for everyone.\n\n### Ethics vs. Law\n\nA critical CFA distinction: **ethical conduct and legal conduct are not the same thing.**\n\n| Category | Example |\n|---|---|\n| Legal AND ethical | Disclosing all conflicts of interest to clients |\n| Legal but NOT ethical | Front-running a client order in a jurisdiction that hasn't yet prohibited it |\n| Illegal but arguably ethical | Whistleblowing that violates an NDA to expose client fraud |\n| Illegal AND unethical | Insider trading for personal profit |\n\nThe CFA Institute holds members to a standard **higher than the law**. When laws conflict, members must follow the stricter requirement."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio manager operates in a country where insider trading laws are weak. A colleague offers her material nonpublic information. She knows using it would be legal locally. Under CFA standards, can she use it?",
+      "answer": "No. CFA members must comply with the stricter of local law or CFA Institute standards. Since the Standards prohibit trading on material nonpublic information (Standard II(A)), she cannot use it even if local law permits it. The CFA Code demands conduct above the minimum legal threshold."
+    },
+    {
+      "type": "markdown",
+      "content": "## Ethical Frameworks\n\nThe CFA curriculum contrasts two primary approaches to ethical regulation:\n\n**Rules-Based Approach:**\n- Defines specific behaviors that are permitted or prohibited\n- Clear and enforceable, but can be gamed (\"letter of the law\")\n- Creates loopholes \u2014 anything not explicitly prohibited may be considered acceptable\n- Example: A regulation stating \"you may not trade within 30 minutes of receiving material information\"\n\n**Principles-Based Approach:**\n- Establishes broad ethical principles to guide behavior\n- More flexible, but requires more judgment to apply\n- Harder to game because it focuses on intent and spirit, not just actions\n- Example: \"Members shall act with integrity and place client interests first\"\n\nThe CFA Institute uses a **principles-based** approach through its Code of Ethics, supplemented by specific Standards of Professional Conduct that provide more detailed guidance.\n\n### The Ethical Decision-Making Framework\n\nWhen facing an ethical dilemma, CFA Institute recommends a structured approach:\n\n1. **Identify** \u2014 What are the relevant facts, stakeholders, and duties?\n2. **Consider** \u2014 What are the situational influences and potential conflicts?\n3. **Decide and act** \u2014 What action best aligns with the Code and Standards?\n4. **Reflect** \u2014 What were the consequences, and would you decide differently?\n\nThis framework helps professionals move beyond gut reactions to systematic, defensible ethical reasoning."
+    },
+    {
+      "type": "markdown",
+      "content": "## Challenges to Ethical Behavior\n\nEven well-intentioned professionals face pressures that can compromise ethical conduct:\n\n- **Overconfidence bias**: Believing \"I would never act unethically\" makes you less vigilant about situational pressures\n- **Incrementalism (slippery slope)**: Small compromises compound \u2014 accepting a minor gift leads to accepting larger ones\n- **Loyalty conflicts**: Pressure to prioritize employer revenue over client interests\n- **Groupthink**: Conforming to team norms even when they conflict with ethical standards\n- **Outcome bias**: Judging the ethics of a decision by its outcome rather than the process\n\n### How Trust Generates Value\n\nTrust in the investment profession creates tangible economic benefits:\n\n- **Lower cost of capital**: Transparent markets attract more investors, increasing supply of capital\n- **Greater market participation**: Retail and institutional investors participate when they believe markets are fair\n- **Reduced monitoring costs**: Trust reduces the need for expensive oversight and compliance infrastructure\n- **Professional reputation**: Ethical professionals attract and retain clients, leading to sustainable careers"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Apply the Ethical Decision-Making Framework: A junior analyst at a large asset management firm notices that her supervisor has been cherry-picking time periods in performance reports to make the fund look better than its benchmark. The reports are not technically false \u2014 the data is real \u2014 but the time periods are selectively chosen. Apply the four-step ethical decision-making framework to this scenario.",
+      "solution": "**1. Identify:** The relevant facts are that performance reports use selectively chosen time periods, creating a misleading impression. Stakeholders include current and prospective clients (who rely on performance data), the supervisor, the firm, and the analyst's own career. Duties include fair dealing with clients and honest communication.\n\n**2. Consider:** Situational influences include the analyst's junior position and potential career consequences of speaking up. Conflicts include loyalty to her supervisor vs. duty to clients. The behavior, while technically using real data, violates the spirit of fair representation.\n\n**3. Decide and act:** The analyst should first raise the concern with her supervisor directly. If the behavior continues, she should escalate to the compliance department or senior management. Under CFA Standards, performance presentation must be fair, accurate, and complete \u2014 selective time periods that mislead clients violate Standard III(D) on Performance Presentation and Standard I(C) on Misrepresentation.\n\n**4. Reflect:** Regardless of outcome, the analyst should consider whether the firm's culture supports or discourages this behavior and whether systemic changes are needed."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Ethics and Trust Practice Problems",
+      "problems": [
+        {
+          "id": "e1-1",
+          "question": "Sarah Chen, CFA, works in a jurisdiction where certain forms of front-running are not explicitly prohibited by local securities law. Her firm has a policy that allows traders to execute personal trades immediately after large client orders. Under CFA Institute standards, which of the following is most accurate?",
+          "options": [
+            "A) Sarah may follow local law and her firm's policy since they are not in conflict.",
+            "B) Sarah must follow CFA Institute standards because they are stricter than the applicable law.",
+            "C) Sarah must follow whichever standard was established first, as it takes precedence."
+          ],
+          "correctAnswer": "B",
+          "explanation": "CFA members must comply with the stricter of applicable law or CFA Institute standards. Since CFA Standard VI(B) (Priority of Transactions) prohibits trading that disadvantages clients, Sarah must follow the CFA standard even though local law and her firm's policy permit the practice. Option A is incorrect because CFA members do not simply defer to local law when CFA standards are more restrictive. Option C is incorrect because precedence is determined by strictness, not by chronological order.",
+          "difficulty": "basic",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Explain the ethical responsibilities required by the CFA Institute Code of Ethics"
+        },
+        {
+          "id": "e1-2",
+          "question": "Which of the following best describes a limitation of a purely rules-based approach to ethical regulation in investment management?",
+          "options": [
+            "A) Rules-based frameworks require too much professional judgment to apply consistently.",
+            "B) Rules-based frameworks can be circumvented by professionals who comply with the letter but not the spirit of the rules.",
+            "C) Rules-based frameworks are less enforceable than principles-based frameworks."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The primary limitation of rules-based frameworks is that they can be gamed: professionals can comply with the explicit text of a rule while engaging in behavior that violates its underlying purpose. For example, a rule banning \"trades within 24 hours\" of receiving material information could be circumvented by waiting exactly 24 hours and 1 minute. Option A describes a characteristic of principles-based (not rules-based) approaches. Option C is incorrect because rules-based frameworks are generally considered easier to enforce than principles-based ones, precisely because the rules are specific.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Compare and contrast rules-based and principles-based approaches to ethical regulation"
+        },
+        {
+          "id": "e1-3",
+          "question": "James Reed, a portfolio manager, gradually increases the allocation of client portfolios to a fund that pays his firm higher sub-advisory fees. Each individual change is small and within the range of his discretionary authority. Over 18 months, the cumulative effect is a significant shift toward higher-fee products. James tells himself that the fund's performance has been acceptable. Which challenge to ethical behavior does this scenario best illustrate?",
+          "options": [
+            "A) Overconfidence bias",
+            "B) Incrementalism (slippery slope)",
+            "C) Outcome bias"
+          ],
+          "correctAnswer": "B",
+          "explanation": "This is a classic example of incrementalism or the slippery slope: each individual action seems small and defensible, but the cumulative effect is a significant ethical violation \u2014 prioritizing firm revenue over client interests. Option A (overconfidence) describes the belief that one is immune to ethical lapses, which is not the primary issue here. Option C (outcome bias) describes judging ethics by results; while James does reference \"acceptable performance,\" the core issue is the gradual escalation of self-serving behavior, not the evaluation of outcomes.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Describe challenges to ethical behavior and identify common psychological biases"
+        },
+        {
+          "id": "e1-4",
+          "question": "An investment analyst is applying the CFA Institute's ethical decision-making framework. She has identified the relevant facts and stakeholders and considered the situational influences. What should she do next?",
+          "options": [
+            "A) Seek guidance from the CFA Institute's Professional Conduct Program.",
+            "B) Decide and act in a manner consistent with the Code and Standards.",
+            "C) Document her analysis in writing to protect herself from liability."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The CFA Institute's ethical decision-making framework follows four steps: (1) Identify the relevant facts, stakeholders, and duties; (2) Consider situational influences and conflicts; (3) Decide and act consistently with the Code and Standards; (4) Reflect on the outcome. Having completed the first two steps, the next step is to decide and act. Option A may be appropriate in some circumstances but is not the prescribed next step in the framework. Option C is a practical precaution but is not part of the structured framework.",
+          "difficulty": "basic",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Describe the CFA Institute ethical decision-making framework"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague outside the finance industry why ethical standards in investment management need to go beyond just following the law. Use at least one specific example to illustrate the difference between legal and ethical behavior."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Can you think of a real-world financial scandal that resulted from the kinds of ethical failures described in this module?",
+        "Which of the challenges to ethical behavior (overconfidence, incrementalism, loyalty conflicts, groupthink, outcome bias) do you think you would be most susceptible to, and why?",
+        "Why do you think the CFA Institute chose a principles-based rather than rules-based approach?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Trust is the foundation of the investment profession \u2014 without it, markets become less efficient and the cost of capital rises\n- Ethical conduct is **not the same** as legal conduct; CFA standards often exceed legal requirements\n- When CFA standards and local law conflict, members must follow the **stricter** requirement\n- **Rules-based** frameworks are specific and enforceable but can be gamed; **principles-based** frameworks require judgment but are harder to circumvent\n- The ethical decision-making framework: **Identify \u2192 Consider \u2192 Decide and Act \u2192 Reflect**\n- Common challenges: overconfidence, incrementalism, loyalty conflicts, groupthink, outcome bias"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now that you understand why ethics matter and the frameworks for ethical reasoning, the next module covers the **Code of Ethics and Standards of Professional Conduct** \u2014 the specific principles and rules that CFA members and candidates must follow. The Code translates the broad ethical ideas from this module into concrete professional obligations."
+    }
+  ]
+}

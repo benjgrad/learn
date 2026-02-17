@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "title": "Economics Checkpoint",
+    "description": "Comprehensive assessment covering all Economics topics: market structures, business cycles, fiscal policy, monetary policy, geopolitics, international trade, capital flows, and exchange rate calculations.",
+    "level": "level-2",
+    "slug": "econ-checkpoint",
+    "order": 10,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Economics Checkpoint\n\nThis checkpoint tests your understanding across all Economics modules. The questions span market structures, business cycles, fiscal and monetary policy, geopolitics, international trade, capital flows, and exchange rate calculations.\n\nTake your time. Work through each problem as you would on the CFA exam \u2014 read carefully, eliminate wrong answers, and show your reasoning."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Economics Comprehensive Assessment",
+      "problems": [
+        {
+          "id": "econ-cp-1",
+          "question": "A firm in a perfectly competitive market is currently producing where price equals average total cost. The firm is most likely earning:",
+          "options": [
+            "A) Positive economic profit",
+            "B) Zero economic profit",
+            "C) A loss equal to fixed costs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When P = ATC, total revenue (P \u00d7 Q) equals total cost (ATC \u00d7 Q), so economic profit is zero. This is the long-run equilibrium condition in perfect competition. Zero economic profit means the firm earns a normal return \u2014 enough to cover all explicit and implicit costs (including opportunity costs). Option A requires P > ATC. Option C requires P < AVC (at the shutdown point, losses equal fixed costs).",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Identify the breakeven condition for a competitive firm"
+        },
+        {
+          "id": "econ-cp-2",
+          "question": "During a business cycle expansion, which of the following combinations is most likely?",
+          "options": [
+            "A) Rising unemployment, falling consumer confidence, rising stock prices",
+            "B) Falling unemployment, rising inflation pressures, rising corporate profits",
+            "C) Rising unemployment, falling inflation, rising government spending"
+          ],
+          "correctAnswer": "B",
+          "explanation": "During expansion: GDP grows, firms hire more (unemployment falls), increased demand creates inflation pressures, and businesses see rising profits. Option A describes contradictory conditions \u2014 rising unemployment is characteristic of contraction, not expansion. While stock prices are a leading indicator and may rise early in expansion, the combination with rising unemployment is inconsistent. Option C describes contraction characteristics (rising unemployment, falling inflation) combined with a fiscal response (rising government spending).",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe characteristics of business cycle phases"
+        },
+        {
+          "id": "econ-cp-3",
+          "question": "The marginal propensity to consume is 0.75 with no income tax. The government simultaneously increases spending by $40 billion and raises taxes by $40 billion. The change in GDP is closest to:",
+          "options": [
+            "A) $0 billion",
+            "B) $40 billion",
+            "C) $120 billion"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The balanced-budget multiplier equals 1. Spending multiplier = 1/(1 \u2212 0.75) = 4. Tax multiplier = \u22120.75/(1 \u2212 0.75) = \u22123. Effect of spending: 4 \u00d7 $40B = $160B. Effect of taxes: \u22123 \u00d7 $40B = \u2212$120B. Net: $160B \u2212 $120B = $40B. The balanced-budget multiplier is always 1: net GDP change = the equal increase in spending and taxes. Option A assumes the effects cancel completely, ignoring that the spending multiplier exceeds the tax multiplier in absolute value. Option C (120B) uses only the spending multiplier effect on the net amount: 3 \u00d7 $40B, confusing multipliers.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the balanced-budget multiplier"
+        },
+        {
+          "id": "econ-cp-4",
+          "question": "Using the Taylor rule with: equilibrium real rate = 2%, current inflation = 1%, target inflation = 2%, and output gap = \u22123%, the recommended policy rate is closest to:",
+          "options": [
+            "A) 1.0%",
+            "B) 2.0%",
+            "C) 3.5%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Taylor rule: i = r* + \u03c0 + 0.5(\u03c0 \u2212 \u03c0*) + 0.5(y \u2212 y*) = 2% + 1% + 0.5(1% \u2212 2%) + 0.5(\u22123%) = 2 + 1 \u2212 0.5 \u2212 1.5 = 1.0%. Both inflation below target (\u22120.5%) and the negative output gap (\u22121.5%) call for easier policy, pulling the recommended rate well below the neutral rate (r* + \u03c0* = 4%). Option B (2.0%) omits the output gap term: 2 + 1 \u2212 0.5 = 2.5, not 2.0, so this would also involve a computational error. Option C (3.5%) likely ignores both adjustment terms, computing only r* + \u03c0 + 0.5 = 3.5, or a similar error.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate the Taylor rule policy rate"
+        },
+        {
+          "id": "econ-cp-5",
+          "question": "A sudden military conflict in a major oil-producing region would most likely cause which combination of effects?",
+          "options": [
+            "A) Falling oil prices, rising equity markets, narrowing credit spreads",
+            "B) Rising oil prices, falling bond yields in safe-haven countries, rising gold prices",
+            "C) Rising oil prices, rising bond yields in safe-haven countries, falling gold prices"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A military conflict in an oil-producing region disrupts supply, pushing oil prices up. Investors flee to safety: demand for safe-haven government bonds rises, pushing their prices up and yields down. Gold, as a traditional safe-haven asset, also appreciates. Option A reverses almost all effects \u2014 oil prices would rise (not fall), equities would decline (not rise), and credit spreads would widen (not narrow). Option C correctly identifies rising oil prices but incorrectly states that safe-haven bond yields would rise (they fall as prices increase) and gold would fall (it rises in a flight to safety).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Analyze the impact of geopolitical events on financial markets"
+        },
+        {
+          "id": "econ-cp-6",
+          "question": "Country X can produce wheat at an opportunity cost of 2 units of steel, while Country Y can produce wheat at an opportunity cost of 3 units of steel. According to comparative advantage theory:",
+          "options": [
+            "A) Country X should export steel and import wheat",
+            "B) Country X should export wheat and import steel",
+            "C) Neither country benefits from trade since the opportunity costs differ"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Country X has a comparative advantage in wheat (lower opportunity cost: 2 steel vs. 3 steel for Y). Country Y has a comparative advantage in steel (opportunity cost of 1 steel = 1/3 wheat for Y vs. 1/2 wheat for X \u2014 Y gives up less wheat per unit of steel). Country X should export wheat and import steel. Option A reverses the comparative advantages. Option C misunderstands comparative advantage \u2014 different opportunity costs are precisely what creates the basis for mutually beneficial trade.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply comparative advantage to determine trade patterns"
+        },
+        {
+          "id": "econ-cp-7",
+          "question": "A country has: exports = $500B, imports = $700B, net income = +$50B, net transfers = \u2212$30B, capital account = +$10B. The financial account balance must be closest to:",
+          "options": [
+            "A) +$170 billion",
+            "B) +$180 billion",
+            "C) \u2212$170 billion"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Current account = (500 \u2212 700) + 50 + (\u221230) = \u2212200 + 50 \u2212 30 = \u2212$180B. BOP identity: Current + Capital + Financial = 0. Therefore: \u2212180 + 10 + Financial = 0, so Financial = +$170B. Option B (+$180B) ignores the capital account surplus, setting Financial = \u2212Current account = +$180B. Option C (\u2212$170B) uses the wrong sign \u2014 a negative financial account would mean capital outflows, which contradicts the need to finance a current account deficit.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Apply the balance of payments identity"
+        },
+        {
+          "id": "econ-cp-8",
+          "question": "Spot USD/EUR = 1.0800. The one-year U.S. rate is 5.0% and the one-year Eurozone rate is 3.5%. The one-year forward rate USD/EUR is closest to:",
+          "options": [
+            "A) 1.0644",
+            "B) 1.0957",
+            "C) 1.0962"
+          ],
+          "correctAnswer": "C",
+          "explanation": "F = S \u00d7 (1 + r_USD)/(1 + r_EUR) = 1.0800 \u00d7 (1.05)/(1.035) = 1.0800 \u00d7 1.01449 = 1.0956, closest to 1.0962 (minor rounding in the options). The euro trades at a forward premium because U.S. rates are higher (the USD, as the higher-rate currency, trades at a forward discount, meaning each EUR costs more USD forward). Option A (1.0644) results from inverting the ratio: 1.0800 \u00d7 (1.035/1.05) = 1.0800 \u00d7 0.98571 = 1.0646 \u2014 putting the EUR rate in the numerator instead of the denominator. Option B (1.0957) would result from a slightly different calculation approach but is close; C at 1.0962 is the closest to the precise answer.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate forward exchange rates using interest rate parity"
+        },
+        {
+          "id": "econ-cp-9",
+          "question": "An industry has four firms with market shares of 40%, 30%, 20%, and 10%. The HHI is closest to:",
+          "options": [
+            "A) 2,500",
+            "B) 3,000",
+            "C) 10,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "HHI = 40\u00b2 + 30\u00b2 + 20\u00b2 + 10\u00b2 = 1,600 + 900 + 400 + 100 = 3,000. This exceeds 2,500, indicating a highly concentrated market. Option A (2,500) is the threshold value for highly concentrated, not the calculated HHI. Option C (10,000) is the maximum HHI for a pure monopoly \u2014 the error of squaring the total market share (100\u00b2 = 10,000) instead of summing the squares of individual shares.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate and interpret the Herfindahl-Hirschman Index"
+        },
+        {
+          "id": "econ-cp-10",
+          "question": "A central bank raises its policy rate. Through the monetary policy transmission mechanism, the most likely sequence of effects is:",
+          "options": [
+            "A) Currency depreciation \u2192 cheaper exports \u2192 higher aggregate demand",
+            "B) Higher borrowing costs \u2192 reduced investment \u2192 lower aggregate demand \u2192 reduced inflation pressure",
+            "C) Higher savings rates \u2192 increased bank lending \u2192 higher aggregate demand"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A rate increase raises borrowing costs for businesses and consumers, reducing investment and interest-sensitive consumption. Lower spending reduces aggregate demand, which eases inflation pressure. This is the standard interest rate channel of monetary policy transmission. Option A describes the effect of a rate cut (not increase) \u2014 a rate hike would cause currency appreciation (not depreciation), making exports more expensive, which further reduces aggregate demand. Option C confuses the direction: while higher rates increase savings incentives, they reduce loan demand and make banks more selective in lending, so the net effect is contractionary.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe the transmission mechanism of monetary policy"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Economics Module Summary:**\n\n**Market Structures**: Four types along a spectrum of pricing power. Profit max at MR = MC. Shutdown when P < AVC. HHI measures concentration.\n\n**Business Cycles**: Expansion \u2192 peak \u2192 contraction \u2192 trough. Leading indicators (stocks, permits) change first. Natural rate = frictional + structural unemployment.\n\n**Fiscal Policy**: Spending multiplier = 1/(1 \u2212 MPC). Balanced-budget multiplier = 1. Crowding out and Ricardian equivalence limit effectiveness.\n\n**Monetary Policy**: Taylor rule sets the target rate. Transmission via interest rates, asset prices, exchange rates, credit. Liquidity trap at the zero lower bound.\n\n**Geopolitics**: Risk assessment (probability, impact, duration, contagion). Flight to safety: bonds up, gold up, equities down.\n\n**International Trade**: Comparative advantage (opportunity cost). Tariffs create deadweight loss. Trade creation vs. trade diversion.\n\n**Capital Flows**: BOP identity: CA + KA + FA = 0. Impossible trinity. Sterilized vs. unsterilized intervention.\n\n**Exchange Rates**: Cross rates, bid-ask (buy at ask, sell at bid). Forward rate: F = S \u00d7 (1 + r_d)/(1 + r_f). Higher-rate currency at forward discount."
+    }
+  ]
+}

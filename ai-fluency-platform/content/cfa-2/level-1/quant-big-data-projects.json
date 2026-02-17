@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "QM.7: Big Data Projects",
+    "description": "Navigate the big data project lifecycle from data collection and preparation through feature engineering, model building, and text analytics.",
+    "level": "level-1",
+    "slug": "quant-big-data-projects",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A hedge fund wants to use Twitter sentiment to predict stock returns. Before building any model, what data challenges would they face that do not exist with traditional financial data like prices and fundamentals?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Data Collection and Preparation\n\n### Structured vs. Unstructured Data\n\n| Type | Examples | Format | Percentage of Data |\n|---|---|---|---|\n| Structured | Prices, financial statements, economic indicators | Tables, databases | ~20% |\n| Unstructured | News articles, social media, earnings call transcripts, satellite images | Text, images, audio | ~80% |\n\nFinancial analysis increasingly relies on **alternative data** \u2014 non-traditional sources like satellite imagery (parking lot traffic), credit card transactions, web scraping, and social media. These sources are largely unstructured.\n\n### Data Quality Issues\n\nThe acronym **GIGO** (garbage in, garbage out) applies: even the most sophisticated model fails with poor data. Common problems:\n\n- **Completeness**: missing values \u2014 handle by deletion, imputation (mean, median, regression), or indicator variables\n- **Accuracy**: errors in data entry, corporate actions not adjusted (stock splits, dividends)\n- **Timeliness**: stale data or look-ahead bias (using information that was not available at the time)\n- **Consistency**: different sources report different values for the same metric\n- **Survivorship bias**: databases that exclude failed companies overstate historical performance\n\n### Data Preparation Steps\n\n1. **Cleaning**: handle missing values, outliers, and errors\n2. **Transformation**: normalization (scaling to [0,1]), standardization (z-scores), log transforms\n3. **Feature engineering**: create derived variables from raw data\n4. **Feature selection**: identify the most relevant variables (filter, wrapper, or embedded methods like LASSO)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An analyst builds a backtested trading strategy that uses P/E ratios reported in annual filings. She uses the P/E ratio as of the filing date, but some filings are released 3 months after the fiscal year end. What bias might affect her results?",
+      "answer": "Look-ahead bias. If she uses the P/E ratio as of the fiscal year end (when the data period ends) rather than the filing date (when the information became publicly available), her backtest uses information that was not yet available to investors at the time of the trading signal. This inflates backtested returns because the model 'knows' financial data before the market does. The fix is to lag the data by the reporting delay, using the P/E only after the filing date."
+    },
+    {
+      "type": "markdown",
+      "content": "## Text Analytics and NLP\n\nNatural Language Processing (NLP) techniques extract **quantifiable signals** from text data:\n\n### Sentiment Analysis\n\n- **Dictionary-based**: count positive/negative words using predefined word lists (e.g., Loughran-McDonald financial sentiment dictionary)\n- **Machine learning-based**: train classifiers (naive Bayes, logistic regression, deep learning) on labeled text\n\nApplications in finance:\n- Earnings call tone analysis (more negative words = lower future returns)\n- News sentiment aggregation for event studies\n- Social media monitoring for retail investor sentiment\n\n### Text Processing Pipeline\n\n1. **Tokenization**: split text into individual words or tokens\n2. **Stop word removal**: eliminate common words (the, is, and) that carry no signal\n3. **Stemming/Lemmatization**: reduce words to root forms (\"running\" to \"run\")\n4. **Bag of words / TF-IDF**: convert text to numerical features\n   - TF-IDF (Term Frequency-Inverse Document Frequency) weights words by their importance relative to the document collection\n5. **Topic modeling** (e.g., LDA): discover latent themes in a corpus of documents\n\n### Practical Considerations\n\n- Financial language differs from everyday language (\"liability\" is neutral in finance, negative in general)\n- Context matters: \"short\" can mean position, duration, or time period\n- Sarcasm, irony, and negation are difficult for simple models to handle"
+    },
+    {
+      "type": "markdown",
+      "content": "## Model Building and Tuning\n\n### The Project Lifecycle\n\n| Stage | Key Activities |\n|---|---|\n| 1. Problem Formulation | Define the question, success metrics, and constraints |\n| 2. Data Collection | Gather structured and alternative data sources |\n| 3. Data Preparation | Clean, transform, engineer features |\n| 4. Model Selection | Choose algorithm(s) based on task and data characteristics |\n| 5. Training | Fit models on training data |\n| 6. Tuning | Optimize hyperparameters using cross-validation |\n| 7. Evaluation | Assess on holdout test data |\n| 8. Deployment | Implement in production with monitoring |\n\n### Hyperparameter Tuning\n\nHyperparameters are settings chosen **before** training (unlike model parameters learned during training):\n- Learning rate, regularization strength ($\\lambda$), number of trees, tree depth\n- Grid search: exhaustive search over a predefined set of values\n- Random search: sample hyperparameters randomly (often more efficient)\n\n### Evaluation and Deployment\n\n- **Classification metrics**: accuracy, precision, recall, F1-score, AUC-ROC\n- **Regression metrics**: RMSE, MAE, R-squared on test data\n- **Production monitoring**: track model performance over time, retrain when performance degrades (model drift)\n- **Explainability**: stakeholders and regulators may require interpretable models; black-box models face scrutiny"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An asset manager has daily returns for 3,000 stocks over 20 years. They want to predict next-month returns using 200 features. Describe the key steps they should take to avoid overfitting and look-ahead bias, and suggest which type of model validation to use.",
+      "solution": "**Avoiding Overfitting:**\n\n1. **Dimensionality reduction**: With 200 features, the risk of overfitting is high. Use LASSO or PCA to reduce features to a manageable set (perhaps 15-30).\n2. **Regularization**: Apply LASSO, Ridge, or Elastic Net to penalize excessive model complexity.\n3. **Cross-validation**: Use time-series aware cross-validation (not random k-fold). In financial data, use **expanding window** or **rolling window** validation to preserve temporal ordering.\n\n**Avoiding Look-Ahead Bias:**\n\n1. **Point-in-time data**: Ensure features reflect only information available at the time of prediction. Fundamental data should be lagged by reporting delays.\n2. **No future information leakage**: Feature engineering and normalization must be performed using only past data (fit scaler on training data only).\n3. **Survivorship-free dataset**: Include delisted and bankrupt companies.\n\n**Recommended Validation:**\n\nUse **walk-forward (expanding window)** validation:\n- Train on months 1-60, test on month 61\n- Train on months 1-61, test on month 62\n- Continue expanding the training window\n\nThis mimics real-world usage where the model is retrained as new data arrives. Standard k-fold cross-validation is inappropriate for time series because it leaks future information into training data."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Big Data in Investment Management",
+      "vignette": "Sarah Martinez, CFA, leads the data science team at Pinnacle Investments. Her team is building a sentiment-based trading signal using earnings call transcripts from 1,500 companies over 8 years.\n\nThe data pipeline involves:\n1. Collecting 12,000 earnings call transcripts from a third-party vendor\n2. Processing transcripts using NLP (tokenization, stop word removal, TF-IDF)\n3. Computing a sentiment score for each call using the Loughran-McDonald financial dictionary\n4. Combining sentiment with 40 fundamental features to predict next-quarter stock returns\n\nPreliminary results:\n\n| Issue | Finding |\n|---|---|\n| Missing transcripts | 8% of transcripts are missing (smaller companies, earlier years) |\n| Feature correlations | Average pairwise correlation among 40 fundamental features: 0.45 |\n| Model comparison | LASSO test R-squared: 0.08; Random Forest test R-squared: 0.06 |\n| Backtested annual return | 12% (vs. benchmark 9%) |\n| Live performance (6 months) | 7% annualized (vs. benchmark 10%) |\n\nThe Loughran-McDonald dictionary classifies words as: positive, negative, uncertain, litigious, constraining, or superfluous.",
+      "problems": [
+        {
+          "id": "qm7-1",
+          "question": "The 8% missing transcripts most likely create which type of bias?",
+          "options": [
+            "A) Look-ahead bias, because future transcripts are unknown.",
+            "B) Survivorship bias, because missing transcripts are concentrated among smaller and earlier-period companies.",
+            "C) Confirmation bias, because the analyst selects supporting evidence."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Missing data concentrated among smaller companies and earlier time periods creates survivorship-like bias (more precisely, a sample selection bias). Companies that went out of business, were acquired, or were too small for transcript coverage are underrepresented. The surviving, larger companies in the sample may not be representative of the full investment universe. Option A (look-ahead bias) relates to using future information, not missing data. Option C (confirmation bias) is a behavioral bias, not a data bias.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify data quality biases in alternative data"
+        },
+        {
+          "id": "qm7-2",
+          "question": "The high average pairwise correlation (0.45) among the 40 fundamental features is most likely to cause:",
+          "options": [
+            "A) biased coefficient estimates in the prediction model.",
+            "B) multicollinearity, inflating standard errors and making individual feature importance unreliable.",
+            "C) heteroskedasticity in the model residuals."
+          ],
+          "correctAnswer": "B",
+          "explanation": "High pairwise correlations among independent variables indicate multicollinearity. This inflates the variance of coefficient estimates (higher standard errors), makes individual coefficient significance tests unreliable, and can cause coefficients to flip signs. However, OLS estimates remain unbiased. This is why LASSO may be preferred \u2014 it selects among correlated features. Option A is incorrect: multicollinearity causes high variance, not bias. Option C is unrelated to feature correlation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Connect multicollinearity to feature correlation in ML models"
+        },
+        {
+          "id": "qm7-3",
+          "question": "The Loughran-McDonald dictionary is preferred over a general sentiment dictionary for financial text because:",
+          "options": [
+            "A) it has more words than general dictionaries.",
+            "B) words have different connotations in financial contexts than in everyday language.",
+            "C) it uses machine learning rather than rule-based classification."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Loughran-McDonald dictionary was specifically created for financial text because many words carry different meanings in finance. For example, 'liability' is classified as negative in general dictionaries but is neutral in financial context (it is a standard accounting term). Similarly, 'outstanding' (as in 'shares outstanding') is neutral in finance but positive in general language. Option A is irrelevant \u2014 dictionary size does not determine appropriateness. Option C is incorrect \u2014 Loughran-McDonald is a dictionary-based (rule-based) approach, not ML-based.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Explain the rationale for domain-specific sentiment dictionaries"
+        },
+        {
+          "id": "qm7-4",
+          "question": "The backtested return (12%) significantly exceeds live performance (7% annualized over 6 months). The most likely explanation is:",
+          "options": [
+            "A) the live period was too short to be representative.",
+            "B) the backtest suffered from overfitting and/or data-mining bias, inflating historical performance.",
+            "C) sentiment signals only work during certain market conditions."
+          ],
+          "correctAnswer": "B",
+          "explanation": "A significant gap between backtested and live performance is a classic indicator of overfitting and data-mining bias. The model was optimized on historical data and captured patterns (noise) that do not persist in live trading. While Option A is a valid concern (6 months is short), the performance gap combined with the model development process strongly suggests overfitting. Option C is possible but is a less fundamental explanation than data-mining bias.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Recognize signs of overfitting in backtested strategies"
+        },
+        {
+          "id": "qm7-5",
+          "question": "In the text processing pipeline, TF-IDF weighting would most likely assign a high weight to which type of word in an earnings call?",
+          "options": [
+            "A) Common words like 'revenue' and 'quarter' that appear in every transcript.",
+            "B) Unusual words like 'impairment' or 'restructuring' that appear in few transcripts.",
+            "C) Stop words like 'the' and 'and' that appear frequently."
+          ],
+          "correctAnswer": "B",
+          "explanation": "TF-IDF weights a word highly if it appears frequently in a specific document (high term frequency) but rarely across the full document collection (high inverse document frequency). Words like 'impairment' or 'restructuring' appear in specific contexts (financially stressed companies) and are rare overall, receiving high TF-IDF scores. Option A: words like 'revenue' appear in nearly every transcript, so their IDF is low. Option C: stop words are removed before TF-IDF computation and would receive minimal weight regardless.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Explain TF-IDF weighting in text analytics"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between structured and unstructured data in finance, giving two examples of each. Why does unstructured data require additional processing steps before it can be used in a quantitative model?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the biggest risks of using alternative data sources (social media, satellite imagery) in investment models?",
+        "Why is time-series cross-validation different from standard k-fold cross-validation, and why does it matter in finance?",
+        "How might survivorship bias in a stock database affect the conclusions of a backtested strategy?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Structured data** (~20%): tables, databases; **Unstructured data** (~80%): text, images, audio\n- **Data quality issues**: completeness, accuracy, timeliness, consistency, survivorship bias\n- **Look-ahead bias**: using information not available at decision time; fix by lagging data\n- **NLP pipeline**: tokenize, remove stop words, stem/lemmatize, convert to TF-IDF or bag-of-words\n- **Loughran-McDonald dictionary**: financial-specific sentiment; words differ from general language\n- **TF-IDF**: weights words by importance within a document relative to the corpus\n- **Project lifecycle**: formulate, collect, prepare, select model, train, tune, evaluate, deploy\n- **Walk-forward validation**: correct cross-validation for time-series data"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module is the **Quantitative Methods Checkpoint** \u2014 a comprehensive assessment covering all topics from multiple regression through machine learning and big data. It uses vignette-based questions that integrate concepts across modules, just like the actual CFA Level II exam."
+    }
+  ]
+}

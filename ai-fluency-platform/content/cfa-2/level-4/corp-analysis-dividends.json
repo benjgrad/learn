@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "CORP.1: Dividends and Share Repurchases",
+    "description": "Analyze dividend theories (MM irrelevance, bird-in-hand, tax preference), policy types, share repurchase methods, and effects on EPS and equity.",
+    "level": "level-4",
+    "slug": "corp-analysis-dividends",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company has $500 million in excess cash and is deciding between paying a special dividend or repurchasing shares. If the stock is currently undervalued, which option creates more value for remaining shareholders, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Dividend Theories\n\nThree competing theories explain whether dividend policy affects firm value:\n\n### Modigliani-Miller (MM) Dividend Irrelevance\n\nIn a perfect market (no taxes, no transaction costs, no asymmetric information), dividend policy is **irrelevant** to firm value. Investors can create their own \"dividend\" by selling shares (homemade dividends). The value of the firm depends only on its investment decisions, not how it distributes cash.\n\n### Bird-in-Hand Theory (Gordon/Lintner)\n\nInvestors prefer dividends to capital gains because dividends are **certain** while capital gains are uncertain. Therefore, higher dividend payout \u2192 lower required return \u2192 **higher** stock price.\n\n$$r_e = \\frac{D_1}{P_0} + g$$\n\nIf investors discount uncertain capital gains more heavily, the required return $r_e$ is lower for high-payout firms.\n\n### Tax Preference Theory\n\nIf capital gains are taxed at **lower rates** than dividends (or deferred until realization), investors prefer companies that retain earnings and generate capital gains. Lower dividend payout \u2192 **higher** after-tax return \u2192 higher stock price.\n\n| Theory | Optimal Payout | Logic |\n|---|---|---|\n| MM Irrelevance | Doesn't matter | Perfect markets; homemade dividends |\n| Bird-in-Hand | High payout | Certainty of dividends valued |\n| Tax Preference | Low payout | Capital gains tax advantage |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If the tax rate on dividends equals the tax rate on capital gains, does the tax preference theory still favor low payout?",
+      "answer": "Yes, but to a lesser degree. Even with equal tax rates, capital gains taxes are deferred until shares are sold, creating a timing advantage. The present value of deferred taxes is lower than the present value of immediate taxes on dividends. However, the tax preference argument is weaker when rates are equal. In jurisdictions where dividends are taxed at preferential rates (e.g., qualified dividends in the US), the analysis is further nuanced."
+    },
+    {
+      "type": "markdown",
+      "content": "## Dividend Policy Types\n\n### Stable Dividend Policy\n\n- Target a **constant or steadily increasing** dollar dividend\n- Most common approach for mature, profitable companies\n- Managers are reluctant to cut dividends (negative signal)\n- **Adjustment model**: $\\Delta D = \\text{target payout} \\times \\text{EPS} - D_{-1}) \\times \\text{adjustment factor}$\n\n### Constant Payout Ratio\n\n- Pay a **fixed percentage** of earnings each period\n- Dividend varies with earnings \u2014 volatile and uncommon in practice\n- Preferred by firms wanting to link distributions to profitability\n\n### Residual Dividend Policy\n\n- Dividends = Net income \u2212 Equity needed for capital investments\n- **Invest first**, distribute only what remains\n- Optimal from a capital allocation perspective but creates unpredictable dividends\n- In practice, companies often smooth residual dividends using a target capital structure:\n\n$$\\text{Dividend} = \\text{Net Income} - (\\text{CapEx} - \\text{Depreciation}) \\times \\text{Equity Fraction}$$\n\n### Signaling Effects\n\n- **Dividend initiation**: positive signal (management confident in sustainable earnings)\n- **Dividend increase**: positive signal (management expects future earnings growth)\n- **Dividend cut**: strongly negative signal (often triggers significant stock price decline)\n- Empirically, dividend changes **do** convey information about management's expectations"
+    },
+    {
+      "type": "markdown",
+      "content": "## Share Repurchases\n\n### Methods\n\n| Method | Description | Characteristics |\n|---|---|---|\n| **Open market** | Company buys shares on the exchange over time | Most common (>90%); flexible; no premium |\n| **Fixed-price tender offer** | Offers to buy a specific number of shares at a fixed price (usually premium) | Quick; signals strong conviction; premium of 10-20% typical |\n| **Dutch auction** | Specifies a price range; shareholders tender at their minimum price; company fills from lowest | Determines market-clearing price; moderately quick |\n| **Direct negotiation** | Buys from a specific shareholder (e.g., block trade) | Used for large blocks; may include premium or discount |\n\n### Impact on EPS\n\nRepurchases reduce shares outstanding, potentially **increasing EPS**:\n\n$$\\text{EPS after repurchase} = \\frac{\\text{Earnings} - \\text{After-tax cost of funds}}{\\text{Shares} - \\text{Shares repurchased}}$$\n\n**EPS accretion occurs when**: earnings yield ($\\text{E/P}$) > after-tax cost of borrowing used to fund the repurchase.\n\n### Impact on Equity\n\n- Treasury stock increases (contra-equity) \u2192 **total equity decreases**\n- Book value per share may decrease if repurchase price > book value per share\n- ROE increases (lower equity base with similar earnings)\n- Leverage ratios increase (lower equity, same debt)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Share Repurchase EPS Impact",
+      "solution": "MegaCorp has:\n- Net income: $500M\n- Shares outstanding: 200M\n- Current stock price: $50\n- Excess cash: $500M (to be used for repurchase)\n- After-tax cost of borrowing: 4%\n\nCurrent EPS = $500M / 200M = $2.50\nEarnings yield = $2.50 / $50 = 5.0%\n\nScenario: Repurchase $500M of shares at $50 each\n- Shares repurchased: $500M / $50 = 10M shares\n- Remaining shares: 200M \u2212 10M = 190M\n\nIf funded with cash (no interest cost):\n- New EPS = $500M / 190M = $2.63 (5.3% accretion)\n\nIf funded with debt at 4% after-tax:\n- Interest cost: $500M \u00d7 4% = $20M\n- Adjusted earnings: $500M \u2212 $20M = $480M\n- New EPS = $480M / 190M = $2.53 (1.1% accretion)\n\nEPS is accretive because the earnings yield (5.0%) exceeds the after-tax borrowing cost (4.0%). If borrowing cost were 6%, EPS would be dilutive: ($500M \u2212 $30M) / 190M = $2.47 < $2.50."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Dividends and Share Repurchases Practice",
+      "problems": [
+        {
+          "id": "corp-div-1",
+          "vignette": "Catherine Park, CFA, advises the board of MatureCo on its distribution policy. MatureCo has the following characteristics:\n\n- Stable annual earnings of $400M (minimal growth expected)\n- CapEx needs: $120M/year (primarily maintenance)\n- Depreciation: $110M/year\n- Target capital structure: 40% debt, 60% equity\n- Current dividend: $1.80/share (200M shares outstanding)\n- Current stock price: $30\n- After-tax cost of debt: 3.5%\n\nThe board is debating between increasing the dividend to $2.20/share or using the additional funds for a share repurchase.",
+          "question": "Using the residual dividend approach, MatureCo's maximum dividend per share is closest to:",
+          "options": [
+            "A) $1.97",
+            "B) $2.00",
+            "C) $1.80"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Residual dividend = Net income \u2212 Equity portion of new investment. Net new investment = CapEx \u2212 Depreciation = $120M \u2212 $110M = $10M. Equity portion = 60% \u00d7 $10M = $6M. Residual earnings for dividends = $400M \u2212 $6M = $394M. Dividend per share = $394M / 200M = $1.97. This represents the maximum dividend while maintaining the target capital structure and funding all profitable projects. The current dividend of $1.80 is below the residual, suggesting room for increase. Option B rounds up. Option C is the current dividend, not the residual amount.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate the residual dividend given investment needs and target capital structure"
+        },
+        {
+          "id": "corp-div-2",
+          "vignette": "Catherine Park, CFA, advises the board of MatureCo on its distribution policy. MatureCo has stable annual earnings of $400M, 200M shares outstanding at $30/share, and an after-tax cost of debt of 3.5%.\n\nThe board decides to use $300M for a share repurchase funded by excess cash. Park calculates the earnings yield is $400M / ($30 \u00d7 200M) = 6.67%.",
+          "question": "The EPS impact of the $300M share repurchase funded by cash is:",
+          "options": [
+            "A) EPS decreases from $2.00 to $1.94",
+            "B) EPS increases from $2.00 to $2.11",
+            "C) EPS remains unchanged at $2.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Current EPS = $400M / 200M = $2.00. Shares repurchased = $300M / $30 = 10M shares. New shares outstanding = 190M. Since funded with cash (no financing cost), new EPS = $400M / 190M = $2.105 \u2248 $2.11. The repurchase is EPS-accretive because the earnings yield (6.67%) exceeds zero (the opportunity cost of holding cash, assuming negligible interest income). Even if funded by debt at 3.5%, it would still be accretive since 6.67% > 3.5%: ($400M \u2212 $10.5M) / 190M = $2.05. Option A would require a dilutive scenario. Option C ignores the share count reduction.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate EPS impact of share repurchases"
+        },
+        {
+          "id": "corp-div-3",
+          "vignette": "Investment analyst Thomas Reed is evaluating dividend policy signals across three companies in the same industry:\n\n| Company | Action | Context |\n|---|---|---|\n| Company X | Increased dividend 15% | After 3 years of 5% increases |\n| Company Y | Initiated a dividend ($0.50/share) | First dividend after 10 years as public company |\n| Company Z | Cut dividend 40% | Despite reporting positive net income |\n\nReed's colleague argues that Company Z's dividend cut must indicate the company is in severe financial distress.",
+          "question": "Reed's most appropriate response to his colleague is:",
+          "options": [
+            "A) Agree \u2014 dividend cuts always signal financial distress",
+            "B) Partially agree \u2014 dividend cuts are strongly negative signals, but they can also indicate management is redirecting cash toward high-return investment opportunities; the context matters",
+            "C) Disagree \u2014 dividend cuts are irrelevant to firm value according to MM"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Dividend cuts are among the strongest negative signals because management knows the market reaction will be severe, so they typically cut only when necessary. However, cuts don't always mean distress \u2014 some companies cut dividends to fund major acquisitions, R&D, or debt reduction. The key is context: if Company Z is cutting to invest in high-NPV projects, the long-term effect could be positive despite the short-term signal. If it's cutting because cash flows can't support the dividend, that's concerning. Option A is too absolute. Option C invokes MM irrelevance, which applies in perfect markets but not in reality where information asymmetry makes signals meaningful.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Interpret dividend policy changes as signals to the market"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the three major dividend theories to a colleague, and then explain why share repurchases have become increasingly popular as an alternative to dividends. Address the flexibility advantage, tax efficiency, and EPS impact of repurchases compared to dividends."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "If dividend policy is truly irrelevant (MM), why do stock prices react so strongly to dividend cuts?",
+        "When should an analyst be skeptical of a company aggressively repurchasing its own shares?",
+        "How does the choice between dividends and repurchases reflect management's view of the stock's valuation?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **MM Irrelevance**: dividend policy doesn't matter in perfect markets\n- **Bird-in-hand**: investors prefer certain dividends over uncertain capital gains\n- **Tax preference**: capital gains have tax timing advantage even at equal rates\n- Residual dividend = Net income \u2212 Equity portion of new investment\n- Dividend cuts are **strongly negative signals**; increases are positive\n- Repurchase methods: open market (most common), tender offer, Dutch auction\n- EPS accretive when: **earnings yield > after-tax cost of funds**\n- Repurchases reduce equity \u2192 increase ROE and leverage ratios\n- Repurchases offer **flexibility** (no commitment) vs. dividends (sticky)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **ESG Considerations in Corporate Finance**, where you'll learn how environmental, social, and governance factors are integrated into investment analysis and corporate decision-making \u2014 including how ESG performance can affect a company's cost of capital and dividend sustainability."
+    }
+  ]
+}

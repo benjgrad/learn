@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "FI.1: Term Structure Dynamics",
+    "description": "Master spot rate curves, forward rate models, swap rate curves, yield spreads, and active bond strategies using term structure analysis.",
+    "level": "level-6",
+    "slug": "fi-term-structure-dynamics",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If the 1-year spot rate is 3% and the 2-year spot rate is 4%, what does the market imply about the 1-year rate one year from now? Is this forward rate a good predictor of what will actually happen?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Spot Rates and the Spot Rate Curve\n\nA **spot rate** ($z_t$) is the yield on a zero-coupon bond maturing at time $t$. The **spot rate curve** (or zero curve) plots these rates across maturities.\n\nThe price of a zero-coupon bond maturing at time $T$:\n\n$$P_T = \\frac{100}{(1+z_T)^T}$$\n\nA coupon bond can be viewed as a portfolio of zero-coupon bonds, each priced at the corresponding spot rate:\n\n$$P = \\sum_{t=1}^{T} \\frac{C}{(1+z_t)^t} + \\frac{100}{(1+z_T)^T}$$\n\n### Why Spot Rates Matter\n\n- YTM assumes a flat term structure \u2014 spot rates are more precise\n- Spot rates are the building blocks for **no-arbitrage pricing**\n- Two bonds with identical cash flows must have the same price when valued with spot rates\n\n## The Forward Rate Model\n\nThe **implied forward rate** $f(j,k)$ is the rate from time $j$ to time $j+k$ implied by today's spot curve:\n\n$$(1+z_{j+k})^{j+k} = (1+z_j)^j \\times (1+f(j,k))^k$$\n\nSolving for the 1-year forward rate 1 year from now:\n\n$$f(1,1) = \\frac{(1+z_2)^2}{(1+z_1)} - 1$$\n\n### Example\n\n$z_1 = 3\\%$, $z_2 = 4\\%$:\n\n$$f(1,1) = \\frac{(1.04)^2}{1.03} - 1 = \\frac{1.0816}{1.03} - 1 = 5.01\\%$$\n\nThe market implies the 1-year rate will be about 5% next year \u2014 the \"break-even\" rate that makes 1-year and 2-year investments equivalent."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The current spot curve is upward-sloping: z\u2081 = 2%, z\u2082 = 3%, z\u2083 = 3.5%. Does this mean the market expects rates to rise? What alternative explanations exist?",
+      "answer": "Not necessarily. An upward-sloping spot curve is consistent with expectations of rising rates, but there are alternative explanations: (1) The liquidity preference theory suggests investors demand a term premium for holding longer-duration bonds, making the curve upward-sloping even if rates are expected to stay constant. (2) The preferred habitat theory argues that supply and demand imbalances across maturities shape the curve. (3) The market segmentation theory says different investor groups (pension funds, banks) dominate different maturities. The pure expectations hypothesis would interpret the slope as reflecting expected rate increases, but empirical evidence shows that term premiums are a significant component of the yield curve slope."
+    },
+    {
+      "type": "markdown",
+      "content": "## Swap Rate Curve vs Government Curve\n\nThe **swap rate curve** uses rates from interest rate swaps (fixed rate exchanged for floating LIBOR/SOFR) as an alternative benchmark to government bonds.\n\n| Feature | Government Curve | Swap Rate Curve |\n|---|---|---|\n| Credit risk | Sovereign risk (near zero for AAA) | Bank credit risk (AA-rated) |\n| Liquidity | Very liquid at benchmark maturities | Liquid across all maturities |\n| Supply effects | Affected by government issuance | Market-determined |\n| Global consistency | Varies by country | Relatively standardized globally |\n| Used by | Central banks, sovereign analysis | Derivatives, corporate bond pricing |\n\nSwap rates are typically **above** government rates by the **swap spread**:\n\n$$\\text{Swap spread}_T = \\text{Swap rate}_T - \\text{Treasury yield}_T$$\n\n## Key Yield Spreads\n\n| Spread | Definition | Measures |\n|---|---|---|\n| **Z-spread** (zero-volatility spread) | Constant spread added to each spot rate to match bond price | Credit + liquidity risk vs government curve |\n| **TED spread** | 3-month LIBOR - 3-month T-bill | Banking system credit risk |\n| **LIBOR-OIS spread** | LIBOR - Overnight index swap rate | Interbank lending stress |\n\n$$P = \\sum_{t=1}^{T} \\frac{CF_t}{(1+z_t+Z)^t}$$\n\nThe Z-spread ($Z$) is the single constant added to every spot rate so the sum of discounted cash flows equals the bond's market price."
+    },
+    {
+      "type": "markdown",
+      "content": "## Active Bond Strategies Using Term Structure\n\n### Riding the Yield Curve (Roll Down)\n\nIf the yield curve is upward-sloping and expected to remain stable, a bond \"rolls down\" the curve as it ages \u2014 its yield declines and its price rises, generating returns above the initial yield.\n\n### Key Rate Duration\n\nRather than measuring sensitivity to a parallel yield curve shift, **key rate durations** measure sensitivity to changes in rates at specific maturities:\n\n$$\\Delta P \\approx -\\sum_{k} KRD_k \\times \\Delta z_k \\times P$$\n\nThis is critical for analyzing **non-parallel shifts**: steepening, flattening, or butterfly movements.\n\n| Yield Curve Shift | Description | Strategy |\n|---|---|---|\n| Parallel | All rates move equally | Duration management |\n| Steepening | Long rates rise more than short | Reduce duration, short long end |\n| Flattening | Short rates rise more than long | Barbell strategy |\n| Butterfly | Wings move opposite to belly | Butterfly trade (long wings, short belly) |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "The spot rate curve is: z\u2081 = 2.5%, z\u2082 = 3.0%, z\u2083 = 3.3%, z\u2084 = 3.5%. (a) Calculate the 1-year forward rate 2 years from now: f(2,1). (b) Calculate the 2-year forward rate 2 years from now: f(2,2). (c) A 3-year 4% annual coupon bond is priced at $102.00. Calculate the Z-spread.",
+      "solution": "**Part (a): f(2,1)**\n\n(1+z\u2083)\u00b3 = (1+z\u2082)\u00b2 \u00d7 (1+f(2,1))\n(1.033)\u00b3 = (1.03)\u00b2 \u00d7 (1+f(2,1))\n1.10218 = 1.0609 \u00d7 (1+f(2,1))\nf(2,1) = 1.10218/1.0609 - 1 = 3.893%\n\n**Part (b): f(2,2)**\n\n(1+z\u2084)\u2074 = (1+z\u2082)\u00b2 \u00d7 (1+f(2,2))\u00b2\n(1.035)\u2074 = (1.03)\u00b2 \u00d7 (1+f(2,2))\u00b2\n1.14752 = 1.0609 \u00d7 (1+f(2,2))\u00b2\n(1+f(2,2))\u00b2 = 1.08164\n1+f(2,2) = 1.04001\nf(2,2) = 4.00%\n\n**Part (c): Z-spread**\n\nWe need to find Z such that:\n$102 = \\frac{4}{(1.025+Z)^1} + \\frac{4}{(1.03+Z)^2} + \\frac{104}{(1.033+Z)^3}$\n\nFirst, check with Z = 0:\n$4/1.025 + 4/1.03\u00b2 + 104/1.033\u00b3 = 3.902 + 3.771 + 94.810 = 102.483$\n\nWith Z = 0: price = $102.48 > $102, so Z must be positive (additional spread reduces price).\n\nTry Z = 0.15% (15 bps):\n$4/1.0265 + 4/1.0315\u00b2 + 104/1.0345\u00b3 = 3.897 + 3.760 + 94.361 = 102.018 \u2248 $102$\n\n**Z-spread \u2248 15 basis points.** This represents the additional compensation above the government spot curve for this bond's credit and liquidity risk."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Term Structure Dynamics \u2014 Vignette Practice",
+      "problems": [
+        {
+          "id": "fi-ts-1",
+          "vignette": "Amanda Liu, CFA, is a fixed income portfolio manager analyzing the current term structure. She observes the following spot rates from the government bond market:\n\n| Maturity | Spot Rate |\n|---|---|\n| 1 year | 3.00% |\n| 2 years | 3.50% |\n| 3 years | 3.80% |\n| 4 years | 4.00% |\n| 5 years | 4.10% |\n\nLiu is considering a \"ride-the-yield-curve\" strategy using a 3-year zero-coupon government bond. She expects the yield curve to remain unchanged over the next year.",
+          "question": "The implied 1-year forward rate one year from now, f(1,1), is closest to:",
+          "options": [
+            "A) 3.50%",
+            "B) 4.00%",
+            "C) 4.50%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "f(1,1) = [(1+z\u2082)\u00b2/(1+z\u2081)] - 1 = [(1.035)\u00b2/1.03] - 1 = [1.071225/1.03] - 1 = 1.04002 - 1 = 4.00%.\n\nThe forward rate is higher than both spot rates because the upward-sloping curve implies the market (under pure expectations) anticipates rising short-term rates. The forward rate is the break-even rate: an investor is indifferent between investing for 2 years at 3.50% or investing for 1 year at 3.00% then reinvesting at 4.00%. Option A (3.50%) is just the 2-year spot rate. Option C (4.50%) overstates the forward rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate implied forward rates from the spot rate curve"
+        },
+        {
+          "id": "fi-ts-2",
+          "vignette": "Amanda Liu, CFA, is a fixed income portfolio manager analyzing the current term structure. She observes the following spot rates from the government bond market:\n\n| Maturity | Spot Rate |\n|---|---|\n| 1 year | 3.00% |\n| 2 years | 3.50% |\n| 3 years | 3.80% |\n| 4 years | 4.00% |\n| 5 years | 4.10% |\n\nLiu is considering a \"ride-the-yield-curve\" strategy using a 3-year zero-coupon government bond (par value $100). She expects the yield curve to remain unchanged over the next year.",
+          "question": "If Liu buys the 3-year zero-coupon bond today and sells it after one year (when it becomes a 2-year zero), her expected return is closest to:",
+          "options": [
+            "A) 3.80%",
+            "B) 4.41%",
+            "C) 3.50%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Buy price today (3-year zero at z\u2083 = 3.80%): P\u2080 = 100/(1.038)\u00b3 = 100/1.11877 = $89.38\n\nSell price in 1 year (now a 2-year zero, curve unchanged, z\u2082 = 3.50%): P\u2081 = 100/(1.035)\u00b2 = 100/1.07123 = $93.35\n\nReturn = (93.35 - 89.38)/89.38 = 3.97/89.38 = 4.44% \u2248 4.41%\n\nThe return exceeds the 3-year spot rate (3.80%) because the bond \"rolls down\" to a lower yield as it ages, generating a capital gain. Option A (3.80%) is the initial yield \u2014 the return if held to maturity. Option C (3.50%) is the 2-year spot rate, not the holding period return. This strategy works only if the curve doesn't shift upward.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the return from a ride-the-yield-curve strategy"
+        },
+        {
+          "id": "fi-ts-3",
+          "vignette": "Liu also monitors yield spreads. She observes:\n\n| Spread | Current Level | 6-Month Average |\n|---|---|---|\n| 5-year swap spread | 35 bps | 25 bps |\n| TED spread | 45 bps | 30 bps |\n| LIBOR-OIS spread | 22 bps | 12 bps |\n\nLiu notes that all three spreads have widened significantly from their 6-month averages.",
+          "question": "The widening of these spreads most likely indicates:",
+          "options": [
+            "A) improving economic conditions and rising inflation expectations",
+            "B) increasing concern about credit risk in the banking system",
+            "C) expectations of central bank rate cuts"
+          ],
+          "correctAnswer": "B",
+          "explanation": "All three spreads relate to credit and liquidity risk in the banking system. The TED spread (LIBOR minus T-bill) measures perceived risk in interbank lending versus risk-free government debt. The LIBOR-OIS spread measures stress in the interbank market (LIBOR reflects credit risk, OIS is nearly risk-free). The swap spread (swap rate minus Treasury) reflects bank credit risk relative to sovereigns. When all three widen simultaneously, it signals growing concern about banking sector credit risk and potential liquidity problems. Option A is wrong \u2014 improving conditions would typically narrow credit spreads. Option C is possible if rates are expected to fall, but these specific spreads measure credit conditions, not rate expectations.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Interpret changes in yield spreads as indicators of market conditions"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the forward rate model to a colleague who understands basic bond pricing. Why are forward rates called 'break-even' rates, and what is the relationship between forward rates and the shape of the yield curve?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do fixed income professionals prefer the swap rate curve over the government curve in many applications?",
+        "Under what market conditions would a ride-the-yield-curve strategy lose money?",
+        "How does key rate duration provide more information than modified duration for managing yield curve risk?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **Forward rate:** $(1+z_{j+k})^{j+k} = (1+z_j)^j \\times (1+f(j,k))^k$\n- Forward rates are **break-even rates** \u2014 the rates that equalize investment horizons\n- **Z-spread:** constant spread over each spot rate; captures credit + liquidity risk\n- **TED spread** = LIBOR - T-bill rate; measures banking sector stress\n- **LIBOR-OIS spread:** interbank credit risk indicator\n- **Swap spread** = Swap rate - Treasury yield; reflects bank vs sovereign credit\n- **Ride the yield curve:** works when curve is upward-sloping and stable\n- **Key rate duration:** sensitivity to specific maturity points \u2014 essential for non-parallel shifts"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Arbitrage-Free Valuation** using binomial interest rate trees. While the term structure gives us today's spot and forward rates, binomial trees model how rates might evolve, enabling us to value bonds whose cash flows depend on the path of interest rates."
+    }
+  ]
+}

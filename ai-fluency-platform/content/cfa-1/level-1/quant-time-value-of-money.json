@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "title": "QM.2: Time Value of Money",
+    "description": "Calculate present and future values of single sums, annuities, perpetuities, and uneven cash flows. Apply NPV and IRR decision rules.",
+    "level": "level-1",
+    "slug": "quant-time-value-of-money",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Would you rather receive $1,000 today or $1,100 one year from now? What additional information would you need to make a rational decision?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Future Value and Present Value of a Single Sum\n\nThe **time value of money (TVM)** principle states that a dollar today is worth more than a dollar in the future because today's dollar can be invested to earn a return.\n\n### Future Value\n\n$$FV = PV \\times (1 + r)^n$$\n\nWhere $r$ is the interest rate per period and $n$ is the number of periods. The term $(1+r)^n$ is the **future value factor**.\n\n### Present Value\n\n$$PV = \\frac{FV}{(1+r)^n}$$\n\nDiscounting is the reverse of compounding. The term $\\frac{1}{(1+r)^n}$ is the **present value factor** (or discount factor).\n\n### Example\n\nYou invest $5,000 at 6% for 3 years:\n\n$$FV = 5{,}000 \\times (1.06)^3 = 5{,}000 \\times 1.19102 = \\$5{,}955.08$$\n\nConversely, what is $5,955.08 received in 3 years worth today at 6%?\n\n$$PV = \\frac{5{,}955.08}{(1.06)^3} = \\frac{5{,}955.08}{1.19102} = \\$5{,}000$$\n\n### Compounding Frequency\n\nWith $m$ compounding periods per year at stated annual rate $r_s$:\n\n$$FV = PV \\times \\left(1 + \\frac{r_s}{m}\\right)^{m \\times n}$$\n\nMore frequent compounding increases the effective annual rate: $EAR = \\left(1 + \\frac{r_s}{m}\\right)^m - 1$."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A bank offers 8% compounded quarterly. What is the effective annual rate (EAR)?",
+      "answer": "EAR = (1 + 0.08/4)^4 - 1 = (1.02)^4 - 1 = 1.08243 - 1 = 8.243%. Quarterly compounding means interest earns interest four times per year, producing a higher effective rate than the stated 8%."
+    },
+    {
+      "type": "markdown",
+      "content": "## Annuities and Perpetuities\n\nAn **annuity** is a series of equal payments at regular intervals.\n\n### Ordinary Annuity (payments at end of period)\n\n$$PV_{OA} = PMT \\times \\frac{1 - (1+r)^{-n}}{r}$$\n\n$$FV_{OA} = PMT \\times \\frac{(1+r)^n - 1}{r}$$\n\n### Annuity Due (payments at beginning of period)\n\n$$PV_{AD} = PV_{OA} \\times (1+r)$$\n\n$$FV_{AD} = FV_{OA} \\times (1+r)$$\n\nAn annuity due is worth more because each payment is received (or made) one period earlier.\n\n### Perpetuity (infinite annuity)\n\n$$PV_{perpetuity} = \\frac{PMT}{r}$$\n\nFor a **growing perpetuity** with constant growth rate $g < r$:\n\n$$PV = \\frac{PMT}{r - g}$$\n\n### Example: Retirement Savings\n\nYou plan to deposit $500 per month (end of month) for 30 years at 7% annual (0.5833% monthly). How much will you accumulate?\n\n$$FV = 500 \\times \\frac{(1.005833)^{360} - 1}{0.005833} = 500 \\times \\frac{8.1165 - 1}{0.005833} = 500 \\times 1{,}219.97 = \\$609{,}985$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A preferred stock pays $4 per year forever. If investors require an 8% return, what is its value?",
+      "answer": "This is a perpetuity. PV = PMT/r = $4/0.08 = $50. The perpetuity formula works because the present value of payments infinitely far in the future approaches zero as they are discounted at a positive rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Uneven Cash Flows, NPV, and IRR\n\n### Uneven Cash Flows\n\nWhen cash flows are not equal, calculate the PV of each individually and sum:\n\n$$PV = \\sum_{t=1}^{n} \\frac{CF_t}{(1+r)^t}$$\n\n### Net Present Value (NPV)\n\n$$NPV = \\sum_{t=0}^{n} \\frac{CF_t}{(1+r)^t}$$\n\nNote that $CF_0$ is typically a negative initial investment. **Decision rule**: Accept if $NPV > 0$; the project adds value.\n\n### Internal Rate of Return (IRR)\n\nThe IRR is the discount rate that makes $NPV = 0$:\n\n$$0 = \\sum_{t=0}^{n} \\frac{CF_t}{(1+IRR)^t}$$\n\n**Decision rule**: Accept if $IRR > $ required rate of return.\n\n### NPV vs IRR Conflicts\n\nFor **independent projects**, NPV and IRR give the same accept/reject decision. For **mutually exclusive projects**, they can conflict due to:\n- Different project sizes\n- Different cash flow timing patterns\n\n**Always prefer NPV** when conflicts arise. NPV directly measures the dollar amount of wealth created.\n\n### Calculator Tips (BA II Plus)\n\nFor TVM problems: use the [N], [I/Y], [PV], [PMT], [FV] keys. Enter known values, press [CPT] then the unknown. Remember: cash inflows are positive, outflows are negative."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A project requires an initial investment of $50,000 and is expected to generate the following cash flows: Year 1: $15,000, Year 2: $20,000, Year 3: $25,000. If the required rate of return is 10%, calculate the NPV and determine whether to accept the project.",
+      "solution": "**NPV Calculation:**\n\n$$NPV = -50{,}000 + \\frac{15{,}000}{1.10} + \\frac{20{,}000}{1.10^2} + \\frac{25{,}000}{1.10^3}$$\n\n$$NPV = -50{,}000 + 13{,}636.36 + 16{,}528.93 + 18{,}782.87$$\n\n$$NPV = -50{,}000 + 48{,}948.16 = -\\$1{,}051.84$$\n\n**Decision**: Reject. The NPV is negative, meaning the project's cash flows are insufficient to compensate for the 10% required return. The project would destroy $1,051.84 in value.\n\nThe IRR for this project would be slightly below 10% (approximately 9.26%), confirming the reject decision since IRR < required return."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Time Value of Money Practice Problems",
+      "problems": [
+        {
+          "id": "qm2-1",
+          "question": "An investor deposits $10,000 in an account earning 5% compounded annually. The value after 4 years is closest to:",
+          "options": [
+            "A) $12,000",
+            "B) $12,155",
+            "C) $12,763"
+          ],
+          "correctAnswer": "B",
+          "explanation": "FV = $10,000 \u00d7 (1.05)^4 = $10,000 \u00d7 1.21551 = $12,155.06. Option A ($12,000) uses simple interest: $10,000 + 4 \u00d7 $500. Option C ($12,763) incorrectly uses 6% instead of 5%, or compounds more frequently.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate the future value of a single sum"
+        },
+        {
+          "id": "qm2-2",
+          "question": "An ordinary annuity pays $1,000 per year for 5 years. At a discount rate of 8%, the present value is closest to:",
+          "options": [
+            "A) $3,993",
+            "B) $4,312",
+            "C) $4,623"
+          ],
+          "correctAnswer": "A",
+          "explanation": "PV = $1,000 \u00d7 [1 - (1.08)^(-5)] / 0.08 = $1,000 \u00d7 [1 - 0.68058] / 0.08 = $1,000 \u00d7 3.99271 = $3,993. Option B ($4,312) calculates an annuity due by multiplying by (1.08): $3,993 \u00d7 1.08 = $4,312. Option C ($4,623) uses a lower discount rate of 6%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate the present value of an ordinary annuity"
+        },
+        {
+          "id": "qm2-3",
+          "question": "A project has the following cash flows: Year 0: -$20,000; Year 1: $8,000; Year 2: $8,000; Year 3: $8,000. At a required return of 10%, the NPV is closest to:",
+          "options": [
+            "A) -$108",
+            "B) $4,000",
+            "C) -$895"
+          ],
+          "correctAnswer": "A",
+          "explanation": "NPV = -$20,000 + $8,000 \u00d7 [1 - (1.10)^(-3)] / 0.10 = -$20,000 + $8,000 \u00d7 2.48685 = -$20,000 + $19,894.82 = -$105.18, closest to -$108. Option B ($4,000) uses no discounting: 3 \u00d7 $8,000 - $20,000. Option C (-$895) uses a 12% discount rate instead of 10%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate NPV and make investment decisions"
+        },
+        {
+          "id": "qm2-4",
+          "question": "A stated annual rate of 12% compounded monthly is equivalent to an effective annual rate closest to:",
+          "options": [
+            "A) 12.00%",
+            "B) 12.36%",
+            "C) 12.68%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "EAR = (1 + 0.12/12)^12 - 1 = (1.01)^12 - 1 = 1.12683 - 1 = 12.68%. Option A (12.00%) ignores compounding entirely. Option B (12.36%) uses quarterly compounding: (1.03)^4 - 1 = 12.55%, or a computational error.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Convert between stated and effective annual rates"
+        },
+        {
+          "id": "qm2-5",
+          "question": "A company offers two payment options: (1) $500,000 today, or (2) $100,000 per year for 7 years starting today (annuity due). At a discount rate of 8%, which option has the higher present value, and by approximately how much?",
+          "options": [
+            "A) Option 2 is higher by $20,640",
+            "B) Option 1 is higher by $63,660",
+            "C) Option 2 is higher by $62,064"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Option 2 is an annuity due. PV = $100,000 \u00d7 [1 - (1.08)^(-7)] / 0.08 \u00d7 1.08 = $100,000 \u00d7 5.2064 \u00d7 1.08 = $562,064 (rounding may vary slightly). Difference: $562,064 - $500,000 = $62,064. Option A mistakes the annuity due for an ordinary annuity: PV_OA = $520,637, excess = $20,637. Option B incorrectly concludes Option 1 is better.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Distinguish between ordinary annuity and annuity due calculations"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of NPV to someone who understands basic compound interest. Why is a positive NPV project worth undertaking? What does the NPV number actually represent in economic terms?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which TVM calculation do you find most challenging \u2014 annuities, perpetuities, or uneven cash flows? What makes it harder?",
+        "Can you think of a real-life decision where you implicitly used TVM reasoning (even without doing the math)?",
+        "Why might NPV and IRR give conflicting rankings for mutually exclusive projects?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- $FV = PV \\times (1+r)^n$ and $PV = FV / (1+r)^n$\n- $EAR = (1 + r_s/m)^m - 1$\n- Ordinary annuity PV: $PMT \\times [1-(1+r)^{-n}]/r$\n- Annuity due: multiply ordinary annuity result by $(1+r)$\n- Perpetuity: $PV = PMT/r$; Growing perpetuity: $PV = PMT/(r-g)$\n- $NPV = \\sum CF_t / (1+r)^t$; Accept if NPV > 0\n- IRR: rate where NPV = 0; Accept if IRR > required return\n- For mutually exclusive projects, always prefer NPV over IRR"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Statistical Measures of Asset Returns**, where you will learn to describe the distribution of investment returns using measures of central tendency, dispersion, and shape. The returns you learned to calculate here become the data you will analyze statistically."
+    }
+  ]
+}

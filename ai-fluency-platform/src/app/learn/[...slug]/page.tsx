@@ -5,6 +5,7 @@ import {
   getAdjacentModules,
   getLevelColor,
   getLevelTitle,
+  getCourses,
 } from "@/lib/content";
 import { ModuleRenderer } from "@/components/content/ModuleRenderer";
 import { Sidebar } from "@/components/layout/Sidebar";
@@ -23,43 +24,55 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const module = getModuleBySlugPath(slug);
+  if (slug.length < 2) return { title: "Not Found" };
+
+  const course = slug[0];
+  const moduleSlugs = slug.slice(1);
+  const module = getModuleBySlugPath(course, moduleSlugs);
   if (!module) return { title: "Not Found" };
 
+  const courses = getCourses();
+  const courseInfo = courses.find((c) => c.id === course);
+  const courseTitle = courseInfo?.title || course;
+
   return {
-    title: `${module.meta.title} — AI Fluency`,
+    title: `${module.meta.title} — ${courseTitle}`,
     description: module.meta.description,
   };
 }
 
 export default async function LearnPage({ params }: PageProps) {
   const { slug } = await params;
-  const module = getModuleBySlugPath(slug);
+  if (slug.length < 2) notFound();
+
+  const course = slug[0];
+  const moduleSlugs = slug.slice(1);
+  const module = getModuleBySlugPath(course, moduleSlugs);
 
   if (!module) notFound();
 
   const { meta, blocks } = module;
-  const levelColor = getLevelColor(meta.level);
-  const levelTitle = getLevelTitle(meta.level);
-  const { prev, next } = getAdjacentModules(meta.level, meta.slug);
+  const levelColor = getLevelColor(course, meta.level);
+  const levelTitle = getLevelTitle(course, meta.level);
+  const { prev, next } = getAdjacentModules(course, meta.level, meta.slug);
 
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)]">
       {/* Desktop sidebar */}
       <aside className="hidden lg:block w-72 border-r shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
-        <Sidebar />
+        <Sidebar course={course} />
       </aside>
 
       {/* Main content */}
       <main className="flex-1 min-w-0 max-w-4xl mx-auto px-4 sm:px-8 py-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-          <Link href="/curriculum" className="hover:text-foreground">
+          <Link href={`/curriculum/${course}`} className="hover:text-foreground">
             Curriculum
           </Link>
           <span>/</span>
           <Link
-            href={`/learn/${meta.level}/index`}
+            href={`/learn/${course}/${meta.level}/index`}
             className="hover:text-foreground"
             style={{ color: levelColor }}
           >
@@ -88,6 +101,7 @@ export default async function LearnPage({ params }: PageProps) {
           levelTitle={levelTitle}
           levelColor={levelColor}
           nextModule={next}
+          course={course}
         />
 
         {/* Prev/Next navigation */}
@@ -95,7 +109,7 @@ export default async function LearnPage({ params }: PageProps) {
           <nav className="flex justify-between items-center mt-12 pt-6 border-t">
             {prev ? (
               <Link
-                href={`/learn/${prev.level}/${prev.slug}`}
+                href={`/learn/${course}/${prev.level}/${prev.slug}`}
                 className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -106,7 +120,7 @@ export default async function LearnPage({ params }: PageProps) {
             )}
             {next ? (
               <Link
-                href={`/learn/${next.level}/${next.slug}`}
+                href={`/learn/${course}/${next.level}/${next.slug}`}
                 className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
               >
                 {next.title}

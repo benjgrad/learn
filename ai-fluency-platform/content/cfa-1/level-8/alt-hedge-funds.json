@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ALT.6: Hedge Funds",
+    "description": "Describe hedge fund strategies, structures, fee arrangements, and risk characteristics.",
+    "level": "level-8",
+    "slug": "alt-hedge-funds",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A long/short equity hedge fund is long $100 million in stocks it expects to rise and short $60 million in stocks it expects to fall. The market drops 10%. Does the fund necessarily lose money? What determines whether the fund gains or loses?"
+    },
+    {
+      "type": "markdown",
+      "content": "## What Are Hedge Funds?\n\nHedge funds are **actively managed, pooled investment vehicles** that use a wide range of strategies, often including leverage, short selling, and derivatives, to generate returns. Unlike mutual funds, hedge funds:\n\n- Are typically organized as **limited partnerships** (GP/LP structure)\n- Are available only to **accredited or institutional investors**\n- Charge **management fees plus incentive fees** (commonly \"2 and 20\")\n- Impose **lock-up periods** (1-3 years initially) and **redemption notice periods** (30-90 days)\n- Have **less regulatory disclosure** than public funds\n- Use a **prime broker** for trade execution, securities lending (for short selling), leverage, and custody\n\n## Hedge Fund Strategies: Equity\n\n### Long/Short Equity\n\nThe most common hedge fund strategy. The manager buys undervalued stocks (long) and sells overvalued stocks short.\n\n- **Net exposure** = Long exposure - Short exposure\n- A fund that is long $100M and short $60M has **net long exposure of $40M** and **gross exposure of $160M**\n- Returns come from **stock selection** (alpha) on both sides, not just market direction\n\n### Equity Market Neutral\n\nA special case of long/short equity where net exposure is maintained near **zero**:\n\n- Equal dollar amounts long and short (or beta-adjusted to zero)\n- Returns depend **entirely** on stock selection, not market direction\n- Lower volatility but also lower expected returns than long/short equity"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A hedge fund is long $80M and short $80M (market neutral). The market rises 15%. Is the fund guaranteed to earn zero?",
+      "answer": "No. Market neutral means the fund has approximately zero net market exposure, so the broad market move of +15% should not directly affect the portfolio's return. However, the fund's return depends on stock selection: if the long positions outperform the short positions, the fund profits; if the shorts outperform the longs, the fund loses. For example, if the longs rise 20% (+$16M) and the shorts rise 10% (-$8M covering cost, so +$8M gain on the short side), the fund earns $16M - $8M... actually wait \u2014 on the shorts, the fund loses when shorts go up: short side loses $8M, long side gains $16M, net = +$8M. Market neutral eliminates market risk but not stock-specific risk."
+    },
+    {
+      "type": "markdown",
+      "content": "## Hedge Fund Strategies: Event-Driven\n\n### Merger Arbitrage\n\nProfits from the **spread** between a target company's current price and the announced acquisition price:\n\n- **Long** the target company (trading below deal price)\n- **Short** the acquirer (in stock deals) to hedge market risk\n- Risk: the deal fails (spread widens or target price collapses)\n\n### Distressed Securities\n\nInvests in companies in **financial distress or bankruptcy**:\n\n- Buys debt or equity at deep discounts\n- Profits from restructuring, recovery, or liquidation\n- Requires deep legal and operational expertise\n\n## Hedge Fund Strategies: Relative Value\n\n**Fixed-income arbitrage**, **convertible arbitrage**, and other strategies that exploit **pricing inefficiencies** between related securities. These strategies typically use significant leverage because mispricings are small.\n\n## Hedge Fund Strategies: Macro and CTA\n\n### Global Macro\n\nMakes **directional bets** on macroeconomic trends:\n- Interest rates, currencies, equity indices, commodities\n- Top-down approach based on economic and political analysis\n- Can be highly leveraged with large position sizes\n\n### Managed Futures (CTA)\n\n- Systematic, **trend-following** strategies using futures contracts\n- Algorithmic models that go long in uptrends and short in downtrends\n- Trade across commodities, currencies, interest rates, and equity indices\n- Historically show **positive returns during equity bear markets** (crisis alpha)"
+    },
+    {
+      "type": "markdown",
+      "content": "## Fund of Funds\n\nA **fund of funds (FoF)** invests in multiple hedge funds rather than directly in securities:\n\n### Advantages\n- **Diversification** across strategies, managers, and risk factors\n- **Access** to funds closed to new direct investors\n- **Due diligence** performed by the FoF manager\n- Suitable for investors **lacking the expertise** to select individual hedge funds\n\n### Disadvantages\n- **Double layer of fees**: management and incentive fees at both the FoF level and underlying fund level\n- **Diluted returns**: diversification across many funds reduces the impact of top performers\n- **Netting risk**: if some underlying funds earn incentive fees while others lose money, the FoF investor pays incentive fees on winners but does not receive a rebate on losers\n\n## Leverage in Hedge Funds\n\nHedge funds use leverage through:\n- **Margin borrowing** from the prime broker\n- **Derivatives** (futures, options, swaps) that provide notional exposure exceeding invested capital\n- **Short selling** proceeds reinvested\n\nLeverage amplifies both returns and risk. Gross exposure well above 100% of NAV is common, particularly in relative value and fixed-income arbitrage strategies."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A long/short equity hedge fund has the following positions: Long portfolio = $150 million, Short portfolio = $90 million, Fund NAV = $120 million. Calculate: (1) net exposure, (2) gross exposure, (3) net exposure as a percentage of NAV, and (4) gross exposure as a percentage of NAV. Explain what these numbers tell you about the fund's market directionality and leverage.",
+      "solution": "**1. Net Exposure:**\n$150M - $90M = \\$60M$\n\n**2. Gross Exposure:**\n$150M + $90M = \\$240M$\n\n**3. Net Exposure % of NAV:**\n$60M / $120M = 50\\%$\n\n**4. Gross Exposure % of NAV:**\n$240M / $120M = 200\\%$\n\n**Interpretation:**\n- The fund has a **net long bias of 50%** \u2014 for every $1 of NAV, the fund has $0.50 of net long market exposure. It will benefit from rising markets (but only capture about half of the market move).\n- The fund uses **2x leverage** (200% gross exposure). For every $1 of NAV, the fund has $2 of total positions. This means the fund has borrowed money or used margin to take positions exceeding its capital.\n- The short side ($90M) provides partial hedging but not full market neutrality."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Hedge Fund Practice Problems",
+      "problems": [
+        {
+          "id": "alt6-1",
+          "question": "A hedge fund manager expects a pending merger to close and buys shares of the target company at $48 (announced deal price is $52). This strategy is best described as:",
+          "options": [
+            "A) Distressed securities investing",
+            "B) Merger arbitrage",
+            "C) Global macro"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Merger arbitrage involves buying the target company's shares at a discount to the announced deal price and profiting when the deal closes and the spread narrows. The $4 spread ($52 - $48) represents the merger arbitrage return (minus transaction costs) if the deal completes. Option A involves investing in bankrupt or near-bankrupt companies. Option C involves directional bets on macroeconomic trends, not individual corporate events.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe event-driven hedge fund strategies"
+        },
+        {
+          "id": "alt6-2",
+          "question": "A long/short equity fund has long positions of $200 million and short positions of $120 million with a NAV of $100 million. The fund's gross exposure as a percentage of NAV is closest to:",
+          "options": [
+            "A) 80%",
+            "B) 200%",
+            "C) 320%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Gross exposure = Long + Short = $200M + $120M = $320M. Gross exposure % = $320M / $100M = 320%. This indicates significant leverage \u2014 the fund has $3.20 of total positions for every $1 of NAV. Option A calculates net exposure ($200M - $120M = $80M) as a percentage of NAV. Option B uses only the long side.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate gross and net exposure for a long/short equity fund"
+        },
+        {
+          "id": "alt6-3",
+          "question": "Which hedge fund strategy is most likely to generate positive returns during a prolonged equity bear market?",
+          "options": [
+            "A) Long/short equity with a net long bias",
+            "B) Managed futures (CTA) using trend-following strategies",
+            "C) Merger arbitrage"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Managed futures (CTA) strategies systematically follow trends across asset classes. During a prolonged equity bear market, trend-following models establish short positions in declining equity indices and may go long in rising asset classes (e.g., bonds, gold). This historically provides 'crisis alpha.' Option A would likely lose money because net long exposure means the fund is still partially directional with the market. Option C depends on deal completion, which may be harder during bear markets (financing difficulties, deal cancellations).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe managed futures and crisis alpha"
+        },
+        {
+          "id": "alt6-4",
+          "question": "The primary disadvantage of investing through a fund of hedge funds rather than directly in individual hedge funds is:",
+          "options": [
+            "A) Less diversification across strategies and managers",
+            "B) An additional layer of fees that reduces net returns",
+            "C) Greater regulatory risk than direct hedge fund investment"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Fund of funds charge their own management and incentive fees on top of the fees charged by the underlying hedge funds. This double fee layer significantly reduces net returns to the investor. For example, if underlying funds charge 2/20 and the FoF charges 1/10, the total fee drag is substantially higher than investing directly. Option A is the opposite \u2014 FoFs provide more diversification, which is their primary advantage. Option C is not a meaningful distinction between the two approaches.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe fund of funds advantages and disadvantages"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of a long/short equity hedge fund to someone who only understands 'buy and hold' investing. Focus on how short selling works, what 'net exposure' means, and why a fund might still lose money even if it correctly predicts which stocks will outperform."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do hedge funds require lock-up periods, and how does this affect the investor's liquidity risk?",
+        "How does the prime broker relationship create both benefits and risks for hedge fund investors?",
+        "In what market environment would you expect merger arbitrage returns to be most at risk?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Hedge funds use leverage, short selling, and derivatives; structured as LPs with GP/LP roles\n- **Long/short equity**: most common; net exposure determines market directionality\n- **Market neutral**: net exposure near zero; returns from stock selection only\n- **Event-driven**: merger arbitrage (deal spreads), distressed securities (bankruptcy/restructuring)\n- **Relative value**: exploit pricing inefficiencies between related securities; high leverage\n- **Global macro**: directional bets on rates, currencies, commodities\n- **Managed futures (CTA)**: systematic trend-following; potential crisis alpha in bear markets\n- **Fund of funds**: diversification and access, but double fee layer reduces returns\n- **Net exposure** = Long - Short; **Gross exposure** = Long + Short\n- **Prime broker** provides execution, lending, leverage, and custody"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Digital Assets**, the newest category of alternative investments. You will learn about blockchain technology, cryptocurrencies, tokens, DeFi, and the unique valuation and regulatory challenges these assets present."
+    }
+  ]
+}

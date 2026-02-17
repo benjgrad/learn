@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FSA.4: Cash Flow Statement I \u2014 Structure and Methods",
+    "description": "Understand the direct and indirect methods, operating/investing/financing classification, and key IFRS vs GAAP differences in cash flow reporting.",
+    "level": "level-4",
+    "slug": "fsa-analyzing-cash-flows-i",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company reports $50 million in net income but its cash balance decreased by $10 million during the year. How is this possible? What would you look at to understand the discrepancy?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Cash Flow Statement Overview\n\nThe cash flow statement reconciles the **accrual-based income statement** with actual **cash movements** during the period. It answers: where did cash come from, and where did it go?\n\n### Three Sections\n\n| Section | Cash Flows From | Examples |\n|---|---|---|\n| **Operating (CFO)** | Day-to-day business activities | Cash received from customers, cash paid to suppliers, wages, taxes |\n| **Investing (CFI)** | Long-term asset transactions | Purchase/sale of PP&E, acquisitions, purchase/sale of investments |\n| **Financing (CFF)** | Capital structure changes | Issuing/repaying debt, issuing/repurchasing equity, dividends paid |\n\n$$\\Delta\\text{Cash} = \\text{CFO} + \\text{CFI} + \\text{CFF}$$\n\n### Why Cash Flow Matters\n\n- Net income includes **non-cash items** (depreciation, amortization, unrealized gains/losses)\n- Accrual accounting allows timing differences between revenue recognition and cash receipt\n- A profitable company can go bankrupt if it runs out of cash\n- Cash flow is harder to manipulate than earnings"
+    },
+    {
+      "type": "markdown",
+      "content": "## Direct vs Indirect Method\n\n### Direct Method\n\nReports each major class of **gross cash receipts and payments**:\n\n| Item | Amount |\n|---|---|\n| Cash received from customers | $900,000 |\n| Cash paid to suppliers | ($500,000) |\n| Cash paid to employees | ($200,000) |\n| Cash paid for interest | ($30,000) |\n| Cash paid for taxes | ($50,000) |\n| **Net CFO** | **$120,000** |\n\n### Indirect Method\n\nStarts with **net income** and adjusts for non-cash items and working capital changes:\n\n$$\\text{CFO} = \\text{Net income} + \\text{Non-cash charges} \\pm \\text{Changes in working capital}$$\n\n| Adjustment | Example |\n|---|---|\n| + Non-cash expenses | Depreciation, amortization, impairment |\n| + Losses / - Gains | Loss/gain on sale of assets |\n| - Increase in current assets | Increase in accounts receivable, inventory |\n| + Increase in current liabilities | Increase in accounts payable, accrued expenses |\n\n### Example (Indirect Method)\n\n| Item | Amount |\n|---|---|\n| Net income | $80,000 |\n| + Depreciation | $30,000 |\n| + Loss on sale of equipment | $5,000 |\n| - Increase in accounts receivable | ($15,000) |\n| + Increase in accounts payable | $20,000 |\n| **Net CFO** | **$120,000** |\n\nBoth methods produce the **same CFO**. The indirect method is far more commonly used in practice."
+    },
+    {
+      "type": "markdown",
+      "content": "## IFRS vs US GAAP Classification Differences\n\nOne of the most testable areas for CFA Level I: IFRS allows **flexibility** in classifying interest, dividends, and taxes.\n\n| Item | US GAAP | IFRS |\n|---|---|---|\n| **Interest paid** | Operating | Operating or Financing |\n| **Interest received** | Operating | Operating or Investing |\n| **Dividends paid** | Financing | Operating or Financing |\n| **Dividends received** | Operating | Operating or Investing |\n| **Taxes paid** | Operating | Operating (unless specifically identified with financing or investing) |\n\n### Key Implications\n\n- A company reporting under IFRS that classifies interest paid as financing will report **higher CFO** than if it classified interest paid as operating\n- This reduces comparability between IFRS and US GAAP companies\n- Analysts must check the notes to understand classification choices when comparing firms across jurisdictions\n\n### Non-Cash Transactions\n\nSignificant non-cash investing and financing activities are **disclosed separately** (not in the cash flow statement itself). Examples:\n- Acquiring assets by assuming liabilities\n- Converting debt to equity\n- Exchanging non-cash assets"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company reports net income of $100,000 and depreciation of $20,000. During the year, accounts receivable increased by $15,000 and accounts payable decreased by $10,000. What is CFO using the indirect method?",
+      "answer": "$95,000. Start with net income ($100,000), add back depreciation (+$20,000), subtract the increase in accounts receivable (-$15,000 \u2014 cash not yet collected), and subtract the decrease in accounts payable (-$10,000 \u2014 the company paid down more than it accrued). CFO = $100,000 + $20,000 - $15,000 - $10,000 = $95,000."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Prepare the operating section of the cash flow statement using the indirect method. Net income: $200,000. Depreciation: $45,000. Gain on sale of equipment: $8,000. Increase in inventory: $25,000. Decrease in accounts receivable: $12,000. Increase in accounts payable: $18,000. Increase in accrued liabilities: $6,000.",
+      "solution": "**CFO (Indirect Method):**\n\n| Item | Amount |\n|---|---|\n| Net income | $200,000 |\n| + Depreciation | +$45,000 |\n| - Gain on sale of equipment | -$8,000 |\n| - Increase in inventory | -$25,000 |\n| + Decrease in accounts receivable | +$12,000 |\n| + Increase in accounts payable | +$18,000 |\n| + Increase in accrued liabilities | +$6,000 |\n| **Net CFO** | **$248,000** |\n\nThe gain on sale is subtracted because it is a non-operating item (the cash proceeds appear in investing activities). The decrease in A/R is added because the company collected more cash than it recognized in revenue. Working capital increases in assets reduce CFO; increases in liabilities increase CFO."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Cash Flow Statement I Practice Problems",
+      "problems": [
+        {
+          "id": "fsa4-1",
+          "question": "Under US GAAP, interest paid is classified as:",
+          "options": [
+            "A) Operating activity",
+            "B) Financing activity",
+            "C) Either operating or financing, at the company's discretion"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under US GAAP, interest paid is always classified as an operating activity. There is no discretion. Option B (financing) is the alternative classification permitted under IFRS, not US GAAP. Option C describes the IFRS treatment, where companies may choose to classify interest paid as either operating or financing. This is a key IFRS vs US GAAP difference frequently tested on the CFA exam.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Distinguish between IFRS and US GAAP cash flow classifications"
+        },
+        {
+          "id": "fsa4-2",
+          "question": "A company reports net income of $150,000, depreciation of $40,000, and a gain on sale of equipment of $10,000. Working capital changes: accounts receivable decreased by $8,000, inventory increased by $20,000, and accounts payable increased by $12,000. CFO using the indirect method is closest to:",
+          "options": [
+            "A) $170,000",
+            "B) $180,000",
+            "C) $200,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CFO = Net income + Depreciation - Gain + Decrease in A/R - Increase in inventory + Increase in A/P = $150,000 + $40,000 - $10,000 + $8,000 - $20,000 + $12,000 = $180,000. Option A ($170,000) may result from incorrectly adding the gain instead of subtracting it, then making an offsetting error. Option C ($200,000) ignores the working capital changes. The gain is subtracted because the actual cash from the equipment sale is classified under investing.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate CFO using the indirect method"
+        },
+        {
+          "id": "fsa4-3",
+          "question": "Compared to a US GAAP reporter, an IFRS company that classifies interest paid as a financing activity and dividends received as an investing activity will most likely report:",
+          "options": [
+            "A) Higher CFO and higher CFF",
+            "B) Higher CFO and lower CFF",
+            "C) Lower CFO and higher CFI"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Moving interest paid from operating to financing increases CFO (less cash outflow in operating) and decreases CFF (more cash outflow in financing), so CFF is lower. Moving dividends received from operating to investing decreases CFO and increases CFI. The net effect on CFO: +interest paid (higher) and -dividends received (lower). If interest paid exceeds dividends received (typical), CFO is net higher. CFF is lower due to interest paid being included. Option A incorrectly states higher CFF. Option C incorrectly states lower CFO.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the impact of IFRS classification choices on cash flow categories"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to someone who only understands cash accounting why a company might report positive net income but negative operating cash flow. Use the indirect method adjustments to walk through your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do you think the indirect method is more popular in practice even though the direct method provides more detailed information?",
+        "How might IFRS classification flexibility make it harder to compare companies across different countries?",
+        "What does it tell you about a company's quality of earnings if CFO consistently exceeds net income?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Cash flow statement: Operating + Investing + Financing = Change in cash\n- Indirect method: Net income + Non-cash charges \u00b1 Working capital changes = CFO\n- Add back: depreciation, amortization, losses; Subtract: gains\n- Working capital: + increase in current liabilities, - increase in current assets\n- US GAAP: Interest paid/received = Operating; Dividends paid = Financing\n- IFRS: Flexibility in classifying interest and dividends (operating, investing, or financing)\n- Both methods produce identical CFO\n- Non-cash activities disclosed separately"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Cash Flow Statement II \u2014 Free Cash Flow and Analysis**, where you'll calculate FCFF and FCFE, essential metrics for equity and firm valuation. These build directly on the CFO you just learned to compute."
+    }
+  ]
+}

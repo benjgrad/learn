@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "QM.6: Machine Learning",
+    "description": "Apply supervised and unsupervised machine learning methods, understand overfitting and regularization, and evaluate ensemble techniques for financial analysis.",
+    "level": "level-1",
+    "slug": "quant-machine-learning",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A model achieves 98% accuracy on training data but only 55% on new test data. What is happening, and what techniques could address this problem?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Supervised Learning\n\nSupervised learning uses **labeled data** (known outcomes) to learn a mapping from inputs to outputs. The two main tasks are:\n\n### Regression (Continuous Outcome)\n\nPredicting a continuous variable, such as expected stock returns or bond spreads. Linear regression is a supervised method; machine learning extends this with flexible, non-linear approaches.\n\n### Classification (Categorical Outcome)\n\nPredicting a category, such as default/no-default, buy/sell signal, or sector classification. Common methods include:\n\n| Method | Key Idea | Strengths |\n|---|---|---|\n| Logistic regression | Log-odds as linear function | Interpretable, well-calibrated probabilities |\n| Decision trees | Sequential binary splits on features | Handles non-linearity, easy to visualize |\n| Support Vector Machines (SVM) | Find maximum-margin separating hyperplane | Effective in high-dimensional spaces |\n| Random forests | Ensemble of many decision trees | Reduces variance, handles interactions |\n\n### Bias-Variance Tradeoff\n\n- **Bias**: error from overly simplistic assumptions (underfitting)\n- **Variance**: error from excessive sensitivity to training data (overfitting)\n- Simple models have high bias, low variance; complex models have low bias, high variance\n- The goal is to minimize **total error** = bias$^2$ + variance + irreducible noise"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A decision tree with 50 terminal nodes (leaves) is applied to a dataset with 100 observations. Is this model more likely to suffer from high bias or high variance?",
+      "answer": "High variance (overfitting). With 50 leaves for 100 observations, each leaf averages only 2 data points. The tree is overly complex relative to the data, fitting noise rather than the true signal. The model will likely perform well on training data but poorly on new data. Remedies include pruning the tree (limiting depth or minimum leaf size) or using ensemble methods like random forests."
+    },
+    {
+      "type": "markdown",
+      "content": "## Overfitting, Cross-Validation, and Regularization\n\n### Overfitting\n\nOverfitting occurs when a model captures **noise** in the training data rather than the underlying pattern. Warning signs:\n- Large gap between training and test performance\n- Too many features relative to observations\n- High model complexity without corresponding improvement on validation data\n\n### Cross-Validation\n\n**k-fold cross-validation** estimates out-of-sample performance:\n1. Split data into $k$ equal folds (typically $k = 5$ or $10$)\n2. For each fold: train on $k-1$ folds, test on the held-out fold\n3. Average the $k$ test errors\n\nThis uses all data for both training and validation while providing a reliable estimate of generalization performance.\n\n### Regularization\n\nRegularization adds a **penalty** for model complexity to the objective function:\n\n| Method | Penalty | Effect |\n|---|---|---|\n| LASSO (L1) | $\\lambda \\sum |\\beta_j|$ | Shrinks coefficients; can set some to exactly zero (feature selection) |\n| Ridge (L2) | $\\lambda \\sum \\beta_j^2$ | Shrinks coefficients toward zero; never eliminates features |\n| Elastic Net | $\\alpha \\lambda \\sum |\\beta_j| + (1-\\alpha)\\lambda \\sum \\beta_j^2$ | Combines L1 and L2 penalties |\n\nThe hyperparameter $\\lambda$ controls the penalty strength. Higher $\\lambda$ means more shrinkage and simpler models. LASSO is particularly useful in finance for **variable selection** \u2014 identifying which factors matter from a large set of candidates."
+    },
+    {
+      "type": "markdown",
+      "content": "## Unsupervised Learning and Ensemble Methods\n\n### Unsupervised Learning\n\nUnsupervised learning works with **unlabeled data** to discover structure:\n\n- **Clustering** (e.g., k-means): groups similar observations. Applications: grouping stocks by return behavior, identifying client segments, detecting regime changes\n- **Dimensionality reduction** (e.g., PCA): reduces the number of features while preserving information. Applications: constructing factor models, reducing multicollinearity, data visualization\n\n### Decision Trees and Ensemble Methods\n\nA **decision tree** splits data recursively based on feature thresholds that maximize information gain. Trees are intuitive but prone to overfitting.\n\n**Ensemble methods** combine multiple models to improve predictions:\n\n- **Bagging** (Bootstrap Aggregating): train many trees on bootstrap samples and average predictions. Reduces variance.\n- **Random Forest**: bagging with random feature subsets at each split. Further reduces correlation between trees.\n- **Boosting** (e.g., Gradient Boosting): sequentially train weak models, each correcting the errors of the previous one. Reduces bias.\n\n### Feature Engineering\n\nThe quality of input features often matters more than the choice of algorithm. In finance, engineered features include:\n- Momentum indicators (rolling returns, moving averages)\n- Valuation ratios (P/E, P/B, EV/EBITDA)\n- Volatility measures (realized vol, implied vol)\n- Sentiment scores derived from text data"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An analyst uses LASSO regression with 30 potential features to predict stock returns. At the optimal lambda (chosen by cross-validation), 22 features have coefficients set to zero. Explain what LASSO has done and why this is valuable.",
+      "solution": "LASSO's L1 penalty ($\\lambda \\sum |\\beta_j|$) shrinks coefficient estimates toward zero, and when the penalty is strong enough, it forces some coefficients to **exactly zero**. At the optimal lambda:\n\n- 22 of 30 features have been eliminated (coefficients = 0)\n- Only 8 features remain as predictors\n- The model has performed **automatic feature selection**\n\nThis is valuable for several reasons:\n\n1. **Parsimony**: A model with 8 features is more interpretable and less prone to overfitting than one with 30\n2. **Noise reduction**: Many of the 30 features likely had spurious correlations with returns in the training data. LASSO eliminates them.\n3. **Better out-of-sample performance**: By reducing model complexity, LASSO improves generalization to new data\n4. **Multicollinearity mitigation**: Correlated features are pruned, with LASSO keeping the most informative variable from each correlated group\n\nThe optimal lambda is chosen by cross-validation to balance model complexity against predictive accuracy. A higher lambda would eliminate more features (potentially underfitting); a lower lambda would retain more features (potentially overfitting)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Machine Learning Applications in Finance",
+      "vignette": "Robert Kim, CFA, manages a quantitative equity fund. His team is developing a stock return prediction model using 500 stocks and 60 potential features including fundamental ratios, momentum signals, and macro variables. They have 10 years of monthly data (120 observations per stock).\n\nKim's team compares several models:\n\n| Model | Training R-squared | Test R-squared (5-fold CV) | Features Used |\n|---|---|---|---|\n| OLS (all features) | 0.42 | 0.03 | 60 |\n| LASSO | 0.18 | 0.12 | 14 |\n| Ridge | 0.25 | 0.10 | 60 |\n| Random Forest | 0.85 | 0.09 | 60 |\n| Gradient Boosting | 0.55 | 0.11 | 60 |\n\nThe team also applies k-means clustering (k=5) to the stocks based on return characteristics and identifies five distinct groups with different factor exposures.",
+      "problems": [
+        {
+          "id": "qm6-1",
+          "question": "The OLS model with all 60 features has a training R-squared of 0.42 but a test R-squared of 0.03. This performance gap is most likely caused by:",
+          "options": [
+            "A) underfitting due to an overly simple model.",
+            "B) overfitting due to too many features relative to the signal.",
+            "C) high bias in the OLS estimator."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The large gap between training R-squared (0.42) and test R-squared (0.03) is a hallmark of overfitting. With 60 features, the OLS model is fitting noise in the training data that does not generalize. Option A is the opposite problem \u2014 the model is too complex, not too simple. Option C is incorrect because OLS is unbiased (though with 60 features, the variance is extremely high).",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify overfitting from training vs. test performance"
+        },
+        {
+          "id": "qm6-2",
+          "question": "The LASSO model achieves the highest test R-squared (0.12) while using only 14 features. LASSO's advantage over OLS in this context is best attributed to its ability to:",
+          "options": [
+            "A) use a non-linear functional form for the predictors.",
+            "B) perform automatic feature selection by shrinking irrelevant coefficients to zero.",
+            "C) eliminate heteroskedasticity in the residuals."
+          ],
+          "correctAnswer": "B",
+          "explanation": "LASSO's L1 penalty shrinks coefficients toward zero and can set them exactly to zero, effectively selecting the 14 most informative features from 60. This reduces overfitting by eliminating noise features. Option A is incorrect \u2014 LASSO is still a linear model. Option C is incorrect \u2014 LASSO addresses model complexity, not heteroskedasticity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Explain the feature selection property of LASSO"
+        },
+        {
+          "id": "qm6-3",
+          "question": "The Random Forest model has a training R-squared of 0.85 but a test R-squared of only 0.09. To reduce this gap, Kim should most likely:",
+          "options": [
+            "A) increase the number of trees in the forest.",
+            "B) reduce tree depth and increase the minimum leaf size.",
+            "C) remove the cross-validation step."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Random Forest is overfitting (0.85 train vs. 0.09 test). Reducing tree depth and increasing minimum leaf size constrains each individual tree's complexity, reducing variance and overfitting. Option A (more trees) generally does not cause overfitting in random forests but also may not solve the depth problem. Option C would make the problem worse by removing the validation mechanism.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply techniques to reduce overfitting in tree-based models"
+        },
+        {
+          "id": "qm6-4",
+          "question": "Compared to LASSO, Ridge regression retains all 60 features. The key difference between the two regularization methods is that Ridge:",
+          "options": [
+            "A) does not shrink coefficients toward zero.",
+            "B) shrinks coefficients toward zero but never sets them exactly to zero.",
+            "C) always produces a sparser model than LASSO."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Ridge regression (L2 penalty) shrinks all coefficients toward zero but never eliminates any entirely. This is because the L2 penalty's derivative does not have a discontinuity at zero, unlike L1. Ridge keeps all 60 features with small but non-zero coefficients, while LASSO eliminates 46 of them. Option A is incorrect \u2014 Ridge does shrink coefficients. Option C reverses the relationship \u2014 LASSO produces sparser models.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Distinguish between LASSO and Ridge regularization"
+        },
+        {
+          "id": "qm6-5",
+          "question": "The k-means clustering analysis is an example of:",
+          "options": [
+            "A) supervised learning, because the clusters have economic meaning.",
+            "B) unsupervised learning, because no labeled outcome variable is used.",
+            "C) reinforcement learning, because the algorithm iteratively improves cluster assignments."
+          ],
+          "correctAnswer": "B",
+          "explanation": "K-means clustering is unsupervised learning because it discovers groups based on the structure of the input data without any labeled outcome variable. The algorithm groups stocks by similarity in return characteristics, not by predicting a specific target. Option A is incorrect \u2014 even though the resulting clusters may have economic meaning, the algorithm does not use labels during training. Option C is incorrect \u2014 the iterative nature of k-means does not make it reinforcement learning, which involves an agent learning from rewards in an environment.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Distinguish between supervised and unsupervised learning"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the bias-variance tradeoff using a concrete example. Why can't we minimize both bias and variance simultaneously, and how do regularization techniques navigate this tradeoff?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might machine learning models that work well in other domains (image recognition, NLP) struggle with financial return prediction?",
+        "When would you choose LASSO over Ridge regression, and vice versa?",
+        "How does cross-validation help you select the right model complexity?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Supervised learning**: regression (continuous) and classification (categorical) with labeled data\n- **Unsupervised learning**: clustering and dimensionality reduction without labels\n- **Bias-variance tradeoff**: simple models underfit (high bias); complex models overfit (high variance)\n- **Cross-validation**: k-fold CV estimates out-of-sample performance; use to select hyperparameters\n- **LASSO (L1)**: shrinks coefficients to exactly zero \u2014 automatic feature selection\n- **Ridge (L2)**: shrinks toward zero but retains all features\n- **Ensemble methods**: bagging reduces variance; boosting reduces bias; random forests add feature randomization\n- **Feature engineering** is often more important than algorithm choice in finance"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Big Data Projects** \u2014 the practical workflow of collecting, cleaning, and preparing data for the machine learning models you just learned about. You will learn about text analytics, data quality issues, and the end-to-end process from raw data to model deployment."
+    }
+  ]
+}

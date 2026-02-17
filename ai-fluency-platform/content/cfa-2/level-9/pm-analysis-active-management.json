@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.2: Analysis of Active Portfolio Management",
+    "description": "Apply the Fundamental Law of Active Management. Calculate and interpret the Information Ratio, Information Coefficient, Transfer Coefficient, and Breadth.",
+    "level": "level-9",
+    "slug": "pm-analysis-active-management",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two portfolio managers both have an Information Coefficient of 0.05 (modest stock-picking skill). Manager A makes 100 independent bets per year; Manager B makes 500. Who is likely to have a higher Information Ratio, and by how much?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Fundamental Law of Active Management\n\nThe **Fundamental Law** connects a manager's skill and opportunity set to expected performance:\n\n### Basic Fundamental Law\n\n$$IR = IC \\times \\sqrt{BR}$$\n\nWhere:\n- $IR$ = **Information Ratio** = active return / tracking error (active risk)\n- $IC$ = **Information Coefficient** = correlation between forecasted and actual returns (measures skill)\n- $BR$ = **Breadth** = number of independent investment decisions per year\n\n### Full Fundamental Law\n\nAccounts for constraints that reduce the manager's ability to implement forecasts:\n\n$$IR^* = TC \\times IC \\times \\sqrt{BR}$$\n\nWhere $TC$ = **Transfer Coefficient** (0 to 1), measuring how efficiently the manager translates insights into portfolio positions.\n\n### Expected Active Return\n\n$$E(R_A) = TC \\times IC \\times \\sqrt{BR} \\times \\sigma_A$$\n\nWhere $\\sigma_A$ = active risk (tracking error) the manager takes.\n\n### Key Implications\n\n- Skill (IC) and breadth (BR) are complementary: modest skill applied broadly can match high skill applied narrowly\n- Constraints (TC < 1) reduce achievable performance\n- More breadth benefits only if bets are truly independent"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A manager has IC = 0.04 and makes 200 independent bets per year with TC = 0.80. What is the expected Information Ratio? Is this manager likely to outperform after fees?",
+      "answer": "IR* = 0.80 \u00d7 0.04 \u00d7 \u221a200 = 0.80 \u00d7 0.04 \u00d7 14.14 = 0.453. An IR of 0.45 is considered good (above-average active management). However, if management fees are 1% and tracking error is 4%, active return before fees \u2248 0.453 \u00d7 4% = 1.81%, leaving 0.81% after a 1% fee. Marginal, but likely worth it for institutional investors with negotiated lower fees."
+    },
+    {
+      "type": "markdown",
+      "content": "## Components in Detail\n\n### Information Coefficient (IC)\n\n$$IC = \\text{Cor}(\\text{forecast returns}, \\text{actual returns})$$\n\n- Typical IC for skilled managers: 0.02 to 0.10\n- IC of 0.05 is considered meaningful in practice\n- Measured using rank correlation (Spearman) to capture ordinal accuracy\n- IC can vary over time and across market conditions\n\n### Breadth (BR)\n\nThe number of **independent** investment decisions per year:\n- A stock picker with 100 stocks evaluated monthly: BR could be up to 1,200 \u2014 but only if decisions are truly independent\n- Correlated bets reduce effective breadth (e.g., overweighting 10 tech stocks = ~1 bet, not 10)\n- Overestimating breadth is a common error that inflates expected IR\n\n### Transfer Coefficient (TC)\n\nMeasures implementation efficiency (how well forecasts translate to active weights):\n\n| Constraint | Effect on TC |\n|-----------|-------------|\n| Long-only (no shorting) | TC \u2248 0.3-0.5 |\n| Sector limits | Reduces TC |\n| Turnover limits | Reduces TC |\n| Tax constraints | Reduces TC |\n| No constraints (130/30) | TC approaches 1.0 |\n\nA long-only constraint is the single largest drag on TC for most equity managers."
+    },
+    {
+      "type": "markdown",
+      "content": "## Active Management Value Added and Closet Indexing\n\n### Decomposing Value Added\n\n$$\\text{Value Added} = \\sum_{i=1}^{n} \\Delta w_i \\times R_{A,i}$$\n\nWhere $\\Delta w_i$ is the active weight (portfolio weight \u2212 benchmark weight) for asset $i$, and $R_{A,i}$ is the active return.\n\n### Active Share and Closet Indexing\n\n$$\\text{Active Share} = \\frac{1}{2} \\sum_{i=1}^{n} |w_{p,i} - w_{b,i}|$$\n\n| Active Share | Tracking Error | Classification |\n|-------------|----------------|----------------|\n| High (>60%) | High | Concentrated stock picker |\n| High | Low | Diversified stock picker |\n| Low (<60%) | Low | **Closet indexer** |\n| Low | High | Factor bet |\n\n**Closet indexing**: a fund charges active fees but closely mimics the benchmark. Low active share + low tracking error = index-like returns minus high fees. Detected by comparing Active Share and tracking error.\n\n### Evaluating Active Managers\n\nThe **Information Ratio** is the key metric:\n- IR > 0.5: very good\n- IR 0.25-0.5: good\n- IR < 0.25: marginal (may not justify fees)\n- Negative IR: destroying value through active management"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Manager A has IC = 0.06, BR = 150, and TC = 1.0 (unconstrained). Manager B has IC = 0.06, BR = 150, and TC = 0.40 (long-only, sector-constrained). Both target 5% tracking error. Calculate each manager's expected IR and active return. How much performance does Manager B lose to constraints?",
+      "solution": "**Manager A (unconstrained):**\n\n$IR_A = 1.0 \\times 0.06 \\times \\sqrt{150} = 0.06 \\times 12.247 = 0.735$\n\n$E(R_A) = 0.735 \\times 5\\% = 3.67\\%$ active return\n\n**Manager B (constrained):**\n\n$IR_B = 0.40 \\times 0.06 \\times \\sqrt{150} = 0.024 \\times 12.247 = 0.294$\n\n$E(R_A) = 0.294 \\times 5\\% = 1.47\\%$ active return\n\n**Performance Loss:**\n\nManager B loses $3.67\\% - 1.47\\% = 2.20\\%$ in expected active return annually due to constraints. The TC of 0.40 means only 40% of the manager's skill translates into portfolio positions. This illustrates why 130/30 and market-neutral strategies (higher TC) are attractive for skilled managers."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Active Portfolio Management \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "pm2-1",
+          "question": "**Vignette: Crestline Capital Partners**\n\nCrestline operates three equity strategies:\n\n| Strategy | IC | BR | TC | Tracking Error |\n|----------|-----|------|------|----------------|\n| Core Value | 0.05 | 200 | 0.45 | 3.5% |\n| All-Cap Flex | 0.04 | 500 | 0.75 | 5.0% |\n| Market Neutral | 0.03 | 800 | 0.95 | 6.0% |\n\nThe CIO wants to determine which strategy offers the best risk-adjusted active performance.\n\n---\n\n**Question 1:** The strategy with the highest expected Information Ratio is:",
+          "options": [
+            "A) Core Value (IR = 0.318)",
+            "B) All-Cap Flex (IR = 0.671)",
+            "C) Market Neutral (IR = 0.807)"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Core Value: IR = 0.45 \u00d7 0.05 \u00d7 \u221a200 = 0.45 \u00d7 0.05 \u00d7 14.14 = 0.318. All-Cap Flex: IR = 0.75 \u00d7 0.04 \u00d7 \u221a500 = 0.75 \u00d7 0.04 \u00d7 22.36 = 0.671. Market Neutral: IR = 0.95 \u00d7 0.03 \u00d7 \u221a800 = 0.95 \u00d7 0.03 \u00d7 28.28 = 0.807. Despite the lowest IC, Market Neutral wins through high breadth and high TC (minimal constraints). This illustrates that many independent, unconstrained bets can overcome lower individual skill.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Apply the full Fundamental Law to compare active strategies"
+        },
+        {
+          "id": "pm2-2",
+          "question": "**Question 2 (continued):** Core Value's TC of 0.45 is most likely caused by:",
+          "options": [
+            "A) Insufficient breadth of investment ideas",
+            "B) Long-only and sector concentration constraints limiting optimal positioning",
+            "C) Low correlation between forecast and actual returns"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Transfer Coefficient measures how efficiently forecasts are implemented as portfolio positions. A TC of 0.45 indicates that constraints prevent the manager from fully expressing views. Long-only constraints (cannot short overvalued stocks) and sector limits are the primary drivers. Option A affects BR, not TC. Option C describes IC, not TC. A long-only constraint alone typically reduces TC to 0.3-0.5.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify factors that reduce the Transfer Coefficient"
+        },
+        {
+          "id": "pm2-3",
+          "question": "**Question 3 (continued):** A new fund reports an Active Share of 22% and tracking error of 1.2%. This fund is best classified as a:",
+          "options": [
+            "A) Concentrated stock picker",
+            "B) Closet indexer",
+            "C) Factor-tilted strategy"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Low Active Share (22%) combined with low tracking error (1.2%) is the hallmark of a closet indexer \u2014 a fund that closely mimics its benchmark while charging active management fees. Active Share below ~60% suggests the portfolio is not meaningfully different from the index. This fund is unlikely to generate sufficient active return to justify active fees. A concentrated picker (A) would have high Active Share. A factor strategy (C) would have higher tracking error.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify closet indexing using Active Share and tracking error"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Fundamental Law of Active Management to a non-technical investment committee member. Use the analogy of a coin flip to illustrate how having a small edge (IC) applied across many independent decisions (BR) compounds into a meaningful Information Ratio."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is overestimating breadth a common and dangerous mistake for active managers?",
+        "How does the long-only constraint specifically reduce a manager's ability to implement negative views?",
+        "What does a declining IC over time suggest about a manager's skill or market efficiency?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Basic Law: $IR = IC \\times \\sqrt{BR}$\n- Full Law: $IR^* = TC \\times IC \\times \\sqrt{BR}$\n- Expected active return: $E(R_A) = IR^* \\times \\sigma_A$\n- IC = correlation of forecasts with actual returns (skill)\n- BR = number of independent bets (opportunity)\n- TC = implementation efficiency (0 = fully constrained, 1 = unconstrained)\n- Active Share = sum of absolute active weight differences / 2\n- Closet indexer: low Active Share + low tracking error + active fees\n- IR > 0.5 is very good; typical skilled IC \u2248 0.02-0.10"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Multifactor Models**, which formalize the sources of returns and risk in a portfolio. Factor models decompose returns into systematic components (market, value, size, momentum) and idiosyncratic stock-specific returns \u2014 providing the analytical framework for many of the 'bets' counted in breadth."
+    }
+  ]
+}

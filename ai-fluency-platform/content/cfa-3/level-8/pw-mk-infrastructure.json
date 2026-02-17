@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "MK.4: Infrastructure",
+    "description": "Analyze brownfield and greenfield infrastructure investments, public-private partnerships, valuation approaches, regulatory risk, and the role of infrastructure in portfolio construction.",
+    "level": "level-8",
+    "slug": "pw-mk-infrastructure",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A toll road and a renewable energy project both promise 8% returns. Which has more predictable cash flows, and why? What risks are unique to each?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Infrastructure Investment Fundamentals\n\nInfrastructure assets provide **essential services** with long asset lives and relatively predictable cash flows.\n\n### Brownfield vs Greenfield\n\n| Feature | Brownfield | Greenfield |\n|---|---|---|\n| Definition | Existing, operating assets | New construction/development |\n| Risk | Lower (proven demand, cash flow) | Higher (construction, demand) |\n| Return target | 8-12% | 12-18% |\n| Examples | Operating toll roads, airports, utilities | New power plants, broadband networks |\n| Cash flow | Immediate | Delayed (during construction) |\n\n### Revenue Models\n\n**Availability-based**: Government pays fixed fees for asset availability regardless of usage\n- Lower risk, bond-like returns\n- Examples: Hospitals, prisons, government buildings\n- Revenue depends on meeting availability/performance metrics\n\n**Volume-based**: Revenue tied to actual usage\n- Higher risk, more upside potential\n- Examples: Toll roads, airports, ports\n- Demand risk: traffic/passenger volume uncertainty\n\n**Regulated**: Returns set by regulatory body\n- Utility-like risk/return profile\n- Rate base x allowed return = revenue\n- Examples: Power transmission, water utilities, gas distribution\n\n## Public-Private Partnerships (PPPs)\n\nGovernments partner with private sector for infrastructure delivery:\n\n- **Build-Operate-Transfer (BOT)**: Private builds and operates; transfers to government after concession period\n- **Build-Own-Operate (BOO)**: Private retains ownership permanently\n- **Design-Build-Finance-Maintain (DBFM)**: Private designs, builds, finances; government operates\n\nKey PPP risks: Political/regulatory change, demand shortfall, construction overruns"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A regulated water utility has a rate base of $500M and an allowed return on equity of 10%. The utility's actual capital structure is 50% equity. The implied annual equity return is approximately what amount, and is this truly 'risk-free'?",
+      "answer": "Equity portion of rate base: $500M x 50% = $250M. Allowed return: $250M x 10% = $25M annual equity return. This seems stable, but it's not risk-free. Risks include: (1) Regulatory lag -- rate reviews happen every 3-5 years, so costs can exceed allowed recovery between reviews; (2) Regulatory risk -- the allowed ROE can be reduced in future rate cases; (3) Capital expenditure risk -- mandated upgrades (environmental compliance, infrastructure renewal) may not be fully recoverable; (4) Political risk -- rate increases may be denied for political reasons despite cost justification; (5) Stranded asset risk -- technology changes may render assets obsolete before fully depreciated. The 10% allowed ROE compensates for these risks."
+    },
+    {
+      "type": "markdown",
+      "content": "## Infrastructure Valuation\n\n### DCF Approach\n$$V = \\sum_{t=1}^{n} \\frac{FCF_t}{(1+r)^t}$$\n\nFor concession assets, there is typically **no terminal value** (asset reverts to government). The concession term determines the valuation horizon.\n\n### Key Valuation Considerations\n- **Concession life**: Finite (30-99 years) vs perpetual\n- **Inflation linkage**: Many infrastructure revenues are contractually linked to CPI\n- **Capital intensity**: High initial investment, lower ongoing maintenance\n- **Discount rate**: Typically WACC incorporating project-specific risk\n\n### Comparable Metrics\n- **EV/EBITDA**: For operating infrastructure\n- **Yield on invested capital**: Annual cash flow / Total investment\n- **Price per unit of capacity**: $/MW (power), $/passenger (airports)\n\n## Key Risk Factors\n\n| Risk | Description | Mitigation |\n|---|---|---|\n| Regulatory | Changes in tariffs, regulations | Diversify across jurisdictions |\n| Political | Government intervention, nationalization | Contractual protections, insurance |\n| Construction | Overruns, delays | Fixed-price contracts, experienced contractors |\n| Demand/Volume | Usage below projections | Availability-based contracts |\n| Technology | Obsolescence of infrastructure | Focus on essential, hard-to-replace assets |\n| ESG/Environmental | Carbon regulations, climate impact | Invest in energy transition assets |\n\n## Inflation Linkage\n\nInfrastructure provides natural inflation protection through:\n- **Contractual escalation**: Tariffs linked to CPI (toll roads, utilities)\n- **Regulatory pass-through**: Costs passed to consumers (regulated utilities)\n- **Real asset appreciation**: Physical assets tend to maintain real value\n\nThis makes infrastructure attractive for pension funds and endowments with real return targets.\n\n## Listed vs Unlisted Infrastructure\n\n- **Listed**: Infrastructure stocks/ETFs; liquid but correlated with equity markets\n- **Unlisted**: Direct investment or funds; illiquid but more stable valuation, higher yield\n- Unlisted infrastructure shows lower measured volatility (appraisal smoothing) and lower correlation to equities"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Infrastructure Investment Evaluation\n\nA pension fund is evaluating two infrastructure investments for a $200M allocation:\n\nProject A: Operating toll road (brownfield)\n- Concession: 25 years remaining\n- Current annual toll revenue: $45M, growing at CPI + 1%\n- Operating costs: $12M annually\n- Capital maintenance: $5M annually\n- Traffic volume: 15M vehicles/year (3% annual growth projected)\n- Acquisition price: $350M\n\nProject B: Solar farm development (greenfield)\n- Construction period: 2 years, total cost $180M\n- 25-year power purchase agreement (PPA) at $60/MWh with 2% annual escalation\n- Expected generation: 400 GWh/year (90% availability)\n- Operating costs: $3M/year\n- No residual value\n\nA) Analyze the risk-return profile of each project.\nB) Estimate the IRR for each project.\nC) Recommend an allocation for the pension fund.",
+      "solution": "**A) Risk-Return Profile:**\n\n**Project A (Toll Road):**\nRevenue model: Volume-based (usage risk)\nKey risks: Traffic volume sensitivity, economic cycle dependence, potential for alternative routes, political pressure on toll increases\nStrengths: Operating history (proven demand), CPI-linked revenue growth, essential infrastructure, 25-year concession\nCash flow profile: Immediate, growing, inflation-protected\nRisk rating: Medium\n\n**Project B (Solar Farm):**\nRevenue model: Availability-based (PPA with fixed price)\nKey risks: Construction risk (2-year build), solar resource variability, technology degradation, counterparty credit (PPA buyer), no residual value\nStrengths: Contracted revenue for 25 years eliminates demand risk, low operating costs, no fuel cost, ESG-aligned\nCash flow profile: Delayed (2 years), then highly predictable\nRisk rating: Medium-low (post-construction)\n\n**B) IRR Estimates:**\n\n**Project A:**\nYear 0: -$350M\nAnnual FCF: Revenue ($45M) - Opex ($12M) - Capex ($5M) = $28M, growing at CPI+1% (~4%)\nYear 25: FCF has grown to $28M x (1.04)^25 = $74.6M\nNo terminal value (concession expires)\n\nIRR estimate: Using a growing annuity framework, this is approximately 8.5-9.5% (cash flow yield of $28M/$350M = 8% initially, growing at 4% over 25 years)\n\n**Project B:**\nYear 0-1: -$90M per year construction costs\nYear 2-26: Revenue = 400 GWh x $60/MWh = $24M, growing at 2%. Less $3M opex = $21M FCF initially\nYear 26 FCF: $21M x (1.02)^24 = $33.7M\nNo residual value\n\nIRR estimate: -$90M (Y0), -$90M (Y1), then $21-34M (Y2-Y26). IRR approximately 9-11%\n\n**C) Recommended Allocation:**\n\nRecommend: 60% Project A ($120M) / 40% Project B ($80M co-investment)\n\nRationale:\n1. **Project A as core holding**: Immediate cash flow matches pension fund's near-term liability needs. CPI linkage provides inflation protection aligned with real return target. Volume risk is manageable in a major toll road with historical data.\n\n2. **Project B as growth/ESG complement**: Higher expected IRR (9-11%) compensates for construction risk. PPA provides contracted revenue post-build. Supports ESG mandate (renewable energy). Construction risk is time-limited (2 years).\n\n3. **Diversification benefit**: Different risk factors (toll road = demand risk; solar = construction then availability risk). Low correlation of returns between projects.\n\n4. **Cash flow matching**: Project A provides immediate income; Project B cash flow starts in 2 years, filling the gap as Project A's concession progresses.\n\n5. **Risk mitigation**: The pension fund should negotiate construction guarantees and performance warranties for Project B, and monitor traffic trends for Project A."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Infrastructure Practice",
+      "problems": [
+        {
+          "id": "l3-mk4-1",
+          "question": "An availability-based PPP hospital generates fixed annual payments of $15M regardless of patient volume. The primary risk to this cash flow is:",
+          "options": [
+            "A) Reduced patient demand during a recession",
+            "B) Government failure to make availability payments or contract renegotiation",
+            "C) Competition from other hospitals in the area"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In an availability-based PPP, the private operator receives fixed payments from the government for making the facility available -- patient volume is irrelevant to revenue (eliminating options A and C). The primary risk is counterparty/political risk: the government may fail to make payments (fiscal stress), renegotiate the contract (change in government), or impose new requirements that increase costs without compensation. This is why investors in PPP infrastructure must carefully assess sovereign/sub-sovereign credit quality and contractual protections.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Identify the primary risk in availability-based infrastructure"
+        },
+        {
+          "id": "l3-mk4-2",
+          "question": "A pension fund with a 4% real return target is comparing infrastructure to TIPS. Infrastructure's key advantage over TIPS for meeting this target is:",
+          "options": [
+            "A) Infrastructure provides higher nominal yields than TIPS",
+            "B) Infrastructure provides inflation protection plus a significant real return premium, while TIPS offer only the real yield",
+            "C) Infrastructure has lower volatility than TIPS"
+          ],
+          "correctAnswer": "B",
+          "explanation": "TIPS provide inflation protection (CPI adjustment) plus a real yield (typically 1-2%). Infrastructure provides inflation protection (contractual CPI escalation or regulatory pass-through) PLUS a real return premium of 5-8% (reflecting illiquidity, complexity, and operational risk). For a pension fund targeting 4% real return, TIPS fall short (1-2% real yield) while infrastructure can meet or exceed the target (5-8% real return). Option A is partially true but doesn't capture the key advantage. Option C is debatable -- infrastructure may have lower measured volatility due to appraisal smoothing, but true underlying volatility may be similar.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Compare infrastructure and inflation-linked bonds for real return targeting"
+        },
+        {
+          "id": "l3-mk4-3",
+          "question": "A greenfield infrastructure project has a construction budget of $500M and is 60% complete. Construction costs have overrun by 15%. The developer should most likely:",
+          "options": [
+            "A) Abandon the project to avoid further losses",
+            "B) Continue construction, as the sunk cost of $300M+ makes completion the rational choice",
+            "C) Reassess the project economics: if the completed project's IRR still exceeds the hurdle rate despite overruns, continue; if not, explore restructuring or partial sale"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The correct approach is forward-looking analysis (C): ignore sunk costs ($300M already spent) and evaluate whether completing the project generates a positive NPV from this point forward. If the remaining $285M ($500M x 40% + 15% overrun on remaining) produces an asset worth significantly more than $285M, continue. If not, restructuring or selling may be appropriate. Option A commits the sunk cost fallacy in reverse -- abandoning a potentially valuable project. Option B commits the sunk cost fallacy forward -- continuing just because money has been spent, regardless of future economics. The 15% overrun should trigger a comprehensive review of remaining costs, timeline, and projected returns.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Apply rational decision-making to construction cost overruns"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to an endowment investment committee why infrastructure deserves a dedicated allocation separate from real estate and public equities. What unique characteristics justify treating it as a distinct asset class?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the energy transition create both opportunities and risks for infrastructure investors?",
+        "Why do pension funds find infrastructure particularly attractive?",
+        "What lessons can be learned from failed PPP projects?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Brownfield vs greenfield**: Operating (lower risk, 8-12%) vs development (higher risk, 12-18%)\n- **Revenue models**: Availability-based (bond-like), volume-based (equity-like), regulated (utility-like)\n- **PPP structures**: BOT, BOO, DBFM -- government-private partnerships\n- **Inflation linkage**: Contractual CPI escalation, regulatory pass-through, real asset appreciation\n- **Key risks**: Regulatory change, political intervention, construction overruns, demand shortfall\n- **Valuation**: DCF (concession life), no terminal value for finite concessions\n- **Portfolio role**: Real return generation, inflation protection, diversification from stocks/bonds"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Natural Resources** -- investments in energy, mining, agriculture, and timberland that provide commodity exposure and additional inflation protection within a private markets portfolio."
+    }
+  ]
+}

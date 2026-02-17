@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "Portfolio Management Checkpoint",
+    "description": "Test your understanding of macroeconomic analysis, the Fundamental Law, multifactor models, portfolio construction, VaR, and backtesting methodology.",
+    "level": "level-9",
+    "slug": "pm-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Management Checkpoint",
+      "problems": [
+        {
+          "id": "pm-cp-1",
+          "question": "A manager has IC = 0.05, BR = 400, and TC = 0.60. The expected Information Ratio is closest to:",
+          "options": [
+            "A) 0.30",
+            "B) 0.60",
+            "C) 1.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "IR* = TC \u00d7 IC \u00d7 \u221aBR = 0.60 \u00d7 0.05 \u00d7 \u221a400 = 0.60 \u00d7 0.05 \u00d7 20 = 0.60. This is a good IR, suggesting the manager adds value after accounting for constraints. Without constraints (TC = 1), IR would be 1.00 (option C). Option A would result from a lower TC or fewer bets.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Apply the Full Fundamental Law of Active Management"
+        },
+        {
+          "id": "pm-cp-2",
+          "question": "A portfolio's 1-day 95% VaR is $5M. The 1-day 95% CVaR is $7.5M. On a day when losses exceed $5M, the expected loss is closest to:",
+          "options": [
+            "A) $5.0M",
+            "B) $7.5M",
+            "C) $12.5M"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CVaR (Expected Shortfall) is defined as the expected loss given that the loss exceeds VaR. CVaR = $7.5M means that on days in the worst 5% of outcomes, the average loss is $7.5M. Option A confuses CVaR with VaR. Option C incorrectly adds VaR and CVaR. The CVaR/VaR ratio of 1.5 indicates meaningfully worse losses beyond the VaR threshold.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret the relationship between VaR and Conditional VaR"
+        },
+        {
+          "id": "pm-cp-3",
+          "question": "A researcher tested 100 trading strategies and found 8 with significant positive alpha at the 5% level. After applying a Bonferroni correction, the number of strategies likely to remain significant is closest to:",
+          "options": [
+            "A) 0-1",
+            "B) 3-5",
+            "C) 8"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Expected false positives without correction = 100 \u00d7 5% = 5. So roughly 5 of the 8 are likely false discoveries. With Bonferroni correction: adjusted \u03b1 = 0.05/100 = 0.0005, requiring t \u2248 3.48. Strategies that barely passed t = 1.96 will not survive t = 3.48. Most likely 0-1 strategies would remain significant under the stricter threshold. Option C ignores the multiple testing problem entirely.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Apply multiple testing corrections to backtested strategies"
+        }
+      ]
+    }
+  ]
+}

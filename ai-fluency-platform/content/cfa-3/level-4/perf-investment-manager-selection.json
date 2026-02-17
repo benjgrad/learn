@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.2: Investment Manager Selection",
+    "description": "Master the manager search process, due diligence frameworks, style analysis, continuation policies, and the statistical challenges of identifying skilled managers.",
+    "level": "level-4",
+    "slug": "perf-investment-manager-selection",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A consultant presents you with a manager who has outperformed their benchmark by 2% annually for 5 years. Is this sufficient evidence of skill, or could it be luck? How would you tell the difference?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Manager Search Process\n\n### Steps in Manager Selection\n\n1. **Define the mandate**: Asset class, style, benchmark, risk parameters, guidelines\n2. **Universe screening**: Quantitative filters (minimum AUM, track record, organizational stability)\n3. **Quantitative due diligence**: Performance analysis, style analysis, risk characteristics\n4. **Qualitative due diligence**: Investment process, people, philosophy, infrastructure\n5. **Operational due diligence**: Compliance, operations, technology, business risk\n6. **Selection and negotiation**: Fee structure, guidelines, reporting requirements\n7. **Ongoing monitoring**: Performance, style consistency, organizational changes\n\n## Quantitative Due Diligence\n\n### Performance Analysis\n\n| Metric | What It Tells You |\n|---|---|\n| **Excess return** | Magnitude of outperformance (or underperformance) |\n| **Information ratio** | Consistency of excess return relative to active risk |\n| **t-statistic of alpha** | Statistical significance of excess return |\n| **Hit rate** | Percentage of periods with positive excess return |\n| **Drawdown analysis** | Worst-case scenarios and recovery times |\n| **Up/down capture ratio** | Performance in rising vs. falling markets |\n\n### Statistical Significance\n\nThe t-statistic for alpha:\n\n$$t = \\frac{\\alpha}{\\sigma_{\\alpha} / \\sqrt{n}}$$\n\nA **t-stat of 2.0** corresponds to ~95% confidence that alpha is positive.\n\nRequired track record for statistical significance (IR = 0.5):\n$$n = \\left(\\frac{t^*}{IR}\\right)^2 = \\left(\\frac{2.0}{0.5}\\right)^2 = 16 \\text{ years}$$\n\n**Key insight**: Even a good manager (IR = 0.5) needs 16 years of data to statistically confirm skill at 95% confidence. This makes identifying skill from noise extremely difficult."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A manager has an information ratio of 0.40 over a 5-year track record. Can you reject the null hypothesis that the manager has zero skill at the 95% confidence level?",
+      "answer": "No. The t-statistic = IR \u00d7 \u221an = 0.40 \u00d7 \u221a5 = 0.40 \u00d7 2.24 = 0.89. The critical t-value for 95% confidence (two-tailed) is approximately 2.0. Since 0.89 < 2.0, we cannot reject the null of zero skill. Even though 0.40 is a respectable IR, 5 years is far too short to distinguish skill from luck. We would need (2.0/0.40)^2 = 25 years to reach statistical significance \u2014 a practical impossibility for most manager evaluation cycles."
+    },
+    {
+      "type": "markdown",
+      "content": "## Style Analysis\n\n### Returns-Based Style Analysis (RBSA)\n\nRegress manager returns against style factor benchmarks:\n\n$$R_{manager} = \\sum_i w_i R_{style_i} + \\alpha + \\varepsilon$$\n\nWith constraints: $\\sum w_i = 1$ and $w_i \\geq 0$\n\n- **Output**: Style weights (e.g., 60% large value, 30% large growth, 10% small value)\n- **Advantage**: Only requires return data; can use rolling windows to detect style drift\n- **Disadvantage**: Backward-looking; may miss recent style changes; constrained by style categories\n\n### Holdings-Based Style Analysis (HBSA)\n\nAnalyze the actual portfolio holdings:\n\n- **Forward-looking**: Uses current positions, not historical returns\n- **More precise**: Can identify exact characteristics (P/E, P/B, market cap, sector weights)\n- **Disadvantage**: Requires position-level data (may not be available for all managers)\n- **Window dressing risk**: Managers may alter holdings before reporting dates\n\n## Qualitative Due Diligence\n\n### The Five P's Framework\n\n| Factor | Key Questions |\n|---|---|\n| **Philosophy** | What market inefficiency does the manager exploit? Is it consistent with financial theory? |\n| **Process** | How are ideas generated, researched, and implemented? Is the process repeatable? |\n| **People** | Key personnel, experience, incentive alignment, succession planning |\n| **Portfolio** | Construction methodology, position sizing, risk management, capacity |\n| **Performance** | Consistent with stated philosophy/process? Attribution confirms sources of return? |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Manager Continuation Policies\n\n### Type I and Type II Errors in Manager Selection\n\n| Error | Description | Consequence |\n|---|---|---|\n| **Type I** (false positive) | Hiring/retaining a manager who has no skill | Paying active fees for index-like (or worse) returns |\n| **Type II** (false negative) | Firing/not hiring a skilled manager | Missing genuine alpha |\n\nThe cost of each error type determines the optimal decision threshold.\n\n### Continuation/Termination Framework\n\n**Reasons to retain (even during underperformance)**:\n- Process is sound and consistent with past success\n- Underperformance explained by known factor exposure (value out of favor)\n- Key personnel remain in place\n- Style is out of favor but expected to revert\n\n**Reasons to terminate**:\n- Process drift or abandonment of stated philosophy\n- Key personnel departures (especially lead PM)\n- Organizational instability (ownership change, regulatory issues)\n- Persistent style drift away from mandate\n- Capacity concerns (AUM growth diluting alpha)\n- Operational or compliance failures\n\n### Performance-Based vs. Process-Based Evaluation\n\n- **Performance-based**: Fire after X quarters of underperformance (simple but pro-cyclical)\n- **Process-based**: Evaluate whether the investment process is intact regardless of short-term results (more sophisticated but requires deeper due diligence)\n- **Best practice**: Emphasize process evaluation with performance as one input among many"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Manager Evaluation",
+      "solution": "**Part A \u2014 Statistical analysis:**\n\nManager A: 3-year track record, IR = 0.65\n- t-stat = 0.65 \u00d7 \u221a3 = 0.65 \u00d7 1.73 = 1.12 (not significant at 95%)\n\nManager B: 8-year track record, IR = 0.35\n- t-stat = 0.35 \u00d7 \u221a8 = 0.35 \u00d7 2.83 = 0.99 (not significant at 95%)\n\nManager C: 12-year track record, IR = 0.40\n- t-stat = 0.40 \u00d7 \u221a12 = 0.40 \u00d7 3.46 = 1.39 (not significant at 95%)\n\nNone of the three managers has a statistically significant alpha at the 95% level. However, this illustrates the difficulty \u2014 even good managers rarely achieve statistical significance in typical evaluation periods.\n\n**Part B \u2014 Qualitative assessment:**\n\nDespite the statistical ambiguity, qualitative evaluation can differentiate:\n\n**Manager A (Growth equity, 3 years)**: Short track record but strong if:\n- Process is clearly articulated and differentiated\n- Key personnel have longer track records at prior firms\n- AUM is modest relative to strategy capacity\n- Risk: Too early to evaluate; high chance of data mining\n\n**Manager B (Value equity, 8 years)**: Longer record with lower IR:\n- Evaluate whether recent underperformance coincides with value factor headwinds\n- If returns-based style analysis confirms consistent value tilt, underperformance may be cyclical\n- Key question: Has the process changed, or has the market environment changed?\n\n**Manager C (Multi-cap core, 12 years)**: Longest record, moderate IR:\n- 12 years includes multiple market cycles \u2014 strongest evidence of adaptability\n- Holdings-based analysis can reveal whether alpha comes from security selection or factor tilts\n- Most likely to retain: longest record + process consistency across cycles\n\n**Part C \u2014 Recommendation:**\n\nRecommend Manager C for the core allocation based on:\n1. Longest track record spanning multiple cycles (most informative)\n2. Highest t-statistic (1.39) \u2014 closest to significance, though not conclusive\n3. Multi-cap core mandate provides flexibility to allocate across capitalization spectrum\n4. Supplement with Manager A as a satellite allocation if qualitative due diligence confirms strong process and aligned incentives\n\nDecline Manager B if value factor exposure can be achieved more cheaply through smart beta."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Manager Selection Practice",
+      "problems": [
+        {
+          "id": "l3-pm2-1",
+          "question": "A manager with an information ratio of 0.50 would need approximately how many years of data to achieve a t-statistic of 2.0 for their alpha?",
+          "options": [
+            "A) 4 years",
+            "B) 16 years",
+            "C) 25 years"
+          ],
+          "correctAnswer": "B",
+          "explanation": "n = (t*/IR)\u00b2 = (2.0/0.50)\u00b2 = 4\u00b2 = 16 years. This illustrates a fundamental challenge in manager evaluation \u2014 even relatively skilled managers (IR = 0.50) require impractically long track records to statistically confirm their skill at conventional confidence levels. This is why qualitative analysis of the investment process is essential to supplement statistical evidence.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate the track record length needed for statistical significance"
+        },
+        {
+          "id": "l3-pm2-2",
+          "question": "Returns-based style analysis (RBSA) differs from holdings-based style analysis (HBSA) in that RBSA:",
+          "options": [
+            "A) Uses current portfolio holdings to determine style",
+            "B) Uses historical return patterns relative to style benchmarks",
+            "C) Is more precise and forward-looking"
+          ],
+          "correctAnswer": "B",
+          "explanation": "RBSA regresses historical manager returns against style benchmark returns to infer style weights. It is backward-looking and requires only return data. HBSA (A, C) uses current holdings to assess style \u2014 it is more precise and forward-looking but requires position-level data. RBSA's advantage is availability (return data is always available) and ability to detect style drift through rolling regressions.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Compare returns-based and holdings-based style analysis"
+        },
+        {
+          "id": "l3-pm2-3",
+          "question": "A fund fires a manager after 6 quarters of underperformance, only to see the manager's strategy recover strongly in the following 2 years. This is most likely an example of:",
+          "options": [
+            "A) Type I error (false positive)",
+            "B) Type II error (false negative)",
+            "C) Correct decision based on available information"
+          ],
+          "correctAnswer": "B",
+          "explanation": "This is a Type II error \u2014 firing a skilled manager based on short-term underperformance. The manager actually had skill, but the fund incorrectly concluded otherwise. Six quarters (1.5 years) is far too short to statistically distinguish skill from noise. A process-based evaluation might have identified that the manager's philosophy and process were intact, and the underperformance was due to style being temporarily out of favor. Performance-based termination rules tend to be pro-cyclical and prone to Type II errors.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Distinguish Type I and Type II errors in manager evaluation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to an investment committee why firing a manager after 2 years of underperformance might be a mistake. Use the statistical concepts of information ratio, t-statistics, and Type II errors to make your case."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How do you balance statistical evidence with qualitative judgment in manager evaluation?",
+        "What role should peer group rankings play in manager evaluation and continuation decisions?",
+        "How would you design a manager monitoring framework that reduces the risk of both Type I and Type II errors?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Manager search**: Define mandate \u2192 screen \u2192 quantitative DD \u2192 qualitative DD \u2192 select \u2192 monitor\n- **Statistical significance**: t = IR \u00d7 \u221an; IR of 0.50 needs 16 years for 95% confidence\n- **Style analysis**: RBSA (return regression, backward-looking) vs. HBSA (holdings-based, forward-looking)\n- **Five P's**: Philosophy, Process, People, Portfolio, Performance\n- **Type I error**: Hiring/retaining a manager without skill (cost: active fees for no alpha)\n- **Type II error**: Firing/rejecting a skilled manager (cost: missed alpha)\n- **Process-based evaluation** is superior to pure performance-based termination rules\n- Short track records make statistical evaluation nearly impossible \u2014 qualitative analysis is essential"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we cover the **Global Investment Performance Standards (GIPS)** \u2014 the industry framework for fair, comparable presentation of investment performance."
+    }
+  ]
+}

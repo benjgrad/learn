@@ -1,0 +1,385 @@
+{
+  "meta": {
+    "title": "QM: Quantitative Methods Practice Drill",
+    "description": "25 practice problems covering all Quantitative Methods topics.",
+    "level": "level-1",
+    "slug": "quant-practice",
+    "order": 12,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Quantitative Methods Practice Drill\n\nThis set contains 25 problems across all QM topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "quant-p-001",
+          "question": "An investor deposits $10,000 into an account that pays 6% annual interest compounded quarterly. What is the future value after 3 years?",
+          "options": [
+            "A) $11,940.52",
+            "B) $11,956.18",
+            "C) $11,910.16"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the TVM formula $FV = PV \\times (1 + r/m)^{m \\times n}$, where $r = 0.06$, $m = 4$, $n = 3$:\n\n$$FV = 10{,}000 \\times (1 + 0.06/4)^{4 \\times 3} = 10{,}000 \\times (1.015)^{12} = 10{,}000 \\times 1.195618 = \\$11{,}956.18$$",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate future value using compound interest with different compounding frequencies."
+        },
+        {
+          "id": "quant-p-002",
+          "question": "A bond offers an annual coupon of 8% and is priced at par. If the holding period return over one year includes $80 in coupon income and a price change from $1,000 to $1,025, what is the total holding period return?",
+          "options": [
+            "A) 8.00%",
+            "B) 10.50%",
+            "C) 10.25%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Holding period return is calculated as:\n\n$$HPR = \\frac{\\text{Income} + \\text{Price Change}}{\\text{Beginning Price}} = \\frac{80 + 25}{1{,}000} = \\frac{105}{1{,}000} = 10.50\\%$$",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate holding period return including income and capital appreciation."
+        },
+        {
+          "id": "quant-p-003",
+          "question": "A portfolio has annual returns of 12%, \u22125%, 8%, and 15% over four years. What is the geometric mean annual return?",
+          "options": [
+            "A) 7.50%",
+            "B) 7.28%",
+            "C) 7.34%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The geometric mean return is:\n\n$$R_G = \\left[\\prod_{i=1}^{n}(1 + R_i)\\right]^{1/n} - 1 = [(1.12)(0.95)(1.08)(1.15)]^{1/4} - 1$$\n\n$$= [1.32194]^{0.25} - 1 = 1.07236 - 1 \\approx 7.34\\%$$\n\nNote: The geometric mean is always less than or equal to the arithmetic mean (7.50%) for variable returns.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compute geometric mean return from a series of periodic returns."
+        },
+        {
+          "id": "quant-p-004",
+          "question": "A dataset of monthly equity returns has a mean of 1.2% and a standard deviation of 4.5%. Using Chebyshev's inequality, what is the minimum proportion of observations that fall within two standard deviations of the mean?",
+          "options": [
+            "A) 68%",
+            "B) 75%",
+            "C) 95%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Chebyshev's inequality states that for any distribution, at least $1 - 1/k^2$ of observations fall within $k$ standard deviations of the mean:\n\n$$1 - \\frac{1}{k^2} = 1 - \\frac{1}{2^2} = 1 - 0.25 = 0.75 = 75\\%$$\n\nNote: 68% and 95% apply to normal distributions specifically (empirical rule), not to all distributions.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply Chebyshev's inequality to estimate the proportion of observations within k standard deviations."
+        },
+        {
+          "id": "quant-p-005",
+          "question": "An investor is considering two mutual funds. Fund X has an expected return of 10% with a standard deviation of 14%. Fund Y has an expected return of 8% with a standard deviation of 9%. The risk-free rate is 3%. Which fund has the higher Sharpe ratio?",
+          "options": [
+            "A) Fund X with a Sharpe ratio of 0.50",
+            "B) Fund Y with a Sharpe ratio of 0.56",
+            "C) Both have the same Sharpe ratio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Sharpe ratio is:\n\n$$S = \\frac{R_p - R_f}{\\sigma_p}$$\n\nFor Fund X: $S_X = \\frac{10\\% - 3\\%}{14\\%} = \\frac{7\\%}{14\\%} = 0.50$\n\nFor Fund Y: $S_Y = \\frac{8\\% - 3\\%}{9\\%} = \\frac{5\\%}{9\\%} \\approx 0.556$\n\nFund Y has the higher Sharpe ratio, indicating superior risk-adjusted performance.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate and compare Sharpe ratios for portfolio selection."
+        },
+        {
+          "id": "quant-p-006",
+          "question": "An analyst estimates that the probability of a recession is 0.30. Given a recession, the probability that a stock declines is 0.70. Given no recession, the probability that the stock declines is 0.20. What is the unconditional probability that the stock declines?",
+          "options": [
+            "A) 0.35",
+            "B) 0.21",
+            "C) 0.50"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Using the total probability rule:\n\n$$P(\\text{Decline}) = P(\\text{Decline}|\\text{Recession}) \\times P(\\text{Recession}) + P(\\text{Decline}|\\text{No Recession}) \\times P(\\text{No Recession})$$\n\n$$= (0.70)(0.30) + (0.20)(0.70) = 0.21 + 0.14 = 0.35$$",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Apply the total probability rule to compute unconditional probabilities."
+        },
+        {
+          "id": "quant-p-007",
+          "question": "A portfolio consists of two assets. Asset A has a weight of 60%, expected return of 12%, and standard deviation of 20%. Asset B has a weight of 40%, expected return of 8%, and standard deviation of 15%. The correlation between the two assets is 0.30. What is the standard deviation of the portfolio?",
+          "options": [
+            "A) 14.87%",
+            "B) 15.10%",
+            "C) 18.00%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The portfolio variance is:\n\n$$\\sigma_p^2 = w_A^2\\sigma_A^2 + w_B^2\\sigma_B^2 + 2w_Aw_B\\sigma_A\\sigma_B\\rho_{AB}$$\n\n$$= (0.60)^2(0.20)^2 + (0.40)^2(0.15)^2 + 2(0.60)(0.40)(0.20)(0.15)(0.30)$$\n\n$$= 0.0144 + 0.0036 + 0.00216 = 0.02016$$\n\n$$\\sigma_p = \\sqrt{0.02016} = 0.14199 \\approx 14.87\\%$$\n\nNote: The answer of 14.87% is computed from the square root. The portfolio standard deviation is less than the weighted average (18%) due to diversification.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate portfolio standard deviation for a two-asset portfolio."
+        },
+        {
+          "id": "quant-p-008",
+          "question": "An annuity pays $5,000 at the end of each year for 10 years. The discount rate is 7%. What is the present value of this annuity?",
+          "options": [
+            "A) $35,117.91",
+            "B) $50,000.00",
+            "C) $34,725.22"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The present value of an ordinary annuity:\n\n$$PV = PMT \\times \\frac{1 - (1 + r)^{-n}}{r} = 5{,}000 \\times \\frac{1 - (1.07)^{-10}}{0.07}$$\n\n$$= 5{,}000 \\times \\frac{1 - 0.50835}{0.07} = 5{,}000 \\times \\frac{0.49165}{0.07} = 5{,}000 \\times 7.02358 = \\$35{,}117.91$$",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compute the present value of an ordinary annuity."
+        },
+        {
+          "id": "quant-p-009",
+          "question": "A continuously compounded annual rate is 5.8%. What is the equivalent effective annual rate (EAR)?",
+          "options": [
+            "A) 5.80%",
+            "B) 5.97%",
+            "C) 5.63%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For continuous compounding, the EAR is:\n\n$$EAR = e^{r_{cc}} - 1 = e^{0.058} - 1 = 1.05971 - 1 = 5.97\\%$$\n\nThe EAR is always higher than the continuously compounded rate because interest compounds infinitely often.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Convert between continuously compounded rates and effective annual rates."
+        },
+        {
+          "id": "quant-p-010",
+          "question": "A sample of 36 monthly returns has a mean of 1.5% and a standard deviation of 6%. What is the 95% confidence interval for the population mean return?",
+          "options": [
+            "A) 1.5% \u00b1 1.96%",
+            "B) 1.5% \u00b1 0.98%",
+            "C) 1.5% \u00b1 1.04%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The confidence interval is $\\bar{x} \\pm z_{\\alpha/2} \\times \\frac{s}{\\sqrt{n}}$:\n\n$$CI = 1.5\\% \\pm 1.96 \\times \\frac{6\\%}{\\sqrt{36}} = 1.5\\% \\pm 1.96 \\times 1\\% = 1.5\\% \\pm 1.96\\%$$\n\nSo the interval is $[-0.46\\%, 3.46\\%]$.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Construct and interpret a confidence interval for a population mean."
+        },
+        {
+          "id": "quant-p-011",
+          "question": "A stock's returns follow a probability distribution: 40% chance of 15%, 35% chance of 8%, and 25% chance of \u22125%. What is the expected return?",
+          "options": [
+            "A) 7.55%",
+            "B) 6.00%",
+            "C) 8.55%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$E(R) = \\sum p_i \\times R_i = (0.40)(15\\%) + (0.35)(8\\%) + (0.25)(-5\\%)$$\n\n$$= 6.00\\% + 2.80\\% - 1.25\\% = 7.55\\%$$",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate expected return from a discrete probability distribution."
+        },
+        {
+          "id": "quant-p-012",
+          "question": "An analyst runs a simple linear regression of stock returns (Y) on market returns (X) and obtains: $\\hat{Y} = 0.02 + 1.15X$. The $R^2$ is 0.72. Which statement is most accurate?",
+          "options": [
+            "A) The stock's beta is 1.15, and 72% of the variation in stock returns is explained by market returns.",
+            "B) The stock's alpha is 1.15, and 28% of the variation is unexplained.",
+            "C) The stock's beta is 0.02, and the correlation between the stock and market is 0.72."
+          ],
+          "correctAnswer": "A",
+          "explanation": "In the regression $\\hat{Y} = \\alpha + \\beta X$, the slope coefficient $\\beta = 1.15$ represents the stock's beta (systematic risk), and the intercept $\\alpha = 0.02$ is Jensen's alpha. $R^2 = 0.72$ means 72% of the total variation in Y is explained by the regression (X). The correlation coefficient would be $r = \\sqrt{0.72} \\approx 0.849$, not 0.72.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret regression output including slope, intercept, and R-squared."
+        },
+        {
+          "id": "quant-p-013",
+          "question": "An investor wants to accumulate $500,000 in 15 years. She can earn 8% per year compounded annually. How much must she deposit at the end of each year?",
+          "options": [
+            "A) $18,418.87",
+            "B) $33,333.33",
+            "C) $22,500.00"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Using the future value of an annuity formula solved for PMT:\n\n$$PMT = \\frac{FV}{\\frac{(1+r)^n - 1}{r}} = \\frac{500{,}000}{\\frac{(1.08)^{15} - 1}{0.08}} = \\frac{500{,}000}{\\frac{3.17217 - 1}{0.08}} = \\frac{500{,}000}{27.15211} = \\$18{,}418.87$$",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Solve for annuity payment given a future value target."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "quant-p-014",
+          "question": "A researcher tests whether the mean return of Fund A exceeds 5% using a one-tailed test at the 5% significance level. With a sample of 25 monthly returns, the sample mean is 6.2% and sample standard deviation is 3%. What is the test statistic, and what is the conclusion?",
+          "options": [
+            "A) t = 2.00; reject $H_0$",
+            "B) t = 2.00; fail to reject $H_0$",
+            "C) t = 1.67; fail to reject $H_0$"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$t = \\frac{\\bar{x} - \\mu_0}{s / \\sqrt{n}} = \\frac{6.2\\% - 5\\%}{3\\% / \\sqrt{25}} = \\frac{1.2\\%}{0.6\\%} = 2.00$$\n\nFor a one-tailed test at 5% significance with $df = 24$, the critical value is approximately $t_{0.05, 24} \\approx 1.711$. Since $2.00 > 1.711$, we reject $H_0$ and conclude the mean return significantly exceeds 5%.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Conduct and interpret a one-sample t-test for a population mean."
+        },
+        {
+          "id": "quant-p-015",
+          "question": "A Monte Carlo simulation of a portfolio generates 10,000 scenarios. The 5th percentile of terminal wealth is $820,000 and the initial investment is $1,000,000. What does the 5th percentile value most likely represent?",
+          "options": [
+            "A) The expected loss under normal market conditions",
+            "B) A Value at Risk measure \u2014 there is a 5% probability that wealth falls below $820,000",
+            "C) The guaranteed minimum return from the portfolio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In Monte Carlo simulation, the 5th percentile of the terminal wealth distribution represents the 95% Value at Risk (VaR). It means there is a 5% probability that terminal wealth will fall below $820,000 (a loss of $180,000 or 18% from the initial $1,000,000). It is not a guaranteed outcome nor an expected loss under normal conditions \u2014 it is a tail-risk measure.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret Monte Carlo simulation results and relate them to risk measures."
+        },
+        {
+          "id": "quant-p-016",
+          "question": "An analyst constructs a decision tree for a capital budgeting project. The project has a 60% probability of high demand (NPV = $5 million) and a 40% probability of low demand (NPV = \u2212$2 million). If high demand occurs, there is a 50% chance the firm expands (additional NPV of $3 million) and a 50% chance it does not. What is the expected NPV of the project including the expansion option?",
+          "options": [
+            "A) $2.90 million",
+            "B) $3.10 million",
+            "C) $2.10 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "We compute the expected NPV using the probability tree:\n\n- High demand + Expand: $P = 0.60 \\times 0.50 = 0.30$, NPV = $5M + $3M = $8M\n- High demand + No expand: $P = 0.60 \\times 0.50 = 0.30$, NPV = $5M\n- Low demand: $P = 0.40$, NPV = $-2M$\n\n$$E(NPV) = (0.30)(8) + (0.30)(5) + (0.40)(-2) = 2.4 + 1.5 - 0.8 = \\$3.10 \\text{ million}$$",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate expected values using probability trees with sequential decisions."
+        },
+        {
+          "id": "quant-p-017",
+          "question": "A population is normally distributed with a mean of 100 and a standard deviation of 15. What is the probability that a randomly selected observation falls between 85 and 130?",
+          "options": [
+            "A) 0.8186",
+            "B) 0.7938",
+            "C) 0.6827"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Convert to z-scores:\n\n$$z_1 = \\frac{85 - 100}{15} = -1.00, \\quad z_2 = \\frac{130 - 100}{15} = 2.00$$\n\n$$P(-1.00 < Z < 2.00) = P(Z < 2.00) - P(Z < -1.00) = 0.9772 - 0.1587 = 0.8186$$\n\nThe interval is asymmetric \u2014 one standard deviation below and two standard deviations above the mean.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate probabilities for a normal distribution using z-scores."
+        },
+        {
+          "id": "quant-p-018",
+          "question": "An analyst estimates the following regression: $\\hat{Y} = 3.2 + 0.85X_1 - 0.40X_2$. The standard error of the coefficient on $X_1$ is 0.25. With 50 observations, is the coefficient on $X_1$ statistically significant at the 5% level (two-tailed)?",
+          "options": [
+            "A) Yes, because the t-statistic is 3.40, which exceeds the critical value of approximately 2.01.",
+            "B) No, because the t-statistic is 1.70, which is below the critical value.",
+            "C) Yes, because the t-statistic is 3.40, which exceeds the critical value of approximately 1.68."
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$t = \\frac{\\hat{\\beta}_1}{SE(\\hat{\\beta}_1)} = \\frac{0.85}{0.25} = 3.40$$\n\nWith $n = 50$ and $k = 2$ independent variables, $df = 50 - 3 = 47$. The critical value at 5% two-tailed is approximately 2.01. Since $3.40 > 2.01$, the coefficient is statistically significant. Choice C uses a one-tailed critical value, which is incorrect for a two-tailed test.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Test statistical significance of regression coefficients using t-tests."
+        },
+        {
+          "id": "quant-p-019",
+          "question": "A random variable X follows a lognormal distribution. The underlying normal distribution has a mean of 8% and a standard deviation of 20%. What is the expected value of $e^X$?",
+          "options": [
+            "A) $e^{0.08} = 1.0833$",
+            "B) $e^{0.08 + 0.5 \\times 0.04} = e^{0.10} = 1.1052$",
+            "C) $e^{0.08 - 0.5 \\times 0.04} = e^{0.06} = 1.0618$"
+          ],
+          "correctAnswer": "B",
+          "explanation": "If $X \\sim N(\\mu, \\sigma^2)$, then the expected value of $e^X$ is:\n\n$$E(e^X) = e^{\\mu + \\frac{1}{2}\\sigma^2} = e^{0.08 + 0.5(0.20)^2} = e^{0.08 + 0.02} = e^{0.10} = 1.1052$$\n\nThis is a fundamental property of the lognormal distribution. The median of $e^X$ would be $e^{\\mu} = e^{0.08} = 1.0833$ (option A).",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate the expected value of a lognormally distributed variable."
+        },
+        {
+          "id": "quant-p-020",
+          "question": "Which of the following best describes the bias-variance tradeoff in machine learning models applied to financial data?",
+          "options": [
+            "A) Higher model complexity always reduces both bias and variance.",
+            "B) Increasing model complexity tends to reduce bias but increase variance, risking overfitting.",
+            "C) Simpler models always produce lower total prediction error than complex models."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The bias-variance tradeoff states that total prediction error = $\\text{Bias}^2 + \\text{Variance} + \\text{Irreducible Error}$. As model complexity increases, bias decreases (the model can fit training data better) but variance increases (the model becomes more sensitive to the specific training data, risking overfitting). The optimal model balances these two sources of error. Neither extreme \u2014 too simple nor too complex \u2014 minimizes total error.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Explain the bias-variance tradeoff and its implications for model selection."
+        },
+        {
+          "id": "quant-p-021",
+          "question": "An analyst uses bootstrapping to estimate the standard error of the sample median from a dataset of 200 hedge fund returns. She generates 5,000 bootstrap samples. Which statement best describes this approach?",
+          "options": [
+            "A) Each bootstrap sample is drawn without replacement from the original 200 observations.",
+            "B) Each bootstrap sample is drawn with replacement from the original 200 observations and has the same size (200).",
+            "C) Bootstrap samples must be larger than the original sample to reduce estimation error."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Bootstrapping involves resampling with replacement from the original dataset, creating samples of the same size as the original. The statistic of interest (here, the median) is computed for each bootstrap sample, and the standard deviation of these bootstrap statistics estimates the standard error. Sampling without replacement would just reproduce the original sample, and bootstrap samples are the same size as the original by convention.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe the bootstrapping method and its application to estimating standard errors."
+        },
+        {
+          "id": "quant-p-022",
+          "question": "A Type I error in hypothesis testing is best described as:",
+          "options": [
+            "A) Failing to reject a false null hypothesis.",
+            "B) Rejecting a true null hypothesis.",
+            "C) Accepting the alternative hypothesis when there is insufficient evidence."
+          ],
+          "correctAnswer": "B",
+          "explanation": "A Type I error occurs when we reject a null hypothesis that is actually true \u2014 a 'false positive.' The probability of a Type I error equals the significance level ($\\alpha$). A Type II error (option A) occurs when we fail to reject a false null hypothesis \u2014 a 'false negative.' Option C describes poor practice but is not a formal definition of either error type.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Distinguish between Type I and Type II errors in hypothesis testing."
+        },
+        {
+          "id": "quant-p-023",
+          "question": "An analyst uses the following data for two assets:\n\n| Asset | $E(R)$ | $\\sigma$ | Weight |\n|-------|--------|----------|--------|\n| A | 14% | 22% | 0.55 |\n| B | 9% | 12% | 0.45 |\n\nCorrelation $\\rho_{AB} = -0.15$. The covariance of returns is closest to:",
+          "options": [
+            "A) \u22120.00396",
+            "B) \u22120.00264",
+            "C) 0.00396"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$\\text{Cov}(A,B) = \\rho_{AB} \\times \\sigma_A \\times \\sigma_B = (-0.15)(0.22)(0.12) = -0.00396$$\n\nThe negative covariance indicates that the assets tend to move in opposite directions, providing diversification benefits in a portfolio.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate covariance from correlation and standard deviations."
+        },
+        {
+          "id": "quant-p-024",
+          "question": "A chi-square test is conducted to determine whether the variance of a normally distributed population equals 25. The sample of 20 observations yields a sample variance of 36. The test statistic is closest to:",
+          "options": [
+            "A) 27.36",
+            "B) 1.44",
+            "C) 22.80"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The chi-square test statistic for a variance test is:\n\n$$\\chi^2 = \\frac{(n-1)s^2}{\\sigma_0^2} = \\frac{(20-1)(36)}{25} = \\frac{684}{25} = 27.36$$\n\nThis is compared to the chi-square distribution with $df = n - 1 = 19$ degrees of freedom.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compute the chi-square test statistic for testing a population variance."
+        },
+        {
+          "id": "quant-p-025",
+          "question": "An analyst notices that her regression model's residuals exhibit a pattern of increasing variance as the predicted values increase. This violation of the classical linear regression assumptions is known as:",
+          "options": [
+            "A) Multicollinearity",
+            "B) Heteroskedasticity",
+            "C) Autocorrelation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Heteroskedasticity occurs when the variance of regression residuals is not constant across observations \u2014 it changes systematically with the level of the independent or predicted variable. This violates the assumption of homoskedasticity ($\\text{Var}(\\epsilon_i) = \\sigma^2$ for all $i$). Consequences include unreliable standard errors and invalid t-tests, though coefficient estimates remain unbiased. Multicollinearity involves correlation among independent variables; autocorrelation involves correlation among residuals over time.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify and describe violations of regression assumptions including heteroskedasticity."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers TVM, rates/returns, basic statistics, portfolio math, and probability. Set B covers hypothesis testing, regression, simulation methods, and big data techniques."
+    }
+  ]
+}

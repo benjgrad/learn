@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.17: Securitization",
+    "description": "Understand the securitization process, SPV/SPE structures, true sale, credit enhancement mechanisms, waterfall structures, and benefits and risks.",
+    "level": "level-6",
+    "slug": "fi-securitization",
+    "order": 17,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A bank has $500 million in auto loans on its balance sheet. Instead of holding them, it packages them into securities and sells them to investors. Why would the bank do this, and what benefits do investors get from buying these securities instead of lending directly to car buyers?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Securitization Process\n\n**Securitization** transforms illiquid assets (loans, receivables) into tradeable securities. The process involves:\n\n### Key Parties\n\n| Party | Role |\n|---|---|\n| **Originator/Seller** | Creates the underlying assets (loans) and transfers them to the SPV |\n| **SPV/SPE** (Special Purpose Vehicle/Entity) | A bankruptcy-remote entity that purchases the assets and issues securities |\n| **Servicer** | Collects payments from borrowers and passes them to the SPV (often the originator) |\n| **Trustee** | Oversees the SPV and ensures compliance with the indenture |\n| **Investors** | Purchase the securities (tranches) issued by the SPV |\n\n### Process Flow\n\n1. Originator creates loans (e.g., mortgages, auto loans)\n2. Originator sells the pool of loans to the SPV (**true sale**)\n3. SPV issues securities backed by the loan pool\n4. Cash flows from the loans are distributed to investors according to the **waterfall structure**\n\n### True Sale and Bankruptcy Remoteness\n\nThe **true sale** legally transfers assets from the originator to the SPV, so they are no longer on the originator's balance sheet. If the originator goes bankrupt, creditors cannot seize the securitized assets \u2014 the SPV is **bankruptcy remote**. This separation is essential for investors to rely on the quality of the asset pool rather than the originator's credit."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is the 'true sale' of assets to the SPV so critical in securitization? What would happen if the transfer were not a true sale?",
+      "answer": "If the transfer is not a true sale, the assets may be considered part of the originator's estate in bankruptcy. This means the originator's creditors could claim the securitized assets, and investors in the securities would lose their direct claim on the cash flows. The entire point of securitization \u2014 isolating the asset pool from the originator's credit risk \u2014 would fail. A true sale ensures bankruptcy remoteness, meaning investors' claims depend on the asset pool's quality, not the originator's financial health."
+    },
+    {
+      "type": "markdown",
+      "content": "## Credit Enhancement\n\nCredit enhancement improves the credit quality of the securities above that of the underlying asset pool.\n\n### Internal Credit Enhancement\n\n**Subordination (tranching)**: The most important internal enhancement. Cash flows are distributed in order of seniority:\n\n| Tranche | Payment Priority | Risk | Yield |\n|---|---|---|---|\n| **Senior (AAA)** | Paid first; absorbs losses last | Lowest | Lowest |\n| **Mezzanine (A/BBB)** | Paid after senior; absorbs losses before senior | Medium | Medium |\n| **Equity/first-loss** | Paid last; absorbs losses first | Highest | Highest |\n\n**Overcollateralization**: The asset pool value exceeds the total securities issued (e.g., $110M in loans backs $100M in bonds). The $10M excess provides a cushion against losses.\n\n**Excess spread**: The difference between interest received from the asset pool and interest paid to investors. For example, if the pool earns 6% but pays investors 4.5% on average, the 1.5% excess spread absorbs losses first.\n\n### External Credit Enhancement\n\n- **Surety bonds**: An insurance company guarantees payment (introduces the insurer's credit risk)\n- **Letters of credit**: A bank provides a guarantee of payment\n- **Corporate guarantees**: A parent or third party guarantees the obligation"
+    },
+    {
+      "type": "markdown",
+      "content": "## Waterfall Structures, Benefits, and Risks\n\n### Cash Flow Waterfall\n\nThe waterfall specifies the order of cash flow distribution:\n1. Servicer fees and trustee expenses\n2. Senior tranche interest\n3. Mezzanine tranche interest\n4. Replenish reserve accounts (if required)\n5. Senior tranche principal\n6. Mezzanine tranche principal\n7. Equity tranche (residual)\n\n### Benefits of Securitization\n\n**For originators**: Reduces assets on balance sheet (improves capital ratios), provides funding, transfers credit risk\n\n**For investors**: Access to diversified asset pools, risk/return choices through tranching, potentially higher yields than similarly-rated corporate bonds\n\n**For the financial system**: Improves capital allocation, increases credit availability\n\n### Risks\n\n- **Moral hazard**: Originators may lower lending standards if they plan to securitize (originate-to-distribute model)\n- **Complexity**: Difficult to assess underlying asset quality\n- **Prepayment risk**: Borrowers may repay early, altering expected cash flows\n- **Liquidity risk**: Some tranches may be difficult to sell in stressed markets\n- **Model risk**: Valuations depend on assumptions about default rates, prepayment speeds, and correlations"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An SPV issues three tranches backed by a $200 million asset pool: Senior (AAA) $150M, Mezzanine (BBB) $30M, Equity $20M. If the asset pool suffers $25 million in losses, how much does each tranche lose?",
+      "solution": "Losses are absorbed from the bottom up:\n\n1. **Equity tranche** absorbs losses first: $20M (wiped out entirely)\n2. Remaining losses: $25M \u2212 $20M = $5M\n3. **Mezzanine tranche** absorbs next: $5M loss out of $30M (partial loss)\n4. **Senior tranche**: $0 loss (fully protected)\n\n**Summary:**\n| Tranche | Original | Loss | Remaining | Loss % |\n|---|---|---|---|---|\n| Senior (AAA) | $150M | $0 | $150M | 0% |\n| Mezzanine (BBB) | $30M | $5M | $25M | 16.7% |\n| Equity | $20M | $20M | $0 | 100% |\n\nThe equity tranche provides a $20M buffer. Only after it is exhausted do losses reach the mezzanine. The senior tranche is protected by $50M of subordination ($30M + $20M), so losses would need to exceed $50M (25% of the pool) before the senior tranche is impaired."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Securitization Practice",
+      "problems": [
+        {
+          "id": "fi17-1",
+          "question": "The primary purpose of the SPV in a securitization is to:",
+          "options": [
+            "A) Provide credit enhancement through excess spread",
+            "B) Isolate the asset pool from the originator's bankruptcy risk",
+            "C) Guarantee timely payment to senior tranche holders"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The SPV creates bankruptcy remoteness \u2014 it legally isolates the securitized assets from the originator's balance sheet. If the originator defaults, the SPV's assets are protected. Option A describes a credit enhancement mechanism, not the SPV's primary purpose. Option C describes a guarantee (external credit enhancement), not the SPV's role.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the role of the SPV in securitization"
+        },
+        {
+          "id": "fi17-2",
+          "question": "A securitized asset pool generates 5.8% in interest income. The weighted-average coupon paid to all tranche holders is 4.5%, and the servicing fee is 0.5%. The excess spread is closest to:",
+          "options": [
+            "A) 0.8%",
+            "B) 1.3%",
+            "C) 5.3%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Excess spread = Pool interest \u2212 Investor coupons \u2212 Servicing fee = 5.8% \u2212 4.5% \u2212 0.5% = 0.8%. This excess spread provides a first layer of protection against losses. Option B excludes the servicing fee (5.8% \u2212 4.5% = 1.3%). Option C subtracts only the servicing fee (5.8% \u2212 0.5% = 5.3%).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate excess spread as an internal credit enhancement"
+        },
+        {
+          "id": "fi17-3",
+          "question": "In a securitization with subordination, the mezzanine tranche will experience losses only when:",
+          "options": [
+            "A) Any losses occur in the asset pool",
+            "B) Losses exceed the amount of overcollateralization only",
+            "C) Losses exceed the equity tranche and any other junior protections"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Subordination means losses are absorbed sequentially from the bottom up. The mezzanine tranche only experiences losses after the equity (first-loss) tranche and any other junior protections (excess spread, overcollateralization) are exhausted. Option A would apply to the equity tranche (first to absorb losses). Option B ignores the equity tranche \u2014 overcollateralization is only one form of protection.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe how subordination protects senior tranches"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of subordination (tranching) in securitization. Use an analogy to describe how the equity tranche protects the senior tranche, and explain why senior tranches can receive AAA ratings even when the underlying loans are not AAA quality."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How did the originate-to-distribute model contribute to the 2008 financial crisis?",
+        "Why might investors in senior tranches of a securitization still face risk despite AAA ratings?",
+        "What is the tradeoff for an originator between keeping loans on its balance sheet versus securitizing them?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Securitization**: Transforms illiquid loans into tradeable securities via an SPV\n- **True sale**: Legal transfer to SPV creates **bankruptcy remoteness** from originator\n- **Internal credit enhancement**: Subordination (tranching), overcollateralization, excess spread, reserve accounts\n- **External credit enhancement**: Surety bonds, letters of credit, corporate guarantees\n- **Waterfall**: Cash flows distributed in order of seniority (senior first, equity last)\n- **Losses** absorbed from bottom up (equity first, senior last)\n- Benefits: Balance sheet management, risk transfer, diversified investment opportunities\n- Risks: Moral hazard, complexity, prepayment risk, liquidity risk, model risk"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module examines **Asset-Backed Securities (ABS)** \u2014 specific securitization structures backed by auto loans, credit card receivables, and collateralized loan obligations. We'll explore their unique structural features and prepayment considerations."
+    }
+  ]
+}

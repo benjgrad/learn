@@ -6,31 +6,48 @@ import { useState, useEffect } from "react";
 import { ChevronDown, ChevronRight, CheckCircle2, Circle } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { isModuleComplete } from "@/lib/store/progress";
-import curriculumData from "../../../content/curriculum.json";
-import type { LevelInfo, ModuleMeta } from "@/types/content";
+import type { LevelInfo, ModuleMeta, CurriculumData } from "@/types/content";
 
-const curriculum = curriculumData as { levels: LevelInfo[]; modules: Record<string, ModuleMeta[]> };
+import aiFlCurriculum from "../../../content/ai-fluency/curriculum.json";
+import cfa1Curriculum from "../../../content/cfa-1/curriculum.json";
+import cfa2Curriculum from "../../../content/cfa-2/curriculum.json";
+import cfa3Curriculum from "../../../content/cfa-3/curriculum.json";
+import coursesData from "../../../content/courses.json";
+import type { CourseInfo } from "@/types/content";
 
-const LEVEL_ORDER = [
-  "foundations",
-  "level-1",
-  "level-2",
-  "level-3",
-  "level-4",
-  "level-5",
-  "level-6",
-  "level-7",
-];
+const courses = coursesData as CourseInfo[];
+const curricula: Record<string, CurriculumData> = {
+  "ai-fluency": aiFlCurriculum as CurriculumData,
+  "cfa-1": cfa1Curriculum as CurriculumData,
+  "cfa-2": cfa2Curriculum as CurriculumData,
+  "cfa-3": cfa3Curriculum as CurriculumData,
+};
 
-export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
+function getLevelOrder(curriculum: CurriculumData): string[] {
+  return curriculum.levels.map((l) =>
+    l.level === 0 ? "foundations" : `level-${l.level}`
+  );
+}
+
+export function Sidebar({
+  course: courseProp,
+  onNavigate,
+}: {
+  course?: string;
+  onNavigate?: () => void;
+}) {
   const pathname = usePathname();
   const [, setTick] = useState(0);
+
+  // Derive course from prop or URL
+  const course = courseProp || pathname.split("/")[2] || "ai-fluency";
+  const curriculum = curricula[course] || curricula["ai-fluency"];
+  const levelOrder = getLevelOrder(curriculum);
 
   // Re-render when localStorage changes (progress updates)
   useEffect(() => {
     const handleStorage = () => setTick((t) => t + 1);
     window.addEventListener("storage", handleStorage);
-    // Also poll for same-tab changes
     const interval = setInterval(handleStorage, 2000);
     return () => {
       window.removeEventListener("storage", handleStorage);
@@ -39,32 +56,34 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   }, []);
 
   // Determine which level is currently active
-  const activeLevel = LEVEL_ORDER.find((l) =>
-    pathname.startsWith(`/learn/${l}`)
+  const activeLevel = levelOrder.find((l) =>
+    pathname.startsWith(`/learn/${course}/${l}`)
   );
 
   return (
     <nav className="h-full overflow-y-auto py-4 px-3">
       <div className="mb-4 px-2">
         <Link
-          href="/curriculum"
+          href={`/curriculum/${course}`}
           className="text-sm font-semibold text-muted-foreground hover:text-foreground"
           onClick={onNavigate}
         >
-          Curriculum Overview
+          {curriculum.levels.length > 0
+            ? `${courses.find(c => c.id === course)?.title || course} Curriculum`
+            : "Curriculum Overview"}
         </Link>
       </div>
       <div className="space-y-1">
-        {LEVEL_ORDER.map((levelSlug) => {
+        {levelOrder.map((levelSlug) => {
           const levelNum =
             levelSlug === "foundations"
               ? 0
               : parseInt(levelSlug.replace("level-", ""));
           const levelInfo = curriculum.levels.find(
-            (l) => l.level === levelNum
+            (l: LevelInfo) => l.level === levelNum
           );
           const modules = curriculum.modules[levelSlug]?.filter(
-            (m) => !m.isIndex
+            (m: ModuleMeta) => !m.isIndex
           ) || [];
           const isActive = activeLevel === levelSlug;
 
@@ -83,16 +102,16 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                 <span className="truncate text-left">
                   {levelSlug === "foundations"
                     ? "Foundations"
-                    : `L${levelNum}: ${levelInfo?.title || levelSlug}`}
+                    : `${(levelInfo?.levelLabel || "Level")[0]}${levelNum}: ${levelInfo?.title || levelSlug}`}
                 </span>
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="ml-6 mt-1 space-y-0.5">
-                  {modules.map((mod) => {
-                    const href = `/learn/${mod.level}/${mod.slug}`;
+                  {modules.map((mod: ModuleMeta) => {
+                    const href = `/learn/${course}/${mod.level}/${mod.slug}`;
                     const isCurrent = pathname === href;
                     const completed = isModuleComplete(
-                      `${mod.level}/${mod.slug}`
+                      `${course}/${mod.level}/${mod.slug}`
                     );
 
                     return (

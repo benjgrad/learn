@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "PM: Portfolio Management Practice Drill",
+    "description": "20 practice problems covering all Portfolio Management topics.",
+    "level": "level-9",
+    "slug": "pm-practice",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Portfolio Management Practice Drill\n\nThis set contains 20 problems across all Portfolio Management topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "pm-p-001",
+          "question": "The portfolio management process consists of which three steps in order?",
+          "options": [
+            "A) Planning, Execution, Feedback",
+            "B) Analysis, Selection, Monitoring",
+            "C) Research, Trading, Reporting"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The portfolio management process follows three sequential steps:\n\n1. **Planning:** Analyze investor needs (return objectives, risk tolerance, constraints \u2014 time horizon, liquidity, taxes, legal, unique), develop an investment policy statement (IPS), set asset allocation targets\n\n2. **Execution:** Construct the portfolio through asset allocation and security selection, implement the strategy by trading securities\n\n3. **Feedback:** Monitor and rebalance the portfolio, evaluate performance, adjust the strategy as needed based on changing market conditions or investor circumstances",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe the three steps of the portfolio management process."
+        },
+        {
+          "id": "pm-p-002",
+          "question": "An investor with a 30-year time horizon, high income, and no near-term liquidity needs would most likely have:",
+          "options": [
+            "A) Low risk tolerance and a conservative asset allocation",
+            "B) High risk tolerance and a growth-oriented asset allocation",
+            "C) Moderate risk tolerance regardless of circumstances"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Risk tolerance is determined by both ability and willingness to take risk. This investor has:\n\n- **High ability to take risk:** Long time horizon (30 years) allows recovery from short-term losses; high income provides ongoing contributions; no near-term liquidity needs eliminate forced selling risk\n- **Presumed high willingness** (not explicitly stated, but the question asks what is 'most likely')\n\nA growth-oriented allocation (higher equity, lower bonds) is appropriate for this risk profile, as the long time horizon allows taking on more volatility in pursuit of higher expected returns.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Assess risk tolerance based on investor characteristics."
+        },
+        {
+          "id": "pm-p-003",
+          "question": "According to the Capital Asset Pricing Model (CAPM), the expected return of a stock with a beta of 1.3, given a risk-free rate of 3% and a market risk premium of 6%, is:",
+          "options": [
+            "A) 10.8%",
+            "B) 7.8%",
+            "C) 14.1%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The CAPM equation:\n\n$$E(R_i) = R_f + \\beta_i \\times [E(R_m) - R_f] = 3\\% + 1.3 \\times 6\\% = 3\\% + 7.8\\% = 10.8\\%$$\n\nThe CAPM states that the only relevant risk is systematic (non-diversifiable) risk, measured by beta. The expected return is the risk-free rate plus a premium proportional to the stock's sensitivity to market risk. An investor is not compensated for unsystematic (diversifiable) risk.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate expected return using the Capital Asset Pricing Model."
+        },
+        {
+          "id": "pm-p-004",
+          "question": "The systematic risk of a well-diversified portfolio is measured by:",
+          "options": [
+            "A) Standard deviation",
+            "B) Beta",
+            "C) Variance"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Total risk (standard deviation/variance) = Systematic risk + Unsystematic risk.\n\nAs a portfolio becomes well-diversified, unsystematic (firm-specific) risk is eliminated through diversification, leaving only systematic (market) risk. Beta measures this systematic risk:\n\n$$\\beta_i = \\frac{\\text{Cov}(R_i, R_m)}{\\text{Var}(R_m)} = \\frac{\\sigma_{i,m}}{\\sigma_m^2}$$\n\nStandard deviation measures total risk (systematic + unsystematic) and is appropriate for undiversified portfolios. For well-diversified portfolios, beta is the appropriate risk measure.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Distinguish between systematic and unsystematic risk measures."
+        },
+        {
+          "id": "pm-p-005",
+          "question": "An investor's portfolio has an expected return of 9% and a standard deviation of 15%. The risk-free rate is 2%. The Sharpe ratio is closest to:",
+          "options": [
+            "A) 0.47",
+            "B) 0.60",
+            "C) 0.13"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$\\text{Sharpe Ratio} = \\frac{E(R_p) - R_f}{\\sigma_p} = \\frac{9\\% - 2\\%}{15\\%} = \\frac{7\\%}{15\\%} = 0.467 \\approx 0.47$$\n\nThe Sharpe ratio measures excess return per unit of total risk. Higher Sharpe ratios indicate better risk-adjusted performance. Limitations include: it uses total risk (not just systematic risk), assumes normally distributed returns, and can be misleading for strategies with non-normal return distributions (e.g., option-selling strategies).",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate and interpret the Sharpe ratio."
+        },
+        {
+          "id": "pm-p-006",
+          "question": "An investor holds a portfolio of 50% stocks (expected return 12%, $\\sigma$ = 20%) and 50% bonds (expected return 5%, $\\sigma$ = 8%). If the correlation between stocks and bonds is 0.20, the portfolio's expected return and standard deviation are closest to:",
+          "options": [
+            "A) 8.5% and 11.7%",
+            "B) 8.5% and 14.0%",
+            "C) 8.5% and 10.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Expected return:\n$$E(R_p) = 0.50(12\\%) + 0.50(5\\%) = 8.5\\%$$\n\nPortfolio variance:\n$$\\sigma_p^2 = (0.50)^2(0.20)^2 + (0.50)^2(0.08)^2 + 2(0.50)(0.50)(0.20)(0.08)(0.20)$$\n\n$$= 0.0100 + 0.0016 + 0.0016 = 0.0132$$\n\n$$\\sigma_p = \\sqrt{0.0132} = 0.1149 \\approx 11.5\\%$$\n\nThe closest answer is A) 11.7%. The portfolio standard deviation (11.5-11.7%) is significantly less than the weighted average of individual standard deviations (14.0%), demonstrating the diversification benefit from the low correlation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate portfolio expected return and standard deviation for a two-asset portfolio."
+        },
+        {
+          "id": "pm-p-007",
+          "question": "The Capital Market Line (CML) represents the efficient frontier for portfolios that combine:",
+          "options": [
+            "A) Any two risky assets",
+            "B) The risk-free asset and the market portfolio",
+            "C) Only risky assets with the lowest possible risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The CML is the line from the risk-free rate tangent to the efficient frontier at the market portfolio:\n\n$$E(R_p) = R_f + \\frac{E(R_m) - R_f}{\\sigma_m} \\times \\sigma_p$$\n\nThe slope $\\frac{E(R_m) - R_f}{\\sigma_m}$ is the Sharpe ratio of the market portfolio.\n\nAll efficient portfolios lie on the CML \u2014 they are combinations of the risk-free asset and the market portfolio. Conservative investors hold more risk-free assets; aggressive investors may leverage the market portfolio. The CML dominates the Markowitz efficient frontier because adding the risk-free asset improves the risk-return tradeoff.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe the Capital Market Line and its components."
+        },
+        {
+          "id": "pm-p-008",
+          "question": "Overconfidence bias in investing most commonly leads to:",
+          "options": [
+            "A) Excessive trading and underdiversified portfolios",
+            "B) Excessive diversification and low turnover",
+            "C) Underweighting risky assets"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Overconfidence is a cognitive bias where investors overestimate their knowledge, abilities, or the precision of their forecasts. Consequences include:\n\n- **Excessive trading:** Overconfident investors trade more frequently, believing they can time the market or pick winners \u2014 incurring higher transaction costs and taxes\n- **Underdiversification:** Concentrated positions in 'high conviction' picks, insufficient diversification\n- **Underestimation of risk:** Narrow confidence intervals, inadequate risk management\n- **Illusion of control:** Believing they can influence or predict outcomes\n\nStudies show overconfident investors earn lower net returns due to transaction costs despite similar gross security selection.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe overconfidence bias and its impact on investment decisions."
+        },
+        {
+          "id": "pm-p-009",
+          "question": "An investor's utility function is $U = E(R) - \\frac{1}{2}A\\sigma^2$, where $A$ represents the risk aversion coefficient. Portfolio X has $E(R) = 10\\%$ and $\\sigma = 18\\%$. If $A = 3$, the utility score is closest to:",
+          "options": [
+            "A) 0.0514",
+            "B) 5.14%",
+            "C) 0.0756"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$U = E(R) - \\frac{1}{2}A\\sigma^2 = 0.10 - \\frac{1}{2}(3)(0.18)^2$$\n\n$$= 0.10 - 1.5 \\times 0.0324 = 0.10 - 0.0486 = 0.0514$$\n\nThe utility score (5.14%) represents the risk-adjusted expected return. A higher $A$ means greater risk aversion (higher penalty for volatility). This investor would prefer Portfolio X to any portfolio with a utility score below 0.0514. The risk-free rate provides utility equal to itself since $\\sigma = 0$.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate utility scores and apply mean-variance analysis to portfolio selection."
+        },
+        {
+          "id": "pm-p-010",
+          "question": "Loss aversion, a concept from prospect theory, predicts that investors:",
+          "options": [
+            "A) Feel the pain of losses approximately twice as much as the pleasure of equivalent gains",
+            "B) Are risk-neutral and evaluate gains and losses symmetrically",
+            "C) Always prefer a certain outcome over a risky one with the same expected value"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Loss aversion (Kahneman and Tversky) is a key finding of behavioral finance:\n\n- **Losses hurt roughly 2x more than equivalent gains feel good** ($\\lambda \\approx 2.0$)\n- The value function is steeper for losses than gains, creating asymmetric utility\n- Investors frame outcomes relative to a reference point, not absolute wealth\n- This leads to the disposition effect: selling winners too early (locking in gains) and holding losers too long (avoiding the pain of realizing losses)\n\nOption C describes risk aversion, which is different from loss aversion. Loss aversion also causes investors to avoid risky investments even when the expected value is favorable.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Explain loss aversion and its investment implications."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "pm-p-011",
+          "question": "A stock has a beta of 0.8. The risk-free rate is 4%, and the expected market return is 10%. If the stock's actual expected return is 11%, the stock plots:",
+          "options": [
+            "A) Above the Security Market Line (SML), indicating it is undervalued",
+            "B) Below the SML, indicating it is overvalued",
+            "C) On the SML, indicating it is fairly valued"
+          ],
+          "correctAnswer": "A",
+          "explanation": "CAPM required return: $E(R) = 4\\% + 0.8(10\\% - 4\\%) = 4\\% + 4.8\\% = 8.8\\%$\n\nActual expected return: 11%\n\nAlpha = $11\\% - 8.8\\% = +2.2\\%$\n\nSince the expected return (11%) exceeds the CAPM required return (8.8%), the stock plots above the SML. This positive alpha suggests the stock is undervalued \u2014 it offers more return than is required given its systematic risk. Investors should buy assets above the SML and sell assets below it to earn positive risk-adjusted returns.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Determine whether a security is overvalued or undervalued using the SML."
+        },
+        {
+          "id": "pm-p-012",
+          "question": "A portfolio has the following characteristics: beta = 1.1, portfolio return = 14%, benchmark return = 11%, risk-free rate = 3%. The Jensen's alpha is:",
+          "options": [
+            "A) 2.2%",
+            "B) 3.0%",
+            "C) 1.8%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Jensen's alpha measures the excess return above the CAPM-predicted return:\n\n$$\\alpha_J = R_p - [R_f + \\beta_p(R_m - R_f)]$$\n\n$$= 14\\% - [3\\% + 1.1(11\\% - 3\\%)] = 14\\% - [3\\% + 8.8\\%] = 14\\% - 11.8\\% = 2.2\\%$$\n\nThe positive alpha of 2.2% indicates the portfolio manager generated value beyond what was expected given the portfolio's systematic risk level. This is a risk-adjusted performance measure that accounts for the portfolio's beta.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate and interpret Jensen's alpha."
+        },
+        {
+          "id": "pm-p-013",
+          "question": "The minimum variance portfolio on the Markowitz efficient frontier:",
+          "options": [
+            "A) Has the highest expected return",
+            "B) Has the lowest standard deviation among all portfolios of risky assets",
+            "C) Is always 50% stocks and 50% bonds"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The minimum variance portfolio (MVP) is the leftmost point on the efficient frontier \u2014 it has the lowest possible risk (standard deviation) that can be achieved by combining risky assets. Key properties:\n\n- It represents the lowest risk combination of available assets\n- Its weights depend on individual asset volatilities, correlations, and the number of assets\n- All portfolios on the efficient frontier above the MVP offer higher return for higher risk\n- Portfolios below the MVP on the full frontier are inefficient (same risk, lower return)\n\nThe composition is not necessarily 50/50 \u2014 it depends on the covariance structure of available assets.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe the minimum variance portfolio and its position on the efficient frontier."
+        },
+        {
+          "id": "pm-p-014",
+          "question": "An investor's portfolio has a 95% monthly Value at Risk (VaR) of $50,000 on a $2 million portfolio. The correct interpretation is:",
+          "options": [
+            "A) There is a 5% probability of losing more than $50,000 in any given month",
+            "B) The maximum loss in any month is $50,000",
+            "C) The average monthly loss is $50,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Value at Risk (VaR) represents the maximum loss that will not be exceeded with a given confidence level over a specified time period:\n\n- 95% VaR of $50,000 monthly means: There is a 5% probability (1 in 20 months) that the portfolio will lose more than $50,000 in a given month\n- VaR does NOT specify the magnitude of losses beyond the VaR level (that's Conditional VaR or Expected Shortfall)\n- VaR is NOT a maximum loss \u2014 losses can and do exceed VaR\n\nAs a percentage: $50{,}000 / 2{,}000{,}000 = 2.5\\%$ of portfolio value.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret Value at Risk and its limitations."
+        },
+        {
+          "id": "pm-p-015",
+          "question": "A portfolio manager rebalances by selling assets that have appreciated and buying assets that have declined to restore target weights. This approach is most consistent with:",
+          "options": [
+            "A) A momentum strategy",
+            "B) A contrarian or mean-reversion strategy",
+            "C) A buy-and-hold strategy"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Calendar or percentage-of-portfolio rebalancing is inherently contrarian:\n\n- **Sell winners** (assets that have risen above target weight)\n- **Buy losers** (assets that have fallen below target weight)\n\nThis works best in mean-reverting markets. In contrast:\n- **Buy-and-hold:** No rebalancing; weights drift with market movements\n- **Momentum:** Let winners run, cut losers (opposite of rebalancing)\n- **Constant-proportion portfolio insurance (CPPI):** Buy more when market rises, sell when it falls (momentum-like)\n\nThe optimal rebalancing frequency depends on transaction costs, tax implications, and market conditions.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe portfolio rebalancing strategies and their implicit market assumptions."
+        },
+        {
+          "id": "pm-p-016",
+          "question": "An endowment fund with a perpetual time horizon and annual spending rate of 4% should set its minimum return objective at:",
+          "options": [
+            "A) 4% nominal",
+            "B) Spending rate plus expected inflation plus investment costs",
+            "C) The risk-free rate"
+          ],
+          "correctAnswer": "B",
+          "explanation": "An endowment must earn enough to cover:\n\n1. **Spending rate (4%):** Annual distributions for the institution's operations\n2. **Expected inflation (e.g., 2.5%):** To preserve the real purchasing power of the endowment\n3. **Investment costs (e.g., 0.5%):** Management fees, custody, administration\n\n$$\\text{Minimum Return} \\approx 4\\% + 2.5\\% + 0.5\\% = 7.0\\%$$\n\nThis ensures the endowment maintains its inflation-adjusted value in perpetuity while supporting the spending policy. A nominal 4% return would gradually erode the endowment's real value.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Determine the return objective for an endowment fund."
+        },
+        {
+          "id": "pm-p-017",
+          "question": "Anchoring bias is best described as:",
+          "options": [
+            "A) The tendency to give disproportionate weight to the first piece of information received when making decisions",
+            "B) The tendency to seek information that confirms existing beliefs",
+            "C) The tendency to avoid making decisions due to too many options"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Anchoring is a cognitive bias where investors fixate on a reference point (the 'anchor') and fail to adjust sufficiently from it:\n\n- Investors may anchor to a stock's purchase price and evaluate performance relative to it rather than its current fundamentals\n- Analysts may anchor to their previous earnings estimate and adjust insufficiently for new information\n- Valuation anchors: 52-week high, IPO price, or round numbers\n\nOption B describes confirmation bias. Option C describes choice overload or analysis paralysis. Anchoring leads to conservatism in updating beliefs and can cause systematic errors in valuation.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Define anchoring bias and provide examples in investment decision-making."
+        },
+        {
+          "id": "pm-p-018",
+          "question": "The Treynor ratio for a portfolio is calculated as:",
+          "options": [
+            "A) $\\frac{R_p - R_f}{\\beta_p}$",
+            "B) $\\frac{R_p - R_f}{\\sigma_p}$",
+            "C) $\\frac{R_p - R_m}{\\beta_p}$"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$\\text{Treynor Ratio} = \\frac{R_p - R_f}{\\beta_p}$$\n\nThe Treynor ratio measures excess return per unit of systematic risk (beta), compared to the Sharpe ratio which uses total risk (standard deviation).\n\n- **Use Treynor** when the portfolio is well-diversified (unsystematic risk is eliminated, beta is the appropriate risk measure)\n- **Use Sharpe** when the portfolio is not well-diversified (total risk includes unsystematic risk)\n\nOption B is the Sharpe ratio formula. Higher Treynor ratios indicate better risk-adjusted performance relative to systematic risk.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate and distinguish between the Treynor and Sharpe ratios."
+        },
+        {
+          "id": "pm-p-019",
+          "question": "A risk management framework should include all of the following EXCEPT:",
+          "options": [
+            "A) Risk governance and policies",
+            "B) Risk identification, measurement, and monitoring",
+            "C) Elimination of all portfolio risk"
+          ],
+          "correctAnswer": "C",
+          "explanation": "A comprehensive risk management framework includes:\n\n1. **Risk governance:** Board oversight, risk appetite statement, organizational structure\n2. **Risk identification:** Cataloging all risk exposures (market, credit, liquidity, operational)\n3. **Risk measurement:** Quantifying risks (VaR, stress testing, scenario analysis)\n4. **Risk mitigation:** Diversification, hedging, limits, insurance\n5. **Risk monitoring:** Ongoing tracking, reporting, and escalation procedures\n6. **Risk budgeting:** Allocating risk across strategies and managers\n\nEliminating all risk (option C) is neither possible nor desirable \u2014 taking calculated risks is how investors earn returns above the risk-free rate. Risk management is about understanding, measuring, and controlling risk, not eliminating it.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe the components of a risk management framework."
+        },
+        {
+          "id": "pm-p-020",
+          "question": "An analyst constructs the Security Market Line using a risk-free rate of 2.5% and an expected market return of 9.5%. A stock has a beta of 1.5 and an expected return of 12%. The stock is:",
+          "options": [
+            "A) Overvalued (plotting below the SML) because its expected return is less than the CAPM required return",
+            "B) Undervalued (plotting above the SML) because its expected return exceeds the CAPM required return",
+            "C) Fairly valued (plotting on the SML)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "CAPM required return:\n\n$$E(R) = R_f + \\beta(E(R_m) - R_f) = 2.5\\% + 1.5(9.5\\% - 2.5\\%) = 2.5\\% + 10.5\\% = 13.0\\%$$\n\nAlpha = Expected return - Required return = $12\\% - 13\\% = -1.0\\%$\n\nSince the expected return (12%) is less than the CAPM-required return (13%), the stock plots below the SML with negative alpha. This indicates the stock does not offer sufficient return for its level of systematic risk \u2014 it is overvalued. Rational investors should sell or underweight this stock.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Evaluate security pricing relative to the Security Market Line."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers the portfolio management process, CAPM basics, Sharpe ratio, behavioral biases, and utility theory. Set B covers SML analysis, Jensen's alpha, VaR, efficient frontier concepts, and risk management frameworks."
+    }
+  ]
+}

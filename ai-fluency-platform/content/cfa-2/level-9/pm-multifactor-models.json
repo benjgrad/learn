@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.3: Multifactor Models",
+    "description": "Understand macroeconomic, fundamental, and statistical factor models. Apply Fama-French, Carhart, and APT frameworks. Decompose portfolio risk into factor and specific components.",
+    "level": "level-9",
+    "slug": "pm-multifactor-models",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A fund manager claims to have generated 3% alpha last year. After running a Fama-French three-factor regression, the alpha drops to 0.5%. What happened to the other 2.5% of 'alpha,' and what does this tell us about the manager's true skill?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Types of Multifactor Models\n\n### Macroeconomic Factor Models\n\nFactors are macroeconomic variables that explain returns:\n\n$$R_i = a_i + b_{i1} F_{GDP} + b_{i2} F_{inflation} + b_{i3} F_{rates} + \\epsilon_i$$\n\n- Factors are **surprises** (actual minus expected): unexpected GDP growth, unexpected inflation changes\n- Factor sensitivities ($b$'s) are estimated through regression\n- The intercept ($a_i$) is the expected return when all factor surprises are zero\n\n### Fundamental Factor Models\n\nFactors are company-specific attributes:\n\n$$R_i = a_i + b_{i1} F_{value} + b_{i2} F_{size} + b_{i3} F_{momentum} + \\epsilon_i$$\n\n- Standardized factor exposures: $b_{i,k} = (\\text{attribute}_i - \\text{avg attribute}) / \\sigma_{attribute}$\n- Factor returns ($F$) are estimated by cross-sectional regression\n- The intercept is common to all stocks (not stock-specific)\n\n### Statistical Factor Models\n\nFactors extracted through statistical techniques (PCA, factor analysis):\n- Factors have no pre-specified economic meaning\n- Can capture latent risk dimensions missed by other models\n- Difficult to interpret and communicate to stakeholders"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A stock has a Fama-French three-factor regression with market beta = 1.2, SMB loading = 0.5, HML loading = \u22120.3. Is this stock more likely a large-cap growth stock or a small-cap value stock?",
+      "answer": "Large-cap growth stock. A negative HML loading (\u22120.3) means the stock behaves like a growth stock (low book-to-market). The positive SMB loading (0.5) initially suggests small-cap, but the loading is moderate. However, the key distinction: negative HML = growth orientation. A pure small-cap value stock would have positive SMB AND positive HML. The combination of negative HML with moderate SMB suggests mid-cap growth or a large-cap growth stock with some small-cap exposure."
+    },
+    {
+      "type": "markdown",
+      "content": "## Fama-French and Carhart Models\n\n### Fama-French Three-Factor Model\n\n$$R_i - R_f = \\alpha_i + \\beta_i(R_m - R_f) + s_i \\cdot SMB + h_i \\cdot HML + \\epsilon_i$$\n\n- **SMB** (Small Minus Big): return of small-cap minus large-cap stocks\n- **HML** (High Minus Low): return of high book-to-market (value) minus low (growth)\n\n### Carhart Four-Factor Model\n\nAdds momentum:\n\n$$R_i - R_f = \\alpha_i + \\beta_i(R_m - R_f) + s_i \\cdot SMB + h_i \\cdot HML + w_i \\cdot WML + \\epsilon_i$$\n\n- **WML** (Winners Minus Losers): return of past winners minus past losers over 12-1 months\n\n### Fama-French Five-Factor Model\n\nAdds profitability and investment:\n\n$$R_i - R_f = \\alpha_i + \\beta_i(R_m - R_f) + s_i \\cdot SMB + h_i \\cdot HML + r_i \\cdot RMW + c_i \\cdot CMA + \\epsilon_i$$\n\n- **RMW** (Robust Minus Weak): profitable firms minus unprofitable\n- **CMA** (Conservative Minus Aggressive): low-investment firms minus high-investment\n\n### Arbitrage Pricing Theory (APT)\n\nThe theoretical foundation: if multiple factors drive returns, the expected return is:\n\n$$E(R_i) = R_f + \\sum_{j=1}^{k} \\beta_{ij} \\lambda_j$$\n\nWhere $\\lambda_j$ is the risk premium for factor $j$. APT does not specify which factors \u2014 the empirical models above fill this gap."
+    },
+    {
+      "type": "markdown",
+      "content": "## Risk Decomposition and Factor Portfolios\n\n### Portfolio Risk Decomposition\n\nTotal portfolio variance separates into factor risk and specific risk:\n\n$$\\sigma^2_p = \\sum_j \\sum_k \\beta_j \\beta_k \\text{Cov}(F_j, F_k) + \\sigma^2_{\\epsilon}$$\n\nOr for a single-factor model:\n\n$$\\sigma^2_p = \\beta^2 \\sigma^2_F + \\sigma^2_{\\epsilon}$$\n\n- **Factor (systematic) risk**: cannot be diversified away; driven by factor exposures\n- **Specific (idiosyncratic) risk**: diversifiable; approaches zero with many holdings\n\n### Factor Portfolios\n\nA **factor portfolio** (factor-mimicking portfolio) has:\n- Sensitivity of 1.0 to a single factor\n- Sensitivity of 0 to all other factors\n- Constructed using long/short positions\n\n### Applications\n\n| Application | How Factors Help |\n|------------|------------------|\n| **Performance attribution** | Separate alpha from factor tilts |\n| **Risk management** | Identify and control factor exposures |\n| **Portfolio construction** | Target specific factor exposures |\n| **Smart beta** | Systematic capture of factor premiums |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio manager claims 5% annual alpha. You run a Carhart four-factor regression and find: alpha = 0.8%, market beta = 1.10, SMB = 0.35, HML = 0.60, WML = 0.25. Market premium = 6%, SMB premium = 2%, HML premium = 3%, WML premium = 4%. Calculate the explained return from factors and the true alpha. What was the manager's 'alpha' really coming from?",
+      "solution": "**Factor-Explained Return:**\n\n$R_{factors} = 1.10 \\times 6\\% + 0.35 \\times 2\\% + 0.60 \\times 3\\% + 0.25 \\times 4\\%$\n$= 6.60\\% + 0.70\\% + 1.80\\% + 1.00\\% = 10.10\\%$\n\nExpected return = Risk-free + Factor return. If risk-free = 3%:\nTotal expected return = 3% + 10.10% = 13.10%\n\nActual return = Risk-free + Claimed alpha + Factor return = 3% + 5% + ... Wait, let's reframe:\n\nThe manager's 5% 'alpha' was calculated vs. just the market benchmark. Against the four-factor model:\n- True alpha = 0.8%\n- The other 4.2% came from: value tilt (0.60 \u00d7 3% = 1.8%), small-cap tilt (0.35 \u00d7 2% = 0.7%), momentum tilt (0.25 \u00d7 4% = 1.0%), and excess market beta (0.10 \u00d7 6% = 0.6%).\n\nThe manager's 'alpha' was mostly **factor exposure** (value, size, momentum, and market beta), not genuine stock-picking skill."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Multifactor Models \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "pm3-1",
+          "question": "**Vignette: Apex Quantitative Research**\n\nApex runs a Fama-French three-factor regression on Fund Alpha's monthly returns over 5 years:\n\n| Parameter | Estimate | t-statistic |\n|-----------|----------|-------------|\n| Alpha (intercept) | 0.15%/month | 1.85 |\n| Market beta | 1.08 | 12.4 |\n| SMB | 0.42 | 3.2 |\n| HML | \u22120.55 | \u22124.1 |\n| R\u00b2 | 0.91 | \u2014 |\n\nCritical t-value at 5% significance (two-tailed) = 1.96\n\n---\n\n**Question 1:** Based on the regression results, Fund Alpha's alpha is:",
+          "options": [
+            "A) Statistically significant and positive",
+            "B) Not statistically significant at the 5% level",
+            "C) Statistically significant and negative"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The alpha's t-statistic is 1.85, which is below the critical value of 1.96 for 5% significance. We cannot reject the null hypothesis that alpha equals zero. While the point estimate is positive (0.15%/month \u2248 1.8% annually), it is not statistically distinguishable from zero. The fund's strong performance may be entirely explained by its factor exposures (market, size, and growth tilts).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Evaluate statistical significance of factor model alpha"
+        },
+        {
+          "id": "pm3-2",
+          "question": "**Question 2 (continued):** Fund Alpha's negative HML loading of \u22120.55 indicates the fund is tilted toward:",
+          "options": [
+            "A) Value stocks with high book-to-market ratios",
+            "B) Growth stocks with low book-to-market ratios",
+            "C) Small-cap stocks"
+          ],
+          "correctAnswer": "B",
+          "explanation": "HML measures the return of value (high book-to-market) minus growth (low book-to-market). A negative loading means the fund moves opposite to value stocks and in line with growth stocks. The fund systematically overweights growth companies. Option A would require a positive HML loading. Option C refers to SMB, not HML \u2014 and SMB is positive (0.42), confirming a small-cap tilt.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret factor loadings in a Fama-French regression"
+        },
+        {
+          "id": "pm3-3",
+          "question": "**Question 3 (continued):** The R\u00b2 of 0.91 indicates that:",
+          "options": [
+            "A) The fund manager has significant stock-selection skill",
+            "B) 91% of the fund's return variance is explained by the three factors, leaving only 9% idiosyncratic",
+            "C) The fund has low active risk relative to its benchmark"
+          ],
+          "correctAnswer": "B",
+          "explanation": "R\u00b2 measures the proportion of total variance explained by the factors. An R\u00b2 of 0.91 means the three Fama-French factors explain 91% of the fund's return variation. Only 9% is idiosyncratic (stock-specific). This high R\u00b2 suggests the fund's returns are largely driven by systematic factor exposures rather than unique stock selection. Option A is contradicted by the insignificant alpha. Option C conflates R\u00b2 with tracking error.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret R-squared in the context of factor model analysis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a fund investor why their manager's reported alpha might shrink dramatically when measured against a multifactor model versus a single-market benchmark. Use the concepts of factor tilts and what constitutes genuine skill."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a statistically insignificant alpha still be economically meaningful for a large institutional portfolio?",
+        "How does the choice of factor model affect the measured alpha of the same fund?",
+        "What are the limitations of using historical factor premiums to forecast future returns?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Fama-French 3-factor: Market + SMB + HML\n- Carhart 4-factor: adds WML (momentum)\n- Fama-French 5-factor: adds RMW (profitability) + CMA (investment)\n- APT: $E(R_i) = R_f + \\sum \\beta_{ij}\\lambda_j$\n- Total risk = Systematic (factor) risk + Idiosyncratic (specific) risk\n- R\u00b2 measures proportion of variance explained by factors\n- High R\u00b2 + insignificant alpha = factor exposure, not skill\n- Macro models: factors are surprises; Fundamental models: factors are firm attributes\n- Factor portfolios: sensitivity of 1 to one factor, 0 to all others"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Portfolio Construction**, where you will apply factor models to build optimal portfolios. You will study Mean-Variance Optimization and its limitations, Black-Litterman, and risk budgeting \u2014 all of which rely on the factor decomposition framework you just learned."
+    }
+  ]
+}

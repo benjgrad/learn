@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PM.4: Active Equity Strategies",
+    "description": "Explore fundamental, quantitative, and event-driven equity strategies, including bottom-up and top-down approaches, factor models, and activist investing.",
+    "level": "level-6",
+    "slug": "pw-pm-equity-strategies",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A fundamental bottom-up manager and a quantitative factor manager both claim to generate alpha. How might their sources of alpha differ? In what market environment might one approach dominate the other?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Approaches to Active Equity\n\nActive equity managers seek to outperform benchmarks through security selection, sector allocation, or factor timing. The three broad approaches:\n\n### 1. Fundamental Bottom-Up\n\nStart with individual company analysis:\n- **Intrinsic value estimation**: DCF, residual income, relative valuation\n- **Competitive advantage analysis**: Moats, pricing power, barriers to entry\n- **Management quality**: Capital allocation track record, incentive alignment\n- **Catalyst identification**: What will cause the market to re-rate the stock?\n\nTypical characteristics:\n- Concentrated portfolios (20-50 holdings)\n- High conviction, longer holding periods\n- Higher active share, potentially higher tracking error\n\n### 2. Fundamental Top-Down\n\nStart with macro/sector themes, then select securities:\n- **Macro overlay**: GDP growth, interest rates, inflation, policy\n- **Sector/industry rotation**: Overweight sectors expected to benefit from macro trends\n- **Geographic allocation**: Country/region tilts based on relative attractiveness\n- **Thematic investing**: Structural trends (demographics, technology disruption)\n\nTypical: Broader portfolios, shorter holding periods for tactical positions"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A quantitative equity manager's factor model shows strong backtested returns for a 'quality-minus-junk' factor over 30 years. Should you expect this alpha to persist going forward?",
+      "answer": "Persistence is uncertain and likely diminished. Considerations: (1) Backtested returns suffer from look-ahead bias and overfitting -- the factor was likely selected because it worked historically. (2) Factor crowding -- as more quant managers adopt similar factors, the premium gets arbitraged away. (3) However, if the factor has a risk-based or behavioral explanation (quality stocks may have lower downside risk, behavioral biases cause investors to underprice quality), some premium may persist. (4) Transaction costs and implementation shortfall are often understated in backtests. (5) Factor returns are cyclical -- quality underperformed in the post-GFC recovery when junk rallied. Expect a reduced but potentially non-zero premium."
+    },
+    {
+      "type": "markdown",
+      "content": "## Quantitative Strategies\n\n### Factor Models\n\nSystematic exposure to return-generating factors:\n\n| Factor | Definition | Rationale |\n|---|---|---|\n| Value | Low price relative to fundamentals | Behavioral overreaction to bad news |\n| Momentum | Recent outperformers continue | Underreaction, herding |\n| Quality | High profitability, low leverage | Mispriced safety |\n| Size | Small caps outperform | Illiquidity premium |\n| Low volatility | Low-vol stocks outperform | Lottery preference, leverage constraints |\n\n$$R_i = \\alpha_i + \\beta_1 F_1 + \\beta_2 F_2 + ... + \\beta_k F_k + \\epsilon_i$$\n\n### Statistical Arbitrage\n\n- **Pairs trading**: Long/short correlated stocks when spread diverges\n- **Mean reversion**: Bet on convergence of temporarily divergent prices\n- **Market-neutral**: Zero net market exposure; alpha from relative mispricings\n- High turnover, many positions, low per-trade conviction\n\n## Event-Driven and Activist Strategies\n\n### Activist Investing\n- Acquire significant stake (5-15%)\n- Push for changes: board seats, strategic review, capital return, M&A\n- Alpha source: Closing gap between current value and potential value\n- Risks: Hostile management response, regulatory, long time horizon\n\n### Event-Driven Equity\n- **Merger arbitrage**: Long target, short acquirer (spread capture)\n- **Spin-offs**: Parent and spin-off often mispriced during separation\n- **Earnings surprises**: Post-earnings announcement drift\n- **Index reconstitution**: Forced buying/selling around index changes\n\n## Implementation Considerations\n\n- **Market impact**: Large trades move prices; use algorithmic execution\n- **Short-sale constraints**: Borrowing costs, recall risk, regulatory limits\n- **Factor timing vs factor exposure**: Maintaining consistent exposure vs rotating factors\n- **Capacity constraints**: Strategies degrade as AUM grows"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Strategy Evaluation\n\nYou are evaluating two equity managers for a $200M allocation:\n\nManager A: Fundamental bottom-up, concentrated (25 stocks), active share 88%, tracking error 7%, information ratio 0.65, 5-year track record.\n\nManager B: Quantitative multi-factor, diversified (300 stocks), active share 55%, tracking error 3%, information ratio 0.85, 10-year track record.\n\nA) Compare the expected alpha of each manager.\nB) Discuss the advantages and disadvantages of each approach.\nC) How would you allocate between them, and what risks should you monitor?",
+      "solution": "**A) Expected Alpha Comparison:**\n\nExpected alpha = Information Ratio x Tracking Error\n- Manager A: 0.65 x 7% = 4.55%\n- Manager B: 0.85 x 3% = 2.55%\n\nManager A has higher expected alpha in absolute terms, but with much higher tracking error (risk). Manager B generates more alpha per unit of active risk.\n\n**B) Advantages and Disadvantages:**\n\n**Manager A (Fundamental):**\n- Advantages: High active share suggests truly active management (not closet indexing); concentrated positions allow deep research; can identify company-specific catalysts; less susceptible to factor crowding\n- Disadvantages: Higher tracking error increases probability of significant underperformance; shorter track record; key-person risk; limited diversification; capacity-constrained\n\n**Manager B (Quantitative):**\n- Advantages: Higher IR (more efficient); longer track record; diversified across 300 names reduces idiosyncratic risk; systematic process is repeatable and scalable; lower transaction costs per position\n- Disadvantages: Lower active share means returns are more benchmark-like; factor crowding risk; model risk (backtested relationships may break down); less ability to identify unique catalysts; may underperform when factors are out of favor\n\n**C) Allocation and Risk Monitoring:**\n\nRecommended allocation: 60% Manager B / 40% Manager A ($120M / $80M)\n\nRationale: Use the quant manager as the core (higher IR, diversified, consistent) and the fundamental manager as a high-conviction complement. The two strategies have low correlation of active returns (different alpha sources), so the combined portfolio benefits from diversification of active risk.\n\nMonitor:\n- Manager A: Style drift (does active share remain high?), position concentration risk, maximum drawdown vs peers\n- Manager B: Factor exposure consistency, factor crowding indicators, model turnover (too many model changes suggests overfitting)\n- Combined: Total tracking error, overlap of positions, correlation of active returns between managers"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Active Equity Strategies Practice",
+      "problems": [
+        {
+          "id": "l3-pm4-1",
+          "question": "A manager with an active share of 90% and tracking error of 1.5% is most likely described as:",
+          "options": [
+            "A) A closet indexer with high fees",
+            "B) A factor-tilted manager with diversified bets",
+            "C) A stock picker with concentrated positions offset by benchmark-like sector weights"
+          ],
+          "correctAnswer": "C",
+          "explanation": "High active share (90%) indicates holdings differ significantly from the benchmark -- this is not a closet indexer (A). However, the low tracking error (1.5%) is unusual for such high active share. This combination suggests the manager picks different stocks than the benchmark (high active share) but maintains similar sector/factor weights, causing the portfolio to behave similarly to the benchmark in aggregate (low tracking error). This is characteristic of a diversified stock picker. Option B would typically show moderate active share with low tracking error.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Interpret active share and tracking error together to classify manager style"
+        },
+        {
+          "id": "l3-pm4-2",
+          "question": "In merger arbitrage, the annualized spread on a deal is 8% with an estimated 85% probability of completion. The expected loss if the deal fails is 25% (stock drops back to pre-announcement level). The expected return of this position is closest to:",
+          "options": [
+            "A) 3.1%",
+            "B) 6.8%",
+            "C) 8.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Expected return = P(success) x Return(success) + P(failure) x Return(failure)\n= (0.85 x 8%) + (0.15 x -25%)\n= 6.8% + (-3.75%)\n= 3.05%, approximately 3.1%\n\nOption C (8%) ignores the possibility of deal failure. Option B (6.8%) accounts for probability of success but ignores the loss from failure. This illustrates why merger arbitrage spreads must be evaluated on an expected value basis, not just on the stated spread.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate expected returns for event-driven strategies"
+        },
+        {
+          "id": "l3-pm4-3",
+          "question": "A quantitative manager's multi-factor model includes value, momentum, and quality factors. In a sharp market reversal where recent winners collapse and recent losers surge, this manager is most likely to experience:",
+          "options": [
+            "A) Outperformance, as quality and value factors benefit from mean reversion",
+            "B) Underperformance, as the momentum factor generates significant losses",
+            "C) Neutral performance, as factor diversification offsets gains and losses"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In a sharp market reversal (momentum crash), the momentum factor experiences extreme losses as long positions (recent winners) collapse and short positions (recent losers) surge. While the value and quality factors might benefit modestly from a reversal, momentum crashes are typically violent and concentrated, often overwhelming the more gradual benefits from other factors. The March 2009 and January 2021 periods are examples of momentum crashes that caused significant losses for multi-factor quant managers. Factor diversification helps in normal conditions but may not fully offset extreme momentum losses.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Evaluate factor interaction risks in quantitative portfolios"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of 'active share' and why a high active share alone doesn't guarantee outperformance. Use examples of different manager types to illustrate when high active share is and isn't meaningful."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the behavioral biases that fundamental managers are most susceptible to?",
+        "Why do most quantitative factors have periods of significant underperformance?",
+        "How would you evaluate whether a manager's alpha is skill-based or factor-based?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Fundamental bottom-up**: Company-specific analysis, concentrated, high active share\n- **Fundamental top-down**: Macro themes drive sector/country allocation\n- **Quantitative**: Factor models (value, momentum, quality, size, low vol), systematic\n- **Expected alpha** = Information Ratio x Tracking Error\n- **Active share**: Measures how different holdings are from benchmark; high alone is insufficient\n- **Event-driven**: Merger arb, spin-offs, activism -- evaluate on expected value basis\n- **Factor risks**: Crowding, cyclicality, momentum crashes, model overfitting\n- **Implementation**: Market impact, short-sale constraints, capacity limits"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we cover **Active Equity Portfolio Construction** -- the practical challenge of translating alpha signals into an actual portfolio. How do you size positions, manage factor exposures, and balance tracking error against expected alpha?"
+    }
+  ]
+}

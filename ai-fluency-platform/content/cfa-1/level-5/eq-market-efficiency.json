@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "EQ.3: Market Efficiency",
+    "description": "Understand the Efficient Market Hypothesis, its three forms, evidence for and against each form, market anomalies, and behavioral challenges.",
+    "level": "level-5",
+    "slug": "eq-market-efficiency",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If stock prices truly reflect all available information, is it possible for any investor to consistently beat the market? What would that imply about the value of financial analysis and research?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Efficient Market Hypothesis\n\nThe **Efficient Market Hypothesis (EMH)**, developed by Eugene Fama, states that asset prices fully reflect all available information. In an informationally efficient market, it is impossible to consistently achieve risk-adjusted returns in excess of the market (\"alpha\") using any information already reflected in prices.\n\n### Conditions for Market Efficiency\n\nMarkets tend to be more efficient when:\n- A **large number of participants** analyze and trade securities\n- **Information is widely available** at low cost\n- **Transaction costs are low**, allowing arbitrage\n- **No restrictions** on trading (short selling allowed)\n\n### Three Forms of the EMH\n\n| Form | Information Reflected in Prices | Implication |\n|---|---|---|\n| **Weak** | All past market data (prices, volume, trading data) | Technical analysis cannot produce excess returns |\n| **Semi-strong** | All publicly available information (financial statements, news, analyst reports) | Neither technical nor fundamental analysis can produce excess returns |\n| **Strong** | All information, including private/insider information | No one \u2014 not even insiders \u2014 can achieve excess returns |\n\nEach successive form **encompasses** the previous: if the semi-strong form holds, the weak form must also hold."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio manager consistently outperforms the market by analyzing publicly available financial statements. Which form of market efficiency does this evidence most directly contradict?",
+      "answer": "This contradicts the semi-strong form of the EMH. The semi-strong form asserts that all publicly available information (including financial statements) is already reflected in prices, so fundamental analysis should not produce consistent excess returns. It also contradicts the strong form (since the strong form encompasses the semi-strong form). However, it does not necessarily contradict the weak form, which only says past price and volume data are reflected in prices."
+    },
+    {
+      "type": "markdown",
+      "content": "## Evidence and Anomalies\n\n### Evidence Supporting the EMH\n\n- Most **actively managed funds underperform** their benchmarks after fees over long periods\n- Stock prices adjust **rapidly to earnings announcements** and other news\n- **Event studies** show prices incorporate new information within minutes\n- Professional analysts' recommendations do not consistently generate alpha\n\n### Market Anomalies\n\nResearchers have documented persistent patterns that appear to contradict the EMH:\n\n| Anomaly | Description | Challenges Which Form? |\n|---|---|---|\n| **Calendar effects** | January effect, day-of-week effect, turn-of-month | Weak |\n| **Momentum** | Stocks that performed well continue to perform well (3-12 months) | Weak |\n| **Size effect** | Small-cap stocks tend to outperform large-cap on a risk-adjusted basis | Semi-strong |\n| **Value effect** | Low P/E or high book-to-market stocks tend to outperform | Semi-strong |\n| **Post-earnings announcement drift** | Prices continue to drift in the direction of an earnings surprise | Semi-strong |\n| **Insider trading profits** | Corporate insiders earn excess returns | Strong |\n\n**Caveats:** Many anomalies have weakened or disappeared after publication. Some may reflect **risk premiums** rather than inefficiency. Others may be artifacts of **data mining** or **survivorship bias**."
+    },
+    {
+      "type": "markdown",
+      "content": "## Behavioral Challenges and Implications\n\n### Behavioral Finance\n\nBehavioral finance argues that investors are not always rational, leading to predictable pricing errors:\n\n- **Loss aversion** \u2014 investors feel losses more strongly than gains, leading to holding losers too long\n- **Overconfidence** \u2014 investors overestimate their ability to predict, leading to excessive trading\n- **Herding** \u2014 investors follow the crowd, amplifying price movements\n- **Anchoring** \u2014 reliance on irrelevant reference points when making decisions\n- **Mental accounting** \u2014 treating money differently depending on its source or intended use\n- **Representativeness** \u2014 judging probabilities based on superficial similarities rather than base rates\n\n### Implications for Investment Management\n\n| If markets are... | Then... |\n|---|---|\n| **Weak-form efficient** | Technical analysis is useless; fundamental analysis may still add value |\n| **Semi-strong efficient** | Only non-public (insider) information provides an edge |\n| **Strong-form efficient** | No analysis adds value; invest passively in index funds |\n\nIn practice, most evidence suggests markets are **reasonably but not perfectly efficient**. Prices generally reflect available information, but temporary mispricings can occur \u2014 especially in less liquid, less followed securities."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Classify each investment strategy according to which form of EMH it would violate if it consistently produced excess returns.",
+      "solution": "1. **A trader who profits using chart patterns and moving averages** \u2014 Violates the weak form, which states past price data is already reflected in prices. Technical analysis should not generate alpha.\n\n2. **An analyst who outperforms by carefully reading 10-K filings** \u2014 Violates the semi-strong form, which states all public information (including SEC filings) is already priced in.\n\n3. **A corporate officer who profits by trading before earnings announcements** \u2014 Violates the strong form, which states even private information is reflected in prices. (Note: this is also illegal in most jurisdictions.)\n\n4. **A quantitative fund that profits from momentum strategies** \u2014 Violates the weak form, since momentum uses past return data to predict future returns.\n\n5. **A value investor who earns alpha buying low P/B stocks** \u2014 Violates the semi-strong form, since book value is publicly available information."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Market Efficiency Practice Problems",
+      "problems": [
+        {
+          "id": "eq3-1",
+          "question": "If the semi-strong form of the EMH holds, which of the following investment strategies would most likely fail to generate consistent risk-adjusted excess returns?",
+          "options": [
+            "A) Trading on insider information from corporate board members",
+            "B) Selecting stocks based on published financial statement analysis",
+            "C) Both A and B"
+          ],
+          "correctAnswer": "B",
+          "explanation": "If the semi-strong form holds, all publicly available information is already reflected in prices. Financial statement analysis uses public information and would therefore not produce excess returns. Option A involves private (insider) information, which is not reflected in prices under the semi-strong form \u2014 so insider trading could still produce excess returns (though it would be illegal). Option C is incorrect because only B is necessarily unsuccessful under the semi-strong form.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Describe implications of the semi-strong form of the EMH"
+        },
+        {
+          "id": "eq3-2",
+          "question": "The observation that small-cap stocks have historically earned higher risk-adjusted returns than large-cap stocks is most accurately described as:",
+          "options": [
+            "A) Evidence supporting the weak form of the EMH",
+            "B) A market anomaly that challenges the semi-strong form of the EMH",
+            "C) A market anomaly that challenges the strong form of the EMH"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The size effect is a well-documented anomaly where small-cap stocks outperform on a risk-adjusted basis. Since market capitalization is publicly available information, this finding challenges the semi-strong form of the EMH. Option A is incorrect because the size effect contradicts rather than supports the EMH. Option C is incorrect because the size effect involves public information, so it challenges the semi-strong form (not specifically the strong form, which deals with private information).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Identify and classify market anomalies by EMH form"
+        },
+        {
+          "id": "eq3-3",
+          "question": "An investor who exhibits loss aversion is most likely to:",
+          "options": [
+            "A) Sell winning positions too early and hold losing positions too long",
+            "B) Trade excessively due to overestimating their forecasting ability",
+            "C) Follow the investment decisions of other market participants"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Loss aversion means investors feel the pain of losses more intensely than the pleasure of equivalent gains. This leads to the disposition effect: selling winners too early to 'lock in' gains and holding losers too long to avoid realizing painful losses. Option B describes overconfidence bias, not loss aversion. Option C describes herding behavior.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Describe behavioral biases and their effects on investment decisions"
+        },
+        {
+          "id": "eq3-4",
+          "question": "Which of the following is the strongest evidence against market efficiency?",
+          "options": [
+            "A) Stock prices react quickly to earnings announcements",
+            "B) Most actively managed funds underperform their benchmarks over 10 years",
+            "C) Post-earnings announcement drift persists for weeks after earnings surprises"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Post-earnings announcement drift (PEAD) is evidence against semi-strong efficiency because prices continue to drift in the direction of an earnings surprise for weeks or months after the announcement. In an efficient market, the price should adjust fully and immediately. Option A actually supports efficiency (rapid adjustment). Option B also supports efficiency (active managers cannot consistently beat the market).",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Evaluate evidence for and against the EMH"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Efficient Market Hypothesis to someone who asks: 'If I spend hours researching stocks, shouldn't I be able to beat the market?' Address all three forms and what the evidence says about each."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Do you believe markets are mostly efficient? How does that influence your view of active vs. passive investing?",
+        "How might behavioral biases in your own thinking affect your investment decisions?",
+        "Why might anomalies persist even after they are widely published and known?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **EMH:** Asset prices fully reflect available information\n- **Weak form:** Prices reflect past market data \u2192 technical analysis ineffective\n- **Semi-strong form:** Prices reflect all public info \u2192 fundamental analysis ineffective\n- **Strong form:** Prices reflect all info including private \u2192 no one earns alpha\n- **Anomalies:** Calendar effects, momentum, size effect, value effect, PEAD\n- **Behavioral biases:** Loss aversion, overconfidence, herding, anchoring\n- Markets are **reasonably but not perfectly** efficient in practice\n- Most active managers underperform benchmarks after fees over long horizons"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module introduces **Equity Securities** \u2014 the actual instruments traded in the markets we've been discussing. Understanding market efficiency helps you evaluate whether paying for active equity management is worthwhile or whether passive index exposure is the better approach."
+    }
+  ]
+}

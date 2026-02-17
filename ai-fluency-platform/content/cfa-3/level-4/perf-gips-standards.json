@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.3: GIPS Standards",
+    "description": "Understand GIPS compliance requirements, composite construction, required disclosures, carve-outs, portability, verification, and provisions for pooled funds and alternative investments.",
+    "level": "level-4",
+    "slug": "perf-gips-standards",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An investment firm claims to be 'GIPS compliant.' What does this actually mean in terms of how they present performance, and what protections does it give you as a prospective client?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Overview of GIPS Standards\n\nThe **Global Investment Performance Standards (GIPS)** are voluntary, ethical standards for presenting investment performance. Administered by CFA Institute.\n\n### Key Principles\n\n1. **Fair representation**: Performance must be presented fairly, without cherry-picking\n2. **Full disclosure**: All material information affecting interpretation must be disclosed\n3. **Comparability**: Standardized methodology allows meaningful comparison between firms\n4. **Data integrity**: Performance based on actual portfolios, not hypothetical results\n\n### Who Claims Compliance?\n\n- GIPS compliance is claimed at the **firm level** (not individual composites or funds)\n- The **firm** must be defined as the distinct business entity held out to clients\n- All fee-paying, discretionary portfolios must be included in at least one composite\n- Firms cannot claim partial compliance \u2014 it's all or nothing\n\n## Composite Construction\n\n### Rules\n\n| Rule | Requirement |\n|---|---|\n| **Definition** | All portfolios managed according to the same strategy/objective |\n| **Inclusion** | All fee-paying, discretionary portfolios must be in at least one composite |\n| **Timing** | New portfolios included on a timely and consistent basis (within mandate start) |\n| **Exclusion** | Non-discretionary and non-fee-paying may be excluded (but disclosed) |\n| **Terminated** | Included in composite through the last full measurement period |\n| **No switching** | Portfolios cannot be moved between composites unless documented change in strategy |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Return Calculation Requirements\n\n### Portfolio-Level\n- **Time-weighted returns** (TWR) required\n- Calculate returns at least **monthly**\n- Calculate portfolio returns using **geometrically linked** sub-period returns\n- For periods beginning January 2010+: valuations required on dates of **large cash flows**\n\n### Composite-Level\n- **Asset-weighted** composite returns (using beginning-of-period values or a method that reduces the impact of cash flows)\n- Present **gross-of-fees** and/or **net-of-fees** returns (gross must be before investment management fees; net must deduct actual or model fees)\n- Must include the effect of trading costs in both gross and net\n\n## Required Disclosures\n\n| Disclosure | Description |\n|---|---|\n| **Definition of the firm** | How the firm is defined for GIPS purposes |\n| **Composite description** | Strategy, benchmark, inception date |\n| **Benchmark description** | What the benchmark is and how it's constructed |\n| **Currency** | Valuation and performance currency |\n| **Fee schedule** | Current fee schedule for the composite |\n| **Measure of dispersion** | Internal dispersion of individual portfolio returns |\n| **Number of portfolios** | Or statement that composite contains \u22645 portfolios |\n| **Composite assets** | Total composite assets and total firm assets |\n| **Minimum track record** | At least 5 years (or since inception if shorter), building to 10 years |\n\n## Required Statistics\n\n- **Annualized composite return** (gross and/or net)\n- **Benchmark return**\n- **Number of portfolios** in composite (if > 5)\n- **Internal dispersion** (standard deviation or range)\n- **3-year annualized ex-post standard deviation** (of both composite and benchmark)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A GIPS-compliant firm has a composite with 3 portfolios. Must it disclose the number of portfolios and internal dispersion?",
+      "answer": "The firm must disclose the number of portfolios or state that the composite contains five or fewer portfolios. When a composite contains five or fewer portfolios, the firm is not required to present a measure of internal dispersion \u2014 it may simply state that the number is too small for meaningful dispersion measurement. However, the firm still must present the 3-year annualized standard deviation of the composite."
+    },
+    {
+      "type": "markdown",
+      "content": "## Special Provisions\n\n### Carve-Outs\n\nA carve-out is a portion of a portfolio managed in a specific style (e.g., the equity portion of a balanced portfolio).\n\n- **Pre-2010**: Carve-outs with allocated cash could be included in composites\n- **Post-2010**: Carve-outs must be managed separately with their own cash allocation to be included in a composite\n- Must disclose the percentage of composite assets that are carve-outs\n\n### Portability\n\nWhen key personnel move from one firm to another:\n- The new firm may present the **prior firm's track record** if:\n  1. The investment decision-makers are the same\n  2. The process/strategy is substantially the same\n  3. The new firm has the records to support the performance\n  4. Must disclose that the track record is from a prior firm\n\n### Verification\n\n- **Voluntary** but strongly recommended\n- Performed by an **independent third party**\n- **Firm-wide**: Verifies the firm's processes and procedures for compliance\n- **Performance examination**: Additional testing of a specific composite's data (goes deeper than verification)\n- Verification does NOT guarantee accuracy of individual composite presentations\n\n### Real Estate and Private Equity Provisions\n\n**Real Estate**:\n- Return components: income return + capital return = total return\n- External valuations required at least **annually** (by qualified appraiser)\n- Must present SI-IRR (since-inception internal rate of return) for closed-end funds\n\n**Private Equity**:\n- Must present SI-IRR\n- Present committed capital, paid-in capital, distributions, and remaining value\n- Must present investment multiples (TVPI, DPI, RVPI)\n\n### Pooled Fund Provisions\n\n- Firms may present GIPS pooled fund reports to prospective investors\n- Must include returns, benchmark, expense ratios\n- Total expense ratio must be disclosed"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: GIPS Compliance Assessment",
+      "solution": "**Part A \u2014 GIPS violations identified:**\n\n1. **Violation: Selective composite inclusion.** The firm excluded two underperforming portfolios from the large-cap growth composite because they were 'not representative.' GIPS requires ALL fee-paying, discretionary portfolios managed to the same strategy to be included. Underperformance is not a valid reason for exclusion.\n\n2. **Violation: Survivorship bias.** A terminated portfolio was removed from the composite history retroactively. GIPS requires terminated portfolios to remain in the composite through the last full measurement period. Historical performance cannot be altered after the fact.\n\n3. **Violation: Insufficient track record presentation.** The firm presents only 3 years of performance for a composite with a 7-year history. GIPS requires a minimum of 5 years (or since inception if shorter), building to 10 years.\n\n4. **Potential issue: Carve-out treatment.** The firm includes the equity portion of balanced portfolios in the equity composite without separately managed cash. Post-2010, carve-outs require their own cash allocation to be included.\n\n**Part B \u2014 Required corrections:**\n\n1. Include all fee-paying, discretionary portfolios in the appropriate composite, including underperformers\n2. Restore terminated portfolio to composite history through its last full period\n3. Present at least 5 years of composite performance (the full 7-year history is available)\n4. Either exclude the carve-outs or manage them with separately allocated cash\n5. Add all required disclosures: fee schedule, composite description, dispersion measure, number of portfolios, firm assets, 3-year standard deviation\n\n**Part C \u2014 Verification recommendation:**\n\nThe firm should engage an independent third-party verifier to:\n1. Verify firm-wide GIPS compliance processes\n2. Perform a performance examination on the large-cap growth composite (given the identified issues)\n3. This provides credibility to prospective clients and forces discipline in the compliance process\n\nVerification is voluntary but strongly recommended, especially for firms seeking institutional mandates."
+    },
+    {
+      "type": "practiceSet",
+      "title": "GIPS Standards Practice",
+      "problems": [
+        {
+          "id": "l3-pm3-1",
+          "question": "Under GIPS, a firm must include in composites:",
+          "options": [
+            "A) All portfolios managed by the firm, including non-discretionary accounts",
+            "B) All fee-paying, discretionary portfolios in at least one composite",
+            "C) Only the best-performing portfolios to present favorable results"
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS requires all fee-paying, discretionary portfolios to be included in at least one composite. Non-discretionary accounts (A) may be excluded because the manager does not have full control over investment decisions. Selective inclusion of top performers (C) is explicitly prohibited \u2014 this would be cherry-picking, which GIPS is designed to prevent.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "State GIPS composite construction requirements"
+        },
+        {
+          "id": "l3-pm3-2",
+          "question": "A portfolio manager leaves Firm A to join Firm B, bringing the same investment strategy. Firm B may present Firm A's track record if all of the following are met EXCEPT:",
+          "options": [
+            "A) The decision-making process is substantially unchanged",
+            "B) Firm B pays a licensing fee to Firm A for the track record",
+            "C) Firm B has the records to support the historical performance"
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS portability requirements include: same decision-makers, substantially the same process, supporting records available, and disclosure that the track record is from a prior firm. There is no requirement to pay a licensing fee (B) \u2014 portability is based on the continuity of the investment process and people, not a financial arrangement between firms.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe GIPS portability requirements"
+        },
+        {
+          "id": "l3-pm3-3",
+          "question": "GIPS verification is:",
+          "options": [
+            "A) Required for all GIPS-compliant firms",
+            "B) Voluntary but covers the entire firm, not individual composites",
+            "C) Required only for firms managing more than $1 billion"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Verification is voluntary but strongly recommended. When performed, it covers the entire firm (firm-level verification), assessing whether the firm's processes and procedures are designed to present performance in compliance with GIPS. A performance examination can be performed on individual composites as an additional level of testing. There is no AUM threshold requirement (C), and verification is not mandatory (A).",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe GIPS verification requirements"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain GIPS to a prospective client who asks: 'All these investment firms show me great track records. How do I know which ones are presenting performance fairly?' Focus on how GIPS prevents common ways firms might mislead clients."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is GIPS compliance voluntary rather than mandatory?",
+        "How do the special provisions for private equity and real estate address the unique characteristics of these asset classes?",
+        "What are the limitations of GIPS in protecting investors from misleading performance presentations?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key GIPS Concepts:**\n\n- Compliance is claimed at the **firm level** \u2014 all or nothing\n- **All** fee-paying, discretionary portfolios must be in at least one composite\n- **TWR** required; monthly returns; geometric linking\n- Minimum **5 years** (building to 10) of composite performance\n- Must disclose: composite description, benchmark, fees, dispersion, number of portfolios, firm assets\n- **Carve-outs** (post-2010): Need separately managed cash\n- **Portability**: Requires same people, same process, supporting records, disclosure\n- **Verification**: Voluntary, firm-wide, independent third party\n- **PE/RE**: SI-IRR, investment multiples, external valuations\n- Terminated portfolios remain in historical composite record"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "This completes the Performance Measurement section. The **checkpoint** follows, and then we conclude with **Ethics** \u2014 applying the Code and Standards at the portfolio management level."
+    }
+  ]
+}

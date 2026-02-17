@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "FSA.1: Intercorporate Investments",
+    "description": "Classify investments (FVPL, FVOCI, amortized cost), apply the equity method and acquisition method, understand SPVs/VIEs, and identify IFRS vs GAAP differences.",
+    "level": "level-3",
+    "slug": "fsa-intercorporate-investments",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Company A owns 30% of Company B. Should Company A report Company B's revenues and expenses on its own income statement, or treat the investment differently? What if Company A owned 60% instead?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Classification of Investments\n\nHow an intercorporate investment is classified depends on the **level of influence** or the **business model** for holding the investment.\n\n### Debt Investments (IFRS 9 / ASC 320)\n\n| Classification | Measurement | Unrealized Gains/Losses | When Used |\n|---|---|---|---|\n| **Amortized cost** | Amortized cost | Not recognized (effective interest method) | Held to collect contractual cash flows |\n| **FVOCI** | Fair value | OCI (recycled to P&L on sale) | Held to collect *and* sell |\n| **FVPL** | Fair value | Income statement | Trading or doesn't meet above criteria |\n\n### Equity Investments by Influence Level\n\n| Ownership | Influence Level | Accounting Method |\n|---|---|---|\n| < 20% | No significant influence | Fair value (FVPL or FVOCI election under IFRS) |\n| 20\u201350% | Significant influence | **Equity method** |\n| > 50% | Control | **Acquisition/consolidation** |\n| Joint control | Shared control | Equity method (IFRS) or proportionate consolidation (rare) |\n\nThese thresholds are guidelines \u2014 the substance of the relationship matters more than the exact percentage."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company holds a 25% stake in an associate that reports net income of $40 million and pays $10 million in dividends. Under the equity method, what is the impact on the investor's income statement and balance sheet?",
+      "answer": "Income statement: The investor recognizes its share of the associate's net income = 25% \u00d7 $40M = $10M as 'equity income from associate.' Balance sheet: The investment account increases by $10M (share of income) and decreases by $2.5M (25% \u00d7 $10M dividends received). Net increase in the investment carrying value = $7.5M. Dividends reduce the investment account, not income \u2014 this is a key equity method concept."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Equity Method\n\nUnder the equity method, the investor recognizes its **proportionate share** of the investee's earnings, not its revenues and expenses.\n\n### Key Mechanics\n\n1. **Initial recognition**: Investment recorded at cost (including goodwill)\n2. **Share of earnings**: Investor records its % of investee's net income\n3. **Dividends**: Reduce the carrying value of the investment (not income)\n4. **Amortization of excess**: If purchase price exceeds the investor's share of book value, the excess allocated to identifiable assets is amortized\n\n$$\\text{Investment balance} = \\text{Cost} + \\sum(\\text{Share of NI}) - \\sum(\\text{Dividends}) - \\text{Amortization of excess}$$\n\n### Impact on Financial Ratios\n\nThe equity method tends to:\n- **Overstate** profit margins (only net income appears, not revenues/expenses)\n- **Understate** leverage (investee's debt not on investor's balance sheet)\n- **Overstate** ROA (assets are a single line item, not the full investee assets)"
+    },
+    {
+      "type": "markdown",
+      "content": "## Acquisition Method (Consolidation)\n\nWhen an investor controls an investee (typically > 50%), it must **consolidate** \u2014 combining the financial statements line by line.\n\n### Key Steps\n\n1. **Combine 100%** of the subsidiary's assets, liabilities, revenues, and expenses with the parent's\n2. **Eliminate intercompany transactions** (sales between parent and subsidiary)\n3. **Recognize goodwill**: excess of purchase price over fair value of net identifiable assets\n4. **Recognize minority (noncontrolling) interest**: the portion of equity not owned by the parent\n\n$$\\text{Goodwill} = \\text{Purchase Price} - \\text{Fair Value of Net Identifiable Assets Acquired}$$\n\n### SPVs and VIEs\n\n**Special Purpose Vehicles (SPVs)** and **Variable Interest Entities (VIEs)** are entities that may require consolidation even without majority ownership. Under US GAAP, the **primary beneficiary** of a VIE \u2014 the entity that absorbs the majority of expected losses or receives the majority of expected residual returns \u2014 must consolidate the VIE. This prevents off-balance-sheet financing abuse.\n\n### IFRS vs GAAP Key Differences\n\n| Topic | IFRS | US GAAP |\n|---|---|---|\n| Equity method \u2014 associate losses | Stop at zero; resume when share of profits exceed unrecognized losses | Same general treatment |\n| Goodwill impairment | One-step (compare recoverable amount to carrying amount) | Two-step for reporting units (ASU 2017-04 simplified to one-step optional) |\n| Classification of debt investments | Business model + cash flow characteristics (IFRS 9) | Three categories: trading, AFS, HTM (ASC 320) |\n| OCI recycling for equity FVOCI | No recycling to P&L (IFRS) | Not available as classification |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Equity Method Investment Analysis",
+      "solution": "ParentCo acquires a 40% stake in TargetCo for $500 million. TargetCo's book value of equity is $800 million. The excess is attributable to equipment with a 10-year remaining life.\n\nStep 1: Calculate excess purchase price\n- Share of book value: 40% \u00d7 $800M = $320M\n- Excess: $500M \u2212 $320M = $180M (allocated to equipment)\n- Annual amortization of excess: $180M / 10 = $18M\n\nStep 2: Year 1 \u2014 TargetCo reports NI of $100M, pays dividends of $30M\n- Share of NI: 40% \u00d7 $100M = $40M\n- Less amortization of excess: \u2212$18M\n- Equity income recognized: $22M\n- Dividends received: 40% \u00d7 $30M = $12M (reduces investment, not income)\n\nStep 3: Year-end investment balance\n- Beginning: $500M\n- + Equity income: $22M\n- \u2212 Dividends: $12M\n- = Ending: $510M"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Intercorporate Investments Practice",
+      "problems": [
+        {
+          "id": "fsa-ici-1",
+          "vignette": "Meridian Corp acquires a 35% interest in Apex Inc. for $280 million on January 1. Apex's book value of equity at acquisition is $600 million. The entire excess of purchase price over Meridian's share of book value is attributable to a patent with a remaining useful life of 7 years. During Year 1, Apex reports net income of $90 million and pays dividends of $20 million.\n\nMeridian's analyst is calculating the equity method investment balance and income recognition.",
+          "question": "Meridian's equity income from Apex for Year 1 is closest to:",
+          "options": [
+            "A) $14.5 million",
+            "B) $21.5 million",
+            "C) $31.5 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Share of book value: 35% \u00d7 $600M = $210M. Excess: $280M \u2212 $210M = $70M (allocated to patent). Annual amortization of excess: $70M / 7 years = $10M. Equity income = Share of NI \u2212 Amortization of excess = (35% \u00d7 $90M) \u2212 $10M = $31.5M \u2212 $10M = $21.5M. The amortization of the excess purchase price reduces the investor's recognized income below its simple share of net income. Option A would result from a shorter patent life assumption. Option C ignores the required amortization of excess entirely, overstating equity income.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate equity method income including amortization of excess purchase price"
+        },
+        {
+          "id": "fsa-ici-2",
+          "vignette": "Meridian Corp acquires a 35% interest in Apex Inc. for $280 million on January 1. Apex's book value of equity at acquisition is $600 million. The entire excess of purchase price over Meridian's share of book value is attributable to a patent with a remaining useful life of 7 years. During Year 1, Apex reports net income of $90 million and pays dividends of $20 million.",
+          "question": "The carrying value of Meridian's investment in Apex at the end of Year 1 is closest to:",
+          "options": [
+            "A) $277.5 million",
+            "B) $287.0 million",
+            "C) $294.5 million"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Starting balance: $280M. Add equity income (after amortization): $21.5M (calculated as 35% \u00d7 $90M \u2212 $10M amortization). Less dividends received: 35% \u00d7 $20M = $7M. Ending balance: $280M + $21.5M \u2212 $7M = $294.5M. Equivalently: $280 + $31.5 (share of NI) \u2212 $10 (amortization) \u2212 $7 (dividends) = $294.5M. Note that dividends reduce the investment carrying value, not income. Option A would result if both dividends and amortization were double-counted. Option B underestimates the carrying value.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate the carrying value of an equity method investment"
+        },
+        {
+          "id": "fsa-ici-3",
+          "vignette": "Helena Bergstr\u00f6m, CFA, is analyzing Consolidated Industries (CI), which acquired 100% of SubCo for $500 million. At acquisition, SubCo's identifiable net assets had a fair value of $420 million and a book value of $350 million. CI financed the acquisition with $300 million in cash and $200 million in newly issued debt.\n\nBergstr\u00f6m notes that CI also has a variable interest entity (VIE) that is not currently consolidated but has $150 million in assets and $140 million in debt.",
+          "question": "If the VIE should be consolidated, the most significant impact on CI's financial statements would be:",
+          "options": [
+            "A) An increase in reported revenues with no change in total assets",
+            "B) An increase in total assets by $150 million and total liabilities by $140 million, increasing leverage ratios",
+            "C) A decrease in net income due to the VIE's operating losses"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Consolidating the VIE requires adding 100% of its assets ($150M) and liabilities ($140M) to CI's balance sheet. The net equity impact is only $10M, but gross assets and liabilities both increase substantially. This significantly increases leverage ratios (debt-to-equity, debt-to-assets) \u2014 which is precisely why some companies attempt to avoid consolidation of VIEs. Option A is partially correct (revenues may increase) but omits the balance sheet impact, which is typically more significant. Option C may or may not be true depending on the VIE's profitability and is not the 'most significant' impact.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Explain the impact of consolidating VIEs on financial statements and ratios"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between the equity method and full consolidation to a colleague who understands basic accounting. Focus on how each approach affects the income statement, balance sheet, and key financial ratios like profit margin and leverage."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might an analyst need to adjust reported financial statements when comparing a company using the equity method to one that consolidates a similar subsidiary?",
+        "How do SPVs/VIEs create risks for investors who rely solely on reported financial statements?",
+        "What additional information would you seek when analyzing a company with significant equity method investments?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **< 20% ownership**: Fair value method (FVPL or FVOCI)\n- **20\u201350% ownership**: Equity method \u2014 record share of NI, dividends reduce carrying value\n- **> 50% ownership**: Full consolidation \u2014 combine all assets, liabilities, revenues, expenses\n- Equity method **overstates margins** and **understates leverage** vs. consolidation\n- Excess purchase price allocated to identifiable assets must be amortized\n- **VIEs** must be consolidated by the primary beneficiary regardless of ownership %\n- IFRS and GAAP differ on debt classification, goodwill impairment, and OCI recycling"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Employee Compensation**, where you'll learn how defined benefit pensions and share-based compensation affect financial statements \u2014 including how unfunded pension obligations can represent hidden leverage similar to off-balance-sheet VIEs."
+    }
+  ]
+}

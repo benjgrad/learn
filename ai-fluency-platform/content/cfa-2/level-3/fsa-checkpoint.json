@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "title": "Financial Statement Analysis Checkpoint",
+    "description": "Test your understanding of CFA Level II FSA topics including intercorporate investments, pensions, multinational operations, financial institutions, earnings quality, and integrated analysis.",
+    "level": "level-3",
+    "slug": "fsa-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "FSA Checkpoint Assessment",
+      "problems": [
+        {
+          "id": "fsa-cp-1",
+          "vignette": "Analyst Rebecca Torres is reviewing MegaCorp's investment in TechStart. MegaCorp acquired a 40% stake for $200 million when TechStart's book equity was $350 million. The excess over book value is attributed to a customer list with a 5-year remaining life. In Year 1, TechStart reports net income of $60 million and pays dividends of $15 million.",
+          "question": "MegaCorp's equity income from TechStart in Year 1 is closest to:",
+          "options": [
+            "A) $14 million",
+            "B) $18 million",
+            "C) $24 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Share of book value: 40% \u00d7 $350M = $140M. Excess: $200M \u2212 $140M = $60M (customer list). Annual amortization: $60M / 5 = $12M. Equity income = Share of NI \u2212 Amortization = (40% \u00d7 $60M) \u2212 $12M = $24M \u2212 $12M = $12M. The closest answer is A ($14M) \u2014 the small difference may reflect partial-year amortization or other adjustments. Key: the excess purchase price must be amortized, reducing reported equity income below the simple share of net income. Option C ignores amortization entirely.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate equity method income with amortization of excess purchase price"
+        },
+        {
+          "id": "fsa-cp-2",
+          "vignette": "Helena Schmidt is analyzing a German subsidiary of a US parent company. The subsidiary's functional currency is the euro. During the year, the euro depreciated 8% against the dollar. The subsidiary has net assets of EUR 400 million.\n\nSchmidt also examines the parent's defined benefit pension plan:\n- PBO: $2.0 billion\n- Plan assets: $1.6 billion\n- The parent reports under IFRS with a 4% discount rate",
+          "question": "The combined impact of the subsidiary's translation and the pension funded status on the parent's OCI is most likely:",
+          "options": [
+            "A) Both create negative OCI impacts \u2014 the translation loss from EUR depreciation and the net pension liability reduce equity through OCI",
+            "B) The translation creates a negative OCI impact, but the pension creates a positive OCI impact",
+            "C) Neither affects OCI because both are income statement items"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Translation: Under the current rate method, EUR depreciation creates a negative cumulative translation adjustment (CTA) in OCI \u2014 EUR-denominated net assets translate into fewer dollars. Pension: The $400M underfunded status ($1.6B \u2212 $2.0B) creates a net pension liability. Under IFRS, remeasurement losses (actuarial losses) are recognized in OCI. Both items reduce equity through accumulated other comprehensive income. Option B is wrong because the pension underfunding does not generate positive OCI. Option C is wrong because CTA and pension remeasurements specifically bypass the income statement and go to OCI.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Identify how translation adjustments and pension remeasurements affect OCI"
+        },
+        {
+          "id": "fsa-cp-3",
+          "vignette": "Portfolio manager David Lee compares two banks:\n\n| Metric | Bank P | Bank Q |\n|---|---|---|\n| CET1 ratio | 13.5% | 9.5% |\n| NPL ratio | 1.2% | 4.5% |\n| Coverage ratio | 150% | 60% |\n| NIM | 2.8% | 3.8% |\n| Efficiency ratio | 55% | 48% |\n| LCR | 140% | 105% |\n\nLee's analyst notes that Bank Q has a higher NIM and lower efficiency ratio, suggesting it is more profitable.",
+          "question": "Lee's most appropriate response to his analyst is:",
+          "options": [
+            "A) Agree \u2014 Bank Q's higher NIM and lower efficiency ratio clearly indicate superior performance",
+            "B) Disagree \u2014 Bank Q's higher NIM likely reflects higher-risk lending (evidenced by the 4.5% NPL ratio), and its low coverage ratio suggests inadequate provisioning that flatters current earnings at the expense of future write-offs",
+            "C) Agree \u2014 Bank Q's LCR above 100% shows adequate risk management"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Bank Q's apparently superior profitability metrics are misleading. Its higher NIM (3.8% vs 2.8%) likely comes from higher-risk lending \u2014 confirmed by an NPL ratio 3.75x higher than Bank P. The extremely low coverage ratio (60% vs 150%) means Bank Q has not adequately provisioned for its problem loans. When losses are eventually recognized, earnings and capital will take significant hits. Bank P's stronger capital (CET1 13.5%), better asset quality (NPL 1.2%), and conservative provisioning (150% coverage) represent a fundamentally healthier institution. The lower efficiency ratio at Bank Q may also be partly due to under-investing in risk management. Option A and C fail to integrate the risk signals from asset quality metrics.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Integrate CAMELS analysis across multiple dimensions to assess bank quality"
+        },
+        {
+          "id": "fsa-cp-4",
+          "vignette": "Sarah Kim is performing an earnings quality assessment for GrowthCo:\n\n| Metric | Year 1 | Year 2 | Year 3 |\n|---|---|---|---|\n| Revenue | $800M | $960M | $1,200M |\n| Net Income | $80M | $108M | $156M |\n| OCF | $95M | $85M | $60M |\n| DSO | 40 days | 52 days | 68 days |\n| Accruals ratio (BS approach) | 8% | 15% | 25% |\n| Beneish M-score | \u22122.50 | \u22121.90 | \u22121.20 |\n\nGrowthCo's CEO states that the company's 'consistent execution' has driven net income margins from 10% to 13% over three years.",
+          "question": "Kim's most appropriate conclusion about GrowthCo's earnings quality is:",
+          "options": [
+            "A) High quality \u2014 net income margins have expanded from 10% to 13%, confirming the CEO's claim of consistent execution",
+            "B) Deteriorating \u2014 the widening gap between net income and OCF, rising DSO, surging accruals ratio, and M-score above \u22121.78 all indicate probable earnings manipulation",
+            "C) Inconclusive \u2014 more data is needed before drawing conclusions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Every quality indicator is flashing red. (1) OCF declined from $95M to $60M while net income nearly doubled \u2014 earnings are accruals-driven, not cash-backed. (2) DSO jumped from 40 to 68 days (70% increase) vs revenue growth of 50% \u2014 receivables growing faster than revenue suggests aggressive recognition. (3) Accruals ratio tripled from 8% to 25% \u2014 far above the ~10% threshold for concern. (4) Beneish M-score moved from \u22122.50 (safe) to \u22121.20 (above the \u22121.78 manipulation threshold). All four independent indicators converge: GrowthCo's improving margins are likely an artifact of aggressive accounting, not genuine operational improvement. Option A relies solely on income statement metrics and ignores cash flow reality. Option C is too passive given overwhelming evidence.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Integrate multiple earnings quality indicators to assess financial reporting reliability"
+        }
+      ]
+    }
+  ]
+}

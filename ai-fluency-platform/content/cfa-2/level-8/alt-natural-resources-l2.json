@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "Alt.3: Natural Resources",
+    "description": "Understand commodity futures pricing, contango, backwardation, roll yield, commodity indices, farmland and timberland valuation, and inflation hedging properties.",
+    "level": "level-8",
+    "slug": "alt-natural-resources-l2",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Crude oil futures for delivery in 6 months are priced higher than the current spot price. Is this a sign that the market expects oil prices to rise? What other factors could explain this pattern?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Commodity Futures Pricing\n\n### Cost of Carry Model\n\nFor storable commodities, the futures price reflects storage costs and the convenience yield:\n\n$$F_0(T) = S_0 \\times e^{(r + c - y)T}$$\n\nWhere:\n- $r$ = risk-free rate (financing cost)\n- $c$ = storage costs (as a continuous rate)\n- $y$ = convenience yield (benefit of holding physical inventory)\n\n### Contango and Backwardation\n\n| Term | Definition | Futures Curve | Implication |\n|------|-----------|---------------|-------------|\n| **Contango** | $F > S$ | Upward sloping | Storage costs + financing > convenience yield |\n| **Backwardation** | $F < S$ | Downward sloping | Convenience yield > storage costs + financing |\n| **Normal contango** | $F >$ expected $S_T$ | \u2014 | Futures price exceeds expected spot (hedging premium) |\n| **Normal backwardation** | $F <$ expected $S_T$ | \u2014 | Futures price below expected spot (Keynes's theory) |\n\nBackwardation tends to occur when physical supply is tight and holders of inventory derive high convenience yields from having commodity on hand."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A commodity index fund rolls expiring near-month contracts into the next month. If the futures curve is in contango, does this rolling process generate a profit or a loss?",
+      "answer": "A loss (negative roll yield). In contango, the next-month contract is priced higher than the expiring contract. The fund sells the cheaper expiring contract and buys the more expensive next-month contract, resulting in fewer contracts held and a drag on returns. This 'roll cost' is a major source of underperformance for passive commodity index funds in persistently contango markets."
+    },
+    {
+      "type": "markdown",
+      "content": "## Components of Commodity Returns\n\nTotal return from a commodity futures investment has three components:\n\n$$\\text{Total Return} = \\text{Spot Return} + \\text{Roll Yield} + \\text{Collateral Yield}$$\n\n### Spot (Price) Return\nChange in the spot price of the commodity. Driven by supply/demand fundamentals.\n\n### Roll Yield\nGain or loss from rolling expiring contracts into new ones:\n- **Positive** in backwardation (buy cheaper far contracts, converge to higher spot)\n- **Negative** in contango (buy more expensive far contracts)\n\n### Collateral Yield\nInterest earned on the cash or Treasury securities posted as margin for the futures position. In a fully collateralized strategy, the full notional value earns the risk-free rate.\n\n### Commodity Indices\n\n| Index | Weighting | Roll Method |\n|-------|-----------|-------------|\n| **S&P GSCI** | Production-weighted | Front-month |\n| **Bloomberg Commodity** | Liquidity + production | Diversification rules |\n| **DBIQ Optimum Yield** | Optimized roll | Picks contract on curve to maximize roll yield |\n\nIndex construction significantly affects returns due to different roll methodologies and commodity weightings."
+    },
+    {
+      "type": "markdown",
+      "content": "## Farmland, Timberland, and Inflation Hedging\n\n### Farmland\n\n- Returns from **crop production** (annual income) and **land appreciation**\n- Valuation based on productive capacity: soil quality, water access, climate\n- Low correlation with stocks and bonds\n- Inflation hedge: food prices and land values tend to rise with inflation\n- Illiquid, heterogeneous assets requiring specialized management\n\n### Timberland\n\n- Unique biological growth factor: trees grow ~6-8% per year in volume regardless of market conditions\n- **Harvest flexibility**: can defer cutting when lumber prices are low, essentially storing value \"on the stump\"\n- Returns from timber sales + land appreciation\n- Inflation-sensitive: lumber prices track construction costs\n- Very long investment horizons (20-30+ years for certain species)\n\n### Inflation Hedging Properties\n\n| Asset Class | Inflation Sensitivity | Mechanism |\n|------------|----------------------|----------|\n| Commodities | High, short-term | Direct component of inflation baskets |\n| Farmland | Moderate-high | Crop prices rise with inflation |\n| Timberland | Moderate | Lumber prices and biological growth |\n| Real estate | Moderate | Rents adjust with inflation over time |\n| Stocks | Weak, short-term | Revenue growth, but margins may compress |\n| Nominal bonds | Negative | Fixed coupons lose real purchasing power |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A commodity index fund is fully collateralized and invests in crude oil futures. The spot price is $70/barrel, the 1-month futures price is $71.50, the risk-free rate is 4% annually, and over the next month the spot price rises to $72. Calculate the spot return, approximate roll yield, and collateral yield for the month. What is the total return?",
+      "solution": "**Spot Return:**\n\n$(72 - 70) / 70 = 2.86\\%$\n\n**Roll Yield (approximate):**\n\nThe fund bought the 1-month future at $71.50, which converges to the spot price of $72 at expiration. The roll yield captures the difference between the futures price paid and where it converges. However, the fund must then buy the next month's contract (assume next-month at similar premium). Monthly roll loss \u2248 $(70 - 71.50)/70 = -2.14\\%$ (buying more expensive futures in contango).\n\n**Collateral Yield:**\n\n$4\\% / 12 = 0.33\\%$ per month\n\n**Total Return:**\n\n$2.86\\% + (-2.14\\%) + 0.33\\% = 1.05\\%$\n\nNote: despite a 2.86% spot gain, the contango roll cost eroded most of the return. This illustrates why passive commodity index returns often lag spot price returns."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Natural Resources \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "alt3-1",
+          "question": "**Vignette: Harvest Capital Management**\n\nElena Rodriguez manages a natural resources allocation for a pension fund. She is reviewing the following data:\n\n| Commodity | Spot | 3-Month Future | 12-Month Future |\n|-----------|------|----------------|------------------|\n| Crude Oil | $75.00 | $76.80 | $78.50 |\n| Natural Gas | $3.20 | $3.05 | $2.85 |\n| Gold | $1,950 | $1,965 | $2,010 |\n\nThe risk-free rate is 4.5% annually. Elena is evaluating whether to add a commodity allocation and which index to use.\n\n---\n\n**Question 1:** The commodity exhibiting backwardation is:",
+          "options": [
+            "A) Crude oil",
+            "B) Natural gas",
+            "C) Gold"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Natural gas is in backwardation \u2014 the futures price ($3.05 at 3 months, $2.85 at 12 months) is below the spot price ($3.20). The futures curve is downward sloping. This typically indicates tight current supply or high convenience yield (e.g., heating season demand). Crude oil and gold are both in contango (futures > spot).",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Identify contango and backwardation from futures curve data"
+        },
+        {
+          "id": "alt3-2",
+          "question": "**Question 2 (continued):** A passive index fund holding natural gas futures and rolling monthly would most likely experience:",
+          "options": [
+            "A) Negative roll yield, reducing total returns",
+            "B) Positive roll yield, enhancing total returns",
+            "C) Zero roll yield, with returns matching spot price changes"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In backwardation, the fund sells expiring contracts near the spot price and buys cheaper far-month contracts. As these cheaper contracts converge upward to the spot price, positive roll yield is generated. This is the opposite of contango, where roll yield is negative. This positive roll yield can significantly enhance returns in persistently backwardated markets.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain the relationship between futures curve shape and roll yield"
+        },
+        {
+          "id": "alt3-3",
+          "question": "**Question 3 (continued):** Elena is comparing the S&P GSCI (production-weighted, front-month roll) with the DBIQ Optimum Yield Index. In a persistently contango market, the DBIQ index would most likely:",
+          "options": [
+            "A) Underperform the GSCI due to longer contract holding periods",
+            "B) Outperform the GSCI by selecting contracts that minimize roll cost",
+            "C) Match the GSCI since both track the same commodities"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The DBIQ Optimum Yield Index selects the contract on the futures curve that maximizes roll yield (or minimizes roll cost). In contango, this means selecting contracts further out on the curve where the slope may flatten, reducing the roll loss. The GSCI's mechanical front-month roll incurs the steepest contango cost. Option A is incorrect \u2014 longer holding periods in contango can actually be beneficial. Option C ignores the significant impact of roll methodology on returns.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Compare commodity index construction methodologies and their return implications"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a portfolio manager why commodity futures returns can differ dramatically from spot commodity price changes. Use the concepts of roll yield and contango/backwardation to illustrate how a commodity can rise in spot price while a futures-based fund underperforms."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might the convenience yield for a commodity like heating oil spike during winter months?",
+        "How does timberland's biological growth provide a natural option-like characteristic?",
+        "What are the limitations of using commodities as an inflation hedge for a long-term investor?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Futures price: $F_0 = S_0 \\times e^{(r + c - y)T}$ (r = financing, c = storage, y = convenience yield)\n- Total return = Spot return + Roll yield + Collateral yield\n- Contango ($F > S$): negative roll yield; backwardation ($F < S$): positive roll yield\n- Index methodology (weighting, roll rules) significantly affects returns\n- Timberland: biological growth + harvest flexibility = embedded optionality\n- Farmland: crop income + land appreciation, moderate-high inflation sensitivity\n- Commodities are strong short-term inflation hedges; real assets hedge over longer horizons"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Hedge Fund Strategies**, where you will study how managers use long/short positions, leverage, and derivatives across multiple asset classes \u2014 including commodities \u2014 to generate alpha. Many hedge fund strategies exploit the very mispricings and structural features you have just studied."
+    }
+  ]
+}

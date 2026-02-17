@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.9: Term Structure of Interest Rates",
+    "description": "Analyze yield curve shapes, spot rates, forward rates, bootstrapping, and theories explaining the term structure.",
+    "level": "level-6",
+    "slug": "fi-term-structure",
+    "order": 9,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "The yield on a 10-year Treasury is currently lower than the yield on a 2-year Treasury (an inverted yield curve). What might this signal about the market's expectation for future economic conditions?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Yield Curve Shapes\n\nThe **yield curve** plots yields against maturities for bonds of the same credit quality (typically government bonds).\n\n| Shape | Description | Typical Signal |\n|---|---|---|\n| **Normal (upward sloping)** | Long-term yields > short-term yields | Economic expansion expected; investors demand premium for longer maturities |\n| **Inverted (downward sloping)** | Short-term yields > long-term yields | Recession expected; markets anticipate rate cuts |\n| **Flat** | Similar yields across maturities | Transition period; uncertainty about economic direction |\n| **Humped** | Medium-term yields highest | Mixed expectations; short- and long-term rates expected to converge |\n\n## Spot Rates and Forward Rates\n\n**Spot rates** ($z_t$) are yields on zero-coupon bonds for specific maturities. The spot rate curve is the foundation for bond pricing:\n\n$$P = \\frac{C}{(1+z_1)} + \\frac{C}{(1+z_2)^2} + \\cdots + \\frac{C + F}{(1+z_n)^n}$$\n\n**Forward rates** ($f_{t_1,t_2}$) are implied future interest rates derived from spot rates. The forward rate from year 1 to year 2 is:\n\n$$f_{1,1} = \\frac{(1+z_2)^2}{(1+z_1)} - 1$$\n\nMore generally, the $k$-period forward rate starting at time $t$:\n\n$$(1+z_{t+k})^{t+k} = (1+z_t)^t \\times (1+f_{t,k})^k$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If the 1-year spot rate is 3% and the 2-year spot rate is 4%, is the 1-year forward rate one year from now higher or lower than 4%?",
+      "answer": "Higher than 4%. The forward rate must be high enough so that investing for 1 year at 3% and then 1 year at the forward rate gives the same result as investing for 2 years at 4%. Solving: (1.03)(1 + f) = (1.04)\u00b2, so f = (1.04)\u00b2/1.03 \u2212 1 = 1.0816/1.03 \u2212 1 = 5.01%. The forward rate (5.01%) exceeds the 2-year spot rate (4%) because it must compensate for the lower first-year rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Bootstrapping\n\n**Bootstrapping** is the process of deriving spot rates from the prices of coupon-paying bonds.\n\n### Example\n\n- 1-year zero-coupon bond priced at 97.09 \u2192 $z_1 = 100/97.09 - 1 = 3.00\\%$\n- 2-year 4% coupon bond priced at 100.00\n\nSolve for $z_2$:\n\n$$100 = \\frac{4}{1.03} + \\frac{104}{(1+z_2)^2}$$\n\n$$100 = 3.883 + \\frac{104}{(1+z_2)^2}$$\n\n$$96.117 = \\frac{104}{(1+z_2)^2}$$\n\n$$(1+z_2)^2 = \\frac{104}{96.117} = 1.08198$$\n\n$$z_2 = 1.08198^{0.5} - 1 = 4.015\\%$$\n\nThis process continues sequentially \u2014 each new maturity uses all previously determined spot rates."
+    },
+    {
+      "type": "markdown",
+      "content": "## Theories of the Term Structure\n\n### Pure Expectations Theory\n\nForward rates are **unbiased predictors** of future spot rates. The yield curve shape reflects only market expectations for future rates \u2014 no risk premium. An upward-sloping curve means the market expects rates to rise.\n\n**Limitation**: Ignores the fact that investors typically demand compensation for the uncertainty of lending over longer periods.\n\n### Liquidity Preference Theory\n\nInvestors demand a **liquidity premium** for holding longer-term bonds because of their greater price risk. Forward rates = expected future spot rates + a liquidity premium. This theory predicts a positive bias toward upward-sloping curves.\n\n$$f_{t,1} = E(z_{t,1}) + L_t$$\n\nwhere $L_t > 0$ and increasing with maturity.\n\n### Market Segmentation Theory\n\nBorrowers and lenders have **preferred maturity ranges** and will not easily shift between segments. Supply and demand within each segment independently determines rates for that maturity. This explains why different parts of the curve can move independently.\n\n### Preferred Habitat Theory\n\nInvestors have preferred maturities but **will shift** if offered a sufficient yield premium. This combines elements of expectations theory and segmentation \u2014 rates are determined by expectations plus term premiums that can vary across maturities."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Given the following spot rates: z\u2081 = 2.50%, z\u2082 = 3.00%, z\u2083 = 3.80%. Calculate the 1-year forward rate two years from now (f\u2082,\u2081).",
+      "solution": "The relationship between spot rates and forward rates:\n\n$$(1 + z_3)^3 = (1 + z_2)^2 \\times (1 + f_{2,1})$$\n\nSolving for $f_{2,1}$:\n\n$$f_{2,1} = \\frac{(1 + z_3)^3}{(1 + z_2)^2} - 1 = \\frac{(1.038)^3}{(1.03)^2} - 1$$\n\n$$= \\frac{1.11877}{1.0609} - 1 = 1.05455 - 1 = 5.455\\%$$\n\nThe implied 1-year forward rate starting in year 2 is 5.46%. This is significantly higher than the 3-year spot rate (3.80%) because the steep increase in spot rates from year 2 to year 3 implies a high rate in that final year."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Term Structure Practice",
+      "problems": [
+        {
+          "id": "fi9-1",
+          "question": "The 1-year spot rate is 4.00% and the 2-year spot rate is 5.00%. The 1-year forward rate one year from now is closest to:",
+          "options": [
+            "A) 4.50%",
+            "B) 5.00%",
+            "C) 6.01%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "f\u2081,\u2081 = (1 + z\u2082)\u00b2 / (1 + z\u2081) \u2212 1 = (1.05)\u00b2 / (1.04) \u2212 1 = 1.1025/1.04 \u2212 1 = 1.06010 \u2212 1 = 6.01%. The forward rate must exceed the 2-year spot rate to compensate for the lower 1-year rate. Option A is the simple average of the two spot rates (incorrect method). Option B equals the 2-year spot rate (only correct if z\u2081 = z\u2082).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate forward rates from spot rates"
+        },
+        {
+          "id": "fi9-2",
+          "question": "According to the liquidity preference theory, an upward-sloping yield curve indicates that the market:",
+          "options": [
+            "A) Definitely expects short-term rates to increase",
+            "B) May or may not expect rates to increase, because the curve includes a liquidity premium",
+            "C) Expects inflation to decrease in the future"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under liquidity preference theory, forward rates include a liquidity premium that creates an upward bias. An upward-sloping curve could reflect expectations of rising rates, or it could simply reflect the liquidity premium \u2014 or a combination of both. Option A would only be correct under pure expectations theory. Option C is not supported \u2014 declining inflation expectations would tend to flatten or invert the curve.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Interpret the yield curve shape under different term structure theories"
+        },
+        {
+          "id": "fi9-3",
+          "question": "A 1-year zero-coupon bond yields 3.00% and a 2-year 5% annual coupon bond is priced at par. Using bootstrapping, the 2-year spot rate is closest to:",
+          "options": [
+            "A) 4.50%",
+            "B) 5.00%",
+            "C) 5.03%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Priced at par with a 5% coupon: 100 = 5/(1.03) + 105/(1 + z\u2082)\u00b2. Solving: 100 = 4.854 + 105/(1 + z\u2082)\u00b2. So 95.146 = 105/(1 + z\u2082)\u00b2. (1 + z\u2082)\u00b2 = 105/95.146 = 1.10346. z\u2082 = 1.10346^0.5 \u2212 1 = 1.05047 \u2212 1 = 5.05%, closest to 5.03%. Option A is a simple average. Option B is the YTM, not the spot rate \u2014 the spot rate differs slightly because the first coupon is discounted at the lower 1-year spot rate.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Derive spot rates using the bootstrapping method"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between spot rates and forward rates. Then describe why the forward rate between years 2 and 3 can be very different from both the 2-year and 3-year spot rates, using a simple numerical example."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might the pure expectations theory be insufficient to explain yield curve shapes in practice?",
+        "How does preferred habitat theory reconcile elements of both expectations and segmentation theories?",
+        "If you observed a humped yield curve, what might that signal about market expectations?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Yield curve shapes: normal, inverted, flat, humped \u2014 each signals different expectations\n- **Spot rates**: Yields on zero-coupon bonds; the fundamental building blocks of bond pricing\n- **Forward rates**: Implied future spot rates; $f_{1,1} = (1+z_2)^2/(1+z_1) - 1$\n- **Bootstrapping**: Sequentially deriving spot rates from coupon bond prices\n- **Pure expectations**: Forward rates = expected future spot rates (no premium)\n- **Liquidity preference**: Forward rates = expected rates + liquidity premium (upward bias)\n- **Market segmentation**: Supply/demand in each maturity segment sets rates independently\n- **Preferred habitat**: Investors will shift maturities for sufficient yield premium"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Interest Rate Risk and Return**, examining how the three components of bond return (coupon income, reinvestment income, and price change) interact over different investment horizons."
+    }
+  ]
+}

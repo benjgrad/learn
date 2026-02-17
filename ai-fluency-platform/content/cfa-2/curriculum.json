@@ -1,0 +1,908 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "title": "Quantitative Methods",
+      "subtitle": "Statistical tools and mathematical foundations for investment analysis",
+      "color": "#3b82f6",
+      "description": "Master statistical methods, probability, hypothesis testing, regression analysis, and data science techniques used in investment analysis.",
+      "moduleCount": 9,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 2,
+      "title": "Economics",
+      "subtitle": "Micro and macroeconomic theory applied to financial markets",
+      "color": "#059669",
+      "description": "Understand market structures, business cycles, monetary and fiscal policy, international trade, and exchange rate mechanics.",
+      "moduleCount": 4,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 3,
+      "title": "Financial Statement Analysis",
+      "subtitle": "Analyzing financial statements for investment decisions",
+      "color": "#d97706",
+      "description": "Develop expertise in analyzing income statements, balance sheets, cash flows, and financial ratios across accounting standards.",
+      "moduleCount": 8,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 4,
+      "title": "Corporate Issuers",
+      "subtitle": "Corporate structure, governance, and capital allocation",
+      "color": "#7c3aed",
+      "description": "Analyze corporate governance, capital structure, working capital management, and business models for investment evaluation.",
+      "moduleCount": 6,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 5,
+      "title": "Equity Investments",
+      "subtitle": "Equity markets, valuation, and security analysis",
+      "color": "#e11d48",
+      "description": "Learn equity market structure, security analysis, industry analysis, and valuation techniques for equity investments.",
+      "moduleCount": 8,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 6,
+      "title": "Fixed Income",
+      "subtitle": "Bond markets, valuation, and risk management",
+      "color": "#0891b2",
+      "description": "Master bond valuation, yield analysis, duration and convexity, credit analysis, and structured products.",
+      "moduleCount": 7,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 7,
+      "title": "Derivatives",
+      "subtitle": "Forwards, futures, options, and swaps",
+      "color": "#ca8a04",
+      "description": "Understand derivative instruments, pricing models, and their applications in hedging and speculation.",
+      "moduleCount": 4,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 8,
+      "title": "Alternative Investments",
+      "subtitle": "Private equity, real estate, hedge funds, and more",
+      "color": "#4f46e5",
+      "description": "Explore private equity, real estate, hedge funds, commodities, and digital assets as portfolio diversifiers.",
+      "moduleCount": 6,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 9,
+      "title": "Portfolio Management",
+      "subtitle": "Portfolio theory, construction, and risk management",
+      "color": "#16a34a",
+      "description": "Apply portfolio theory, risk management, and behavioral finance to construct and manage investment portfolios.",
+      "moduleCount": 8,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 10,
+      "title": "Ethical and Professional Standards",
+      "subtitle": "CFA Institute Code of Ethics and Standards of Practice",
+      "color": "#dc2626",
+      "description": "Apply the CFA Institute Code of Ethics and Standards of Professional Conduct to investment scenarios.",
+      "moduleCount": 5,
+      "levelLabel": "Topic"
+    },
+    {
+      "level": 11,
+      "title": "Mock Exams",
+      "subtitle": "Full-length practice exams simulating real test conditions",
+      "color": "#6366f1",
+      "description": "Test your knowledge with full-length mock exams that simulate the actual CFA exam experience.",
+      "moduleCount": 2,
+      "levelLabel": "Topic"
+    }
+  ],
+  "modules": {
+    "level-1": [
+      {
+        "title": "Quantitative Methods",
+        "description": "Master statistical methods, probability, hypothesis testing, regression analysis, and data science techniques used in investment analysis.",
+        "level": "level-1",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "QM.1: Basics of Multiple Regression",
+        "description": "Formulate and interpret multiple regression models. Test hypotheses about regression coefficients.",
+        "level": "level-1",
+        "slug": "quant-multiple-regression-basics",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      },
+      {
+        "title": "QM.2: Evaluating Regression Model Fit",
+        "description": "Evaluate regression model fit using R-squared, adjusted R-squared, F-statistic, and interpret model results.",
+        "level": "level-1",
+        "slug": "quant-regression-model-fit",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      },
+      {
+        "title": "QM.3: Model Misspecification",
+        "description": "Detect and correct heteroskedasticity, serial correlation, multicollinearity, and misspecified functional forms.",
+        "level": "level-1",
+        "slug": "quant-model-misspecification",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      },
+      {
+        "title": "QM.4: Extensions of Multiple Regression",
+        "description": "Apply qualitative variables, interaction terms, and logistic regression in financial modeling.",
+        "level": "level-1",
+        "slug": "quant-regression-extensions",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      },
+      {
+        "title": "QM.5: Time-Series Analysis",
+        "description": "Model and forecast time series using AR, MA, and ARMA models. Test for stationarity and cointegration.",
+        "level": "level-1",
+        "slug": "quant-time-series",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      },
+      {
+        "title": "QM.6: Machine Learning",
+        "description": "Describe supervised and unsupervised learning techniques and their applications in investment analysis.",
+        "level": "level-1",
+        "slug": "quant-machine-learning",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      },
+      {
+        "title": "QM.7: Big Data Projects",
+        "description": "Describe big data project steps, data quality issues, and the application of text analytics in finance.",
+        "level": "level-1",
+        "slug": "quant-big-data-projects",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      },
+      {
+        "title": "QM: Quantitative Methods Practice Drill",
+        "description": "20 practice problems covering Level II Quantitative Methods.",
+        "level": "level-1",
+        "slug": "quant-practice",
+        "order": 8,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Quantitative Methods Checkpoint",
+        "description": "Test your understanding across all Level II Quantitative Methods topics.",
+        "level": "level-1",
+        "slug": "quant-checkpoint",
+        "order": 9,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Quantitative Methods"
+      }
+    ],
+    "level-2": [
+      {
+        "title": "Economics",
+        "description": "Understand market structures, business cycles, monetary and fiscal policy, international trade, and exchange rate mechanics.",
+        "level": "level-2",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "ECON.1: Currency Exchange Rates: Understanding Equilibrium Value",
+        "description": "Apply parity conditions, arbitrage, and balance of payments analysis to currency valuation and forecasting.",
+        "level": "level-2",
+        "slug": "econ-currency-exchange-rates",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Economics"
+      },
+      {
+        "title": "ECON.2: Economic Growth",
+        "description": "Describe theories of economic growth and their implications for investment decision-making.",
+        "level": "level-2",
+        "slug": "econ-economic-growth",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Economics"
+      },
+      {
+        "title": "ECON: Economics Practice Drill",
+        "description": "15 practice problems covering Level II Economics.",
+        "level": "level-2",
+        "slug": "econ-practice",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Economics",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Economics Checkpoint",
+        "description": "Test your understanding across all Level II Economics topics.",
+        "level": "level-2",
+        "slug": "econ-checkpoint",
+        "order": 4,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Economics"
+      }
+    ],
+    "level-3": [
+      {
+        "title": "Financial Statement Analysis",
+        "description": "Develop expertise in analyzing income statements, balance sheets, cash flows, and financial ratios across accounting standards.",
+        "level": "level-3",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "FSA.1: Intercorporate Investments",
+        "description": "Analyze equity method, acquisition method, and consolidation accounting for intercorporate investments.",
+        "level": "level-3",
+        "slug": "fsa-intercorporate-investments",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis"
+      },
+      {
+        "title": "FSA.2: Employee Compensation: Post-Employment and Share-Based",
+        "description": "Analyze pension accounting (defined benefit and defined contribution) and share-based compensation effects.",
+        "level": "level-3",
+        "slug": "fsa-employee-compensation",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis"
+      },
+      {
+        "title": "FSA.3: Multinational Operations",
+        "description": "Analyze the effects of foreign currency translation methods on financial statements and ratios.",
+        "level": "level-3",
+        "slug": "fsa-multinational-operations",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis"
+      },
+      {
+        "title": "FSA.4: Analysis of Financial Institutions",
+        "description": "Analyze financial statements of banks and insurance companies. Evaluate CAMELS-type metrics.",
+        "level": "level-3",
+        "slug": "fsa-financial-institutions",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis"
+      },
+      {
+        "title": "FSA.5: Evaluating the Quality of Financial Reports",
+        "description": "Evaluate financial reporting quality and earnings quality. Identify potential manipulation indicators.",
+        "level": "level-3",
+        "slug": "fsa-evaluating-quality",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis"
+      },
+      {
+        "title": "FSA.6: Integration of Financial Statement Analysis Techniques",
+        "description": "Integrate financial statement analysis tools for comprehensive company evaluation and forecasting.",
+        "level": "level-3",
+        "slug": "fsa-integration-techniques",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis"
+      },
+      {
+        "title": "FSA: Financial Statement Analysis Practice Drill",
+        "description": "25 practice problems covering Level II Financial Statement Analysis.",
+        "level": "level-3",
+        "slug": "fsa-practice",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Financial Statement Analysis Checkpoint",
+        "description": "Test your understanding across all Level II Financial Statement Analysis topics.",
+        "level": "level-3",
+        "slug": "fsa-checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Financial Statement Analysis"
+      }
+    ],
+    "level-4": [
+      {
+        "title": "Corporate Issuers",
+        "description": "Analyze corporate governance, capital structure, working capital management, and business models for investment evaluation.",
+        "level": "level-4",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "CI.1: Analysis of Dividends and Share Repurchases",
+        "description": "Analyze dividend policies, share repurchase methods, and their effects on shareholder value.",
+        "level": "level-4",
+        "slug": "corp-analysis-dividends",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Corporate Issuers"
+      },
+      {
+        "title": "CI.2: Environmental, Social, and Governance (ESG) Considerations",
+        "description": "Integrate ESG factors into investment analysis. Evaluate ESG reporting frameworks and materiality.",
+        "level": "level-4",
+        "slug": "corp-esg-considerations",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Corporate Issuers"
+      },
+      {
+        "title": "CI.3: Mergers and Acquisitions",
+        "description": "Analyze merger motivations, valuation methods, defense mechanisms, and post-merger performance.",
+        "level": "level-4",
+        "slug": "corp-mergers-acquisitions",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Corporate Issuers"
+      },
+      {
+        "title": "CI.4: Corporate Restructuring",
+        "description": "Analyze divestitures, spin-offs, equity carve-outs, and their effects on shareholder value.",
+        "level": "level-4",
+        "slug": "corp-corporate-restructuring",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Corporate Issuers"
+      },
+      {
+        "title": "CORP: Corporate Issuers Practice Drill",
+        "description": "20 practice problems covering Level II Corporate Issuers.",
+        "level": "level-4",
+        "slug": "corp-practice",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Corporate Issuers",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Corporate Issuers Checkpoint",
+        "description": "Test your understanding across all Level II Corporate Issuers topics.",
+        "level": "level-4",
+        "slug": "corp-checkpoint",
+        "order": 6,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Corporate Issuers"
+      }
+    ],
+    "level-5": [
+      {
+        "title": "Equity Investments",
+        "description": "Learn equity market structure, security analysis, industry analysis, and valuation techniques for equity investments.",
+        "level": "level-5",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "EQ.1: Equity Valuation: Applications and Processes",
+        "description": "Define intrinsic value, select appropriate valuation models, and describe the equity valuation process.",
+        "level": "level-5",
+        "slug": "eq-valuation-applications",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments"
+      },
+      {
+        "title": "EQ.2: Discounted Dividend Valuation",
+        "description": "Apply Gordon growth, two-stage, and H-models to value equity. Estimate sustainable growth rates.",
+        "level": "level-5",
+        "slug": "eq-discounted-dividend",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments"
+      },
+      {
+        "title": "EQ.3: Free Cash Flow Valuation",
+        "description": "Calculate FCFF and FCFE. Apply single-stage and multi-stage FCF models to value equity.",
+        "level": "level-5",
+        "slug": "eq-free-cash-flow",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments"
+      },
+      {
+        "title": "EQ.4: Market-Based Valuation: Price and Enterprise Value Multiples",
+        "description": "Calculate and interpret P/E, P/B, P/S, P/CF, and EV multiples for equity valuation.",
+        "level": "level-5",
+        "slug": "eq-market-based-valuation",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments"
+      },
+      {
+        "title": "EQ.5: Residual Income Valuation",
+        "description": "Calculate and interpret residual income. Apply the residual income model to value equity.",
+        "level": "level-5",
+        "slug": "eq-residual-income",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments"
+      },
+      {
+        "title": "EQ.6: Private Company Valuation",
+        "description": "Describe challenges of private company valuation. Apply income, market, and asset-based approaches.",
+        "level": "level-5",
+        "slug": "eq-private-company",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments"
+      },
+      {
+        "title": "EQ: Equity Investments Practice Drill",
+        "description": "25 practice problems covering Level II Equity Investments.",
+        "level": "level-5",
+        "slug": "eq-practice",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Equity Investments Checkpoint",
+        "description": "Test your understanding across all Level II Equity Investments topics.",
+        "level": "level-5",
+        "slug": "eq-checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Equity Investments"
+      }
+    ],
+    "level-6": [
+      {
+        "title": "Fixed Income",
+        "description": "Master bond valuation, yield analysis, duration and convexity, credit analysis, and structured products.",
+        "level": "level-6",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "FI.1: The Term Structure and Interest Rate Dynamics",
+        "description": "Describe spot rate curve, forward rate model, and theories of term structure. Apply swap rate curve.",
+        "level": "level-6",
+        "slug": "fi-term-structure-dynamics",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Fixed Income"
+      },
+      {
+        "title": "FI.2: The Arbitrage-Free Valuation Framework",
+        "description": "Value bonds using binomial interest rate trees and Monte Carlo simulation. Apply arbitrage-free pricing.",
+        "level": "level-6",
+        "slug": "fi-arbitrage-free-valuation",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Fixed Income"
+      },
+      {
+        "title": "FI.3: Valuation and Analysis of Bonds with Embedded Options",
+        "description": "Analyze callable, putable, and convertible bonds using option-adjusted spreads and interest rate trees.",
+        "level": "level-6",
+        "slug": "fi-bonds-embedded-options",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Fixed Income"
+      },
+      {
+        "title": "FI.4: Credit Analysis Models",
+        "description": "Apply structural and reduced-form credit models. Analyze credit term structures and default probabilities.",
+        "level": "level-6",
+        "slug": "fi-credit-analysis-models",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Fixed Income"
+      },
+      {
+        "title": "FI.5: Credit Default Swaps",
+        "description": "Describe CDS features, pricing, and applications for hedging and trading credit risk.",
+        "level": "level-6",
+        "slug": "fi-credit-default-swaps",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Fixed Income"
+      },
+      {
+        "title": "FI: Fixed Income Practice Drill",
+        "description": "25 practice problems covering Level II Fixed Income.",
+        "level": "level-6",
+        "slug": "fi-practice",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Fixed Income",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Fixed Income Checkpoint",
+        "description": "Test your understanding across all Level II Fixed Income topics.",
+        "level": "level-6",
+        "slug": "fi-checkpoint",
+        "order": 7,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Fixed Income"
+      }
+    ],
+    "level-7": [
+      {
+        "title": "Derivatives",
+        "description": "Understand derivative instruments, pricing models, and their applications in hedging and speculation.",
+        "level": "level-7",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "DER.1: Pricing and Valuation of Forward Commitments",
+        "description": "Price and value forwards, futures, and swaps on equities, fixed income, and currencies.",
+        "level": "level-7",
+        "slug": "deriv-pricing-forward-commitments",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Derivatives"
+      },
+      {
+        "title": "DER.2: Valuation of Contingent Claims",
+        "description": "Value options using binomial and Black-Scholes-Merton models. Analyze option Greeks.",
+        "level": "level-7",
+        "slug": "deriv-valuation-contingent-claims",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Derivatives"
+      },
+      {
+        "title": "DERIV: Derivatives Practice Drill",
+        "description": "20 practice problems covering Level II Derivatives.",
+        "level": "level-7",
+        "slug": "deriv-practice",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Derivatives",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Derivatives Checkpoint",
+        "description": "Test your understanding across all Level II Derivatives topics.",
+        "level": "level-7",
+        "slug": "deriv-checkpoint",
+        "order": 4,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Derivatives"
+      }
+    ],
+    "level-8": [
+      {
+        "title": "Alternative Investments",
+        "description": "Explore private equity, real estate, hedge funds, commodities, and digital assets as portfolio diversifiers.",
+        "level": "level-8",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "ALT.1: Investments in Private Capital",
+        "description": "Analyze private equity and private debt investment strategies, structures, and performance metrics.",
+        "level": "level-8",
+        "slug": "alt-private-capital-l2",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Alternative Investments"
+      },
+      {
+        "title": "ALT.2: Overview of Types of Real Estate Investment",
+        "description": "Describe real estate investment forms, valuation methods, and market analysis frameworks.",
+        "level": "level-8",
+        "slug": "alt-real-estate-investment",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Alternative Investments"
+      },
+      {
+        "title": "ALT.3: Natural Resources",
+        "description": "Analyze commodity markets, farmland, timberland investments, and their portfolio diversification roles.",
+        "level": "level-8",
+        "slug": "alt-natural-resources-l2",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Alternative Investments"
+      },
+      {
+        "title": "ALT.4: Hedge Fund Strategies",
+        "description": "Analyze equity, event-driven, relative value, and macro hedge fund strategies and their risk profiles.",
+        "level": "level-8",
+        "slug": "alt-hedge-fund-strategies",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Alternative Investments"
+      },
+      {
+        "title": "ALT: Alternative Investments Practice Drill",
+        "description": "15 practice problems covering Level II Alternative Investments.",
+        "level": "level-8",
+        "slug": "alt-practice",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Alternative Investments",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Alternative Investments Checkpoint",
+        "description": "Test your understanding across all Level II Alternative Investments topics.",
+        "level": "level-8",
+        "slug": "alt-checkpoint",
+        "order": 6,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Alternative Investments"
+      }
+    ],
+    "level-9": [
+      {
+        "title": "Portfolio Management",
+        "description": "Apply portfolio theory, risk management, and behavioral finance to construct and manage investment portfolios.",
+        "level": "level-9",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "PM.1: Economics and Investment Markets",
+        "description": "Analyze the relationships between economic variables and investment market returns.",
+        "level": "level-9",
+        "slug": "pm-economics-investment-markets",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management"
+      },
+      {
+        "title": "PM.2: Analysis of Active Portfolio Management",
+        "description": "Evaluate active portfolio management using the fundamental law and information ratio.",
+        "level": "level-9",
+        "slug": "pm-analysis-active-management",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management"
+      },
+      {
+        "title": "PM.3: Using Multifactor Models",
+        "description": "Apply multifactor models including Fama-French and APT for risk analysis and portfolio construction.",
+        "level": "level-9",
+        "slug": "pm-multifactor-models",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management"
+      },
+      {
+        "title": "PM.4: Portfolio Construction",
+        "description": "Describe portfolio construction techniques, security selection, and portfolio optimization methods.",
+        "level": "level-9",
+        "slug": "pm-portfolio-construction",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management"
+      },
+      {
+        "title": "PM.5: Measuring and Managing Market Risk",
+        "description": "Calculate and interpret VaR, conditional VaR, and stress testing for risk management.",
+        "level": "level-9",
+        "slug": "pm-measuring-managing-risk",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management"
+      },
+      {
+        "title": "PM.6: Backtesting and Simulation",
+        "description": "Apply backtesting and simulation methods to evaluate investment strategies and risk models.",
+        "level": "level-9",
+        "slug": "pm-backtesting-simulation",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management"
+      },
+      {
+        "title": "PM: Portfolio Management Practice Drill",
+        "description": "20 practice problems covering Level II Portfolio Management.",
+        "level": "level-9",
+        "slug": "pm-practice",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Portfolio Management Checkpoint",
+        "description": "Test your understanding across all Level II Portfolio Management topics.",
+        "level": "level-9",
+        "slug": "pm-checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Portfolio Management"
+      }
+    ],
+    "level-10": [
+      {
+        "title": "Ethical and Professional Standards",
+        "description": "Apply the CFA Institute Code of Ethics and Standards of Professional Conduct to investment scenarios.",
+        "level": "level-10",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "ETH.1: Code of Ethics and Standards of Professional Conduct",
+        "description": "Apply the CFA Institute Code and Standards to complex Level II scenarios.",
+        "level": "level-10",
+        "slug": "ethics-code-standards-l2",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Ethical and Professional Standards"
+      },
+      {
+        "title": "ETH.2: Guidance for Standards I-VII",
+        "description": "Apply detailed guidance for each Standard of Professional Conduct to advanced ethical scenarios.",
+        "level": "level-10",
+        "slug": "ethics-guidance-standards-l2",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Ethical and Professional Standards"
+      },
+      {
+        "title": "ETH.3: Application of the Code and Standards: Level II",
+        "description": "Analyze complex ethical case studies using the Code and Standards framework at the Level II depth.",
+        "level": "level-10",
+        "slug": "ethics-application-l2",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Ethical and Professional Standards"
+      },
+      {
+        "title": "ETHICS: Ethical and Professional Standards Practice Drill",
+        "description": "20 practice problems covering Level II Ethical and Professional Standards.",
+        "level": "level-10",
+        "slug": "ethics-practice",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Ethical and Professional Standards",
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Ethics Checkpoint",
+        "description": "Test your understanding across all Level II Ethics topics.",
+        "level": "level-10",
+        "slug": "ethics-checkpoint",
+        "order": 5,
+        "isCheckpoint": true,
+        "isIndex": false,
+        "cfaTopic": "Ethical and Professional Standards"
+      }
+    ],
+    "level-11": [
+      {
+        "title": "Mock Exams",
+        "description": "Test your knowledge with full-length mock exams that simulate the actual CFA exam experience.",
+        "level": "level-11",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "CFA Level II Mock Exam - Session 1 (Morning)",
+        "description": "Full-length mock exam with 11 vignette-based item sets, 44 questions total. Covers all Level II topics with realistic case studies.",
+        "level": "level-11",
+        "slug": "exam-mock-session-1",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Mock Exam",
+        "isExamBank": true
+      },
+      {
+        "title": "CFA Level II Mock Exam - Session 2 (Afternoon)",
+        "description": "Full-length mock exam with 11 vignette-based item sets, 44 questions total. Covers all Level II topics with realistic case studies.",
+        "level": "level-11",
+        "slug": "exam-mock-session-2",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "cfaTopic": "Mock Exam",
+        "isExamBank": true
+      }
+    ]
+  }
+}

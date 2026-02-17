@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "FI.7: Yield Measures for Fixed-Rate Bonds",
+    "description": "Master current yield, YTM, YTC, YTW, bond equivalent yield, effective annual yield, and yield spread measures (G-spread, Z-spread, I-spread, OAS).",
+    "level": "level-6",
+    "slug": "fi-yield-spreads-fixed-rate",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two bonds have the same yield-to-maturity of 6%, but one is callable at par in 3 years while the other is non-callable. An investor is evaluating both. Why might YTM be misleading for the callable bond, and what alternative measure should the investor use?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Yield Measures for Fixed-Rate Bonds\n\n### Current Yield\n\n$$\\text{Current Yield} = \\frac{\\text{Annual Coupon}}{\\text{Current Bond Price}}$$\n\nCurrent yield ignores capital gains/losses and the time value of money. It only captures income return.\n\n### Yield to Maturity (YTM)\n\nYTM is the **internal rate of return** assuming the bond is held to maturity and all coupons are reinvested at the YTM. It is the discount rate that equates the PV of all cash flows to the current price:\n\n$$P = \\sum_{t=1}^{n} \\frac{C}{(1 + \\text{YTM}/2)^t} + \\frac{F}{(1 + \\text{YTM}/2)^n}$$\n\nYTM assumptions: (1) bond held to maturity, (2) no default, (3) all coupons reinvested at YTM. If any assumption fails, the realized return will differ.\n\n### Yield to Call (YTC) and Yield to Worst (YTW)\n\n**YTC** replaces maturity with the first call date and par with the call price:\n\n$$P = \\sum_{t=1}^{n_c} \\frac{C}{(1 + \\text{YTC}/2)^t} + \\frac{\\text{Call Price}}{(1 + \\text{YTC}/2)^{n_c}}$$\n\n**Yield to worst (YTW)** = the lowest of YTM and all possible YTCs. It represents the **minimum potential yield** the investor could receive. For callable bonds trading at a premium, YTW is typically the YTC."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A callable bond trades at 105 (above par). Is its yield-to-worst more likely its YTM or its YTC?",
+      "answer": "Its YTC. When a callable bond trades at a premium (above the call price), the issuer has an incentive to call the bond and refinance at lower rates. The investor should expect the call to be exercised. The YTC will be lower than the YTM because the investor receives the lower call price (e.g., 100) sooner instead of holding to maturity. Since YTW is the minimum, it equals the YTC in this case."
+    },
+    {
+      "type": "markdown",
+      "content": "## Yield Conversions\n\n### Semiannual to Annual\n\nU.S. bonds typically quote yields on a **semiannual bond basis (SABB)**. To convert:\n\n$$\\text{Effective Annual Yield (EAY)} = \\left(1 + \\frac{\\text{YTM}}{2}\\right)^2 - 1$$\n\n### Example\n\nA bond has a semiannual YTM of 6.00% (i.e., 3.00% per period):\n\n$$\\text{EAY} = (1.03)^2 - 1 = 1.0609 - 1 = 6.09\\%$$\n\nThe EAY exceeds the stated YTM because of compounding.\n\n## Yield Spread Measures\n\n| Spread | Definition | Benchmark |\n|---|---|---|\n| **G-spread** | Yield minus the yield on an interpolated government bond of the same maturity | Government bond yield |\n| **I-spread** | Yield minus the swap rate for the same maturity | Swap rate (e.g., SOFR swap) |\n| **Z-spread** (zero-volatility spread) | Constant spread added to each spot rate on the government curve to match the bond's price | Spot rate curve |\n| **OAS** (option-adjusted spread) | Z-spread minus the cost of any embedded option; reflects credit and liquidity risk only | Spot rate curve (option-adjusted) |\n\nFor option-free bonds: **OAS = Z-spread** (no embedded option to adjust for).\nFor callable bonds: **OAS < Z-spread** (the call option has value to the issuer that must be removed)."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A 10-year corporate bond yields 5.80%. The interpolated 10-year Treasury yield is 4.20%, and the 10-year swap rate is 4.50%. Calculate the G-spread and the I-spread.",
+      "solution": "**G-spread** = Corporate yield \u2212 Government yield\n= 5.80% \u2212 4.20% = **1.60%** (160 bps)\n\n**I-spread** = Corporate yield \u2212 Swap rate\n= 5.80% \u2212 4.50% = **1.30%** (130 bps)\n\nThe G-spread is wider because the government yield is lower than the swap rate. The I-spread removes the interbank credit component embedded in the swap rate, isolating the issuer-specific credit and liquidity premium relative to the swap market."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Yield Measures Practice",
+      "problems": [
+        {
+          "id": "fi7-1",
+          "question": "A bond has a 7% annual coupon, a current price of $1,050, and a par value of $1,000. Its current yield is closest to:",
+          "options": [
+            "A) 6.67%",
+            "B) 7.00%",
+            "C) 7.37%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Current yield = Annual coupon / Price = $70 / $1,050 = 6.67%. Option B is the coupon rate (coupon/par), not the current yield. Option C would result from dividing by a price below par. Since the bond trades at a premium, the current yield is below the coupon rate.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate current yield"
+        },
+        {
+          "id": "fi7-2",
+          "question": "A bond has a semiannual YTM of 8.00%. Its effective annual yield is closest to:",
+          "options": [
+            "A) 7.84%",
+            "B) 8.00%",
+            "C) 8.16%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "EAY = (1 + YTM/2)\u00b2 \u2212 1 = (1 + 0.04)\u00b2 \u2212 1 = 1.0816 \u2212 1 = 8.16%. The effective annual yield is higher than the stated semiannual yield because of compounding. Option A would be lower, which is impossible with positive compounding. Option B ignores the compounding effect.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Convert between semiannual and effective annual yields"
+        },
+        {
+          "id": "fi7-3",
+          "question": "For a callable corporate bond, the option-adjusted spread (OAS) is most likely:",
+          "options": [
+            "A) Greater than the Z-spread",
+            "B) Equal to the Z-spread",
+            "C) Less than the Z-spread"
+          ],
+          "correctAnswer": "C",
+          "explanation": "For a callable bond, OAS = Z-spread \u2212 Option value. The embedded call option has positive value to the issuer (negative to the bondholder), so the Z-spread includes compensation for this option risk. The OAS removes the option component, isolating only credit and liquidity risk, making it smaller than the Z-spread. Option A would apply to a putable bond. Option B applies only to option-free bonds where OAS = Z-spread.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Compare OAS and Z-spread for bonds with embedded options"
+        },
+        {
+          "id": "fi7-4",
+          "question": "A callable bond has a YTM of 6.2%, a YTC (first call) of 5.8%, and a YTC (second call) of 5.5%. The yield-to-worst is:",
+          "options": [
+            "A) 5.5%",
+            "B) 5.8%",
+            "C) 6.2%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Yield-to-worst is the minimum of YTM and all possible YTCs. Comparing 6.2%, 5.8%, and 5.5%, the minimum is 5.5% (YTC at the second call date). This represents the worst-case scenario for the investor. Option B is the YTC at first call, but the second call YTC is lower. Option C is the YTM, which is the highest of the three and represents the best case.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Determine yield-to-worst for a callable bond"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between the Z-spread and the OAS to someone who understands basic bond pricing. Why is OAS preferred for comparing callable and non-callable bonds?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is current yield an inadequate measure of return for a discount bond?",
+        "Under what conditions would a bond's realized return equal its YTM?",
+        "When comparing bonds across sectors, why might the I-spread be preferred over the G-spread?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **Current yield** = Annual coupon / Price (income only, ignores gains/losses)\n- **YTM** = IRR assuming hold to maturity, all coupons reinvested at YTM, no default\n- **YTC** = YTM calculation using call date and call price\n- **YTW** = min(YTM, all YTCs) \u2014 the worst-case yield\n- **EAY** = (1 + YTM/2)\u00b2 \u2212 1 (accounts for semiannual compounding)\n- **G-spread** = Yield \u2212 Government bond yield (same maturity)\n- **I-spread** = Yield \u2212 Swap rate (same maturity)\n- **Z-spread** = Constant spread over entire spot curve\n- **OAS** = Z-spread \u2212 Option cost; for callable bonds OAS < Z-spread"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module examines **Yield Measures for Floating-Rate Notes**, where the concepts of quoted margin, required margin, and discount margin determine how FRNs are priced relative to their reference rates."
+    }
+  ]
+}

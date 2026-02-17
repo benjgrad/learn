@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ALT.1: Alternative Investment Features, Methods, and Structures",
+    "description": "Describe alternative investment categories, structures, fee arrangements, and due diligence considerations.",
+    "level": "level-8",
+    "slug": "alt-features-methods",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A hedge fund charges '2 and 20' fees. If the fund earns a 15% gross return on $100 million in assets, how much does the investor actually keep? What mechanisms exist to protect investors from paying incentive fees on recovered losses?"
+    },
+    {
+      "type": "markdown",
+      "content": "## What Are Alternative Investments?\n\nAlternative investments are asset classes **outside** traditional stocks, bonds, and cash. They include:\n\n| Category | Examples |\n|---|---|\n| Private equity | LBOs, venture capital, growth equity |\n| Hedge funds | Long/short, global macro, event-driven |\n| Real assets | Real estate, infrastructure, farmland, timberland |\n| Commodities | Oil, gold, agricultural products |\n| Digital assets | Cryptocurrencies, tokens |\n\n### Common Characteristics\n\n- **Illiquidity** \u2014 many alternatives have lock-up periods of 5-10+ years\n- **Limited transparency** \u2014 less regulatory disclosure than public markets\n- **Complex legal structures** \u2014 often organized as limited partnerships\n- **Higher fees** \u2014 management fees plus performance-based incentive fees\n- **Low correlation** \u2014 potential diversification benefits relative to traditional assets\n- **Manager skill dependency** \u2014 returns depend heavily on manager selection"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why might an investor accept the illiquidity of alternative investments?",
+      "answer": "Investors accept illiquidity in exchange for an expected illiquidity premium \u2014 higher returns to compensate for the inability to easily sell the investment. Additionally, alternatives may provide diversification benefits through low correlation with traditional assets, potentially improving the portfolio's risk-adjusted return. The illiquidity also prevents investors from making emotional, short-term trading decisions."
+    },
+    {
+      "type": "markdown",
+      "content": "## Fund Structures\n\n### Limited Partnership (LP/GP)\n\nThe dominant structure for private equity and hedge funds:\n\n- **General Partner (GP)** \u2014 the fund manager; makes investment decisions, has unlimited liability, and earns fees\n- **Limited Partners (LPs)** \u2014 investors (pensions, endowments, high-net-worth individuals); liability limited to their capital commitment\n- LPs make a **capital commitment** and the GP issues **capital calls** (drawdowns) when investments are identified\n- **Distributions** return capital and profits to LPs as investments are realized\n\n### Open-End vs. Closed-End Funds\n\n| Feature | Open-End | Closed-End |\n|---|---|---|\n| Subscriptions | Accept new investors on a rolling basis | Fixed fundraising period |\n| Redemptions | Periodic (with notice periods) | No redemptions; fixed term (typically 10-12 years) |\n| Valuation | NAV-based | Reported NAV, but secondary market pricing |\n| Typical use | Hedge funds, open-end real estate | Private equity, venture capital |\n\nOpen-end funds face **liquidity mismatch risk**: they hold illiquid assets but promise periodic redemptions. During market stress, redemption requests may force fire sales."
+    },
+    {
+      "type": "markdown",
+      "content": "## Fee Structures\n\nAlternative investments typically charge a **management fee** plus an **incentive fee** (carried interest).\n\n### The \"2 and 20\" Model\n\n- **Management fee**: ~1-2% of AUM (or committed capital), charged regardless of performance\n- **Incentive fee**: ~20% of profits above a threshold\n\n### Investor Protections\n\n| Mechanism | Purpose |\n|---|---|\n| **Hurdle rate** | GP earns incentive fee only on returns exceeding a minimum (e.g., 8%) |\n| **High-water mark** | GP earns incentive fee only on gains above the previous peak NAV \u2014 prevents charging fees on recovered losses |\n| **Clawback provision** | Requires GP to return excess incentive fees if later fund losses reduce overall returns below the agreed threshold |\n\n### Example\n\nA fund charges 2% management fee and 20% incentive fee with an 8% hard hurdle rate.\n\n- AUM: \\$100 million\n- Gross return: 15%\n- Management fee: $100M \\times 2\\% = \\$2M$\n- Return after management fee: $15\\% - 2\\% = 13\\%$\n- Incentive fee (hard hurdle): $(13\\% - 8\\%) \\times 20\\% \\times \\$100M = \\$1M$\n- **Net return to investor**: $13\\% - 1\\% = 12\\%$ (or \\$12M on \\$100M)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A hedge fund has $200 million AUM, charges a 1.5% management fee and 20% incentive fee with no hurdle rate and a high-water mark. Last year the fund's NAV peaked at $220M before falling to $200M. This year the fund's gross return is 18%. Calculate: (1) the management fee, (2) the incentive fee, and (3) the net return to investors.",
+      "solution": "**Step 1: Management fee**\n$200M \\times 1.5\\% = \\$3M$\n\n**Step 2: Gross gain**\n$200M \\times 18\\% = \\$36M$, bringing AUM to $236M before fees.\n\n**Step 3: Incentive fee with high-water mark**\nThe previous peak (high-water mark) was $220M. After the management fee, NAV = $236M - $3M = $233M. The gain above the high-water mark is $233M - $220M = $13M.\n\nIncentive fee = $13M \\times 20\\% = \\$2.6M$\n\n**Step 4: Net return**\nTotal fees = $3M + $2.6M = $5.6M\nNet gain = $36M - $5.6M = $30.4M\nNet return = $30.4M / $200M = **15.2%**\n\nNote: Without the high-water mark, the incentive fee would have been ($36M - $3M) \\times 20\\% = $6.6M \u2014 the high-water mark saved investors $4M."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Alternative Investment Features Practice Problems",
+      "problems": [
+        {
+          "id": "alt1-1",
+          "question": "In a limited partnership fund structure, which of the following best describes the role of the general partner?",
+          "options": [
+            "A) Provides the majority of capital and has limited liability",
+            "B) Makes investment decisions and has unlimited liability",
+            "C) Provides capital and receives periodic redemptions at NAV"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The general partner (GP) is the fund manager who makes investment decisions and bears unlimited liability for the fund's obligations. Option A describes limited partners, who provide most of the capital but have liability limited to their investment. Option C confuses LP characteristics with open-end fund features.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the structure of a limited partnership"
+        },
+        {
+          "id": "alt1-2",
+          "question": "A fund charges a 2% management fee and 20% incentive fee with no hurdle rate. The fund begins the year with $500 million in AUM and earns a gross return of 10%. What is the total fee paid by investors?",
+          "options": [
+            "A) $18 million",
+            "B) $10 million",
+            "C) $8 million"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Management fee = $500M x 2% = $10M. Gross gain = $500M x 10% = $50M. Net gain after management fee = $50M - $10M = $40M. Incentive fee = $40M x 20% = $8M. Total fees = $10M + $8M = $18M. Option B includes only the management fee. Option C includes only the incentive fee on the net-of-management-fee return.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate management and incentive fees"
+        },
+        {
+          "id": "alt1-3",
+          "question": "A private equity fund has a high-water mark provision. The fund's NAV per unit was $120 at its peak, then declined to $105. This year, the NAV per unit rises to $115 before incentive fees. The incentive fee is 20%. What is the incentive fee per unit?",
+          "options": [
+            "A) $2.00",
+            "B) $0.00",
+            "C) $1.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The high-water mark is $120 (previous peak NAV). The current NAV of $115 is still below the high-water mark, so no incentive fee is charged. The GP must first recover the loss (bring NAV above $120) before earning incentive fees again. Option A incorrectly calculates 20% x ($115 - $105). Option C applies a partial calculation. The high-water mark protects investors from paying performance fees on recovered losses.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain how a high-water mark affects incentive fee calculations"
+        },
+        {
+          "id": "alt1-4",
+          "question": "Which of the following is the most significant risk unique to open-end alternative investment funds compared to closed-end funds?",
+          "options": [
+            "A) Illiquidity risk from long lock-up periods",
+            "B) Liquidity mismatch between fund assets and investor redemption rights",
+            "C) Lack of a secondary market for fund interests"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Open-end funds hold illiquid alternative assets but offer periodic redemptions, creating a liquidity mismatch. During market stress, a surge in redemption requests can force the fund to sell illiquid assets at distressed prices (fire sales). Option A is more characteristic of closed-end funds, which have fixed terms. Option C describes closed-end funds, which lack the periodic redemption feature but may have secondary market trading.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Compare open-end and closed-end fund structures"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the purpose of a high-water mark and a clawback provision to someone who has never invested in alternatives. Use a concrete example to illustrate how each one protects the investor from paying excessive fees."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do you think the LP/GP structure dominates alternative investments rather than the mutual fund structure used for traditional assets?",
+        "How might the fee structure of alternative investments create conflicts of interest between the GP and LPs?",
+        "What due diligence questions would you ask before committing capital to a private equity fund?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Alternative investments include private equity, hedge funds, real assets, commodities, and digital assets\n- Common characteristics: illiquidity, limited transparency, complex structures, higher fees, low correlation\n- **LP/GP structure**: GP manages and has unlimited liability; LPs invest and have limited liability\n- **Open-end funds** allow periodic redemptions (liquidity mismatch risk); **closed-end funds** have fixed terms\n- **Fee structure**: management fee (% of AUM) + incentive fee (% of profits)\n- **Hurdle rate**: minimum return before incentive fee applies\n- **High-water mark**: no incentive fee until previous peak NAV is exceeded\n- **Clawback**: GP returns excess fees if overall fund returns disappoint"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Alternative Investment Performance and Returns**, where you will learn how to measure and compare returns across alternative investments using IRR, MOIC, and the J-curve effect \u2014 critical tools for evaluating whether those high fees are justified."
+    }
+  ]
+}

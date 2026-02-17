@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "Alt.1: Private Capital",
+    "description": "Understand PE fund lifecycle, performance metrics (DPI, RVPI, TVPI), carried interest, GP clawback provisions, valuation methods, and the secondaries market.",
+    "level": "level-8",
+    "slug": "alt-private-capital-l2",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A PE fund has called $60M of $100M committed capital and distributed $40M back to LPs. The remaining portfolio is valued at $50M. Is the fund performing well? What metrics would you use to evaluate it?"
+    },
+    {
+      "type": "markdown",
+      "content": "## PE Fund Lifecycle and Structure\n\nPrivate equity funds follow a defined lifecycle, typically spanning 10-12 years:\n\n### Fund Stages\n\n| Stage | Years | Activity |\n|-------|-------|----------|\n| **Fundraising** | 0-1 | GP raises committed capital from LPs |\n| **Investment (Drawdown)** | 1-5 | Capital calls to fund acquisitions |\n| **Management** | 3-7 | Value creation in portfolio companies |\n| **Harvest (Realization)** | 5-12 | Exits via IPO, trade sale, or secondary sale |\n\n### Capital Calls and Distributions\n\n**Capital calls** (drawdowns) are demands by the GP for LPs to contribute a portion of their committed capital. These are made as investment opportunities arise \u2014 LPs do not invest the full commitment upfront.\n\n**Distributions** return capital and profits to LPs through:\n- Exit proceeds from portfolio company sales\n- Dividend recapitalizations\n- IPO proceeds\n\nThe **J-curve effect**: returns are typically negative in early years (management fees and unrealized investments) before turning positive as portfolio companies mature and are exited."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A fund has committed capital of $200M, has called $150M, distributed $100M, and the NAV of remaining holdings is $120M. What is the TVPI?",
+      "answer": "TVPI = (Distributions + NAV) / Paid-in Capital = ($100M + $120M) / $150M = $220M / $150M = 1.47x. The fund has generated $1.47 for every $1 of capital called, implying a 47% gross return on invested capital. Note: this uses paid-in (called) capital, not committed capital."
+    },
+    {
+      "type": "markdown",
+      "content": "## PE Performance Metrics\n\n### Key Multiples\n\n$$\\text{DPI} = \\frac{\\text{Cumulative Distributions}}{\\text{Paid-in Capital}}$$\n\nDPI measures **realized** returns \u2014 actual cash returned to LPs. Also called the \"cash-on-cash\" return.\n\n$$\\text{RVPI} = \\frac{\\text{NAV of Remaining Holdings}}{\\text{Paid-in Capital}}$$\n\nRVPI measures **unrealized** value still in the fund.\n\n$$\\text{TVPI} = \\text{DPI} + \\text{RVPI} = \\frac{\\text{Distributions + NAV}}{\\text{Paid-in Capital}}$$\n\nTVPI measures **total** value created (realized + unrealized).\n\n### Carried Interest and GP Clawback\n\n**Carried interest** (\"carry\") is the GP's share of profits, typically 20% above a **hurdle rate** (preferred return, often 8%).\n\nTwo distribution methods:\n- **Deal-by-deal (American)**: carry paid on each profitable exit; requires clawback if total fund underperforms\n- **Whole-of-fund (European)**: carry paid only after LPs receive all contributed capital plus the preferred return\n\n**GP clawback**: requires the GP to return excess carry if later losses reduce total returns below the hurdle. Protects LPs in deal-by-deal structures."
+    },
+    {
+      "type": "markdown",
+      "content": "## Valuation Methods and Market Developments\n\n### PE Valuation Approaches\n\n| Method | Description | Best Used For |\n|--------|-------------|---------------|\n| **Market multiples** | EV/EBITDA, P/E from comparable public companies | Established companies |\n| **DCF** | Discounted cash flows with exit multiple | Growth companies |\n| **Venture capital method** | Post-money valuation based on exit expectations | Early-stage startups |\n| **Replacement cost** | Cost to recreate assets | Asset-heavy businesses |\n| **LBO model** | Returns-based pricing using leveraged structure | Buyout transactions |\n\n### Secondaries Market\n\nThe **secondary market** allows LPs to sell their fund interests to other investors before the fund's term ends. Key features:\n- Provides **liquidity** in an otherwise illiquid asset class\n- Transactions at a **discount or premium** to NAV\n- Growing market allows portfolio rebalancing and early exit\n\n### Co-Investments\n\n**Co-investments** allow LPs to invest directly alongside the GP in specific deals:\n- Lower or no management fees and carry\n- Larger deal exposure\n- Requires LP due diligence capability\n- Potential for adverse selection (GP offers co-invest on less attractive deals)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Fund Alpha PE has committed capital of $500M, a 2% annual management fee on committed capital, 20% carried interest, and an 8% preferred return (whole-of-fund). After 5 years: $400M called, $250M distributed, NAV = $300M. Calculate DPI, RVPI, TVPI, and determine if carried interest is payable yet.",
+      "solution": "**Performance Multiples:**\n\n$DPI = $250M / $400M = 0.625x$ (realized return)\n\n$RVPI = $300M / $400M = 0.750x$ (unrealized)\n\n$TVPI = 0.625 + 0.750 = 1.375x$ (total value)\n\n**Carried Interest:**\n\nUnder whole-of-fund: LPs must first receive all paid-in capital ($400M) plus preferred return. After 5 years at 8%: preferred return \u2248 $400M \u00d7 (1.08^5 \u2212 1) \u2248 $400M \u00d7 0.4693 = $187.7M.\n\nTotal hurdle = $400M + $187.7M = $587.7M.\n\nDistributions so far = $250M, well below $587.7M.\n\n**No carried interest is payable yet.** The GP must return $587.7M to LPs before earning any carry."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Capital \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "alt1-1",
+          "question": "**Vignette: Blackridge Capital Partners**\n\nBlackridge Capital Partners Fund III has the following characteristics:\n- Committed capital: $800M\n- Management fee: 2% on committed capital during investment period, 1.5% on invested capital thereafter\n- Carried interest: 20% with 8% preferred return (European/whole-of-fund)\n- Fund term: 10 years (5-year investment period)\n\nAfter Year 7:\n- Total called capital: $720M\n- Total distributions: $500M\n- Remaining portfolio NAV: $600M\n- Current invested capital: $480M\n\n---\n\n**Question 1:** Fund III's TVPI is closest to:",
+          "options": [
+            "A) 1.39x",
+            "B) 1.53x",
+            "C) 1.69x"
+          ],
+          "correctAnswer": "B",
+          "explanation": "TVPI = (Distributions + NAV) / Paid-in Capital = ($500M + $600M) / $720M = $1,100M / $720M = 1.528x \u2248 1.53x. This total value multiple indicates the fund has generated $1.53 for every dollar called. Option A incorrectly uses committed capital ($1,100M/$800M). Option C may add management fees.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate TVPI for a private equity fund"
+        },
+        {
+          "id": "alt1-2",
+          "question": "**Question 2 (continued):** The Year 7 management fee is closest to:",
+          "options": [
+            "A) $7.2M",
+            "B) $10.8M",
+            "C) $16.0M"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Year 7 is beyond the 5-year investment period, so the fee switches to 1.5% on invested capital. Fee = 1.5% \u00d7 $480M = $7.2M. Option B uses 1.5% on called capital ($720M). Option C uses 2% on committed capital ($800M), which only applies during the investment period.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate management fees across fund lifecycle phases"
+        },
+        {
+          "id": "alt1-3",
+          "question": "**Question 3 (continued):** Assuming the fund is fully liquidated at the current NAV with no further costs, the carried interest payable to the GP is closest to:",
+          "options": [
+            "A) $0",
+            "B) $38M",
+            "C) $76M"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Total distributions at liquidation = $500M + $600M = $1,100M. Under European waterfall: LPs receive called capital first ($720M), then preferred return. Simplified (ignoring compounding on timing): total profit = $1,100M \u2212 $720M = $380M. Carry = 20% \u00d7 $380M = $76M. (A full calculation would compound the preferred return on each capital call, but given the options, $76M is closest.) Option A is incorrect \u2014 the fund is profitable. Option B appears to use 10% carry rate.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate carried interest under a whole-of-fund distribution waterfall"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the J-curve effect to someone considering their first PE fund investment. Why should they expect negative returns early on, and how does the pattern typically evolve over the fund's life?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might DPI be a more reliable performance indicator than TVPI for mature funds?",
+        "How does the GP clawback provision align the interests of GPs and LPs?",
+        "What are the potential risks of co-investments for LPs with limited due diligence resources?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- DPI = Distributions / Paid-in Capital (realized return)\n- RVPI = NAV / Paid-in Capital (unrealized value)\n- TVPI = DPI + RVPI (total value multiple)\n- J-curve: early negative returns from fees and unrealized investments\n- European waterfall: carry paid only after full return of capital + preferred return\n- American waterfall: carry on each deal; requires GP clawback provision\n- Secondary market provides liquidity at discount/premium to NAV\n- Co-investments offer fee savings but require LP diligence capability"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Real Estate Investment**, where you will apply similar valuation frameworks (DCF, income-based methods) to property assets. Like PE, real estate involves illiquidity premiums, leverage, and the distinction between direct investment and fund structures (REITs)."
+    }
+  ]
+}

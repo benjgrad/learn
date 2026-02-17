@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.15: Credit Analysis for Government Issuers",
+    "description": "Apply the sovereign credit analysis framework: institutional, economic, fiscal, monetary, and external vulnerability assessments.",
+    "level": "level-6",
+    "slug": "fi-credit-analysis-government",
+    "order": 15,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Country A has a debt-to-GDP ratio of 120% but borrows in its own currency and has an independent central bank. Country B has a debt-to-GDP ratio of only 50% but borrows heavily in U.S. dollars. Which country faces greater sovereign credit risk, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Sovereign Credit Analysis Framework\n\nSovereign credit analysis evaluates a government's **ability and willingness** to repay its debt. Unlike corporations, sovereigns cannot be forced into bankruptcy \u2014 default is a political decision as much as a financial one.\n\n### Key Assessment Areas\n\n| Factor | Key Questions |\n|---|---|\n| **Institutional assessment** | Quality of governance, rule of law, transparency, policy predictability, control of corruption |\n| **Economic assessment** | GDP growth prospects, income per capita, diversification, competitiveness, labor market flexibility |\n| **Fiscal assessment** | Debt-to-GDP ratio, fiscal balance, interest burden, revenue flexibility, expenditure rigidity |\n| **Monetary assessment** | Central bank independence, inflation record, exchange rate regime, monetary policy credibility |\n| **External vulnerability** | Current account balance, foreign currency reserves, external debt, dependence on commodity exports |\n\n### Ability vs. Willingness\n\n- **Ability to pay**: Determined by economic strength, fiscal capacity, and access to financing\n- **Willingness to pay**: Determined by political factors, governance quality, and historical track record\n\nSome countries default despite having the resources to pay (willingness issue), while others avoid default through extraordinary measures even in difficult conditions."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is a sovereign that borrows in its own currency generally considered lower credit risk than one that borrows in a foreign currency?",
+      "answer": "A sovereign borrowing in its own currency has the option to print money to service its debt (through its central bank), making technical default on domestic-currency debt extremely unlikely. The risk shifts to inflation/currency depreciation rather than outright default. A sovereign borrowing in foreign currency cannot print the foreign currency and must earn or borrow it, creating genuine default risk if foreign exchange reserves are insufficient or if access to international capital markets is disrupted."
+    },
+    {
+      "type": "markdown",
+      "content": "## Fiscal and Economic Indicators\n\n### Key Fiscal Metrics\n\n$$\\text{Debt-to-GDP Ratio} = \\frac{\\text{Total Government Debt}}{\\text{GDP}}$$\n\n$$\\text{Fiscal Balance/GDP} = \\frac{\\text{Government Revenue} - \\text{Government Spending}}{\\text{GDP}}$$\n\n$$\\text{Interest Coverage} = \\frac{\\text{Government Revenue}}{\\text{Interest Payments}}$$\n\nA sustainable fiscal position requires that the debt-to-GDP ratio stabilizes or declines over time. The **primary balance** (fiscal balance excluding interest) must be positive enough to prevent debt from growing faster than GDP.\n\n### Debt Sustainability Condition\n\n$$\\text{Required Primary Surplus} = (r - g) \\times d$$\n\nwhere $r$ = effective interest rate on debt, $g$ = nominal GDP growth rate, $d$ = debt-to-GDP ratio.\n\nIf $r > g$, the sovereign must run a primary surplus to stabilize debt. If $g > r$, the sovereign can run a primary deficit and still see the debt ratio decline."
+    },
+    {
+      "type": "markdown",
+      "content": "## Monetary Flexibility and External Vulnerability\n\n### Monetary Assessment\n\n- **Independent central bank**: Can set monetary policy independently of fiscal pressures; associated with lower inflation and better credit outcomes\n- **Exchange rate regime**: Floating rates provide a shock absorber; fixed rates limit monetary flexibility\n- **Reserve currency status**: Countries with reserve currencies (e.g., USD, EUR) have greater financing flexibility\n- **Inflation record**: History of price stability signals monetary credibility\n\n### External Vulnerability\n\n- **Current account deficit**: Large persistent deficits indicate reliance on foreign financing\n- **Foreign currency reserves**: Adequate reserves provide a buffer against external shocks\n- **External debt**: High external debt (especially short-term) increases vulnerability to capital flight\n- **Commodity dependence**: Revenue volatility if the economy relies on a few export commodities\n\n### Event Risk\n\nSovereign credit can be disrupted by **event risks**: political instability, war, natural disasters, banking crises, or sudden shifts in commodity prices. These are difficult to predict and can rapidly alter a sovereign's credit profile."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Country X has debt-to-GDP of 80%, an effective interest rate of 4%, and nominal GDP growth of 3%. Calculate the required primary surplus (as a % of GDP) to stabilize the debt ratio. What happens if GDP growth rises to 5%?",
+      "solution": "**Scenario 1: GDP growth = 3%**\n\n$$\\text{Required Primary Surplus} = (r - g) \\times d = (0.04 - 0.03) \\times 0.80 = 0.01 \\times 0.80 = 0.008 = 0.8\\% \\text{ of GDP}$$\n\nThe government must run a primary surplus of at least 0.8% of GDP to prevent the debt ratio from rising.\n\n**Scenario 2: GDP growth = 5%**\n\n$$\\text{Required Primary Surplus} = (0.04 - 0.05) \\times 0.80 = (-0.01) \\times 0.80 = -0.8\\% \\text{ of GDP}$$\n\nThe negative result means the country can run a primary **deficit** of up to 0.8% of GDP and the debt ratio will still decline. When $g > r$, the economy is growing fast enough to naturally reduce the debt burden."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Sovereign Credit Analysis Practice",
+      "problems": [
+        {
+          "id": "fi15-1",
+          "question": "In sovereign credit analysis, a country's 'willingness to pay' is most directly assessed through its:",
+          "options": [
+            "A) Debt-to-GDP ratio",
+            "B) Institutional and governance quality",
+            "C) Foreign currency reserve levels"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Willingness to pay is a political decision driven by governance quality, rule of law, policy predictability, and historical track record of honoring debt obligations. Strong institutions reduce the risk of a sovereign choosing to default despite having resources. Option A measures ability (fiscal capacity), not willingness. Option C measures external buffer (also ability-related).",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between a sovereign's ability and willingness to pay"
+        },
+        {
+          "id": "fi15-2",
+          "question": "A country has a debt-to-GDP ratio of 90%, an effective interest rate on debt of 5%, and nominal GDP growth of 2%. The primary surplus needed to stabilize the debt-to-GDP ratio is closest to:",
+          "options": [
+            "A) 0.9%",
+            "B) 2.7%",
+            "C) 4.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Required primary surplus = (r \u2212 g) \u00d7 d = (0.05 \u2212 0.02) \u00d7 0.90 = 0.03 \u00d7 0.90 = 0.027 = 2.7% of GDP. Option A uses (r \u2212 g) alone without multiplying by the debt ratio. Option C uses the interest rate (5%) times the debt ratio without subtracting growth.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the primary surplus required for debt sustainability"
+        },
+        {
+          "id": "fi15-3",
+          "question": "Among the following, which sovereign characteristic most increases vulnerability to a credit crisis?",
+          "options": [
+            "A) Borrowing primarily in its own currency with a floating exchange rate",
+            "B) Large short-term external debt denominated in foreign currency",
+            "C) Running a small fiscal deficit with a declining debt-to-GDP ratio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Large short-term external debt in foreign currency creates maximum vulnerability: (1) it must be rolled over frequently (rollover risk), (2) the sovereign cannot print foreign currency to repay it, and (3) capital flight can make refinancing impossible. Option A describes a resilient sovereign (own currency + float). Option C describes a sustainable fiscal position.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify factors that increase sovereign credit vulnerability"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the sovereign debt sustainability condition to a fellow candidate. Why does the relationship between the interest rate on government debt and nominal GDP growth matter so much for fiscal sustainability?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why can Japan sustain a debt-to-GDP ratio above 200% while some countries default at much lower levels?",
+        "How does central bank independence affect sovereign credit quality?",
+        "What are the limitations of relying on credit ratings for sovereign risk assessment?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Sovereign credit = **ability** (economic/fiscal) + **willingness** (institutional/political) to pay\n- Five assessment areas: institutional, economic, fiscal, monetary, external vulnerability\n- **Debt sustainability**: Required primary surplus = (r \u2212 g) \u00d7 d\n- If g > r, debt ratio naturally declines even with a primary deficit\n- **Own-currency borrowing** reduces default risk (can print money) but shifts risk to inflation\n- **External vulnerability**: Foreign currency debt, short-term maturities, and commodity dependence increase risk\n- **Monetary flexibility**: Independent central bank, floating FX rate, reserve currency status\n- **Event risk**: Political instability, natural disasters, banking crises can rapidly alter credit profiles"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Credit Analysis for Corporate Issuers**, examining the four Cs framework (capacity, collateral, covenants, character), key credit ratios, and industry analysis used to evaluate corporate credit risk."
+    }
+  ]
+}

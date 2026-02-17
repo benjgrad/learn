@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "PC.6: Institutional Portfolio Case Study",
+    "description": "A comprehensive case study integrating asset allocation, derivatives overlay, ESG considerations, risk management, rebalancing, and performance evaluation.",
+    "level": "level-3",
+    "slug": "pc-case-study-institutional",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You are the CIO of a $3 billion corporate pension fund that is 88% funded. The board wants you to improve the funded status, incorporate ESG factors, and reduce portfolio risk \u2014 all at the same time. How do you reconcile these potentially conflicting objectives?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Case Background: Meridian Corporate Pension Fund\n\n**Fund Profile:**\n- Total assets: $3.0 billion\n- Liability PV: $3.4 billion (88% funded)\n- Liability duration: 13.5 years, convexity: 195\n- Average beneficiary age: 52 (maturing workforce)\n- Annual benefit payments: $240M (growing at 3% per year)\n- Sponsor: Investment-grade industrial company, EBITDA $2B\n- Board mandate: Achieve full funding within 8 years, integrate ESG\n\n**Current Allocation:**\n\n| Asset Class | Allocation | Value | Duration |\n|---|---|---|---|\n| Domestic equity | 35% | $1,050M | \u2014 |\n| International equity | 15% | $450M | \u2014 |\n| Core fixed income | 30% | $900M | 5.5 |\n| Long-duration bonds | 10% | $300M | 14.0 |\n| Real estate (private) | 5% | $150M | \u2014 |\n| Alternatives (PE/HF) | 5% | $150M | \u2014 |\n| **Total** | **100%** | **$3,000M** | \u2014 |\n\n**Portfolio duration**: (0.30 \u00d7 5.5) + (0.10 \u00d7 14.0) = 3.05 years\n\n**Duration gap**: Liability duration (13.5) \u2212 Asset duration (3.05) = **10.45 years** \u2014 significant mismatch!"
+    },
+    {
+      "type": "markdown",
+      "content": "## Issue 1: Asset-Liability Mismatch\n\nThe portfolio duration (3.05 years) is far below the liability duration (13.5 years). This creates enormous surplus risk:\n\n- If rates fall 1%, liabilities increase by ~13.5% ($459M) but assets increase by only ~3.05% on the FI portion ($37M) \u2014 surplus deteriorates by ~$420M\n- The fund is effectively **short duration** \u2014 it benefits from rising rates but is devastated by falling rates\n\n### Recommended Action: Partial LDI Transition\n\n**Phase 1**: Increase long-duration bond allocation from 10% to 25% and shift core FI to long-duration credit\n- New FI allocation: 40% in bonds with average duration ~11\n- New portfolio duration: ~4.4 years \u2014 still below target but a significant improvement\n\n**Phase 2**: Use interest rate swaps to close the remaining duration gap\n- Receive-fixed swaps on $500M notional, swap duration ~12 years\n- Additional portfolio duration: 12 \u00d7 ($500M/$3,000M) = 2.0 years\n- New effective portfolio duration: ~6.4 years\n- Remaining gap: 13.5 \u2212 6.4 = 7.1 years (reduced from 10.45)\n\n**Phase 3**: Over 3-5 years, gradually shift equity allocation toward liability-hedging bonds as funded status improves (glide path)\n\n## Issue 2: Return Generation\n\nTo close the $400M funding gap in 8 years:\n- Required excess return above liability growth: ~$400M / ($3,000M \u00d7 8) \u2248 1.7% per year\n- This requires maintaining meaningful return-seeking allocation (equities, alternatives)\n- **Tension**: LDI transition reduces return-seeking assets \u2192 harder to close the gap\n- **Resolution**: Use derivatives overlay to maintain equity beta exposure while physically holding more bonds"
+    },
+    {
+      "type": "markdown",
+      "content": "## Issue 3: ESG Integration\n\n### ESG Framework for the Pension Fund\n\n| Approach | Implementation |\n|---|---|\n| **Negative screening** | Exclude companies violating UN Global Compact principles |\n| **ESG integration** | Incorporate ESG scores into equity and credit analysis |\n| **Active ownership** | Proxy voting aligned with ESG principles |\n| **Impact allocation** | 5% of return-seeking portfolio in green bonds, social bonds |\n\n### ESG Considerations in Practice\n\n- **Fiduciary duty**: ESG integration must be justified by improved risk-adjusted returns or risk reduction, not solely moral grounds (ERISA framework)\n- **Climate risk**: Stress test the portfolio against climate scenarios (2\u00b0C vs. 4\u00b0C warming)\n- **Stranded asset risk**: Assess fossil fuel exposure in equity and credit portfolios\n- **Social factors**: Supply chain labor practices, data privacy, community impact\n- **Governance**: Board diversity, executive compensation alignment, shareholder rights\n\n## Issue 4: Risk Management\n\n### Risk Budget\n\n| Risk Category | Budget | Measure |\n|---|---|---|\n| **Surplus risk** | <8% annual surplus volatility | \u03c3(A \u2212 L) |\n| **Active risk (equity)** | <3% tracking error vs. benchmark | Tracking error |\n| **Credit risk** | <5% of FI portfolio in below-IG | Credit quality distribution |\n| **Liquidity risk** | >12 months of benefit payments in liquid assets | Liquidity ratio |\n| **Currency risk** | 50-75% hedge on international equity | Hedge ratio |\n\n### Derivatives Overlay Risk\n\n- **Margin management**: Maintain cash reserve for variation margin on swaps and futures\n- **Counterparty risk**: Use cleared swaps where possible; monitor dealer exposure\n- **Collateral management**: Ensure sufficient eligible collateral for margin calls"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Comprehensive Portfolio Recommendation",
+      "solution": "**Part A \u2014 Recommended target allocation and rationale:**\n\n| Asset Class | Current | Proposed | Rationale |\n|---|---|---|---|\n| Domestic equity | 35% | 25% | Reduce to fund LDI; maintain via futures overlay |\n| International equity | 15% | 10% | Reduce; hedge 70% of currency exposure |\n| Long-duration govt bonds | 10% | 20% | Core LDI portfolio for duration matching |\n| Long-duration credit | 0% | 15% | Additional LDI with credit spread income |\n| Core fixed income | 30% | 15% | Reduce; shift duration toward liabilities |\n| Real estate | 5% | 5% | Maintain for inflation protection |\n| Alternatives (PE/HF) | 5% | 5% | Maintain for return enhancement |\n| Green/social bonds | 0% | 5% | ESG mandate; long-duration for LDI |\n\n**Derivatives overlay:**\n- Long S&P 500 futures: $300M notional (replaces the 10% equity reduction with synthetic exposure)\n- Receive-fixed swaps: $600M notional, 15-year tenor (adds ~3.0 years duration to the portfolio)\n- Currency forwards: Sell EUR/GBP/JPY forward on 70% of $300M international equity = $210M hedged\n\n**Part B \u2014 Duration analysis after restructuring:**\n\nPhysical bond duration contribution:\n- Long-duration govt (20%): 0.20 \u00d7 16 = 3.2\n- Long-duration credit (15%): 0.15 \u00d7 13 = 1.95\n- Core FI (15%): 0.15 \u00d7 5.5 = 0.825\n- Green bonds (5%): 0.05 \u00d7 12 = 0.6\nTotal physical: 6.575 years\n\nSwap duration contribution:\n- $600M notional \u00d7 15-year swap duration / $3,000M = 3.0 years\n\nTotal effective duration: 6.575 + 3.0 = **9.575 years**\n\nRemaining gap: 13.5 \u2212 9.575 = 3.925 years (reduced from original 10.45)\n\nThis is a significant improvement. The remaining gap can be closed over time as the funded status improves and more assets shift to LDI.\n\n**Part C \u2014 Performance evaluation framework:**\n\n1. **Funded status tracking**: Monitor funding ratio monthly (target: 88% \u2192 100% in 8 years)\n2. **Surplus return attribution**:\n   - Liability benchmark return: Change in liability PV due to discount rate changes\n   - Asset return: Total portfolio return\n   - Surplus return: Asset return \u2212 Liability return\n3. **Manager attribution**: Brinson-Fachler for equity (allocation + selection); FI attribution for bonds (duration, yield curve, credit, security selection)\n4. **ESG scorecard**: Portfolio ESG rating, carbon intensity, engagement outcomes\n5. **Risk monitoring**: Surplus VaR, tracking error, liquidity ratio, counterparty exposure\n\n**Part D \u2014 Rebalancing and glide path:**\n\nImplement a funded-status-triggered glide path:\n- At 90% funded: Shift 5% from equity to LDI\n- At 95% funded: Shift additional 5% from equity to LDI\n- At 100% funded: Move to 80% LDI / 20% return-seeking portfolio\n- Rebalance quarterly using corridor approach (\u00b13% for equities, \u00b15% for FI)\n- Use futures overlay for interim adjustments to avoid disrupting active managers"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Case Study Practice",
+      "problems": [
+        {
+          "id": "l3-pc6-1",
+          "question": "In the Meridian case, the most critical issue to address first is:",
+          "options": [
+            "A) ESG integration to meet the board mandate",
+            "B) The duration gap between assets and liabilities",
+            "C) Reducing the allocation to alternatives"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The 10.45-year duration gap is the most critical risk. A 100bp decline in rates would increase liabilities by ~$459M while assets would benefit by only ~$37M \u2014 devastating the funded status. This asymmetric rate risk could widen the funding gap catastrophically. ESG integration (A) is important but not existentially risky. Alternatives allocation (C) is already modest at 5%. The duration gap is the most significant risk that could prevent the fund from meeting its primary objective of achieving full funding.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Prioritize portfolio management issues based on risk assessment"
+        },
+        {
+          "id": "l3-pc6-2",
+          "question": "Using a derivatives overlay to maintain equity exposure while physically shifting to bonds allows the fund to:",
+          "options": [
+            "A) Eliminate all investment risk",
+            "B) Simultaneously improve LDI hedging and maintain return-seeking beta exposure",
+            "C) Avoid any costs associated with the portfolio restructuring"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The derivatives overlay solves the tension between LDI (needs more bonds for duration matching) and return generation (needs equity exposure to close the funding gap). By buying equity futures and receiving-fixed in swaps, the fund can hold physical bonds (for LDI) while maintaining synthetic equity beta exposure. It does NOT eliminate risk (A) \u2014 basis risk, margin risk, and market risk remain. There are costs (C) \u2014 margin, roll costs, swap spreads \u2014 but they are much lower than physical trading costs.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Explain how derivatives overlays resolve competing portfolio objectives"
+        },
+        {
+          "id": "l3-pc6-3",
+          "question": "The funded-status-triggered glide path (increasing LDI allocation as funded status improves) is an example of:",
+          "options": [
+            "A) Tactical asset allocation",
+            "B) Dynamic asset allocation with de-risking",
+            "C) Strategic asset allocation review"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A funded-status glide path is a form of dynamic asset allocation \u2014 the policy allocation changes automatically based on a pre-defined trigger (funded status level). As the fund improves, it de-risks by shifting from return-seeking to liability-hedging assets. This is different from TAA (A), which involves short-term deviations based on market views, and SAA review (C), which is a periodic reassessment of the base policy. The glide path is a systematic, pre-committed de-risking mechanism.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe dynamic de-risking strategies for pension funds"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Present your integrated portfolio recommendation for the Meridian pension fund to its board of trustees. Explain how the LDI transition, derivatives overlay, and ESG integration work together, and how you will measure success."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How do you balance the competing objectives of improving funded status and reducing risk?",
+        "What could go wrong with the derivatives overlay strategy, and how would you manage those risks?",
+        "How would you explain to the board that ESG integration is consistent with fiduciary duty?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Case Study Integration:**\n\n- **Duration gap** is often the most critical risk for DB pensions \u2014 address first\n- **Derivatives overlay** resolves the LDI vs. return-generation tension (synthetic equity + physical bonds)\n- **ESG integration** must be framed within fiduciary duty (risk/return impact, not solely ethics)\n- **Glide path**: Pre-committed de-risking as funded status improves\n- **Performance evaluation**: Surplus return attribution, not just asset return\n- **Rebalancing**: Corridor-based with futures for interim adjustments\n- The CIO must integrate asset allocation, derivatives, risk management, ESG, and governance into a coherent strategy"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "This completes the Portfolio Construction section. The **checkpoint** follows, then we move to **Performance Measurement** \u2014 evaluating whether all these portfolio decisions actually added value."
+    }
+  ]
+}

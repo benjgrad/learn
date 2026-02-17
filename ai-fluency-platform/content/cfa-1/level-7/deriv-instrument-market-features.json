@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "DV.1: Derivative Instruments and Markets",
+    "description": "Define derivatives, distinguish exchange-traded from OTC markets, and understand clearing, settlement, margin requirements, and key market participants.",
+    "level": "level-7",
+    "slug": "deriv-instrument-market-features",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A farmer wants to lock in a price for wheat before harvest. A hedge fund wants to bet that oil prices will rise. How could a single financial instrument serve both purposes? What might that instrument look like?"
+    },
+    {
+      "type": "markdown",
+      "content": "## What Is a Derivative?\n\nA **derivative** is a financial instrument whose value is **derived from** the value of an underlying asset, rate, or index. The underlying can be a stock, bond, commodity, currency, interest rate, or even another derivative.\n\nKey characteristics:\n- The derivative's payoff depends on the value of the underlying at a future date\n- Derivatives are **contracts between two parties** (a buyer and a seller)\n- They typically require little or no initial investment relative to the exposure gained (**leverage**)\n\n### Types of Underlyings\n\n| Underlying | Examples |\n|---|---|\n| Equities | Individual stocks, stock indices (S&P 500) |\n| Fixed Income | Government bonds, interest rates (SOFR, EURIBOR) |\n| Currencies | EUR/USD, GBP/JPY |\n| Commodities | Crude oil, gold, wheat, natural gas |\n| Credit | Credit default (reference entity's debt) |\n\n### Purposes of Derivatives\n\nDerivatives serve three primary economic functions:\n\n1. **Hedging** \u2014 transferring unwanted risk (e.g., a farmer locking in a crop price)\n2. **Speculation** \u2014 taking a directional view on price movements with leverage\n3. **Arbitrage** \u2014 exploiting mispricings between related instruments for risk-free profit"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is a derivative described as a 'zero-sum game'? Who gains and who loses?",
+      "answer": "A derivative is a zero-sum game because one party's gain is exactly the other party's loss. If a forward contract buyer profits $10 when the underlying rises, the seller loses $10. Unlike stocks, where both buyer and issuing company can benefit from growth, derivatives merely redistribute existing risk and return between counterparties. The total net payoff across both sides is always zero (ignoring transaction costs)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Exchange-Traded vs. OTC Markets\n\n| Feature | Exchange-Traded | Over-the-Counter (OTC) |\n|---|---|---|\n| Standardization | Standardized contracts | Customized terms |\n| Counterparty risk | Clearinghouse guarantees | Direct exposure to counterparty |\n| Liquidity | Generally higher | Varies; can be illiquid |\n| Transparency | Public price discovery | Prices may be opaque |\n| Regulation | Heavily regulated | Less regulated (but increasing) |\n| Examples | Futures, listed options | Forwards, swaps, exotic options |\n\n### The Role of the Clearinghouse\n\nIn exchange-traded markets, a **central clearinghouse** (also called a central counterparty, or CCP) interposes itself between every buyer and seller. This means:\n- Each party faces the clearinghouse, not the original counterparty\n- The clearinghouse guarantees performance on both sides\n- **Counterparty credit risk** is virtually eliminated\n\n### Margin and Mark-to-Market\n\n**Initial margin** is a good-faith deposit required when entering a position. **Maintenance margin** is the minimum account balance that must be maintained. If the account falls below maintenance margin due to daily price changes, the trader receives a **margin call** and must deposit **variation margin** to restore the account.\n\nThis process of daily settlement is called **mark-to-market** \u2014 gains and losses are realized daily rather than only at contract expiration."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Compare the risks: A portfolio manager enters an interest rate swap through an OTC dealer. Another manager buys an S&P 500 futures contract on the CME. List two specific risks that differ between these positions and explain why.",
+      "solution": "**1. Counterparty risk:** The OTC swap exposes the portfolio manager directly to the dealer's credit risk \u2014 if the dealer defaults, the manager may lose unrealized gains. The futures contract on the CME is guaranteed by the clearinghouse, virtually eliminating counterparty risk.\n\n**2. Liquidity risk:** The OTC swap is a customized bilateral contract that may be difficult to exit or transfer before maturity. The CME futures contract is standardized and traded on an exchange with many participants, making it easy to offset (close) the position at any time.\n\nNote: Post-2008 reforms have required many OTC swaps to be centrally cleared, reducing but not eliminating the difference in counterparty risk."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Derivative Instruments and Markets Practice",
+      "problems": [
+        {
+          "id": "dv1-1",
+          "question": "Which of the following best describes a derivative?",
+          "options": [
+            "A) A security that represents ownership in a corporation",
+            "B) A financial instrument whose value depends on the value of an underlying asset",
+            "C) A debt obligation that pays periodic interest and returns principal at maturity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A derivative derives its value from an underlying asset, rate, or index. Option A describes equity (stock). Option C describes a bond. Neither stocks nor bonds are derivatives because their values do not depend on a separate underlying instrument.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Define a derivative and describe the key features of derivative instruments"
+        },
+        {
+          "id": "dv1-2",
+          "question": "An investor is concerned about counterparty credit risk. Which market structure best mitigates this risk?",
+          "options": [
+            "A) Over-the-counter bilateral trading",
+            "B) Exchange-traded contracts with central clearing",
+            "C) OTC contracts with a master netting agreement"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Exchange-traded contracts with central clearing virtually eliminate counterparty risk because the clearinghouse guarantees both sides of every trade. Option A (bilateral OTC) carries the highest counterparty risk since each party faces the other directly. Option C (master netting) reduces but does not eliminate counterparty risk \u2014 netting reduces net exposure but the counterparty can still default.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the role of clearing and settlement in exchange-traded markets"
+        },
+        {
+          "id": "dv1-3",
+          "question": "A futures trader posts an initial margin of $5,000 and the maintenance margin is $3,750. At the end of day one, the trader's position loses $1,500. What is the variation margin the trader must deposit?",
+          "options": [
+            "A) $0",
+            "B) $250",
+            "C) $1,500"
+          ],
+          "correctAnswer": "C",
+          "explanation": "After the $1,500 loss, the account balance is $5,000 \u2212 $1,500 = $3,500. Since $3,500 is below the maintenance margin of $3,750, a margin call is triggered. The trader must restore the account to the initial margin of $5,000, so variation margin = $5,000 \u2212 $3,500 = $1,500. Option A ($0) is wrong because the balance fell below maintenance margin. Option B ($250) incorrectly assumes restoring only to the maintenance level \u2014 margin calls require restoration to the initial margin level.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain the mechanics of margin requirements and mark-to-market settlement"
+        },
+        {
+          "id": "dv1-4",
+          "question": "Which of the following is least likely a purpose served by derivative markets?",
+          "options": [
+            "A) Price discovery for the underlying asset",
+            "B) Elimination of all investment risk",
+            "C) Transfer of risk between market participants"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Derivatives cannot eliminate all investment risk \u2014 they transfer specific risks between parties. One party's reduced risk becomes another party's increased risk. Option A is correct: derivative prices contain information about expected future prices of the underlying (price discovery). Option C is correct: hedgers use derivatives to transfer unwanted risks to those willing to bear them (speculators).",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the purposes and benefits of derivative markets"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between exchange-traded and OTC derivative markets. Cover standardization, counterparty risk, and the role of the clearinghouse. Use an analogy to make the distinction clear."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why did the 2008 financial crisis highlight problems with OTC derivatives?",
+        "If derivatives are zero-sum, how do they create economic value?",
+        "What is the relationship between leverage in derivatives and both potential gains and potential losses?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- A derivative's value is **derived from** an underlying asset, rate, or index\n- Three primary purposes: **hedging, speculation, arbitrage**\n- Exchange-traded derivatives are standardized with clearinghouse guarantees\n- OTC derivatives are customized with direct counterparty exposure\n- **Margin** (initial, maintenance, variation) and **mark-to-market** manage credit risk on exchanges\n- Derivatives are zero-sum: one party's gain = other party's loss"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Forward Commitments and Contingent Claims** \u2014 the two fundamental categories of derivative instruments. You will learn how forwards, futures, swaps, and options differ in their obligation structures and payoff profiles."
+    }
+  ]
+}

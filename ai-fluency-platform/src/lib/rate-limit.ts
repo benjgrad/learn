@@ -29,6 +29,11 @@ export interface RateLimitResult {
 export async function checkAndIncrementUsage(
   request: NextRequest
 ): Promise<RateLimitResult> {
+  // Skip rate limiting in development
+  if (process.env.NODE_ENV === "development") {
+    return { allowed: true, authenticated: true, remaining: 999, limit: 999 };
+  }
+
   const supabase = await createClient();
   const {
     data: { user },

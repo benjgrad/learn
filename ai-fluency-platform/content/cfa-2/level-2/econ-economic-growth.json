@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "ECON.2: Economic Growth and Investment Implications",
+    "description": "Analyze the Cobb-Douglas production function, Solow growth model, convergence, and how economic growth factors affect investment decisions.",
+    "level": "level-2",
+    "slug": "econ-economic-growth",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If a developing country has been growing GDP at 8% annually by accumulating physical capital, can it sustain this rate indefinitely? What does economic theory predict will happen to growth rates over time, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Cobb-Douglas Production Function\n\nThe Cobb-Douglas production function is the workhorse model for understanding economic output:\n\n$$Y = A \\cdot K^\\alpha \\cdot L^{1-\\alpha}$$\n\nWhere:\n- $Y$ = total output (GDP)\n- $A$ = total factor productivity (TFP) \u2014 technology, institutions, efficiency\n- $K$ = physical capital stock\n- $L$ = labor force\n- $\\alpha$ = output elasticity of capital (typically 0.3\u20130.4 for developed economies)\n\n### Key Properties\n\n- **Constant returns to scale**: Doubling both $K$ and $L$ doubles $Y$\n- **Diminishing marginal returns**: Each additional unit of capital (holding labor fixed) produces less additional output\n- **Growth accounting**: Total output growth can be decomposed:\n\n$$\\frac{\\Delta Y}{Y} = \\frac{\\Delta A}{A} + \\alpha \\frac{\\Delta K}{K} + (1-\\alpha) \\frac{\\Delta L}{L}$$\n\nThis decomposition allows analysts to attribute growth to TFP improvements, capital accumulation, or labor force growth."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In a Cobb-Douglas framework with \u03b1 = 0.3, if capital grows by 10% and labor grows by 2%, while TFP growth is zero, what is the approximate GDP growth rate?",
+      "answer": "GDP growth = \u0394A/A + \u03b1(\u0394K/K) + (1\u2212\u03b1)(\u0394L/L) = 0% + 0.3(10%) + 0.7(2%) = 3.0% + 1.4% = 4.4%. Capital contributes 3.0 percentage points and labor contributes 1.4 percentage points. Note that despite capital growing by 10%, its contribution to GDP growth is only 3% due to the 0.3 elasticity \u2014 reflecting diminishing returns."
+    },
+    {
+      "type": "markdown",
+      "content": "## The Solow Growth Model\n\nThe Solow (neoclassical) growth model extends Cobb-Douglas to analyze long-run growth dynamics.\n\n### Per-Capita Output\n\nDividing by labor, output per worker depends on capital per worker:\n\n$$y = A \\cdot k^\\alpha$$\n\nWhere $y = Y/L$ (output per worker) and $k = K/L$ (capital per worker).\n\n### Capital Deepening vs. TFP Growth\n\n| Growth Source | Description | Sustainability |\n|---|---|---|\n| **Capital deepening** | Increasing $k$ (capital per worker) | Subject to **diminishing returns** \u2014 eventually slows |\n| **TFP growth** | Increasing $A$ (technology, efficiency) | **Only sustainable source** of long-run per-capita growth |\n\n### Steady State\n\nThe economy reaches a **steady state** where capital per worker stabilizes. At steady state:\n- Investment just replaces depreciated capital and equips new workers\n- Per-capita output growth comes **only from TFP growth**\n- Higher savings rates lead to higher **levels** of output per capita but not permanently higher **growth rates**\n\n$$k^* = \\left(\\frac{sA}{\\delta + n}\\right)^{\\frac{1}{1-\\alpha}}$$\n\nWhere $s$ = savings rate, $\\delta$ = depreciation rate, $n$ = labor force growth rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Convergence and Growth Implications\n\n### Convergence Hypothesis\n\n**Absolute convergence**: All countries converge to the same steady-state income level. Empirical evidence **does not** support this.\n\n**Conditional convergence**: Countries converge to their **own** steady states, determined by savings rates, population growth, institutions, and technology. Supported by evidence \u2014 countries far below their steady state grow faster.\n\n### Why Convergence Matters for Investors\n\n- Developing countries below steady state may offer **higher growth** (capital deepening phase)\n- But high GDP growth does not automatically translate to high equity returns\n- Growth may be captured by labor or government rather than shareholders\n- Institutional quality determines whether growth benefits investors\n\n### Factors Affecting Long-Run Growth\n\n| Factor | Effect on Growth |\n|---|---|\n| **Trade openness** | Generally positive \u2014 access to technology, specialization, competition |\n| **Financial market development** | Positive \u2014 efficient capital allocation |\n| **Rule of law / property rights** | Strongly positive \u2014 incentivizes investment |\n| **Education and human capital** | Positive \u2014 increases labor productivity and TFP |\n| **Excessive regulation** | Negative \u2014 reduces competition and innovation |\n| **Political instability** | Negative \u2014 deters investment, shortens planning horizons |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Growth Accounting Decomposition",
+      "solution": "Country X reports the following data over a 10-year period:\n- GDP growth: 6.0% per year\n- Capital stock growth: 8.0% per year\n- Labor force growth: 1.5% per year\n- Output elasticity of capital (\u03b1): 0.35\n\nDecompose GDP growth into its sources:\n\nCapital contribution: \u03b1 \u00d7 \u0394K/K = 0.35 \u00d7 8.0% = 2.80%\nLabor contribution: (1\u2212\u03b1) \u00d7 \u0394L/L = 0.65 \u00d7 1.5% = 0.975%\nTFP growth (Solow residual): 6.0% \u2212 2.80% \u2212 0.975% = 2.225%\n\nInterpretation:\n- Capital deepening accounts for 2.80/6.0 = 46.7% of growth\n- Labor accounts for 0.975/6.0 = 16.3% of growth\n- TFP accounts for 2.225/6.0 = 37.1% of growth\n\nThe significant TFP contribution suggests sustainable growth driven by technology and efficiency gains, not just input accumulation."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Economic Growth Practice",
+      "problems": [
+        {
+          "id": "econ-gr-1",
+          "vignette": "Maria Santos, CFA, is an emerging markets analyst evaluating two countries for potential equity allocation:\n\n| Metric | Country A | Country B |\n|---|---|---|\n| GDP growth (5-yr avg) | 7.5% | 3.0% |\n| Capital stock growth | 12.0% | 2.5% |\n| Labor force growth | 2.0% | 0.5% |\n| TFP growth | 0.8% | 1.8% |\n| Output elasticity of capital (\u03b1) | 0.35 | 0.35 |\n| Capital per worker | Low | High |\n| Institutional quality index | Weak (35/100) | Strong (85/100) |\n\nSantos notes that Country A's impressive GDP growth has been primarily driven by capital accumulation.",
+          "question": "Based on the Solow model, which country's growth rate is more likely to be sustained over the next 20 years?",
+          "options": [
+            "A) Country A, because its current growth rate is much higher",
+            "B) Country B, because its growth is driven more by TFP",
+            "C) Both countries will sustain their current growth rates indefinitely"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Country B's growth is more sustainable because it relies heavily on TFP growth (1.8%), which is the only source of sustained long-run per-capita growth in the Solow model. Country A's growth is dominated by capital accumulation (0.35 \u00d7 12% = 4.2% from capital alone), which faces diminishing returns. As Country A's capital per worker rises, the marginal product of capital will decline and growth will slow. Country A's weak institutions also threaten sustainability. Option A ignores diminishing returns. Option C contradicts the Solow model's prediction of convergence to steady state.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Explain the Solow model's implications for long-run growth sustainability"
+        },
+        {
+          "id": "econ-gr-2",
+          "vignette": "Maria Santos, CFA, is an emerging markets analyst evaluating two countries for potential equity allocation:\n\n| Metric | Country A | Country B |\n|---|---|---|\n| GDP growth (5-yr avg) | 7.5% | 3.0% |\n| Capital stock growth | 12.0% | 2.5% |\n| Labor force growth | 2.0% | 0.5% |\n| TFP growth | 0.8% | 1.8% |\n| Output elasticity of capital (\u03b1) | 0.35 | 0.35 |\n\nSantos verifies Country A's growth decomposition.",
+          "question": "The contribution of capital accumulation to Country A's GDP growth is closest to:",
+          "options": [
+            "A) 2.8%",
+            "B) 4.2%",
+            "C) 7.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Capital contribution = \u03b1 \u00d7 \u0394K/K = 0.35 \u00d7 12.0% = 4.2%. This accounts for 4.2/7.5 = 56% of Country A's total GDP growth, confirming Santos's observation that growth is capital-accumulation driven. Verification: Total = TFP + capital + labor = 0.8% + 4.2% + (0.65 \u00d7 2.0%) = 0.8% + 4.2% + 1.3% = 6.3%. The residual to 7.5% may reflect measurement differences. Option A uses \u03b1 = 0.35 \u00d7 8% incorrectly. Option C attributes all growth to capital.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Decompose economic growth using the Cobb-Douglas framework"
+        },
+        {
+          "id": "econ-gr-3",
+          "vignette": "David Park is a macro strategist reviewing convergence patterns. He compiles data on three emerging markets:\n\n| Country | GDP per capita | Savings rate | Population growth | Rule of law index | Trade openness |\n|---|---|---|---|---|---|\n| M | $3,500 | 28% | 2.8% | Low | Low |\n| N | $8,200 | 32% | 1.2% | High | High |\n| P | $5,000 | 22% | 0.8% | High | High |\n\nPark's colleague argues that absolute convergence predicts all three countries will eventually reach the same income level as developed economies ($55,000 GDP per capita).",
+          "question": "Is Park's colleague's assessment of absolute convergence correct?",
+          "options": [
+            "A) Yes, all countries will converge to the same income level given enough time",
+            "B) No, conditional convergence is more appropriate because each country converges to its own steady state determined by structural factors",
+            "C) No, convergence theory predicts that poorer countries will remain poor indefinitely"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Conditional convergence is the empirically supported theory. Each country converges to its own steady state, which depends on savings rates, population growth, institutional quality, trade openness, and technology. Country M's low rule of law and trade openness suggest a lower steady-state income than Country N or P, despite being the poorest. Country N's strong institutions and high savings suggest the highest steady state among the three. Absolute convergence (Option A) is not supported empirically \u2014 structural differences prevent uniform outcomes. Option C incorrectly states convergence theory predicts permanent poverty.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Distinguish between absolute and conditional convergence"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between capital deepening and TFP growth to a colleague who is not an economist. Use a factory analogy to illustrate why simply adding more machines eventually stops increasing output per worker, while better technology (TFP) can sustain growth indefinitely."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a country with high GDP growth be a poor equity investment?",
+        "How do institutions and rule of law affect the steady-state level of income in the Solow model?",
+        "What structural reforms would you recommend for a country relying too heavily on capital deepening?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Cobb-Douglas: $Y = A \\cdot K^\\alpha \\cdot L^{1-\\alpha}$\n- Growth decomposition: $\\Delta Y/Y = \\Delta A/A + \\alpha(\\Delta K/K) + (1-\\alpha)(\\Delta L/L)$\n- TFP growth is the **only sustainable** source of long-run per-capita growth\n- Capital deepening faces **diminishing returns**\n- Conditional convergence: countries converge to their own steady states\n- Higher savings \u2192 higher income **level** but not permanently higher growth\n- Institutional quality, trade openness, and human capital are key growth determinants"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've now completed the Economics section for Level II. The **Economics Checkpoint** is next, where you'll test your integrated understanding of currency markets and economic growth in a comprehensive assessment."
+    }
+  ]
+}

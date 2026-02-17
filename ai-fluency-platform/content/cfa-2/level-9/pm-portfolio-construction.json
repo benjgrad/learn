@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.4: Portfolio Construction",
+    "description": "Apply Mean-Variance Optimization, resampled MVO, Black-Litterman, risk budgeting, factor-based allocation, completion portfolios, and tax-efficient portfolio management.",
+    "level": "level-9",
+    "slug": "pm-portfolio-construction",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Mean-Variance Optimization often produces extreme portfolios \u2014 80% in one asset, 0% in several others. Why does an elegant mathematical framework produce such impractical results, and how might you fix it?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Mean-Variance Optimization and Its Limitations\n\nMarkowitz MVO finds portfolios that maximize return for a given level of risk:\n\n$$\\max_w \\quad w'\\mu - \\frac{\\lambda}{2} w'\\Sigma w$$\n\nSubject to: $\\sum w_i = 1$ and any constraints.\n\n### MVO Limitations\n\n| Problem | Description |\n|---------|-------------|\n| **Input sensitivity** | Small changes in expected returns produce dramatically different allocations |\n| **Estimation error** | Expected returns are notoriously difficult to estimate accurately |\n| **Concentration** | Unconstrained MVO often produces extreme, concentrated portfolios |\n| **Instability** | Optimal weights change significantly with each rebalancing period |\n| **Error maximization** | MVO overweights assets with the largest estimation errors |\n\n### Practical Mitigations\n\n1. **Add constraints**: position limits, sector caps, turnover limits\n2. **Shrinkage estimators**: blend sample estimates with a structured prior\n3. **Resampled MVO**: simulation-based approach to account for estimation uncertainty\n4. **Black-Litterman**: Bayesian approach combining market equilibrium with manager views"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In Black-Litterman, if a manager expresses no views at all, what portfolio does the model produce?",
+      "answer": "The global market-capitalization-weighted portfolio. Black-Litterman starts from the equilibrium implied by market cap weights (reverse optimization) and only deviates when the manager inputs specific views with a specified confidence level. With zero views, the model defaults to the market portfolio \u2014 a much more sensible starting point than MVO's often extreme solutions. This is one of the model's key advantages."
+    },
+    {
+      "type": "markdown",
+      "content": "## Black-Litterman and Resampled MVO\n\n### Black-Litterman Model\n\n1. **Start with equilibrium returns**: reverse-optimize from market cap weights to find implied expected returns\n$$\\Pi = \\lambda \\Sigma w_{mkt}$$\n\n2. **Express views**: the manager specifies views on absolute or relative returns with confidence levels\n\n3. **Blend**: Bayesian combination of equilibrium returns and manager views:\n$$E(R)_{BL} = [(\\tau\\Sigma)^{-1} + P'\\Omega^{-1}P]^{-1} \\times [(\\tau\\Sigma)^{-1}\\Pi + P'\\Omega^{-1}Q]$$\n\nWhere $P$ = view matrix, $Q$ = view returns, $\\Omega$ = confidence in views, $\\tau$ = scaling factor.\n\n### Resampled MVO (Michaud)\n\n1. Simulate many sets of inputs (returns, covariances) from the estimated distribution\n2. Run MVO on each simulated set\n3. Average the resulting efficient portfolios\n4. Produces more stable, diversified allocations\n\n**Limitation**: resampled frontiers can be inefficient (averaged portfolios are not guaranteed to be on any efficient frontier)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Risk Budgeting, Factor Allocation, and Tax Efficiency\n\n### Risk Budgeting\n\nAllocate risk (not capital) across portfolio components:\n\n$$\\text{Risk Budget}_i = w_i \\times \\frac{\\partial \\sigma_p}{\\partial w_i} = w_i \\times MCTR_i$$\n\nWhere **MCTR** (Marginal Contribution to Total Risk) measures how much each position contributes to portfolio risk.\n\n**Risk parity**: equalize the risk contribution from each asset class. Typically requires leveraging low-risk assets (bonds) and deleveraging high-risk assets (equities).\n\n### Factor-Based Allocation\n\nAllocate to **risk factors** rather than asset classes:\n- Equity risk \u2192 growth exposure\n- Interest rate risk \u2192 duration exposure\n- Credit risk \u2192 spread exposure\n- Inflation risk \u2192 real asset exposure\n\nAdvantage: avoids hidden concentration when asset classes share the same underlying factor exposure.\n\n### Completion Portfolio\n\nA **completion portfolio** fills gaps between a client's existing holdings and their desired allocation. If a client has a concentrated stock position, the completion portfolio diversifies around it.\n\n### Tax-Efficient Management\n\n| Technique | Description |\n|-----------|-------------|\n| **Tax-loss harvesting** | Realize losses to offset gains |\n| **Holding period management** | Hold >1 year for long-term capital gains rates |\n| **Asset location** | Place tax-inefficient assets in tax-deferred accounts |\n| **Low turnover** | Minimize realization events |\n| **After-tax rebalancing** | Consider tax cost in rebalancing decisions |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio has three assets with the following characteristics: Asset A (weight 50%, MCTR 8%), Asset B (weight 30%, MCTR 12%), Asset C (weight 20%, MCTR 5%). Calculate each asset's absolute contribution to risk (ACTR) and the total portfolio risk. Which asset contributes the most risk, and how might you adjust to create a more balanced risk budget?",
+      "solution": "**Absolute Contribution to Risk (ACTR):**\n\n$ACTR_A = 50\\% \\times 8\\% = 4.0\\%$\n$ACTR_B = 30\\% \\times 12\\% = 3.6\\%$\n$ACTR_C = 20\\% \\times 5\\% = 1.0\\%$\n\n**Total Portfolio Risk:**\n\n$\\sigma_p = 4.0\\% + 3.6\\% + 1.0\\% = 8.6\\%$\n\n**Risk Contribution Shares:**\n\n$A: 4.0/8.6 = 46.5\\%$\n$B: 3.6/8.6 = 41.9\\%$\n$C: 1.0/8.6 = 11.6\\%$\n\n**Asset A contributes the most risk** (46.5%) despite only 50% weight. Asset B has a disproportionately high risk contribution (42%) for its 30% weight, due to its high MCTR.\n\n**For a balanced risk budget:** reduce B's weight (it has the highest MCTR, adding the most risk per dollar), increase C's weight (lowest MCTR, most efficient risk contributor), and slightly reduce A. A true risk-parity portfolio would equalize the ACTRs at roughly 2.87% each."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Portfolio Construction \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "pm4-1",
+          "question": "**Vignette: Meridian Wealth Advisors**\n\nMeridian's investment committee is reviewing its strategic asset allocation process. The committee currently uses unconstrained MVO with sample-based inputs updated quarterly. Recent allocations have been:\n\n| Quarter | US Equity | Int'l Equity | Bonds | Real Estate | Cash |\n|---------|-----------|--------------|-------|-------------|------|\n| Q1 | 72% | 3% | 25% | 0% | 0% |\n| Q2 | 45% | 28% | 12% | 15% | 0% |\n| Q3 | 68% | 0% | 0% | 22% | 10% |\n\nThe CIO proposes switching to Black-Litterman.\n\n---\n\n**Question 1:** The highly variable allocations across quarters are most likely caused by:",
+          "options": [
+            "A) Rapidly changing market conditions requiring tactical shifts",
+            "B) MVO's sensitivity to small changes in estimated expected returns",
+            "C) Insufficient diversification in the opportunity set"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The extreme quarter-to-quarter swings (e.g., International equity going from 3% to 28% to 0%) are classic symptoms of MVO's input sensitivity, also called 'error maximization.' Small changes in estimated expected returns produce dramatically different optimal portfolios. The optimizer amplifies estimation errors, producing concentrated, unstable allocations. Market conditions (A) would not typically produce such extreme oscillation. The opportunity set (C) is reasonably broad.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify the practical limitations of unconstrained MVO"
+        },
+        {
+          "id": "pm4-2",
+          "question": "**Question 2 (continued):** Under Black-Litterman, if the committee expresses a single view that US equities will outperform international equities by 2% (with moderate confidence), the resulting allocation will most likely:",
+          "options": [
+            "A) Shift entirely to US equities as in a traditional MVO",
+            "B) Increase US equity weight and decrease international weight relative to market cap, with other allocations largely unchanged",
+            "C) Produce the same allocation as market-cap weights since only one view is expressed"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Black-Litterman tilts the market-cap equilibrium portfolio toward the expressed view. With moderate confidence, the adjustment is proportional \u2014 US equity increases and international decreases, but not dramatically. Other asset classes remain close to their equilibrium weights since no views are expressed about them. This is a key advantage: views only affect related assets, and the starting point is sensible. Option A reflects MVO's extreme behavior. Option C ignores the view entirely.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe how Black-Litterman incorporates investor views"
+        },
+        {
+          "id": "pm4-3",
+          "question": "**Question 3 (continued):** A risk-parity approach to the same five asset classes would most likely result in:",
+          "options": [
+            "A) Equal dollar weights of 20% to each asset class",
+            "B) Higher bond and cash allocations and lower equity allocations compared to MVO",
+            "C) The same allocation as market-cap weighting"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Risk parity equalizes the risk contribution from each asset class, not the dollar weight. Since equities are much more volatile than bonds, risk parity dramatically reduces equity weights and increases bond weights to equalize risk contributions. Bonds may need to be leveraged to contribute meaningful return. This produces a portfolio heavily weighted toward bonds/fixed income by dollar value but balanced in risk terms. Option A is equal-weight, not risk-parity. Option C \u2014 market-cap weights are equity-heavy.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Contrast risk-parity allocation with traditional approaches"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to an investment committee why Black-Litterman is an improvement over traditional MVO. Use the analogy of starting with a 'sensible default' (the market portfolio) and making measured adjustments based on your convictions, rather than building from scratch each time."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does MVO tend to overweight assets that have the largest estimation errors in expected returns?",
+        "What are the practical challenges of implementing a risk-parity portfolio for an unleveraged investor?",
+        "How should a tax-sensitive investor weigh rebalancing benefits against the tax cost of selling appreciated positions?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts and Relationships:**\n\n- MVO limitations: input sensitivity, concentration, instability, error maximization\n- Black-Litterman: starts from market equilibrium, tilts with manager views, more stable\n- Resampled MVO: averages across simulated optimal portfolios for stability\n- Risk budgeting: ACTR = weight \u00d7 MCTR; risk parity equalizes ACTRs\n- Factor-based allocation: addresses hidden factor concentrations across asset classes\n- Completion portfolio: fills gaps around existing concentrated holdings\n- Tax efficiency: harvesting, asset location, turnover management, holding period optimization"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Measuring and Managing Market Risk**, where you will learn VaR methodologies (parametric, historical, Monte Carlo) and stress testing. These tools quantify the downside risk of the portfolios you have just learned to construct."
+    }
+  ]
+}

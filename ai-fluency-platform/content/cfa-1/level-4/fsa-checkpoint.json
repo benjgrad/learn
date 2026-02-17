@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "FSA Checkpoint: Financial Statement Analysis",
+    "description": "Test your knowledge across all Financial Statement Analysis topics \u2014 from the FSA framework and income statement analysis through cash flows, inventories, long-term assets, taxes, reporting quality, ratios, and modeling.",
+    "level": "level-4",
+    "slug": "fsa-checkpoint",
+    "order": 14,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "FSA Checkpoint \u2014 Cross-Topic Assessment",
+      "problems": [
+        {
+          "id": "fsa-cp-1",
+          "question": "Under IFRS 15 / ASC 606, a software company sells a bundled product consisting of a software license (standalone price $600) and 2 years of support (standalone price $400) for a total contract price of $800. How much revenue is recognized at the time of license delivery?",
+          "options": [
+            "A) $400",
+            "B) $480",
+            "C) $800"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under the five-step model, the transaction price ($800) is allocated based on relative standalone selling prices. License allocation = $800 \u00d7 ($600 / ($600 + $400)) = $800 \u00d7 0.60 = $480. Support allocation = $800 \u00d7 0.40 = $320, recognized over 2 years ($160/year). Option A ($400) may result from subtracting the support allocation incorrectly. Option C ($800) incorrectly recognizes the entire contract at delivery, ignoring the support obligation. This tests FSA.2 revenue recognition.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply the five-step revenue recognition model with multiple performance obligations"
+        },
+        {
+          "id": "fsa-cp-2",
+          "question": "A company using LIFO reports COGS of $1,200,000. The LIFO reserve increased from $180,000 to $240,000 during the year. The tax rate is 25%. If the company had used FIFO, net income would have been approximately:",
+          "options": [
+            "A) $45,000 higher",
+            "B) $60,000 higher",
+            "C) $60,000 lower"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Change in LIFO reserve = $240,000 - $180,000 = $60,000. FIFO COGS = LIFO COGS - \u0394LIFO reserve = $1,200,000 - $60,000 = $1,140,000. Lower COGS increases pre-tax income by $60,000. After-tax impact = $60,000 \u00d7 (1 - 0.25) = $45,000 higher net income under FIFO. Option B ($60,000) fails to account for the tax effect. Option C incorrectly suggests FIFO would report lower income. This tests FSA.6 inventory analysis.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Convert LIFO financial statements to FIFO and calculate the net income impact"
+        },
+        {
+          "id": "fsa-cp-3",
+          "question": "A company reports CFO of $180 million, interest expense of $30 million (tax rate 20%), and capital expenditures of $90 million. FCFF is closest to:",
+          "options": [
+            "A) $90 million",
+            "B) $114 million",
+            "C) $120 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "FCFF = CFO + Int(1-t) - FCInv = $180M + $30M(1-0.20) - $90M = $180M + $24M - $90M = $114M. Option A ($90M) calculates CFO - capex without adding back after-tax interest. Option C ($120M) adds back the full interest without the tax adjustment ($180M + $30M - $90M). This tests FSA.5 free cash flow calculation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate FCFF from CFO"
+        },
+        {
+          "id": "fsa-cp-4",
+          "question": "Equipment costs $600,000 with a residual value of $60,000 and useful life of 6 years (straight-line). After 4 years, the carrying amount is $240,000 and its fair value is $180,000. Undiscounted future cash flows are $260,000. Under US GAAP, the impairment loss is:",
+          "options": [
+            "A) $0",
+            "B) $60,000",
+            "C) $180,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Annual depreciation = ($600,000 - $60,000) / 6 = $90,000. After 4 years: accumulated depreciation = $360,000, carrying amount = $240,000. US GAAP Step 1: compare carrying amount ($240,000) to undiscounted future cash flows ($260,000). Since $260,000 > $240,000, the asset passes the recoverability test \u2014 no impairment. Under IFRS, the recoverable amount ($180,000 fair value, if value in use is lower) would trigger a $60,000 impairment ($240,000 - $180,000). Option B ($60,000) applies IFRS logic. Option C confuses fair value with the loss amount. This tests FSA.7 impairment.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply US GAAP and IFRS impairment tests and explain the differences"
+        },
+        {
+          "id": "fsa-cp-5",
+          "question": "A discount bond has a carrying amount of $960 at the start of Year 3, a face value of $1,000, a coupon rate of 6%, and a market yield at issuance of 8%. The interest expense for Year 3 is closest to:",
+          "options": [
+            "A) $60.00",
+            "B) $76.80",
+            "C) $80.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under the effective interest method, interest expense = Carrying amount \u00d7 Market rate = $960 \u00d7 8% = $76.80. The coupon payment = $1,000 \u00d7 6% = $60.00. The discount amortization = $76.80 - $60.00 = $16.80, increasing the carrying amount to $976.80. Option A ($60.00) is the coupon payment, not interest expense. Option C ($80.00) incorrectly applies the market rate to face value ($1,000 \u00d7 8%). This tests FSA.8 bond accounting.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate interest expense using the effective interest method"
+        },
+        {
+          "id": "fsa-cp-6",
+          "question": "A company has pre-tax income of $800,000 and uses straight-line depreciation ($100,000) for books and accelerated depreciation ($160,000) for tax. The statutory rate is 30%. There are no permanent differences. The change in DTL is:",
+          "options": [
+            "A) $12,000",
+            "B) $18,000",
+            "C) $30,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Temporary difference = Tax depreciation - Book depreciation = $160,000 - $100,000 = $60,000. Change in DTL = $60,000 \u00d7 30% = $18,000. This DTL increase represents taxes deferred because the company claimed higher depreciation for tax purposes. Income tax expense = Tax payable + \u0394DTL. Tax payable = ($800,000 + $100,000 - $160,000) \u00d7 30% = $740,000 \u00d7 30% = $222,000. Tax expense = $222,000 + $18,000 = $240,000 = $800,000 \u00d7 30%. Option A ($12,000) uses 20% instead of 30%. Option C ($30,000) uses the book depreciation instead of the temporary difference. This tests FSA.9 deferred taxes.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate the change in deferred tax liability from temporary differences"
+        },
+        {
+          "id": "fsa-cp-7",
+          "question": "In a DuPont decomposition, Company A has ROE of 20%: net margin 8%, asset turnover 1.0x, leverage 2.5x. Company B has ROE of 20%: net margin 16%, asset turnover 1.0x, leverage 1.25x. Which statement is most accurate?",
+          "options": [
+            "A) Company A has higher earnings quality because it generates more revenue per dollar of assets",
+            "B) Company B has higher earnings quality because its ROE relies more on profitability than leverage",
+            "C) Both companies have equal earnings quality since their ROE is identical"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Company B achieves its 20% ROE through a much higher net margin (16% vs 8%) with lower financial leverage (1.25x vs 2.5x). This means Company B's returns are driven by operating profitability rather than debt, making its earnings higher quality and more sustainable. Company A relies heavily on leverage (2.5x), which amplifies both returns and risks. Both have equal asset turnover (1.0x). Option A incorrectly claims Company A has higher quality \u2014 their asset turnover is equal, and Company A's higher leverage is a risk factor. Option C ignores the composition of ROE. This tests FSA.11 DuPont analysis.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Evaluate ROE quality using DuPont decomposition"
+        },
+        {
+          "id": "fsa-cp-8",
+          "question": "A company's accounts receivable grew 35% year-over-year while revenue grew only 10%. Its inventory grew 40% while COGS grew 8%. These patterns are most consistent with:",
+          "options": [
+            "A) A company experiencing rapid organic growth",
+            "B) Potential earnings manipulation or deteriorating business fundamentals",
+            "C) A seasonal business with normal year-end fluctuations"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When A/R grows much faster than revenue and inventory grows much faster than COGS, it signals potential problems: possible channel stuffing (pushing product to inflate revenue), relaxed credit terms, difficulty collecting receivables, or inventory obsolescence. These are classic red flags in a Beneish M-score analysis (rising DSRI and AQI). Option A is unlikely because rapid growth would show revenue growing in line with or faster than working capital. Option C would show consistent patterns year-to-year, not sudden divergence. This tests FSA.10 reporting quality.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Identify warning signs of earnings manipulation using financial ratio analysis"
+        },
+        {
+          "id": "fsa-cp-9",
+          "question": "Under IFRS, a company classifies interest paid as a financing activity and dividends received as an investing activity. Compared to a US GAAP company with identical transactions, the IFRS company will report:",
+          "options": [
+            "A) Lower CFO",
+            "B) Higher CFO",
+            "C) The same CFO"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under US GAAP, both interest paid and dividends received are classified as operating activities. If the IFRS company moves interest paid from operating to financing, CFO increases (less outflow in operating). If it moves dividends received from operating to investing, CFO decreases (less inflow in operating). The net effect depends on magnitudes, but typically interest paid exceeds dividends received, so the net effect is higher CFO under IFRS. Option A incorrectly states lower CFO. Option C ignores the classification differences. This tests FSA.4 IFRS vs GAAP cash flow classification.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Analyze the impact of IFRS cash flow classification choices on reported CFO"
+        },
+        {
+          "id": "fsa-cp-10",
+          "question": "An analyst projects revenue of $5,000,000 with COGS at 60% of revenue, historical DSO of 30 days, and historical DOH of 50 days. Projected accounts receivable and inventory are closest to:",
+          "options": [
+            "A) A/R: $410,959; Inventory: $410,959",
+            "B) A/R: $410,959; Inventory: $493,151",
+            "C) A/R: $500,000; Inventory: $500,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Projected A/R = (Revenue / 365) \u00d7 DSO = ($5,000,000 / 365) \u00d7 30 = $13,699 \u00d7 30 = $410,959. Projected COGS = $5,000,000 \u00d7 60% = $3,000,000. Projected inventory = (COGS / 365) \u00d7 DOH = ($3,000,000 / 365) \u00d7 50 = $8,219 \u00d7 50 = $410,959. In this case, A/R and inventory happen to be approximately equal. Option B ($493,151) uses revenue instead of COGS for inventory: ($5M/365) \u00d7 50 \u00d7 0.72. Option C ($500,000) uses a simplified 10% of revenue for both, which is incorrect. This tests FSA.12 financial modeling.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Project balance sheet items using activity ratios in a financial model"
+        }
+      ]
+    }
+  ]
+}

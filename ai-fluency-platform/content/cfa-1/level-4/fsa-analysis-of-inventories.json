@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FSA.6: Analysis of Inventories",
+    "description": "Compare FIFO, LIFO, and weighted average cost methods, understand inventory valuation and write-downs, LIFO reserve, and IFRS vs GAAP differences.",
+    "level": "level-4",
+    "slug": "fsa-analysis-of-inventories",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "During a period of rising prices, two identical companies use different inventory methods \u2014 one uses FIFO and the other LIFO. Which reports higher net income? Which reports a higher inventory value on the balance sheet? Which pays less in taxes?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Inventory Cost Flow Assumptions\n\nInventory methods determine which costs are assigned to **COGS** (income statement) and which remain in **ending inventory** (balance sheet).\n\n### Four Methods\n\n| Method | How It Works |\n|---|---|\n| **FIFO** (First-In, First-Out) | Oldest costs go to COGS; newest costs stay in inventory |\n| **LIFO** (Last-In, First-Out) | Newest costs go to COGS; oldest costs stay in inventory |\n| **Weighted Average Cost** | Average cost of all units available for sale |\n| **Specific Identification** | Actual cost of each specific item sold |\n\n### Example: Rising Prices\n\nA company purchases inventory in three batches:\n\n| Batch | Units | Cost/Unit |\n|---|---|---|\n| January | 100 | $10 |\n| March | 100 | $12 |\n| June | 100 | $14 |\n\nTotal available: 300 units. Units sold: 200. Ending inventory: 100 units.\n\n| Method | COGS | Ending Inventory |\n|---|---|---|\n| **FIFO** | $10\u00d7100 + $12\u00d7100 = **$2,200** | $14\u00d7100 = **$1,400** |\n| **LIFO** | $14\u00d7100 + $12\u00d7100 = **$2,600** | $10\u00d7100 = **$1,000** |\n| **Weighted Avg** | $12\u00d7200 = **$2,400** | $12\u00d7100 = **$1,200** |\n\nWeighted average cost per unit: $(10\u00d7100 + 12\u00d7100 + 14\u00d7100) / 300 = \\$12$"
+    },
+    {
+      "type": "markdown",
+      "content": "## Impact of Inventory Methods (Rising Prices)\n\nWhen prices are rising, the choice of inventory method has systematic effects:\n\n| Metric | FIFO | LIFO | Weighted Avg |\n|---|---|---|---|\n| **COGS** | Lowest | Highest | Middle |\n| **Gross profit** | Highest | Lowest | Middle |\n| **Net income** | Highest | Lowest | Middle |\n| **Ending inventory** | Highest (current costs) | Lowest (old costs) | Middle |\n| **Tax expense** | Highest | Lowest | Middle |\n| **CFO** | Lowest (higher taxes) | Highest (lower taxes) | Middle |\n\n### The LIFO Advantage\n\nLIFO produces **lower taxable income** in a rising-price environment, resulting in **real cash tax savings**. This is the primary reason US companies elect LIFO.\n\nHowever, LIFO inventory on the balance sheet reflects **outdated costs**, understating the economic value of inventory. This creates two critical adjustments:\n\n- **LIFO reserve** = FIFO inventory - LIFO inventory\n- The LIFO reserve is disclosed in the notes and allows analysts to convert LIFO statements to FIFO for comparability\n\n### LIFO to FIFO Conversion\n\n$$\\text{FIFO inventory} = \\text{LIFO inventory} + \\text{LIFO reserve}$$\n\n$$\\text{FIFO COGS} = \\text{LIFO COGS} - \\Delta\\text{LIFO reserve}$$\n\n$$\\text{FIFO net income} \\approx \\text{LIFO net income} + \\Delta\\text{LIFO reserve} \\times (1-t)$$"
+    },
+    {
+      "type": "markdown",
+      "content": "## Inventory Valuation and Write-Downs\n\n### Lower of Cost or Net Realizable Value\n\n| Framework | Valuation Rule |\n|---|---|\n| **IFRS** | Lower of cost and **net realizable value** (NRV = selling price - costs to complete - costs to sell) |\n| **US GAAP (FIFO/Avg)** | Lower of cost and NRV (aligned with IFRS since ASU 2015-11) |\n| **US GAAP (LIFO)** | Lower of cost or **market** (market = replacement cost, bounded by NRV ceiling and NRV minus normal profit margin floor) |\n\n### Write-Down and Reversal\n\n| Feature | IFRS | US GAAP |\n|---|---|---|\n| Write-down | Recognize loss when carrying amount > NRV | Recognize loss when cost > market/NRV |\n| Reversal | **Permitted** (up to original cost) | **Not permitted** |\n\n### LIFO Liquidation\n\nLIFO liquidation occurs when a LIFO company sells more units than it purchases, dipping into **old, lower-cost inventory layers**. This artificially:\n- Reduces COGS (old low costs flow through)\n- Increases gross profit and net income\n- Increases tax expense\n\nAnalysts watch for LIFO liquidation because the income boost is **non-recurring** and reduces the company's tax shield.\n\n### Key IFRS vs GAAP Difference\n\nIFRS **prohibits LIFO**. This is one of the most significant inventory differences between the frameworks."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A US company using LIFO reports ending inventory of $500,000 and discloses a LIFO reserve of $120,000. What would its inventory be under FIFO?",
+      "answer": "$620,000. FIFO inventory = LIFO inventory + LIFO reserve = $500,000 + $120,000 = $620,000. The LIFO reserve represents the cumulative difference between FIFO and LIFO inventory values. Under FIFO, inventory reflects more recent (and during inflation, higher) costs."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A LIFO company reports COGS of $800,000. The LIFO reserve was $150,000 at the beginning of the year and $200,000 at year-end. The tax rate is 30%. Calculate: (1) FIFO COGS, (2) the tax savings from using LIFO instead of FIFO, (3) FIFO net income if LIFO net income is $300,000.",
+      "solution": "**1. FIFO COGS:**\n$$\\text{FIFO COGS} = \\text{LIFO COGS} - \\Delta\\text{LIFO reserve}$$\n$$= 800{,}000 - (200{,}000 - 150{,}000) = 800{,}000 - 50{,}000 = \\$750{,}000$$\n\n**2. Tax savings from LIFO:**\nLIFO produces higher COGS by $50,000, reducing pre-tax income by $50,000.\n$$\\text{Tax savings} = 50{,}000 \\times 0.30 = \\$15{,}000$$\n\n**3. FIFO net income:**\n$$\\text{FIFO NI} = \\text{LIFO NI} + \\Delta\\text{LIFO reserve} \\times (1-t)$$\n$$= 300{,}000 + 50{,}000 \\times 0.70 = 300{,}000 + 35{,}000 = \\$335{,}000$$\n\nFIFO reports higher net income ($335K vs $300K) but the company pays $15K more in taxes \u2014 a real cash cost."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Inventory Analysis Practice Problems",
+      "problems": [
+        {
+          "id": "fsa6-1",
+          "question": "During a period of rising prices, compared to a company using FIFO, a company using LIFO will most likely report:",
+          "options": [
+            "A) Higher net income and higher ending inventory",
+            "B) Lower net income and higher cash flow from operations",
+            "C) Lower net income and lower cash flow from operations"
+          ],
+          "correctAnswer": "B",
+          "explanation": "With rising prices, LIFO assigns the newest (highest) costs to COGS, resulting in higher COGS, lower gross profit, and lower net income compared to FIFO. However, lower taxable income means lower tax payments, resulting in higher CFO. Option A is incorrect because LIFO reports lower (not higher) net income and lower (not higher) ending inventory. Option C is incorrect because LIFO produces higher (not lower) CFO due to tax savings.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Compare the financial statement effects of FIFO and LIFO in a rising-price environment"
+        },
+        {
+          "id": "fsa6-2",
+          "question": "A company using LIFO reports ending inventory of $400,000 and a LIFO reserve of $80,000. Its LIFO COGS is $600,000, and the LIFO reserve increased by $25,000 during the year. FIFO COGS is closest to:",
+          "options": [
+            "A) $575,000",
+            "B) $600,000",
+            "C) $625,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "FIFO COGS = LIFO COGS - Change in LIFO reserve = $600,000 - $25,000 = $575,000. The LIFO reserve increased, meaning LIFO COGS exceeded FIFO COGS by the amount of the increase. Option B ($600,000) is the unadjusted LIFO COGS. Option C ($625,000) incorrectly adds the change instead of subtracting it.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Convert LIFO financial statements to FIFO using the LIFO reserve"
+        },
+        {
+          "id": "fsa6-3",
+          "question": "An IFRS company writes down inventory from a cost of $500,000 to its NRV of $420,000. The following year, NRV recovers to $480,000. Under IFRS, the company should:",
+          "options": [
+            "A) Keep inventory at $420,000 as write-downs cannot be reversed",
+            "B) Reverse the write-down and report inventory at $480,000",
+            "C) Reverse the write-down and report inventory at $500,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under IFRS, inventory write-downs can be reversed up to the original cost. Since NRV recovered to $480,000 (below the original cost of $500,000), the reversal is to $480,000. The reversal of $60,000 ($480,000 - $420,000) reduces COGS in the period. Option A describes the US GAAP treatment, where reversals are not permitted. Option C is incorrect because the reversal cannot exceed the original cost, but the NRV ($480,000) is below original cost ($500,000), so the inventory is reported at NRV, not original cost.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Apply IFRS and US GAAP inventory write-down and reversal rules"
+        },
+        {
+          "id": "fsa6-4",
+          "question": "A LIFO company's notes disclose that the LIFO reserve decreased from $300,000 to $250,000 during the year. This decrease most likely indicates:",
+          "options": [
+            "A) Prices were falling or a LIFO liquidation occurred",
+            "B) The company switched from LIFO to FIFO",
+            "C) The company purchased more inventory than it sold"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A decrease in the LIFO reserve means the gap between FIFO and LIFO inventory values narrowed. This occurs when (1) prices are falling (making LIFO and FIFO costs converge) or (2) a LIFO liquidation occurs (old low-cost layers are consumed, reducing the reserve). In a LIFO liquidation, LIFO COGS temporarily decreases, inflating income. Option B is incorrect \u2014 a switch would eliminate the reserve entirely, not partially reduce it. Option C would typically increase the reserve if prices are rising (new higher-cost layers are added).",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Interpret changes in the LIFO reserve"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a fellow CFA candidate why LIFO is popular with US companies despite producing lower reported earnings. Include the concepts of tax savings, LIFO reserve, and the LIFO conformity rule in your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does IFRS prohibit LIFO, and what does this mean for comparing US and international companies?",
+        "How does a LIFO liquidation distort financial statements, and what should an analyst watch for?",
+        "If you were analyzing a company that switched from LIFO to FIFO, what adjustments would you need to make to historical comparisons?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- FIFO: oldest costs \u2192 COGS; newest costs \u2192 ending inventory\n- LIFO: newest costs \u2192 COGS; oldest costs \u2192 ending inventory\n- Rising prices + LIFO = lower NI, lower inventory, lower taxes, higher CFO\n- LIFO reserve = FIFO inventory - LIFO inventory\n- FIFO COGS = LIFO COGS - Change in LIFO reserve\n- FIFO NI \u2248 LIFO NI + \u0394Reserve \u00d7 (1-t)\n- IFRS: lower of cost and NRV; write-down reversals permitted\n- US GAAP: no LIFO write-down reversals; LIFO uses LCM for valuation\n- IFRS prohibits LIFO\n- LIFO liquidation inflates income by consuming old low-cost layers"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Analysis of Long-Term Assets**, where you'll learn about capitalizing versus expensing, depreciation methods, and impairment. Just as inventory methods affect COGS, capitalization and depreciation choices affect how costs flow through the income statement over time."
+    }
+  ]
+}

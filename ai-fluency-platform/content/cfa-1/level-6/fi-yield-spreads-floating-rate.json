@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.8: Yield Measures for Floating-Rate Notes",
+    "description": "Understand quoted margin, required margin, discount margin, FRN pricing, and the credit and spread risk of floating-rate instruments.",
+    "level": "level-6",
+    "slug": "fi-yield-spreads-floating-rate",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A floating-rate note was issued a year ago with a spread of 150 bps over SOFR. Since then, the issuer's credit has deteriorated. Will this FRN trade at par, above par, or below par at the next reset date? Why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## FRN Pricing: Quoted Margin vs. Required Margin\n\nA floating-rate note (FRN) pays a coupon that resets periodically:\n\n$$\\text{Coupon Rate} = \\text{Reference Rate} + \\text{Quoted Margin (QM)}$$\n\nThe **quoted margin** is fixed at issuance. But the market's **required margin** (also called the **discount margin**) changes over time based on the issuer's credit quality and market conditions.\n\n### Pricing Relationships\n\n| Condition | Price vs. Par | Reason |\n|---|---|---|\n| Required margin = Quoted margin | At par | Investor receives exactly the spread they demand |\n| Required margin > Quoted margin | Below par (discount) | Investor demands more spread than the bond provides |\n| Required margin < Quoted margin | Above par (premium) | Bond provides more spread than currently required |\n\n### FRN Valuation\n\nThe price of an FRN can be calculated by discounting future cash flows using the required margin:\n\n$$P = \\sum_{t=1}^{N} \\frac{(\\text{Reference Rate} + QM) \\times \\frac{FV}{m}}{\\left(1 + \\frac{\\text{Reference Rate} + DM}{m}\\right)^t} + \\frac{FV}{\\left(1 + \\frac{\\text{Reference Rate} + DM}{m}\\right)^N}$$\n\nwhere $m$ = number of periods per year, $DM$ = discount margin, and $N$ = remaining periods. On a **reset date**, if QM = DM, the FRN resets to par."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An FRN has a quoted margin of 200 bps. Currently, similar-quality FRNs are being issued with margins of 250 bps. Will this FRN trade above or below par?",
+      "answer": "Below par. The required margin (250 bps) exceeds the quoted margin (200 bps), meaning the FRN pays 50 bps less spread than the market currently demands for this credit quality. Investors will only buy it at a discount to compensate for the below-market spread. The FRN's price will be below 100."
+    },
+    {
+      "type": "markdown",
+      "content": "## Discount Margin\n\nThe **discount margin (DM)** is the spread over the reference rate that equates the FRN's expected cash flows to its current market price. It is the FRN equivalent of the Z-spread for fixed-rate bonds.\n\n### Calculating Discount Margin\n\nFor a simplified approach, assuming the reference rate remains constant:\n\n$$DM \\approx QM + \\frac{(100 - P)}{N \\times P} \\times m \\times 100$$\n\nwhere $P$ = current price per 100 par, $N$ = remaining periods, $m$ = periods per year.\n\nMore precisely, DM is found iteratively \u2014 it is the constant spread added to the reference rate at which discounted cash flows equal the market price.\n\n### Interpreting Discount Margin\n\n- DM > QM \u2192 Bond trades below par (credit deterioration or wider market spreads)\n- DM < QM \u2192 Bond trades above par (credit improvement or tighter spreads)\n- DM = QM \u2192 Bond trades at par\n\nThe discount margin captures the **total return spread** the investor earns over the reference rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Risks of Floating-Rate Notes\n\nFRNs are often perceived as low-risk, but they carry specific risks:\n\n### Credit Risk\n\nFRNs carry the same default risk as fixed-rate bonds from the same issuer. A credit rating downgrade will increase the required margin, pushing the FRN price below par. The floating coupon does **not** protect against credit deterioration.\n\n### Spread Risk\n\nEven without a change in credit quality, if market-wide credit spreads widen (e.g., during a financial crisis), the required margin increases and FRN prices fall. This is analogous to credit spread risk for fixed-rate bonds.\n\n### Interest Rate Risk (Limited)\n\nFRNs have **minimal interest rate risk** between reset dates because the coupon adjusts to current rates. However, there is some residual interest rate exposure between reset dates (the coupon is fixed until the next reset). Longer reset periods = slightly more interest rate risk.\n\n### Cap Risk\n\nIf an FRN has a **coupon cap**, the coupon cannot rise above the cap rate even if reference rates increase beyond it. In a rising rate environment, a capped FRN behaves more like a fixed-rate bond once the cap is reached, creating interest rate risk."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An FRN pays SOFR + 180 bps quarterly on $100 par. SOFR is currently 4.50%. The FRN is trading at $99.20 with 2 years (8 quarters) remaining. Estimate the discount margin using the simplified approach.",
+      "solution": "Using the simplified discount margin formula:\n\n$$DM \\approx QM + \\frac{(100 - P)}{N \\times P} \\times m \\times 100$$\n\nwhere QM = 1.80%, P = $99.20, N = 8 quarters, m = 4 (quarterly).\n\nWait \u2014 let us use a cleaner approach. The annualized capital gain component:\n\n$$\\frac{(100 - 99.20)}{99.20} \\div 2 \\text{ years} = \\frac{0.80}{99.20 \\times 2} = 0.00403 = 0.403\\%$$\n\n$$DM \\approx 1.80\\% + 0.40\\% \\approx 2.20\\% \\text{ (220 bps)}$$\n\nThe discount margin (approximately 220 bps) exceeds the quoted margin (180 bps) because the FRN trades below par. The 40 bps difference reflects the additional spread earned from the discount (buying at 99.20 and receiving 100 at maturity)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Floating-Rate Yield Measures Practice",
+      "problems": [
+        {
+          "id": "fi8-1",
+          "question": "An FRN with a quoted margin of 120 bps is trading at 101.50. The discount margin is most likely:",
+          "options": [
+            "A) Less than 120 bps",
+            "B) Equal to 120 bps",
+            "C) Greater than 120 bps"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The FRN trades at a premium (above par at 101.50), which means the market requires a lower spread than the quoted margin. The discount margin is less than 120 bps because the issuer's credit has improved or market spreads have tightened since issuance. Option B would require the price to equal par. Option C would require the price to be below par.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Interpret the relationship between discount margin, quoted margin, and FRN price"
+        },
+        {
+          "id": "fi8-2",
+          "question": "Compared to an otherwise identical FRN without a cap, an FRN with a coupon cap will most likely:",
+          "options": [
+            "A) Trade at a higher price",
+            "B) Trade at a lower price",
+            "C) Trade at the same price since both are floating rate"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A coupon cap limits the maximum coupon the investor can receive. This is disadvantageous to the bondholder because it prevents full participation in rising rates. The cap essentially transfers value from the bondholder to the issuer, resulting in a lower price (and higher required margin). Option A would require the cap to benefit the investor. Option C incorrectly assumes all FRNs price the same regardless of their features.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the effect of caps on FRN pricing"
+        },
+        {
+          "id": "fi8-3",
+          "question": "An FRN resets quarterly. Between reset dates, its primary source of price risk is:",
+          "options": [
+            "A) Interest rate risk from changes in the reference rate",
+            "B) Credit risk from changes in the issuer's creditworthiness",
+            "C) Reinvestment risk from uncertain future coupon payments"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Between reset dates, the FRN's coupon is fixed at the rate set on the last reset date, so there is minimal interest rate risk (only for the short period until the next reset). The primary risk is credit/spread risk \u2014 if the issuer's credit quality changes, the required margin changes and the price moves. Option A is limited because the coupon resets soon. Option C is minimal because FRN coupons adjust to current rates.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify the primary risk factors for floating-rate notes"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a study partner why a floating-rate note does not always trade at par, even though its coupon resets to the current reference rate. What causes an FRN to drift away from par value?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the discount margin of an FRN relate conceptually to the Z-spread of a fixed-rate bond?",
+        "Why might an investor prefer an FRN over a fixed-rate bond during a period of rising interest rates?",
+        "What would happen to the price of a capped FRN if reference rates surged well above the cap level?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- FRN coupon = Reference rate + Quoted margin (QM); QM is fixed at issuance\n- **Required margin** (market-demanded spread) changes with credit quality and market conditions\n- Required margin > QM \u2192 price below par; Required margin < QM \u2192 price above par\n- **Discount margin (DM)**: Spread over reference rate that equates cash flows to market price\n- FRNs have **minimal interest rate risk** but full **credit risk** and **spread risk**\n- **Cap risk**: Coupon cap limits upside, making FRN behave like fixed-rate at cap\n- On reset dates, if QM = DM, the FRN price resets to par"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers the **Term Structure of Interest Rates** \u2014 yield curve shapes, spot rates, forward rates, and the theories explaining why the yield curve takes different forms. These concepts are essential for understanding bond pricing and relative value analysis."
+    }
+  ]
+}

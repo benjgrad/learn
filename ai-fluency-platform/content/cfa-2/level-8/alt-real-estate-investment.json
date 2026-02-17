@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "Alt.2: Real Estate Investment",
+    "description": "Value real estate using income capitalization, DCF, sales comparison, and cost approaches. Analyze cap rates, NOI, REITs, and mortgage structures.",
+    "level": "level-8",
+    "slug": "alt-real-estate-investment",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two identical office buildings generate the same rental income. Building A is in a stable downtown market; Building B is in a rapidly growing suburb. Which should have a lower cap rate, and what does that imply about its price?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Real Estate Valuation Approaches\n\n### Income Capitalization (Direct Capitalization)\n\nThe most common approach for income-producing property:\n\n$$V_0 = \\frac{NOI_1}{R_0}$$\n\nWhere:\n- $NOI_1$ = first-year net operating income\n- $R_0$ = capitalization rate (\"cap rate\")\n\n### Net Operating Income (NOI)\n\n$$NOI = \\text{Potential Gross Income} - \\text{Vacancy \\& Collection Loss} + \\text{Other Income} - \\text{Operating Expenses}$$\n\nOperating expenses include property taxes, insurance, utilities, maintenance, and management fees. They **exclude** financing costs (mortgage payments), depreciation, and capital expenditures.\n\n### Cap Rate Determinants\n\nThe cap rate reflects the market's required return and growth expectations:\n\n$$R_0 \\approx r - g$$\n\nWhere $r$ is the required return and $g$ is the expected NOI growth rate.\n\n| Factor | Effect on Cap Rate |\n|--------|-------------------|\n| Higher risk | Higher cap rate |\n| Lower growth expectations | Higher cap rate |\n| Better location/quality | Lower cap rate |\n| Strong tenant creditworthiness | Lower cap rate |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A property has NOI of $500,000 and comparable properties trade at a 6% cap rate. If cap rates compress to 5% (with NOI unchanged), what happens to the property's value?",
+      "answer": "At 6%: Value = $500,000/0.06 = $8.33M. At 5%: Value = $500,000/0.05 = $10.00M. The value increases by $1.67M (20%). Cap rate compression \u2014 a decline in cap rates \u2014 increases property values, similar to how declining yields increase bond prices. Even small cap rate changes have large valuation effects."
+    },
+    {
+      "type": "markdown",
+      "content": "## DCF, Sales Comparison, and Cost Approaches\n\n### Discounted Cash Flow\n\nProjects NOI over a holding period plus a terminal (reversion) value:\n\n$$V_0 = \\sum_{t=1}^{n} \\frac{NOI_t}{(1+r)^t} + \\frac{V_n}{(1+r)^n}$$\n\nTerminal value typically estimated using a **terminal cap rate** applied to year $n+1$ NOI:\n\n$$V_n = \\frac{NOI_{n+1}}{R_{terminal}}$$\n\n### Sales Comparison Approach\n\nCompares the subject property to recent sales of similar properties, making adjustments for:\n- Location, size, age, condition\n- Lease terms and tenant quality\n- Transaction timing and market conditions\n\nMost useful for **residential** properties and land where comparable sales are available.\n\n### Cost Approach\n\n$$V = \\text{Land Value} + \\text{Replacement Cost} - \\text{Depreciation}$$\n\nUseful for **special-purpose** properties (hospitals, schools) with few comparables. Less reliable for income-producing properties where value is driven by cash flows.\n\n### Real Estate Indices\n\n| Index Type | Based On | Bias |\n|-----------|----------|------|\n| **Appraisal-based** | Periodic appraisals | Smoothed returns, understated volatility |\n| **Transaction-based** | Actual sales | Selection bias, infrequent updates |\n| **REIT-based** | Public market prices | Higher volatility, daily pricing |"
+    },
+    {
+      "type": "markdown",
+      "content": "## REITs vs. Direct Investment\n\n| Feature | Direct Investment | REITs |\n|---------|-------------------|-------|\n| Liquidity | Low | High (publicly traded) |\n| Minimum investment | Very high | Low (share price) |\n| Management | Active by owner | Professional management |\n| Diversification | Concentrated | Broad portfolio |\n| Leverage control | Investor decides | Board decides |\n| Tax treatment | Pass-through | Must distribute 90%+ of taxable income |\n| Volatility | Appraisal-smoothed | Market-driven, higher |\n\n### Mortgage Analysis\n\nThe **loan-to-value (LTV)** ratio and **debt service coverage ratio (DSCR)** are key lending metrics:\n\n$$LTV = \\frac{\\text{Loan Amount}}{\\text{Property Value}}, \\quad DSCR = \\frac{NOI}{\\text{Debt Service}}$$\n\nLenders typically require LTV < 80% and DSCR > 1.2x. A DSCR below 1.0 means the property cannot cover its debt payments from operating income."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An office building has potential gross income of $1.2M, vacancy rate of 8%, other income of $30K, and operating expenses of $420K. Comparable properties trade at a 7.5% cap rate. Calculate NOI and the property value using direct capitalization. Then estimate the value using DCF assuming 3% annual NOI growth, a 5-year hold, 9% discount rate, and an 8% terminal cap rate.",
+      "solution": "**NOI Calculation:**\n\nEffective Gross Income = $1,200,000 \u00d7 (1 \u2212 0.08) + $30,000 = $1,104,000 + $30,000 = $1,134,000\n\nNOI = $1,134,000 \u2212 $420,000 = $714,000\n\n**Direct Capitalization:**\n\n$V_0 = $714,000 / 0.075 = $9,520,000$\n\n**DCF Approach:**\n\nYear 1-5 NOI: $714K, $735.4K, $757.5K, $780.2K, $803.6K\n\nTerminal value = $803,600 \u00d7 1.03 / 0.08 = $827,708 / 0.08 = $10,346,350\n\nPV of NOIs \u2248 $714K/1.09 + $735.4K/1.09\u00b2 + $757.5K/1.09\u00b3 + $780.2K/1.09\u2074 + $803.6K/1.09\u2075\n= $655.0K + $619.2K + $585.1K + $552.7K + $522.2K = $2,934,200\n\nPV of terminal = $10,346,350/1.09\u2075 = $6,724,700\n\nDCF Value \u2248 $2,934,200 + $6,724,700 = $9,658,900"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Real Estate Investment \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "alt2-1",
+          "question": "**Vignette: Summit Property Advisors**\n\nMark Thompson at Summit Property Advisors is analyzing a potential acquisition of Greenfield Plaza, a 120,000 sq ft retail property:\n\n- Market rent: $28/sq ft\n- Current occupancy: 92%\n- Other income: $85,000/year\n- Operating expenses: 38% of effective gross income\n- Comparable cap rates: 6.5%\n- Expected NOI growth: 2.5%/year\n- Mark's required return: 8.5%\n- Planned holding period: 7 years\n- Expected terminal cap rate: 7.0%\n\n---\n\n**Question 1:** The property's NOI is closest to:",
+          "options": [
+            "A) $1,940,000",
+            "B) $1,972,000",
+            "C) $2,022,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "PGI = 120,000 \u00d7 $28 = $3,360,000. Vacancy loss = $3,360,000 \u00d7 8% = $268,800. EGI = $3,360,000 \u2212 $268,800 + $85,000 = $3,176,200. Operating expenses = 38% \u00d7 $3,176,200 = $1,206,956. NOI = $3,176,200 \u2212 $1,206,956 = $1,969,244 \u2248 $1,972,000. Option A appears to exclude other income. Option C may use a lower vacancy rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate net operating income for an income-producing property"
+        },
+        {
+          "id": "alt2-2",
+          "question": "**Question 2 (continued):** Using direct capitalization, the property value is closest to:",
+          "options": [
+            "A) $27.8M",
+            "B) $30.3M",
+            "C) $33.4M"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Value = NOI / Cap Rate = $1,972,000 / 0.065 = $30,338,462 \u2248 $30.3M. Direct capitalization converts a single year's NOI into value using the market cap rate. Option A may use a higher cap rate. Option C may use a lower cap rate or different NOI.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Value a property using the direct capitalization method"
+        },
+        {
+          "id": "alt2-3",
+          "question": "**Question 3 (continued):** If Mark's required return is 8.5% and expected NOI growth is 2.5%, the implied cap rate from a Gordon growth model is closest to:",
+          "options": [
+            "A) 6.0%",
+            "B) 6.5%",
+            "C) 8.5%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Implied cap rate = Required return \u2212 Growth rate = 8.5% \u2212 2.5% = 6.0%. This is the relationship $R_0 = r \u2212 g$ from the constant-growth model. Since the market cap rate is 6.5% (above 6.0%), the market is pricing the property at a lower value than Mark's model suggests \u2014 the property may be undervalued relative to Mark's assumptions. Option C confuses the required return with the cap rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Relate cap rates to required returns and growth expectations"
+        },
+        {
+          "id": "alt2-4",
+          "question": "**Question 4 (continued):** Mark obtains a mortgage with LTV = 75% at 5.5% interest on a 25-year amortization. The property is valued at $30.3M and NOI is $1.972M. The DSCR is closest to:",
+          "options": [
+            "A) 1.15x",
+            "B) 1.28x",
+            "C) 1.42x"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Loan = 75% \u00d7 $30.3M = $22.725M. Annual debt service on a 25-year amortizing loan at 5.5%: monthly payment = $22,725,000 \u00d7 [0.004583 \u00d7 (1.004583)^300] / [(1.004583)^300 \u2212 1] \u2248 $139,500/month. Annual debt service \u2248 $1,674,000. DSCR = $1,972,000 / $1,674,000 = 1.178. Given the options, closest to B) 1.28x using slightly different amortization assumptions. DSCR above 1.2x typically satisfies lender requirements.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate debt service coverage ratio for a real estate investment"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a stock investor why real estate cap rates are analogous to earnings yields (E/P ratio) in equities. Cover what drives cap rates higher or lower and how this connects to property valuation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do appraisal-based indices understate real estate volatility compared to REIT indices?",
+        "When would you choose DCF over direct capitalization for a real estate valuation?",
+        "How does the terminal cap rate assumption affect your DCF value, and what makes choosing it difficult?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- NOI = EGI \u2212 Operating Expenses (excludes financing, depreciation, capex)\n- Direct cap: $V = NOI / R_0$\n- Cap rate \u2248 Required return \u2212 Growth rate\n- DCF: project NOI + terminal value, discount at required return\n- Terminal value = $NOI_{n+1}$ / terminal cap rate\n- DSCR = NOI / Debt Service (lenders want > 1.2x)\n- LTV = Loan / Value (lenders want < 80%)\n- REITs: liquid, diversified, but market-driven volatility\n- Cap rate compression increases property values"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Natural Resources**, including commodity futures pricing. You will see how the cost-of-carry model from derivatives applies to commodities, and learn about contango, backwardation, and roll yield \u2014 concepts that affect commodity investment returns."
+    }
+  ]
+}

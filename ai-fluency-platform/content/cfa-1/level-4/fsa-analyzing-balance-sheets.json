@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FSA.3: Analyzing Balance Sheets",
+    "description": "Learn current/non-current classification, measurement bases, intangible assets, goodwill, and equity components under IFRS and US GAAP.",
+    "level": "level-4",
+    "slug": "fsa-analyzing-balance-sheets",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company acquires another company for $500 million, but the acquired company's identifiable net assets are only worth $350 million. Where does the extra $150 million go on the balance sheet, and what happens to it over time?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Balance Sheet Structure and Classification\n\nThe balance sheet (statement of financial position) reports a company's **assets**, **liabilities**, and **equity** at a point in time. The fundamental accounting equation:\n\n$$\\text{Assets} = \\text{Liabilities} + \\text{Equity}$$\n\n### Current vs Non-Current Classification\n\n| Category | Current | Non-Current |\n|---|---|---|\n| **Assets** | Expected to be realized or consumed within one year (or operating cycle) | Realized beyond one year |\n| **Examples** | Cash, receivables, inventory, prepaid expenses | PP&E, intangibles, goodwill, long-term investments |\n| **Liabilities** | Due within one year | Due beyond one year |\n| **Examples** | Accounts payable, short-term debt, deferred revenue (current portion) | Long-term debt, pension obligations, deferred tax liabilities |\n\n### Measurement Bases\n\n| Basis | Description | Examples |\n|---|---|---|\n| **Historical cost** | Original acquisition price less depreciation/amortization | PP&E (US GAAP), inventory at cost |\n| **Fair value** | Price in orderly transaction between market participants | Trading securities, derivatives |\n| **Amortized cost** | Original cost adjusted for amortization of premium/discount | Held-to-maturity debt securities |\n| **Net realizable value (NRV)** | Estimated selling price less costs to complete and sell | Inventory write-downs (IFRS) |\n\nThe choice of measurement basis significantly affects reported asset values, particularly during periods of rising or falling prices."
+    },
+    {
+      "type": "markdown",
+      "content": "## Intangible Assets and Goodwill\n\n### Intangible Assets\n\nIntangible assets are identifiable non-monetary assets without physical substance (e.g., patents, trademarks, customer lists, software).\n\n| Treatment | IFRS | US GAAP |\n|---|---|---|\n| **Purchased intangibles** | Capitalize at cost | Capitalize at cost |\n| **Research costs** | Expense as incurred | Expense as incurred |\n| **Development costs** | Capitalize if 6 criteria met | Expense as incurred (except software development costs under ASC 985) |\n| **Finite-life intangibles** | Amortize over useful life | Amortize over useful life |\n| **Indefinite-life intangibles** | No amortization; annual impairment test | No amortization; annual impairment test |\n\n### Goodwill\n\nGoodwill arises only from a **business combination** (acquisition):\n\n$$\\text{Goodwill} = \\text{Purchase price} - \\text{Fair value of identifiable net assets acquired}$$\n\nGoodwill is **not amortized** under either IFRS or US GAAP. It is tested for **impairment** at least annually.\n\n| Feature | IFRS | US GAAP |\n|---|---|---|\n| Impairment test | Two-step: compare recoverable amount to carrying amount | One-step (post-2017 simplification): compare fair value of reporting unit to carrying amount |\n| Reversal of impairment | Not permitted | Not permitted |\n\nA goodwill impairment charge reduces reported assets and net income, often signaling that an acquisition has not performed as expected."
+    },
+    {
+      "type": "markdown",
+      "content": "## Equity Components and Book Value\n\n### Components of Shareholders' Equity\n\n| Component | Description |\n|---|---|\n| **Contributed capital** | Par value of shares + additional paid-in capital (share premium) |\n| **Retained earnings** | Cumulative net income minus cumulative dividends |\n| **Treasury stock** | Cost of shares repurchased (contra-equity, reduces total equity) |\n| **Accumulated OCI (AOCI)** | Cumulative other comprehensive income items |\n| **Non-controlling interests** | Equity in subsidiaries not owned by the parent (consolidated statements) |\n\n### Book Value Per Share\n\n$$\\text{Book value per share} = \\frac{\\text{Total equity} - \\text{Preferred equity}}{\\text{Common shares outstanding}}$$\n\n### Example\n\nTotal equity = \\$10,000,000. Preferred equity = \\$1,000,000. Common shares = 2,000,000.\n\n$$\\text{BVPS} = \\frac{10{,}000{,}000 - 1{,}000{,}000}{2{,}000{,}000} = \\$4.50$$\n\nBook value can differ substantially from market value because balance sheets reflect historical costs and accounting conventions rather than economic value."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company carries a patent on its balance sheet at $2 million (net of amortization). A competitor develops a superior technology making the patent nearly worthless. What adjustment is required under both IFRS and US GAAP?",
+      "answer": "An impairment charge must be recognized. Under both frameworks, if the carrying amount of an intangible asset exceeds its recoverable amount (IFRS) or its fair value (US GAAP), the asset must be written down. The difference is recognized as an impairment loss on the income statement, reducing both the asset's carrying value and net income. Under IFRS, the recoverable amount is the higher of fair value less costs of disposal and value in use. Under US GAAP, a recoverability test (undiscounted cash flows) is performed first, and if failed, the asset is written down to fair value."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company acquires a target for $800 million. The target's identifiable assets have a fair value of $1,200 million and identifiable liabilities have a fair value of $500 million. Calculate goodwill and total assets recorded from the acquisition.",
+      "solution": "**Fair value of identifiable net assets:**\n$$\\$1{,}200M - \\$500M = \\$700M$$\n\n**Goodwill:**\n$$\\$800M - \\$700M = \\$100M$$\n\n**Total assets recorded from acquisition:**\n- Identifiable assets: $1,200M\n- Goodwill: $100M\n- Total: $1,300M\n\nThe acquiring company records $1,200M in identifiable assets (at fair value) and $100M in goodwill. It also records $500M in liabilities assumed. The net impact on the acquirer's equity is the $800M purchase price."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Balance Sheet Analysis Practice Problems",
+      "problems": [
+        {
+          "id": "fsa3-1",
+          "question": "Under IFRS, a company spends $2 million on research and $3 million on development (meeting all capitalization criteria). Under US GAAP, the same company would report total assets that are:",
+          "options": [
+            "A) $3 million lower than under IFRS",
+            "B) $2 million lower than under IFRS",
+            "C) The same as under IFRS"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under IFRS, research costs ($2M) are expensed and development costs ($3M) are capitalized as an intangible asset. Under US GAAP, both research ($2M) and development ($3M) are expensed. The difference in total assets = $3M (the development costs capitalized under IFRS but expensed under US GAAP). Both frameworks expense the $2M research costs. Option B incorrectly suggests the difference is $2M. Option C incorrectly assumes identical treatment.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Compare IFRS and US GAAP treatment of research and development costs"
+        },
+        {
+          "id": "fsa3-2",
+          "question": "A company has total equity of $15 million, preferred stock of $3 million, and 4 million common shares outstanding. Book value per share is closest to:",
+          "options": [
+            "A) $3.00",
+            "B) $3.75",
+            "C) $4.50"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Book value per share = (Total equity - Preferred equity) / Common shares = ($15M - $3M) / 4M = $12M / 4M = $3.00. Option B ($3.75) uses total equity ($15M / 4M) without subtracting preferred equity. Option C ($4.50) is not derivable from the given information and is incorrect.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate book value per share"
+        },
+        {
+          "id": "fsa3-3",
+          "question": "Company A acquires Company B for $600 million. The fair value of B's identifiable net assets is $450 million. Two years later, the fair value of the reporting unit containing B declines to $520 million and its carrying amount (including goodwill) is $580 million. Under US GAAP, the goodwill impairment loss is closest to:",
+          "options": [
+            "A) $0",
+            "B) $60 million",
+            "C) $150 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Goodwill at acquisition = $600M - $450M = $150M. Under the simplified US GAAP approach, compare the fair value of the reporting unit ($520M) to its carrying amount ($580M). Since $520M < $580M, impairment exists. Impairment loss = $580M - $520M = $60M. Goodwill is written down from $150M to $90M. Option A incorrectly concludes no impairment. Option C incorrectly writes off the entire goodwill balance.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate goodwill impairment under US GAAP"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of goodwill to someone who understands basic accounting but has never encountered acquisitions. Why does goodwill appear on the balance sheet, why is it not amortized, and what does an impairment charge signal?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might book value per share be a poor indicator of a company's true worth?",
+        "How does the IFRS option to capitalize development costs affect comparability between IFRS and US GAAP companies?",
+        "What are the limitations of historical cost as a measurement basis for assets?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Assets = Liabilities + Equity\n- Current vs non-current: one year (or operating cycle) dividing line\n- Measurement bases: historical cost, fair value, amortized cost, NRV\n- Goodwill = Purchase price - Fair value of identifiable net assets\n- Goodwill is not amortized; tested annually for impairment\n- IFRS permits capitalizing development costs (6 criteria); US GAAP expenses them\n- BVPS = (Total equity - Preferred equity) / Common shares outstanding\n- Equity components: contributed capital, retained earnings, treasury stock, AOCI, NCI"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Cash Flow Statement I**, where you'll learn the direct and indirect methods and how to classify cash flows as operating, investing, or financing. The balance sheet changes you just studied drive the adjustments in the indirect method \u2014 increases in current assets reduce operating cash flow, while increases in current liabilities increase it."
+    }
+  ]
+}

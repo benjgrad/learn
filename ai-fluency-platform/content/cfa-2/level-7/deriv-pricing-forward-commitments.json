@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "Deriv.1: Pricing Forward Commitments",
+    "description": "Price equity, fixed-income, and currency forwards and futures using the carry arbitrage model. Value swaps and mark forward contracts to market during their life.",
+    "level": "level-7",
+    "slug": "deriv-pricing-forward-commitments",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A stock trades at $50 and pays no dividends. The risk-free rate is 4% per year. What should the 1-year forward price be, and what happens if the actual forward price is $53?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Carry Arbitrage Model\n\nForward and futures prices are determined by a **no-arbitrage** framework. The forward price must equal the spot price adjusted for the **cost of carry** \u2014 the net cost of holding the underlying asset until delivery.\n\n$$F_0(T) = S_0 \\times e^{(r_c + \\lambda - \\gamma)T}$$\n\nOr in discrete compounding:\n\n$$F_0(T) = S_0 \\times (1 + r_f)^T + FV(\\text{costs}) - FV(\\text{benefits})$$\n\nWhere:\n- $S_0$ = current spot price\n- $r_c$ = continuously compounded risk-free rate\n- $\\lambda$ = storage and other carry costs (as a rate)\n- $\\gamma$ = convenience yield or income yield\n- $T$ = time to expiration\n\n### Equity Forwards\n\nFor a stock paying discrete dividends:\n\n$$F_0(T) = (S_0 - PV(D)) \\times (1 + r_f)^T$$\n\nFor a stock index with continuous dividend yield $q$:\n\n$$F_0(T) = S_0 \\times e^{(r - q)T}$$\n\n### Cash-and-Carry Arbitrage\n\nIf $F_{market} > F_{no\\text{-}arb}$: sell the forward, borrow money, buy the underlying (\"cash and carry\").\n\nIf $F_{market} < F_{no\\text{-}arb}$: buy the forward, sell the underlying short, invest proceeds (\"reverse cash and carry\")."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A stock index is at 4,000 with a continuous dividend yield of 2% and the risk-free rate is 5% continuously compounded. Is the 6-month forward price above or below 4,000?",
+      "answer": "Above. The forward price is $4,000 \\times e^{(0.05 - 0.02) \\times 0.5} = 4,000 \\times e^{0.015} \\approx 4,060.45$. Since the risk-free rate (5%) exceeds the dividend yield (2%), the net cost of carry is positive, pushing the forward price above spot."
+    },
+    {
+      "type": "markdown",
+      "content": "## Fixed-Income and Currency Forwards\n\n### Bond Forwards\n\nFor coupon-bearing bonds, the forward price must account for accrued interest and any coupon payments during the life of the forward:\n\n$$F_0(T) = (S_0 - PV(\\text{Coupons})) \\times (1 + r_f)^T$$\n\nThe quoted forward price adjusts for accrued interest at delivery.\n\n### Currency Forwards \u2014 Covered Interest Rate Parity\n\nThe forward exchange rate links the spot rate to interest rate differentials:\n\n$$F_{DC/FC} = S_{DC/FC} \\times \\frac{(1 + r_{DC})^T}{(1 + r_{FC})^T}$$\n\nThe currency with the **higher** interest rate trades at a **forward discount** (its forward price is lower relative to the other currency).\n\n### FRA Pricing\n\nA Forward Rate Agreement (FRA) locks in a borrowing/lending rate for a future period. The FRA rate is derived from the term structure:\n\n$$FRA(a, b) = \\left(\\frac{(1 + r_b)^b}{(1 + r_a)^a} - 1\\right) \\times \\frac{1}{b - a}$$\n\nWhere $r_a$ and $r_b$ are the annualized spot rates for periods $a$ and $b$."
+    },
+    {
+      "type": "markdown",
+      "content": "## Swap Pricing and Valuation\n\n### Interest Rate Swaps\n\nA plain vanilla interest rate swap can be valued as a portfolio of forward contracts (FRAs) or as the difference between a fixed-rate bond and a floating-rate bond.\n\nThe **swap fixed rate** (SFR) is set so the swap has zero initial value:\n\n$$SFR = \\frac{1 - PV(1)}{\\sum_{i=1}^{n} PV_i}$$\n\nWhere $PV_i$ is the present value factor for period $i$ and $PV(1)$ is the PV factor at the final payment date.\n\n### Currency Swaps\n\nExchange principal in two currencies at inception and maturity. Each leg pays a fixed or floating rate in its respective currency. Valued by comparing PV of each leg converted at the current exchange rate.\n\n### Equity Swaps\n\nOne leg pays the return on an equity index; the other pays a fixed or floating rate. Valued by marking the equity leg to market and comparing with the fixed/floating leg.\n\n### Mark-to-Market During Life\n\nAfter initiation, a swap's value changes as interest rates move. For the fixed-rate payer:\n\n$$V_{swap} = PV(\\text{floating leg}) - PV(\\text{fixed leg})$$\n\nIf rates rise, the fixed-rate payer gains (their fixed payments are below-market)."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A stock trades at $80, pays a $2 dividend in 3 months, and the risk-free rate is 6% per year (annual compounding). Calculate the 6-month forward price. Then determine the value of a long forward position after 3 months if the stock is at $85 (just after the dividend is paid).",
+      "solution": "**Step 1: Forward Price**\n\n$PV(D) = \\frac{2}{(1.06)^{0.25}} = \\frac{2}{1.01467} = $1.971$\n\n$F_0(0.5) = (80 - 1.971) \\times (1.06)^{0.5} = 78.029 \\times 1.02956 = $80.34$\n\n**Step 2: Value at t = 3 months**\n\nAfter the dividend is paid, the stock is at $85 with 3 months remaining:\n\n$V_t = S_t - PV(F_0) = 85 - \\frac{80.34}{(1.06)^{0.25}} = 85 - \\frac{80.34}{1.01467} = 85 - 79.18 = $5.82$\n\nThe long forward has a positive value of $5.82 because the stock has risen above the forward price trajectory."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Forward Commitment Pricing \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "deriv1-1",
+          "question": "**Vignette: GlobalTrade Asset Management**\n\nLisa Chen manages a multi-asset portfolio. She is evaluating several forward contracts:\n\n- Stock A: Spot = $120, continuous dividend yield = 1.5%, risk-free rate = 4% (continuous)\n- EUR/USD spot = 1.0800, US risk-free = 4.5%, EUR risk-free = 3.0%\n- 6-month LIBOR is 4.2%, 12-month LIBOR is 4.8%\n\n---\n\n**Question 1:** The no-arbitrage 1-year forward price for Stock A is closest to:",
+          "options": [
+            "A) $123.04",
+            "B) $120.00",
+            "C) $117.07"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$F_0 = 120 \\times e^{(0.04 - 0.015) \\times 1} = 120 \\times e^{0.025} = 120 \\times 1.02532 = $123.04$. The forward price reflects the net cost of carry: the financing cost (4%) minus the dividend yield (1.5%) = 2.5% net carry cost. Option B ignores carry costs entirely. Option C appears to subtract carry rather than add it.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the no-arbitrage forward price for an equity with continuous dividends"
+        },
+        {
+          "id": "deriv1-2",
+          "question": "**Question 2 (continued from GlobalTrade vignette):** Based on covered interest rate parity, the 1-year EUR/USD forward rate is closest to:",
+          "options": [
+            "A) 1.0638",
+            "B) 1.0962",
+            "C) 1.0962"
+          ],
+          "correctAnswer": "B",
+          "explanation": "$F = 1.0800 \\times \\frac{1.045}{1.030} = 1.0800 \\times 1.01456 = 1.0957 \\approx 1.0962$. The USD has a higher interest rate, so the EUR trades at a forward premium (more USD per EUR forward). This is consistent with covered interest rate parity: the currency with the higher rate depreciates in the forward market. Option A incorrectly reverses the interest rates.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate a forward exchange rate using covered interest rate parity"
+        },
+        {
+          "id": "deriv1-3",
+          "question": "**Question 3 (continued from GlobalTrade vignette):** The 6\u00d712 FRA rate implied by the given LIBOR rates is closest to:",
+          "options": [
+            "A) 4.8%",
+            "B) 5.1%",
+            "C) 5.4%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The 6\u00d712 FRA rate: $(1 + 0.048)^1 / (1 + 0.042)^{0.5} - 1$ adjusted to annualized terms. Using simple rates: forward rate $= \\frac{0.048 \\times 1 - 0.042 \\times 0.5}{0.5} = \\frac{0.048 - 0.021}{0.5} = \\frac{0.027}{0.5} = 5.4\\%$. The forward rate for the second 6-month period must be higher than 4.8% to compensate for the lower 4.2% in the first 6 months. Option A equals the 12-month rate. Option B is too low.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate a forward rate agreement rate from the term structure"
+        },
+        {
+          "id": "deriv1-4",
+          "question": "**Vignette: Apex Fixed Income Fund**\n\nDavid Park manages a fixed-income portfolio. He entered a 2-year pay-fixed interest rate swap at 3.8% with quarterly payments on a $10 million notional. After 6 months, the swap fixed rate for a new 1.5-year swap is 4.2%. The current discount factors are: 0.25yr = 0.9896, 0.50yr = 0.9790, 0.75yr = 0.9681, 1.00yr = 0.9569, 1.25yr = 0.9455, 1.50yr = 0.9338.\n\n---\n\n**Question 1:** The value of the swap to David (the pay-fixed party) is closest to:",
+          "options": [
+            "A) -$22,400",
+            "B) +$22,400",
+            "C) +$56,100"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Since rates have risen (new SFR of 4.2% vs original 3.8%), the pay-fixed party benefits \u2014 David is paying below-market fixed rates. The value equals the PV of the rate differential over remaining payments: quarterly difference = $(0.042 - 0.038)/4 \\times 10{,}000{,}000 = $1{,}000$ per quarter. Sum of discount factors for 6 remaining payments = 0.9896 + 0.9790 + 0.9681 + 0.9569 + 0.9455 + 0.9338 = 5.7729. Value $\\approx 1{,}000 \\times 5.7729 \\times 4 \\approx +$23{,}092$, closest to +$22,400. Option A has the wrong sign. Option C overstates the gain.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Determine the value of an interest rate swap during its life"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of carry arbitrage to a colleague who understands stocks but has never traded derivatives. Use a simple example of a stock forward to illustrate why the forward price must relate to the spot price plus carrying costs."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why must the forward price differ from the expected future spot price in a risk-neutral framework?",
+        "How does covered interest rate parity prevent arbitrage in currency markets?",
+        "What practical frictions might cause real-world forward prices to deviate slightly from theoretical values?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Forward price = Spot price adjusted for cost of carry: $F_0(T) = S_0 \\times e^{(r - q)T}$\n- Cash-and-carry arbitrage: overpriced forward \u2192 sell forward, buy spot\n- Reverse cash-and-carry: underpriced forward \u2192 buy forward, sell spot\n- Currency forward: $F = S \\times (1 + r_{DC})^T / (1 + r_{FC})^T$ (CIP)\n- Swap fixed rate set so initial value = 0\n- Pay-fixed party gains when rates rise; loses when rates fall\n- Mark-to-market value = PV of remaining cash flow differences"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Valuation of Contingent Claims** \u2014 options, which unlike forwards, give the holder the *right* but not the obligation to transact. You will learn the binomial model and Black-Scholes-Merton framework, which build on the same no-arbitrage principles used here but must account for the asymmetric payoff of options."
+    }
+  ]
+}

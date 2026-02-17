@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PW.5: Risk Management for Individuals",
+    "description": "Analyze mortality, longevity, disability, property, and liability risks, and evaluate life insurance, annuities, and other insurance products for private wealth clients.",
+    "level": "level-7",
+    "slug": "pw-pw-risk-management",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Private Wealth Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A 65-year-old retiree is more worried about outliving her money than dying too soon. What financial product directly addresses longevity risk, and why don't more retirees use it?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Risk Categories for Individuals\n\n| Risk | Description | Financial Impact |\n|---|---|---|\n| **Mortality** | Dying prematurely | Loss of income/human capital for dependents |\n| **Longevity** | Living too long | Exhausting financial resources |\n| **Disability** | Inability to work | Loss of earning capacity |\n| **Property** | Damage/loss of assets | Repair/replacement costs |\n| **Liability** | Legal claims | Lawsuits, judgments, legal costs |\n| **Health** | Medical expenses | Potentially catastrophic costs |\n\n### Risk Management Techniques\n\n1. **Risk avoidance**: Eliminate the activity (rarely practical)\n2. **Risk reduction**: Safety measures, diversification\n3. **Risk transfer**: Insurance, hedging\n4. **Risk retention**: Self-insurance (appropriate when loss is small relative to wealth)\n\n## Life Insurance\n\n### Term Life Insurance\n- Pure insurance: pays death benefit only if death occurs during term\n- Lowest cost per dollar of coverage\n- Appropriate for: Temporary needs (income replacement while children are young, mortgage protection)\n- No cash value accumulation\n\n### Whole Life Insurance\n- Permanent coverage with guaranteed cash value\n- Level premiums (front-loaded relative to mortality risk)\n- Cash value grows at guaranteed rate (plus potential dividends)\n- Appropriate for: Estate liquidity, permanent insurance needs, forced savings\n\n### Universal Life Insurance\n- Flexible premiums and death benefit\n- Cash value grows at market rates (subject to minimum)\n- **Variable universal life**: Cash value invested in sub-accounts (market risk to policyholder)\n- **Indexed universal life**: Returns linked to equity index with floor and cap"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A wealthy client with $20M in assets and no dependents asks whether she needs life insurance. What is the best reason she might still want it?",
+      "answer": "Estate liquidity. Even without dependents, a $20M estate may face significant estate taxes (potentially $3-5M depending on exemptions). If the estate consists largely of illiquid assets (real estate, business interests), there may not be sufficient liquid assets to pay estate taxes within the 9-month filing deadline. Life insurance (especially an irrevocable life insurance trust, ILIT) provides tax-free liquidity to pay estate taxes without forcing the sale of illiquid assets at fire-sale prices. The ILIT also keeps the insurance proceeds outside the taxable estate. Other reasons: charitable legacy planning, equalization among heirs (one gets the business, others get insurance proceeds)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Annuities\n\nAnnuities are the primary tool for managing **longevity risk** -- the risk of outliving your money.\n\n### Types of Annuities\n\n| Type | Payments | Investment Risk | Longevity Protection |\n|---|---|---|---|\n| Fixed immediate | Level payments, start now | Insurer | Yes |\n| Variable immediate | Payments fluctuate with markets | Policyholder | Yes |\n| Fixed deferred | Guaranteed rate, start later | Insurer | Yes (when annuitized) |\n| Variable deferred | Market-linked, start later | Policyholder | Optional |\n\n### Annuity Pricing\n\n$$\\text{Annuity payment} = \\frac{\\text{Premium}}{\\ddot{a}_x}$$\n\nWhere $\\ddot{a}_x$ is the present value of a life annuity due for a person age $x$.\n\n### The Annuity Puzzle\n\nEconomic theory suggests most retirees should annuitize a significant portion of wealth, but few do. Reasons:\n- **Loss of control**: Cannot access principal after annuitization\n- **Bequest motive**: Nothing left for heirs if annuitant dies early\n- **Behavioral factors**: Loss aversion, framing as a gamble\n- **Existing annuitization**: Social Security and pensions already provide annuity-like income\n\n## Disability and Long-Term Care Insurance\n\n### Disability Insurance\n- Replaces income if unable to work\n- **Own-occupation vs any-occupation**: Own-occ pays if you can't do your specific job\n- Typically covers 60-70% of income (to maintain incentive to return to work)\n- Elimination period: 90-180 days before benefits begin\n\n### Long-Term Care (LTC) Insurance\n- Covers custodial care (nursing home, assisted living, home care)\n- Trigger: Inability to perform 2+ activities of daily living (ADLs)\n- Can be very expensive, especially purchased after age 60\n- Hybrid products: Life insurance with LTC rider (provides both benefits)\n\n## Insurance Needs Analysis\n\n**Human life value approach:**\n$$\\text{Insurance need} = PV \\text{ of future earnings} - PV \\text{ of personal consumption}$$\n\n**Needs analysis approach:**\n$$\\text{Insurance need} = PV \\text{ of obligations (mortgage, education, income replacement)} - \\text{Existing resources}$$"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Risk Management Plan\n\nClient: Thomas and Linda Park, ages 48 and 46.\n- Combined income: $500K (Thomas $350K surgeon, Linda $150K attorney)\n- Net worth: $4M (home $1.2M with $400K mortgage, investments $2.5M, other $300K)\n- Three children: ages 8, 12, 16\n- Thomas has employer group life ($700K) and group disability (60% of base)\n- Linda has no employer insurance\n- Neither has long-term care insurance\n\nA) Identify the three most critical risks for this family.\nB) Calculate the life insurance need for Thomas.\nC) Evaluate whether their disability coverage is adequate.\nD) Recommend an overall risk management plan.",
+      "solution": "**A) Three Most Critical Risks:**\n\n1. **Thomas's mortality/disability risk**: As the higher earner ($350K), his death or disability would eliminate 70% of family income. Current group life ($700K) replaces only 2 years of his income -- grossly inadequate for a family with children aged 8-16.\n\n2. **Linda's lack of any insurance**: No life or disability coverage. If Linda dies or becomes disabled, the family loses $150K annually and must fund childcare/household support. Her income also funds retirement savings.\n\n3. **Longevity and healthcare risk** (future): As a surgeon, Thomas has high income but demanding physical requirements. Disability before retirement would be devastating. Neither has LTC coverage for eventual needs.\n\n**B) Life Insurance Need for Thomas (Needs Analysis):**\n\nIncome replacement: $350K/year for 20 years (until youngest child is independent)\n- PV at 4% discount: $350K x annuity factor (20, 4%) = $350K x 13.59 = $4.76M\n\nMortgage payoff: $400K\nChildren's education: 3 children x $200K each = $600K (PV)\nEmergency fund: $200K\nFinal expenses: $50K\n\nTotal needs: $6.01M\nLess existing resources:\n- Group life: $700K\n- Investments: $2.5M (but these fund retirement -- should not be fully depleted)\n- Social Security survivor benefits: ~$3K/month for 10 years = $360K PV\n\nInsurance gap: $6.01M - $700K - $1.0M (portion of investments) - $360K = $3.95M\n\nRecommendation: $4M in term life insurance (20-year level term to cover children's dependency period)\n\n**C) Disability Coverage Evaluation:**\n\nThomas:\n- Group disability: 60% of base salary. If base is $250K (with $100K in bonuses/surgical fees), coverage = $150K/year\n- Gap: $350K - $150K = $200K shortfall\n- Group disability is likely 'any occupation' (weaker protection for a surgeon)\n- Need: Individual own-occupation disability policy for $100-150K additional annual coverage\n\nLinda:\n- Zero disability coverage -- critical gap\n- Need: Individual disability policy covering ~$100K/year (67% of income)\n\n**D) Comprehensive Risk Management Plan:**\n\n1. **Thomas**: Purchase $4M 20-year level term life + $150K/year individual own-occupation disability policy. Estimated annual cost: Life ~$3,500 + Disability ~$6,000 = $9,500\n\n2. **Linda**: Purchase $2M 20-year level term life + $100K/year individual disability policy. Estimated annual cost: Life ~$1,500 + Disability ~$3,500 = $5,000\n\n3. **Umbrella liability**: $3-5M umbrella policy given surgeon malpractice exposure and net worth. Cost: ~$500-800/year\n\n4. **Long-term care**: Defer purchase until ages 55-60 when pricing is more favorable but still insurable. Consider hybrid life/LTC products at that time. Currently: Self-insure given age and health.\n\n5. **Review schedule**: Annual insurance review; adjust coverage as children become independent, mortgage is paid, and wealth grows. As financial capital replaces human capital, reduce term life coverage.\n\nTotal annual insurance cost: ~$15,000-16,000 (3% of income -- well within guidelines of 5-8%)"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Risk Management for Individuals Practice",
+      "problems": [
+        {
+          "id": "l3-pw5-1",
+          "question": "A 60-year-old retiree with $3M in savings and $40K/year in Social Security income needs $120K annually. She is considering annuitizing $1.5M. The annuity would pay $85K/year for life. The primary benefit of this annuity purchase is:",
+          "options": [
+            "A) Higher expected return than a bond portfolio",
+            "B) Elimination of longevity risk on the annuitized portion",
+            "C) Tax-free income in retirement"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The primary benefit of an immediate life annuity is longevity protection -- the insurance company guarantees payments for life, regardless of how long the retiree lives. With Social Security ($40K) + annuity ($85K) = $125K, her essential spending ($120K) is fully covered for life, eliminating the risk of running out of money. Option A is misleading -- annuity 'returns' include mortality credits (payments from those who die early fund those who live long), not traditional investment returns. Option C is incorrect -- annuity payments include a taxable portion (the return of investment is excluded, but the earnings component is taxed).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Evaluate the role of annuities in retirement income planning"
+        },
+        {
+          "id": "l3-pw5-2",
+          "question": "A surgeon earning $500K annually has group disability insurance that pays 60% of salary for 'any occupation.' This policy is most problematic because:",
+          "options": [
+            "A) The 60% replacement rate is below the standard 80%",
+            "B) Under 'any occupation,' benefits stop if the surgeon can work in any capacity, even non-surgical",
+            "C) Group policies typically have higher premiums than individual policies"
+          ],
+          "correctAnswer": "B",
+          "explanation": "An 'any-occupation' disability policy only pays if the insured cannot work in ANY occupation for which they are reasonably qualified. A surgeon who loses fine motor skills cannot operate but could teach, consult, or practice non-surgical medicine. Under 'any occupation,' benefits would stop once the surgeon could work in any capacity, even at drastically reduced income. An 'own-occupation' policy would continue paying as long as the surgeon cannot perform surgery -- a critical distinction for high-earning specialists. Option A is incorrect (60-70% is standard to maintain work incentive). Option C is incorrect (group is typically cheaper).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Distinguish between own-occupation and any-occupation disability coverage"
+        },
+        {
+          "id": "l3-pw5-3",
+          "question": "An irrevocable life insurance trust (ILIT) provides which advantage over personally owned life insurance?",
+          "options": [
+            "A) Lower premium costs",
+            "B) Death benefit proceeds are excluded from the taxable estate",
+            "C) Guaranteed cash value growth"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When life insurance is owned by an ILIT, the death benefit is excluded from the insured's taxable estate because the insured has no incidents of ownership. For a wealthy individual, this can save 40% estate tax on the death benefit. For example, a $5M policy in an ILIT saves up to $2M in estate taxes. Option A is incorrect -- premiums are the same regardless of ownership. Option C applies to certain whole life policies regardless of trust ownership. The ILIT does have costs (setup and administration) and requires Crummey notices for premium payments to qualify as annual exclusion gifts.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Explain the estate tax benefits of an ILIT"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the 'annuity puzzle' to a retiree who says 'Why would I give an insurance company $1 million that I might never get back?' Address both the economic arguments for annuitization and the behavioral reasons people resist it."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "At what wealth level does self-insurance become more efficient than purchased insurance?",
+        "How should the decision to purchase long-term care insurance change with age?",
+        "Why might the 'optimal' insurance portfolio differ from what clients are willing to buy?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Risk categories**: Mortality, longevity, disability, property, liability, health\n- **Life insurance**: Term (temporary, pure protection), whole (permanent, cash value), universal (flexible)\n- **Insurance needs**: Human life value or needs analysis approach; review annually\n- **Annuities**: Address longevity risk; mortality credits fund above-market payouts to survivors\n- **Annuity puzzle**: Theory says annuitize; behavior resists (loss of control, bequest motive)\n- **Disability**: Own-occupation is critical for specialists; 60-70% replacement is standard\n- **ILIT**: Removes insurance proceeds from taxable estate; 40% potential estate tax savings\n- **Self-insurance**: Appropriate for wealthy clients for small/moderate risks; retain deductible, insure catastrophic"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Goals-Based Investing** -- a framework that brings together risk management, asset allocation, and behavioral finance into a unified approach to private wealth management."
+    }
+  ]
+}

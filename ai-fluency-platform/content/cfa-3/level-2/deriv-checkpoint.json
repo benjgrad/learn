@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "Derivatives and Risk Management Checkpoint",
+    "description": "Test your mastery of option strategies, futures/swaps for exposure management, and currency hedging techniques.",
+    "level": "level-2",
+    "slug": "deriv-checkpoint",
+    "order": 5,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Derivatives and Risk Management Comprehensive Assessment",
+      "problems": [
+        {
+          "id": "l3-d-cp-1",
+          "question": "A portfolio manager holds $10M in equities and writes covered calls 10% OTM for a premium of 2.5%. If the equity position declines 8%, the net return on the covered call position is:",
+          "options": [
+            "A) \u22128.0%",
+            "B) \u22125.5%",
+            "C) \u221210.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The stock declines 8%. The written calls expire worthless (stock is now 18% below the strike). The premium received (2.5%) cushions the loss: Net return = \u22128.0% + 2.5% = \u22125.5%. The covered call outperforms the unhedged position by the premium amount in declining markets. However, if the stock had rallied above the strike, the covered call would have underperformed.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate covered call returns in different market scenarios"
+        },
+        {
+          "id": "l3-d-cp-2",
+          "question": "To create a synthetic equity position of $150M using S&P 500 futures trading at 4,600 (multiplier $250, beta 1.0), the number of contracts required is closest to:",
+          "options": [
+            "A) 130",
+            "B) 326",
+            "C) 652"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Notional per contract = 4,600 \u00d7 $250 = $1,150,000. Number of contracts = $150,000,000 / $1,150,000 = 130.4 \u2248 130 contracts. This creates synthetic equity exposure equivalent to holding $150M in the S&P 500 index, funded by the risk-free rate implied in the futures price.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate futures contracts for synthetic equity exposure"
+        },
+        {
+          "id": "l3-d-cp-3",
+          "question": "A portfolio holds JPY-denominated assets. JPY interest rates are 0.5% and USD rates are 5.0%. The annualized roll yield from a fully hedged forward position (selling JPY forward) is approximately:",
+          "options": [
+            "A) +4.5%",
+            "B) \u22124.5%",
+            "C) 0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Roll yield \u2248 i_domestic \u2212 i_foreign = 5.0% \u2212 0.5% = +4.5%. The USD-based investor selling JPY forward benefits from the higher USD interest rate. By covered interest rate parity, the JPY forward trades at a premium to spot (JPY appreciates in the forward to offset the rate differential). The investor sells JPY at this premium, earning the positive roll yield. This makes hedging JPY exposure attractive from a cost perspective.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate roll yield on currency hedges"
+        },
+        {
+          "id": "l3-d-cp-4",
+          "question": "A pension fund enters a receive-fixed, pay-floating interest rate swap with a notional of $500M and a swap duration of 7.5 years. The effect on total portfolio duration (assuming a $2B portfolio) is an increase of approximately:",
+          "options": [
+            "A) 0.94 years",
+            "B) 1.88 years",
+            "C) 7.5 years"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The swap adds duration equal to: Swap duration \u00d7 (Notional / Portfolio value) = 7.5 \u00d7 ($500M / $2,000M) = 7.5 \u00d7 0.25 = 1.875 \u2248 1.88 years. The receive-fixed swap adds positive duration to the portfolio because the fixed leg has bond-like duration. Note that the notional is only 25% of the portfolio, so the duration impact is proportionally scaled.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the duration impact of interest rate swaps"
+        },
+        {
+          "id": "l3-d-cp-5",
+          "question": "A zero-cost collar on a concentrated stock position ($100 current price) with a put strike of $90 and call strike of $120 provides:",
+          "options": [
+            "A) Unlimited upside with limited downside",
+            "B) Maximum gain of $20 per share with maximum loss of $10 per share",
+            "C) Guaranteed profit regardless of price movement"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The collar bounds the outcome: the put at $90 limits the downside to a $10 loss per share (from $100 to $90). The short call at $120 caps the upside at $20 gain per share (from $100 to $120). Between $90 and $120, the investor holds the stock with no option payout. Option A describes a protective put alone (no collar). Option C is impossible \u2014 there is no guaranteed profit.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Determine the payoff profile of collar strategies"
+        }
+      ]
+    }
+  ]
+}

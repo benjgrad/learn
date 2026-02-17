@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "QM.2: Evaluating Model Fit",
+    "description": "Assess regression model quality using R-squared, adjusted R-squared, AIC/BIC, standard error of the estimate, and prediction intervals.",
+    "level": "level-1",
+    "slug": "quant-regression-model-fit",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you add a completely irrelevant variable to a regression model, what happens to R-squared? What happens to adjusted R-squared? Why might these two measures diverge?"
+    },
+    {
+      "type": "markdown",
+      "content": "## R-squared and Adjusted R-squared\n\n### R-squared (Coefficient of Determination)\n\nR-squared measures the **proportion of total variation** in the dependent variable explained by the model:\n\n$$R^2 = \\frac{SSR}{SST} = 1 - \\frac{SSE}{SST}$$\n\nR-squared ranges from 0 to 1. A value of 0.75 means the independent variables explain 75% of the variation in $Y$.\n\n**Key limitation:** R-squared **never decreases** when you add an independent variable, even if that variable has no real explanatory power. This makes raw R-squared unreliable for comparing models with different numbers of variables.\n\n### Adjusted R-squared\n\nAdjusted R-squared penalizes for additional variables:\n\n$$\\bar{R}^2 = 1 - \\frac{(1 - R^2)(n - 1)}{n - k - 1}$$\n\nUnlike R-squared, adjusted R-squared **can decrease** when an irrelevant variable is added, because the penalty for the lost degree of freedom outweighs the trivial increase in R-squared. Use adjusted R-squared when comparing models with different numbers of independent variables."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A model with 4 independent variables and 50 observations has R-squared = 0.60. If you add a 5th variable and R-squared increases to 0.605, will adjusted R-squared increase or decrease?",
+      "answer": "It will likely decrease. The small increase in R-squared (0.005) is unlikely to compensate for the penalty of adding another variable. Adjusted R-squared penalizes model complexity: the denominator drops from n - k - 1 = 45 to 44, and the numerator (1 - R-squared) barely changes. A useful rule of thumb: the added variable must have a t-statistic greater than 1 in absolute value for adjusted R-squared to increase."
+    },
+    {
+      "type": "markdown",
+      "content": "## Standard Error of the Estimate and F-statistic\n\n### Standard Error of the Estimate (SEE)\n\nThe SEE measures the **typical size of the residuals** \u2014 how far actual values fall from the regression line:\n\n$$SEE = \\sqrt{\\frac{SSE}{n - k - 1}} = \\sqrt{MSE}$$\n\nSmaller SEE means better fit. SEE is in the same units as $Y$, making it directly interpretable. For example, if $Y$ is stock return in percent and SEE = 2.1, then the typical prediction error is about 2.1 percentage points.\n\n### F-statistic Interpretation\n\nThe overall F-statistic tests whether the model has **any** explanatory power:\n\n$$F = \\frac{MSR}{MSE} = \\frac{SSR / k}{SSE / (n - k - 1)}$$\n\nA large F-statistic (with a small p-value) rejects the null that all slope coefficients equal zero. Note that a significant F-statistic does not mean every individual variable is significant \u2014 the model as a whole simply has some explanatory power.\n\n### Relationship between R-squared and F-statistic\n\n$$F = \\frac{R^2 / k}{(1 - R^2) / (n - k - 1)}$$\n\nA high R-squared generally corresponds to a significant F-statistic, but the exact relationship depends on $n$ and $k$."
+    },
+    {
+      "type": "markdown",
+      "content": "## Model Comparison: AIC and BIC\n\nWhen comparing non-nested models (models that are not simply restricted versions of each other), information criteria are preferred over F-tests.\n\n### Akaike Information Criterion (AIC)\n\n$$AIC = n \\ln(SSE/n) + 2(k+1)$$\n\n### Bayesian Information Criterion (BIC)\n\n$$BIC = n \\ln(SSE/n) + \\ln(n)(k+1)$$\n\n**Lower values** of AIC or BIC indicate a better model. Both penalize complexity, but BIC imposes a **heavier penalty** for additional variables when $n > 7$ (since $\\ln(n) > 2$ for $n > 7$).\n\n| Criterion | Penalty | Tends to select |\n|---|---|---|\n| AIC | $2(k+1)$ | Larger models (less penalty) |\n| BIC | $\\ln(n)(k+1)$ | More parsimonious models |\n\n### In-sample vs. Out-of-sample Fit\n\nA model can fit historical data well (high in-sample R-squared) yet predict poorly on new data. **Overfitting** occurs when the model captures noise rather than the true signal. Out-of-sample testing, cross-validation, and information criteria help guard against this. Prediction intervals (below) quantify the uncertainty around individual forecasts."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "An analyst compares two models for predicting bond spreads using 100 observations. Model A has 3 variables, SSE = 450, R-squared = 0.72. Model B has 6 variables, SSE = 420, R-squared = 0.74. Calculate adjusted R-squared for both models and determine which model is preferred.",
+      "solution": "**Model A** (k = 3, n = 100, R-squared = 0.72):\n\n$\\bar{R}^2_A = 1 - \\frac{(1 - 0.72)(100 - 1)}{100 - 3 - 1} = 1 - \\frac{0.28 \\times 99}{96} = 1 - 0.2888 = 0.711$\n\n**Model B** (k = 6, n = 100, R-squared = 0.74):\n\n$\\bar{R}^2_B = 1 - \\frac{(1 - 0.74)(100 - 1)}{100 - 6 - 1} = 1 - \\frac{0.26 \\times 99}{93} = 1 - 0.2768 = 0.723$\n\nModel B has a higher adjusted R-squared (0.723 vs. 0.711), so it is preferred despite having more variables. The additional 3 variables contribute enough explanatory power to outweigh the complexity penalty.\n\nNote: if Model B's R-squared had only been 0.73 instead of 0.74, its adjusted R-squared would be $1 - \\frac{0.27 \\times 99}{93} = 0.713$, barely above Model A's, making the choice less clear-cut."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Evaluating Regression Model Fit",
+      "vignette": "Marcus Chen, CFA, is a risk analyst at Apex Asset Management. He has built two regression models to explain monthly hedge fund returns using 120 months of data.\n\nModel 1 uses 3 factors: equity market premium, credit spread change, and volatility change.\nModel 2 uses 6 factors: the same 3 factors plus momentum, liquidity, and a currency factor.\n\nRegression output summary:\n\n| Metric | Model 1 | Model 2 |\n|---|---|---|\n| R-squared | 0.68 | 0.73 |\n| Adjusted R-squared | 0.672 | 0.716 |\n| SEE | 1.85% | 1.62% |\n| F-statistic | 82.1 | 51.2 |\n| AIC | -245.3 | -261.8 |\n| BIC | -234.1 | -242.3 |\n\nBoth F-statistics are significant at the 1% level. In Model 2, the momentum factor has a t-statistic of 3.4, the liquidity factor has a t-statistic of 2.8, and the currency factor has a t-statistic of 0.9 (critical value at 5% is approximately 1.98).",
+      "problems": [
+        {
+          "id": "qm2-1",
+          "question": "Based on the regression output, the proportion of variation in hedge fund returns explained by Model 1 is closest to:",
+          "options": [
+            "A) 67.2%",
+            "B) 68.0%",
+            "C) 82.1%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "R-squared measures the proportion of total variation in the dependent variable explained by the independent variables. For Model 1, R-squared = 0.68 = 68.0%. Option A (67.2%) is the adjusted R-squared, which penalizes for the number of variables. Option C (82.1) is the F-statistic, not a percentage of explained variation.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret R-squared"
+        },
+        {
+          "id": "qm2-2",
+          "question": "Chen should prefer Model 2 over Model 1 based on which of the following criteria?",
+          "options": [
+            "A) Higher R-squared only, since Model 2 has more variables.",
+            "B) Higher adjusted R-squared, lower SEE, and lower AIC and BIC.",
+            "C) Higher F-statistic, indicating greater overall significance."
+          ],
+          "correctAnswer": "B",
+          "explanation": "When comparing models with different numbers of variables, adjusted R-squared (not raw R-squared) should be used. Model 2 has higher adjusted R-squared (0.716 vs. 0.672), lower SEE (1.62% vs. 1.85%), and lower AIC (-261.8 vs. -245.3) and BIC (-242.3 vs. -234.1). All criteria favor Model 2. Option A is incorrect because raw R-squared always increases with more variables. Option C is incorrect because the F-statistic magnitude alone does not determine which model is better \u2014 both are significant, and adding variables can actually decrease the F-statistic even if the model improves.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compare regression models using appropriate fit criteria"
+        },
+        {
+          "id": "qm2-3",
+          "question": "In Model 2, the currency factor is most likely:",
+          "options": [
+            "A) improving model fit significantly.",
+            "B) not statistically significant and potentially adding noise.",
+            "C) causing multicollinearity with the other factors."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The currency factor has a t-statistic of 0.9, which is below the critical value of 1.98. Therefore, it is not statistically significant at the 5% level. This variable may not contribute meaningful explanatory power and could be adding noise. Option A is incorrect because the variable fails the significance test. Option C cannot be determined from the information given \u2014 a low t-statistic can result from either irrelevance or multicollinearity, but the vignette does not provide evidence of multicollinearity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Identify insignificant variables in a regression model"
+        },
+        {
+          "id": "qm2-4",
+          "question": "BIC penalizes model complexity more heavily than AIC. The fact that both AIC and BIC favor Model 2 most likely indicates that:",
+          "options": [
+            "A) the additional factors in Model 2 provide substantial improvement in fit.",
+            "B) Model 2 is overfitting the historical data.",
+            "C) the two criteria always agree on model selection."
+          ],
+          "correctAnswer": "A",
+          "explanation": "BIC imposes a heavier penalty for additional parameters than AIC (ln(n) vs. 2 per parameter, and ln(120) = 4.79 > 2). When both AIC and BIC favor the larger model, the additional variables are providing enough improvement to overcome even the stricter BIC penalty, indicating substantial improvement. Option B contradicts the evidence \u2014 if Model 2 were overfitting, BIC would likely not favor it. Option C is incorrect because AIC and BIC can and often do disagree, especially for marginally useful variables.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret AIC and BIC for model comparison"
+        },
+        {
+          "id": "qm2-5",
+          "question": "The SEE for Model 1 is 1.85%. This value is best interpreted as:",
+          "options": [
+            "A) the average hedge fund return prediction is off by 1.85% in either direction.",
+            "B) 1.85% of the variation in returns is unexplained.",
+            "C) approximately 68% of the residuals fall within 1.85 percentage points of zero."
+          ],
+          "correctAnswer": "C",
+          "explanation": "The SEE (standard error of the estimate) is the standard deviation of the residuals. Under the normality assumption, approximately 68% of residuals fall within one standard deviation (1.85 percentage points) of zero. Option A overstates the interpretation \u2014 SEE is a standard deviation, not the average error. Option B confuses SEE with (1 - R-squared); 32% (not 1.85%) of variation is unexplained.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret the standard error of the estimate"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why adjusted R-squared is preferred over R-squared when comparing models with different numbers of independent variables. What problem does it solve, and how does it solve it?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In your experience, have you seen models with high R-squared that still predicted poorly? What might explain this?",
+        "When would you prefer BIC over AIC for model selection, and why?",
+        "How does the concept of 'overfitting' relate to the distinction between in-sample and out-of-sample performance?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- $R^2 = SSR/SST$ measures explained variation; always increases with more variables\n- **Adjusted R-squared** penalizes for complexity; can decrease with irrelevant variables\n- **SEE** = standard deviation of residuals; smaller is better; in same units as $Y$\n- **F-statistic** = MSR/MSE; tests whether the model has any explanatory power\n- **AIC/BIC**: lower is better; BIC penalizes complexity more heavily\n- Use adjusted R-squared, AIC, or BIC (not raw R-squared) to compare models with different numbers of variables\n- **Overfitting**: high in-sample fit does not guarantee good out-of-sample prediction"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Model Misspecification** \u2014 what happens when the OLS assumptions from QM.1 are violated. You will learn to detect and correct heteroskedasticity, serial correlation, and multicollinearity, which directly affect whether the standard errors, t-statistics, and R-squared values you learned about here can be trusted."
+    }
+  ]
+}

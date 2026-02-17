@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PC.2: Fixed-Income Portfolio Management",
+    "description": "Master liability-driven investing, immunization, index-based strategies, and active fixed-income approaches for institutional portfolio management.",
+    "level": "level-3",
+    "slug": "pc-fixed-income-portfolio-management",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A pension fund has liabilities with a duration of 12 years and convexity of 180. How should the fixed-income portfolio be structured to immunize against interest rate risk? What conditions must be met?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Liability-Driven Strategies (LDI)\n\n### Cash Flow Matching\n\nThe most conservative approach: **match each liability payment** with a dedicated bond cash flow.\n\n- Buy bonds whose coupons and principal exactly fund each liability payment\n- **Advantage**: Eliminates reinvestment risk and interest rate risk\n- **Disadvantage**: Expensive, inflexible, requires exact cash flow matching\n- **Minimum surplus**: The cheapest portfolio that generates all required cash flows\n\n### Duration Matching (Classical Immunization)\n\nFor a **single liability**: Match the portfolio's modified duration to the liability's duration.\n\n**Conditions for immunization**:\n1. Portfolio modified duration = Liability modified duration\n2. Portfolio present value \u2265 Liability present value (no initial deficit)\n3. Portfolio convexity \u2265 Liability convexity (but minimize excess convexity)\n4. Assumes **parallel yield curve shifts** (single-factor model)\n\n**Why minimize excess convexity?** Higher convexity requires lower yield to achieve the same present value, reducing return. Also, convexity only helps with parallel shifts \u2014 it creates structural risk with non-parallel shifts.\n\n### Contingent Immunization\n\nCombines immunization with **active management**:\n1. If surplus exceeds a threshold, allow active management of the FI portfolio\n2. If surplus approaches zero, revert to full immunization\n3. Provides a **floor return** (immunization rate) with potential for higher returns from active management"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An immunized portfolio has duration of 10 matched to a 10-year liability. If the yield curve flattens (short rates rise, long rates fall) rather than shifting in parallel, is the portfolio still immunized?",
+      "answer": "Not necessarily. Classical immunization assumes parallel shifts. If the portfolio is constructed with a barbell (short and long bonds) to match duration of 10, a yield curve flattening would benefit the long bonds and hurt the short bonds. The net effect depends on the portfolio's key rate duration profile. If instead the portfolio uses a bullet (bonds concentrated near the 10-year maturity), it would be much better immunized against non-parallel shifts. This is why immunization for non-parallel shifts requires matching key rate durations, not just overall duration."
+    },
+    {
+      "type": "markdown",
+      "content": "## Multiple Liability Immunization\n\nFor **multiple liabilities** (e.g., pension fund with payments over 20+ years):\n\n**Conditions**:\n1. Portfolio dollar duration matches liability dollar duration\n2. Portfolio convexity matches (or slightly exceeds) liability convexity\n3. **Distribution of durations**: Asset durations span the range of liability durations\n4. Regular rebalancing as time passes and rates change\n\n### Key Rate Duration Matching\n\nFor non-parallel yield curve shifts, match **key rate durations** (KRDs) at multiple points:\n- Match 2-year, 5-year, 10-year, 20-year, 30-year KRDs between assets and liabilities\n- More precise than aggregate duration matching\n- Immunizes against twists and butterflies in the yield curve\n\n## Index-Based FI Strategies\n\n| Method | Description | When to Use |\n|---|---|---|\n| **Full replication** | Hold all index bonds in proportion | Small, liquid indices |\n| **Stratified sampling** | Match key risk factors (duration, sector, credit, callability) | Large indices (Barclays Agg has 10,000+ bonds) |\n| **Enhanced indexing** | Small active bets while tracking index | Low tracking error budget |\n\n### Challenges of Bond Indexing\n- Bonds trade OTC with poor liquidity \u2014 hard to buy all index constituents\n- Index composition changes frequently (new issuance, maturities, calls)\n- Price data may be stale (matrix priced, not traded)\n- Many bonds in the index may be illiquid or unavailable"
+    },
+    {
+      "type": "markdown",
+      "content": "## Active Fixed-Income Strategies\n\n### Duration Management\n- **Extend duration**: When expecting rates to fall (bond prices rise)\n- **Shorten duration**: When expecting rates to rise (bond prices fall)\n- Implementation: Buy/sell long bonds, use futures, or interest rate swaps\n\n### Yield Curve Strategies\n\n| Strategy | View | Implementation |\n|---|---|---|\n| **Bullet** | Curve flattening | Concentrate around target duration |\n| **Barbell** | Curve steepening | Hold short + long maturities |\n| **Butterfly** | Curvature change | Long wings + short body (or vice versa) |\n\n### Credit Strategies\n- **Spread duration** management: Over/underweight credit sectors\n- **Credit barbell**: Mix high-quality (for safety) and high-yield (for income)\n- **Sector rotation**: Shift between IG, HY, EM, securitized based on cycle\n- **Bottom-up selection**: Individual issuer analysis for alpha\n\n### Benchmark Selection Criteria\n\n1. **Clear, transparent rules**: Published methodology for inclusion/weighting\n2. **Investable**: Manager can reasonably replicate the benchmark\n3. **Appropriate risk profile**: Matches the mandate's return/risk objectives\n4. **Measurable on a reasonably frequent basis**: Daily or monthly pricing\n5. **Specified in advance**: Known before the evaluation period"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Fixed-Income Portfolio Construction",
+      "solution": "**Part A \u2014 Immunization strategy:**\n\nTo immunize the pension fund's liabilities (duration 12, convexity 180, PV $800M):\n\n1. **Construct a bond portfolio with**:\n   - Modified duration = 12 years (matching liabilities)\n   - Market value \u2265 $800M (must fund the liability present value)\n   - Convexity \u2265 180 but minimized to reduce structural risk\n\n2. **Prefer a bullet portfolio structure**: Concentrate bond maturities near 12 years rather than using a barbell (2-year + 25-year). The bullet minimizes structural risk from non-parallel yield curve shifts.\n\n3. **Key rate duration matching**: Match KRDs at 5, 10, 15, 20-year points to the liability's key rate duration profile. This immunizes against yield curve twists and butterflies.\n\n4. **Rebalancing protocol**: As time passes and yields change, the portfolio must be rebalanced to maintain the duration match. Set a threshold (e.g., if portfolio duration deviates by >0.5 years from liability duration, rebalance).\n\n**Part B \u2014 Active overlay justification:**\n\nWith the $200M surplus ($1B assets \u2212 $800M liabilities), the fund can pursue contingent immunization:\n\n1. Immunize $800M to secure the liability match (the liability-hedging portfolio)\n2. Manage $200M as a return-seeking portfolio with active strategies:\n   - Duration bets: If CIO expects rates to fall, extend duration modestly\n   - Credit exposure: Add IG and selective HY for spread income\n   - Yield curve positioning: Implement barbell/bullet based on curve view\n\n3. **Trigger**: If the surplus falls below $50M (safety margin), collapse the return-seeking portfolio back into the immunized portfolio. This provides a floor return equal to the immunization rate.\n\n**Part C \u2014 Monitoring and risk:**\n\n1. Monitor dollar duration match monthly; rebalance when deviation exceeds threshold\n2. Stress test against non-parallel shifts (\u00b1100bp steepening/flattening)\n3. Track surplus at risk (SaR) \u2014 the maximum expected surplus decline at 95% confidence\n4. If active strategies lose more than 50% of the surplus cushion, revert to full immunization"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Fixed-Income Portfolio Management Practice",
+      "problems": [
+        {
+          "id": "l3-pc2-1",
+          "question": "Classical immunization of a single liability requires all of the following EXCEPT:",
+          "options": [
+            "A) Portfolio duration matches liability duration",
+            "B) Portfolio convexity exceeds liability convexity by at least 50%",
+            "C) Initial portfolio value is at least equal to the present value of the liability"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Classical immunization requires: (1) duration matching (A), (2) initial surplus \u2265 0 (C), and (3) convexity of the portfolio should be at least as high as the liability's convexity, but should be minimized \u2014 NOT maximized or exceeded by a specific margin (B). Excess convexity creates structural risk (exposure to non-parallel yield curve shifts) and requires a lower portfolio yield. The goal is to have just enough convexity to match the liability.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "State the conditions for classical immunization"
+        },
+        {
+          "id": "l3-pc2-2",
+          "question": "A fixed-income manager expects the yield curve to flatten (short rates rising, long rates falling). The most appropriate yield curve strategy is:",
+          "options": [
+            "A) Barbell \u2014 overweight short and long maturities",
+            "B) Bullet \u2014 concentrate holdings near the portfolio's target duration",
+            "C) Ladder \u2014 equal allocation across all maturities"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When the curve flattens, the middle of the curve is least affected. A bullet (concentrated around the middle) captures the benefit: long rates fall (benefiting positions slightly longer than the bullet center) while short rates rise less than in a barbell. A barbell (A) would suffer because the short-end holdings lose value from rising short rates, and while the long-end gains, the net effect is worse than a bullet for a flattening move. A ladder (C) is a neutral positioning that does not express a yield curve view.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Recommend yield curve strategies based on rate expectations"
+        },
+        {
+          "id": "l3-pc2-3",
+          "question": "In contingent immunization, the manager reverts to a fully immunized portfolio when:",
+          "options": [
+            "A) Interest rates decline significantly",
+            "B) The portfolio surplus falls to the minimum level needed for immunization",
+            "C) Active management has generated positive alpha"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Contingent immunization allows active management as long as the surplus exceeds a safety margin. When active strategies lose money and the surplus falls to the minimum level (the point where the remaining portfolio value is just sufficient to immunize the liability), the manager must revert to full immunization to protect the floor return. This is a risk management trigger \u2014 active management is a privilege that depends on having sufficient surplus cushion.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe contingent immunization and its trigger mechanisms"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain liability-driven investing (LDI) to a pension fund trustee who asks: 'Why can't we just buy the highest-yielding bonds to fund our pensions?' Cover duration matching, immunization, and the concept of surplus risk."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is bond indexing fundamentally more challenging than equity indexing?",
+        "Under what circumstances would you prefer cash flow matching over duration matching?",
+        "How does the distinction between bullet and barbell portfolios relate to yield curve risk?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Cash flow matching**: Most conservative; eliminates reinvestment and rate risk\n- **Immunization**: Duration match, PV surplus \u2265 0, minimize excess convexity\n- **Contingent immunization**: Active management with immunization as fallback\n- **Key rate duration matching**: Protects against non-parallel yield curve shifts\n- **Bullet vs. barbell**: Bullet for flattening, barbell for steepening\n- **Bond indexing challenges**: OTC market, illiquidity, frequent composition changes\n- **Active strategies**: Duration, yield curve, credit, sector rotation\n- **Benchmark criteria**: Transparent, investable, appropriate risk, measurable, specified in advance"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Alternative Investments in Portfolio Allocation** \u2014 how to incorporate private equity, hedge funds, real estate, and other alternatives into an institutional portfolio, managing the unique challenges of illiquidity and valuation."
+    }
+  ]
+}

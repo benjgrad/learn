@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FSA.5: Cash Flow Statement II \u2014 Free Cash Flow and Analysis",
+    "description": "Calculate free cash flow to firm (FCFF) and free cash flow to equity (FCFE), apply cash flow ratios, and assess financial health through cash flow analysis.",
+    "level": "level-4",
+    "slug": "fsa-analyzing-cash-flows-ii",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two companies each report $100 million in net income. Company A has free cash flow of $120 million while Company B has free cash flow of $30 million. Which company has higher-quality earnings, and what might explain the difference?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Free Cash Flow to the Firm (FCFF)\n\nFCFF is the cash available to **all capital providers** (debt and equity holders) after covering operating expenses and capital expenditures.\n\n### Starting from Net Income\n\n$$\\text{FCFF} = \\text{NI} + \\text{NCC} + \\text{Int}(1-t) - \\text{FCInv} - \\text{WCInv}$$\n\nWhere:\n- $\\text{NI}$ = Net income\n- $\\text{NCC}$ = Non-cash charges (depreciation, amortization)\n- $\\text{Int}(1-t)$ = After-tax interest expense (added back because FCFF is pre-debt)\n- $\\text{FCInv}$ = Fixed capital investment (capex - proceeds from asset sales)\n- $\\text{WCInv}$ = Working capital investment (change in non-cash working capital)\n\n### Starting from CFO\n\n$$\\text{FCFF} = \\text{CFO} + \\text{Int}(1-t) - \\text{FCInv}$$\n\n### Example\n\nCFO = \\$200M, Interest expense = \\$40M, Tax rate = 25%, Capital expenditures = \\$80M, Proceeds from asset sales = \\$10M.\n\n$$\\text{FCFF} = 200 + 40(1-0.25) - (80-10) = 200 + 30 - 70 = \\$160M$$\n\nThis \\$160M is theoretically available to pay debt holders (interest and principal) and equity holders (dividends and buybacks)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Free Cash Flow to Equity (FCFE)\n\nFCFE is the cash available to **equity holders only**, after covering operating expenses, capital expenditures, and debt obligations.\n\n### Starting from Net Income\n\n$$\\text{FCFE} = \\text{NI} + \\text{NCC} - \\text{FCInv} - \\text{WCInv} + \\text{Net borrowing}$$\n\n### Starting from CFO\n\n$$\\text{FCFE} = \\text{CFO} - \\text{FCInv} + \\text{Net borrowing}$$\n\n### Starting from FCFF\n\n$$\\text{FCFE} = \\text{FCFF} - \\text{Int}(1-t) + \\text{Net borrowing}$$\n\n### Example\n\nUsing the previous example: FCFF = \\$160M, After-tax interest = \\$30M, New debt issued = \\$50M, Debt repaid = \\$20M.\n\n$$\\text{FCFE} = 160 - 30 + (50 - 20) = \\$160M$$\n\n### FCFF vs FCFE: When to Use\n\n| Metric | Use Case | Discount Rate |\n|---|---|---|\n| **FCFF** | Value the entire firm | WACC |\n| **FCFE** | Value equity directly | Required return on equity |\n\nFCFF is preferred when a company's capital structure is expected to change significantly, as it separates operating performance from financing decisions."
+    },
+    {
+      "type": "markdown",
+      "content": "## Cash Flow Ratios and Financial Health Assessment\n\n### Coverage Ratios\n\n$$\\text{Cash flow to debt} = \\frac{\\text{CFO}}{\\text{Total debt}}$$\n\n$$\\text{Interest coverage (cash)} = \\frac{\\text{CFO} + \\text{Interest paid} + \\text{Taxes paid}}{\\text{Interest paid}}$$\n\n$$\\text{Debt payment ratio} = \\frac{\\text{CFO}}{\\text{Long-term debt repayments}}$$\n\n### Performance Ratios\n\n$$\\text{Cash return on assets} = \\frac{\\text{CFO}}{\\text{Average total assets}}$$\n\n$$\\text{Cash return on equity} = \\frac{\\text{CFO}}{\\text{Average shareholders' equity}}$$\n\n$$\\text{Cash to income} = \\frac{\\text{CFO}}{\\text{Operating income}}$$\n\n### Cash Flow Patterns and Life Cycle\n\n| Stage | CFO | CFI | CFF | Interpretation |\n|---|---|---|---|---|\n| **Start-up** | - | - | + | Borrowing to fund operations and investments |\n| **Growth** | + | - | + | Operations generate cash; still investing heavily with external funding |\n| **Mature** | + | - | - | Self-funding operations and investments; returning cash to investors |\n| **Decline** | + | + | - | Selling assets to pay down debt |\n\nConsistently negative FCFF is a warning sign. A company cannot indefinitely fund operations through financing alone."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has CFO of $300 million, capex of $100 million, interest expense of $50 million (tax rate 30%), and no asset sales. What is FCFF?",
+      "answer": "FCFF = CFO + Int(1-t) - FCInv = $300M + $50M(1-0.30) - $100M = $300M + $35M - $100M = $235M. You add back after-tax interest because FCFF represents cash available before debt service. The net capex is the full $100M since there are no proceeds from asset sales."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate FCFF and FCFE from the following data: Net income = $180M, Depreciation = $60M, Interest expense = $40M, Tax rate = 25%, Capital expenditures = $90M, Change in working capital = $20M increase, New debt issued = $70M, Debt repaid = $30M.",
+      "solution": "**FCFF (from Net Income):**\n$$\\text{FCFF} = 180 + 60 + 40(1-0.25) - 90 - 20$$\n$$= 180 + 60 + 30 - 90 - 20 = \\$160M$$\n\n**FCFE (from Net Income):**\n$$\\text{FCFE} = 180 + 60 - 90 - 20 + (70 - 30)$$\n$$= 180 + 60 - 90 - 20 + 40 = \\$170M$$\n\n**Verification (FCFE from FCFF):**\n$$\\text{FCFE} = 160 - 30 + 40 = \\$170M \\checkmark$$\n\nFCFF of $160M is available to all capital providers. After servicing debt (after-tax interest of $30M) and accounting for net new borrowing ($40M), equity holders have access to $170M."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Free Cash Flow Practice Problems",
+      "problems": [
+        {
+          "id": "fsa5-1",
+          "question": "A company reports CFO of $250 million, interest expense of $60 million, tax rate of 30%, and capital expenditures of $120 million. FCFF is closest to:",
+          "options": [
+            "A) $130 million",
+            "B) $172 million",
+            "C) $190 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "FCFF = CFO + Int(1-t) - FCInv = $250M + $60M(0.70) - $120M = $250M + $42M - $120M = $172M. Option A ($130M) incorrectly calculates as CFO - capex ($250M - $120M = $130M) without adding back after-tax interest. Option C ($190M) adds back the full interest expense without the tax adjustment ($250M + $60M - $120M = $190M).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate FCFF from CFO"
+        },
+        {
+          "id": "fsa5-2",
+          "question": "A company has FCFF of $200 million, after-tax interest expense of $45 million, debt repayment of $80 million, and new debt issuance of $100 million. FCFE is closest to:",
+          "options": [
+            "A) $155 million",
+            "B) $175 million",
+            "C) $220 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "FCFE = FCFF - Int(1-t) + Net borrowing = $200M - $45M + ($100M - $80M) = $200M - $45M + $20M = $175M. Option A ($155M) incorrectly subtracts after-tax interest without adding net borrowing ($200M - $45M = $155M). Option C ($220M) adds net borrowing without subtracting after-tax interest ($200M + $20M = $220M).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate FCFE from FCFF"
+        },
+        {
+          "id": "fsa5-3",
+          "question": "A company shows the following cash flow pattern: positive CFO, positive CFI, and negative CFF. This pattern is most consistent with a company in the:",
+          "options": [
+            "A) Growth stage",
+            "B) Mature stage",
+            "C) Decline stage"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Positive CFO (generating cash from operations), positive CFI (selling long-term assets), and negative CFF (repaying debt/returning capital) is most consistent with a declining company that is divesting assets to pay down obligations. Option A (growth) typically shows negative CFI (heavy investing) and positive CFF (raising capital). Option B (mature) typically shows negative CFI (still investing) and negative CFF (returning capital), but CFI would be negative, not positive.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Interpret cash flow patterns in the context of a company's life cycle"
+        },
+        {
+          "id": "fsa5-4",
+          "question": "An analyst calculates a cash flow to debt ratio of 0.25 and an interest coverage ratio (cash basis) of 6.0x. These ratios suggest the company:",
+          "options": [
+            "A) Can comfortably service its interest but would take 4 years to repay total debt from CFO",
+            "B) Is in financial distress and cannot meet debt obligations",
+            "C) Has excessive debt relative to its cash flow generation"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A cash flow to debt ratio of 0.25 means CFO covers 25% of total debt annually, implying approximately 4 years (1/0.25) to repay all debt from operating cash flow. An interest coverage ratio of 6.0x means the company generates 6 times the cash needed for interest payments, indicating comfortable debt service. Option B is incorrect \u2014 6.0x interest coverage indicates no distress. Option C is too negative \u2014 while 4 years to repay is not trivial, combined with strong interest coverage, it does not indicate excessive debt.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Interpret cash flow coverage ratios"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between FCFF and FCFE to someone who understands basic corporate finance. Why do we add back after-tax interest when calculating FCFF, and why is FCFF preferred when a company's capital structure is expected to change?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is free cash flow often considered a better measure of company performance than net income?",
+        "What might cause a company to have positive net income but negative free cash flow for multiple years?",
+        "How does the cash flow life cycle pattern help you assess a company's strategic position?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- FCFF = NI + NCC + Int(1-t) - FCInv - WCInv\n- FCFF = CFO + Int(1-t) - FCInv\n- FCFE = NI + NCC - FCInv - WCInv + Net borrowing\n- FCFE = CFO - FCInv + Net borrowing\n- FCFE = FCFF - Int(1-t) + Net borrowing\n- FCFF uses WACC; FCFE uses cost of equity\n- Cash flow to debt = CFO / Total debt\n- Life cycle patterns: Start-up (-,-,+), Growth (+,-,+), Mature (+,-,-), Decline (+,+,-)\n- Consistently negative FCFF is a warning sign"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Analysis of Inventories**, where you'll learn how different inventory methods (FIFO, LIFO, weighted average) affect the income statement, balance sheet, and cash flow statement. Inventory choices directly impact COGS and hence CFO, creating one of the most testable IFRS vs GAAP differences."
+    }
+  ]
+}

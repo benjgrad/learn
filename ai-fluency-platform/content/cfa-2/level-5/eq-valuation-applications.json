@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "EQ.1: Equity Valuation Applications",
+    "description": "Understand intrinsic value concepts, absolute vs relative valuation, and the equity valuation process for selecting appropriate models.",
+    "level": "level-5",
+    "slug": "eq-valuation-applications",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A conglomerate owns a fast-growing tech division and a stable utility division. Would you value the whole company as one unit, or value each division separately and add them up? What problems might arise with each approach?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Intrinsic Value vs Market Price\n\nThe core of equity valuation is estimating **intrinsic value** \u2014 the value of an asset given a hypothetically complete understanding of its investment characteristics.\n\n$$V_0 = \\sum_{t=1}^{\\infty} \\frac{E(CF_t)}{(1+r)^t}$$\n\n**Key distinctions:**\n\n| Concept | Definition |\n|---|---|\n| Intrinsic value | Analyst's estimate of \"true\" value based on fundamentals |\n| Market price | The price at which the asset currently trades |\n| Mispricing | $V_0 - P_0$ \u2014 the perceived gap between value and price |\n\nIf $V_0 > P_0$, the security appears **undervalued**. But the analyst must consider whether the difference reflects genuine mispricing or estimation error in the model.\n\n### Going Concern vs Liquidation Value\n\n- **Going concern value**: Value assuming the company continues operating \u2014 typically uses discounted cash flow or earnings multiples\n- **Liquidation value**: Value if the company's assets are sold off piecemeal \u2014 sets a **floor** on value. If liquidation value > going concern value, the firm is worth more dead than alive"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An analyst estimates a stock's intrinsic value at $45, but it trades at $48. She reports it as 'fairly valued' rather than 'overvalued.' What might justify this?",
+      "answer": "The $3 difference (about 6.7%) may fall within the analyst's margin of error or confidence interval. All valuation models involve estimation uncertainty \u2014 input assumptions for growth rates, discount rates, and margins create a range of plausible values. If $45 is a point estimate within a range of, say, $42\u2013$50, then $48 falls within reasonable bounds. Responsible analysts acknowledge this uncertainty rather than treating point estimates as precise."
+    },
+    {
+      "type": "markdown",
+      "content": "## Absolute vs Relative Valuation\n\n**Absolute valuation models** estimate intrinsic value from fundamentals:\n- Dividend discount models (DDM)\n- Free cash flow models (FCFF, FCFE)\n- Residual income models\n\n**Relative valuation models** estimate value by comparing to similar assets:\n- Price multiples (P/E, P/B, P/S, EV/EBITDA)\n- Require identifying truly comparable companies\n\n| Feature | Absolute | Relative |\n|---|---|---|\n| Basis | Fundamental cash flows | Market pricing of peers |\n| Independence | Does not depend on market pricing | Assumes market is correct on average |\n| Complexity | Higher \u2014 requires explicit forecasts | Lower \u2014 but \"garbage in, garbage out\" |\n| Best for | Long-term fundamental analysis | Quick screening, sector comparisons |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Sum-of-the-Parts Valuation\n\nWhen a company operates in **multiple distinct business segments**, a sum-of-the-parts (SOTP) valuation may be more appropriate than valuing the consolidated entity.\n\n$$V_{\\text{firm}} = \\sum_{i=1}^{n} V_{\\text{segment}_i} - \\text{Corporate overhead} + \\text{Excess cash}$$\n\nEach segment is valued using the most appropriate method for that industry \u2014 a tech division might use EV/Revenue while a mature manufacturing division uses EV/EBITDA.\n\n### The Conglomerate Discount\n\nConglomerates often trade at a **discount** to their SOTP value (typically 10\u201315%). Causes include:\n- **Capital allocation inefficiency** \u2014 cross-subsidizing weak divisions\n- **Complexity** \u2014 harder for analysts to evaluate\n- **Agency costs** \u2014 empire-building by management\n- **Lack of focus** \u2014 no single strategic direction\n\nActivist investors often target conglomerates, arguing that breaking them up \"unlocks\" this hidden value."
+    },
+    {
+      "type": "markdown",
+      "content": "## Selecting the Appropriate Valuation Model\n\nThe CFA curriculum emphasizes that model selection depends on the company's characteristics:\n\n| Company Type | Preferred Model | Rationale |\n|---|---|---|\n| Stable dividend payer | DDM | Predictable dividends, clear payout policy |\n| High-growth, no dividends | FCFE / FCFF | Dividends don't capture value creation |\n| Negative earnings, early stage | P/Sales, EV/Revenue | Earnings-based models produce negative values |\n| Financial companies (banks) | DDM, Residual Income | FCFE is difficult to define for financials |\n| Cyclical firms | Normalized P/E, EV/EBITDA | Avoid using peak or trough earnings |\n| Conglomerates | Sum-of-the-parts | Different segments require different approaches |\n\n### The Equity Valuation Process\n\n1. **Understand the business** \u2014 industry, competitive position, financial statements\n2. **Forecast performance** \u2014 revenue growth, margins, capital needs\n3. **Select the model** \u2014 based on company characteristics and data availability\n4. **Estimate value** \u2014 apply the model with explicit assumptions\n5. **Make the investment decision** \u2014 compare $V_0$ to $P_0$, assess confidence"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A conglomerate has three divisions: (1) a software division with $500M revenue growing 20% (comparable pure-play trades at 8x EV/Revenue), (2) a logistics division with $200M EBITDA growing 3% (comps at 9x EV/EBITDA), (3) a declining retail division with $50M in net assets. Corporate debt is $2B and there's $300M in excess cash. Estimate SOTP value.",
+      "solution": "**Software division:** $500M \u00d7 8 = $4,000M\n\n**Logistics division:** $200M \u00d7 9 = $1,800M\n\n**Retail division (asset-based):** $50M\n\n**Gross SOTP:** $4,000M + $1,800M + $50M = $5,850M\n\n**Enterprise value:** $5,850M\n\n**Equity value:** $5,850M - $2,000M (debt) + $300M (excess cash) = $4,150M\n\nNote: If the conglomerate's actual market cap is, say, $3,500M, the conglomerate discount would be ($4,150M - $3,500M) / $4,150M = 15.7%. An activist investor might argue for spinning off the software division to unlock value."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Equity Valuation Applications \u2014 Vignette Practice",
+      "problems": [
+        {
+          "id": "eq-va-1",
+          "vignette": "Sarah Chen, CFA, is evaluating Meridian Corp, a large conglomerate with four divisions. She has compiled the following data:\n\n| Division | Method | Estimated Value |\n|---|---|---|\n| Aerospace | DCF (FCFF) | $12.5 billion |\n| Healthcare | EV/EBITDA (12x) | $8.2 billion |\n| Financial Services | Residual Income | $5.8 billion |\n| Real Estate | NAV | $3.1 billion |\n\nMeridian has $6.0 billion in total debt and $1.5 billion in cash. The stock currently trades at a market capitalization of $21.0 billion. Chen's research note states: 'Meridian exhibits a significant conglomerate discount driven by capital allocation inefficiency.'",
+          "question": "Based on Chen's sum-of-the-parts analysis, the estimated equity value of Meridian is closest to:",
+          "options": [
+            "A) $25.1 billion",
+            "B) $29.6 billion",
+            "C) $31.1 billion"
+          ],
+          "correctAnswer": "A",
+          "explanation": "SOTP enterprise value = $12.5B + $8.2B + $5.8B + $3.1B = $29.6B. Equity value = $29.6B - $6.0B (debt) + $1.5B (cash) = $25.1B. Option B ($29.6B) is the enterprise value before subtracting debt and adding cash. Option C ($31.1B) appears to add debt instead of subtracting it. The conglomerate discount is ($25.1B - $21.0B) / $25.1B = 16.3%, consistent with Chen's observation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate sum-of-the-parts equity value"
+        },
+        {
+          "id": "eq-va-2",
+          "vignette": "Sarah Chen, CFA, is evaluating Meridian Corp, a large conglomerate with four divisions. She has compiled the following data:\n\n| Division | Method | Estimated Value |\n|---|---|---|\n| Aerospace | DCF (FCFF) | $12.5 billion |\n| Healthcare | EV/EBITDA (12x) | $8.2 billion |\n| Financial Services | Residual Income | $5.8 billion |\n| Real Estate | NAV | $3.1 billion |\n\nMeridian has $6.0 billion in total debt and $1.5 billion in cash. The stock currently trades at a market capitalization of $21.0 billion. Chen's research note states: 'Meridian exhibits a significant conglomerate discount driven by capital allocation inefficiency.'",
+          "question": "Chen used a residual income model for the Financial Services division rather than a free cash flow model. The most likely reason is that:",
+          "options": [
+            "A) financial firms typically have negative free cash flows",
+            "B) defining free cash flow is problematic for financial institutions due to the nature of their assets and liabilities",
+            "C) residual income models always produce higher valuations for financial firms"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For financial institutions (banks, insurance companies), the concepts of capital expenditure, working capital, and debt are fundamentally different from non-financial firms. Debt is an operating asset for banks, not just a financing choice, making FCFF/FCFE definitions problematic. Residual income and DDM models are preferred because they work with accounting earnings and book value, which are well-defined for financials. Option A is incorrect \u2014 financial firms don't necessarily have negative FCF; the issue is defining FCF meaningfully. Option C is incorrect \u2014 residual income doesn't systematically produce higher values.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Justify the selection of an appropriate valuation model"
+        },
+        {
+          "id": "eq-va-3",
+          "vignette": "Sarah Chen, CFA, is evaluating Meridian Corp, a large conglomerate with four divisions. She has compiled the following data:\n\n| Division | Method | Estimated Value |\n|---|---|---|\n| Aerospace | DCF (FCFF) | $12.5 billion |\n| Healthcare | EV/EBITDA (12x) | $8.2 billion |\n| Financial Services | Residual Income | $5.8 billion |\n| Real Estate | NAV | $3.1 billion |\n\nMeridian has $6.0 billion in total debt and $1.5 billion in cash. The stock currently trades at a market capitalization of $21.0 billion. Chen's research note states: 'Meridian exhibits a significant conglomerate discount driven by capital allocation inefficiency.'",
+          "question": "An activist investor proposes spinning off the Aerospace and Healthcare divisions as independent public companies. This strategy is most likely to create value if:",
+          "options": [
+            "A) the spun-off divisions have higher growth rates than the parent company's average",
+            "B) the market eliminates the conglomerate discount by valuing each entity separately at its intrinsic value",
+            "C) the remaining divisions (Financial Services and Real Estate) trade at higher multiples as standalone entities"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The conglomerate discount exists because the market applies a discount to the diversified entity (market cap of $21.0B vs SOTP equity value of $25.1B). Spinning off divisions allows each to be valued on a standalone basis, potentially eliminating the ~16% discount. Option A describes a characteristic that might exist but doesn't directly explain how the spin-off creates value \u2014 high growth divisions can be undervalued within a conglomerate regardless of their growth rate. Option C may or may not occur and isn't the primary mechanism for value creation from the activist's perspective.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Explain the conglomerate discount and its implications for valuation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of a conglomerate discount to a CEO who is resistant to breaking up her company. Why does the market penalize diversified firms, and what conditions might justify keeping the conglomerate together?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "When might an analyst's intrinsic value estimate be systematically biased? How would you guard against this?",
+        "Why is it important to match the valuation model to the type of company being analyzed?",
+        "In what situations might liquidation value exceed going concern value?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Intrinsic value is an analyst's estimate of true worth; mispricing = $V_0 - P_0$\n- Going concern value assumes continued operations; liquidation value sets a floor\n- **Absolute models** (DDM, DCF, RI) value from fundamentals; **relative models** (multiples) compare to peers\n- Sum-of-the-parts values each division separately \u2014 conglomerates often trade at a 10\u201315% discount\n- Model selection depends on company type: DDM for stable payers, FCFE for growth firms, RI for financials\n- The valuation process: understand the business, forecast, select model, estimate value, decide"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers the **Discounted Dividend Model (DDM)** \u2014 the most fundamental absolute valuation approach. You'll apply the Gordon Growth Model, multi-stage DDM, and learn when dividends are the appropriate cash flow to discount."
+    }
+  ]
+}

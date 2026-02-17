@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "DV.4: Arbitrage, Replication, and Cost of Carry",
+    "description": "Understand the law of one price, no-arbitrage principle, replication, and the cost of carry model for derivative pricing.",
+    "level": "level-7",
+    "slug": "deriv-arbitrage-replication",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Gold trades at $2,000/oz in New York and $2,010/oz in London (after accounting for shipping costs and exchange rates). Can a trader profit from this difference? What would happen to prices if many traders tried?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Law of One Price and No-Arbitrage\n\n### Law of One Price\n\nTwo assets (or portfolios) that produce **identical future cash flows** must have the **same price** today. If they don't, an arbitrage opportunity exists.\n\n### Arbitrage\n\nArbitrage is a transaction that generates a **risk-free profit with no net investment**. The arbitrageur simultaneously buys the cheaper asset and sells the more expensive one, locking in the price difference.\n\n**Key properties of arbitrage:**\n- Zero net investment (self-financing)\n- Zero risk\n- Positive profit\n\nIn well-functioning markets, arbitrage opportunities are quickly exploited and eliminated. This is the **no-arbitrage principle** \u2014 the assumption that prices adjust so that no risk-free profit opportunities persist.\n\n### Replication\n\nA **replicating portfolio** is a combination of instruments that produces the exact same payoff as a target instrument. By the law of one price:\n\n$$\\text{Price of derivative} = \\text{Price of replicating portfolio}$$\n\nIf a derivative can be replicated using the underlying asset and borrowing/lending, then the derivative's fair price is determined by the cost of constructing the replicating portfolio."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If a forward contract on a stock is priced too high relative to the cost of carry model, describe the arbitrage trade.",
+      "answer": "If the forward price is too high: (1) sell (short) the overpriced forward, (2) buy the underlying stock in the spot market, and (3) borrow the purchase price at the risk-free rate. At expiration, deliver the stock under the forward contract, receive the forward price, and repay the loan. The profit equals the forward price minus the cost of the stock compounded at the risk-free rate. This is called 'cash-and-carry arbitrage.'"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Cost of Carry Model\n\nThe **cost of carry** is the net cost of holding (carrying) the underlying asset until the derivative's expiration date. It determines the theoretical forward/futures price:\n\n$$F_0 = S_0 \\times e^{(r + s - y)T}$$\n\nOr in discrete compounding:\n\n$$F_0 = S_0 \\times (1 + r + s - y)^T$$\n\nWhere:\n- $F_0$ = forward price\n- $S_0$ = current spot price\n- $r$ = risk-free interest rate (financing cost)\n- $s$ = storage costs (as a percentage)\n- $y$ = convenience yield or income yield (dividends, coupons)\n- $T$ = time to expiration\n\n### Components of Carry Cost\n\n| Component | Effect on Forward Price | Example |\n|---|---|---|\n| Financing cost ($r$) | Increases | Opportunity cost of capital tied up |\n| Storage costs ($s$) | Increases | Warehouse fees for commodities |\n| Income/yield ($y$) | Decreases | Dividends from stocks, coupons from bonds |\n| Convenience yield | Decreases | Benefit of holding physical commodity |\n\nThe forward price exceeds the spot price when carry costs exceed carry benefits. The forward price is below the spot price when carry benefits (dividends, convenience yield) exceed carry costs."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A non-dividend-paying stock trades at $100. The annual risk-free rate is 5%. Calculate the 6-month forward price. Then calculate the forward price if the stock pays a continuous dividend yield of 2%.",
+      "solution": "**No dividends:**\n\n$$F_0 = S_0 \\times (1 + r)^T = 100 \\times (1.05)^{0.5} = 100 \\times 1.02470 = \\$102.47$$\n\n**With 2% continuous dividend yield:**\n\n$$F_0 = S_0 \\times e^{(r - y)T} = 100 \\times e^{(0.05 - 0.02)(0.5)} = 100 \\times e^{0.015} = 100 \\times 1.01511 = \\$101.51$$\n\nThe dividend yield reduces the forward price because the forward buyer does not receive dividends during the contract life. The spot holder earns dividends, reducing the forward holder's relative carrying cost."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Arbitrage, Replication, and Cost of Carry Practice",
+      "problems": [
+        {
+          "id": "dv4-1",
+          "question": "An asset trades at $50 in the spot market. The 1-year risk-free rate is 4%. There are no storage costs or income. The 1-year forward price is $53. An arbitrageur should most likely:",
+          "options": [
+            "A) Buy the forward and sell the asset short",
+            "B) Sell the forward and buy the asset, financing at the risk-free rate",
+            "C) Do nothing \u2014 the forward is fairly priced"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The fair forward price is $50 \u00d7 1.04 = $52. The actual forward price ($53) exceeds the fair value, so the forward is overpriced. The arbitrageur should sell the overpriced forward, buy the underlying at $50 (financed at 4%), and deliver at expiration. Profit = $53 \u2212 $52 = $1. Option A has the trade backwards (buy overpriced, sell underpriced). Option C is wrong because $53 \u2260 $52.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain arbitrage and the no-arbitrage principle in derivative pricing"
+        },
+        {
+          "id": "dv4-2",
+          "question": "Which of the following best describes the law of one price?",
+          "options": [
+            "A) All assets with the same risk must have the same expected return",
+            "B) Two portfolios with identical future cash flows must sell for the same price today",
+            "C) The price of a derivative must equal the present value of its expected future payoff"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The law of one price states that identical payoffs must command identical prices. If two portfolios produce the same future cash flows in all states of the world, they must have the same current price \u2014 otherwise an arbitrage opportunity exists. Option A describes a risk-return relationship, not the law of one price. Option C describes risk-neutral pricing, which is related but distinct.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain the law of one price"
+        },
+        {
+          "id": "dv4-3",
+          "question": "A commodity has a spot price of $80, annual storage costs of 3%, and a convenience yield of 1%. The risk-free rate is 5%. Using discrete compounding, the 1-year forward price is closest to:",
+          "options": [
+            "A) $82.40",
+            "B) $85.60",
+            "C) $80.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Net carry cost = r + s \u2212 y = 5% + 3% \u2212 1% = 7%. Forward price = $80 \u00d7 (1 + 0.07) = $80 \u00d7 1.07 = $85.60. Option A ($82.40) incorrectly uses only the risk-free rate minus convenience yield (80 \u00d7 1.03). Option C ($80.00) incorrectly assumes carry costs and benefits cancel out.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate a forward price using the cost of carry model"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why arbitrage is the foundation of derivative pricing. How does the concept of replication allow us to determine the fair price of a forward contract without making assumptions about investor risk preferences?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why can arbitrage-free pricing work without knowing investors' risk attitudes?",
+        "What real-world frictions (transaction costs, borrowing constraints) prevent perfect arbitrage?",
+        "How does the convenience yield for physical commodities differ conceptually from a dividend yield?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Law of one price:** identical payoffs \u2192 identical prices\n- **Arbitrage:** risk-free profit with no net investment; quickly eliminated in efficient markets\n- **Replication:** construct a portfolio with the same payoff as the derivative\n- **Cost of carry:** $F_0 = S_0 \\times (1 + r + s - y)^T$\n- Financing and storage costs **increase** the forward price\n- Income (dividends, coupons) and convenience yield **decrease** the forward price\n- If $F_0$ is too high \u2192 sell forward, buy spot (cash-and-carry arbitrage)\n- If $F_0$ is too low \u2192 buy forward, sell spot (reverse cash-and-carry)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Pricing Forward Contracts** in detail \u2014 applying the cost of carry framework to equity forwards (with and without dividends), FX forwards (covered interest rate parity), and fixed-income forwards."
+    }
+  ]
+}

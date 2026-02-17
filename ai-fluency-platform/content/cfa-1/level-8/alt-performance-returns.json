@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ALT.2: Alternative Investment Performance and Returns",
+    "description": "Calculate and interpret alternative investment return measures including IRR, MOIC, and time-weighted returns.",
+    "level": "level-8",
+    "slug": "alt-performance-returns",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A private equity fund invested $50 million and returned $150 million over 5 years. Another fund invested $50 million and returned $120 million over 3 years. Which fund performed better? Does your answer change depending on whether you use total return or annualized return?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why Standard Return Measures Fall Short\n\nTraditional return measures like time-weighted returns (TWR) assume investors can freely add or withdraw capital. Alternative investments violate this assumption because:\n\n- **Capital calls** are irregular \u2014 the GP decides when to draw capital\n- **Distributions** are irregular \u2014 returns come as investments are exited\n- **The investor does not control the timing** of cash flows\n\nThis makes **money-weighted return (IRR)** and **multiples** the standard performance measures for private capital.\n\n## Internal Rate of Return (IRR)\n\nThe IRR is the discount rate that sets the net present value of all cash flows to zero:\n\n$$NPV = \\sum_{t=0}^{n} \\frac{CF_t}{(1+IRR)^t} = 0$$\n\n### Gross IRR vs. Net IRR\n\n| Measure | Deducts | Purpose |\n|---|---|---|\n| **Gross IRR** | Fund-level expenses only (transaction costs, monitoring fees) | Evaluates the GP's investment skill |\n| **Net IRR** | All fees (management fee, carried interest, fund expenses) | Measures what the LP actually earns |\n\nThe difference between gross and net IRR reflects the **total cost of the fee structure** to the investor."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A fund reports a gross IRR of 22% and a net IRR of 15%. What does the 7 percentage point gap tell you?",
+      "answer": "The 7 percentage point gap represents the total drag from all fees and expenses \u2014 management fees, incentive fees (carried interest), and fund-level expenses. While the GP generated 22% gross returns through investment selection, the LP earned only 15% after paying for the privilege. This gap is significant: on a $100M commitment over 10 years, the difference compounds substantially. Investors should always evaluate net IRR, not gross IRR, when assessing whether a fund justifies its fees."
+    },
+    {
+      "type": "markdown",
+      "content": "## Multiple of Invested Capital (MOIC)\n\nMOIC measures the total value created relative to capital invested, ignoring the time dimension:\n\n$$MOIC = \\frac{\\text{Total Distributions + Remaining NAV}}{\\text{Total Invested Capital}}$$\n\n### Example\n\nA PE fund calls $80 million in capital, distributes $60 million, and has a remaining NAV of $100 million:\n\n$$MOIC = \\frac{60 + 100}{80} = 2.0\\times$$\n\nThe fund has **doubled** the invested capital. But MOIC does not tell you **how long** it took.\n\n### IRR vs. MOIC: Complementary Measures\n\n| Scenario | IRR | MOIC | Interpretation |\n|---|---|---|---|\n| Quick flip | High | Moderate | Fast return but small absolute gain |\n| Patient compounder | Moderate | High | Large absolute gain over a longer period |\n\nA fund that returns $2 on $1 in 2 years has an IRR of ~41%. The same $2 on $1 in 7 years has an IRR of ~10%. Both have a 2.0x MOIC."
+    },
+    {
+      "type": "markdown",
+      "content": "## The J-Curve Effect\n\nPrivate equity funds typically show **negative returns in early years** before generating positive returns later. This pattern, when plotted over time, resembles the letter J.\n\n**Why the J-curve occurs:**\n1. **Management fees** are charged on committed capital from day one, but investments have not yet appreciated\n2. **Portfolio companies** are valued at cost initially, with write-ups coming only after operational improvements\n3. **Organizational costs** (legal, setup) are front-loaded\n4. **Losers are marked down early**, while winners take years to mature\n\n## Vintage Year Analysis\n\nA fund's **vintage year** is the year it begins making investments. Comparing funds across different vintage years is misleading because market conditions vary. A 2006-vintage fund faced the 2008 crisis; a 2009-vintage fund bought distressed assets cheaply.\n\n**Best practice**: Compare a fund's performance to other funds of the **same vintage year**.\n\n## Public Market Equivalent (PME)\n\nPME answers: *Would the investor have been better off in a public market index?* It discounts the fund's cash flows using the public market index return and compares the result to the fund's actual distributions. A PME > 1.0 means the fund **outperformed** the public market equivalent."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A private equity fund has the following cash flows (negative = capital calls, positive = distributions): Year 0: -$30M, Year 1: -$20M, Year 2: $5M, Year 3: $15M, Year 4: $25M, Year 5: $40M. Calculate the MOIC. Then explain qualitatively why this fund's IRR would be lower than a fund with the same total cash flows but all capital called in Year 0.",
+      "solution": "**MOIC Calculation:**\n\nTotal invested capital = $30M + $20M = $50M\nTotal distributions = $5M + $15M + $25M + $40M = $85M\n\n$$MOIC = \\frac{85}{50} = 1.70\\times$$\n\nThe fund returned 1.70x invested capital.\n\n**IRR comparison:**\nIf all $50M were called in Year 0, the investor's money would be working for the full 5 years. With the staggered calls, the $20M called in Year 1 only works for 4 years. Because IRR is a money-weighted measure, having capital called later (idle longer in the LP's account) means less capital-at-work time. However, the given fund's IRR would actually be **higher** than the all-at-Year-0 scenario because the $20M delay means less capital is at risk for less time, improving the rate of return. The MOIC is the same in both cases (1.70x), demonstrating why IRR and MOIC provide complementary information."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Performance and Returns Practice Problems",
+      "problems": [
+        {
+          "id": "alt2-1",
+          "question": "A private equity fund invested $60 million over its life and has returned $30 million in distributions. The remaining portfolio is valued at $90 million. What is the fund's MOIC?",
+          "options": [
+            "A) 1.50x",
+            "B) 2.00x",
+            "C) 0.50x"
+          ],
+          "correctAnswer": "B",
+          "explanation": "MOIC = (Distributions + Remaining NAV) / Invested Capital = ($30M + $90M) / $60M = $120M / $60M = 2.00x. Option A incorrectly uses only the remaining NAV ($90M / $60M). Option C incorrectly uses only distributions ($30M / $60M). MOIC must include both realized distributions and unrealized NAV.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate the multiple of invested capital"
+        },
+        {
+          "id": "alt2-2",
+          "question": "Which of the following best explains the J-curve effect in private equity?",
+          "options": [
+            "A) Fund returns are initially negative due to upfront fees, organizational costs, and early write-downs, before improving as portfolio companies mature",
+            "B) Fund returns accelerate exponentially as the GP increases leverage in later years",
+            "C) Fund returns follow a convex pattern because the GP deploys capital faster in the early years when valuations are lower"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The J-curve effect occurs because private equity funds incur management fees and organizational costs immediately while investments are initially carried at cost or may be written down. Positive returns emerge later as portfolio companies improve operationally and are eventually exited at gains. Option B is incorrect \u2014 leverage does not systematically increase over a fund's life. Option C describes a deployment strategy, not the J-curve pattern of returns.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the J-curve effect"
+        },
+        {
+          "id": "alt2-3",
+          "question": "Fund A has a net IRR of 18% and a MOIC of 1.5x. Fund B has a net IRR of 12% and a MOIC of 2.5x. Which of the following most likely explains this difference?",
+          "options": [
+            "A) Fund A has higher fees than Fund B",
+            "B) Fund A achieved its returns over a shorter time period than Fund B",
+            "C) Fund A invested in higher-quality companies than Fund B"
+          ],
+          "correctAnswer": "B",
+          "explanation": "IRR is time-sensitive (annualized) while MOIC is not. Fund A's higher IRR but lower MOIC indicates it generated a smaller total gain (1.5x vs. 2.5x) but did so much faster, producing a higher annualized return. For example, turning $1 into $1.50 in 2 years yields an IRR of ~22%, while turning $1 into $2.50 in 8 years yields an IRR of ~12%. Option A would affect the gap between gross and net IRR, not the IRR-MOIC pattern. Option C is not supported by the data.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Compare IRR and MOIC as performance measures"
+        },
+        {
+          "id": "alt2-4",
+          "question": "A database of hedge fund returns shows an average annual return of 12%. However, funds that closed due to poor performance are not included in the database. Which bias is most likely present, and how does it affect the reported average?",
+          "options": [
+            "A) Survivorship bias; the reported average is overstated",
+            "B) Backfill bias; the reported average is understated",
+            "C) Survivorship bias; the reported average is understated"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Survivorship bias occurs when databases only include currently operating funds, excluding funds that have closed (typically due to poor performance). This systematically overstates average returns because the worst performers are removed from the sample. Option B describes backfill bias, which occurs when a fund's historical returns are retroactively added to the database when it begins reporting \u2014 also an upward bias, but from a different mechanism. Option C is wrong because excluding poor performers inflates (overstates), not understates, the average.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe biases in alternative investment performance reporting"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A friend tells you that their private equity fund earned a '25% IRR.' Explain to them why this number alone does not tell the full story. What additional metrics and context would you want to know before judging the fund's performance?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is vintage year comparison important when evaluating private equity fund performance?",
+        "How does survivorship bias in hedge fund databases affect an investor's expectations?",
+        "In what situation might an investor prefer a fund with a lower IRR but higher MOIC?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **IRR**: discount rate where NPV of all cash flows = 0; standard return measure for private capital\n- **Gross IRR** measures GP skill; **Net IRR** measures LP return after all fees\n- **MOIC** = (Distributions + NAV) / Invested Capital; ignores time\n- IRR is time-sensitive; MOIC is not \u2014 use both together\n- **J-curve**: negative early returns from fees and unrealized investments, followed by positive returns as exits occur\n- **Vintage year**: compare funds from the same year to control for market conditions\n- **PME > 1.0**: fund outperformed the public market equivalent\n- **Survivorship bias**: excluding dead funds overstates average returns\n- **Backfill bias**: retroactively adding good track records overstates returns"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Private Capital: Equity and Debt**, where you will apply these performance measures to specific strategies like leveraged buyouts, venture capital, and mezzanine lending \u2014 and see how deal structure affects the IRR and MOIC you just learned to calculate."
+    }
+  ]
+}

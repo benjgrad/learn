@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.5: Measuring and Managing Market Risk",
+    "description": "Apply VaR methods (parametric, historical, Monte Carlo), conditional VaR, incremental/marginal/component VaR, sensitivity analysis, scenario analysis, and stress testing.",
+    "level": "level-9",
+    "slug": "pm-measuring-managing-risk",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A portfolio manager reports a 1-day 95% VaR of $2 million. What exactly does this mean, and what does it NOT tell you about potential losses?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Value at Risk (VaR)\n\nVaR estimates the **maximum expected loss** over a specified time period at a given confidence level under normal market conditions.\n\n### Parametric (Variance-Covariance) VaR\n\nAssumes returns are normally distributed:\n\n$$VaR = |z_{\\alpha}| \\times \\sigma_p \\times V_p$$\n\nWhere:\n- $z_{\\alpha}$ = z-score for the confidence level (1.65 for 95%, 2.33 for 99%)\n- $\\sigma_p$ = portfolio standard deviation (for the VaR horizon)\n- $V_p$ = portfolio value\n\nTo convert daily VaR to $n$-day VaR:\n\n$$VaR_n = VaR_1 \\times \\sqrt{n}$$\n\n### Historical Simulation VaR\n\n1. Apply each of the last $N$ historical daily returns to the current portfolio\n2. Sort the resulting P&L from worst to best\n3. The VaR is the loss at the $\\alpha$-th percentile\n\n**Advantages**: no distributional assumption, captures fat tails and correlations naturally\n**Disadvantages**: assumes past represents future, limited by historical sample size\n\n### Monte Carlo Simulation VaR\n\n1. Specify a statistical model for risk factors (returns, correlations, volatilities)\n2. Generate thousands of random scenarios\n3. Price the portfolio under each scenario\n4. VaR = loss at the specified percentile\n\n**Advantages**: flexible, handles non-linear positions (options), can model complex dependencies\n**Disadvantages**: computationally intensive, model-dependent"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio has daily standard deviation of 1.5% and is worth $100M. What is the 1-day 99% VaR? What is the 10-day 99% VaR?",
+      "answer": "1-day 99% VaR = 2.33 \u00d7 1.5% \u00d7 $100M = $3.495M. Interpretation: there is a 1% chance of losing more than $3.5M in a single day. 10-day 99% VaR = $3.495M \u00d7 \u221a10 = $3.495M \u00d7 3.162 = $11.05M. The square-root-of-time rule assumes returns are i.i.d., which may not hold during crises (volatility clustering). Note: VaR says nothing about how much could be lost beyond this threshold."
+    },
+    {
+      "type": "markdown",
+      "content": "## Conditional VaR and VaR Decomposition\n\n### Conditional VaR (Expected Shortfall, CVaR)\n\n$$CVaR = E[Loss | Loss > VaR]$$\n\nThe average loss **given** that the VaR threshold is breached. CVaR addresses VaR's key limitation \u2014 it tells you about the severity of tail losses, not just their threshold.\n\n| Measure | What It Answers |\n|---------|----------------|\n| VaR | \"What is the minimum loss in the worst $\\alpha$% of cases?\" |\n| CVaR | \"How bad are losses when they exceed VaR?\" |\n\nCVaR is **coherent** (satisfies subadditivity: portfolio CVaR \u2264 sum of component CVaRs), unlike VaR.\n\n### VaR Decomposition\n\n| Measure | Definition | Use Case |\n|---------|-----------|----------|\n| **Incremental VaR** | Change in portfolio VaR from adding/removing a position | Evaluating a new trade |\n| **Marginal VaR** | Sensitivity of VaR to a small change in position weight | Risk budgeting |\n| **Component VaR** | Each position's contribution to total VaR (sum = total VaR) | Risk attribution |\n\n$$\\text{Component VaR}_i = w_i \\times MVaR_i \\times V_p$$\n\n$$\\sum_{i} \\text{Component VaR}_i = \\text{Total VaR}$$"
+    },
+    {
+      "type": "markdown",
+      "content": "## Sensitivity Analysis, Scenario Analysis, and Stress Testing\n\n### Sensitivity Analysis\n\nMeasures portfolio response to a change in a **single** risk factor while holding others constant:\n- Duration/DV01 for interest rate sensitivity\n- Delta for equity price sensitivity\n- Vega for volatility sensitivity\n\nLimitation: real-world risk factors move together.\n\n### Scenario Analysis\n\nExamines portfolio impact under a **coordinated** set of factor changes:\n\n| Type | Description | Example |\n|------|-------------|--------|\n| **Historical** | Replay actual crisis scenarios | 2008 GFC, COVID March 2020 |\n| **Hypothetical** | Create plausible stress scenarios | China credit crisis, oil shock |\n| **Reverse** | \"What scenario would cause a $X loss?\" | Regulatory requirement |\n\n### Stress Testing Best Practices\n\n- Test multiple scenarios spanning different risk types\n- Include scenarios beyond historical experience\n- Consider **correlation breakdowns** (correlations approach 1.0 during crises)\n- Integrate stress testing into risk limits and capital planning\n- Update scenarios regularly to reflect emerging risks\n\n### VaR Limitations\n\n1. VaR is **not** a worst-case loss\n2. VaR does not describe losses beyond the confidence level\n3. VaR can be gamed (hide risk in the tail)\n4. VaR assumes normal markets (fails during crises)\n5. Different VaR methods can produce different estimates"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio worth $50M has two positions: Position A ($30M, daily \u03c3 = 2%) and Position B ($20M, daily \u03c3 = 3%), with a correlation of 0.4. Calculate the portfolio daily standard deviation, the 1-day 95% VaR, and the 1-day 95% CVaR assuming the CVaR is typically 1.25\u00d7 the VaR for a normal distribution.",
+      "solution": "**Portfolio Variance:**\n\n$\\sigma_p^2 = (0.6)^2(0.02)^2 + (0.4)^2(0.03)^2 + 2(0.6)(0.4)(0.02)(0.03)(0.4)$\n$= 0.000144 + 0.000144 + 0.0001152$\n$= 0.000576 + 0.0001152 = 0.0004032$\n\nWait, let me use dollar-weighted:\n\n$\\sigma_p^2 = (30/50)^2(0.02)^2 + (20/50)^2(0.03)^2 + 2(30/50)(20/50)(0.02)(0.03)(0.4)$\n$= 0.36 \\times 0.0004 + 0.16 \\times 0.0009 + 2(0.6)(0.4)(0.0006)(0.4)$\n$= 0.000144 + 0.000144 + 0.0001152$\n$= 0.0004032$\n\n$\\sigma_p = \\sqrt{0.0004032} = 2.008\\%$\n\n**1-day 95% VaR:**\n\n$VaR = 1.65 \\times 0.02008 \\times 50{,}000{,}000 = $1,656,600$\n\n**1-day 95% CVaR:**\n\nFor a normal distribution, CVaR at 95% \u2248 2.063 \u00d7 \u03c3 (compared to 1.65 \u00d7 \u03c3 for VaR), so ratio \u2248 1.25:\n\n$CVaR \\approx 1.25 \\times $1,656,600 = $2,070,750$\n\nInterpretation: on the 5% of worst days, the average loss is about $2.07M."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Market Risk Measurement \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "pm5-1",
+          "question": "**Vignette: Sentinel Risk Management**\n\nSentinel's risk team reports the following for a $500M equity portfolio:\n\n- Daily portfolio standard deviation: 1.8%\n- 1-day 99% parametric VaR: $20.97M\n- 1-day 99% historical simulation VaR: $24.3M\n- 1-day 99% CVaR (from historical simulation): $35.1M\n\nThe CRO asks the team to explain the discrepancy between parametric and historical VaR.\n\n---\n\n**Question 1:** The most likely reason for the higher historical VaR is that:",
+          "options": [
+            "A) The historical simulation uses a longer time horizon",
+            "B) Actual portfolio returns exhibit fat tails not captured by the normal distribution assumption",
+            "C) The historical simulation incorrectly prices option positions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Parametric VaR assumes normally distributed returns, which underestimates tail risk. The historical simulation uses actual returns, which typically exhibit fat tails (leptokurtosis) \u2014 more extreme observations than a normal distribution predicts. The 99th percentile historical loss ($24.3M) exceeds the parametric estimate ($20.97M) because real-world extreme returns occur more frequently than the normal distribution suggests. Check: $500M \u00d7 1.8% \u00d7 2.33 = $20.97M, confirming the parametric calculation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Explain why different VaR methods can produce different estimates"
+        },
+        {
+          "id": "pm5-2",
+          "question": "**Question 2 (continued):** The CVaR of $35.1M relative to the historical VaR of $24.3M indicates that:",
+          "options": [
+            "A) On days when losses exceed the VaR, the average loss is $35.1M",
+            "B) The maximum possible daily loss is $35.1M",
+            "C) There is a 99% probability that daily losses will not exceed $35.1M"
+          ],
+          "correctAnswer": "A",
+          "explanation": "CVaR (Expected Shortfall) is the average loss on days when the loss exceeds VaR. Given 99% VaR of $24.3M, the CVaR of $35.1M means that on the worst 1% of days, the average loss is $35.1M \u2014 significantly worse than the VaR threshold. This highlights VaR's weakness: it does not describe loss severity beyond the threshold. Option B is incorrect \u2014 losses could exceed $35.1M (it is an average, not a maximum). Option C confuses CVaR with a confidence interval.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret Conditional VaR relative to VaR"
+        },
+        {
+          "id": "pm5-3",
+          "question": "**Question 3 (continued):** The CRO wants to understand the impact of adding a $50M emerging market position. The most appropriate VaR measure for evaluating this trade is:",
+          "options": [
+            "A) Component VaR",
+            "B) Marginal VaR",
+            "C) Incremental VaR"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Incremental VaR measures the change in total portfolio VaR from adding or removing a specific position. It directly answers 'how much does my risk change if I add this $50M EM position?' Component VaR (A) decomposes existing risk among current positions. Marginal VaR (B) measures sensitivity to small weight changes, but $50M is a discrete, non-marginal addition. Incremental VaR captures the correlation effects with the existing portfolio.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Select the appropriate VaR measure for evaluating trade impact"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a portfolio manager who only knows standard deviation as a risk measure why VaR and CVaR provide additional, important information. Use a concrete example to show what VaR tells you that standard deviation does not, and what CVaR tells you that VaR does not."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is VaR not a coherent risk measure, and why does this matter in practice?",
+        "How can a bank have low VaR but still face catastrophic losses?",
+        "Why do correlations tend to increase toward 1.0 during market crises, and how does this affect VaR accuracy?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Parametric VaR: $|z_\\alpha| \\times \\sigma_p \\times V_p$ (assumes normality)\n- Time scaling: $VaR_n = VaR_1 \\times \\sqrt{n}$\n- CVaR = average loss given VaR is exceeded (more informative about tails)\n- Incremental VaR: impact of adding a specific position\n- Marginal VaR: sensitivity to small weight changes\n- Component VaR: each position's contribution (sum = total VaR)\n- Historical VaR captures fat tails but assumes past represents future\n- Monte Carlo VaR: most flexible, handles options, but model-dependent\n- Stress testing complements VaR for extreme scenarios"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Backtesting and Simulation**, where you will learn how to validate risk models and investment strategies. You will study the biases that plague backtests (survivorship, look-ahead, data-snooping) and how Monte Carlo simulation and bootstrapping can improve the robustness of your analysis."
+    }
+  ]
+}

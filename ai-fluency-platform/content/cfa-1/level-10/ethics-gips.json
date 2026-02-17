@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "E.4: Global Investment Performance Standards (GIPS)",
+    "description": "Understand the purpose, key features, and requirements of the GIPS standards for investment performance presentation, including composites, disclosures, and verification.",
+    "level": "level-10",
+    "slug": "ethics-gips",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Ethical and Professional Standards"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two investment firms each claim a 12% annual return over the past five years. Firm A achieved this by including only its best-performing accounts in the calculation. Firm B included all accounts managed in that strategy. How would you, as a prospective client, know which firm's number to trust? What kind of standard would prevent this problem?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why GIPS Exists\n\nWithout a universal performance reporting standard, firms could:\n- **Cherry-pick accounts** \u2014 report only their best-performing accounts\n- **Survivorship bias** \u2014 exclude accounts that were terminated or performed poorly\n- **Select favorable time periods** \u2014 choose start and end dates that maximize reported returns\n- **Use inconsistent methodologies** \u2014 make comparisons across firms meaningless\n\nThe **Global Investment Performance Standards (GIPS)** solve these problems by providing a globally recognized, standardized framework for calculating and presenting investment performance.\n\n### Key Features of GIPS\n\n| Feature | Description |\n|---|---|\n| **Voluntary** | GIPS compliance is voluntary but highly valued by institutional investors |\n| **Firm-wide** | Must be applied on a **firm-wide basis** \u2014 you cannot claim partial GIPS compliance |\n| **Composites** | Performance is reported using composites, not individual accounts |\n| **Fair representation** | The standards are designed to ensure fair representation and full disclosure |\n| **Global standard** | GIPS is administered by CFA Institute and adopted in over 40 countries |\n\n**Critical point for the exam:** A firm either complies with GIPS in its entirety or it does not. There is no such thing as \"partial compliance\" or \"compliance except for...\" Firms may not claim compliance unless they meet **all** applicable requirements."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A firm states in its marketing materials: 'Our domestic equity strategy is GIPS compliant.' Is this a proper claim of GIPS compliance?",
+      "answer": "No. GIPS compliance must be applied on a firm-wide basis, not at the strategy or composite level. The proper claim is that the firm \u2014 as an entity \u2014 claims compliance with the GIPS standards. Saying a single strategy is compliant implies that other parts of the firm may not be, which violates the firm-wide requirement. The correct statement would be: 'XYZ Investment Management claims compliance with the Global Investment Performance Standards (GIPS).'"
+    },
+    {
+      "type": "markdown",
+      "content": "## Composites\n\nA **composite** is an aggregation of one or more portfolios managed according to a similar investment mandate, objective, or strategy. Composites are the core unit of GIPS reporting.\n\n### Composite Construction Rules\n\n- **All actual, fee-paying, discretionary portfolios** must be included in at least one composite\n- Portfolios must be assigned to composites based on their investment mandate **before** performance is known (no retroactive cherry-picking)\n- Non-discretionary portfolios (where the client restricts the manager's ability to implement the strategy) are excluded\n- Terminated portfolios must remain in the composite's historical record through their last full measurement period\n- New portfolios must be added to composites in a timely and consistent manner (typically by the start of the next full measurement period)\n\n### Why Composites Matter\n\nComposites prevent the most common form of performance manipulation: **selection bias**. By requiring all portfolios managed to a given strategy to be grouped together, GIPS ensures that the reported return reflects the experience of all clients in that strategy, not just the lucky ones.\n\n## Input Data and Calculation\n\n- Returns must be calculated using **time-weighted rates of return** (TWRR), which eliminate the distorting effect of client cash flows\n- For periods beginning on or after January 1, 2001, portfolios must be valued at least **monthly**\n- For periods beginning on or after January 1, 2010, portfolios must be valued on the date of all **large cash flows**\n- External cash flows must be treated consistently"
+    },
+    {
+      "type": "markdown",
+      "content": "## Disclosure, Presentation, and Verification\n\n### Required Disclosures\n\nGIPS-compliant firms must disclose (among other things):\n- The definition of the firm\n- The benchmark used for each composite\n- The currency used to express performance\n- Whether performance is shown gross or net of fees (or both)\n- The fee schedule\n- A description of the composite and its creation date\n- The minimum asset level for inclusion in a composite, if any\n- Any significant events that would help interpret the performance record\n\n### Presentation and Reporting\n\n- Must present at least **5 years** of annual GIPS-compliant performance (or since firm inception if less than 5 years)\n- After initially presenting 5 years, must add one year annually until a **10-year track record** is built\n- Must present the **number of portfolios** in each composite and the **amount of assets** in each composite\n- Must present a measure of **internal dispersion** (how much individual portfolio returns vary within the composite)\n\n### Verification\n\n- Verification is **voluntary** but recommended\n- Verification is performed by an **independent third party** on the **firm-wide** level (not at the composite level)\n- Verification tests whether the firm has complied with all composite construction requirements and whether processes and procedures are designed to calculate and present performance in compliance with GIPS\n- Verification does **not** guarantee the accuracy of any specific composite report\n\n### Real Estate and Private Equity\n\nGIPS includes special provisions for real estate and private equity:\n- **Real estate:** Since-inception internal rate of return (SI-IRR) required; properties valued at least quarterly using fair market value\n- **Private equity:** SI-IRR required using daily cash flows; vintages used as composites; gross-of-fees returns required"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Composite Construction Exercise: You manage three equity portfolios with the following characteristics. Determine which should be included in your 'US Large Cap Growth' composite, and explain why.\n\nPortfolio A: $50M discretionary US large cap growth mandate, fully invested per strategy guidelines.\n\nPortfolio B: $30M US large cap growth mandate, but the client restricts you from holding tobacco, alcohol, or gambling stocks (which are part of your standard strategy).\n\nPortfolio C: $20M US large cap growth mandate, client joined last month and the portfolio is still in the transition phase (60% cash).\n\nPortfolio D: $15M US large cap growth mandate that was terminated 6 months ago (client moved to another firm).",
+      "solution": "**Portfolio A: INCLUDE.** This is a discretionary, fee-paying portfolio managed according to the US Large Cap Growth strategy. It meets all requirements for composite inclusion.\n\n**Portfolio B: EXCLUDE (most likely).** The client has imposed significant restrictions (excluding tobacco, alcohol, and gambling) that prevent the manager from fully implementing the strategy. If these restrictions materially prevent the manager from executing the investment mandate, the portfolio is considered non-discretionary and should be excluded. However, if the restrictions are immaterial to strategy implementation, it could be included.\n\n**Portfolio C: DEPENDS ON POLICY.** The portfolio is still being transitioned and does not yet reflect the strategy. Most firms establish a policy (e.g., 'new portfolios are added to the composite at the start of the first full month after being substantially invested'). Until that threshold is met, it is typically excluded. The key is that the policy must be consistently applied.\n\n**Portfolio D: KEEP IN HISTORICAL RECORD.** Terminated portfolios must remain in the composite's historical performance through their last full measurement period. You cannot remove them retroactively. This prevents survivorship bias \u2014 if a poor-performing account leaves, removing its history would inflate the composite's track record."
+    },
+    {
+      "type": "practiceSet",
+      "title": "GIPS Practice Problems",
+      "problems": [
+        {
+          "id": "e4-1",
+          "question": "Greenfield Asset Management has been in operation for 3 years and wishes to claim GIPS compliance. What is the minimum number of years of GIPS-compliant performance the firm must present?",
+          "options": [
+            "A) 3 years (since firm inception)",
+            "B) 5 years",
+            "C) 10 years"
+          ],
+          "correctAnswer": "A",
+          "explanation": "GIPS requires a minimum of 5 years of compliant performance, OR since firm inception if the firm has been in existence for less than 5 years. Since Greenfield has only been in operation for 3 years, it must present all 3 years. It must then add one year annually until it reaches a 10-year track record. Option B is incorrect because the 5-year minimum only applies when the firm has been in existence for 5 or more years. Option C represents the eventual target, not the initial requirement.",
+          "difficulty": "basic",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Identify the minimum performance history required for GIPS compliance"
+        },
+        {
+          "id": "e4-2",
+          "question": "Summit Capital claims GIPS compliance and manages three composites. An independent verifier conducts a GIPS verification. Which of the following best describes the scope of the verification?",
+          "options": [
+            "A) The verifier tests each composite report individually for accuracy.",
+            "B) The verifier tests firm-wide policies and procedures for composite construction, calculation, and presentation.",
+            "C) The verifier tests that each portfolio within each composite has been properly valued."
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS verification is performed at the firm-wide level and tests whether: (1) the firm has complied with all composite construction requirements on a firm-wide basis, and (2) the firm's processes and procedures are designed to calculate and present performance in compliance with GIPS. Verification does not guarantee the accuracy of any specific composite report. Option A is incorrect because verification is firm-wide, not composite-specific (though a firm may additionally request a performance examination of a specific composite). Option C describes a detailed audit that goes beyond what verification covers.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Describe the purpose and scope of GIPS verification"
+        },
+        {
+          "id": "e4-3",
+          "question": "Atlas Investments is a GIPS-compliant firm. A prospective client asks to see the performance of Atlas's best-performing portfolio in the US equity strategy rather than the composite return. Which of the following is the most appropriate response?",
+          "options": [
+            "A) Provide the individual portfolio return because the client specifically requested it.",
+            "B) Provide the composite return and explain that GIPS requires reporting at the composite level, though supplemental information about individual portfolios may be provided alongside the compliant presentation.",
+            "C) Provide both the individual portfolio return and the composite return, presenting them with equal prominence."
+          ],
+          "correctAnswer": "B",
+          "explanation": "GIPS requires that compliant firms present composite returns, not individual portfolio returns, as the primary performance measure. A firm may provide supplemental information (including individual portfolio data) as long as: (1) the GIPS-compliant composite presentation is the primary document, and (2) the supplemental data is clearly labeled as such and does not contradict or overshadow the compliant presentation. Option A is incorrect because providing only an individual portfolio return would not constitute a GIPS-compliant presentation. Option C is incorrect because presenting them with 'equal prominence' could mislead the client by giving undue weight to the cherry-picked portfolio.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Apply GIPS requirements to client reporting scenarios"
+        },
+        {
+          "id": "e4-4",
+          "question": "Which of the following is least likely a requirement of the GIPS standards?",
+          "options": [
+            "A) Including terminated portfolios in composite historical performance",
+            "B) Using time-weighted rates of return for portfolio performance calculation",
+            "C) Obtaining independent third-party verification of compliance"
+          ],
+          "correctAnswer": "C",
+          "explanation": "GIPS verification is recommended but voluntary \u2014 it is NOT a requirement. The firm may claim compliance without being verified. Option A is a requirement: terminated portfolios must remain in the composite's historical record through their last full measurement period to prevent survivorship bias. Option B is a requirement: time-weighted rates of return (TWRR) must be used because they remove the distorting effect of client-directed cash flows, enabling fair comparison across portfolios and firms.",
+          "difficulty": "basic",
+          "cfaTopic": "Ethical and Professional Standards",
+          "learningOutcome": "Distinguish between GIPS requirements and recommendations"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a non-finance friend why composites exist in GIPS. Use an analogy to help them understand why you cannot just show your best account's performance and why terminated accounts must stay in the historical record."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do you think GIPS verification is voluntary rather than mandatory? What are the trade-offs?",
+        "How does the composite concept specifically address the problem of survivorship bias?",
+        "If GIPS is voluntary, what market forces encourage firms to comply?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- GIPS provides a **globally standardized** framework for fair, comparable investment performance reporting\n- Compliance is **voluntary** but must be applied **firm-wide** \u2014 no partial compliance\n- **Composites** group all discretionary portfolios managed to the same strategy; prevents cherry-picking\n- Terminated portfolios **must remain** in historical composite records (prevents survivorship bias)\n- Returns use **time-weighted rates of return** (TWRR) to eliminate cash flow distortion\n- Must present at least **5 years** of performance (or since inception), building to **10 years**\n- **Verification** is voluntary, performed firm-wide by an independent third party\n- Verification tests **processes and procedures**, not accuracy of specific composite reports\n- Special provisions exist for **real estate** and **private equity** (SI-IRR, fair value, vintage composites)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module focuses on **Ethics Application** \u2014 putting everything together with case studies and scenario analysis. You will practice applying the ethical decision-making framework, the Standards, and GIPS concepts to complex, multi-issue scenarios like those you will encounter on the CFA exam."
+    }
+  ]
+}

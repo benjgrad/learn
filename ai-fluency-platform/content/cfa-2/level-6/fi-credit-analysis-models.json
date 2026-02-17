@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "FI.4: Credit Analysis Models",
+    "description": "Apply structural (Merton) and reduced-form credit models, calculate credit risk measures (CVA, PD, LGD, EAD), and analyze credit migration.",
+    "level": "level-6",
+    "slug": "fi-credit-analysis-models",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company's assets are worth $100M and its debt (due in 1 year) has a face value of $80M. If the asset value drops to $70M at maturity, what happens? How is this similar to an option?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Structural Models: The Merton Model\n\nThe **Merton model** (1974) treats a company's equity as a **call option** on the firm's assets, with the debt face value as the strike price.\n\n### Intuition\n\n- Firm assets $A_T$ at debt maturity $T$\n- Debt face value $D$ due at time $T$\n- If $A_T > D$: firm is solvent, equity holders get $A_T - D$, debtholders get $D$\n- If $A_T < D$: firm defaults, debtholders get $A_T$, equity holders get 0\n\nThis is exactly the payoff of a **European call option**:\n\n$$E_T = \\max(A_T - D, 0)$$\n\nAnd the debt value is:\n\n$$D_T = D - \\max(D - A_T, 0)$$\n\nDebt holders are effectively long a risk-free bond and **short a put option** on the firm's assets. The credit spread compensates for this embedded short put.\n\n### Key Inputs\n\n| Input | Description |\n|---|---|\n| $A_0$ | Current market value of assets |\n| $\\sigma_A$ | Volatility of asset value |\n| $D$ | Face value of debt |\n| $T$ | Time to debt maturity |\n| $r$ | Risk-free rate |\n\n### Distance to Default\n\n$$DD = \\frac{\\ln(A_0/D) + (\\mu - \\sigma_A^2/2)T}{\\sigma_A \\sqrt{T}}$$\n\nHigher DD means lower default probability. The probability of default is $N(-DD)$ where $N$ is the cumulative normal distribution."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Using the Merton model, which of these two companies has higher default risk? Company A: assets = $200M, debt = $120M, asset volatility = 25%. Company B: assets = $200M, debt = $180M, asset volatility = 15%.",
+      "answer": "Company B has higher default risk despite lower asset volatility. Company A has an asset-to-debt ratio of 1.67x with 25% volatility, while Company B has a much tighter ratio of 1.11x with 15% volatility. The key metric is the distance to default \u2014 Company B's assets only need to decline by ~11% to hit the default boundary, while Company A's need to fall by ~40%. Even though Company B's assets are less volatile, the small cushion above the debt level makes default much more likely. The Merton model captures this through DD: a higher debt-to-asset ratio reduces DD significantly, while the effect of lower volatility only partially offsets this."
+    },
+    {
+      "type": "markdown",
+      "content": "## Reduced-Form Models\n\nUnlike structural models that model the firm's asset value, **reduced-form models** take default as an exogenous event driven by a **hazard rate** (or default intensity).\n\n### Hazard Rate (Default Intensity)\n\nThe **hazard rate** $\\lambda$ is the instantaneous conditional probability of default:\n\n$$P(\\text{survive to time } t) = e^{-\\lambda t}$$\n\n$$P(\\text{default by time } t) = 1 - e^{-\\lambda t}$$\n\n### Example\n\nAnnual hazard rate $\\lambda = 2\\%$:\n- $P(\\text{default in year 1}) = 1 - e^{-0.02} = 1.98\\%$\n- $P(\\text{survive 5 years}) = e^{-0.02 \\times 5} = e^{-0.10} = 90.48\\%$\n- $P(\\text{default within 5 years}) = 1 - 90.48\\% = 9.52\\%$\n\n### Structural vs Reduced-Form Comparison\n\n| Feature | Structural (Merton) | Reduced-Form |\n|---|---|---|\n| Default mechanism | Asset value falls below debt | Exogenous random event |\n| Key input | Asset value, volatility | Hazard rate (from market data) |\n| Default timing | Predictable (near maturity) | Can occur at any time (surprise) |\n| Calibration | Requires asset value estimation | Calibrated to bond spreads/CDS |\n| Practical use | Conceptual framework | Pricing CDS and credit derivatives |\n| Weakness | Asset value unobservable | No economic explanation for default |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Credit Risk Measures and CVA\n\n### Key Credit Risk Metrics\n\n| Metric | Symbol | Definition |\n|---|---|---|\n| Probability of Default | PD | Likelihood of default over a given horizon |\n| Loss Given Default | LGD | Percentage of exposure lost if default occurs (1 - Recovery rate) |\n| Exposure at Default | EAD | Amount owed at the time of default |\n| Expected Loss | EL | PD \u00d7 LGD \u00d7 EAD |\n\n### Credit Valuation Adjustment (CVA)\n\nThe **CVA** is the monetary value of credit risk \u2014 the difference between a risk-free bond's value and a risky bond's value:\n\n$$CVA = \\sum_{t=1}^{T} PD_t \\times LGD \\times DF_t \\times EAD_t$$\n\n$$V_{\\text{risky bond}} = V_{\\text{risk-free bond}} - CVA$$\n\n### Credit Migration (Transition) Analysis\n\nCredit migration refers to changes in a bond's credit rating over time. **Transition matrices** show the probability of moving between rating categories:\n\n| From \\ To | AAA | AA | A | BBB | Default |\n|---|---|---|---|---|---|\n| AAA | 90% | 8% | 1.5% | 0.4% | 0.1% |\n| AA | 1% | 88% | 9% | 1.5% | 0.5% |\n| A | 0.1% | 3% | 87% | 8% | 1.9% |\n| BBB | 0.05% | 0.5% | 5% | 85% | 9.45% |\n\n*(Simplified illustrative data)*\n\nMigration risk matters because a downgrade (even without default) causes spreads to widen and bond prices to fall."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A 3-year corporate bond has a face value of $100 and a risk-free value of $97.50 (using the government spot curve). The annual marginal default probabilities are: Year 1: 1.5%, Year 2: 2.0%, Year 3: 2.5%. Recovery rate is 40% (so LGD = 60%). Discount factors: DF\u2081 = 0.97, DF\u2082 = 0.94, DF\u2083 = 0.91. (a) Calculate CVA. (b) What is the fair value of the risky bond? (c) What is the approximate credit spread?",
+      "solution": "**Part (a): CVA**\n\nCVA = \u03a3 PD_t \u00d7 LGD \u00d7 DF_t \u00d7 EAD_t\n\nAssuming EAD = $100 (face value) for simplicity:\n\nYear 1: 0.015 \u00d7 0.60 \u00d7 0.97 \u00d7 100 = $0.873\nYear 2: 0.020 \u00d7 0.60 \u00d7 0.94 \u00d7 100 = $1.128\nYear 3: 0.025 \u00d7 0.60 \u00d7 0.91 \u00d7 100 = $1.365\n\n**CVA = $0.873 + $1.128 + $1.365 = $3.366**\n\n**Part (b): Fair value of risky bond**\n\nV_risky = V_risk-free - CVA = $97.50 - $3.37 = **$94.13**\n\n**Part (c): Approximate credit spread**\n\nThe risk-free yield (from $97.50 for 3 years, zero coupon): y_rf = (100/97.50)^(1/3) - 1 = 0.857%\nThe risky yield: y_risky = (100/94.13)^(1/3) - 1 = 2.06%\n\nCredit spread \u2248 2.06% - 0.86% = **~120 bps**\n\nAlternatively: CVA/Duration \u2248 $3.37/(3 \u00d7 $94.13) \u2248 1.19% \u2248 119 bps"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Credit Analysis Models \u2014 Vignette Practice",
+      "problems": [
+        {
+          "id": "fi-ca-1",
+          "vignette": "Kevin Patel, CFA, is a credit analyst at an asset management firm. He is evaluating two corporate bonds:\n\n**Bond P \u2014 TechFlow Corp (BBB rated)**\n- 5-year maturity, semi-annual coupon\n- Cumulative 5-year PD: 8.5%\n- Recovery rate: 35%\n- Z-spread: 220 bps\n- OAS: 215 bps\n\n**Bond Q \u2014 SteelWorks Inc (BB rated)**\n- 5-year maturity, semi-annual coupon\n- Cumulative 5-year PD: 15.2%\n- Recovery rate: 45%\n- Z-spread: 350 bps\n- OAS: 340 bps\n\nPatel uses both structural and reduced-form frameworks in his analysis.",
+          "question": "In the context of the Merton structural model, TechFlow Corp's equity can be viewed as:",
+          "options": [
+            "A) a put option on the firm's assets with a strike price equal to the debt face value",
+            "B) a call option on the firm's assets with a strike price equal to the debt face value",
+            "C) a forward contract on the firm's assets with a delivery price equal to the debt face value"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In the Merton model, equity holders have a payoff of max(A_T - D, 0): they receive the residual value of assets above the debt face value, or nothing if assets fall below the debt level. This is exactly the payoff of a European call option on the firm's assets with strike price D. Option A is incorrect \u2014 a put option has a payoff of max(D - A_T, 0), which describes the debtholders' credit risk (they are short a put). Option C is incorrect \u2014 a forward has a symmetric payoff (A_T - D), which doesn't capture limited liability.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the Merton model's interpretation of equity and debt as options"
+        },
+        {
+          "id": "fi-ca-2",
+          "vignette": "Kevin Patel, CFA, is a credit analyst at an asset management firm. He is evaluating two corporate bonds:\n\n**Bond P \u2014 TechFlow Corp (BBB rated)**\n- 5-year maturity, semi-annual coupon\n- Cumulative 5-year PD: 8.5%\n- Recovery rate: 35%\n\n**Bond Q \u2014 SteelWorks Inc (BB rated)**\n- 5-year maturity, semi-annual coupon\n- Cumulative 5-year PD: 15.2%\n- Recovery rate: 45%\n\nPatel calculates expected losses for both bonds.",
+          "question": "The expected loss rate (as a percentage of exposure) over 5 years is higher for:",
+          "options": [
+            "A) Bond P, with an expected loss rate of 5.53%",
+            "B) Bond Q, with an expected loss rate of 8.36%",
+            "C) Bond P, with an expected loss rate of 8.36%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Expected loss rate = PD \u00d7 LGD\n\nBond P: EL = 8.5% \u00d7 (1 - 0.35) = 8.5% \u00d7 0.65 = 5.525% \u2248 5.53%\nBond Q: EL = 15.2% \u00d7 (1 - 0.45) = 15.2% \u00d7 0.55 = 8.36%\n\nBond Q has a higher expected loss despite its higher recovery rate (45% vs 35%) because its much higher PD (15.2% vs 8.5%) dominates. The higher recovery rate for SteelWorks (a manufacturing company with tangible assets) partially offsets its higher PD, but not enough. Option A correctly calculates Bond P's EL but incorrectly claims it's higher. Option C assigns Bond Q's EL to Bond P.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate and compare expected credit losses"
+        },
+        {
+          "id": "fi-ca-3",
+          "vignette": "Patel observes the following credit transition matrix (annual probabilities):\n\n| From \\ To | BBB | BB | B | Default |\n|---|---|---|---|---|\n| BBB | 86.0% | 9.5% | 3.5% | 1.0% |\n| BB | 5.0% | 80.0% | 10.0% | 5.0% |\n\nPatel notes that TechFlow (BBB) has a negative credit watch due to declining margins, while SteelWorks (BB) recently won a major government contract.",
+          "question": "Based solely on the transition matrix, the probability that TechFlow Corp's rating is BB or lower one year from now is closest to:",
+          "options": [
+            "A) 9.5%",
+            "B) 13.0%",
+            "C) 14.0%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "From the BBB row: P(BB) + P(B) + P(Default) = 9.5% + 3.5% + 1.0% = 14.0%.\n\nThis is the probability of any downgrade (or default) from the current BBB rating. Option A (9.5%) only counts the probability of moving to BB, ignoring further downgrades to B or default. Option B (13.0%) appears to miss one component. The transition matrix shows that BBB-rated issuers have a 14% annual probability of deteriorating to BB or worse, highlighting significant migration risk even at investment-grade ratings.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Interpret credit transition matrices to assess migration risk"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Merton model to a colleague who understands options but has never applied them to credit analysis. How does thinking of equity as a call option on assets provide insight into credit risk and default probability?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is it difficult to observe a firm's asset value and volatility directly, and how does this limit the practical use of structural models?",
+        "How does credit migration risk affect a bondholder even if no default actually occurs?",
+        "Why might the CVA-implied credit spread differ from the observed market credit spread?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Merton model:** equity = call option on assets; debt = risk-free bond - put option on assets\n- **Distance to default:** $DD = [\\ln(A/D) + (\\mu - \\sigma^2/2)T] / (\\sigma\\sqrt{T})$; PD = $N(-DD)$\n- **Reduced-form models:** default is a surprise event driven by hazard rate $\\lambda$; P(survive t) = $e^{-\\lambda t}$\n- **Expected Loss** = PD \u00d7 LGD \u00d7 EAD\n- **CVA** = \u03a3 PD_t \u00d7 LGD \u00d7 DF_t \u00d7 EAD_t; V_risky = V_riskfree - CVA\n- **Credit migration** risk: downgrades widen spreads and reduce bond prices even without default\n- Structural models explain default economically; reduced-form models are better for pricing"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Credit Default Swaps (CDS)** \u2014 the primary instrument for trading credit risk. CDS pricing is directly linked to the hazard rates and recovery assumptions you just learned, and understanding CDS is essential for basis trades and credit curve analysis."
+    }
+  ]
+}

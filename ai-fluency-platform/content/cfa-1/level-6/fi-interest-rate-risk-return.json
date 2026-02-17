@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.10: Interest Rate Risk and Return",
+    "description": "Analyze the sources of bond return, interest rate risk, reinvestment risk, and holding period return decomposition.",
+    "level": "level-6",
+    "slug": "fi-interest-rate-risk-return",
+    "order": 10,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If interest rates rise immediately after you buy a bond and then stay at the new level, will your total return over the bond's full life be higher, lower, or equal to what you originally expected? Consider both the price effect and the reinvestment effect."
+    },
+    {
+      "type": "markdown",
+      "content": "## Three Sources of Bond Return\n\nAn investor's total return from a fixed-rate bond has three components:\n\n### 1. Coupon Income\nThe periodic coupon payments received. This is known and fixed for a fixed-rate bond.\n\n### 2. Reinvestment Income\nThe interest earned on reinvested coupons. This is **uncertain** because future reinvestment rates are unknown. If rates rise, reinvestment income exceeds initial expectations. If rates fall, reinvestment income falls short.\n\n### 3. Capital Gain or Loss\nThe change in the bond's price from purchase to sale (or maturity). If held to maturity, the price converges to par (pull to par). If sold before maturity, the price depends on current yields.\n\n### The Reinvestment Assumption of YTM\n\nYTM assumes all coupons are reinvested at the YTM rate. The **realized return** will differ from YTM if:\n- Reinvestment rates differ from YTM\n- The bond is sold before maturity at a different yield\n\nFor a bond held to maturity: Realized return = YTM **only if** all coupons are reinvested at YTM. The longer the maturity and the higher the coupon, the greater the reinvestment risk."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A 20-year, 8% coupon bond yields 8% (priced at par). Which component of return is most significant: coupon income, reinvestment income, or capital gain/loss?",
+      "answer": "Reinvestment income is the most significant component for a long-maturity, high-coupon bond. Over 20 years, the investor receives $160 in coupon payments ($8 \u00d7 20) on a $100 investment. But if all coupons are reinvested at 8%, the accumulated value of reinvested coupons is approximately $494 \u00d7 ($8 annuity factor at 8% for 20 years minus the $160 in coupons). The reinvestment income (interest on reinvested coupons) far exceeds the simple coupon payments. There is no capital gain because the bond was purchased at par and redeems at par."
+    },
+    {
+      "type": "markdown",
+      "content": "## Interest Rate Risk vs. Reinvestment Risk\n\nThese two risks work in **opposite directions**:\n\n| When rates rise... | When rates fall... |\n|---|---|\n| Bond price **falls** (capital loss) | Bond price **rises** (capital gain) |\n| Reinvestment income **increases** | Reinvestment income **decreases** |\n\n### The Investment Horizon Effect\n\nThe net impact depends on the investor's **holding period** relative to the bond's **Macaulay duration**:\n\n| Holding period vs. Duration | Dominant Risk | Rate Rise Impact | Rate Fall Impact |\n|---|---|---|---|\n| Shorter than duration | **Price risk dominates** | Net loss | Net gain |\n| Equal to duration | Risks offset | Approximately zero | Approximately zero |\n| Longer than duration | **Reinvestment risk dominates** | Net gain | Net loss |\n\nThis insight is the foundation of **immunization** \u2014 matching a portfolio's duration to the investment horizon so that price and reinvestment effects offset each other."
+    },
+    {
+      "type": "markdown",
+      "content": "## Holding Period Return Decomposition\n\nThe **holding period return (HPR)** measures the total return over the investor's actual holding period:\n\n$$\\text{HPR} = \\frac{\\text{End Value} - \\text{Begin Value} + \\text{Coupon Income}}{\\text{Begin Value}}$$\n\nEnd value includes the sale price (or par at maturity) plus reinvested coupon income.\n\n### Example\n\nAn investor buys a 5-year, 6% annual coupon bond at par ($100). After 3 years, yields have fallen to 4%. The investor sells.\n\n- Coupons received and reinvested: Assume reinvestment at 5% average\n  - Year 1 coupon reinvested 2 years: $6 \u00d7 (1.05)\u00b2 = $6.615$\n  - Year 2 coupon reinvested 1 year: $6 \u00d7 1.05 = $6.30$\n  - Year 3 coupon (just received): $6.00$\n  - Total coupon + reinvestment: $18.915$\n- Sale price of remaining 2-year bond at 4% YTM: $6/1.04 + $106/1.04\u00b2 = $5.769 + $97.985 = $103.754$\n\n$$\\text{HPR} = \\frac{103.754 + 18.915 - 100}{100} = 22.67\\%$$\n\nAnnualized: $(1.2267)^{1/3} - 1 = 7.06\\%$ per year."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A 4-year, 5% annual coupon bond is purchased at par ($100). Immediately after purchase, yields rise to 6% and stay there. Calculate the investor's total return if the bond is held to maturity, assuming all coupons are reinvested at 6%.",
+      "solution": "Step 1: Calculate the accumulated value of reinvested coupons at maturity.\n\n- Year 1 coupon reinvested for 3 years: $5 \u00d7 (1.06)\u00b3 = $5.955$\n- Year 2 coupon reinvested for 2 years: $5 \u00d7 (1.06)\u00b2 = $5.618$\n- Year 3 coupon reinvested for 1 year: $5 \u00d7 (1.06)\u00b9 = $5.300$\n- Year 4 coupon (no reinvestment): $5.000$\n- Total accumulated coupons: $21.873$\n\nStep 2: Add par value at maturity.\n\nTotal end value = $21.873 + $100 = $121.873$\n\nStep 3: Calculate annualized return.\n\n$$\\text{Annualized Return} = \\left(\\frac{121.873}{100}\\right)^{1/4} - 1 = (1.21873)^{0.25} - 1 = 5.07\\%$$\n\nThe realized return (5.07%) slightly exceeds the original YTM (5.00%) because coupons were reinvested at a higher rate (6%). If the bond is held to maturity, the higher reinvestment income more than compensates \u2014 there is no capital loss because the bond matures at par."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Interest Rate Risk and Return Practice",
+      "problems": [
+        {
+          "id": "fi10-1",
+          "question": "A bond's Macaulay duration is 6 years. An investor with a 4-year holding period is most exposed to:",
+          "options": [
+            "A) Reinvestment risk",
+            "B) Price risk",
+            "C) Both risks equally"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When the holding period (4 years) is shorter than the Macaulay duration (6 years), price risk dominates. The investor will sell the bond before maturity, and the sale price is sensitive to yield changes. A rate increase causes a capital loss that exceeds the gain from higher reinvestment income. Option A would be correct if the holding period exceeded the duration. Option C is only true when holding period equals duration.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Relate investment horizon to the balance of interest rate risk and reinvestment risk"
+        },
+        {
+          "id": "fi10-2",
+          "question": "If interest rates decline immediately after a bond is purchased and remain at the new lower level, a bondholder who holds the bond to maturity will most likely earn a return that is:",
+          "options": [
+            "A) Higher than the initial YTM",
+            "B) Equal to the initial YTM",
+            "C) Lower than the initial YTM"
+          ],
+          "correctAnswer": "C",
+          "explanation": "If rates fall and remain lower, the investor reinvests coupons at rates below the original YTM. Since the bond is held to maturity, there is no capital gain or loss from selling \u2014 the bond redeems at par. The only effect is reduced reinvestment income, so the realized return falls below the original YTM. Option A would be correct if rates had risen. Option B requires reinvestment at the original YTM.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Explain how reinvestment risk affects realized return"
+        },
+        {
+          "id": "fi10-3",
+          "question": "For which of the following bonds is reinvestment risk the greatest?",
+          "options": [
+            "A) 30-year, 8% coupon bond at par",
+            "B) 10-year zero-coupon bond",
+            "C) 5-year, 3% coupon bond at par"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Reinvestment risk is greatest for bonds with higher coupons and longer maturities, because more cash flow must be reinvested and over a longer period. The 30-year, 8% bond generates the most coupon income over the longest time. Option B (zero-coupon) has zero reinvestment risk \u2014 there are no coupons to reinvest. Option C has both a shorter maturity and lower coupon, generating less reinvestment income.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Identify factors that increase reinvestment risk"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a fellow candidate why interest rate risk and reinvestment risk pull in opposite directions. Then describe the concept of immunization \u2014 how can an investor neutralize both risks simultaneously?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does a zero-coupon bond have zero reinvestment risk?",
+        "If you expected interest rates to rise significantly, would you prefer a longer or shorter duration bond?",
+        "How does the concept of pull to par affect the capital gain/loss component of return?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Three sources of return: **coupon income**, **reinvestment income**, **capital gain/loss**\n- YTM = realized return **only if** all coupons reinvested at YTM and bond held to maturity\n- Interest rate risk and reinvestment risk are **offsetting**\n- Holding period < Duration \u2192 **price risk dominates** (rate rise = net loss)\n- Holding period > Duration \u2192 **reinvestment risk dominates** (rate rise = net gain)\n- Holding period = Duration \u2192 risks approximately offset (**immunization**)\n- Higher coupon and longer maturity \u2192 greater reinvestment risk\n- Zero-coupon bonds: no reinvestment risk, maximum price risk for given maturity"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module introduces **Yield-Based Bond Duration** \u2014 the formal measure of a bond's price sensitivity to yield changes. Duration quantifies exactly how much a bond's price changes per unit change in yield."
+    }
+  ]
+}

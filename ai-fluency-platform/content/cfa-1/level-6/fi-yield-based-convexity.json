@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.12: Yield-Based Bond Convexity",
+    "description": "Understand approximate convexity, money convexity, the duration + convexity price change estimate, and positive vs. negative convexity.",
+    "level": "level-6",
+    "slug": "fi-yield-based-convexity",
+    "order": 12,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Duration tells you the price change is proportional to the yield change. But if yields drop by 1%, the price gain is larger than the price loss when yields rise by 1%. What causes this asymmetry, and what measure captures it?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why Duration Alone Is Not Enough\n\nDuration provides a **linear approximation** of the price-yield relationship. But the actual relationship is **curved** (convex). For small yield changes, duration is accurate. For larger changes, the linear estimate introduces error:\n\n- When yields **fall**, duration **underestimates** the price increase\n- When yields **rise**, duration **overestimates** the price decrease\n\nThis asymmetry benefits bondholders \u2014 they gain more than expected when rates fall and lose less than expected when rates rise. **Convexity** measures this curvature.\n\n## Approximate Convexity\n\n$$\\text{ApproxCon} = \\frac{P_- + P_+ - 2P_0}{(\\Delta y)^2 \\times P_0}$$\n\nwhere $P_-$ = price if yield falls by $\\Delta y$, $P_+$ = price if yield rises by $\\Delta y$, $P_0$ = current price.\n\n### Example\n\nA bond is priced at $100. For a 50 bp yield change: $P_- = $103.40, $P_+ = $96.80.\n\n$$\\text{ApproxCon} = \\frac{103.40 + 96.80 - 200}{(0.005)^2 \\times 100} = \\frac{0.20}{0.0025} = 80.0$$\n\nHigher convexity means more curvature and a greater benefit from the asymmetry."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Two bonds have identical modified durations of 7.0 years but different convexities. Bond X has convexity of 50; Bond Y has convexity of 120. If yields change by 200 bps, which bond's actual price change will deviate more from the duration estimate?",
+      "answer": "Bond Y. Higher convexity means greater curvature in the price-yield relationship, so the linear duration estimate will be less accurate for Bond Y. For a large yield change of 200 bps, the convexity adjustment is significant: Bond Y's adjustment = 0.5 \u00d7 120 \u00d7 (0.02)\u00b2 = 2.40%, versus Bond X's adjustment = 0.5 \u00d7 50 \u00d7 (0.02)\u00b2 = 1.00%. Bond Y benefits more from the asymmetry."
+    },
+    {
+      "type": "markdown",
+      "content": "## Price Change Estimation: Duration + Convexity\n\nThe improved price change estimate combines duration (first-order) and convexity (second-order):\n\n$$\\%\\Delta P \\approx (-\\text{ModDur} \\times \\Delta y) + \\left(\\frac{1}{2} \\times \\text{Convexity} \\times (\\Delta y)^2\\right)$$\n\nThe convexity adjustment is **always positive** for bonds with positive convexity (regardless of yield direction).\n\n### Example\n\nModDur = 7.0, Convexity = 80, yield change = +1.50%:\n\n$$\\%\\Delta P \\approx (-7.0 \\times 0.015) + (0.5 \\times 80 \\times 0.015^2)$$\n$$= -10.50\\% + 0.90\\% = -9.60\\%$$\n\nDuration alone would have estimated \u221210.50%. The convexity adjustment of +0.90% reduces the estimated loss.\n\nFor a yield **decrease** of 1.50%:\n$$\\%\\Delta P \\approx (-7.0 \\times -0.015) + (0.5 \\times 80 \\times 0.015^2)$$\n$$= +10.50\\% + 0.90\\% = +11.40\\%$$\n\nConvexity adds to the gain when yields fall and reduces the loss when yields rise."
+    },
+    {
+      "type": "markdown",
+      "content": "## Positive vs. Negative Convexity\n\n### Positive Convexity (Option-Free Bonds)\n\nMost bonds exhibit **positive convexity**: the price-yield curve bows toward the origin. Investors benefit because:\n- Price gains from yield decreases exceed price losses from yield increases of the same magnitude\n- All else equal, investors prefer higher convexity\n\n### Negative Convexity (Callable Bonds)\n\n**Callable bonds** exhibit **negative convexity** at low yields. When yields fall significantly:\n- The bond's price approaches the **call price ceiling** (issuer will call the bond)\n- Further yield decreases produce smaller price gains (price is capped)\n- The price-yield curve bows away from the origin\n\nAt high yields (far from call): callable bond behaves like a straight bond (positive convexity).\nAt low yields (near call): price is capped, creating negative convexity.\n\n### Money Convexity\n\n$$\\text{Money Convexity} = \\text{Convexity} \\times P$$\n\nThis measures the dollar convexity rather than percentage convexity, useful for portfolio risk management."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A bond has a modified duration of 5.80, a convexity of 62, and a current price of $98.50. Estimate the price change and new price if yields increase by 100 bps.",
+      "solution": "Step 1: Calculate the duration component.\n$$\\text{Duration effect} = -5.80 \\times 0.01 = -5.80\\%$$\n\nStep 2: Calculate the convexity adjustment.\n$$\\text{Convexity effect} = 0.5 \\times 62 \\times (0.01)^2 = 0.5 \\times 62 \\times 0.0001 = 0.31\\%$$\n\nStep 3: Combine.\n$$\\%\\Delta P \\approx -5.80\\% + 0.31\\% = -5.49\\%$$\n\nStep 4: Dollar change and new price.\n$$\\Delta P = -5.49\\% \\times \\$98.50 = -\\$5.408$$\n$$\\text{New Price} \\approx \\$98.50 - \\$5.41 = \\$93.09$$\n\nWithout the convexity adjustment, we would have estimated a \u22125.80% change ($92.79). Convexity reduces the estimated loss by $0.31."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Bond Convexity Practice",
+      "problems": [
+        {
+          "id": "fi12-1",
+          "question": "A bond has a modified duration of 6.0 and a convexity of 45. If yields decrease by 150 bps, the estimated percentage price change using duration and convexity is closest to:",
+          "options": [
+            "A) +8.49%",
+            "B) +9.00%",
+            "C) +9.51%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "%\u0394P \u2248 (\u22126.0 \u00d7 \u22120.015) + (0.5 \u00d7 45 \u00d7 0.015\u00b2) = +9.00% + 0.51% = +9.51%. The duration effect gives +9.00% and the convexity adjustment adds +0.51%. Option A subtracts the convexity adjustment (incorrect \u2014 convexity always adds for positive convexity). Option B uses duration only, ignoring convexity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Estimate bond price change using duration and convexity"
+        },
+        {
+          "id": "fi12-2",
+          "question": "A callable bond trading near its call price is most likely to exhibit:",
+          "options": [
+            "A) Positive convexity",
+            "B) Negative convexity",
+            "C) Zero convexity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When a callable bond trades near its call price (i.e., yields are low enough that calling is attractive), its price is capped near the call price. Further yield decreases produce diminishing price gains \u2014 the price-yield curve bows away from the origin, indicating negative convexity. Option A applies to option-free bonds or callable bonds at high yields. Option C would mean the price-yield relationship is perfectly linear, which is not realistic.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between positive and negative convexity"
+        },
+        {
+          "id": "fi12-3",
+          "question": "A bond is priced at $105. When yields rise 25 bps, the price drops to $103.10. When yields fall 25 bps, the price rises to $107.00. The approximate convexity is closest to:",
+          "options": [
+            "A) 15.2",
+            "B) 152.4",
+            "C) 304.8"
+          ],
+          "correctAnswer": "B",
+          "explanation": "ApproxCon = (P\u208b + P\u208a \u2212 2P\u2080) / (\u0394y\u00b2 \u00d7 P\u2080) = (107.00 + 103.10 \u2212 210.00) / (0.0025\u00b2 \u00d7 105) = 0.10 / (0.00000625 \u00d7 105) = 0.10 / 0.00065625 = 152.4. Option A divides by an additional factor of 10. Option C uses \u0394y instead of \u0394y\u00b2 in the denominator.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate approximate convexity from bond prices"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why convexity is desirable for bond investors. Use a graph analogy to describe how the curvature of the price-yield relationship creates an asymmetry that benefits holders of bonds with positive convexity."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the convexity adjustment always positive for option-free bonds regardless of the direction of the yield change?",
+        "How does the call feature of a callable bond limit the investor's upside and create negative convexity?",
+        "When are convexity adjustments most important \u2014 for small or large yield changes?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas:**\n\n- **Approximate convexity** = (P\u208b + P\u208a \u2212 2P\u2080) / (\u0394y\u00b2 \u00d7 P\u2080)\n- **Price change** \u2248 (\u2212ModDur \u00d7 \u0394y) + (0.5 \u00d7 Convexity \u00d7 \u0394y\u00b2)\n- Convexity adjustment is **always positive** for bonds with positive convexity\n- **Positive convexity**: Price gains > price losses for equal yield changes (option-free bonds)\n- **Negative convexity**: Price capped near call price when yields are low (callable bonds)\n- Money convexity = Convexity \u00d7 Price\n- Higher convexity is preferred (all else equal) \u2014 investors may accept lower yields for higher convexity"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Curve-Based Risk Measures** \u2014 effective duration, effective convexity, key rate duration, and spread duration. These measures account for embedded options and non-parallel yield curve shifts that yield-based measures cannot capture."
+    }
+  ]
+}

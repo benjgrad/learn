@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "QM.7: Estimation and Inference",
+    "description": "Construct and interpret confidence intervals, distinguish between t and z distributions, and understand the effects of sample size on estimation precision.",
+    "level": "level-1",
+    "slug": "quant-estimation-inference",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you measure the average return of a fund over 10 years, how confident can you be that this average reflects the fund's true long-run performance? What would make you more or less confident?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Point Estimates and Sampling Error\n\nA **point estimate** is a single number used to estimate a population parameter. For example, the sample mean $\\bar{X}$ is a point estimate of the population mean $\\mu$.\n\n### Desirable Properties of Estimators\n\n- **Unbiased**: $E(\\hat{\\theta}) = \\theta$ \u2014 on average, the estimator hits the true value\n- **Efficient**: Smallest variance among all unbiased estimators\n- **Consistent**: Converges to the true value as sample size increases\n\n### Sampling Error\n\nThe difference between a sample statistic and the population parameter:\n\n$$\\text{Sampling error} = \\bar{X} - \\mu$$\n\nSampling error exists because we observe a sample, not the entire population. It is not a \"mistake\" \u2014 it is inherent in the sampling process.\n\n### Standard Error\n\nThe **standard error** of the sample mean measures the precision of the estimate:\n\n$$\\sigma_{\\bar{X}} = \\frac{\\sigma}{\\sqrt{n}}$$\n\nWhen the population standard deviation $\\sigma$ is unknown (the usual case), we use the sample standard deviation:\n\n$$s_{\\bar{X}} = \\frac{s}{\\sqrt{n}}$$\n\nKey insight: standard error decreases with the **square root of sample size**. To halve the standard error, you need to quadruple the sample size."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A sample of 36 monthly returns has a sample standard deviation of 6%. What is the standard error of the sample mean?",
+      "answer": "Standard error = s/\u221an = 6%/\u221a36 = 6%/6 = 1.0%. This means the sample mean is expected to be within about 1% of the true population mean (plus or minus). If we increased the sample to 144 observations, the standard error would fall to 6%/12 = 0.5%."
+    },
+    {
+      "type": "markdown",
+      "content": "## Confidence Intervals\n\nA **confidence interval** provides a range of values within which the true population parameter is likely to fall.\n\n$$\\text{CI} = \\bar{X} \\pm (\\text{critical value}) \\times s_{\\bar{X}}$$\n\n### Interpretation\n\nA **95% confidence interval** means: if we were to take many samples and construct a CI from each, 95% of those intervals would contain the true population mean. It does **not** mean there is a 95% probability that $\\mu$ lies in this specific interval (the population mean is fixed, not random).\n\n### Common Confidence Levels and Z Critical Values\n\n| Confidence Level | $z_{\\alpha/2}$ |\n|---|---|\n| 90% | 1.645 |\n| 95% | 1.960 |\n| 99% | 2.576 |\n\n### Example\n\nSample mean = 8%, standard error = 2%, 95% confidence level:\n\n$$\\text{CI} = 8\\% \\pm 1.96 \\times 2\\% = 8\\% \\pm 3.92\\%$$\n$$\\text{CI} = [4.08\\%, 11.92\\%]$$\n\nWe are 95% confident that the true mean return lies between 4.08% and 11.92%."
+    },
+    {
+      "type": "markdown",
+      "content": "## t-Distribution vs z-Distribution\n\n### When to Use Each\n\n| Condition | Population \u03c3 known | Population \u03c3 unknown |\n|---|---|---|\n| Normal population | z-statistic | t-statistic |\n| Large sample (n \u2265 30) | z-statistic | t-statistic (or z as approximation) |\n| Non-normal, small sample | Not reliable | Not reliable |\n\n### Properties of the t-Distribution\n\n- Symmetric and bell-shaped, like the normal distribution\n- **Fatter tails** than the normal \u2014 accounts for additional uncertainty from estimating $\\sigma$ with $s$\n- Defined by **degrees of freedom** ($df = n - 1$)\n- As $df \\to \\infty$, the t-distribution converges to the standard normal\n- For $df \\geq 30$, the t and z distributions are very similar\n\n### Confidence Interval Using t\n\n$$\\text{CI} = \\bar{X} \\pm t_{\\alpha/2, n-1} \\times \\frac{s}{\\sqrt{n}}$$\n\nThe t critical value is always larger than the corresponding z value (for finite $n$), producing **wider confidence intervals** that properly reflect the uncertainty from using $s$ instead of $\\sigma$.\n\n### Sample Size Effects\n\nIncreasing sample size:\n- Reduces standard error ($s/\\sqrt{n}$)\n- Increases degrees of freedom (t-distribution approaches normal)\n- Narrows confidence intervals\n- Improves estimation precision\n\nDiminishing returns: doubling $n$ reduces standard error by only $\\sqrt{2} \\approx 29\\%$."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A sample of 25 annual stock returns has a mean of 11% and a standard deviation of 20%. Construct a 95% confidence interval for the true mean return. Use t(24) critical value = 2.064.",
+      "solution": "**Step 1: Calculate the standard error**\n\n$s_{\\bar{X}} = s / \\sqrt{n} = 20\\% / \\sqrt{25} = 20\\% / 5 = 4\\%$\n\n**Step 2: Apply the confidence interval formula**\n\n$\\text{CI} = \\bar{X} \\pm t_{0.025, 24} \\times s_{\\bar{X}}$\n\n$\\text{CI} = 11\\% \\pm 2.064 \\times 4\\%$\n\n$\\text{CI} = 11\\% \\pm 8.256\\%$\n\n$\\text{CI} = [2.744\\%, 19.256\\%]$\n\n**Interpretation**: We are 95% confident that the true mean annual return lies between 2.74% and 19.26%. The wide interval reflects both the high volatility (20% standard deviation) and the relatively small sample size (25 observations).\n\n**Note**: We use the t-distribution because the population standard deviation is unknown and we are estimating it with $s$. If we had incorrectly used $z = 1.96$, the interval would be $11\\% \\pm 7.84\\% = [3.16\\%, 18.84\\%]$ \u2014 narrower but inappropriately so."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Estimation and Inference Practice Problems",
+      "problems": [
+        {
+          "id": "qm7-1",
+          "question": "A sample of 49 monthly returns has a mean of 1.5% and a standard deviation of 3.5%. The standard error of the sample mean is closest to:",
+          "options": [
+            "A) 0.50%",
+            "B) 0.07%",
+            "C) 3.50%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Standard error = s/\u221an = 3.5%/\u221a49 = 3.5%/7 = 0.50%. Option B (0.07%) divides by n instead of \u221an: 3.5%/49. Option C (3.50%) confuses the standard deviation with the standard error \u2014 the standard error is always smaller than s (when n > 1).",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate and interpret the standard error of the sample mean"
+        },
+        {
+          "id": "qm7-2",
+          "question": "A 99% confidence interval will be ______ a 95% confidence interval constructed from the same sample data.",
+          "options": [
+            "A) Narrower than",
+            "B) The same width as",
+            "C) Wider than"
+          ],
+          "correctAnswer": "C",
+          "explanation": "A higher confidence level requires a larger critical value (z = 2.576 for 99% vs 1.960 for 95%), producing a wider interval. Greater confidence requires a wider net. Option A reverses the relationship. Option B would only hold if both confidence levels used the same critical value, which they don't.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe the relationship between confidence level and interval width"
+        },
+        {
+          "id": "qm7-3",
+          "question": "An analyst uses a t-statistic rather than a z-statistic when constructing a confidence interval. The most likely reason is:",
+          "options": [
+            "A) The sample size is very large",
+            "B) The population standard deviation is unknown",
+            "C) The confidence level is higher than 95%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The t-distribution is used when the population standard deviation \u03c3 is unknown and must be estimated by the sample standard deviation s. The t-distribution's fatter tails account for the additional uncertainty of estimating \u03c3. Option A is incorrect \u2014 with large samples, the t and z give similar results, but the choice depends on whether \u03c3 is known, not sample size alone. Option C is irrelevant to the choice of distribution.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Determine when to use t vs z distribution"
+        },
+        {
+          "id": "qm7-4",
+          "question": "A sample of 16 observations from a normal population has a mean of 25 and a standard deviation of 8. The 90% confidence interval is closest to (t-critical value with 15 df at 90% = 1.753):",
+          "options": [
+            "A) [21.49, 28.51]",
+            "B) [22.71, 27.29]",
+            "C) [20.24, 29.76]"
+          ],
+          "correctAnswer": "A",
+          "explanation": "SE = 8/\u221a16 = 2.0. CI = 25 \u00b1 1.753 \u00d7 2.0 = 25 \u00b1 3.506 = [21.494, 28.506]. Option B uses z = 1.645 instead of t: 25 \u00b1 1.645 \u00d7 2.0 = [21.71, 28.29], which understates uncertainty. Option C uses t but incorrectly calculates SE as 8/\u221a9 or uses the wrong critical value.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Construct a confidence interval using the t-distribution"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a fellow CFA candidate what a 95% confidence interval really means. Address the common misconception that 'there is a 95% chance the true mean is in this interval.' What is the correct interpretation?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does it take quadrupling the sample size (not doubling) to halve the standard error? What practical implications does this have for data collection?",
+        "If an analyst reports a mean return of 12% \u00b1 10% at 95% confidence, what does this tell you about the usefulness of the estimate?",
+        "When would using a z-statistic instead of a t-statistic lead to a meaningful error in practice?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Standard error: $s_{\\bar{X}} = s / \\sqrt{n}$ \u2014 decreases with $\\sqrt{n}$\n- Confidence interval: $\\bar{X} \\pm (\\text{critical value}) \\times s_{\\bar{X}}$\n- Use z when $\\sigma$ is known; use t when $\\sigma$ is unknown (estimated by $s$)\n- t-distribution has fatter tails than z, producing wider intervals\n- As $df \\to \\infty$, t converges to z\n- Higher confidence level \u2192 wider interval (larger critical value)\n- Larger sample \u2192 narrower interval (smaller standard error)\n- Correct interpretation: 95% of intervals from repeated samples contain $\\mu$\n- Desirable estimator properties: unbiased, efficient, consistent"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Hypothesis Testing**, where you will use the estimation concepts learned here to formally test claims about population parameters. Confidence intervals and hypothesis tests are two sides of the same coin \u2014 a value outside the CI corresponds to rejecting the null hypothesis."
+    }
+  ]
+}

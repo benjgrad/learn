@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "title": "QM.4: Extensions of Multiple Regression",
+    "description": "Apply dummy variables, interaction terms, logistic regression, and model selection principles to financial analysis.",
+    "level": "level-1",
+    "slug": "quant-regression-extensions",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company's bond spread might depend on both its credit rating and its leverage ratio. But the effect of leverage on spreads might be different for investment-grade versus high-yield bonds. How would you model this 'different effect' in a regression?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Dummy Variables\n\nDummy (indicator) variables encode **categorical information** as numerical values (0 or 1) for use in regression.\n\n### Example: Recession Indicator\n\n$$R_t = \\beta_0 + \\beta_1 \\cdot X_t + \\beta_2 \\cdot D_{\\text{recession}} + \\epsilon_t$$\n\nwhere $D_{\\text{recession}} = 1$ during recession quarters and 0 otherwise.\n\n- $\\beta_2$ measures the **shift in the intercept** during recessions\n- During non-recession: $E(R_t) = \\beta_0 + \\beta_1 X_t$\n- During recession: $E(R_t) = (\\beta_0 + \\beta_2) + \\beta_1 X_t$\n\n### The Dummy Variable Trap\n\nFor a categorical variable with $m$ categories, include $m - 1$ dummy variables. Including all $m$ creates **perfect multicollinearity** with the intercept (the dummies sum to 1 for every observation).\n\nFor example, with 4 quarters, use 3 dummy variables (Q1, Q2, Q3). The omitted category (Q4) becomes the **reference group**, and each coefficient measures the difference from Q4."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A regression includes an intercept and 3 dummy variables for credit ratings: D_AAA, D_AA, and D_A. A bond rated BBB would have what values for these dummies?",
+      "answer": "D_AAA = 0, D_AA = 0, D_A = 0. BBB is the omitted (reference) category. Since all three dummies are zero for BBB bonds, the intercept captures the baseline effect for BBB-rated bonds. The coefficient on D_AAA measures how AAA bonds differ from BBB, D_AA measures how AA bonds differ from BBB, and so on."
+    },
+    {
+      "type": "markdown",
+      "content": "## Interaction Terms and Polynomial Regression\n\n### Interaction Terms\n\nAn interaction term allows the effect of one variable to **depend on the level of another**:\n\n$$Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\beta_3 (X_1 \\times X_2) + \\epsilon$$\n\nThe partial effect of $X_1$ on $Y$ is now: $\\frac{\\partial Y}{\\partial X_1} = \\beta_1 + \\beta_3 X_2$\n\nThis means the marginal effect of $X_1$ changes with the level of $X_2$. Interaction terms are common when a dummy variable modifies a slope:\n\n$$\\text{Spread} = \\beta_0 + \\beta_1 \\cdot \\text{Leverage} + \\beta_2 \\cdot D_{HY} + \\beta_3 \\cdot (\\text{Leverage} \\times D_{HY}) + \\epsilon$$\n\n- For investment-grade bonds ($D_{HY} = 0$): slope on Leverage = $\\beta_1$\n- For high-yield bonds ($D_{HY} = 1$): slope on Leverage = $\\beta_1 + \\beta_3$\n\n### Polynomial Regression\n\nTo capture **non-linear** relationships within the linear regression framework:\n\n$$Y = \\beta_0 + \\beta_1 X + \\beta_2 X^2 + \\epsilon$$\n\nThis models a quadratic relationship. Despite the squared term, the model is still \"linear in the parameters\" and can be estimated by OLS."
+    },
+    {
+      "type": "markdown",
+      "content": "## Qualitative Dependent Variables\n\n### Logistic Regression (Logit Model)\n\nWhen the dependent variable is **binary** (e.g., default/no default), linear regression is inappropriate because predictions can fall outside [0, 1]. The logit model uses the logistic function:\n\n$$P(Y = 1) = \\frac{1}{1 + e^{-(\\beta_0 + \\beta_1 X_1 + \\cdots + \\beta_k X_k)}} = \\frac{e^{z}}{1 + e^{z}}$$\n\nwhere $z = \\beta_0 + \\beta_1 X_1 + \\cdots + \\beta_k X_k$ is the **log-odds** (logit):\n\n$$\\ln\\left(\\frac{P}{1-P}\\right) = \\beta_0 + \\beta_1 X_1 + \\cdots + \\beta_k X_k$$\n\nCoefficients represent changes in **log-odds**, not probabilities. A unit increase in $X_1$ changes the log-odds by $\\beta_1$, which corresponds to multiplying the odds ratio by $e^{\\beta_1}$.\n\n### Probit Model\n\nThe probit model uses the **cumulative normal distribution** instead of the logistic function. In practice, logit and probit produce very similar results. The logit model is more commonly used because of the interpretable odds ratio.\n\n### Model Selection Principles\n\nWhen choosing among models, consider:\n- **Parsimony**: prefer simpler models that explain the data adequately\n- **Economic rationale**: variables should have a theoretical justification\n- **Out-of-sample performance**: validate with holdout data or cross-validation\n- **Information criteria**: use AIC/BIC for non-nested model comparison"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A logistic regression model predicts corporate default: ln(P/(1-P)) = -4.0 + 2.5(Leverage) + 0.8(D_HY), where D_HY = 1 for high-yield bonds. Calculate the probability of default for a high-yield bond with a leverage ratio of 1.5.",
+      "solution": "Step 1: Calculate the log-odds:\n\n$z = -4.0 + 2.5(1.5) + 0.8(1) = -4.0 + 3.75 + 0.8 = 0.55$\n\nStep 2: Convert log-odds to probability:\n\n$P(\\text{default}) = \\frac{e^{0.55}}{1 + e^{0.55}} = \\frac{1.733}{1 + 1.733} = \\frac{1.733}{2.733} = 0.634$\n\nThe model predicts a **63.4% probability of default** for this high-yield bond.\n\nFor comparison, an investment-grade bond with the same leverage:\n$z = -4.0 + 2.5(1.5) + 0.8(0) = -0.25$\n$P = e^{-0.25}/(1 + e^{-0.25}) = 0.438$ or **43.8%**\n\nThe high-yield dummy increases the log-odds by 0.8, multiplying the odds by $e^{0.8} = 2.23$ (the odds ratio)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Regression Extensions in Practice",
+      "vignette": "David Park, CFA, is a credit analyst modeling corporate bond spreads. He estimates several regression specifications using 150 bonds:\n\nModel A: Spread = 120 + 45(Leverage) + 30(D_HY) + epsilon\nModel B: Spread = 95 + 35(Leverage) + 15(D_HY) + 25(Leverage x D_HY) + epsilon\nModel C: Spread = 80 + 60(Leverage) - 10(Leverage^2) + epsilon\n\nwhere Spread is in basis points, Leverage is the debt-to-equity ratio, and D_HY = 1 for high-yield issuers.\n\nPark also estimates a logistic regression to predict bond downgrades:\n\nln(P/(1-P)) = -3.2 + 1.8(Leverage) + 1.1(D_NegOutlook)\n\nwhere D_NegOutlook = 1 if the issuer has a negative credit outlook.\n\nAll coefficients are statistically significant at the 5% level.",
+      "problems": [
+        {
+          "id": "qm4-1",
+          "question": "In Model A, the coefficient on D_HY (30) is best interpreted as: compared to investment-grade bonds, high-yield bonds have spreads that are, on average:",
+          "options": [
+            "A) 30 basis points wider, regardless of leverage.",
+            "B) 30 basis points wider, only when leverage equals zero.",
+            "C) 30% wider."
+          ],
+          "correctAnswer": "A",
+          "explanation": "In Model A, D_HY is a simple dummy variable that shifts the intercept. The coefficient (30) represents a parallel shift: high-yield bonds have spreads 30 basis points wider than investment-grade bonds at every level of leverage. The effect is additive and constant across all leverage levels. Option B would only be correct if there were an interaction term. Option C incorrectly interprets the coefficient as a percentage rather than a level difference in basis points.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret dummy variable coefficients"
+        },
+        {
+          "id": "qm4-2",
+          "question": "Using Model B, the predicted spread for a high-yield bond with a leverage ratio of 2.0 is closest to:",
+          "options": [
+            "A) 195 bps",
+            "B) 230 bps",
+            "C) 165 bps"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For a high-yield bond (D_HY = 1) with Leverage = 2.0:\n\nSpread = 95 + 35(2.0) + 15(1) + 25(2.0 x 1) = 95 + 70 + 15 + 50 = 230 bps.\n\nFor comparison, an investment-grade bond (D_HY = 0) with the same leverage: 95 + 35(2.0) + 15(0) + 25(2.0 x 0) = 95 + 70 = 165 bps (Option C). Option A (195 bps) does not correspond to either calculation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate predicted values with interaction terms"
+        },
+        {
+          "id": "qm4-3",
+          "question": "In Model B, the marginal effect of leverage on spreads for investment-grade bonds (D_HY = 0) is:",
+          "options": [
+            "A) 35 basis points per unit of leverage.",
+            "B) 60 basis points per unit of leverage.",
+            "C) 25 basis points per unit of leverage."
+          ],
+          "correctAnswer": "A",
+          "explanation": "The marginal effect of Leverage on Spread is: dSpread/dLeverage = 35 + 25(D_HY). For investment-grade bonds (D_HY = 0), this equals 35 basis points per unit increase in leverage. For high-yield bonds (D_HY = 1), the marginal effect is 35 + 25 = 60 basis points. Option B (60) is the effect for high-yield bonds. Option C (25) is only the interaction coefficient, not the total marginal effect for either group.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate marginal effects with interaction terms"
+        },
+        {
+          "id": "qm4-4",
+          "question": "Using Park's logistic regression, the probability of downgrade for an issuer with Leverage = 1.0 and a negative credit outlook is closest to:",
+          "options": [
+            "A) 43%",
+            "B) 58%",
+            "C) 73%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Log-odds z = -3.2 + 1.8(1.0) + 1.1(1) = -3.2 + 1.8 + 1.1 = -0.3. P(downgrade) = e^z / (1 + e^z) = e^(-0.3) / (1 + e^(-0.3)) = 0.7408 / 1.7408 = 0.426, or approximately 43%. Option B (58%) would correspond to z approximately +0.3. Option C (73%) would correspond to z approximately +1.0. Without the negative outlook dummy, z = -3.2 + 1.8(1.0) = -1.4 and P = 0.198 (about 20%), showing the large impact of the negative outlook indicator.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate probabilities from a logistic regression"
+        },
+        {
+          "id": "qm4-5",
+          "question": "Model C includes a squared leverage term. The negative coefficient on Leverage-squared (-10) implies that:",
+          "options": [
+            "A) the relationship between leverage and spreads is linear.",
+            "B) spreads increase with leverage at a decreasing rate.",
+            "C) spreads decrease with leverage at all levels."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The negative coefficient on the squared term creates a concave (inverted-U) shape. The marginal effect is dSpread/dLeverage = 60 - 20(Leverage). At low leverage, spreads increase with leverage. The rate of increase slows as leverage rises (decreasing marginal effect). This is economically intuitive: the first unit of debt has a larger impact on credit risk than additional units at already-high leverage levels. Option A ignores the squared term. Option C is incorrect because the positive linear coefficient (60) dominates at low leverage values.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret polynomial regression coefficients"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain how an interaction term between a continuous variable and a dummy variable works. Use a concrete financial example to show how the slope changes between the two groups defined by the dummy."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is logistic regression preferred over linear regression when the dependent variable is binary?",
+        "What is the 'dummy variable trap' and how do you avoid it?",
+        "When would you use a polynomial regression versus adding a new independent variable?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Dummy variables**: encode categories as 0/1; use $m-1$ dummies for $m$ categories to avoid the trap\n- Dummy coefficient = intercept shift relative to the reference group\n- **Interaction terms**: allow the slope of one variable to depend on another; marginal effect = $\\beta_1 + \\beta_3 X_2$\n- **Polynomial regression**: captures non-linear relationships within the linear framework; negative squared term = concave shape\n- **Logistic regression**: models binary outcomes; $P = e^z/(1+e^z)$; coefficients are log-odds changes\n- **Probit model**: similar to logit but uses the cumulative normal distribution\n- **Model selection**: balance parsimony, economic rationale, and out-of-sample fit"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Time-Series Analysis** \u2014 a specialized regression framework for data observed over time. You will learn about autoregressive models, stationarity, unit roots, and cointegration, all of which are essential for forecasting financial variables and understanding mean reversion."
+    }
+  ]
+}

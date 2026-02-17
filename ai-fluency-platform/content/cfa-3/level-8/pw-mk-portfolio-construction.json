@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "MK.7: Private Markets Portfolio Construction",
+    "description": "Master vintage year diversification, commitment pacing, liquidity management, J-curve effects, cash flow modeling, and private markets benchmarking methods.",
+    "level": "level-8",
+    "slug": "pw-mk-portfolio-construction",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An investor commits $100M to a PE fund. Over the first 3 years, only $60M is called and the fund's NAV shows a loss. Is this a bad investment? What is happening and when should you expect to see positive returns?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The J-Curve Effect\n\nPrivate market funds typically show **negative returns in early years** before generating positive returns later.\n\n### Why the J-Curve Occurs\n1. **Management fees** charged on committed capital from day one, before investments generate returns\n2. **Investments marked at cost** or below cost initially (conservative valuation)\n3. **Value creation takes time**: Operational improvements, growth, and exits require 3-5+ years\n4. **Capital is drawn gradually**: Returns calculated on committed capital, not invested capital\n\n### Timeline\n- Years 1-3: Net negative returns (fees > value creation)\n- Years 3-5: Breakeven as early exits occur\n- Years 5-10: Peak returns as portfolio matures and exits accelerate\n\n## Vintage Year Diversification\n\nInvesting across multiple vintage years smooths the J-curve and reduces timing risk.\n\n$$\\text{Target annual commitment} = \\frac{\\text{Target PE allocation}}{\\text{Average fund life} \\times \\text{Average invested ratio}}$$\n\nExample: $1B portfolio, 15% PE target ($150M), average 10-year fund life, 80% average invested:\n- Annual commitment = $150M / (10 x 0.80) = $18.75M per year\n\nBenefits of vintage diversification:\n- Smooth J-curve across overlapping funds\n- Reduce exposure to any single market cycle\n- Provide more consistent cash flows"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An LP has committed to 5 PE funds over 5 years, each $20M. In Year 6, the total called capital is $65M, total distributions are $25M, and total NAV is $55M. What is the portfolio's DPI, RVPI, and TVPI?",
+      "answer": "DPI = Distributions / Paid-in = $25M / $65M = 0.38x\nRVPI = Residual value / Paid-in = $55M / $65M = 0.85x\nTVPI = DPI + RVPI = 0.38x + 0.85x = 1.23x\n\nThe portfolio is in the mid-life phase: still heavily unrealized (RVPI > DPI), but showing positive total value. The 1.23x TVPI means the portfolio has gained 23% on invested capital, though most of this is unrealized. As a vintage-diversified program, the earlier funds (Years 1-2) are likely more mature with higher DPI, while later funds (Years 4-5) are still in the J-curve. The remaining $35M in uncalled commitments ($100M total - $65M called) represents a future funding obligation."
+    },
+    {
+      "type": "markdown",
+      "content": "## Commitment Pacing\n\nThe process of sizing and timing new fund commitments to maintain target allocation.\n\n### Key Considerations\n\n1. **Overccommitment**: Commit more than the target allocation because not all capital is invested simultaneously. Typical overcommitment ratio: 1.3-1.8x target allocation.\n\n2. **Denominator effect**: When public markets decline, the private allocation (marked less frequently) appears to grow as a percentage of the portfolio. This may limit new commitments precisely when PE is most attractive.\n\n3. **Cash flow modeling**: Project capital calls and distributions to ensure sufficient liquidity.\n\n$$\\text{Net cash flow}_t = \\text{Distributions}_t - \\text{Capital calls}_t$$\n\nTarget: Net cash flow neutral or positive in steady state.\n\n## Liquidity Management\n\n### Capital Call Lines of Credit\n- Short-term borrowing to smooth capital call timing\n- Bridges between LP liquidity events and GP capital calls\n- **IRR inflation**: By delaying capital calls (borrowing from the line instead), the fund's measured IRR increases (shorter time between cash outflow and inflow for the LP)\n\n### Secondary Market\n- **LP-led secondaries**: Existing investors sell their fund interests to secondary buyers\n- **GP-led secondaries**: GP restructures the fund (continuation vehicles)\n- Pricing: Discount or premium to NAV depending on fund quality and market conditions\n- Growing market: Provides liquidity in an otherwise illiquid asset class\n\n## Cash Flow Modeling\n\nFor a private markets program, model:\n- **Contributions (outflows)**: Capital calls based on commitment size and draw-down schedule\n- **Distributions (inflows)**: Exits based on holding period assumptions and exit multiples\n- **NAV trajectory**: Remaining value based on unrealized investments\n\nTypical draw-down pace: 25-35% of commitment in Year 1, 60-80% cumulative by Year 3.\nDistribution pace: Begins Year 3-4, peaks Year 5-7.\n\n## Performance Benchmarking\n\n### Public Market Equivalent (PME)\n\nCompares PE returns to what the same cash flows would have earned in a public index:\n\n$$\\text{PME} = \\frac{\\sum \\text{Distributions} \\times \\text{Index factor}}{\\sum \\text{Contributions} \\times \\text{Index factor}}$$\n\nPME > 1.0: PE outperformed the public market index.\n\n### Direct Alpha\nThe annualized return difference between PE and PME:\n$$\\text{Direct alpha} = \\text{PE IRR} - \\text{PME-derived IRR}$$\n\n### Challenges\n- **Stale NAVs**: Private valuations lag market movements\n- **Survivorship bias**: Failed funds drop out of databases\n- **Selection bias**: Not all GPs report to databases\n- **IRR manipulation**: Capital call lines, subscription facilities inflate IRR"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Private Markets Program Design\n\nA $5B pension fund has a 5% current allocation to private markets ($250M NAV). The board has approved increasing the target allocation to 15% ($750M) over 5 years.\n\nCurrent private markets: 2 PE buyout funds (vintage 2021, 2023) and 1 real estate fund (vintage 2022).\n\nA) Design a commitment pacing plan to reach the 15% target.\nB) Address vintage year and strategy diversification.\nC) Model the liquidity requirements.\nD) Recommend a benchmarking framework.",
+      "solution": "**A) Commitment Pacing Plan:**\n\nTarget: Increase from $250M (5%) to $750M (15%), a $500M increase in NAV over 5 years.\n\nKey assumptions:\n- Average fund life: 10 years\n- Capital call pace: 30% Year 1, 25% Year 2, 20% Year 3, 15% Year 4, 10% Year 5\n- Distribution pace begins Year 3, accelerates through Year 7\n- Overcommitment ratio: 1.5x (commit $1.50 for every $1.00 of target NAV increase)\n\nTotal new commitments needed: $500M NAV target x 1.5x overcommitment = $750M over 5 years\n\nAnnual commitment plan:\n| Year | New Commitments | Cumulative Committed |\n|---|---|---|\n| 1 | $175M | $175M |\n| 2 | $175M | $350M |\n| 3 | $150M | $500M |\n| 4 | $125M | $625M |\n| 5 | $125M | $750M |\n\nFront-load slightly in Years 1-2 to build the program faster, then moderate as existing commitments are drawn.\n\n**B) Vintage Year and Strategy Diversification:**\n\nExisting: PE buyout (2 funds), real estate (1 fund). Heavily concentrated in buyout and lacking diversification.\n\nProposed 5-year commitment allocation:\n\n| Strategy | % of New Commitments | Amount | Rationale |\n|---|---|---|---|\n| PE buyout | 25% | $187.5M | Core allocation, add 2-3 new managers |\n| Growth equity | 10% | $75M | Lower risk than VC, complements buyout |\n| Venture capital | 10% | $75M | High return potential, portfolio diversification |\n| Private credit | 20% | $150M | Current income, lower volatility |\n| Private real estate | 15% | $112.5M | Add to existing; diversify property types |\n| Infrastructure | 15% | $112.5M | Inflation protection, stable cash flows |\n| Natural resources | 5% | $37.5M | Inflation hedge, ESG-aligned (renewables) |\n\nVintage diversification: Commit to 4-6 new funds annually across strategies, ensuring no single vintage year exceeds 25% of total commitments.\n\nManager diversification: Target 15-20 GP relationships across strategies, with no single GP exceeding 10% of total commitments.\n\n**C) Liquidity Requirements:**\n\nCash flow projection ($ millions):\n\n| Year | Capital Calls | Distributions (existing) | Net Cash Flow |\n|---|---|---|---|\n| 1 | -$52M (30% of Y1 commit) | +$15M | -$37M |\n| 2 | -$96M (Y1 draw + Y2 draw) | +$25M | -$71M |\n| 3 | -$118M | +$50M | -$68M |\n| 4 | -$105M | +$80M | -$25M |\n| 5 | -$85M | +$110M | +$25M |\n\nPeak cash outflow: Year 2-3 (~$70M annual net outflow)\nSteady state: Year 5+ (cash flow neutral to positive)\n\nLiquidity sources:\n1. Public portfolio rebalancing: Redirect equity/bond profits to fund private markets calls\n2. Capital call credit facility: $50M revolving credit line for timing mismatches\n3. Secondary sales: Option to sell older fund positions if liquidity is needed\n\nLiquidity buffer: Maintain $100M in liquid assets (2% of total portfolio) above normal operating needs to fund unexpected capital calls.\n\n**D) Benchmarking Framework:**\n\n1. **Fund-level**: Compare each fund's IRR, MOIC, DPI to vintage-year peer medians from Cambridge Associates or Preqin benchmarks.\n\n2. **Program-level PME**: Calculate PME against a blended benchmark:\n   - PE: MSCI World + 300 bps (illiquidity premium target)\n   - Private credit: Credit Suisse Leveraged Loan Index + 200 bps\n   - Real estate: NCREIF Property Index\n   - Infrastructure: CPI + 500 bps (real return target)\n\n3. **Direct alpha calculation**: Annualized excess return over PME for each strategy and overall.\n\n4. **Reporting cadence**: Quarterly NAV updates, annual deep-dive performance review, 3-year rolling PME assessment.\n\n5. **Adjustments**: Flag IRR inflation from subscription credit facilities. Report both 'with facility' and 'without facility' IRRs for each fund."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Markets Portfolio Construction Practice",
+      "problems": [
+        {
+          "id": "l3-mk7-1",
+          "question": "A PE fund with a subscription credit facility reports an IRR of 22%. Without the facility (measuring from LP cash flows only), the IRR is 17%. The facility's impact on reported performance is best described as:",
+          "options": [
+            "A) It creates genuine additional return through lower financing costs",
+            "B) It artificially inflates IRR by shortening the measurement period between capital outflow and investment return",
+            "C) It has no effect on MOIC, only on IRR"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Subscription credit facilities (capital call lines) delay capital calls from LPs. Instead of calling LP capital at deal signing, the GP borrows from the credit line and calls LP capital later. This shortens the time LPs' capital is 'at work,' inflating IRR (which is time-sensitive) by 3-7% on average. Option A is misleading -- the facility cost is typically passed to the fund, reducing net return slightly. Option C is actually true (MOIC is unaffected since it measures total dollars, not timing) but misses the key issue that IRR inflation is misleading and is NOT the 'best description.' The correct answer is B because it identifies the mechanism: shortened measurement period artificially boosts the time-weighted return metric.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Identify the impact of subscription credit facilities on PE performance metrics"
+        },
+        {
+          "id": "l3-mk7-2",
+          "question": "During a public equity market decline of 30%, a pension fund's private markets allocation (marked at prior quarter NAV) increases from 12% to 16% of the total portfolio. This 'denominator effect' most likely leads the pension fund to:",
+          "options": [
+            "A) Increase private markets commitments to capitalize on the attractive vintage",
+            "B) Reduce or pause new commitments because the allocation exceeds the target",
+            "C) Sell private fund interests on the secondary market to reduce the allocation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The denominator effect is a well-known problem: when public market values decline (reducing the total portfolio denominator), the private allocation percentage increases mechanically, even though the actual private NAV may also have declined (just not yet reflected in appraisals). Many pension fund policies require pausing new commitments when the allocation exceeds the target band. This is problematic because recession-period vintages historically produce the best PE returns. Option A is what rational investors should do but institutional constraints prevent it. Option C is possible but counterproductive (selling in a down market). The denominator effect is a significant impediment to optimal private markets investing.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe the denominator effect and its impact on commitment pacing"
+        },
+        {
+          "id": "l3-mk7-3",
+          "question": "A PE program has a PME of 1.15 against the S&P 500 and a direct alpha of 3.2% annualized. This indicates that:",
+          "options": [
+            "A) The PE program returned 15% more than the S&P 500 in total",
+            "B) Each dollar invested in PE would have needed to grow 15% more in the S&P 500 to match PE's cash-adjusted performance, with 3.2% annual excess return",
+            "C) The PE program's IRR was 3.2% higher than the S&P 500's total return"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A PME of 1.15 means that if the same cash flows (contributions and distributions) had been invested in the S&P 500, the PE portfolio would still have 15% more value. Direct alpha of 3.2% annualized means the PE program generated 3.2% per year above what the public market equivalent would have produced. Option A oversimplifies -- PME is not a simple return comparison but a cash-flow-adjusted comparison. Option C confuses direct alpha with a simple IRR comparison; the PE IRR is not simply the S&P return + 3.2% because the cash flow timing makes direct comparison invalid.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Interpret PME and direct alpha for private markets benchmarking"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the J-curve effect to an investment committee member who is concerned that their new PE allocation is showing negative returns after 18 months. Help them understand why this is expected and when they should actually become concerned."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the denominator effect create pro-cyclical behavior in private markets allocation?",
+        "Why is PME a better benchmark for private markets than simply comparing IRR to index returns?",
+        "What level of overcommitment is appropriate, and what happens if you commit too aggressively?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **J-curve**: Early negative returns from fees and conservative marking; expect positive returns by Year 3-5\n- **Vintage diversification**: Commit annually across cycles; reduces timing risk, smooths returns\n- **Commitment pacing**: Overcommit 1.3-1.8x target; front-load to build allocation\n- **Denominator effect**: Public market declines inflate private allocation %; may prevent optimal commitment timing\n- **Liquidity management**: Cash flow modeling, credit facilities, secondary market access\n- **PME**: Cash-flow-adjusted comparison to public market; PME > 1.0 means PE outperformed\n- **Direct alpha**: Annualized excess return over public market equivalent\n- **IRR inflation**: Subscription credit facilities artificially boost IRR; always check MOIC alongside"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "This completes the Private Markets Pathway content modules. The checkpoint ahead will test your integrated understanding across private equity, private debt, real estate, infrastructure, natural resources, special situations, and portfolio construction."
+    }
+  ]
+}

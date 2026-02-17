@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "AA.2: Forecasting Asset Class Returns",
+    "description": "Build expected return estimates for equities, fixed income, and real estate using structured frameworks including Grinold-Kroner and fixed-income building blocks.",
+    "level": "level-1",
+    "slug": "aa-forecasting-returns",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Asset Allocation"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If the current dividend yield on the S&P 500 is 1.5% and the 10-year Treasury yields 4.2%, what additional components would you need to build a complete expected equity return estimate?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Fixed-Income Return Building Blocks\n\nExpected fixed-income returns can be decomposed into building blocks:\n\n$$E(R_{FI}) = \\text{Short-term RF} + \\text{Term premium} + \\text{Credit premium} + \\text{Liquidity premium}$$\n\n### Components\n\n| Building Block | Source | Typical Range |\n|---|---|---|\n| **Short-term risk-free rate** | Current T-bill yield or policy rate expectations | 0-5% |\n| **Term premium** | Compensation for duration risk (yield curve slope) | 0-2% |\n| **Credit premium** | Compensation for default risk (spread \u00d7 (1 - expected loss)) | 0.5-4% |\n| **Liquidity premium** | Compensation for less liquid bonds | 0-1% |\n\n### Adjusting for the Rolldown Return\n\nFor a positively sloped yield curve, a bond \"rolls down\" the curve as it ages, generating capital gains if the curve stays unchanged:\n\n$$\\text{Rolldown return} \\approx (\\text{Yield at current maturity} - \\text{Yield at maturity minus horizon}) \\times \\text{Duration}$$\n\n### Credit Loss Adjustment\n\nThe full credit spread is **not** the expected premium:\n$$\\text{Expected credit premium} = \\text{Spread} - \\text{Expected default loss} - \\text{Credit migration premium}$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If the current 10-year Treasury yields 4.0% and the 10-year BBB corporate bond yields 5.5%, is the expected credit return premium 1.5%?",
+      "answer": "No. The 1.5% spread includes compensation for expected default losses and credit migration risk, not just the risk premium. The expected credit premium is the spread minus expected default losses minus a credit migration adjustment. If historical default losses on BBB bonds average ~0.3% annually, the expected premium might be closer to 1.0-1.1%, not the full 1.5% spread."
+    },
+    {
+      "type": "markdown",
+      "content": "## Equity Return Forecasting: The Grinold-Kroner Model\n\nThe **Grinold-Kroner model** decomposes expected equity returns into income, earnings growth, and repricing:\n\n$$E(R_e) = \\frac{D}{P} - \\Delta S + i + g + \\Delta\\frac{P}{E}$$\n\nWhere:\n- $D/P$ = expected dividend yield (current income)\n- $-\\Delta S$ = expected share repurchase yield (% reduction in shares outstanding; negative if dilution)\n- $i$ = expected inflation rate\n- $g$ = expected real earnings growth rate\n- $\\Delta(P/E)$ = expected repricing (change in valuation multiple)\n\n### Interpretation\n\n| Component | Category | Nature |\n|---|---|---|\n| $D/P - \\Delta S$ | **Income return** | Observable, relatively stable |\n| $i + g$ | **Nominal earnings growth** | Economic forecast |\n| $\\Delta(P/E)$ | **Repricing return** | Most uncertain, mean-reverts over time |\n\n### Example\n\n| Component | Estimate |\n|---|---|\n| Dividend yield ($D/P$) | 1.8% |\n| Share repurchase yield ($-\\Delta S$) | 1.5% |\n| Expected inflation ($i$) | 2.5% |\n| Real earnings growth ($g$) | 2.0% |\n| P/E repricing ($\\Delta P/E$) | -0.5% |\n| **Total expected equity return** | **7.3%** |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Real Estate and Alternative Asset Return Expectations\n\n### Real Estate Building Blocks\n\n$$E(R_{RE}) = \\text{Cap rate} + \\text{NOI growth rate} - \\text{Depreciation/capex drag}$$\n\n- **Cap rate** = NOI / Property value (income yield)\n- **NOI growth** \u2248 inflation + real rental growth\n- Adjust for capital expenditures needed to maintain property value\n\n### Emerging Market Adjustments\n\nForecasting EM returns adds complexity:\n- Higher political and regulatory risk premiums\n- Currency risk and capital flow volatility\n- Less reliable data (shorter histories, structural breaks)\n- Greater market segmentation (higher Singer-Terhaar premiums)\n- Contagion risk during global stress events\n\n## Volatility and Correlation Forecasting\n\n### Volatility Forecasting\n\n**EWMA (Exponentially Weighted Moving Average)**:\n$$\\sigma_t^2 = \\lambda \\sigma_{t-1}^2 + (1-\\lambda) r_{t-1}^2$$\n\nWhere $\\lambda$ = decay factor (commonly 0.94 for daily data). Recent observations get more weight.\n\n**GARCH(1,1) concept**: Adds mean reversion:\n$$\\sigma_t^2 = \\omega + \\alpha r_{t-1}^2 + \\beta \\sigma_{t-1}^2$$\n\nWhere $\\omega/(1-\\alpha-\\beta)$ = long-run variance. GARCH captures **volatility clustering** and mean reversion to long-run volatility.\n\n### Correlation Forecasting\n\n- Correlations are **not stable** \u2014 they increase during crises\n- Use conditional correlation models or regime-switching approaches\n- Key for portfolio diversification assumptions"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Building Expected Return Estimates",
+      "solution": "**Part A \u2014 Grinold-Kroner equity return estimate:**\n\nE(R) = D/P \u2212 \u0394S + i + g + \u0394(P/E)\n\n- Dividend yield: 2.0%\n- Share repurchase yield: 2.2% (net repurchases increase per-share value)\n- Inflation: 2.5%\n- Real earnings growth: 1.8%\n- P/E repricing: \u22120.8% (from CAPE 28 toward long-run mean of ~22)\n\nE(R) = 2.0% + 2.2% + 2.5% + 1.8% + (\u22120.8%) = **7.7%**\n\n**Part B \u2014 Fixed-income return estimate:**\n\nExpected return = Short-term RF + Term premium + Credit premium + Liquidity premium\n\n- Short-term risk-free rate: 3.8%\n- Term premium (10-year vs. T-bill): 1.0%\n- Credit premium: Spread of 1.8% \u2212 expected default loss of 0.25% \u2212 credit migration of 0.15% = 1.40%\n- Liquidity premium: 0.2%\n\nE(R) = 3.8% + 1.0% + 1.40% + 0.2% = **6.4%**\n\n**Part C \u2014 Comparison and recommendation:**\n\nThe equity risk premium implied by these estimates is 7.7% \u2212 6.4% = 1.3%, which is well below the historical average of ~4-5%. This suggests either:\n1. Equities are richly valued (the negative P/E repricing reflects this)\n2. The current fixed-income yield is historically elevated\n3. The expected equity premium is compressed\n\nRecommendation: The low implied ERP suggests a more conservative equity allocation than historical norms would dictate. However, the repricing component is the least reliable \u2014 if the economy avoids recession and earnings growth exceeds expectations, the realized ERP could be higher. Sensitivity analysis across scenarios is essential."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Forecasting Returns Practice",
+      "problems": [
+        {
+          "id": "l3-aa2-1",
+          "question": "Using the Grinold-Kroner model with the following inputs \u2014 dividend yield: 1.6%, share repurchase yield: 1.8%, expected inflation: 2.2%, real earnings growth: 2.5%, and expected P/E repricing: \u22120.3% \u2014 the expected nominal equity return is closest to:",
+          "options": [
+            "A) 7.5%",
+            "B) 7.8%",
+            "C) 8.1%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "E(R) = D/P \u2212 \u0394S + i + g + \u0394(P/E) = 1.6% + 1.8% + 2.2% + 2.5% + (\u22120.3%) = 7.8%. The income return component (D/P + repurchases = 3.4%) is the most stable. Nominal earnings growth (i + g = 4.7%) is the economic forecast. Repricing (\u22120.3%) reflects a modest expected valuation compression.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Calculate expected equity returns using the Grinold-Kroner model"
+        },
+        {
+          "id": "l3-aa2-2",
+          "question": "A portfolio manager is building fixed-income return expectations. The current short-term rate is 4.0%, the term premium for 10-year bonds is estimated at 0.8%, and the credit spread on investment-grade bonds is 1.5%. If the expected annual default loss is 0.20% and credit migration cost is 0.10%, the expected return on IG bonds is closest to:",
+          "options": [
+            "A) 5.5%",
+            "B) 6.0%",
+            "C) 6.3%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Expected return = Short-term RF + Term premium + (Credit spread \u2212 Default loss \u2212 Migration cost) = 4.0% + 0.8% + (1.5% \u2212 0.20% \u2212 0.10%) = 4.0% + 0.8% + 1.20% = 6.0%. The key insight is that the full credit spread overstates the expected premium \u2014 you must subtract expected default losses and credit migration costs.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Estimate expected fixed-income returns using building blocks"
+        },
+        {
+          "id": "l3-aa2-3",
+          "question": "Compared to a simple historical moving average of volatility, the EWMA model is most likely to:",
+          "options": [
+            "A) React more slowly to recent market shocks",
+            "B) Place equal weight on all past observations",
+            "C) Capture volatility clustering by weighting recent observations more heavily"
+          ],
+          "correctAnswer": "C",
+          "explanation": "EWMA places exponentially declining weights on past observations, giving the most weight to recent data. This captures volatility clustering \u2014 periods of high volatility tend to be followed by high volatility, and vice versa. A simple moving average (A, B) gives equal weight to all observations in the window, making it slower to react to changes in the volatility regime.",
+          "difficulty": "basic",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe approaches to volatility forecasting"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Walk through the Grinold-Kroner model as if presenting it to an investment committee. Explain each component, what drives it, and which components carry the most uncertainty in your estimates."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which component of the Grinold-Kroner model do you think is hardest to forecast accurately?",
+        "How would your fixed-income return expectations change in a rising vs. falling rate environment?",
+        "Why do correlations tend to increase during market crises, and what does this imply for diversification assumptions?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- **Grinold-Kroner**: E(R) = D/P \u2212 \u0394S + i + g + \u0394(P/E)\n  - Income return + Earnings growth + Repricing\n- **Fixed-income building blocks**: RF + Term premium + Credit premium + Liquidity premium\n  - Credit premium = Spread \u2212 Expected default loss \u2212 Credit migration\n- **Real estate**: Cap rate + NOI growth \u2212 Depreciation/capex drag\n- **EWMA**: \u03c3\u00b2t = \u03bb\u03c3\u00b2t\u208b\u2081 + (1\u2212\u03bb)r\u00b2t\u208b\u2081 \u2014 weights recent data more\n- **GARCH**: Adds mean reversion to long-run volatility\n- Correlations are unstable and tend to increase in stress periods"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "With return expectations in hand, the next module covers **Overview of Asset Allocation** \u2014 how to translate these CMEs into actual portfolio allocations using asset-only, liability-relative, and goals-based frameworks."
+    }
+  ]
+}

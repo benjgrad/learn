@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "QM.6: Simulation Methods",
+    "description": "Describe Monte Carlo simulation, historical simulation, and bootstrap resampling. Understand their applications and limitations in investment analysis.",
+    "level": "level-1",
+    "slug": "quant-simulation-methods",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Suppose you want to estimate the probability that a retirement portfolio runs out of money over 30 years. Analytical formulas are too complex because of varying returns, inflation, and withdrawals. How might you approach this problem?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Monte Carlo Simulation\n\nMonte Carlo simulation uses **random number generation** to model uncertain outcomes. It is especially useful when analytical solutions are too complex or impossible.\n\n### Steps in Monte Carlo Simulation\n\n1. **Specify the model**: Define the probability distributions for key risk factors (e.g., returns are normally distributed with $\\mu = 8\\%$, $\\sigma = 15\\%$)\n2. **Generate random draws**: Use a random number generator to produce thousands of scenarios from the specified distributions\n3. **Calculate outcomes**: For each scenario, compute the result (e.g., portfolio value, option price, funding ratio)\n4. **Analyze the distribution**: Examine the distribution of outcomes to estimate probabilities, expected values, and risk measures\n\n### Applications in Finance\n\n- **Value at Risk (VaR)**: Estimate the maximum loss at a given confidence level\n- **Option pricing**: Particularly for complex, path-dependent options\n- **Retirement planning**: Model the range of possible outcomes under different withdrawal rates\n- **Asset-liability management**: Simulate pension fund surplus/deficit under various scenarios\n- **Risk budgeting**: Allocate risk across multiple strategies\n\n### Example\n\nTo estimate VaR for a portfolio: generate 10,000 random return scenarios, compute the portfolio value under each, sort from worst to best, and identify the 5th percentile outcome (for 95% VaR)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why does Monte Carlo simulation require specifying probability distributions for inputs? What happens if the assumed distributions are wrong?",
+      "answer": "Monte Carlo generates random scenarios from the specified distributions, so the quality of the output depends entirely on the quality of the input assumptions. If distributions are misspecified (e.g., assuming normal returns when actual returns are fat-tailed), the simulation will underestimate tail risks. This is 'garbage in, garbage out' \u2014 a key limitation of Monte Carlo methods."
+    },
+    {
+      "type": "markdown",
+      "content": "## Historical Simulation\n\nHistorical simulation uses **actual past data** rather than assumed distributions to generate scenarios.\n\n### Method\n\n1. Collect historical return data for each risk factor\n2. Apply each historical observation to the current portfolio\n3. Compute the portfolio outcome for each historical scenario\n4. Analyze the distribution of outcomes\n\n### Advantages over Monte Carlo\n\n- **No distribution assumptions**: Uses actual observed data, capturing real-world features like fat tails, skewness, and non-linear relationships\n- **Simpler implementation**: No need to estimate distribution parameters\n- **Captures correlations naturally**: Historical data preserves the actual correlation structure between assets\n\n### Disadvantages\n\n- **Limited by history**: Can only model what has actually occurred \u2014 misses \"unprecedented\" events\n- **Assumes the past repeats**: The implicit assumption that future risk resembles past risk may not hold during structural changes\n- **Sample size constraints**: Short histories produce unreliable estimates, especially for tail events\n- **Equal weighting**: All historical observations are treated equally, though recent data may be more relevant"
+    },
+    {
+      "type": "markdown",
+      "content": "## Bootstrap Resampling\n\nBootstrap resampling is a statistical technique that creates new samples by **randomly drawing observations (with replacement)** from the original dataset.\n\n### Process\n\n1. Start with a sample of $n$ observations\n2. Randomly draw $n$ observations **with replacement** to create a bootstrap sample (some observations will appear more than once, others not at all)\n3. Calculate the statistic of interest (mean, standard deviation, etc.) on the bootstrap sample\n4. Repeat steps 2-3 thousands of times\n5. The distribution of bootstrap statistics approximates the sampling distribution\n\n### Key Features\n\n- \"With replacement\" means each observation can be selected multiple times in a single bootstrap sample\n- Does not require assumptions about the underlying distribution\n- Useful for constructing **confidence intervals** when analytical formulas are unavailable\n- Can assess the reliability of any sample statistic\n\n### Comparison of Simulation Methods\n\n| Feature | Monte Carlo | Historical | Bootstrap |\n|---|---|---|---|\n| Distribution needed? | Yes | No | No |\n| Data source | Generated | Actual | Resampled |\n| Captures non-normality | Only if specified | Yes | Yes |\n| Can model new extremes | Yes | No | No |\n| Preserves time ordering | Optional | Yes | No |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A pension fund manager wants to estimate the probability that the fund's assets fall below its liabilities over a 10-year horizon. The fund holds stocks and bonds, and both return distributions are fat-tailed. Describe which simulation method you would recommend and outline the steps you would follow.",
+      "solution": "**Recommended approach: Monte Carlo simulation with fat-tailed distributions**\n\nRationale: The 10-year horizon requires projecting forward, which historical simulation cannot do well (we don't have enough independent 10-year periods). Bootstrap resampling loses the time-series structure. Monte Carlo allows us to model the full forward path.\n\n**Steps:**\n\n1. **Specify distributions**: Use Student's t-distributions (not normal) for stock and bond returns to capture fat tails. Estimate parameters from historical data: means, standard deviations, degrees of freedom, and the correlation matrix.\n\n2. **Model the liability side**: Specify how liabilities grow over time (e.g., a discount rate linked to bond yields).\n\n3. **Generate correlated random returns**: For each of 10,000 trials, generate 10 years of correlated stock and bond returns using Cholesky decomposition to preserve the correlation structure.\n\n4. **Simulate each path**: For each trial, compute the year-by-year asset value (applying returns, contributions, and benefit payments) and the liability value.\n\n5. **Record whether assets < liabilities**: At the end of each 10-year path, record the funding ratio.\n\n6. **Analyze results**: The proportion of trials where assets < liabilities estimates the underfunding probability. Also examine the distribution of funding ratios for percentile analysis.\n\n**Key consideration**: Sensitivity test the results by varying the assumed distributions and correlation parameters."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Simulation Methods Practice Problems",
+      "problems": [
+        {
+          "id": "qm6-1",
+          "question": "The first step in a Monte Carlo simulation is to:",
+          "options": [
+            "A) Generate random numbers",
+            "B) Specify the probability distributions for key risk factors",
+            "C) Calculate the output for each scenario"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The first step is to specify the model, including the probability distributions for the input variables. Random number generation (Option A) comes second \u2014 you need to know what distributions to draw from. Calculating outputs (Option C) comes after generating the scenarios.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe the steps in Monte Carlo simulation"
+        },
+        {
+          "id": "qm6-2",
+          "question": "Compared to Monte Carlo simulation, a key advantage of historical simulation is that it:",
+          "options": [
+            "A) Can model unprecedented extreme events",
+            "B) Does not require assumptions about the probability distributions of risk factors",
+            "C) Produces results that are independent of sample size"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Historical simulation uses actual data, so no distribution assumptions are needed. It naturally captures fat tails, skewness, and real correlations. Option A is incorrect \u2014 historical simulation can only reproduce events that have actually occurred; Monte Carlo can model unprecedented events if the distribution allows. Option C is incorrect \u2014 historical simulation is highly dependent on sample size; short histories produce unreliable estimates.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Compare advantages of historical simulation vs Monte Carlo"
+        },
+        {
+          "id": "qm6-3",
+          "question": "In bootstrap resampling, 'with replacement' means that:",
+          "options": [
+            "A) Each observation can appear at most once in a bootstrap sample",
+            "B) Each observation can appear multiple times in a single bootstrap sample",
+            "C) Observations are replaced with simulated values"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Sampling with replacement means that after drawing an observation, it is 'replaced' in the pool and can be drawn again. A bootstrap sample of n observations may include some original observations multiple times while omitting others entirely. Option A describes sampling without replacement. Option C confuses replacement with substitution \u2014 bootstrap uses the original data, not simulated values.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe the bootstrap resampling process"
+        },
+        {
+          "id": "qm6-4",
+          "question": "An analyst uses Monte Carlo simulation with normally distributed returns to estimate portfolio VaR. The primary limitation of this approach is that:",
+          "options": [
+            "A) The simulation can only produce a finite number of scenarios",
+            "B) Normal distributions may understate the probability of extreme losses",
+            "C) Monte Carlo simulation cannot handle multiple assets"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Financial returns are typically leptokurtic (fat-tailed), meaning extreme outcomes occur more frequently than a normal distribution predicts. Assuming normality will underestimate tail risk, leading to a VaR that is too low. Option A is a practical limitation but not the primary concern \u2014 modern computers can run millions of simulations. Option C is incorrect \u2014 Monte Carlo handles multi-asset portfolios using correlated random draws.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe limitations of Monte Carlo simulation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain Monte Carlo simulation to someone who has never heard of it. Use a practical example (like estimating how much money you need for retirement) to illustrate why running thousands of random scenarios is more useful than a single 'average case' projection."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is Monte Carlo simulation sometimes called a 'brute force' approach? When is brute force appropriate?",
+        "How would you decide between Monte Carlo and historical simulation for a specific risk management problem?",
+        "What are the dangers of relying on any simulation method that assumes the future resembles the past?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Monte Carlo**: Generates random scenarios from specified distributions; can model any scenario but requires distribution assumptions (\"garbage in, garbage out\")\n- **Historical simulation**: Uses actual past returns; no distribution assumptions but limited by what has actually occurred\n- **Bootstrap resampling**: Draws with replacement from actual data to estimate sampling distributions; no distribution assumptions\n- Monte Carlo steps: specify distributions \u2192 generate random draws \u2192 compute outcomes \u2192 analyze results\n- Key limitation of all methods: output quality depends on input quality\n- Historical/bootstrap cannot model unprecedented events; Monte Carlo can\n- Financial returns are fat-tailed \u2014 assuming normality understates tail risk"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Estimation and Inference**, where you will learn to make formal statistical statements about population parameters from sample data. Concepts like confidence intervals and standard error provide the statistical foundation that underlies the simulation results you analyzed here."
+    }
+  ]
+}

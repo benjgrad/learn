@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "CORP.2: ESG Considerations",
+    "description": "Understand ESG integration approaches, materiality assessment, ESG ratings, greenwashing, impact investing, and sustainability reporting frameworks (TCFD, SASB, GRI).",
+    "level": "level-4",
+    "slug": "corp-esg-considerations",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two companies in the same industry have nearly identical financial metrics, but one has significantly better ESG ratings. Should an analyst expect their costs of capital to differ? If so, why and in which direction?"
+    },
+    {
+      "type": "markdown",
+      "content": "## ESG Integration Approaches\n\nESG (Environmental, Social, Governance) factors are increasingly material to investment analysis. Integration approaches range from passive screening to active engagement.\n\n### Integration Spectrum\n\n| Approach | Description | Example |\n|---|---|---|\n| **Negative/exclusionary screening** | Exclude sectors or companies that violate criteria | No tobacco, weapons, fossil fuels |\n| **Positive/best-in-class screening** | Invest in ESG leaders within each sector | Top-quartile ESG scores per industry |\n| **ESG integration** | Systematically include ESG factors in financial analysis | Adjust DCF assumptions for climate risk |\n| **Thematic investing** | Focus on specific ESG themes | Clean energy, water scarcity, gender diversity |\n| **Impact investing** | Target measurable social/environmental outcomes alongside financial returns | Microfinance, affordable housing |\n| **Active ownership/engagement** | Use shareholder rights to influence corporate behavior | Proxy voting, direct engagement with management |\n\n### How ESG Affects Valuation\n\nESG factors can affect valuation through:\n- **Revenue**: consumer preferences, regulatory requirements, market access\n- **Costs**: resource efficiency, waste reduction, employee productivity\n- **Risk premium**: lower ESG risk \u2192 lower cost of capital (both debt and equity)\n- **Asset values**: stranded assets (fossil fuel reserves), environmental liabilities\n- **Growth opportunities**: green products, sustainable markets"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A coal mining company has a low ESG score but trades at a high dividend yield of 12%. Does the high yield indicate the stock is undervalued?",
+      "answer": "Not necessarily. The high dividend yield likely reflects a high risk premium \u2014 the market is pricing in elevated risks including regulatory risk (carbon taxes, mine closures), stranded asset risk (coal reserves may become uneconomic), declining demand, environmental liabilities (cleanup costs), and social license to operate risks. The high yield may actually indicate the stock is fairly valued or even overvalued given the risks. A low ESG score in a declining industry often signals higher cost of equity and declining terminal value, not a value opportunity."
+    },
+    {
+      "type": "markdown",
+      "content": "## Materiality Assessment and ESG Data\n\n### Materiality\n\n**Financial materiality**: ESG issues that are reasonably likely to affect a company's financial condition or operating performance. Materiality varies by industry:\n\n| Industry | Likely Material ESG Issues |\n|---|---|\n| Oil & Gas | Carbon emissions, spill risk, reserves transition, community relations |\n| Technology | Data privacy, cybersecurity, labor practices, supply chain ethics |\n| Banking | Governance, lending practices, financial inclusion, AML compliance |\n| Retail | Supply chain labor, packaging waste, product safety |\n| Pharma | Drug pricing, clinical trial ethics, product safety, access to medicine |\n\n### ESG Ratings and Data Providers\n\nMajor ESG rating agencies include MSCI ESG, Sustainalytics, S&P Global ESG, ISS ESG, and CDP.\n\n**Key challenges with ESG data:**\n- **Low correlation** between different raters (as low as 0.4-0.6 vs ~0.99 for credit ratings)\n- Different methodologies, weightings, and scopes\n- **Self-reported data** without standardized audit requirements\n- **Backward-looking**: ratings reflect past performance, not future trajectory\n- **Size bias**: larger companies score better (more resources for reporting)\n\n### Greenwashing\n\nGreenwashing occurs when companies or funds overstate their ESG credentials. Red flags:\n- Vague commitments without measurable targets\n- Highlighting minor green initiatives while ignoring core business impacts\n- ESG fund labels with minimal actual screening\n- Net-zero pledges relying on unproven offsets"
+    },
+    {
+      "type": "markdown",
+      "content": "## Sustainability Reporting Frameworks\n\n### Key Frameworks\n\n| Framework | Focus | Audience | Key Features |\n|---|---|---|---|\n| **TCFD** (Task Force on Climate-Related Financial Disclosures) | Climate risk | Investors, lenders | Governance, strategy, risk management, metrics/targets; scenario analysis |\n| **SASB** (Sustainability Accounting Standards Board) | Industry-specific financial materiality | Investors | 77 industry-specific standards; financially material topics |\n| **GRI** (Global Reporting Initiative) | Broad stakeholder impact | All stakeholders | Comprehensive; double materiality (financial + impact) |\n| **ISSB** (International Sustainability Standards Board) | Global baseline for sustainability disclosure | Investors | IFRS S1 (general) and S2 (climate); consolidates TCFD and SASB |\n\n### TCFD Pillars\n\n1. **Governance**: Board and management oversight of climate risks\n2. **Strategy**: Climate risks/opportunities and their impact on business\n3. **Risk management**: How climate risks are identified, assessed, and managed\n4. **Metrics and targets**: Metrics used to assess climate risks; GHG emissions (Scope 1, 2, 3)\n\n### Scope 1, 2, and 3 Emissions\n\n- **Scope 1**: Direct emissions from owned/controlled sources\n- **Scope 2**: Indirect emissions from purchased energy\n- **Scope 3**: All other indirect emissions (supply chain, product use, employee commuting)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "ESG Integration in Valuation",
+      "solution": "You are valuing two utility companies using a DCF model:\n\nUtility A: Traditional coal-heavy generation (70% coal)\n- Current FCFE: $500M\n- ESG risk: High carbon exposure, pending regulations\n\nUtility B: Transitioning to renewables (40% coal, declining)\n- Current FCFE: $450M\n- ESG risk: Moderate and improving\n\nESG-adjusted DCF considerations:\n\n1. Cost of equity adjustment:\n- Utility A: Add 150bp ESG risk premium \u2192 r_e = 10.5%\n- Utility B: Add 50bp ESG risk premium \u2192 r_e = 9.5%\n\n2. Growth rate adjustment:\n- Utility A: Potential carbon tax of $50/ton \u2192 FCFE decline of $80M/year within 5 years\n- Utility B: Renewable transition creates growth opportunity \u2192 higher terminal growth\n\n3. Stranded asset risk:\n- Utility A: Coal plants may require early retirement ($2B write-down risk)\n- Utility B: Renewable assets have longer useful lives\n\n4. Terminal value:\n- Utility A: Lower terminal growth (1%) given declining industry relevance\n- Utility B: Higher terminal growth (2.5%) given renewable tailwinds\n\nDespite Utility A's higher current FCFE, the ESG-adjusted DCF may show Utility B is worth more, because lower risk premium, higher growth, and no stranded asset risk create a significantly higher present value of future cash flows."
+    },
+    {
+      "type": "practiceSet",
+      "title": "ESG Considerations Practice",
+      "problems": [
+        {
+          "id": "corp-esg-1",
+          "vignette": "Anna Petrov, CFA, manages a multi-strategy equity fund and is evaluating how to integrate ESG into her investment process. She reviews ESG ratings for ChemCorp from three different providers:\n\n| Provider | Rating | Ranking |\n|---|---|---|\n| Provider X | AAA (Leader) | Top 5% of industry |\n| Provider Y | 35/100 (Medium Risk) | 55th percentile |\n| Provider Z | C (Laggard) | Bottom 20% |\n\nPetrov's analyst suggests simply averaging the three ratings.",
+          "question": "Petrov's most appropriate response to the averaging suggestion is:",
+          "options": [
+            "A) Agree \u2014 averaging reduces noise in individual ratings",
+            "B) Disagree \u2014 the low correlation between ESG raters means averaging masks fundamental disagreements in methodology; Petrov should examine each rating's methodology and focus on financially material factors",
+            "C) Disagree \u2014 she should only use the rating from the most reputable provider"
+          ],
+          "correctAnswer": "B",
+          "explanation": "ESG ratings from different providers frequently disagree (correlations of 0.4-0.6) because they use different methodologies, scopes, and weightings. Provider X may emphasize governance (where ChemCorp excels), while Provider Z may weight environmental impact heavily (where ChemCorp lags). Averaging would create a meaningless composite that hides these material disagreements. The correct approach is to understand each methodology, identify which factors are financially material for the chemical industry (likely environmental risk, safety, regulatory exposure), and form an independent judgment. Option A treats ESG ratings like credit ratings, which have much higher inter-rater agreement. Option C arbitrarily assumes one provider is superior.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate the limitations of ESG ratings and data"
+        },
+        {
+          "id": "corp-esg-2",
+          "vignette": "Anna Petrov, CFA, is also reviewing Green Growth Fund, which markets itself as an ESG-focused investment product. The fund's marketing materials state: 'We invest exclusively in companies committed to sustainability.' Upon examination, Petrov finds:\n\n- The fund holds positions in several fossil fuel companies\n- Screening criteria exclude only companies with >75% revenue from thermal coal\n- No engagement policy or proxy voting guidelines on ESG issues\n- 'Sustainability' is not defined in the fund prospectus\n- Performance fee structure incentivizes short-term returns",
+          "question": "Based on her analysis, Petrov should conclude that Green Growth Fund most likely represents:",
+          "options": [
+            "A) A legitimate ESG integration strategy with a pragmatic approach to exclusions",
+            "B) An example of greenwashing \u2014 the sustainability claims are not supported by meaningful screening, engagement, or defined criteria",
+            "C) A best-in-class screening approach that selects ESG leaders within each sector"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Multiple red flags indicate greenwashing: (1) Vague, undefined sustainability claims in marketing ('committed to sustainability' without definition). (2) Minimal exclusionary screening (only >75% thermal coal revenue \u2014 a very narrow screen). (3) No active engagement or proxy voting policy \u2014 no mechanism to influence company behavior. (4) Fossil fuel holdings contradict the sustainability marketing message. (5) Short-term incentive structure is inconsistent with long-term ESG goals. This is a fund capitalizing on ESG demand without substantive ESG integration. Option A is too charitable given the evidence. Option C requires systematic selection of ESG leaders, which is not demonstrated.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify characteristics of greenwashing in investment products"
+        },
+        {
+          "id": "corp-esg-3",
+          "vignette": "Michael Torres, CFA, is advising a manufacturing company on its sustainability reporting. The company operates in multiple jurisdictions and currently provides only a basic sustainability section in its annual report. Torres is asked to recommend a reporting framework.\n\nThe company's primary concerns are:\n- Satisfying institutional investor demands for climate-related disclosures\n- Meeting emerging regulatory requirements in the EU and UK\n- Providing industry-specific financially material ESG metrics\n- Minimizing reporting burden while maximizing investor relevance",
+          "question": "The most appropriate primary framework recommendation for Torres is:",
+          "options": [
+            "A) GRI Standards, because they provide the most comprehensive stakeholder coverage",
+            "B) ISSB Standards (IFRS S1 and S2), because they consolidate TCFD and SASB, meet regulatory requirements, and focus on investor-relevant sustainability disclosures",
+            "C) An internally developed framework to minimize compliance costs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "ISSB Standards are the most appropriate choice because they: (1) Build on and consolidate TCFD (climate disclosures) and SASB (industry-specific metrics), addressing the company's need for both. (2) Are being adopted as the regulatory baseline in many jurisdictions, including the UK and EU (with ESRS alignment). (3) Focus on financial materiality \u2014 directly relevant to institutional investors. (4) Provide a single comprehensive framework rather than requiring compliance with multiple separate standards. GRI (Option A) is broader but focuses on double materiality (impact on the world), which may exceed what investors need and increases reporting burden. Option C would lack credibility and comparability with peers.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Recommend appropriate sustainability reporting frameworks"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a skeptical colleague why ESG analysis is relevant to fundamental financial analysis, not just 'values-based' investing. Use concrete examples of how environmental, social, and governance factors translate into financial risk and return, and explain why ESG rating disagreements between providers actually reinforce the need for independent analysis."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How would you distinguish between a company with genuine ESG improvement and one engaged in greenwashing?",
+        "Why do ESG ratings from different providers disagree so much more than credit ratings?",
+        "How should an analyst adjust their DCF model to incorporate material ESG risks?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- ESG integration spectrum: exclusion \u2192 best-in-class \u2192 full integration \u2192 impact investing\n- ESG affects valuation through revenue, costs, risk premium, asset values, and growth\n- **Materiality varies by industry** \u2014 focus on sector-specific ESG factors\n- ESG rating correlation is **low (0.4-0.6)** \u2014 always examine methodology, don't just accept scores\n- **Greenwashing red flags**: vague claims, minimal screening, no engagement, no defined criteria\n- Key frameworks: TCFD (climate), SASB (industry-specific), GRI (broad impact), ISSB (consolidating standard)\n- Scope 1/2/3 emissions: direct \u2192 purchased energy \u2192 supply chain and product use\n- Higher ESG risk \u2192 higher cost of capital \u2192 lower valuation (all else equal)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Mergers and Acquisitions**, where ESG considerations increasingly play a role \u2014 from due diligence on environmental liabilities to governance concerns about takeover defenses and management entrenchment."
+    }
+  ]
+}

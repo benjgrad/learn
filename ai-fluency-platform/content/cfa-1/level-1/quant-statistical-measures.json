@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "QM.3: Statistical Measures of Asset Returns",
+    "description": "Calculate and interpret measures of central tendency, dispersion, skewness, kurtosis, and risk-adjusted return metrics for investment analysis.",
+    "level": "level-1",
+    "slug": "quant-statistical-measures",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two funds both have an average annual return of 10%. Fund A's returns were 10%, 10%, 10%. Fund B's returns were -20%, 40%, 0%. Which fund would you prefer, and what additional statistics would help you decide?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Measures of Central Tendency\n\n### Mean\n\nThe **arithmetic mean** is the sum of values divided by the number of observations:\n\n$$\\bar{X} = \\frac{\\sum_{i=1}^{n} X_i}{n}$$\n\nThe **population mean** uses $\\mu$ and divides by $N$ (total population). The **sample mean** uses $\\bar{X}$ and divides by $n$ (sample size).\n\nThe **weighted mean** assigns different importance to observations:\n\n$$\\bar{X}_w = \\sum_{i=1}^{n} w_i X_i \\quad \\text{where } \\sum w_i = 1$$\n\nPortfolio return is a weighted mean of individual asset returns.\n\n### Median\n\nThe **median** is the middle value when data is sorted. For $n$ observations, the median is at position $(n+1)/2$. The median is robust to **outliers** and is preferred when data is skewed.\n\n### Mode\n\nThe **mode** is the most frequently occurring value. A distribution can be unimodal, bimodal, or have no mode. The mode is the only measure of central tendency applicable to **nominal data**.\n\n### Harmonic Mean\n\nUseful for averaging rates (like price-to-earnings ratios or dollar-cost averaging):\n\n$$\\bar{X}_H = \\frac{n}{\\sum_{i=1}^{n} \\frac{1}{X_i}}$$\n\nRelationship: Harmonic mean $\\leq$ Geometric mean $\\leq$ Arithmetic mean (with equality only when all values are identical)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A dataset has values: 2, 5, 7, 8, 8, 12, 50. Which measure of central tendency best represents this data, and why?",
+      "answer": "The median (8) is most appropriate. The mean (13.14) is distorted by the outlier (50). The mode (8) happens to coincide with the median here. When data contains outliers or is skewed, the median provides a more representative measure of the 'typical' value."
+    },
+    {
+      "type": "markdown",
+      "content": "## Measures of Dispersion\n\nDispersion measures quantify the **spread** or variability in a dataset.\n\n### Range\n\n$$\\text{Range} = X_{max} - X_{min}$$\n\nSimple but highly sensitive to outliers.\n\n### Mean Absolute Deviation (MAD)\n\n$$MAD = \\frac{\\sum_{i=1}^{n} |X_i - \\bar{X}|}{n}$$\n\nMAD is less affected by extreme values than variance because it uses absolute values rather than squares.\n\n### Population Variance and Standard Deviation\n\n$$\\sigma^2 = \\frac{\\sum_{i=1}^{N}(X_i - \\mu)^2}{N} \\qquad \\sigma = \\sqrt{\\sigma^2}$$\n\n### Sample Variance and Standard Deviation\n\n$$s^2 = \\frac{\\sum_{i=1}^{n}(X_i - \\bar{X})^2}{n-1} \\qquad s = \\sqrt{s^2}$$\n\nWe divide by $n-1$ (degrees of freedom) instead of $n$ to produce an **unbiased estimator** of the population variance. This is called **Bessel's correction**.\n\n### Percentiles and Quartiles\n\nThe **percentile** location formula: $L_p = (n + 1) \\times \\frac{p}{100}$\n\n- **Q1** (25th percentile): separates the bottom 25%\n- **Q2** (50th percentile): the median\n- **Q3** (75th percentile): separates the top 25%\n- **Interquartile range (IQR)**: $Q3 - Q1$, captures the middle 50% of data"
+    },
+    {
+      "type": "markdown",
+      "content": "## Skewness and Kurtosis\n\n### Skewness\n\nSkewness measures the **asymmetry** of a distribution.\n\n$$S_k = \\frac{n}{(n-1)(n-2)} \\sum \\left(\\frac{X_i - \\bar{X}}{s}\\right)^3$$\n\n| Skewness | Shape | Mean vs Median |\n|---|---|---|\n| $S_k = 0$ | Symmetric | Mean = Median = Mode |\n| $S_k > 0$ | Right (positive) skew | Mean > Median > Mode |\n| $S_k < 0$ | Left (negative) skew | Mean < Median < Mode |\n\nStock returns typically exhibit **negative skewness**: large losses (left tail) occur more frequently than a normal distribution would predict.\n\n### Kurtosis\n\nKurtosis measures the **thickness of tails** and peakedness.\n\n$$K = \\frac{n(n+1)}{(n-1)(n-2)(n-3)} \\sum \\left(\\frac{X_i - \\bar{X}}{s}\\right)^4$$\n\n- **Mesokurtic**: $K = 3$ (or excess kurtosis = 0) \u2014 normal distribution\n- **Leptokurtic**: $K > 3$ \u2014 fat tails, more extreme outcomes than normal\n- **Platykurtic**: $K < 3$ \u2014 thin tails, fewer extreme outcomes\n\n**Excess kurtosis** = $K - 3$. Most financial return distributions are **leptokurtic**, meaning extreme returns (both gains and losses) occur more often than predicted by a normal distribution.\n\n## Risk-Adjusted Return Measures\n\n### Coefficient of Variation (CV)\n\n$$CV = \\frac{s}{\\bar{X}}$$\n\nCV measures **risk per unit of return**. Lower CV = better risk-return tradeoff. Useful for comparing investments with different expected returns.\n\n### Sharpe Ratio\n\n$$\\text{Sharpe Ratio} = \\frac{R_p - R_f}{\\sigma_p}$$\n\nThe Sharpe ratio measures **excess return per unit of total risk**. Higher is better. $R_f$ is the risk-free rate and $\\sigma_p$ is the standard deviation of portfolio returns."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio has annual returns over 5 years: 12%, -5%, 18%, 8%, 2%. Calculate the sample mean, sample standard deviation, and Sharpe ratio (assume risk-free rate = 3%).",
+      "solution": "**Sample Mean:**\n\n$\\bar{X} = (12 + (-5) + 18 + 8 + 2) / 5 = 35/5 = 7\\%$\n\n**Sample Variance:**\n\nDeviations from mean: 5, -12, 11, 1, -5\n\nSquared deviations: 25, 144, 121, 1, 25\n\nSum of squared deviations: 316\n\n$s^2 = 316 / (5-1) = 316/4 = 79$\n\n**Sample Standard Deviation:**\n\n$s = \\sqrt{79} = 8.888\\%$\n\n**Sharpe Ratio:**\n\n$SR = (7\\% - 3\\%) / 8.888\\% = 4\\% / 8.888\\% = 0.45$\n\nInterpretation: The portfolio earned 0.45% of excess return per unit of risk. Whether this is attractive depends on comparison with alternative investments."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Statistical Measures Practice Problems",
+      "problems": [
+        {
+          "id": "qm3-1",
+          "question": "A sample of annual returns is: 5%, 8%, 12%, 15%, 20%. The sample standard deviation is closest to:",
+          "options": [
+            "A) 5.70%",
+            "B) 5.10%",
+            "C) 6.04%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Mean = (5+8+12+15+20)/5 = 12%. Deviations: -7, -4, 0, 3, 8. Squared deviations: 49, 16, 0, 9, 64. Sum = 138. Sample variance = 138/4 = 34.5. s = sqrt(34.5) = 5.87%, closest to 5.70%. Option B (5.10%) divides by n=5 instead of n-1=4 (population SD = sqrt(27.6) = 5.25%). Option C (6.04%) adds a computational error.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate sample standard deviation"
+        },
+        {
+          "id": "qm3-2",
+          "question": "A distribution has a mean of 10, a median of 12, and a mode of 14. This distribution is most likely:",
+          "options": [
+            "A) Positively skewed",
+            "B) Negatively skewed",
+            "C) Symmetric"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When mean < median < mode, the distribution is negatively (left) skewed. The left tail is longer, pulling the mean below the median. Option A (positively skewed) would have mean > median > mode. Option C (symmetric) would have mean = median = mode.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe and interpret skewness"
+        },
+        {
+          "id": "qm3-3",
+          "question": "Fund A has an expected return of 15% and standard deviation of 20%. Fund B has an expected return of 10% and standard deviation of 12%. Which fund has the better risk-return tradeoff using the coefficient of variation?",
+          "options": [
+            "A) Fund A (CV = 1.33)",
+            "B) Fund B (CV = 1.20)",
+            "C) Both are equal"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CV_A = 20%/15% = 1.33. CV_B = 12%/10% = 1.20. Lower CV means less risk per unit of return, so Fund B has a better risk-return tradeoff. Option A correctly calculates Fund A's CV but reaches the wrong conclusion (higher CV = worse). Option C ignores the different ratios.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate and interpret the coefficient of variation"
+        },
+        {
+          "id": "qm3-4",
+          "question": "A return distribution has excess kurtosis of 3.5. Compared to a normal distribution, this distribution most likely has:",
+          "options": [
+            "A) Thinner tails and a flatter peak",
+            "B) Fatter tails and more frequent extreme outcomes",
+            "C) The same tail behavior but a higher peak"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Positive excess kurtosis (leptokurtic) means fatter tails than a normal distribution, implying more frequent extreme outcomes (both large gains and large losses). Option A describes a platykurtic distribution (negative excess kurtosis). Option C incorrectly separates peak and tail behavior \u2014 in practice, leptokurtic distributions have both fatter tails and a higher peak.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Describe and interpret kurtosis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why dividing by (n-1) instead of n when calculating sample variance produces a better estimate of the true population variance. What problem does Bessel's correction solve?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is it important that financial return distributions are typically leptokurtic and negatively skewed? How should this affect risk management?",
+        "In what situations would the Sharpe ratio be misleading as a performance measure?",
+        "How does the relationship between mean, median, and mode help you quickly assess the shape of a distribution?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Sample variance: $s^2 = \\sum(X_i - \\bar{X})^2 / (n-1)$ \u2014 use $n-1$ for unbiased estimate\n- Harmonic $\\leq$ Geometric $\\leq$ Arithmetic mean\n- Positive skew: mean > median > mode (right tail longer)\n- Negative skew: mean < median < mode (left tail longer)\n- Excess kurtosis > 0 (leptokurtic): fat tails, more extreme outcomes\n- CV = $s / \\bar{X}$ \u2014 risk per unit of return (lower is better)\n- Sharpe ratio = $(R_p - R_f) / \\sigma_p$ \u2014 excess return per unit of risk (higher is better)\n- Financial returns are typically negatively skewed and leptokurtic"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Probability Trees and Conditional Expectations**, where you will apply probability rules to uncertain outcomes. The dispersion and distribution shape concepts from this module help you understand why probability distributions matter for investment decisions."
+    }
+  ]
+}

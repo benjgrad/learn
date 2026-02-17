@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "D.1: Option Strategies",
+    "description": "Master option strategies for portfolio management including covered calls, protective puts, spreads, collars, volatility strategies, and interest rate options.",
+    "level": "level-2",
+    "slug": "deriv-option-strategies",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A portfolio manager holds a large equity position and expects limited upside but wants downside protection. What option strategies could achieve this, and what is the cost-benefit trade-off of each?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Income and Protection Strategies\n\n### Covered Call (Long Stock + Short Call)\n\n**Motivation**: Generate income, reduce cost basis, willing to cap upside\n\n| Component | Position |\n|---|---|\n| Underlying | Long at $S_0$ |\n| Option | Short call at strike $K$ |\n| Premium | Receive $C$ |\n\n- **Maximum profit** = $(K - S_0) + C$ (at expiration if $S_T \\geq K$)\n- **Maximum loss** = $S_0 - C$ (if $S_T = 0$)\n- **Breakeven** = $S_0 - C$\n\n**When to use**: Neutral-to-slightly-bullish outlook; willing to sacrifice upside for income.\n\n### Protective Put (Long Stock + Long Put)\n\n**Motivation**: Maintain upside exposure with a floor on losses\n\n- **Maximum profit** = Unlimited (as stock rises)\n- **Maximum loss** = $(S_0 - K) + P$ (limited to stock decline to strike, plus premium paid)\n- **Breakeven** = $S_0 + P$\n\n**When to use**: Bullish but concerned about short-term downside risk.\n\n### Collar (Long Stock + Long Put + Short Call)\n\n**Motivation**: Low-cost or zero-cost downside protection by sacrificing upside\n\n- **Buy put** at $K_P$ for downside protection\n- **Sell call** at $K_C$ ($K_C > K_P$) to finance the put\n- **Zero-cost collar**: Choose strikes where $P_{put} \\approx C_{call}$\n- **Maximum profit** = $K_C - S_0$\n- **Maximum loss** = $S_0 - K_P$\n\n**When to use**: Holding concentrated position, want cheap protection, willing to cap upside."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A manager writes covered calls on a portfolio with a strike 5% above current levels and receives 2% premium. In which market scenario does this strategy underperform owning the stock outright?",
+      "answer": "The covered call underperforms in a strong rally \u2014 specifically when the stock rises more than 5% (the strike). The call is exercised, capping the profit at 5% + 2% premium = 7% total return regardless of how far the stock rises. If the stock rallies 15%, the covered call earns 7% vs. 15% for the unhedged position, underperforming by 8%. The strategy outperforms in flat or modestly declining markets (the 2% premium cushion) but sacrifices participation in large upmoves."
+    },
+    {
+      "type": "markdown",
+      "content": "## Spread Strategies\n\n### Bull Call Spread (Buy lower strike call, Sell higher strike call)\n- **Profit if**: Stock rises moderately\n- **Max profit**: $(K_H - K_L) - \\text{Net premium}$\n- **Max loss**: Net premium paid\n- **Cheaper** than buying a call outright\n\n### Bear Put Spread (Buy higher strike put, Sell lower strike put)\n- **Profit if**: Stock falls moderately\n- **Max profit**: $(K_H - K_L) - \\text{Net premium}$\n- **Max loss**: Net premium paid\n\n### Butterfly Spread\n- Buy 1 call at $K_L$, Sell 2 calls at $K_M$, Buy 1 call at $K_H$ (where $K_M = (K_L + K_H)/2$)\n- Profits from **low volatility** \u2014 maximum profit if stock stays near $K_M$\n- **Max profit**: $K_M - K_L - \\text{Net premium}$\n- **Max loss**: Net premium paid\n\n### Calendar Spread\n- Sell near-term option, buy longer-term option (same strike)\n- Profits from **time decay** differential \u2014 short option decays faster\n- Also benefits from stable underlying and increasing implied volatility\n\n## Volatility Strategies\n\n### Straddle (Buy call + Buy put, same strike)\n- **Profit from large moves** in either direction\n- **Max loss**: Total premiums paid (if stock stays at strike)\n- Breakevens: $K \\pm (C + P)$\n\n### Strangle (Buy OTM call + Buy OTM put)\n- **Cheaper** than straddle (OTM options cost less)\n- Requires **larger move** to profit\n- **Max loss**: Total premiums paid\n\n### Risk Reversal (Buy OTM call + Sell OTM put)\n- Synthetic long exposure with limited or no premium\n- Used for directional bets or to finance upside participation"
+    },
+    {
+      "type": "markdown",
+      "content": "## Interest Rate Options\n\n### Caps, Floors, and Collars\n\n| Instrument | Structure | Protects Against |\n|---|---|---|\n| **Interest rate cap** | Series of call options on a reference rate (caplets) | Rising rates (borrower protection) |\n| **Interest rate floor** | Series of put options on a reference rate (floorlets) | Falling rates (lender/investor protection) |\n| **Interest rate collar** | Long cap + Short floor | Rising rates, but caps benefit from falling rates |\n\n**Cap payoff per period**: $\\max(0, R_{ref} - R_{cap}) \\times \\text{Notional} \\times \\text{Day fraction}$\n\n**Floor payoff per period**: $\\max(0, R_{floor} - R_{ref}) \\times \\text{Notional} \\times \\text{Day fraction}$\n\n### Application in Portfolio Management\n\n- **Floating-rate borrower**: Buy a cap to limit maximum borrowing cost\n- **Floating-rate lender**: Buy a floor to guarantee minimum income\n- **Zero-cost collar**: Finance the cap by selling a floor (accept minimum rate to pay for maximum rate protection)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Option Strategy Selection",
+      "solution": "**Part A \u2014 Strategy analysis for the concentrated holding:**\n\nThe most appropriate strategy is a **zero-cost collar**:\n- Buy a put option with strike at $95 (5% below current $100) for downside protection\n- Sell a call option with strike at $115 (15% above current) to finance the put\n- Choose strikes so premiums approximately offset\n\nJustification:\n1. The client has a concentrated position with significant unrealized gains \u2014 liquidating has tax consequences\n2. The collar provides downside protection without requiring sale of shares\n3. Zero-cost structure means no cash outlay for protection\n4. The client retains some upside (up to 15%) before the position is called away\n5. The collar effectively creates a bounded range of outcomes: worst case -5%, best case +15%\n\n**Part B \u2014 Alternative strategies and trade-offs:**\n\n| Strategy | Advantage | Disadvantage |\n|---|---|---|\n| **Protective put only** | Unlimited upside retained | Significant premium cost (2-3% for 6-month ATM put) |\n| **Covered call only** | Income generation | No downside protection; caps upside |\n| **Prepaid forward** | Immediate diversification without sale | Gives up all future return on the position |\n| **Exchange fund** | Diversification without triggering gain | Limited availability, lock-up periods, fund risk |\n\n**Part C \u2014 Collar implementation considerations:**\n\n1. **Strike selection**: Wider collar (lower put strike, higher call strike) gives more participation but less protection. Match strikes to client's risk tolerance.\n2. **Tenor**: Typically 6-12 months; must be rolled at expiration if continued protection is needed\n3. **Tax implications**: The collar may be treated as a constructive sale if strikes are too tight (IRS rules), which would trigger the capital gain the client is trying to defer. Typically need at least 15-20% spread between strikes.\n4. **Margin**: The short call is covered by the underlying position, so no additional margin is required."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Option Strategies Practice",
+      "problems": [
+        {
+          "id": "l3-d1-1",
+          "question": "A portfolio manager implements a covered call strategy by writing calls 8% out-of-the-money for a premium of 3%. The stock subsequently rallies 15%. The return on the covered call position is closest to:",
+          "options": [
+            "A) 8%",
+            "B) 11%",
+            "C) 15%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The covered call caps the upside at the strike (8% above current price) plus the premium received (3%). When the stock rallies 15%, the call is exercised: the manager delivers stock at K (gaining 8%) and keeps the 3% premium, for a total return of 11%. The uncovered stock would have returned 15%, so the covered call underperforms by 4% in this strong rally scenario. This illustrates the trade-off: income (premium) in exchange for capped upside.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the return on covered call strategies"
+        },
+        {
+          "id": "l3-d1-2",
+          "question": "An investor buys a straddle on a stock at $50 (strike = $50). The call costs $3 and the put costs $2.50. The position will be profitable if the stock price at expiration is:",
+          "options": [
+            "A) Above $55.50 or below $44.50",
+            "B) Above $53.00 or below $47.00",
+            "C) Between $44.50 and $55.50"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A straddle profits from large moves in either direction. Total premium paid = $3 + $2.50 = $5.50. Upper breakeven = Strike + Total premium = $50 + $5.50 = $55.50. Lower breakeven = Strike \u2212 Total premium = $50 \u2212 $5.50 = $44.50. The position is profitable if the stock moves above $55.50 or below $44.50 \u2014 a move of more than 11% in either direction. Option C describes the loss zone.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Determine breakeven points for volatility strategies"
+        },
+        {
+          "id": "l3-d1-3",
+          "question": "A floating-rate borrower with a $100 million loan buys an interest rate cap at 5% and sells an interest rate floor at 3%. This collar strategy means the borrower's effective rate will be:",
+          "options": [
+            "A) Always exactly 4% (midpoint of collar)",
+            "B) Between 3% and 5% regardless of market rates",
+            "C) At most 5% but at least 3%, with the actual floating rate between these levels"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The collar bounds the borrower's effective rate: the cap limits the maximum rate to 5% (if reference rate exceeds 5%, the cap pays the excess), while the short floor means the borrower effectively pays at least 3% (if the reference rate falls below 3%, the borrower must pay the floor counterparty). Between 3% and 5%, the borrower pays the actual floating rate. The rate is NOT fixed at 4% (A) \u2014 it floats within the corridor.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the payoff structure of interest rate collars"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the zero-cost collar strategy to a client with a concentrated stock position. Cover how it works, what the client gives up, what they gain, and important implementation considerations like constructive sale rules."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "When would a covered call strategy actually destroy value for a long-term investor?",
+        "How would you choose between a straddle and a strangle for a volatility trade?",
+        "Why might an interest rate collar be more appropriate than a standalone cap for a corporate borrower?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Strategies:**\n\n- **Covered call**: Income generation, caps upside \u2014 best for neutral/slightly bullish outlook\n- **Protective put**: Downside floor, unlimited upside \u2014 costs premium\n- **Collar**: Low/zero-cost protection by sacrificing upside \u2014 ideal for concentrated positions\n- **Bull/bear spreads**: Directional bets with defined risk, cheaper than single options\n- **Straddle/strangle**: Profit from volatility; straddle is more expensive but profits from smaller moves\n- **Butterfly**: Profit from low volatility / stock staying near strike\n- **Interest rate caps/floors**: Protect against rate movements on floating-rate exposure\n- **Risk reversal**: Synthetic directional exposure with minimal premium"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Swaps, Forwards, and Futures Strategies** \u2014 how to use these instruments to adjust portfolio exposure to equities, fixed income, and currencies without buying or selling the underlying assets."
+    }
+  ]
+}

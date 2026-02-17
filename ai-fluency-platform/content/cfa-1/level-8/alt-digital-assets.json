@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "ALT.7: Introduction to Digital Assets",
+    "description": "Describe digital assets, blockchain technology, and the investment features of cryptocurrencies and tokens.",
+    "level": "level-8",
+    "slug": "alt-digital-assets",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Bitcoin has no cash flows, no earnings, and no physical backing. Yet it has a market capitalization exceeding $1 trillion. How would you approach valuing such an asset? What traditional valuation frameworks apply, and where do they break down?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Blockchain Fundamentals\n\nA **blockchain** is a distributed, immutable digital ledger that records transactions across a network of computers without requiring a central authority.\n\n### Key Properties\n\n| Property | Description |\n|---|---|\n| **Decentralized** | No single entity controls the network; maintained by distributed nodes |\n| **Immutable** | Once recorded, transactions cannot be altered or deleted |\n| **Transparent** | All transactions are visible on the public ledger |\n| **Pseudonymous** | Addresses are public, but identities behind them are not necessarily known |\n\n### Consensus Mechanisms\n\n- **Proof of Work (PoW)**: Miners solve complex mathematical puzzles to validate transactions and earn rewards. Used by Bitcoin. Energy-intensive but battle-tested.\n- **Proof of Stake (PoS)**: Validators lock up (\"stake\") cryptocurrency as collateral to validate transactions. Used by Ethereum (after the Merge). More energy-efficient.\n\n## Cryptocurrencies\n\n**Bitcoin** \u2014 the first and largest cryptocurrency by market cap. Designed as a **peer-to-peer electronic cash system** with a fixed supply cap of 21 million coins. Often called \"digital gold\" for its scarcity properties.\n\n**Ethereum** \u2014 a programmable blockchain that supports **smart contracts** (self-executing code) and decentralized applications (dApps). Ether (ETH) is the native currency used to pay transaction fees (\"gas\")."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is Bitcoin's fixed supply of 21 million coins often compared to gold?",
+      "answer": "Both Bitcoin and gold are scarce resources with a finite or limited supply. Gold's supply is constrained by geological scarcity and mining costs; Bitcoin's supply is constrained by its programmed protocol, which halves the mining reward approximately every four years ('halving') until the 21 million cap is reached (~2140). This mathematical scarcity creates a deflationary supply schedule, unlike fiat currencies that central banks can print without limit. Both are used as stores of value and inflation hedges, though Bitcoin's price volatility is far higher than gold's."
+    },
+    {
+      "type": "markdown",
+      "content": "## Types of Digital Tokens\n\nBeyond cryptocurrencies, blockchain networks support various types of tokens:\n\n| Token Type | Purpose | Example |\n|---|---|---|\n| **Utility tokens** | Provide access to a product or service on a platform | Filecoin (decentralized storage) |\n| **Security tokens** | Represent ownership in an asset (equity, debt, real estate); subject to securities regulation | Tokenized real estate shares |\n| **Governance tokens** | Grant voting rights over protocol decisions | Uniswap (UNI), Maker (MKR) |\n| **Stablecoins** | Pegged to a fiat currency (e.g., USD) to minimize volatility | USDC, Tether (USDT) |\n| **Non-fungible tokens (NFTs)** | Unique, indivisible tokens representing ownership of a specific digital or physical asset | Digital art, collectibles |\n\n## Decentralized Finance (DeFi)\n\nDeFi refers to financial services built on blockchain without traditional intermediaries:\n\n- **Lending/Borrowing**: Users lend crypto assets and earn interest, or borrow against collateral (Aave, Compound)\n- **Decentralized exchanges (DEXs)**: Trade tokens peer-to-peer without a central exchange (Uniswap)\n- **Yield farming**: Providing liquidity to DeFi protocols in exchange for token rewards\n\nDeFi aims to replicate traditional financial services (lending, trading, insurance) with **transparency, accessibility, and programmability**, but introduces risks including smart contract vulnerabilities, governance attacks, and regulatory uncertainty."
+    },
+    {
+      "type": "markdown",
+      "content": "## Valuation Challenges\n\nDigital assets present **unique valuation difficulties** because traditional frameworks assume cash flows, earnings, or tangible assets:\n\n| Traditional Approach | Application to Digital Assets |\n|---|---|\n| **Discounted cash flow** | Not applicable \u2014 most digital assets have no cash flows |\n| **Relative valuation** | Limited \u2014 few comparable assets with established metrics |\n| **Cost approach** | Partially applicable \u2014 mining cost as a floor value (for PoW chains) |\n| **Network value approaches** | Metcalfe's Law: value scales with the square of active users |\n| **Stock-to-flow** | For Bitcoin: ratio of existing supply to new supply (annual production) |\n\nNo single model is widely accepted, contributing to extreme price volatility.\n\n## Custody and Regulatory Considerations\n\n### Custody\n\n- **Self-custody**: Investor controls private keys (hardware wallets, software wallets). Risk: loss of keys means permanent loss of assets.\n- **Third-party custody**: Regulated custodians hold assets. Required for most institutional investors.\n\n### Regulatory Landscape\n\n- Classification varies by jurisdiction: commodity (US/CFTC for Bitcoin), security (SEC for some tokens), or currency\n- **Anti-money laundering (AML)** and **know-your-customer (KYC)** requirements increasingly applied to exchanges\n- Tax treatment varies: capital gains in most jurisdictions, but rules are evolving\n- Regulatory uncertainty is a significant risk factor for digital asset investors"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A DeFi protocol offers 8% annual yield on stablecoin deposits. US Treasury bills yield 5%. Identify at least three risks that explain the 3 percentage point yield premium. For each risk, explain how it could lead to a partial or total loss of the investor's principal.",
+      "solution": "**1. Smart Contract Risk:**\nThe DeFi protocol's code could contain bugs or vulnerabilities that hackers exploit to drain deposited funds. Unlike bank deposits, there is no FDIC insurance. If the smart contract is exploited, depositors could lose 100% of principal.\n\n**2. Stablecoin De-Peg Risk:**\nThe stablecoin may lose its $1 peg due to insufficient reserves, bank run dynamics, or algorithmic failure (as with TerraUST in 2022). If the stablecoin drops to $0.80, the depositor effectively loses 20% of principal even if the protocol functions correctly.\n\n**3. Counterparty/Protocol Risk:**\nThe borrowers who pay the 8% yield may default on their crypto-collateralized loans, especially during market crashes when collateral values drop rapidly (cascading liquidations). If bad debt accumulates, the protocol may be unable to return all deposits.\n\n**4. Regulatory Risk:**\nRegulators may classify the yield-bearing deposit as a security, forcing the protocol to shut down or exclude users from certain jurisdictions. Access to funds could be frozen or delayed.\n\nThe 3% premium compensates for these layered risks that do not exist in FDIC-insured bank deposits or T-bills."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Digital Assets Practice Problems",
+      "problems": [
+        {
+          "id": "alt7-1",
+          "question": "Which of the following best describes a key difference between a utility token and a security token?",
+          "options": [
+            "A) Utility tokens are fungible while security tokens are non-fungible",
+            "B) Utility tokens provide access to a platform's services, while security tokens represent ownership in an underlying asset",
+            "C) Utility tokens are subject to securities regulation while security tokens are not"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Utility tokens provide functionality \u2014 they grant the holder access to a product or service on a blockchain platform (e.g., Filecoin for storage). Security tokens represent ownership or economic rights in an underlying asset (equity, debt, real estate), similar to traditional securities. Option A is incorrect \u2014 both can be fungible. Option C reverses the regulatory treatment: security tokens, not utility tokens, are typically subject to securities regulations.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Distinguish between types of digital tokens"
+        },
+        {
+          "id": "alt7-2",
+          "question": "An investor holds Bitcoin in a self-custody hardware wallet. Which of the following risks is most specific to this custody method?",
+          "options": [
+            "A) Exchange insolvency risk",
+            "B) Permanent loss of assets if private keys are lost or destroyed",
+            "C) Regulatory seizure of assets held by a third-party custodian"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Self-custody means the investor controls the private keys. If these keys are lost, destroyed, or forgotten, the Bitcoin is permanently inaccessible \u2014 there is no 'forgot password' recovery mechanism. This is the defining risk of self-custody. Option A applies to exchange-held (third-party custody) assets, not self-custody. Option C applies to third-party custodians subject to regulatory action, not self-custody wallets.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe custody options for digital assets"
+        },
+        {
+          "id": "alt7-3",
+          "question": "Which of the following is the most significant challenge in applying discounted cash flow (DCF) valuation to Bitcoin?",
+          "options": [
+            "A) Bitcoin's high price volatility makes discount rate estimation unreliable",
+            "B) Bitcoin does not generate cash flows, making DCF fundamentally inapplicable",
+            "C) Bitcoin's fixed supply schedule makes future supply impossible to project"
+          ],
+          "correctAnswer": "B",
+          "explanation": "DCF valuation requires projecting future cash flows and discounting them to present value. Bitcoin generates no cash flows \u2014 no dividends, no interest, no rental income. This makes the DCF framework fundamentally inapplicable, not merely difficult. Option A describes a practical challenge but not the fundamental problem. Option C is incorrect \u2014 Bitcoin's supply schedule is actually perfectly predictable (halving every ~4 years, 21M cap).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe valuation challenges for digital assets"
+        },
+        {
+          "id": "alt7-4",
+          "question": "Decentralized finance (DeFi) protocols aim to replicate traditional financial services. Which of the following is a risk unique to DeFi that does not exist in traditional finance?",
+          "options": [
+            "A) Credit risk from borrower defaults",
+            "B) Smart contract vulnerabilities that could be exploited to drain protocol funds",
+            "C) Interest rate risk from changes in market rates"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Smart contract risk is unique to DeFi: bugs in the code that governs lending, trading, or liquidity provision can be exploited by attackers to steal funds. Traditional financial institutions face operational risk but not the risk of automated code exploits draining customer assets. Options A and C are risks that exist in both DeFi and traditional finance \u2014 borrowers can default and interest rates can change in both systems.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Describe DeFi and its unique risks"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A colleague argues that digital assets are purely speculative and have no investment thesis. Make a balanced argument that acknowledges the valuation challenges while explaining why some institutional investors are allocating a small percentage of their portfolios to digital assets."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the shift from Proof of Work to Proof of Stake affect your view of cryptocurrency as an investment?",
+        "What regulatory developments would most increase institutional adoption of digital assets?",
+        "How do you evaluate the risk-return tradeoff of earning higher yields in DeFi versus lower yields in traditional bank accounts?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Blockchain**: decentralized, immutable, transparent distributed ledger\n- **Consensus**: Proof of Work (Bitcoin, energy-intensive) vs. Proof of Stake (Ethereum, energy-efficient)\n- **Bitcoin**: fixed 21M supply, \"digital gold,\" store of value thesis\n- **Ethereum**: programmable blockchain, smart contracts, dApps\n- **Token types**: utility (platform access), security (ownership rights), governance (voting), stablecoins (pegged to fiat), NFTs (unique assets)\n- **DeFi**: decentralized lending, trading, yield farming \u2014 transparent but smart contract risk\n- **Valuation challenge**: no cash flows for most digital assets; network value and stock-to-flow models used\n- **Custody**: self-custody (key loss risk) vs. third-party custody (counterparty risk)\n- **Regulatory uncertainty** remains a major risk factor across jurisdictions"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module is the **Alternative Investments Checkpoint**, where you will be tested across all seven modules \u2014 from fund structures and fees to private equity, real estate, commodities, hedge funds, and digital assets. Review your key takeaways before proceeding."
+    }
+  ]
+}

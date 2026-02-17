@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "ECON.6: International Trade",
+    "description": "Understand comparative advantage, trade models, trade barriers, and the welfare effects of tariffs, quotas, and trade agreements.",
+    "level": "level-2",
+    "slug": "econ-international-trade",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Economics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If Country A can produce both wine and cloth more efficiently than Country B (fewer hours per unit for both), is there still a reason for them to trade? Why would Country A import anything from a less productive Country B?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Comparative Advantage and Trade Theory\n\n### Absolute vs. Comparative Advantage\n\n**Absolute advantage**: A country can produce a good using fewer resources than another country.\n\n**Comparative advantage**: A country can produce a good at a **lower opportunity cost** than another country. This is the basis for trade \u2014 even if one country is more productive in everything, both countries benefit by specializing in the good where their opportunity cost is lowest.\n\n### Example\n\n| | Wine (hours/unit) | Cloth (hours/unit) |\n|---|---|---|\n| Country A | 2 | 4 |\n| Country B | 6 | 8 |\n\nCountry A has an absolute advantage in both goods (fewer hours for each). But the opportunity costs differ:\n\n- Country A: 1 wine costs $2/4 = 0.5$ cloth; 1 cloth costs $4/2 = 2$ wine\n- Country B: 1 wine costs $6/8 = 0.75$ cloth; 1 cloth costs $8/6 = 1.33$ wine\n\nCountry A has a comparative advantage in **wine** (gives up only 0.5 cloth vs. 0.75 cloth for B). Country B has a comparative advantage in **cloth** (gives up only 1.33 wine vs. 2 wine for A).\n\nBoth countries benefit if A specializes in wine and B specializes in cloth, then they trade.\n\n### Trade Models\n\n- **Ricardian model**: Comparative advantage is based on differences in **labor productivity** between countries. Predicts complete specialization.\n- **Heckscher-Ohlin model**: Comparative advantage is based on differences in **factor endowments** (land, labor, capital). A country exports goods that intensively use its abundant factor. Predicts that trade equalizes factor prices across countries."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "According to the Heckscher-Ohlin model, a labor-abundant country like Bangladesh would be expected to export which type of goods \u2014 capital-intensive or labor-intensive? Why?",
+      "answer": "Bangladesh would export labor-intensive goods (such as textiles and garments). The Heckscher-Ohlin model predicts that a country exports goods that intensively use its abundant factor of production. Since labor is abundant in Bangladesh, the cost of labor is relatively low, giving the country a comparative advantage in labor-intensive production. Conversely, Bangladesh would import capital-intensive goods from countries where capital is relatively abundant. This pattern is consistent with Bangladesh's real-world export profile, where garments represent a dominant share of exports."
+    },
+    {
+      "type": "markdown",
+      "content": "## Trade Barriers\n\nGovernments restrict trade using various instruments:\n\n### Tariffs\n\nA **tariff** is a tax on imported goods. Effects:\n- Raises the domestic price of the imported good\n- Protects domestic producers (they can charge more)\n- Reduces consumer surplus (consumers pay higher prices)\n- Generates government revenue\n- Creates **deadweight loss** (lost economic efficiency)\n\nThe net welfare effect of a tariff is negative for a small country (deadweight loss exceeds tariff revenue to society). A large country may improve its terms of trade by imposing a tariff if it can reduce the world price of its imports, but this is a special case.\n\n### Non-Tariff Barriers\n\n| Barrier | Description |\n|---|---|\n| **Import quota** | A limit on the quantity of a good that can be imported |\n| **Voluntary export restraint (VER)** | Exporting country agrees to limit its exports (often under political pressure) |\n| **Subsidies** | Government payments to domestic producers, making them more competitive |\n| **Regulatory barriers** | Safety, environmental, or quality standards that disproportionately affect imports |\n| **Anti-dumping duties** | Tariffs imposed when a foreign firm sells below cost or below home-market price |\n\nQuotas and VERs limit quantities rather than raising prices through taxes. Unlike tariffs, quotas do not generate government revenue unless import licenses are auctioned \u2014 instead, the **quota rent** (price difference) goes to the quota holders or foreign exporters.\n\n### Arguments For and Against Trade Barriers\n\n**For**: infant industry protection, national security, protecting domestic jobs, anti-dumping, preserving cultural identity.\n\n**Against**: higher consumer prices, reduced efficiency, retaliation risk, rent-seeking, protection of politically connected rather than economically vital industries."
+    },
+    {
+      "type": "markdown",
+      "content": "## Trade Agreements and Organizations\n\n### World Trade Organization (WTO)\n\nThe WTO provides a framework for negotiating trade agreements and resolving disputes. Key principles:\n- **Most-favored-nation (MFN)**: Trade advantages given to one member must be extended to all members\n- **National treatment**: Imported goods must be treated no less favorably than domestic goods once they enter the market\n- **Dispute settlement**: A binding mechanism for resolving trade conflicts\n\n### Regional Trading Blocs\n\nCountries form regional agreements with progressively deeper integration:\n\n| Type | Features | Example |\n|---|---|---|\n| **Free trade area** | Eliminate tariffs among members; each sets own external tariffs | USMCA (US-Mexico-Canada) |\n| **Customs union** | Free trade area + common external tariff | Mercosur |\n| **Common market** | Customs union + free movement of labor and capital | European Economic Area |\n| **Economic union** | Common market + harmonized economic policies | European Union |\n| **Monetary union** | Economic union + shared currency | Eurozone |\n\n### Trade Creation vs. Trade Diversion\n\nRegional trade agreements create two effects:\n- **Trade creation**: Members shift purchases from high-cost domestic production to lower-cost partner production \u2014 welfare-enhancing\n- **Trade diversion**: Members shift purchases from efficient non-member producers to less efficient member producers (because of preferential tariff treatment) \u2014 welfare-reducing\n\nA regional trade agreement improves welfare when trade creation exceeds trade diversion."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Country X imposes a tariff of $10 per unit on imported steel. Before the tariff, the world price is $50/unit, domestic production is 100 units, and domestic consumption is 300 units (200 units imported). After the tariff, the domestic price rises to $60, domestic production increases to 150 units, and domestic consumption falls to 250 units (100 units imported). Identify: (a) the change in consumer surplus, (b) the change in producer surplus, (c) government tariff revenue, and (d) whether there is a net welfare gain or loss.",
+      "solution": "**a) Change in consumer surplus**: Consumers face a $10 price increase on a range of quantities. The loss in consumer surplus is the area of the trapezoid between the old and new price levels:\n\n$$\\Delta CS = -\\frac{(300 + 250)}{2} \\times 10 = -\\$2{,}750$$\n\n**b) Change in producer surplus**: Domestic producers receive $10 more per unit. The gain in producer surplus is:\n\n$$\\Delta PS = +\\frac{(100 + 150)}{2} \\times 10 = +\\$1{,}250$$\n\n**c) Government tariff revenue**: The government collects $10 on each of the 100 imported units:\n\n$$\\text{Revenue} = 10 \\times 100 = \\$1{,}000$$\n\n**d) Net welfare effect**:\n\n$$\\text{Net} = \\Delta CS + \\Delta PS + \\text{Revenue} = -2{,}750 + 1{,}250 + 1{,}000 = -\\$500$$\n\nThere is a **net welfare loss of $500** (deadweight loss). This consists of two triangles: the production inefficiency ($10 price increase \u00d7 50 extra domestic units / 2 = $250) and the consumption loss ($10 price increase \u00d7 50 fewer consumed units / 2 = $250). The tariff transfers wealth from consumers to producers and the government, but the deadweight loss means society as a whole is worse off."
+    },
+    {
+      "type": "practiceSet",
+      "title": "International Trade Practice Problems",
+      "problems": [
+        {
+          "id": "econ6-1",
+          "question": "Country A can produce 1 unit of wine in 3 hours or 1 unit of cheese in 6 hours. Country B can produce 1 unit of wine in 5 hours or 1 unit of cheese in 5 hours. Country A has a comparative advantage in:",
+          "options": [
+            "A) Wine only",
+            "B) Cheese only",
+            "C) Both wine and cheese"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Opportunity costs: Country A: 1 wine = 3/6 = 0.5 cheese; 1 cheese = 6/3 = 2 wine. Country B: 1 wine = 5/5 = 1 cheese; 1 cheese = 5/5 = 1 wine. Country A produces wine at a lower opportunity cost (0.5 cheese vs. 1 cheese for B), so A has a comparative advantage in wine. Country B has a comparative advantage in cheese (opportunity cost of 1 wine vs. 2 wine for A). Option B reverses the comparative advantages. Option C is impossible \u2014 a country cannot have a comparative advantage in both goods; comparative advantage is always reciprocal.",
+          "difficulty": "basic",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Determine comparative advantage using opportunity costs"
+        },
+        {
+          "id": "econ6-2",
+          "question": "A country imposes an import quota instead of a tariff that would have the same effect on domestic price and quantity. Compared to the equivalent tariff, the quota most likely results in:",
+          "options": [
+            "A) Greater deadweight loss",
+            "B) Less government revenue",
+            "C) Lower domestic prices"
+          ],
+          "correctAnswer": "B",
+          "explanation": "An import quota that raises the domestic price by the same amount as a tariff has similar effects on consumer surplus, producer surplus, and deadweight loss. However, the key difference is in revenue: a tariff generates government revenue (tariff \u00d7 imported quantity), while a quota typically transfers the equivalent revenue as quota rent to whoever holds the import licenses or to foreign exporters. Unless the government auctions the quota rights, it collects less revenue than with a tariff. Option A is incorrect because deadweight loss is similar for an equivalent tariff and quota. Option C is incorrect because the premise states both have the same effect on domestic price.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Compare the effects of tariffs and quotas on welfare"
+        },
+        {
+          "id": "econ6-3",
+          "question": "Two countries form a free trade area, eliminating tariffs between them. Before the agreement, Country X imported widgets from non-member Country Z (lowest cost producer) with a 20% tariff. After the agreement, Country X imports widgets from member Country Y (higher production cost) tariff-free. This shift is best described as:",
+          "options": [
+            "A) Trade creation",
+            "B) Trade diversion",
+            "C) Comparative advantage realization"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Trade diversion occurs when a regional trade agreement causes imports to shift from a more efficient non-member producer (Country Z) to a less efficient member producer (Country Y) because the member enjoys tariff-free access. Even though Country Z has lower production costs, the 20% tariff on Z's goods makes Y's goods cheaper for X after the agreement. This reduces welfare because X is now buying from a higher-cost source. Option A (trade creation) would describe a shift from high-cost domestic production to lower-cost partner production. Option C is not a standard trade concept in this context.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Distinguish between trade creation and trade diversion"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain comparative advantage to someone who objects: 'Why should we trade with a country that's less efficient than us at everything?' Show them with a simple two-good, two-country example why both countries benefit from trade even when one is absolutely more productive."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the concept of comparative advantage apply to your own career \u2014 specializing in what you do relatively best rather than trying to do everything?",
+        "What are the political challenges of free trade, given that the benefits are diffuse (lower prices for all consumers) while the costs are concentrated (job losses in specific industries)?",
+        "Can you identify a current example of trade creation or trade diversion from a recent trade agreement?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts and Formulas:**\n\n- Comparative advantage: produce what you can make at the lowest **opportunity cost**\n- Ricardian model: labor productivity differences drive trade\n- Heckscher-Ohlin: factor endowment differences drive trade\n- Tariffs: raise domestic price, protect producers, generate revenue, create deadweight loss\n- Quotas vs. tariffs: similar price effects but quotas generate no government revenue (quota rent goes to license holders)\n- VERs: quota rent goes to foreign exporters\n- WTO principles: MFN, national treatment, dispute settlement\n- Regional integration spectrum: FTA \u2192 customs union \u2192 common market \u2192 economic union \u2192 monetary union\n- Trade creation (welfare+) vs. trade diversion (welfare\u2212)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Capital Flows and the FX Market** \u2014 how money moves across borders and how exchange rates are determined. International trade creates the demand for foreign currencies, and the balance of payments framework connects trade flows to financial flows and exchange rate movements."
+    }
+  ]
+}

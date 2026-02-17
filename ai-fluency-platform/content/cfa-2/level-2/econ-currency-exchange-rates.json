@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "title": "ECON.1: Currency Exchange Rates",
+    "description": "Master bid-ask spreads, triangular arbitrage, forward rates, interest rate parity, purchasing power parity, and balance of payments analysis for currency markets.",
+    "level": "level-2",
+    "slug": "econ-currency-exchange-rates",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If the annual interest rate in the US is 5% and in Japan is 1%, what should happen to the USD/JPY forward rate relative to the spot rate? Will the dollar trade at a forward premium or discount, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Spot and Forward Exchange Rate Fundamentals\n\nExchange rates are quoted as **price/base** currency pairs. For example, USD/EUR = 1.10 means 1 euro costs 1.10 US dollars.\n\n### Bid-Ask Spreads\n\nDealers quote two-sided markets:\n- **Bid**: the price at which the dealer will *buy* the base currency\n- **Ask (offer)**: the price at which the dealer will *sell* the base currency\n\n$$\\text{Spread} = \\text{Ask} - \\text{Bid}$$\n\n$$\\text{Percentage Spread} = \\frac{\\text{Ask} - \\text{Bid}}{\\text{Ask}} \\times 100$$\n\nSpreads widen with:\n- Market volatility and uncertainty\n- Illiquid or exotic currency pairs\n- Large transaction sizes\n- Political risk\n\n### Triangular Arbitrage\n\nTriangular arbitrage exploits inconsistencies among three currency pairs. If the cross rate implied by two exchange rates differs from the quoted cross rate, a riskless profit is available.\n\nGiven USD/EUR and JPY/USD, the implied cross rate is:\n$$\\text{JPY/EUR} = \\text{JPY/USD} \\times \\text{USD/EUR}$$\n\nIf the actual quoted JPY/EUR differs from this implied rate, an arbitrageur can trade through all three pairs to lock in profit."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A dealer quotes GBP/USD at 1.2550/1.2555. You want to buy GBP. Which rate do you transact at and why?",
+      "answer": "You transact at the ask (1.2555) because you are buying the base currency (GBP) from the dealer. The dealer sells base currency at the higher ask price. If you were selling GBP, you would receive the lower bid price of 1.2550. The dealer earns the 0.0005 spread (0.5 pips) as compensation for market-making."
+    },
+    {
+      "type": "markdown",
+      "content": "## Forward Rates and Interest Rate Parity\n\n### Covered Interest Rate Parity (CIRP)\n\nCIRP states that the forward premium or discount equals the interest rate differential, preventing riskless arbitrage:\n\n$$F = S \\times \\frac{1 + r_{\\text{price}}}{1 + r_{\\text{base}}}$$\n\nWhere:\n- $F$ = forward rate (price/base)\n- $S$ = spot rate (price/base)\n- $r_{\\text{price}}$ = interest rate in the price currency country\n- $r_{\\text{base}}$ = interest rate in the base currency country\n\nThe **forward premium/discount** on the base currency:\n$$\\text{Forward premium} = \\frac{F - S}{S} \\approx r_{\\text{price}} - r_{\\text{base}}$$\n\nThe currency with the **higher interest rate** trades at a forward **discount**.\n\n### Mark-to-Market Value of a Forward Contract\n\nAfter initiation, the value of a forward contract changes as spot rates and interest rates move:\n\n$$V_t = \\frac{(F_{t} - F_0) \\times \\text{Notional}}{1 + r_{\\text{price}} \\times \\frac{\\text{days remaining}}{360}}$$\n\nWhere $F_t$ is the current forward rate for the remaining period and $F_0$ is the original contracted rate."
+    },
+    {
+      "type": "markdown",
+      "content": "## Parity Conditions and Currency Determination\n\n### Uncovered Interest Rate Parity (UIRP)\n\nUncovered IRP posits that the **expected change** in the spot rate equals the interest rate differential \u2014 but unlike covered IRP, there is no forward hedge, so the relationship relies on expectations:\n\n$$E(\\%\\Delta S) \\approx r_{\\text{price}} - r_{\\text{base}}$$\n\nEmpirical evidence generally **rejects** UIRP in the short term, which gives rise to the carry trade.\n\n### Purchasing Power Parity (PPP)\n\n**Absolute PPP**: Exchange rates equalize the price of identical baskets of goods across countries.\n\n**Relative PPP**: Changes in exchange rates should offset inflation differentials:\n$$\\%\\Delta S \\approx \\pi_{\\text{price}} - \\pi_{\\text{base}}$$\n\nRelative PPP holds better over **long horizons** (5+ years) but poorly in the short term.\n\n### International Fisher Effect\n\nCombines the Fisher relation with PPP: countries with higher nominal interest rates will experience currency depreciation:\n$$r_{\\text{nominal}} = r_{\\text{real}} + E(\\pi)$$\n\nIf real rates are equal across countries, nominal rate differentials reflect expected inflation differentials, which drive expected currency changes.\n\n### The Carry Trade\n\nBorrow in a **low-interest-rate** currency and invest in a **high-interest-rate** currency. The carry trade profits when UIRP fails \u2014 the high-yield currency does not depreciate as much as the interest differential predicts. Key risk: carry trades are vulnerable to **sudden unwinding** and **crash risk** during financial stress."
+    },
+    {
+      "type": "markdown",
+      "content": "## Balance of Payments and Currency Crises\n\n### Balance of Payments (BOP)\n\nThe BOP records all economic transactions between residents of a country and the rest of the world:\n\n| Account | Components | Currency Impact |\n|---|---|---|\n| **Current Account** | Trade balance, services, income, transfers | Surplus \u2192 currency appreciation pressure |\n| **Capital Account** | Capital transfers, non-produced assets | Usually small |\n| **Financial Account** | Direct investment, portfolio investment, reserves | Large inflows \u2192 appreciation pressure |\n\nPersistent current account deficits may signal long-term depreciation pressure, but can be sustained if financed by financial account inflows.\n\n### Currency Crisis Warning Signs\n\n- Fixed exchange rate regimes with large current account deficits\n- Rapid domestic credit growth\n- Declining foreign exchange reserves\n- Asset price bubbles and overleveraged banking sectors\n- Political instability or fiscal profligacy\n- Rising short-term external debt relative to reserves"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Triangular Arbitrage Calculation",
+      "solution": "Given:\n- USD/EUR = 1.1000\n- JPY/USD = 110.00\n- JPY/EUR = 120.00\n\nStep 1: Calculate implied JPY/EUR cross rate:\n$\\text{JPY/EUR (implied)} = 110.00 \\times 1.1000 = 121.00$\n\nStep 2: The actual quote (120.00) is **lower** than the implied rate (121.00). So EUR is cheap in terms of JPY in the direct market.\n\nStep 3: Arbitrage \u2014 start with 1,000,000 JPY:\n- Buy EUR at 120.00: receive 1,000,000 / 120.00 = EUR 8,333.33\n- Sell EUR for USD at 1.1000: receive 8,333.33 \u00d7 1.1000 = USD 9,166.67\n- Sell USD for JPY at 110.00: receive 9,166.67 \u00d7 110.00 = JPY 1,008,333\n\nProfit = JPY 8,333 (0.83%) before transaction costs."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Currency Exchange Rates Practice",
+      "problems": [
+        {
+          "id": "econ-fx-1",
+          "vignette": "Katarina Novak is a portfolio manager at a European investment firm. She is evaluating currency markets and observes the following data:\n\n| Item | Value |\n|---|---|\n| Spot USD/EUR | 1.0850 |\n| 1-year USD interest rate | 5.25% |\n| 1-year EUR interest rate | 3.50% |\n| 1-year forward USD/EUR | 1.1035 |\n\nNovak's analyst notes that covered interest rate parity should hold in liquid, developed markets.",
+          "question": "Based on the data provided, the 1-year forward rate implied by covered interest rate parity is closest to:",
+          "options": [
+            "A) 1.0668",
+            "B) 1.1033",
+            "C) 1.1035"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the CIRP formula: $F = S \\times \\frac{1 + r_{\\text{price}}}{1 + r_{\\text{base}}} = 1.0850 \\times \\frac{1.0525}{1.0350} = 1.0850 \\times 1.01691 = 1.1033$. The actual forward quote of 1.1035 is very close but not exact \u2014 the small difference (0.0002) could represent transaction costs. Option A incorrectly divides in the wrong order. Option C is the quoted forward, not the CIRP-implied rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate the forward rate implied by covered interest rate parity"
+        },
+        {
+          "id": "econ-fx-2",
+          "vignette": "Katarina Novak is a portfolio manager at a European investment firm. She is evaluating currency markets and observes the following data:\n\n| Item | Value |\n|---|---|\n| Spot USD/EUR | 1.0850 |\n| 1-year USD interest rate | 5.25% |\n| 1-year EUR interest rate | 3.50% |\n| 1-year forward USD/EUR | 1.1035 |\n\nNovak's analyst argues that if uncovered interest rate parity holds, the EUR should appreciate against the USD over the next year.",
+          "question": "Is the analyst's statement about uncovered interest rate parity correct?",
+          "options": [
+            "A) Yes, because the EUR has the lower interest rate",
+            "B) No, because the EUR should depreciate since it has the lower interest rate",
+            "C) No, because uncovered IRP predicts no change in the exchange rate"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Under uncovered IRP, the currency with the **higher** interest rate is expected to **depreciate**. Since USD has the higher rate (5.25% vs 3.50%), the USD is expected to depreciate (i.e., USD/EUR rate increases, meaning each EUR buys more USD). This is equivalent to saying the EUR appreciates. The expected depreciation of the USD approximately equals the interest rate differential (1.75%). Option B confuses which currency depreciates. Option C is incorrect \u2014 UIRP predicts a specific expected change in the spot rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Describe uncovered interest rate parity and its implications"
+        },
+        {
+          "id": "econ-fx-3",
+          "vignette": "James Chen is a currency trader analyzing potential carry trade opportunities. He compiles the following data:\n\n| Currency | 1-year interest rate | Expected spot change (vs USD) |\n|---|---|---|\n| JPY | 0.10% | \u22121.5% (JPY depreciation) |\n| AUD | 4.50% | \u22122.0% (AUD depreciation) |\n| USD | 5.25% | \u2014 |\n\nChen currently holds USD and is considering borrowing in JPY to invest in AUD.",
+          "question": "The expected return of Chen's proposed carry trade (borrow JPY, invest AUD) is closest to:",
+          "options": [
+            "A) 2.90%",
+            "B) 3.90%",
+            "C) 4.40%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Carry trade return = interest earned \u2212 interest paid + currency effects.\n\nInterest earned (AUD): 4.50%\nInterest paid (JPY): 0.10%\nInterest differential: +4.40%\n\nCurrency effect: AUD depreciates 2.0% vs USD, but JPY depreciates 1.5% vs USD. Net currency effect on AUD/JPY: \u22122.0% \u2212 (\u22121.5%) = \u22120.50%.\n\nTotal expected return: 4.40% \u2212 0.50% = 3.90%. Option A subtracts both currency effects separately. Option C ignores the currency effects entirely.",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Calculate carry trade expected returns incorporating interest differentials and currency movements"
+        },
+        {
+          "id": "econ-fx-4",
+          "vignette": "James Chen is a currency trader analyzing potential carry trade opportunities. He also reviews the balance of payments data for Country Z:\n\n- Persistent current account deficit of 6% of GDP for the past 5 years\n- Foreign exchange reserves have declined by 30% over 2 years\n- The central bank maintains a fixed exchange rate\n- Domestic credit growth is 18% annually\n- Short-term external debt is 250% of remaining reserves",
+          "question": "Based on the warning signs present for Country Z, which of the following actions is most appropriate for Chen?",
+          "options": [
+            "A) Increase long exposure to Country Z's currency given the attractive carry",
+            "B) Establish a short position in Country Z's currency to hedge against devaluation risk",
+            "C) Maintain current neutral positioning since fixed exchange rates are always defended successfully"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Country Z displays multiple classic currency crisis warning signs: persistent large current account deficit, rapidly declining FX reserves, a fixed exchange rate under pressure, excessive domestic credit growth, and dangerously high short-term external debt relative to reserves. These indicators suggest the fixed rate is unsustainable and a devaluation is likely. Shorting the currency or reducing exposure is prudent. Option A ignores the substantial devaluation risk. Option C is incorrect \u2014 fixed exchange rate regimes frequently collapse under these conditions (e.g., Asian Financial Crisis of 1997).",
+          "difficulty": "advanced",
+          "cfaTopic": "Economics",
+          "learningOutcome": "Identify warning signs of a currency crisis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain covered and uncovered interest rate parity to a colleague who understands basic finance but has not studied international economics. Use a concrete example with specific currencies and rates to illustrate why the high-interest-rate currency trades at a forward discount."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does purchasing power parity hold better over long horizons than short horizons?",
+        "How does the carry trade exploit the failure of uncovered interest rate parity?",
+        "What balance of payments patterns would make you most concerned about a currency's stability?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Forward rate (CIRP): $F = S \\times \\frac{1 + r_{\\text{price}}}{1 + r_{\\text{base}}}$\n- The high-interest-rate currency trades at a forward **discount**\n- UIRP: expected spot change \u2248 interest rate differential (empirically weak short-term)\n- Relative PPP: expected spot change \u2248 inflation differential (holds long-term)\n- Carry trade profits when UIRP fails; vulnerable to crash risk\n- Triangular arbitrage enforces consistency among cross rates\n- Currency crisis warning signs: large CA deficits, declining reserves, excessive credit growth, fixed rate under pressure"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Economic Growth and Investment Implications**, where you'll analyze growth models and understand how macroeconomic factors drive long-term investment returns across countries \u2014 building on the international perspective developed here."
+    }
+  ]
+}

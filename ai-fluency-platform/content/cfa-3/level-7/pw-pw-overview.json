@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PW.1: Private Wealth Overview",
+    "description": "Understand private wealth client types, the financial planning process, human capital framework, life-cycle approach, and IPS development for individual investors.",
+    "level": "level-7",
+    "slug": "pw-pw-overview",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Private Wealth Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two investors are both 35 years old with $500K in savings. One is a tenured professor; the other is a startup founder. How should their investment portfolios differ, and why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Client Segmentation\n\n| Segment | Investable Assets | Key Characteristics |\n|---|---|---|\n| Mass affluent | $250K - $1M | Standardized solutions, fee-sensitive |\n| High net worth (HNW) | $1M - $10M | Customized planning, tax optimization |\n| Ultra-high net worth (UHNW) | $10M+ | Complex structures, multi-generational, access to alternatives |\n\n### The Financial Planning Process\n\n1. **Establish the relationship**: Engagement terms, scope of services, fiduciary duty\n2. **Gather data**: Financial statements, tax returns, estate documents, insurance policies\n3. **Analyze and evaluate**: Current financial position, gap analysis, scenario modeling\n4. **Develop recommendations**: Investment, tax, estate, insurance, retirement strategies\n5. **Implement**: Execute recommendations across accounts and entities\n6. **Monitor and update**: Regular reviews, rebalancing, life event adjustments\n\n## Human Capital and Financial Capital\n\n**Human capital** is the present value of future labor income:\n\n$$HC = \\sum_{t=1}^{T} \\frac{E(\\text{Income}_t)}{(1+r)^t}$$\n\nTotal wealth = Human capital + Financial capital\n\n### Implications for Asset Allocation\n\n- **Young investors**: High HC, low FC. HC is bond-like for stable jobs (teacher, government). Allocate FC heavily to equities for diversification.\n- **Entrepreneurs**: HC is equity-like (volatile, correlated with markets). Allocate FC more conservatively.\n- **Near retirement**: Low HC, high FC. FC must replace HC's income stream. Shift toward income-producing assets."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A 30-year-old investment banker has $200K saved and earns $400K annually (highly variable, bonus-dependent). Her human capital is best characterized as equity-like or bond-like?",
+      "answer": "Equity-like. The investment banker's income is highly variable (large bonus component tied to deal flow and market conditions), positively correlated with financial markets (bonuses are high when markets are strong), and subject to layoff risk during downturns. This means her human capital behaves like equity -- volatile and correlated with stocks. Implication: her financial capital should be allocated more conservatively (higher bond allocation) than a same-age government employee whose bond-like human capital calls for more equity in the portfolio."
+    },
+    {
+      "type": "markdown",
+      "content": "## Life-Cycle Approach\n\n### Accumulation Phase (25-45)\n- Long time horizon, high human capital\n- Focus: Growth, wealth building, risk taking\n- Allocation: Higher equity, growth-oriented\n- Key issues: Insurance (disability, life), debt management, emergency fund\n\n### Consolidation Phase (45-60)\n- Peak earnings, declining human capital\n- Focus: Portfolio growth with increasing protection\n- Allocation: Balanced, begin de-risking\n- Key issues: Retirement planning, education funding, concentrated positions\n\n### Distribution/Spending Phase (60-85)\n- No human capital, living off portfolio\n- Focus: Income generation, capital preservation, longevity risk\n- Allocation: Income-oriented, inflation protection\n- Key issues: Withdrawal strategy, sequence risk, healthcare costs\n\n### Estate/Transfer Phase (75+)\n- Focus: Wealth transfer, legacy\n- Allocation: Based on estate objectives (not just personal needs)\n- Key issues: Estate taxes, trust structures, charitable giving\n\n## Client Goals Taxonomy\n\n| Goal Type | Priority | Acceptable Shortfall |\n|---|---|---|\n| Essential | Must-fund | Very low |\n| Important | Should-fund | Moderate |\n| Aspirational | Nice-to-fund | Higher |\n\n## IPS for Private Clients\n\nBeyond institutional IPS elements, private client IPS must address:\n- **Multi-goal framework**: Different risk/return targets per goal\n- **Tax awareness**: After-tax return targets, asset location\n- **Behavioral profile**: Identified biases and management strategies\n- **Family dynamics**: Multiple stakeholders, varying risk tolerances\n- **Liquidity schedule**: Known and contingent cash needs"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Client Profile and IPS\n\nSarah and David Martinez:\n- Ages 42 and 44, both employed (Sarah: pediatrician $350K, David: sales VP at tech company $250K + bonus)\n- Total investable assets: $3.2M (60% in taxable, 25% in 401(k)s, 15% in Roth IRAs)\n- David has $800K in company stock within his total assets\n- Two children, ages 10 and 13\n- Goals: Fund private university for both children (~$120K each starting in 5-8 years), retire at 60, maintain $200K/year spending in retirement, leave $2M to heirs\n- Risk: Sarah describes herself as 'moderate'; David says 'aggressive'\n\nA) Characterize their human capital.\nB) Develop return objectives.\nC) Assess risk tolerance.\nD) Identify unique circumstances requiring special attention.",
+      "solution": "**A) Human Capital Characterization:**\n\nSarah (pediatrician): Bond-like human capital. Physician income is stable, relatively recession-resistant, and uncorrelated with financial markets. PV of future earnings (18 years to retirement): approximately $350K x annuity factor \u2248 $4.5M. This is a large, stable 'bond' in their total wealth.\n\nDavid (tech sales VP): Equity-like human capital. Sales compensation is variable (bonus-dependent), positively correlated with economic/market conditions, and subject to tech sector cyclicality. PV of future earnings: approximately $250K base x 16 years \u2248 $3M (with higher uncertainty). The $800K company stock compounds this equity-like exposure.\n\nCombined: Mixed, tilting bond-like due to Sarah's dominance in earnings. Their financial portfolio should lean slightly toward equity (diversifying Sarah's bond-like HC) but with constraints due to David's already equity-heavy exposure.\n\n**B) Return Objectives:**\n\nNear-term (5-8 years): Education funding\n- $240K needed in years 5-8 (two children x $120K)\n- In today's dollars with 3% education inflation: ~$280K needed\n- Set aside $250K in conservative allocation earning ~4-5%\n\nRetirement (16-18 years): Sustainable portfolio\n- At age 60, need $200K annual spending (real)\n- Current assets ($3.2M) growing at target return, minus education spending\n- Using 4% withdrawal rule: Need $5M at retirement (in today's dollars)\n- Required pre-tax return: approximately 6-7% nominal\n\nEstate: Additional $2M target\n- This is aspirational -- achievable if market returns are favorable\n- No additional return requirement; met as a residual of retirement planning\n\n**C) Risk Tolerance:**\n\nAbility: Above average\n- Dual high incomes ($600K combined) with strong savings capacity\n- 16-18 year horizon to retirement\n- Moderate liabilities (education costs are manageable relative to income)\n- Sarah's stable income provides safety net\n\nWillingness: Conflict -- Sarah moderate, David aggressive\n- Resolve toward moderately aggressive: Sarah's moderate stance tempers David's aggression\n- Use goals-based framing: Conservative allocation for education (essential goal), moderately aggressive for retirement (important goal), aggressive for estate (aspirational)\n\nOverall: Moderately aggressive, with tiered risk by goal\n\n**D) Unique Circumstances:**\n\n1. **Concentrated stock position**: David's $800K in company stock (25% of assets) creates company-specific and sector risk. Combined with his equity-like human capital at the same company, this is a dangerous concentration. Immediate diversification strategy needed.\n\n2. **Dual risk tolerance conflict**: Must develop a framework both spouses accept. Goals-based approach helps by allowing David's aggression for long-term goals while satisfying Sarah's conservatism for near-term needs.\n\n3. **Tax complexity**: Three account types (taxable, 401(k), Roth) require careful asset location. High current income ($600K+) means high marginal tax rates -- maximize tax-deferred contributions and consider Roth conversions strategically.\n\n4. **Insurance review**: David's variable income and concentrated position make disability insurance and life insurance critical. Sarah's earnings are the family's stable foundation -- ensure adequate coverage.\n\n5. **Timing mismatch**: Education expenses start in 5 years while retirement is 16-18 years away. Must maintain liquidity for education without sacrificing long-term growth."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Wealth Overview Practice",
+      "problems": [
+        {
+          "id": "l3-pw1-1",
+          "question": "A 28-year-old software engineer at a startup has $150K in savings and stock options valued at $500K (unvested over 4 years). Her financial portfolio should most likely be allocated:",
+          "options": [
+            "A) Aggressively in growth stocks to maximize long-term wealth",
+            "B) Conservatively in bonds and diversified assets to offset equity-like human capital and stock options",
+            "C) In a balanced 60/40 portfolio appropriate for her age"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Her total wealth is heavily equity-like: human capital at a startup is volatile and correlated with the tech sector, and $500K in stock options (77% of total financial assets) adds concentrated equity exposure. Allocating her $150K in savings aggressively (A) would compound the equity concentration. A balanced portfolio (C) doesn't account for the equity-like characteristics of her other wealth. The correct approach: allocate the $150K conservatively (bonds, diversified assets) to offset the equity-heavy nature of her human capital and unvested options. Her overall wealth profile is already very aggressive.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Apply the human capital framework to asset allocation"
+        },
+        {
+          "id": "l3-pw1-2",
+          "question": "In the life-cycle framework, which phase typically requires the most significant asset allocation shift?",
+          "options": [
+            "A) Accumulation to consolidation",
+            "B) Consolidation to spending/distribution",
+            "C) Spending to estate/transfer"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The consolidation to spending/distribution transition represents the most significant shift because: (1) human capital effectively reaches zero at retirement, fundamentally changing the risk profile; (2) the portfolio shifts from accumulation to decumulation -- an entirely different paradigm; (3) sequence-of-returns risk becomes critical (early losses in distribution are devastating); (4) the allocation typically shifts from growth to income/capital preservation. The accumulation to consolidation shift (A) is gradual. The spending to estate shift (C) may involve minimal changes if estate planning was already integrated.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Describe the life-cycle investment approach"
+        },
+        {
+          "id": "l3-pw1-3",
+          "question": "A UHNW client with $50M in investable assets categorizes her goals as: $1.5M annual spending (essential), $500K annual charitable giving (important), and establishing a $20M family foundation (aspirational). Using goals-based planning, the appropriate risk profile for the charitable giving sub-portfolio is:",
+          "options": [
+            "A) Conservative, matching the essential spending allocation",
+            "B) Moderate, reflecting 'important' goal status with some tolerance for shortfall",
+            "C) Aggressive, since charitable giving can be reduced without personal hardship"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Goals-based planning assigns risk levels based on the goal's priority: essential goals get conservative allocations (low shortfall probability), important goals get moderate allocations (some shortfall tolerance), and aspirational goals get aggressive allocations (higher shortfall probability accepted). The charitable giving is classified as 'important' -- the client wants to maintain it but could reduce it if necessary. This calls for a moderate risk profile. Option A over-protects a non-essential goal. Option C confuses 'importance' with 'aspirational' -- the client values this giving enough to classify it as important, not merely aspirational.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Apply goals-based risk allocation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the human capital framework to a young professional who asks: 'Why should I care about the nature of my job when deciding how to invest my 401(k)?' Use their specific situation to make it concrete."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does your own human capital profile affect your ideal asset allocation?",
+        "Why is the life-cycle approach an oversimplification, and what individual factors should override it?",
+        "How would you handle a situation where one spouse wants aggressive investing and the other wants conservative?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Client segments**: Mass affluent, HNW, UHNW -- each requires different service models\n- **Human capital**: PV of future earnings; bond-like (stable job) vs equity-like (variable income, startup)\n- **Total wealth**: HC + FC; financial portfolio should diversify total wealth, not just financial capital\n- **Life-cycle phases**: Accumulation, consolidation, spending, estate -- each has different priorities\n- **Goals taxonomy**: Essential (low risk), important (moderate), aspirational (higher risk)\n- **Private client IPS**: Multi-goal, tax-aware, behavioral profile, family dynamics\n- **Risk tolerance**: Ability (financial) vs willingness (behavioral); resolve conflicts conservatively"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we dive deep into **Taxes and Private Wealth** -- the most impactful and underappreciated aspect of wealth management. Tax management can add 1-3% annually to after-tax returns, making it potentially the highest-value activity for private wealth advisors."
+    }
+  ]
+}

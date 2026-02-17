@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.4: Fixed-Income Issuance and Trading",
+    "description": "Understand primary market issuance, secondary market trading, settlement procedures, and repo agreements.",
+    "level": "level-6",
+    "slug": "fi-issuance-trading",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When a government issues new bonds, it typically uses an auction. When a corporation issues bonds, it typically uses an investment bank. Why might these two issuers use different mechanisms?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Primary Market: Bringing Bonds to Market\n\nThe **primary market** is where new bonds are sold for the first time.\n\n### Corporate Bond Issuance\n\nCorporate bonds are typically issued through **underwriting**:\n\n- **Firm commitment**: The underwriter (investment bank) buys the entire issue and resells it. The underwriter bears the risk of unsold bonds.\n- **Best efforts**: The underwriter sells as much as possible but does not guarantee the full amount. The issuer bears the risk.\n- **Book building**: The underwriter surveys institutional investors to gauge demand and determine the offering price/yield spread.\n\nA **shelf registration** (SEC Rule 415) allows issuers to register a large amount of securities and sell them in portions over time, reducing issuance costs.\n\n### Government Bond Issuance\n\nGovernment bonds are typically issued through **auctions**:\n\n- **Single-price auction** (uniform price): All winning bidders pay the same price (the highest yield accepted). Used by the U.S. Treasury.\n- **Multiple-price auction**: Each winning bidder pays their own bid price.\n\nIn a U.S. Treasury auction, **competitive bidders** specify the yield they will accept, while **non-competitive bidders** agree to accept whatever yield is determined by the auction."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In a firm commitment underwriting, who bears the risk if investor demand is lower than expected?",
+      "answer": "The underwriter (investment bank) bears the risk. In a firm commitment, the underwriter purchases the entire bond issue from the issuer at a set price and then resells the bonds to investors. If demand is insufficient, the underwriter is stuck holding unsold bonds at a potential loss. This is why the underwriter's spread (difference between purchase and resale price) compensates for this risk."
+    },
+    {
+      "type": "markdown",
+      "content": "## Secondary Market and Settlement\n\n### Secondary Market Trading\n\nMost bonds trade in the **over-the-counter (OTC)** market through dealer networks rather than on centralized exchanges. Key features:\n\n- **Dealer market**: Dealers quote bid and ask prices and trade from their own inventory\n- **Electronic platforms**: Increasingly used for price discovery and execution (e.g., MarketAxess, Tradeweb)\n- **Liquidity varies**: Government bonds are highly liquid; corporate and municipal bonds are often illiquid\n\n### Settlement\n\nBond settlement specifies when the buyer pays and the seller delivers:\n\n| Market | Settlement Convention |\n|---|---|\n| U.S. Treasuries | T+1 (one business day after trade) |\n| U.S. Corporate | T+1 |\n| U.S. Municipal | T+2 |\n\n### Clearing\n\nA **central clearinghouse** (e.g., DTCC in the U.S.) acts as the counterparty to both sides of a trade, reducing **counterparty risk**. The clearinghouse guarantees settlement even if one party defaults."
+    },
+    {
+      "type": "markdown",
+      "content": "## Repurchase Agreements (Repos)\n\nA **repurchase agreement (repo)** is a short-term collateralized borrowing arrangement:\n\n1. The **seller** (borrower) sells a security to the **buyer** (lender) and agrees to repurchase it at a higher price on a specified date\n2. The price difference is the **repo rate** (the interest cost)\n\n$$\\text{Repurchase Price} = \\text{Sale Price} \\times \\left(1 + \\text{Repo Rate} \\times \\frac{\\text{Days}}{360}\\right)$$\n\n### Key Repo Concepts\n\n- **Repo rate** is influenced by the quality of collateral, term of the repo, and general interest rate levels\n- **Haircut**: The collateral's market value exceeds the loan amount (e.g., $102 of bonds for $100 cash), protecting the lender\n- **Overnight repo**: Matures the next business day\n- **Term repo**: Matures in more than one day\n- The **reverse repo** is the same transaction from the lender's perspective\n\nRepos are critical for short-term funding, monetary policy implementation, and bond market liquidity."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A dealer enters a 30-day repo, selling $10 million face value of Treasury bonds at a sale price of $10,050,000. The repo rate is 4.80%. Calculate the repurchase price.",
+      "solution": "Using the repo price formula:\n\n$$\\text{Repurchase Price} = \\$10{,}050{,}000 \\times \\left(1 + 0.048 \\times \\frac{30}{360}\\right)$$\n\n$$= \\$10{,}050{,}000 \\times (1 + 0.004)$$\n\n$$= \\$10{,}050{,}000 \\times 1.004 = \\$10{,}090{,}200$$\n\nThe repo interest = $10,090,200 \u2212 $10,050,000 = $40,200. This represents the cost of borrowing $10,050,000 for 30 days at an annualized rate of 4.80%."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Issuance and Trading Practice",
+      "problems": [
+        {
+          "id": "fi4-1",
+          "question": "In a U.S. Treasury single-price auction, competitive bidders who bid a yield lower than the stop-out yield will:",
+          "options": [
+            "A) Not receive any allocation",
+            "B) Receive bonds at their bid yield",
+            "C) Receive bonds at the stop-out yield"
+          ],
+          "correctAnswer": "C",
+          "explanation": "In a single-price (uniform price) auction, all winning bidders pay the same price, determined by the highest yield (lowest price) accepted \u2014 the stop-out yield. Bidders who bid lower yields (higher prices) are willing to accept less yield, so they win and receive bonds at the stop-out yield, which is actually a better yield than they bid. Option A is incorrect \u2014 lower yield bids win (they were willing to accept less). Option B describes a multiple-price auction.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the primary market for government bonds"
+        },
+        {
+          "id": "fi4-2",
+          "question": "A bond dealer enters a 60-day repo at a rate of 3.60% on $5 million of collateral. The repo interest is closest to:",
+          "options": [
+            "A) $18,000",
+            "B) $30,000",
+            "C) $180,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Repo interest = Principal \u00d7 Repo rate \u00d7 (Days/360) = $5,000,000 \u00d7 0.036 \u00d7 (60/360) = $5,000,000 \u00d7 0.036 \u00d7 0.1667 = $30,000. Option A uses 360 days in the denominator with only 30 days. Option C calculates the annual interest ($5M \u00d7 3.6%) without adjusting for the 60-day term.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the cost of a repurchase agreement"
+        },
+        {
+          "id": "fi4-3",
+          "question": "Compared to government bonds, corporate bonds in the secondary market most likely have:",
+          "options": [
+            "A) Narrower bid-ask spreads and higher trading volume",
+            "B) Wider bid-ask spreads and lower trading frequency",
+            "C) Similar liquidity characteristics due to electronic trading"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Corporate bonds typically have wider bid-ask spreads and trade less frequently than government bonds. This is because: (1) there are many different corporate issues (less standardization), (2) individual issue sizes are smaller, and (3) more heterogeneous credit risk. Government bonds are highly standardized and heavily traded. Option A describes government bonds. Option C is incorrect \u2014 while electronic trading has improved corporate bond liquidity, significant differences remain.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the secondary market for fixed-income securities"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain what a repurchase agreement is and why it is considered a form of collateralized borrowing rather than a true sale. Use simple terms, as if explaining to someone unfamiliar with bond markets."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why would an issuer prefer a shelf registration over a traditional underwriting for multiple bond issuances?",
+        "How does the existence of a central clearinghouse reduce systemic risk in bond markets?",
+        "What factors might cause the repo rate on a particular bond to differ from general repo rates?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Primary market**: Firm commitment (underwriter bears risk), best efforts (issuer bears risk), book building, shelf registration\n- **Government auctions**: Single-price (all pay stop-out yield) vs. multiple-price (pay own bid)\n- **Secondary market**: Mostly OTC dealer markets; government bonds more liquid than corporate\n- **Settlement**: T+1 for Treasuries and corporates; T+2 for municipals\n- **Repos**: Collateralized short-term borrowing; repurchase price = sale price \u00d7 (1 + rate \u00d7 days/360)\n- **Haircut**: Excess collateral protecting the cash lender in a repo\n- **Clearinghouses** reduce counterparty risk by guaranteeing settlement"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module explores **Markets for Corporate Issuers**, examining the different types of corporate bonds (investment-grade, high-yield, commercial paper) and the credit enhancement mechanisms that affect their pricing and risk."
+    }
+  ]
+}

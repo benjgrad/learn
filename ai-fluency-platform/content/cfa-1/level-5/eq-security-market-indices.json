@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "EQ.2: Security Market Indices",
+    "description": "Learn how security market indices are constructed, the differences between weighting methods, and how indices are used in investment management.",
+    "level": "level-5",
+    "slug": "eq-security-market-indices",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "The Dow Jones Industrial Average contains only 30 stocks, while the S&P 500 contains 500. Yet both are widely followed. If a single high-priced stock in the DJIA splits 2-for-1, how would that affect the index differently than in the S&P 500? Why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Index Construction Methods\n\nA security market index measures the value of a specific group of securities. The key design choice is how to **weight** the constituent securities.\n\n### Price-Weighted Index\n\nEach security is weighted by its **price per share**. Higher-priced stocks have more influence.\n\n$$\\text{Index Value} = \\frac{\\sum_{i=1}^{N} P_i}{D}$$\n\nWhere $P_i$ is the price of stock $i$ and $D$ is the divisor (adjusted for stock splits and index changes).\n\n**Example:** Three stocks priced at \\$20, \\$50, and \\$30 with a divisor of 3:\n\n$$\\text{Index} = \\frac{20 + 50 + 30}{3} = 33.33$$\n\nIf the \\$50 stock rises 10% to \\$55, the index becomes $(20 + 55 + 30)/3 = 35.00$, a 5.0% increase. But if the \\$20 stock rises 10% to \\$22, the index becomes $(22 + 50 + 30)/3 = 34.00$, only a 2.0% increase. The higher-priced stock dominates.\n\n**Examples:** Dow Jones Industrial Average (DJIA), Nikkei 225\n\n**Bias:** Price-weighted indices give arbitrary overweighting to high-priced stocks regardless of their market capitalization."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A price-weighted index has three stocks: A at $100, B at $50, and C at $25. Stock C undergoes a 5-for-1 stock split. What happens to the index, and how is it adjusted?",
+      "answer": "The stock split reduces C's price from $25 to $5, but the index value should not change due to a split. The divisor is adjusted downward so the index value remains the same. Before split: (100 + 50 + 25)/3 = 58.33. After split, the new divisor D satisfies: (100 + 50 + 5)/D = 58.33, so D = 155/58.33 = 2.657. This is a key weakness of price-weighted indices: the split reduces Stock C's weight in the index even though nothing fundamentally changed."
+    },
+    {
+      "type": "markdown",
+      "content": "## Value-Weighted, Equal-Weighted, and Fundamental-Weighted Indices\n\n### Market Capitalization-Weighted (Value-Weighted)\n\nEach security is weighted by its **market capitalization** (price \u00d7 shares outstanding).\n\n$$w_i = \\frac{P_i \\times Q_i}{\\sum_{j=1}^{N} P_j \\times Q_j}$$\n\nWhere $Q_i$ is shares outstanding for stock $i$.\n\n**Examples:** S&P 500, MSCI World, FTSE 100\n\n**Advantage:** Reflects the actual investment opportunity set; no rebalancing needed for price changes. **Disadvantage:** Dominated by the largest companies; may overweight overvalued stocks.\n\n### Float-Adjusted Market Cap\n\nMost modern indices use **free-float** market cap, excluding shares held by insiders, governments, or strategic holders that are unlikely to be traded.\n\n### Equal-Weighted\n\nEach security receives the **same weight** regardless of price or size: $w_i = 1/N$.\n\n**Advantage:** Equal representation of all constituents. **Disadvantage:** Requires frequent rebalancing as prices change; tilts toward small-cap stocks.\n\n### Fundamental-Weighted\n\nWeights based on fundamental measures like **revenue, earnings, dividends, or book value**.\n\n**Advantage:** Avoids overweighting overvalued stocks. **Disadvantage:** Implicitly a value tilt; departs from the market portfolio."
+    },
+    {
+      "type": "markdown",
+      "content": "## Index Management: Rebalancing and Reconstitution\n\n### Rebalancing\n\nRebalancing restores index weights to their target values. The frequency depends on the weighting method:\n\n- **Price-weighted:** No rebalancing needed (weights adjust automatically with prices)\n- **Market cap-weighted:** Minimal rebalancing (weights adjust naturally as prices change)\n- **Equal-weighted:** Frequent rebalancing required (must sell winners and buy losers to restore equal weights)\n- **Fundamental-weighted:** Periodic rebalancing to realign with fundamental values\n\n### Reconstitution\n\nReconstitution is the process of **adding and removing securities** from the index based on selection criteria (e.g., market cap thresholds, liquidity). This typically occurs on a scheduled basis (quarterly or annually).\n\nReconstitution creates a **reconstitution effect:** stocks added to a major index tend to rise in price (due to buying by index funds), while deleted stocks tend to fall.\n\n### Uses of Market Indices\n\n| Use | Description |\n|---|---|\n| **Benchmarking** | Measure portfolio performance against a reference |\n| **Asset allocation** | Represent asset classes in allocation models |\n| **Index funds/ETFs** | Serve as the target for passive investment vehicles |\n| **Market sentiment** | Gauge overall market direction and investor confidence |\n| **Risk measurement** | Calculate beta and systematic risk relative to the market |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate returns for price-weighted and value-weighted indices given the following data.",
+      "solution": "Given three stocks:\n\n| Stock | Price (t=0) | Price (t=1) | Shares Outstanding |\n|-------|-------------|-------------|-------------------|\n| A     | $40         | $44         | 1,000             |\n| B     | $60         | $54         | 500               |\n| C     | $80         | $88         | 200               |\n\n**Price-weighted return:**\nIndex at t=0 = (40 + 60 + 80) / 3 = 60.00\nIndex at t=1 = (44 + 54 + 88) / 3 = 62.00\nReturn = (62 \u2212 60) / 60 = 3.33%\n\n**Value-weighted return:**\nMarket cap at t=0: A = $40,000, B = $30,000, C = $16,000. Total = $86,000\nWeights: A = 46.5%, B = 34.9%, C = 18.6%\nStock returns: A = +10%, B = \u221210%, C = +10%\nWeighted return = 0.465(10%) + 0.349(\u221210%) + 0.186(10%) = 4.65% \u2212 3.49% + 1.86% = 3.02%\n\nThe results differ because the price-weighted index overweights stock C (highest price, $80) while the value-weighted index overweights stock A (highest market cap, $40,000)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Security Market Indices Practice Problems",
+      "problems": [
+        {
+          "id": "eq2-1",
+          "question": "A price-weighted index consists of three stocks priced at $30, $60, and $90 with a divisor of 3. If the $90 stock splits 3-for-1, the new divisor is closest to:",
+          "options": [
+            "A) 1.80",
+            "B) 2.00",
+            "C) 2.33"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Before the split, the index value = (30 + 60 + 90)/3 = 60. After the 3-for-1 split, the stock's price becomes $30. The new divisor must maintain the same index value: (30 + 60 + 30)/D = 60, so D = 120/60 = 2.00. Option A (1.80) would give an index of 66.67. Option C (2.33) would give an index of 51.50.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate the new divisor for a price-weighted index after a stock split"
+        },
+        {
+          "id": "eq2-2",
+          "question": "Which index weighting method most likely requires the most frequent rebalancing?",
+          "options": [
+            "A) Market capitalization-weighted",
+            "B) Price-weighted",
+            "C) Equal-weighted"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Equal-weighted indices require the most frequent rebalancing because stock price movements constantly push weights away from equal proportions. After any price change, stocks that increased in value become overweighted and must be sold, while stocks that decreased become underweighted and must be bought. Option A is incorrect because market cap-weighted indices self-adjust as market caps change. Option B is incorrect because price-weighted indices also self-adjust with price changes.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Compare rebalancing requirements across index weighting methods"
+        },
+        {
+          "id": "eq2-3",
+          "question": "A market capitalization-weighted index has two stocks:\n\n| Stock | Price | Shares Outstanding |\n|-------|-------|-------------------|\n| X     | $50   | 10,000            |\n| Y     | $25   | 30,000            |\n\nStock X rises 20% and Stock Y falls 10%. The index return is closest to:",
+          "options": [
+            "A) 2.0%",
+            "B) 5.0%",
+            "C) 10.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Market cap of X = $50 \u00d7 10,000 = $500,000. Market cap of Y = $25 \u00d7 30,000 = $750,000. Total = $1,250,000. Weight of X = 500,000/1,250,000 = 40%. Weight of Y = 750,000/1,250,000 = 60%. Index return = 0.40 \u00d7 20% + 0.60 \u00d7 (\u221210%) = 8% \u2212 6% = 2.0%. New total market cap = ($60 \u00d7 10,000) + ($22.50 \u00d7 30,000) = $600,000 + $675,000 = $1,275,000. Return = ($1,275,000 \u2212 $1,250,000)/$1,250,000 = 2.0%. Option B (5.0%) would result if only stock X's return were considered. Option C (10.0%) is the simple average of the two returns, which would be the equal-weighted return, not the market cap-weighted return.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate the return on a market capitalization-weighted index"
+        },
+        {
+          "id": "eq2-4",
+          "question": "Fundamental weighting of an index most likely introduces a bias toward:",
+          "options": [
+            "A) Growth stocks",
+            "B) Value stocks",
+            "C) Large-cap stocks"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Fundamental-weighted indices weight stocks by measures such as revenue, earnings, dividends, or book value rather than market price. This approach tends to overweight stocks that are cheap relative to their fundamentals (value stocks) and underweight stocks that are expensive relative to fundamentals (growth stocks). Option A is incorrect because growth stocks typically have high market prices relative to fundamentals, so they would be underweighted. Option C is incorrect because while large-cap stocks may have high fundamental values, the defining bias is toward value, not size.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Describe the biases inherent in different index weighting methods"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A friend tells you the Dow Jones Industrial Average is a good representation of the overall stock market because it contains large, well-known companies. Explain what weighting method the DJIA uses and why this might lead to misleading conclusions about market performance."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do most professional investors use market cap-weighted indices as benchmarks rather than price-weighted indices?",
+        "How does the reconstitution effect create a potential drag on index fund returns?",
+        "If you were designing a new index, which weighting method would you choose and why?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Price-weighted:** Weighted by share price; biased toward high-priced stocks (DJIA)\n- **Market cap-weighted:** Weighted by market capitalization; reflects the investable market (S&P 500)\n- **Equal-weighted:** Same weight for all stocks; requires frequent rebalancing; small-cap tilt\n- **Fundamental-weighted:** Weighted by earnings, revenue, etc.; value tilt\n- **Rebalancing** restores target weights; **reconstitution** adds/removes constituents\n- Float-adjusted market cap excludes shares unlikely to be traded\n- Indices serve as benchmarks, allocation tools, and bases for passive investing"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Market Efficiency**, which examines whether market prices fully reflect available information. If markets are efficient, index investing (passive management) should outperform most active managers \u2014 which is why index construction methods matter so much for investment practice."
+    }
+  ]
+}

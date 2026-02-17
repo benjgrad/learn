@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FI.5: Markets for Corporate Issuers",
+    "description": "Explore investment-grade and high-yield bonds, commercial paper, medium-term notes, covered bonds, and credit enhancement mechanisms.",
+    "level": "level-6",
+    "slug": "fi-markets-corporate",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company rated BBB\u2212 is one notch above 'junk' status. If it gets downgraded to BB+, what do you think happens to its bond prices and the types of investors who hold it?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Investment-Grade vs. High-Yield Bonds\n\n### Credit Rating Categories\n\n| Category | Moody's | S&P/Fitch | Characteristics |\n|---|---|---|---|\n| **Investment grade** | Aaa to Baa3 | AAA to BBB\u2212 | Lower default risk, narrower spreads, held by insurance companies and pension funds |\n| **High yield (junk)** | Ba1 to C | BB+ to D | Higher default risk, wider spreads, held by hedge funds and specialized managers |\n\nThe boundary between investment grade and high yield (BBB\u2212/Baa3) is critical. Many institutional investors have **mandates** that restrict them to investment-grade bonds only. A downgrade from BBB\u2212 to BB+ (a **fallen angel**) forces these investors to sell, causing significant price declines.\n\nConversely, a **rising star** is a high-yield issuer upgraded to investment grade, which typically triggers price appreciation as a broader investor base can now purchase the bonds.\n\n### Key Differences\n\n- **Covenants**: High-yield bonds typically have more restrictive covenants than investment-grade bonds\n- **Recovery rates**: Investment-grade defaults (rare) tend to have higher recovery rates\n- **Call features**: High-yield bonds are more often callable, giving issuers flexibility to refinance"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why do high-yield bonds typically have more restrictive covenants than investment-grade bonds?",
+      "answer": "High-yield issuers have weaker credit profiles, so bondholders demand stronger contractual protections. Restrictive covenants (e.g., limits on additional debt, required minimum financial ratios, restrictions on dividends) constrain management behavior that could further deteriorate credit quality. Investment-grade issuers have stronger financial positions and established track records, so investors accept fewer restrictions \u2014 the issuer's financial strength itself provides protection."
+    },
+    {
+      "type": "markdown",
+      "content": "## Short-Term and Medium-Term Corporate Debt\n\n### Commercial Paper (CP)\n\nCommercial paper is **short-term, unsecured** debt issued by corporations to fund working capital needs:\n\n- Maturity: typically 1 to 270 days (U.S.); commonly 30-90 days\n- Sold at a **discount** to par (like T-bills); no periodic coupons\n- Minimum credit quality required (typically A-1/P-1 ratings)\n- Often backed by a **backup line of credit** from a bank\n- **Rollover risk**: Issuer must continually reissue to maintain funding\n\n### Medium-Term Notes (MTNs)\n\nMTNs are offered **continuously** through a program (not all at once like a traditional bond issue):\n\n- Maturities range from 9 months to 30+ years (despite the name \"medium-term\")\n- Issued through a **shelf registration** and sold by dealers on a best-efforts basis\n- Customizable terms: issuers can tailor maturity, coupon, and structure to investor demand\n- **Structured notes** are often issued as MTNs with embedded derivatives"
+    },
+    {
+      "type": "markdown",
+      "content": "## Covered Bonds and Credit Enhancements\n\n### Covered Bonds\n\nCovered bonds are debt obligations backed by a **cover pool** of assets (typically mortgages or public-sector loans) that remain on the issuer's balance sheet. Key features:\n\n- **Dual recourse**: Investors have a claim on both the issuer and the cover pool\n- Widely used in Europe; less common in the U.S.\n- Generally carry **AAA ratings** due to dual recourse and strict regulatory requirements\n- Unlike securitization, the assets stay on the issuer's balance sheet\n\n### Credit Enhancement Mechanisms\n\n**Internal enhancements** (structural features within the issue):\n- **Subordination/tranching**: Junior tranches absorb losses first, protecting senior tranches\n- **Overcollateralization**: Collateral value exceeds bond value (e.g., $110M of assets backing $100M of bonds)\n- **Excess spread**: Difference between interest received on collateral and interest paid to bondholders\n- **Reserve accounts**: Cash set aside to cover potential losses\n\n**External enhancements** (third-party guarantees):\n- **Surety bonds**: Insurance company guarantees payment\n- **Letters of credit**: Bank promises to pay if issuer defaults\n- **Corporate guarantees**: Parent company backs subsidiary's debt"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company issues 90-day commercial paper with a face value of $1,000,000 at a discount yield of 4.20%. Calculate the purchase price and the dollar discount.",
+      "solution": "Commercial paper is priced on a discount basis:\n\n$$\\text{Price} = \\text{Face Value} \\times \\left(1 - \\text{Discount Yield} \\times \\frac{\\text{Days}}{360}\\right)$$\n\n$$\\text{Price} = \\$1{,}000{,}000 \\times \\left(1 - 0.042 \\times \\frac{90}{360}\\right)$$\n\n$$= \\$1{,}000{,}000 \\times (1 - 0.0105) = \\$1{,}000{,}000 \\times 0.9895 = \\$989{,}500$$\n\nDollar discount = $1,000,000 \u2212 $989,500 = $10,500\n\nThe investor pays $989,500 and receives $1,000,000 at maturity, earning $10,500 over 90 days."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Markets for Corporate Issuers Practice",
+      "problems": [
+        {
+          "id": "fi5-1",
+          "question": "A bond originally rated BB+ by S&P is upgraded to BBB\u2212. This bond is best described as a:",
+          "options": [
+            "A) Fallen angel",
+            "B) Rising star",
+            "C) Crossover credit"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A rising star is a high-yield bond upgraded to investment grade. The upgrade from BB+ (high yield) to BBB\u2212 (investment grade) crosses the critical threshold, potentially opening the bond to a much larger pool of institutional investors and driving prices higher. Option A (fallen angel) is the opposite \u2014 an investment-grade bond downgraded to high yield. Option C (crossover credit) refers to a bond rated near the investment-grade/high-yield boundary but does not specifically describe this upgrade scenario.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between investment-grade and high-yield classifications"
+        },
+        {
+          "id": "fi5-2",
+          "question": "Which of the following is an internal credit enhancement?",
+          "options": [
+            "A) A letter of credit from a commercial bank",
+            "B) A surety bond from an insurance company",
+            "C) Overcollateralization of the asset pool"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Overcollateralization is an internal credit enhancement \u2014 it is a structural feature within the bond issue itself where the collateral value exceeds the bond value. Option A (letter of credit) and Option B (surety bond) are both external credit enhancements because they rely on a third party (bank or insurer) to provide credit support.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Distinguish between internal and external credit enhancements"
+        },
+        {
+          "id": "fi5-3",
+          "question": "Compared to securitized bonds, covered bonds most likely offer investors:",
+          "options": [
+            "A) Higher yields due to greater credit risk",
+            "B) Dual recourse to both the issuer and the cover pool",
+            "C) Protection from the issuer's bankruptcy through a special purpose vehicle"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Covered bonds provide dual recourse \u2014 the investor has a claim against both the issuing bank and the segregated cover pool of assets. This is the defining feature that distinguishes covered bonds from securitized products. Option A is incorrect because covered bonds typically carry lower yields (often AAA) due to the dual recourse protection. Option C describes securitization (where assets are transferred to an SPV), not covered bonds \u2014 covered bond assets remain on the issuer's balance sheet.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the features of covered bonds"
+        },
+        {
+          "id": "fi5-4",
+          "question": "The greatest risk to an issuer that relies on commercial paper for ongoing funding is:",
+          "options": [
+            "A) Interest rate risk",
+            "B) Rollover risk",
+            "C) Inflation risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Rollover risk is the primary concern for CP issuers. Because commercial paper has very short maturities (typically under 270 days), issuers must continually reissue to maintain their funding. If market conditions deteriorate or the issuer's credit quality declines, it may be unable to roll over maturing CP, creating a liquidity crisis. Option A is less relevant because the short maturity minimizes interest rate exposure. Option C is minimal for such short-term instruments.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the features and risks of commercial paper"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a non-finance colleague why a bond downgrade from BBB\u2212 to BB+ can cause a much larger price decline than a downgrade from A to A\u2212, even though both are one-notch downgrades."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might an issuer choose to issue medium-term notes continuously rather than a single large bond offering?",
+        "How does the dual recourse feature of covered bonds affect their credit rating relative to the issuer's own rating?",
+        "What market conditions would make rollover risk for commercial paper issuers most dangerous?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Investment grade** (BBB\u2212/Baa3 and above) vs. **High yield** (BB+/Ba1 and below)\n- **Fallen angels**: IG downgraded to HY; **Rising stars**: HY upgraded to IG\n- **Commercial paper**: Short-term, unsecured, discount instrument; key risk is rollover risk\n- **MTNs**: Continuously offered via shelf registration; customizable maturities and structures\n- **Covered bonds**: Dual recourse (issuer + cover pool); assets stay on balance sheet\n- **Internal enhancements**: Subordination, overcollateralization, excess spread, reserve accounts\n- **External enhancements**: Surety bonds, letters of credit, corporate guarantees"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Markets for Government Issuers**, examining Treasury bills, notes, bonds, TIPS, agency bonds, and municipal securities \u2014 the other major segment of the fixed-income universe."
+    }
+  ]
+}

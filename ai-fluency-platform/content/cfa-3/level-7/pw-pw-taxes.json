@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PW.2: Taxes and Private Wealth",
+    "description": "Master income tax, capital gains tax, wealth transfer tax, accrual equivalent returns, asset location, tax-loss harvesting, and charitable giving strategies.",
+    "level": "level-7",
+    "slug": "pw-pw-taxes",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Private Wealth Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two investors each earn 8% annually for 20 years. Investor A pays taxes each year on gains. Investor B defers all taxes until the end. Both face a 30% tax rate. How much wealthier is Investor B at the end? Estimate before calculating."
+    },
+    {
+      "type": "markdown",
+      "content": "## Tax Impact on Investment Returns\n\n### Annual Taxation (Interest Income, Dividends)\n\nAfter-tax accumulation with annual tax:\n\n$$FV_{\\text{annual tax}} = PV \\times [1 + r(1-t)]^n$$\n\n### Deferred Capital Gains\n\nAfter-tax accumulation with deferred tax:\n\n$$FV_{\\text{deferred}} = PV \\times [(1+r)^n (1-t_{cg}) + t_{cg} \\times B]$$\n\nWhere $B$ = cost basis as a proportion of current value. If initial investment equals cost basis, $B = 1$.\n\n### Accrual Equivalent Tax Rate\n\nThe $T_{AE}$ that makes annual taxation equivalent to the actual after-tax accumulation:\n\n$$[1 + r(1 - T_{AE})]^n = FV_{\\text{actual after-tax}}$$\n\nKey insight: **Tax deferral always reduces the effective tax rate below the statutory rate**. Longer deferral = lower $T_{AE}$.\n\n### Example\n\nInvestor with $100, 8% return, 30% tax rate, 20-year horizon:\n- Annual taxation: $100 x [1 + 0.08(1-0.30)]^20 = $100 x (1.056)^20 = $297.20\n- Deferred taxation: $100 x [(1.08)^20(1-0.30) + 0.30] = $100 x [4.661 x 0.70 + 0.30] = $356.27\n\nDeferral advantage: **$59.07** or nearly 20% more wealth."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An investor can choose between: (A) a tax-exempt municipal bond yielding 3.5%, or (B) a taxable corporate bond yielding 5.0%. Her marginal tax rate is 35%. Which is better on an after-tax basis?",
+      "answer": "The taxable bond is better. After-tax yield on the corporate bond: 5.0% x (1 - 0.35) = 3.25%. Wait -- that's actually less than the muni's 3.5%. The tax-exempt muni is better. The breakeven tax rate is: 1 - (3.5/5.0) = 30%. Since her tax rate (35%) exceeds the breakeven (30%), the muni provides higher after-tax income. However, this simple comparison assumes equal credit risk, equal state tax treatment, and doesn't account for the muni's potential AMT implications. In practice, also compare total return (price appreciation potential) and liquidity."
+    },
+    {
+      "type": "markdown",
+      "content": "## Tax-Advantaged Account Types\n\n| Account Type | Contribution | Growth | Withdrawal | Best For |\n|---|---|---|---|---|\n| Tax-deferred (401k, IRA) | Pre-tax deduction | Tax-free | Ordinary income tax | High-income investors, bonds/REITs |\n| Tax-exempt (Roth) | After-tax | Tax-free | Tax-free | Long horizon, expected higher future rates |\n| Taxable | After-tax | Taxed annually/deferred | Capital gains rate | Tax-efficient investments, liquidity |\n\n## Asset Location\n\nPlace investments in the most tax-efficient account type:\n\n- **Tax-deferred accounts**: High-yield bonds, REITs, actively traded strategies (high ordinary income)\n- **Taxable accounts**: Index funds (low turnover), individual stocks (control gains realization), tax-exempt munis\n- **Roth accounts**: Highest expected growth assets (benefit most from permanent tax exemption)\n\n## Tax-Loss Harvesting\n\nRealize losses to offset gains while maintaining market exposure:\n\n1. Sell losing position\n2. Immediately reinvest in a similar (not identical) investment\n3. Offset realized gains; excess losses carry forward\n4. **Wash sale rule**: Cannot repurchase substantially identical security within 30 days\n\nValue of harvesting: PV of tax deferral on the gains offset.\n\n## Charitable Giving Strategies\n\n- **Donate appreciated securities**: Avoid capital gains tax + get full fair market value deduction\n- **Donor-advised fund (DAF)**: Immediate deduction, distribute to charities over time\n- **Charitable remainder trust (CRT)**: Income stream to donor, remainder to charity\n- **Charitable lead trust (CLT)**: Income to charity, remainder to heirs (reduces estate)\n- **Qualified charitable distribution (QCD)**: Donate directly from IRA (age 70.5+), counts toward RMD"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Tax-Efficient Portfolio Design\n\nClient: Margaret Williams, age 58, recently widowed.\n- Taxable account: $2.5M (60% stocks, 40% bonds)\n- 401(k): $1.2M (100% target date fund)\n- Roth IRA: $400K (index funds)\n- Inherited IRA from spouse: $800K (must take RMDs over 10 years)\n- Annual income: $180K from part-time consulting; will retire fully at 63\n- Marginal tax rate: 32% (federal) + 5% (state) = 37%\n- Charitable intent: Donates $30K annually to her university\n\nA) Recommend an asset location strategy across her four accounts.\nB) Design a tax-loss harvesting approach for her taxable account.\nC) Optimize her charitable giving strategy.\nD) Calculate the benefit of Roth conversion of $100K from the 401(k) this year.",
+      "solution": "**A) Asset Location Strategy:**\n\nTotal portfolio: $4.9M. Target allocation: 55% equity, 35% bonds, 10% alternatives/REIT\n\nOptimal location:\n- **Taxable ($2.5M)**: Index equity funds ($1.7M -- low turnover, qualified dividends taxed at preferential rates), tax-exempt municipal bonds ($600K -- tax-free income at her 37% combined rate), individual stocks ($200K -- control over gain realization)\n- **401(k) ($1.2M)**: Taxable bonds ($700K -- interest taxed at ordinary rates upon withdrawal anyway), REITs ($300K -- REIT dividends are ordinary income), TIPS ($200K -- phantom income problem solved in tax-deferred)\n- **Roth IRA ($400K)**: Highest-growth investments -- small-cap equity ($200K), emerging markets ($200K). These benefit most from permanent tax exemption\n- **Inherited IRA ($800K)**: Balanced mix ($500K bonds, $300K equity). Must be distributed within 10 years -- plan distributions to minimize total tax over the 10-year window\n\n**B) Tax-Loss Harvesting Approach:**\n\nReview the taxable account's stock holdings for unrealized losses:\n1. Identify positions with >5% unrealized losses\n2. Sell losing positions and replace with similar (not identical) investments (e.g., sell S&P 500 ETF, buy total market ETF)\n3. Use harvested losses to offset any realized gains from rebalancing\n4. Carry forward excess losses ($3K annual deduction against ordinary income; remainder carries forward)\n5. Systematically harvest before year-end, being mindful of wash sale rules\n6. Estimate: If 15% of stock portfolio has unrealized losses averaging 15%, potential harvest = $2.5M x 0.60 x 0.15 x 0.15 = $33.75K in losses, saving $33.75K x 23.8% (LTCG + NIIT) = $8K in current-year taxes\n\n**C) Charitable Giving Optimization:**\n\nCurrent approach ($30K cash donation): Deduction = $30K x 37% = $11,100 tax savings\n\nOptimal approach:\n1. Donate $30K of appreciated stock from the taxable account instead of cash\n   - Avoids capital gains tax on appreciation (assume $20K basis): Saves $10K x 23.8% = $2,380 in capital gains tax\n   - Still gets full $30K deduction: $11,100 tax savings\n   - Total benefit: $13,480 vs $11,100 with cash = $2,380 additional savings annually\n\n2. Open a Donor-Advised Fund: Bunch 2-3 years of giving ($60-90K) into one year to exceed standard deduction threshold, then distribute over time. This is especially valuable if she itemizes marginally.\n\n3. At age 70.5+: Use QCDs from the inherited IRA to satisfy RMDs while directing to charity. This removes the income from AGI entirely (better than a deduction).\n\n**D) Roth Conversion Analysis:**\n\nConvert $100K from 401(k) to Roth IRA this year:\n- Tax cost now: $100K x 37% = $37,000 (paid from non-retirement assets)\n- Future benefit: $100K growing tax-free in Roth for 25+ years\n\nAssume 7% growth, 25-year horizon:\n- In Roth: $100K x (1.07)^25 = $542,743 (entirely tax-free)\n- In 401(k): $100K x (1.07)^25 = $542,743, but taxed at withdrawal. If future rate is 32%: $542,743 x (1-0.32) = $369,065\n\nBenefit: $542,743 - $369,065 = $173,678 more after-tax\nNet of conversion cost ($37,000): Net benefit = $173,678 - $37,000 = $136,678\n\nConversion is beneficial IF: (1) she pays the tax from non-retirement funds, (2) her future tax rate is similar or higher, (3) she has a long enough horizon. At age 58 with 25+ years, this is a strong Roth conversion candidate. Consider converting $50-100K annually during the 5 years before Social Security starts (potentially lower bracket)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Taxes and Private Wealth Practice",
+      "problems": [
+        {
+          "id": "l3-pw2-1",
+          "question": "An investor earns 10% annually for 15 years in a tax-deferred account with a 25% tax rate upon withdrawal. The accrual equivalent after-tax return is closest to:",
+          "options": [
+            "A) 7.5%",
+            "B) 8.2%",
+            "C) 8.8%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "After-tax FV per $1 in tax-deferred account: FV = (1.10)^15 x (1-0.25) + 0.25 x 1.0 = 4.177 x 0.75 + 0.25 = 3.133 + 0.25 = 3.383. Accrual equivalent return: r_ae = 3.383^(1/15) - 1 = 8.42%, closest to 8.2%. Note this exceeds 7.5% (which is simply 10% x (1-0.25)), demonstrating the benefit of tax deferral. The effective tax rate: T_AE = 1 - (8.42/10.0) = 15.8%, much lower than the statutory 25%.",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Calculate accrual equivalent return for tax-deferred investments"
+        },
+        {
+          "id": "l3-pw2-2",
+          "question": "An investor holds a stock with a cost basis of $40 currently trading at $35. She also has $10,000 in realized capital gains this year. She wants to maintain market exposure. The most appropriate tax-loss harvesting action is:",
+          "options": [
+            "A) Sell the stock and repurchase it after 31 days",
+            "B) Sell the stock and immediately purchase a similar but not identical investment",
+            "C) Hold the stock because the loss is unrealized and may recover"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Selling the stock realizes a $5 per share loss that can offset the $10,000 in capital gains, reducing current tax liability. Immediately purchasing a similar (but not substantially identical) investment maintains market exposure without triggering wash sale rules. Option A works but leaves the investor without market exposure for 31 days -- a significant gap risk. Option C forfeits the opportunity to realize a tax benefit now; the time value of the tax deferral makes harvesting today more valuable than waiting for recovery.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Implement tax-loss harvesting while maintaining market exposure"
+        },
+        {
+          "id": "l3-pw2-3",
+          "question": "A client in the 37% tax bracket donates $50,000 of stock (cost basis $15,000, held over one year) to a donor-advised fund. Compared to selling the stock and donating cash, the total tax benefit of donating stock directly is:",
+          "options": [
+            "A) $5,550",
+            "B) $8,330",
+            "C) $18,500"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Donating stock directly: The client gets a $50,000 charitable deduction (tax saving: $50,000 x 37% = $18,500) AND avoids capital gains tax on the $35,000 gain ($35,000 x 23.8% = $8,330, assuming 20% LTCG + 3.8% NIIT). Total benefit: $18,500 + $8,330 = $26,830.\n\nSelling and donating cash: Capital gains tax paid: $8,330. Net cash donated: $50,000 - $8,330 = $41,670. Deduction: $41,670 x 37% = $15,418. Total benefit: $15,418.\n\nAlternatively, if selling and donating the full $50K from other cash: Tax on sale: $8,330. Deduction benefit: $18,500. Net benefit: $18,500 - $8,330 = $10,170.\n\nThe incremental benefit of donating stock vs selling and donating equivalent cash is the avoided capital gains tax of $8,330.",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Quantify the tax advantage of donating appreciated securities"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a high-income client why the account in which they hold an investment matters as much as which investment they choose. Use a simple example comparing a bond fund in a taxable account versus a Roth IRA."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does tax deferral create value even if the tax rate stays the same?",
+        "In what situation would a Roth conversion NOT be beneficial?",
+        "How does the wash sale rule limit tax-loss harvesting, and what workarounds exist?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Tax drag**: Annual taxation costs 1-3% in returns; deferral reduces effective rate\n- **Accrual equivalent tax rate**: Always lower than statutory rate; longer deferral = larger benefit\n- **Asset location**: Tax-inefficient assets in tax-deferred; growth assets in Roth; tax-efficient in taxable\n- **Tax-loss harvesting**: Realize losses to offset gains; replace with similar investments; observe wash sale rules\n- **Roth conversion**: Beneficial when future tax rate >= current rate, long horizon, taxes paid from outside\n- **Charitable strategies**: Donate appreciated stock (avoid LTCG + get deduction); DAFs for bunching; QCDs for RMD management\n- **After-tax wealth**: The only metric that matters; all strategies should be evaluated on after-tax basis"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Estate Planning** -- how to transfer wealth across generations while minimizing transfer taxes. Estate planning builds directly on the tax concepts you've learned here and adds the dimensions of control, timing, and family governance."
+    }
+  ]
+}

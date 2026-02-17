@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PM.3: Credit Strategies",
+    "description": "Develop advanced credit analysis skills across investment-grade, high-yield, structured credit, and emerging market debt, including CDS strategies and credit cycle positioning.",
+    "level": "level-6",
+    "slug": "pw-pm-credit-strategies",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Corporate credit spreads tend to widen during recessions and narrow during expansions. But within a recession, investment-grade and high-yield spreads behave differently. Which do you think widens more in absolute terms, and which recovers faster? Why?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Credit Strategy Framework\n\nCredit strategies seek to generate alpha from **spread changes, carry, and credit selection** beyond the risk-free rate.\n\n### Investment-Grade Credit Analysis\n\nKey drivers of IG spread changes:\n- **Macro factors**: Business cycle, monetary policy, risk appetite\n- **Sector rotation**: Relative value across industries\n- **Issuer-specific**: Rating migration, event risk, financial policy\n\nSpread decomposition:\n$$\\text{Credit spread} = \\text{Expected loss} + \\text{Liquidity premium} + \\text{Risk premium}$$\n\nFor IG bonds, the risk premium is typically the largest component -- actual default rates are low, so most of the spread compensates for **uncertainty** rather than expected losses.\n\n### High-Yield Credit Analysis\n\nHY analysis focuses more heavily on:\n- **Cash flow adequacy**: Interest coverage, debt service coverage\n- **Capital structure**: Senior vs subordinated, secured vs unsecured\n- **Recovery analysis**: Asset value in distress, structural subordination\n- **Covenant quality**: Incurrence vs maintenance covenants\n\n$$\\text{Expected loss} = \\text{PD} \\times \\text{LGD} = \\text{PD} \\times (1 - \\text{Recovery Rate})$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A BB-rated bond trades at a spread of 350 bps. Historical average default rate for BB bonds is 1.5% annually, with average recovery of 40%. Is this bond's spread attractive relative to its expected credit loss?",
+      "answer": "Expected annual credit loss = PD x LGD = 1.5% x (1 - 40%) = 1.5% x 60% = 0.90% or 90 bps. The spread of 350 bps significantly exceeds the 90 bps expected loss, providing a 260 bps cushion for risk premium and liquidity. This appears attractive, but consider: (1) historical averages may understate forward-looking risk if the credit cycle is deteriorating, (2) the specific issuer may have higher-than-average default risk for its rating, and (3) the spread should also compensate for spread volatility and illiquidity. Generally, a spread-to-expected-loss ratio above 3x (here: 350/90 = 3.9x) suggests reasonable compensation."
+    },
+    {
+      "type": "markdown",
+      "content": "## Credit Cycle Positioning\n\n| Cycle Phase | Spreads | Strategy |\n|---|---|---|\n| Early expansion | Narrowing rapidly | Overweight HY, lower quality |\n| Late expansion | Tight, low vol | Reduce risk, improve quality |\n| Early contraction | Widening sharply | Defensive, IG focus, add duration |\n| Late contraction | Wide, stabilizing | Begin adding HY selectively |\n\n## CDS Strategies\n\nCredit default swaps enable strategies without cash bonds:\n\n- **Naked CDS**: Buy protection on credits expected to deteriorate\n- **Basis trade**: Exploit CDS-cash bond spread differential\n- **Index vs single-name**: Go long index, short specific names (or vice versa)\n- **Curve trades**: Long protection at 5Y, short at 10Y if expecting near-term deterioration\n\n$$\\text{CDS-bond basis} = \\text{CDS spread} - \\text{Cash bond spread (Z-spread)}$$\n\nA negative basis (CDS spread < bond spread) suggests CDS protection is cheap.\n\n## Structured Credit Strategies\n\n- **CLO tranches**: Invest in specific risk layers of leveraged loan pools\n- **CMBS/RMBS**: Residential and commercial mortgage-backed positions\n- **Synthetic CDO**: Use CDS to create customized credit exposure\n\nKey risks: correlation risk, prepayment risk, structural subordination\n\n## Emerging Market Credit\n\n- Higher yields compensate for: sovereign risk, currency risk, political risk, legal/regulatory risk\n- **Local currency vs hard currency**: Local offers diversification but currency risk; hard currency isolates credit risk\n- **Sovereign ceiling**: Corporate ratings rarely exceed sovereign rating in EM"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Credit Portfolio Repositioning\n\nYou manage a $500M investment-grade credit portfolio. Current allocation: 40% financials, 25% industrials, 20% utilities, 15% technology. Duration: 5.5 years. Average spread: 120 bps.\n\nEconomic indicators suggest the economy is transitioning from late expansion to early contraction. Recent data: PMI declining below 50, unemployment claims rising, yield curve inverted.\n\nA) Identify the key credit risks in this environment.\nB) Propose specific sector and quality adjustments.\nC) Describe how you would use CDS to hedge the portfolio's most vulnerable positions.",
+      "solution": "**A) Key Credit Risks:**\n\n1. **Spread widening**: Transition to contraction typically causes 50-150 bps spread widening in IG\n2. **Rating migration**: Downgrades accelerate, especially BBB- credits at risk of falling to HY (\"fallen angels\")\n3. **Financials exposure**: 40% allocation to financials is risky in early contraction; banks face rising loan losses\n4. **Cyclical sector risk**: Industrial cyclicals face revenue/margin pressure\n5. **Liquidity deterioration**: Bid-ask spreads widen, making repositioning more expensive\n\n**B) Sector and Quality Adjustments:**\n\n- **Reduce financials from 40% to 25%**: Sell lower-rated bank and insurance holdings; retain systemically important banks with strong capital ratios\n- **Reduce industrials from 25% to 15%**: Exit cyclical industrials (autos, metals, chemicals); retain defensive industrials (defense, waste management)\n- **Increase utilities from 20% to 30%**: Regulated utilities offer stable cash flows and defensive characteristics\n- **Maintain technology at 15%**: Focus on large-cap, net-cash-position names\n- **Add Treasuries/agencies: 15%**: Raise overall credit quality and provide liquidity buffer\n- **Quality shift**: Move average rating from A/BBB+ to A+/AA-; eliminate all BBB- exposure\n- **Shorten duration from 5.5 to 4.5 years**: Reduce spread duration to limit mark-to-market losses\n\n**C) CDS Hedging Strategy:**\n\n1. **Buy IG CDX index protection** ($100M notional) to hedge broad spread widening -- provides portfolio-level hedge at lower cost than single-name CDS\n2. **Buy single-name CDS** on the 3-5 most vulnerable financial holdings where selling cash bonds would create excessive market impact\n3. **Consider selling protection on strong defensive names** (utilities) to partially fund the hedge cost\n4. Net hedging cost approximately 60-80 bps annually, but provides downside protection of potentially 200+ bps in spread widening"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Credit Strategies Practice",
+      "problems": [
+        {
+          "id": "l3-pm3-1",
+          "question": "An analyst observes the following: CDS spread on Company X = 180 bps, Z-spread on Company X's 5-year bond = 220 bps. The CDS-bond basis is most likely:",
+          "options": [
+            "A) +40 bps, suggesting the CDS is expensive relative to the bond",
+            "B) -40 bps, suggesting CDS protection is cheap relative to the bond",
+            "C) -40 bps, suggesting the bond is cheap relative to CDS protection"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CDS-bond basis = CDS spread - Z-spread = 180 - 220 = -40 bps. A negative basis means CDS protection costs less than the bond spread implies. This suggests CDS protection is 'cheap' relative to the cash bond. An investor could exploit this via a negative basis trade: buy the bond (earn 220 bps spread) and buy CDS protection (pay 180 bps), locking in a 40 bps spread while being hedged against default. Option A incorrectly describes the CDS as expensive. Option C describes the bond as cheap, which is an alternative interpretation but less precise -- the key insight is that CDS protection is attractively priced.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate and interpret the CDS-bond basis"
+        },
+        {
+          "id": "l3-pm3-2",
+          "question": "During which phase of the credit cycle are fallen angels (IG bonds downgraded to HY) most common?",
+          "options": [
+            "A) Early expansion",
+            "B) Late expansion",
+            "C) Early contraction"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Fallen angels peak during early contraction when economic deterioration reveals the weaknesses of companies that were already marginal investment-grade (typically BBB-). Rating agencies, which tend to lag economic developments, begin downgrading during this phase. In early expansion (A), upgrades dominate. In late expansion (B), downgrades may begin for the weakest credits, but the bulk of fallen angel activity occurs after the recession starts. This creates forced selling by IG-only mandates, further depressing prices -- a dynamic that creates opportunities for HY managers.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe credit cycle dynamics and positioning strategies"
+        },
+        {
+          "id": "l3-pm3-3",
+          "question": "A portfolio manager is evaluating two high-yield bonds from the same issuer:\n\n| Bond | Seniority | Coupon | Spread | Expected Recovery |\n|------|-----------|--------|--------|-------------------|\n| A | Senior secured | 6.5% | 300 bps | 65% |\n| B | Senior unsecured | 8.0% | 525 bps | 35% |\n\nAssuming a 3% annual probability of default, which bond offers better compensation for expected credit loss?",
+          "options": [
+            "A) Bond A: spread/expected loss ratio is higher",
+            "B) Bond B: spread/expected loss ratio is higher",
+            "C) Both offer approximately equal compensation"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Expected credit loss for Bond A: PD x LGD = 3% x (1 - 65%) = 3% x 35% = 1.05% (105 bps). Spread/expected loss = 300/105 = 2.86x.\n\nExpected credit loss for Bond B: PD x LGD = 3% x (1 - 35%) = 3% x 65% = 1.95% (195 bps). Spread/expected loss = 525/195 = 2.69x.\n\nBond A offers better compensation per unit of expected credit loss (2.86x vs 2.69x). While Bond B has a higher absolute spread, more of it is consumed by expected losses due to lower recovery. This analysis illustrates why comparing spreads alone without adjusting for recovery can be misleading in capital structure analysis.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Evaluate relative value across a capital structure using expected loss analysis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a junior analyst why a bond's credit spread contains more than just compensation for expected default losses. What other components are in the spread, and why do they matter for credit strategy?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How would you determine when to shift from defensive to offensive credit positioning?",
+        "Why might CDS spreads diverge from cash bond spreads, and what opportunities does this create?",
+        "What makes emerging market credit analysis fundamentally different from developed market credit?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Spread decomposition**: Expected loss + liquidity premium + risk premium\n- **IG vs HY analysis**: IG driven by spread/macro; HY driven by cash flow/recovery\n- **Credit cycle**: Early expansion (risk on) -> late expansion (reduce risk) -> early contraction (defensive) -> late contraction (add HY)\n- **CDS-bond basis**: CDS spread - Z-spread; negative basis = cheap protection\n- **Expected credit loss**: PD x (1 - Recovery Rate); compare to spread for relative value\n- **Fallen angels**: Peak in early contraction; create forced selling and opportunities\n- **EM credit**: Sovereign ceiling, currency choice, political risk premium"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we move to **Active Equity Strategies** -- applying a similar analytical rigor to stock selection. Just as credit strategies exploit mispricings in default risk, equity strategies exploit mispricings in earnings expectations, factor exposures, and corporate events."
+    }
+  ]
+}

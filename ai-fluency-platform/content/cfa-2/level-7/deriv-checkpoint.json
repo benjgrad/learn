@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "Derivatives Checkpoint",
+    "description": "Test your understanding of forward commitment pricing, swap valuation, binomial option pricing, Black-Scholes-Merton, and option Greeks.",
+    "level": "level-7",
+    "slug": "deriv-checkpoint",
+    "order": 4,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Derivatives Checkpoint",
+      "problems": [
+        {
+          "id": "deriv-cp-1",
+          "question": "A 6-month equity forward is priced at $52.50. The stock is at $50 with a continuous dividend yield of 1% and the risk-free rate is 5% (continuous). The forward is:",
+          "options": [
+            "A) Fairly priced",
+            "B) Overpriced, creating a cash-and-carry arbitrage opportunity",
+            "C) Underpriced, creating a reverse cash-and-carry opportunity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "No-arbitrage forward = $50 \u00d7 e^{(0.05\u22120.01)\u00d70.5} = $50 \u00d7 e^{0.02} = $50 \u00d7 1.02020 = $51.01$. The market forward ($52.50) exceeds the theoretical value, so it is overpriced. An arbitrageur would sell the forward at $52.50, borrow $50, buy the stock, and earn the dividend yield, locking in a riskless profit.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Identify arbitrage opportunities in forward pricing"
+        },
+        {
+          "id": "deriv-cp-2",
+          "question": "In a two-period binomial model, an American put option's value at a given node differs from a European put's value at the same node when:",
+          "options": [
+            "A) The option is deep out-of-the-money",
+            "B) Early exercise value exceeds the continuation value",
+            "C) The risk-neutral probability exceeds 0.5"
+          ],
+          "correctAnswer": "B",
+          "explanation": "American options can be exercised early, and this is optimal when the intrinsic value (immediate exercise) exceeds the present value of holding the option (continuation value). This typically occurs for deep in-the-money puts when the time value of money on the exercise proceeds exceeds the remaining optionality. OTM options (A) would never be exercised early. The risk-neutral probability (C) is irrelevant to the early exercise decision.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain when early exercise of American options is optimal"
+        },
+        {
+          "id": "deriv-cp-3",
+          "question": "A portfolio manager is short 500 European calls with a delta of 0.70 and short 300 European puts with a delta of \u22120.30. The net delta of the portfolio is:",
+          "options": [
+            "A) \u2212260",
+            "B) \u2212440",
+            "C) +440"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Short 500 calls: delta = \u2212500 \u00d7 0.70 = \u2212350. Short 300 puts: delta = \u2212300 \u00d7 (\u22120.30) = +90. Net delta = \u2212350 + 90 = \u2212260. The portfolio has a net negative delta, meaning it loses value when the underlying rises. To delta-hedge, the manager would need to buy 260 shares.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate net delta for a multi-option portfolio"
+        }
+      ]
+    }
+  ]
+}

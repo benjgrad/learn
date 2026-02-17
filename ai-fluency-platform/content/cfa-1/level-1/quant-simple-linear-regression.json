@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "QM.10: Simple Linear Regression",
+    "description": "Estimate and interpret regression coefficients, R-squared, standard error of estimate, ANOVA table, and hypothesis tests for the slope coefficient.",
+    "level": "level-1",
+    "slug": "quant-simple-linear-regression",
+    "order": 10,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Quantitative Methods"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you plot a stock's monthly returns (Y-axis) against the market's monthly returns (X-axis), the line of best fit gives you the stock's 'beta'. But what does the slope of this line actually mean, and how confident should you be in that estimate?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Regression Equation\n\nSimple linear regression models the relationship between a dependent variable $Y$ and a single independent variable $X$:\n\n$$Y_i = b_0 + b_1 X_i + \\epsilon_i$$\n\nWhere:\n- $b_0$ = **intercept** (value of $Y$ when $X = 0$)\n- $b_1$ = **slope** (change in $Y$ for a one-unit change in $X$)\n- $\\epsilon_i$ = error term (captures what the model does not explain)\n\n### Estimating Coefficients (OLS)\n\nOrdinary Least Squares (OLS) minimizes the sum of squared residuals:\n\n$$b_1 = \\frac{\\sum(X_i - \\bar{X})(Y_i - \\bar{Y})}{\\sum(X_i - \\bar{X})^2} = \\frac{\\text{Cov}(X,Y)}{\\text{Var}(X)}$$\n\n$$b_0 = \\bar{Y} - b_1\\bar{X}$$\n\n### Assumptions of Linear Regression\n\n1. The relationship between $X$ and $Y$ is **linear**\n2. $X$ is not random (or at least uncorrelated with the error)\n3. The expected value of the error term is zero: $E(\\epsilon_i) = 0$\n4. **Homoscedasticity**: constant variance of errors across all $X$ values\n5. **No autocorrelation**: errors are independent of each other\n6. Errors are **normally distributed** (for inference)\n\n### Example: CAPM Regression\n\nThe Capital Asset Pricing Model is estimated as:\n\n$$R_i - R_f = \\alpha + \\beta(R_m - R_f) + \\epsilon$$\n\nHere $b_1 = \\beta$ (systematic risk) and $b_0 = \\alpha$ (excess return not explained by market risk)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A regression of fund returns on benchmark returns yields: \u0176 = 0.5% + 1.2X. If the benchmark returns 3% next month, what is the predicted fund return? What do the intercept and slope tell us?",
+      "answer": "Predicted return: \u0176 = 0.5% + 1.2(3%) = 0.5% + 3.6% = 4.1%. The intercept (0.5%) is the fund's alpha \u2014 the return it generates independent of the benchmark. The slope (1.2) is the fund's beta \u2014 for every 1% move in the benchmark, the fund moves 1.2%. A beta > 1 means the fund amplifies market movements."
+    },
+    {
+      "type": "markdown",
+      "content": "## R-Squared and Standard Error of Estimate\n\n### Total, Explained, and Residual Variation\n\n$$\\underbrace{\\sum(Y_i - \\bar{Y})^2}_{SST} = \\underbrace{\\sum(\\hat{Y}_i - \\bar{Y})^2}_{SSR} + \\underbrace{\\sum(Y_i - \\hat{Y}_i)^2}_{SSE}$$\n\n- **SST** (Total Sum of Squares): Total variation in $Y$\n- **SSR** (Regression Sum of Squares): Variation explained by the model\n- **SSE** (Sum of Squared Errors): Unexplained variation (residuals)\n\n### Coefficient of Determination ($R^2$)\n\n$$R^2 = \\frac{SSR}{SST} = 1 - \\frac{SSE}{SST}$$\n\n$R^2$ ranges from 0 to 1 and represents the **proportion of total variation in $Y$ explained by $X$**.\n\nFor simple linear regression: $R^2 = r^2$ (the square of the Pearson correlation coefficient).\n\n### Standard Error of the Estimate (SEE)\n\n$$SEE = \\sqrt{\\frac{SSE}{n-2}} = \\sqrt{\\frac{\\sum(Y_i - \\hat{Y}_i)^2}{n-2}}$$\n\nSEE measures the **typical size of prediction errors**. Smaller SEE = better fit. The denominator uses $n-2$ because two parameters ($b_0$ and $b_1$) have been estimated.\n\nSEE and $R^2$ are complementary: $R^2$ tells you the proportion explained, SEE tells you the magnitude of errors in the units of $Y$."
+    },
+    {
+      "type": "markdown",
+      "content": "## Hypothesis Testing and the ANOVA Table\n\n### Testing the Slope Coefficient\n\nThe most important hypothesis test in regression asks whether $X$ has a statistically significant relationship with $Y$:\n\n$$H_0: b_1 = 0 \\quad \\text{vs} \\quad H_a: b_1 \\neq 0$$\n\n$$t = \\frac{\\hat{b}_1 - 0}{s_{b_1}} \\quad (df = n-2)$$\n\nWhere $s_{b_1}$ is the standard error of the slope estimate. If we reject $H_0$, the relationship between $X$ and $Y$ is statistically significant.\n\n### Confidence Interval for the Slope\n\n$$\\hat{b}_1 \\pm t_{\\alpha/2, n-2} \\times s_{b_1}$$\n\n### The ANOVA Table\n\n| Source | Sum of Squares | df | Mean Square | F-statistic |\n|---|---|---|---|---|\n| Regression | SSR | 1 | MSR = SSR/1 | F = MSR/MSE |\n| Error | SSE | n-2 | MSE = SSE/(n-2) | |\n| Total | SST | n-1 | | |\n\nThe **F-statistic** tests the overall significance of the regression. For simple regression, $F = t^2$ (the F-test and t-test of the slope give equivalent results).\n\n### Prediction Intervals\n\nA **confidence interval** estimates the mean of $Y$ at a given $X$. A **prediction interval** estimates an individual observation of $Y$ \u2014 it is always wider because it includes both model uncertainty and individual variation."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A regression of excess stock returns (Y) on excess market returns (X) using 60 monthly observations produces:\n- b\u2080 = 0.3%, b\u2081 = 1.15\n- Standard error of b\u2081 = 0.40\n- R\u00b2 = 0.35\n- SST = 2,000, SSE = 1,300\n\n(a) Test whether beta is significantly different from zero at \u03b1 = 0.05 (t-critical \u2248 2.00 for 58 df).\n(b) Test whether beta is significantly different from 1.0.\n(c) Calculate the SEE.",
+      "solution": "**(a) Test b\u2081 \u2260 0:**\n\n$t = \\hat{b}_1 / s_{b_1} = 1.15 / 0.40 = 2.875$\n\nSince $|2.875| > 2.00$, reject $H_0: b_1 = 0$. Beta is statistically significant \u2014 the stock's returns are significantly related to market returns.\n\n**(b) Test b\u2081 \u2260 1.0:**\n\n$t = (\\hat{b}_1 - 1.0) / s_{b_1} = (1.15 - 1.0) / 0.40 = 0.15 / 0.40 = 0.375$\n\nSince $|0.375| < 2.00$, fail to reject $H_0: b_1 = 1.0$. We cannot conclude that beta is significantly different from 1.0 \u2014 the stock may have market-average systematic risk.\n\nNotice: beta is significantly different from 0 but not significantly different from 1. These are different questions.\n\n**(c) Standard Error of Estimate:**\n\n$SEE = \\sqrt{SSE/(n-2)} = \\sqrt{1{,}300/58} = \\sqrt{22.414} = 4.73\\%$\n\nThe typical prediction error is about 4.73 percentage points. Combined with $R^2 = 0.35$, the market explains 35% of the stock's return variation, leaving 65% unexplained."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Simple Linear Regression Practice Problems",
+      "problems": [
+        {
+          "id": "qm10-1",
+          "question": "In a simple linear regression \u0176 = 2.5 + 0.8X, the slope coefficient 0.8 indicates that:",
+          "options": [
+            "A) X and Y have a correlation of 0.8",
+            "B) A one-unit increase in X is associated with a 0.8-unit increase in Y",
+            "C) 80% of the variation in Y is explained by X"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The slope coefficient measures the change in Y for a one-unit change in X. Option A confuses slope with correlation \u2014 they are related but not equal (slope = r \u00d7 \u03c3_Y/\u03c3_X). Option C confuses slope with R\u00b2; the percentage of variation explained is R\u00b2 = r\u00b2, which would be 0.64 only if the correlation were 0.8.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Interpret regression coefficients"
+        },
+        {
+          "id": "qm10-2",
+          "question": "A regression has SST = 500, SSR = 350, and SSE = 150. The R-squared is closest to:",
+          "options": [
+            "A) 0.30",
+            "B) 0.70",
+            "C) 0.43"
+          ],
+          "correctAnswer": "B",
+          "explanation": "R\u00b2 = SSR/SST = 350/500 = 0.70. The model explains 70% of the variation in Y. Option A (0.30) calculates SSE/SST = 150/500 = 0.30, which is (1 - R\u00b2). Option C (0.43) incorrectly calculates SSR/SSE = 350/150.",
+          "difficulty": "basic",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Calculate and interpret R-squared"
+        },
+        {
+          "id": "qm10-3",
+          "question": "A regression with 50 observations has a slope of 1.5 and a standard error of slope of 0.60. The t-statistic for testing H\u2080: b\u2081 = 0 and the conclusion at \u03b1 = 0.05 (critical value \u2248 2.01) are:",
+          "options": [
+            "A) t = 2.50; reject H\u2080",
+            "B) t = 2.50; fail to reject H\u2080",
+            "C) t = 0.40; fail to reject H\u2080"
+          ],
+          "correctAnswer": "A",
+          "explanation": "t = 1.5/0.60 = 2.50. Since 2.50 > 2.01, reject H\u2080 at the 5% level. The slope is significantly different from zero. Option B correctly calculates t but reaches the wrong conclusion. Option C divides the standard error by the slope (0.60/1.5 = 0.40) instead of the reverse.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Test significance of regression slope"
+        },
+        {
+          "id": "qm10-4",
+          "question": "In a simple linear regression ANOVA table, the F-statistic equals 16. The regression has 40 observations. The t-statistic for the slope is closest to:",
+          "options": [
+            "A) 16",
+            "B) 4.0",
+            "C) 2.5"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For simple linear regression, F = t\u00b2. Therefore t = \u221aF = \u221a16 = 4.0. The t-statistic has df = n - 2 = 38. Option A confuses F with t directly. Option C takes the fourth root of F instead of the square root.",
+          "difficulty": "advanced",
+          "cfaTopic": "Quantitative Methods",
+          "learningOutcome": "Relate the F-statistic to the t-statistic in simple regression"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain R-squared to someone who is not a statistician. What does it mean when an analyst says 'the model explains 60% of the variation'? What about the other 40%? Use a concrete investment example."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What is the practical difference between a high R-squared with a large SEE and a moderate R-squared with a small SEE?",
+        "If a CAPM regression shows a statistically significant alpha, what are the possible interpretations beyond 'the manager has skill'?",
+        "How do violations of regression assumptions (like heteroscedasticity or autocorrelation) affect the reliability of your results?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Relationships:**\n\n- Regression: $Y = b_0 + b_1X + \\epsilon$\n- Slope: $b_1 = \\text{Cov}(X,Y) / \\text{Var}(X)$; Intercept: $b_0 = \\bar{Y} - b_1\\bar{X}$\n- SST = SSR + SSE\n- $R^2 = SSR/SST = 1 - SSE/SST$; for simple regression $R^2 = r^2$\n- $SEE = \\sqrt{SSE/(n-2)}$\n- Slope t-test: $t = \\hat{b}_1 / s_{b_1}$, $df = n-2$\n- In simple regression: $F = t^2$\n- ANOVA: $F = MSR/MSE$\n- Key assumptions: linearity, homoscedasticity, no autocorrelation, normal errors"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Big Data Techniques**, which extend beyond traditional statistical methods to explore machine learning, natural language processing, and data visualization. These modern tools complement the regression and hypothesis testing foundations you have built."
+    }
+  ]
+}

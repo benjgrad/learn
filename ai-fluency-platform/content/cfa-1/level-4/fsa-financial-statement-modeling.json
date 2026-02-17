@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "FSA.12: Financial Statement Modeling",
+    "description": "Learn to build a 3-statement financial model including revenue forecasting, expense projections, balance sheet projections, cash flow modeling, and sensitivity analysis.",
+    "level": "level-4",
+    "slug": "fsa-financial-statement-modeling",
+    "order": 12,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you had to forecast a company's revenue for next year, what information would you use? How would you then go from a revenue forecast to a complete set of projected financial statements?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The 3-Statement Model Framework\n\nA 3-statement model links the **income statement**, **balance sheet**, and **cash flow statement** so that changes in one flow through to the others.\n\n### Model Architecture\n\n```\nIncome Statement \u2192 Retained Earnings \u2192 Balance Sheet\n                                         \u2193\n                                    Cash Flow Statement\n                                         \u2193\n                                    Cash \u2192 Balance Sheet\n```\n\n### Modeling Sequence\n\n1. **Project revenue** \u2014 the primary driver of the entire model\n2. **Project expenses** \u2014 typically as percentages of revenue (from common-size analysis)\n3. **Build the income statement** \u2014 revenue through net income\n4. **Project balance sheet items** \u2014 using turnover ratios and common-size relationships\n5. **Build the cash flow statement** \u2014 derived from income statement and balance sheet changes\n6. **Balance the balance sheet** \u2014 cash or a debt revolver serves as the plug\n\n### Key Linkages\n\n| Income Statement | Connects To |\n|---|---|\n| Net income | Retained earnings (BS), starting point for CFO (CFS) |\n| Depreciation | PP&E (BS), add-back in CFO (CFS) |\n| Interest expense | Debt balance (BS) |\n| Tax expense | Deferred taxes (BS), tax payable (BS) |\n\nThe model is **circular**: interest expense depends on debt, debt depends on cash needs, and cash needs depend on operating results. Most models use an iterative calculation or break the circularity by using prior-period debt."
+    },
+    {
+      "type": "markdown",
+      "content": "## Revenue Forecasting\n\nRevenue is the most critical assumption. Several approaches:\n\n### Top-Down Approach\n\n$$\\text{Revenue} = \\text{Market size} \\times \\text{Market share} \\times \\text{Average price}$$\n\n### Bottom-Up Approach\n\n$$\\text{Revenue} = \\text{Units sold} \\times \\text{Price per unit}$$\n\nOr for multi-segment companies:\n$$\\text{Total revenue} = \\sum_{i=1}^{n} \\text{Segment}_i \\text{ revenue}$$\n\n### Growth-Based Approach\n\n$$\\text{Revenue}_{t+1} = \\text{Revenue}_t \\times (1 + g)$$\n\nWhere $g$ is the estimated growth rate based on historical trends, industry growth, and company-specific factors.\n\n### Revenue Forecasting Considerations\n\n| Factor | Analysis |\n|---|---|\n| Historical growth rates | 3-year, 5-year CAGR; identify acceleration or deceleration |\n| Industry growth | Align with industry outlook; check if company is gaining or losing share |\n| Pricing power | Can the company raise prices above inflation? |\n| New products/markets | Step changes from launches or geographic expansion |\n| Cyclicality | Adjust for economic cycle position |\n| One-time items | Exclude non-recurring revenue from the base |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Expense and Balance Sheet Projections\n\n### Expense Projections\n\nMost expenses are projected as a **percentage of revenue**, informed by historical common-size analysis:\n\n$$\\text{COGS}_{\\text{proj}} = \\text{Revenue}_{\\text{proj}} \\times \\text{COGS \\% of revenue (historical avg or trend)}$$\n\n| Expense Item | Typical Driver |\n|---|---|\n| COGS | % of revenue (complement of gross margin) |\n| SG&A | % of revenue or fixed + variable component |\n| Depreciation | % of average PP&E or % of revenue |\n| Interest expense | Average debt balance \u00d7 interest rate |\n| Tax expense | Pre-tax income \u00d7 effective tax rate |\n\n### Balance Sheet Projections\n\nBalance sheet items are projected using **turnover ratios** or **as a percentage of revenue/COGS**:\n\n$$\\text{Accounts receivable} = \\frac{\\text{Revenue}_{\\text{proj}}}{365} \\times \\text{DSO}$$\n\n$$\\text{Inventory} = \\frac{\\text{COGS}_{\\text{proj}}}{365} \\times \\text{DOH}$$\n\n$$\\text{Accounts payable} = \\frac{\\text{Purchases}_{\\text{proj}}}{365} \\times \\text{DPO}$$\n\n$$\\text{PP\\&E}_{\\text{end}} = \\text{PP\\&E}_{\\text{begin}} + \\text{Capex} - \\text{Depreciation}$$\n\n### Cash Flow and Model Balancing\n\nThe cash flow statement is **derived** from income statement projections and balance sheet changes. After computing operating, investing, and financing cash flows, the ending cash balance becomes the balance sheet plug. If cash goes negative, additional debt (the revolver) is drawn to balance the model."
+    },
+    {
+      "type": "markdown",
+      "content": "## Sensitivity Analysis\n\nSensitivity analysis tests how changes in key assumptions affect model outputs.\n\n### Single-Variable Sensitivity\n\nVary one assumption at a time and observe the impact on a key output (e.g., net income, EPS, free cash flow):\n\n| Revenue Growth | Projected Net Income | EPS |\n|---|---|---|\n| 3% | $42M | $2.10 |\n| **5% (base)** | **$50M** | **$2.50** |\n| 7% | $58M | $2.90 |\n| 10% | $70M | $3.50 |\n\n### Two-Variable Sensitivity (Data Table)\n\nVary two assumptions simultaneously:\n\n| | Gross Margin 38% | Gross Margin 40% | Gross Margin 42% |\n|---|---|---|---|\n| Revenue +3% | $35M | $42M | $49M |\n| Revenue +5% | $42M | $50M | $58M |\n| Revenue +7% | $49M | $58M | $67M |\n\n### Scenario Analysis\n\n| Scenario | Key Assumptions | Output |\n|---|---|---|\n| **Bear** | Revenue -2%, margin compression, rising rates | EPS: $1.50 |\n| **Base** | Revenue +5%, stable margins | EPS: $2.50 |\n| **Bull** | Revenue +10%, margin expansion | EPS: $3.80 |\n\nSensitivity analysis helps analysts identify which assumptions have the **greatest impact** on valuation and focus their research efforts accordingly."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has projected revenue of $10 million and historical DSO of 45 days. What is the projected accounts receivable balance?",
+      "answer": "Projected A/R = (Revenue / 365) \u00d7 DSO = ($10,000,000 / 365) \u00d7 45 = $27,397 \u00d7 45 = $1,232,877, approximately $1.23 million. This assumes the company maintains its historical collection efficiency. If the analyst expects DSO to change (e.g., new credit policies), they would adjust accordingly."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Build a simplified income statement projection. Last year: Revenue = $500M (growing 8%), COGS = 58% of revenue, SG&A = 18% of revenue, D&A = $20M (growing with capex at 5%), Interest = $12M, Tax rate = 25%. Calculate projected net income.",
+      "solution": "**Projected Income Statement:**\n\n| Item | Calculation | Amount |\n|---|---|---|\n| Revenue | $500M \u00d7 1.08 | $540.0M |\n| COGS | $540M \u00d7 58% | ($313.2M) |\n| **Gross profit** | | **$226.8M** |\n| SG&A | $540M \u00d7 18% | ($97.2M) |\n| D&A | $20M \u00d7 1.05 | ($21.0M) |\n| **Operating income** | | **$108.6M** |\n| Interest expense | | ($12.0M) |\n| **Pre-tax income** | | **$96.6M** |\n| Tax (25%) | | ($24.2M) |\n| **Net income** | | **$72.5M** |\n\n**Key assumptions**: Revenue growth of 8%, stable COGS and SG&A margins, D&A growing at capex rate, constant interest and tax rate. Net margin = $72.5M / $540M = 13.4%."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Financial Statement Modeling Practice Problems",
+      "problems": [
+        {
+          "id": "fsa12-1",
+          "question": "An analyst projects revenue of $2,000,000, historical DOH of 40 days, and COGS of 55% of revenue. Projected inventory is closest to:",
+          "options": [
+            "A) $120,548",
+            "B) $219,178",
+            "C) $301,370"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Projected COGS = $2,000,000 \u00d7 55% = $1,100,000. Projected inventory = (COGS / 365) \u00d7 DOH = ($1,100,000 / 365) \u00d7 40 = $3,013.70 \u00d7 40 = $120,548. Option B ($219,178) uses revenue instead of COGS: ($2,000,000/365) \u00d7 40. Option C ($301,370) uses revenue and a different number of days. Remember: inventory turnover uses COGS (not revenue) in the numerator, so DOH-based projections must also use COGS.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Project balance sheet items using activity ratios"
+        },
+        {
+          "id": "fsa12-2",
+          "question": "In a 3-statement model, depreciation expense appears in all three statements. On the cash flow statement (indirect method), depreciation is:",
+          "options": [
+            "A) Subtracted from net income because it reduces cash",
+            "B) Added back to net income because it is a non-cash expense",
+            "C) Not included because it is already reflected in net income"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Depreciation is a non-cash charge that reduces net income but does not reduce cash. Under the indirect method, it is added back to net income to arrive at CFO. On the income statement, it reduces operating income. On the balance sheet, it increases accumulated depreciation (reducing net PP&E). Option A incorrectly states depreciation reduces cash \u2014 it does not involve a cash outflow. Option C is incorrect \u2014 while depreciation is in net income, the purpose of the indirect method is to adjust for non-cash items.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Describe how depreciation flows through the three financial statements"
+        },
+        {
+          "id": "fsa12-3",
+          "question": "An analyst builds a sensitivity table showing the impact of revenue growth (3%, 5%, 7%) and gross margin (35%, 40%, 45%) on projected net income. In the base case (5% growth, 40% margin), net income is $50M. If a 1% change in gross margin has a larger impact on net income than a 1% change in revenue growth, the analyst should:",
+          "options": [
+            "A) Focus research effort on understanding the company's pricing and cost structure",
+            "B) Focus research effort on the company's revenue growth outlook",
+            "C) Assume the base case is the most likely outcome"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Sensitivity analysis identifies which assumptions have the greatest impact on model outputs. If gross margin changes have a larger impact than revenue growth on net income, the analyst should prioritize understanding the drivers of gross margin \u2014 pricing power, input costs, product mix, competitive dynamics. Option B is incorrect because revenue growth is the less sensitive variable in this case. Option C provides no analytical insight \u2014 the purpose of sensitivity analysis is to direct research effort, not to confirm the base case.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Interpret sensitivity analysis and prioritize research"
+        },
+        {
+          "id": "fsa12-4",
+          "question": "In a 3-statement model, the ending PP&E balance is calculated as:",
+          "options": [
+            "A) Beginning PP&E + Depreciation - Capex",
+            "B) Beginning PP&E + Capex - Depreciation",
+            "C) Beginning PP&E + Capex + Depreciation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "PP&E (net) = Beginning PP&E + Capital expenditures - Depreciation. Capex adds to the asset base while depreciation reduces it. If there are asset disposals: PP&E = Beginning + Capex - Depreciation - Net book value of disposals. Option A reverses capex and depreciation. Option C adds depreciation, which would increase the asset \u2014 depreciation reduces net PP&E, not increases it.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate projected PP&E in a financial model"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to someone unfamiliar with financial modeling why the three financial statements must be linked together. Walk through an example of how a change in revenue flows through the income statement to the balance sheet to the cash flow statement."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is revenue the most critical assumption in a financial model, and what are the risks of over-relying on historical growth rates?",
+        "How does sensitivity analysis improve the usefulness of a financial model compared to a single-point estimate?",
+        "What are the limitations of using historical ratios to project future financial statements?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- 3-statement model links IS \u2192 BS \u2192 CFS through retained earnings, depreciation, and working capital\n- Revenue forecasting: top-down (market \u00d7 share \u00d7 price), bottom-up (units \u00d7 price), growth-based\n- Expenses projected as % of revenue from historical common-size analysis\n- A/R projection = (Revenue / 365) \u00d7 DSO\n- Inventory projection = (COGS / 365) \u00d7 DOH\n- PP&E = Beginning + Capex - Depreciation\n- Cash or revolver serves as the balance sheet plug\n- Sensitivity analysis: single-variable, two-variable tables, scenario analysis\n- Focus research on the most sensitive assumptions\n- Circularity: interest \u2194 debt \u2194 cash needs \u2194 operating results"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module is the **FSA Checkpoint**, which tests your knowledge across all FSA topics covered so far. The modeling skills from this module tie together everything \u2014 income statement analysis, balance sheet concepts, cash flow analysis, inventory methods, depreciation choices, tax effects, and ratio analysis all feed into the financial model."
+    }
+  ]
+}

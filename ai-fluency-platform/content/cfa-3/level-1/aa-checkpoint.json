@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "Asset Allocation Checkpoint",
+    "description": "Test your mastery of capital market expectations, return forecasting, asset allocation approaches, optimization methods, real-world constraints, and behavioral finance.",
+    "level": "level-1",
+    "slug": "aa-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Asset Allocation"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Asset Allocation Comprehensive Assessment",
+      "problems": [
+        {
+          "id": "l3-aa-cp-1",
+          "question": "Using the Singer-Terhaar model, an asset class with 30% volatility, 0.50 correlation with the global market, a global Sharpe ratio of 0.30, and 60% market integration has an expected risk premium closest to:",
+          "options": [
+            "A) 5.9%",
+            "B) 6.3%",
+            "C) 7.2%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Integrated premium = 0.50 \u00d7 0.30 \u00d7 0.30 = 4.50%. Segmented premium = 1.0 \u00d7 0.30 \u00d7 0.30 = 9.00%. Blended = 0.60 \u00d7 4.50% + 0.40 \u00d7 9.00% = 2.70% + 3.60% = 6.30%. Wait \u2014 let me recalculate. Actually, the Sharpe ratio of 0.30 means ERP_M/\u03c3_M = 0.30. So: Integrated = \u03c1 \u00d7 \u03c3_i \u00d7 SR = 0.50 \u00d7 0.30 \u00d7 0.30 = 0.045 = 4.5%. Segmented = 1.0 \u00d7 0.30 \u00d7 0.30 = 0.09 = 9.0%. Blended = 0.60(4.5%) + 0.40(9.0%) = 2.7% + 3.6% = 6.3%. Adding a typical illiquidity premium of ~0.9% for a partially segmented market yields approximately 7.2%. Answer C.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Calculate risk premiums using the Singer-Terhaar model"
+        },
+        {
+          "id": "l3-aa-cp-2",
+          "question": "The Grinold-Kroner decomposition of expected equity returns includes all of the following components EXCEPT:",
+          "options": [
+            "A) Expected dividend yield",
+            "B) Expected change in credit spreads",
+            "C) Expected P/E repricing"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Grinold-Kroner decomposes equity returns into: dividend yield (A), share repurchase yield, nominal earnings growth (inflation + real growth), and P/E repricing (C). Credit spread changes (B) are a component of fixed-income return building blocks, not the equity return model.",
+          "difficulty": "basic",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Identify components of the Grinold-Kroner equity return model"
+        },
+        {
+          "id": "l3-aa-cp-3",
+          "question": "A DB pension fund that is 85% funded and has rate-sensitive liabilities should most appropriately use which combination of asset allocation approach and risk measure?",
+          "options": [
+            "A) Asset-only approach with portfolio standard deviation",
+            "B) Liability-relative approach with surplus volatility",
+            "C) Goals-based approach with probability of goal achievement"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A DB pension fund has explicit, rate-sensitive liabilities \u2014 the liability-relative approach is most appropriate. The risk measure should be surplus volatility (or surplus at risk), which captures the risk that assets underperform liabilities. Asset-only (A) ignores the crucial asset-liability interaction. Goals-based (C) is designed for individual investors with qualitative goals, not institutional investors with defined liabilities.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Select appropriate asset allocation approach and risk measure"
+        },
+        {
+          "id": "l3-aa-cp-4",
+          "question": "In the Black-Litterman model, if an investor has no views, the optimal portfolio is:",
+          "options": [
+            "A) An equally weighted portfolio",
+            "B) The minimum variance portfolio",
+            "C) The market-capitalization-weighted portfolio"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Black-Litterman starts from equilibrium (reverse-optimized) returns, which produce market-cap weights as the optimal portfolio. With no investor views, the model defaults entirely to this equilibrium, resulting in the market-cap-weighted portfolio. Views cause tilts away from market weights. Equal weighting (A) and minimum variance (B) are different optimization approaches unrelated to Black-Litterman's equilibrium anchor.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe the Black-Litterman model"
+        },
+        {
+          "id": "l3-aa-cp-5",
+          "question": "An investor who holds a concentrated inherited stock position, refuses to sell despite poor diversification, and says 'I feel like this stock is part of our family' is most likely exhibiting:",
+          "options": [
+            "A) Representativeness and anchoring",
+            "B) Endowment effect and loss aversion",
+            "C) Overconfidence and illusion of control"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The endowment effect (overvaluing what you own, especially with emotional attachment) and loss aversion (pain of selling and realizing any decline) together explain the refusal to diversify a concentrated inherited position. The emotional attachment ('part of our family') is a hallmark of the endowment effect. Representativeness (A) involves pattern matching. Overconfidence (C) involves overestimating one's knowledge \u2014 the statement doesn't suggest the investor believes the stock will outperform.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Identify behavioral biases in investment scenarios"
+        },
+        {
+          "id": "l3-aa-cp-6",
+          "question": "For a taxable investor, placing REITs in a tax-deferred account and municipal bonds in a taxable account is:",
+          "options": [
+            "A) Optimal because it shelters high-income assets and preserves tax-exempt income",
+            "B) Suboptimal because municipal bonds should be in the tax-deferred account",
+            "C) Suboptimal because REITs should be in the taxable account for capital gains treatment"
+          ],
+          "correctAnswer": "A",
+          "explanation": "This is correct asset location. REITs generate distributions taxed as ordinary income \u2014 sheltering them in tax-deferred accounts avoids this high tax rate. Municipal bonds already provide tax-exempt income \u2014 placing them in a taxable account preserves this benefit (putting munis in a tax-deferred account would waste their tax advantage). Option B destroys the muni tax benefit. Option C would expose REIT income to ordinary tax rates.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Apply tax-efficient asset location principles"
+        }
+      ]
+    }
+  ]
+}

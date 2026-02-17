@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "MK.2: Private Debt",
+    "description": "Analyze direct lending, mezzanine, distressed debt, venture debt, and special situations strategies, including credit analysis, covenant structures, and documentation.",
+    "level": "level-8",
+    "slug": "pw-mk-private-debt",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Banks have traditionally dominated corporate lending. Why has private credit grown from $300B to over $1.5T in the last decade? What structural advantages do private lenders have over banks?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Private Debt Landscape\n\nPrivate debt is non-bank lending to companies that cannot or prefer not to access public debt markets.\n\n### Why Private Debt Has Grown\n- **Bank regulation** (Basel III/IV): Higher capital requirements pushed banks out of riskier lending\n- **Borrower preference**: Speed, certainty, confidentiality, flexibility in structure\n- **Investor demand**: Yield premium in a low-rate world, floating rate protection\n\n### Strategy Spectrum\n\n| Strategy | Risk/Return | Typical Yield | Leverage |\n|---|---|---|---|\n| Senior direct lending | Low-medium | SOFR + 400-600 bps | 3-5x EBITDA |\n| Unitranche | Medium | SOFR + 500-750 bps | 4-6x EBITDA |\n| Mezzanine | Medium-high | 12-18% (with warrants) | 5-7x EBITDA |\n| Distressed | High | 15-25%+ | Varies |\n| Venture debt | Medium-high | 10-15% (with warrants) | N/A (asset-light) |\n\n## Direct Lending\n\n- **Senior secured**: First lien on company assets; highest recovery in default\n- **Floating rate**: Typically SOFR + spread; natural inflation hedge\n- **Middle market focus**: Companies with $10-75M EBITDA (too small for syndicated loan market)\n- **Typical terms**: 5-7 year maturity, amortizing, maintenance covenants\n- **Illiquidity premium**: 200-300 bps above equivalent syndicated loans\n\n## Mezzanine Debt\n\n- Subordinated to senior debt, senior to equity\n- **Current pay**: Cash coupon (8-12%)\n- **PIK (payment-in-kind)**: Additional interest paid as additional debt, not cash\n- **Equity kicker**: Warrants or conversion rights providing equity upside\n- **Total return target**: 14-20% including equity participation\n- Use case: Bridge between senior debt and equity in LBOs"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A unitranche loan combines senior and subordinated debt into a single facility at SOFR + 650 bps. A traditional structure would use senior at SOFR + 400 bps (4x EBITDA) and mezzanine at 15% (1.5x EBITDA). Which is cheaper for the borrower?",
+      "answer": "The unitranche is typically cheaper overall. In the traditional structure, the blended cost is: [(4/5.5) x (SOFR + 400)] + [(1.5/5.5) x 15%] = [72.7% x ~9.3%] + [27.3% x 15%] = 6.76% + 4.09% = 10.85%. The unitranche at SOFR + 650 = approximately 11.5% (assuming SOFR ~5%). So in this example, the costs are close. However, the unitranche has additional advantages: (1) single lender relationship (simpler negotiation and amendments), (2) faster execution (one set of documents), (3) no inter-creditor agreement complexity. The 'Agreement Among Lenders' in unitranche is simpler than the inter-creditor dynamic in a senior/mezz structure. Borrowers often pay a modest premium for this simplicity and speed."
+    },
+    {
+      "type": "markdown",
+      "content": "## Covenant Analysis\n\n### Maintenance Covenants (Private Debt Standard)\n- Tested periodically (quarterly) regardless of actions\n- **Leverage ratio**: Total Debt / EBITDA < specified limit\n- **Interest coverage**: EBITDA / Interest > minimum\n- **Fixed charge coverage**: (EBITDA - CapEx) / Fixed charges > minimum\n- Early warning system: Covenant breach triggers dialogue/restructuring\n\n### Incurrence Covenants (High-Yield Bond Standard)\n- Tested only when specific action is taken (new debt, dividend, acquisition)\n- Weaker protection: No breach until the borrower actively does something\n- **Covenant-lite**: Loans with incurrence covenants only -- growing trend\n\n## Credit Documentation\n\nKey provisions in loan agreements:\n- **Negative pledge**: Cannot grant security to other lenders\n- **Restricted payments**: Limits on dividends and distributions to equity\n- **Permitted acquisitions**: Conditions for M&A activity\n- **Anti-layering**: Cannot place new debt between senior and subordinated\n- **Change of control**: Mandatory prepayment if ownership changes\n- **Material adverse change (MAC)**: Default trigger if fundamentals deteriorate\n\n## Special Situations\n\n### Distressed Debt\n- Purchase debt of financially troubled companies at deep discounts\n- Strategies: Loan-to-own (convert debt to equity through restructuring), par recovery (buy at 40 cents, collect 80 cents through bankruptcy)\n- Requires deep legal and restructuring expertise\n\n### Venture Debt\n- Lending to VC-backed startups between equity rounds\n- **Security**: Often company assets + IP (limited tangible collateral)\n- **Warrant coverage**: 5-15% of loan amount provides equity upside\n- **Use case**: Extend runway without dilution; bridge to next equity round\n\n### Asset-Based Lending (ABL)\n- Lending against specific collateral (receivables, inventory, equipment)\n- **Borrowing base**: Maximum loan amount tied to collateral value\n- Lower risk than cash flow lending (collateral provides recovery floor)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Private Debt Credit Analysis\n\nA direct lending fund is evaluating a $40M senior secured loan to a healthcare services company:\n\n- EBITDA: $12M (steady growth, recession-resistant)\n- Existing debt: None\n- Proposed leverage: 3.3x EBITDA\n- Interest rate: SOFR (5.0%) + 500 bps = 10%\n- Maturity: 5 years, 1% annual amortization\n- Covenants: Maximum leverage 4.0x, minimum interest coverage 2.5x\n- Security: First lien on all assets\n- Sponsor: Reputable PE firm with 15-year track record\n\nA) Evaluate the credit quality of this loan.\nB) Stress test the key covenants.\nC) Assess the recovery in a default scenario.\nD) Should the fund make this loan? What additional terms would you request?",
+      "solution": "**A) Credit Quality Evaluation:**\n\nStrengths:\n- Healthcare services is defensive/recession-resistant (essential services)\n- Conservative leverage: 3.3x EBITDA is below the 4.5-5.5x typical for middle-market buyouts\n- First lien security on all assets provides strong recovery position\n- Reputable PE sponsor -- implies strong due diligence and operational support\n- No existing debt -- clean capital structure\n\nConcerns:\n- EBITDA of $12M is modest -- limited margin for revenue decline\n- Interest burden: $40M x 10% = $4M annual interest\n- Interest coverage: $12M / $4M = 3.0x -- adequate but not excessive\n- Need to understand revenue concentration (payer mix, top clients)\n- Healthcare regulatory risk (reimbursement changes, staffing regulations)\n\nOverall: Solid credit quality. B+/BB equivalent implied rating.\n\n**B) Covenant Stress Test:**\n\nMaximum leverage covenant: 4.0x\n- EBITDA can decline to: $40M / 4.0 = $10M (17% decline from $12M) before breach\n- Cushion: $2M EBITDA or 17% -- adequate for recession-resistant healthcare\n\nMinimum interest coverage: 2.5x\n- EBITDA must stay above: $4M x 2.5 = $10M\n- Same $10M threshold (17% decline)\n- Note: If SOFR rises to 7%, interest = $40M x 12% = $4.8M, coverage = 12/4.8 = 2.5x exactly -- no cushion at higher rates\n\nCombined stress: 15% EBITDA decline + 200 bps rate increase:\n- EBITDA: $10.2M, Interest: $4.8M\n- Leverage: 40/10.2 = 3.92x (within covenant)\n- Coverage: 10.2/4.8 = 2.13x (BREACHES 2.5x covenant)\n\nThe interest coverage covenant is the binding constraint in a rising rate environment.\n\n**C) Recovery Analysis (Default Scenario):**\n\nAssume EBITDA drops to $8M (33% decline -- severe stress):\n- Going concern value: $8M x 5x (distressed multiple) = $40M\n- Liquidation value: Tangible assets likely worth $15-25M (healthcare services is asset-light)\n- Recovery on $40M loan: Going concern: 100% (loan equals GC value); Liquidation: 38-63%\n\nExpected recovery: Likely 70-85% given first-lien position and going-concern value. Healthcare businesses are typically reorganized rather than liquidated, preserving more value.\n\n**D) Recommendation and Additional Terms:**\n\nRecommendation: APPROVE with modifications.\n\nAdditional terms requested:\n1. **Increase interest coverage covenant to 3.0x**: Current 2.5x leaves insufficient cushion for rate increases\n2. **Add a cap on capital expenditures**: Limit discretionary capex to protect free cash flow for debt service\n3. **Require interest rate cap**: Borrower purchases a SOFR cap at 6.5% to limit maximum interest cost\n4. **Add minimum liquidity covenant**: $3M cash or available revolver at all times\n5. **Increase amortization to 5% annually**: Faster principal paydown reduces exposure over time (total repayment over 5 years: $10M, reducing outstanding to $30M)\n6. **Reporting requirements**: Monthly financial statements, quarterly lender calls, annual audit\n7. **Key person provision**: If the lead partner at the PE sponsor leaves, trigger enhanced reporting\n\nExpected return: SOFR + 500 bps = 10% current yield + 1.5% upfront fee (amortized) = approximately 10.3% all-in return. Attractive for senior secured direct lending."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Debt Practice",
+      "problems": [
+        {
+          "id": "l3-mk2-1",
+          "question": "A mezzanine loan has an 8% cash coupon, 4% PIK coupon, and 2% warrant coverage on a $20M face value. After 3 years with no principal repayment, the total amount owed (principal + accrued PIK) is closest to:",
+          "options": [
+            "A) $20.0M",
+            "B) $22.5M",
+            "C) $22.4M"
+          ],
+          "correctAnswer": "B",
+          "explanation": "PIK interest accrues and is added to the principal balance each year:\n\nYear 1: $20M x 4% PIK = $0.8M. New balance: $20.8M\nYear 2: $20.8M x 4% = $0.832M. New balance: $21.632M\nYear 3: $21.632M x 4% = $0.865M. New balance: $22.497M \u2248 $22.5M\n\nNote: The 8% cash coupon is paid in cash and doesn't accrue. The 2% warrant coverage gives the lender the right to buy equity worth 2% of $20M = $400K -- this is separate from the debt. PIK is powerful because it compounds on an increasing base, which is why borrowers prefer to pay cash interest and lenders prefer PIK (higher total return).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate PIK interest accrual in mezzanine structures"
+        },
+        {
+          "id": "l3-mk2-2",
+          "question": "A company has a maintenance leverage covenant of 4.5x and an EBITDA of $15M against $60M of debt. EBITDA is projected to decline 10% next quarter. The company's leverage ratio would be:",
+          "options": [
+            "A) 4.0x -- within covenant",
+            "B) 4.44x -- within covenant but tight",
+            "C) 4.0x -- the covenant is not tested until year-end"
+          ],
+          "correctAnswer": "B",
+          "explanation": "With a 10% EBITDA decline: New EBITDA = $15M x 0.90 = $13.5M. Leverage = $60M / $13.5M = 4.44x. This is within the 4.5x covenant but very tight (only 0.06x cushion). Maintenance covenants are tested quarterly (not just year-end, eliminating option C). At 4.44x, the company is at risk of breach with any further deterioration. The lender should: (1) engage the borrower immediately, (2) request a remediation plan, (3) consider whether to waive or amend the covenant, and (4) assess whether to request additional collateral or accelerate. Option A incorrectly assumes the original leverage ratio.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Apply maintenance covenant analysis"
+        },
+        {
+          "id": "l3-mk2-3",
+          "question": "A distressed debt investor purchases bonds at 45 cents on the dollar. Through a restructuring, the bonds are converted to equity representing 60% of the reorganized company. The reorganized company is valued at $200M. The investor held $50M face value of bonds. The return on investment is closest to:",
+          "options": [
+            "A) 167%",
+            "B) 433%",
+            "C) 33%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Investment cost: $50M face x $0.45 = $22.5M\nValue received: 60% of $200M reorganized company = $120M\nReturn: ($120M - $22.5M) / $22.5M = $97.5M / $22.5M = 433%\n\nThis illustrates the 'loan-to-own' strategy: buying debt at a deep discount, then converting to equity through bankruptcy/restructuring. The investor paid 45 cents and received equity worth $2.40 per dollar of face value ($120M / $50M). This dramatic return is why distressed investing is attractive, but it requires deep legal, restructuring, and operational expertise. The 60% equity ownership also means the investor likely controlled the restructuring process.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate returns on distressed debt loan-to-own strategies"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between maintenance covenants and incurrence covenants to a borrower who is choosing between a bank loan and a high-yield bond. Why should the borrower care about this distinction?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does private debt command an illiquidity premium over equivalent public credit?",
+        "What are the risks of the growing 'covenant-lite' trend in direct lending?",
+        "How does the borrower-lender relationship differ in private debt versus public bonds?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Direct lending**: Senior secured, floating rate, SOFR + 400-600 bps, middle market focus\n- **Mezzanine**: Subordinated, cash + PIK coupon + warrants, 14-20% total return target\n- **Unitranche**: Combined senior + subordinated in single facility; simpler for borrower\n- **Maintenance vs incurrence covenants**: Maintenance tested quarterly (stronger); incurrence tested on action (weaker)\n- **Distressed strategies**: Loan-to-own (convert debt to equity), par recovery (buy cheap, collect more)\n- **Venture debt**: Startups, limited collateral, warrant coverage for equity upside\n- **Key analysis**: Leverage ratios, interest coverage, covenant cushion, recovery analysis"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we examine **Private Real Estate** -- one of the largest and most accessible private market asset classes. Real estate investing combines elements of debt analysis (leverage, cash flow coverage) with equity analysis (growth, valuation multiples) in a tangible asset context."
+    }
+  ]
+}

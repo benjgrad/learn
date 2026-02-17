@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PM.1: Liability-Driven Strategies",
+    "description": "Master liability-driven investing (LDI), including cash flow matching, duration matching, immunization strategies, and index-based fixed income approaches.",
+    "level": "level-6",
+    "slug": "pw-pm-liability-driven",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A pension fund has a single liability due in 10 years. The portfolio manager immunizes the portfolio by matching the portfolio's Macaulay duration to the liability's horizon. If interest rates change by 100 bps, is the fund guaranteed to meet its obligation? What could go wrong?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Liability-Driven Investing (LDI)\n\nLiability-driven investing shifts the focus from maximizing returns to **ensuring liabilities can be met**. The benchmark is not a market index but the present value of the liabilities themselves.\n\n### Cash Flow Matching\n\nThe simplest LDI approach: purchase bonds whose cash flows exactly replicate the liability schedule.\n\n- **Advantages**: Eliminates reinvestment risk and price risk\n- **Disadvantages**: Expensive, may require exact maturities that don't exist, inflexible\n- **Implementation**: Start with the final liability and work backward, selecting bonds whose coupons and maturities produce the required cash flows\n\n### Duration Matching (Immunization)\n\nFor a **single liability**, immunization requires:\n\n1. **PV of assets >= PV of liabilities** (initial surplus condition)\n2. **Macaulay duration of assets = investment horizon** (duration match)\n3. **Portfolio minimizes dispersion** around the liability date\n\nThe key insight: when duration is matched, the **reinvestment risk** and **price risk** from a parallel yield curve shift offset each other.\n\n$$\\text{BPV}_{\\text{assets}} = \\text{BPV}_{\\text{liabilities}}$$\n\nWhere BPV (basis point value) = Modified Duration x Portfolio Value x 0.0001"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A portfolio immunized against a single liability has a Macaulay duration of 7 years matching the liability horizon. If the yield curve undergoes a steepening twist (short rates fall, long rates rise), is the immunization still effective?",
+      "answer": "No. Classical single-liability immunization assumes parallel yield curve shifts. A steepening twist is a non-parallel shift that can break the immunization. The short-duration assets gain less from falling short rates than the long-duration assets lose from rising long rates (or vice versa). This is why minimizing dispersion (concentration of cash flows around the horizon) is the third immunization condition -- it reduces exposure to non-parallel shifts."
+    },
+    {
+      "type": "markdown",
+      "content": "## Multiple Liability Immunization\n\nWhen liabilities occur at multiple dates, the conditions become stricter:\n\n1. **PV of assets >= PV of liabilities**\n2. **BPV of assets = BPV of liabilities** (aggregate duration match)\n3. **Dispersion of asset cash flows >= dispersion of liability cash flows** (asset cash flows must bracket the liability cash flows in time)\n4. **Minimize convexity** of the asset portfolio (reduces structural risk)\n\n### Contingent Immunization\n\nA hybrid approach that combines **active management** with a **safety net**:\n\n- Start with a surplus above the immunization requirement\n- Actively manage as long as the surplus remains positive\n- If the surplus erodes to zero, switch to full immunization\n\n$$\\text{Surplus} = \\text{PV(Assets)} - \\text{PV(Liabilities)}$$\n\nThe manager has a **cushion spread** -- the difference between the portfolio's expected return and the immunization rate.\n\n## Derivatives Overlay for LDI\n\nInterest rate swaps and futures can adjust portfolio duration without trading bonds:\n\n$$N_{\\text{futures}} = \\frac{(\\text{BPV}_{\\text{target}} - \\text{BPV}_{\\text{portfolio}})}{\\text{BPV}_{\\text{futures}}}$$\n\n- **Receive-fixed swaps** increase duration (pension funds often use these)\n- **Pay-fixed swaps** decrease duration\n- **Advantages**: Lower transaction costs, greater liquidity, no need to liquidate existing positions\n\n## Index-Based Fixed Income Strategies\n\nFor investors who want broad market exposure aligned with liabilities:\n\n| Strategy | Description | Tracking Error |\n|---|---|---|\n| Pure indexing | Full replication | Minimal |\n| Enhanced indexing | Minor active tilts | Low |\n| Active management | Significant deviations | Higher |\n\nIndex selection should consider duration profile, credit quality, sector weights, and alignment with liability characteristics."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Design an LDI Strategy\n\nA corporate pension fund has the following liability profile:\n- $50M due in 5 years\n- $80M due in 10 years\n- $120M due in 20 years\n\nCurrent portfolio value: $230M. Discount rate: 4%. The plan sponsor wants to minimize cost while maintaining a high probability of meeting all obligations.\n\nA) Calculate the present value of the liabilities.\nB) Recommend and justify an LDI approach.\nC) Explain how you would use derivatives to manage duration.",
+      "solution": "**A) Present Value of Liabilities:**\n\n- PV of $50M at 5 years: $50M / (1.04)^5 = $41.10M\n- PV of $80M at 10 years: $80M / (1.04)^10 = $54.05M\n- PV of $120M at 20 years: $120M / (1.04)^20 = $54.78M\n- Total PV of liabilities: $149.93M\n\nThe surplus is $230M - $149.93M = $80.07M, a significant cushion.\n\n**B) Recommended Approach: Contingent Immunization**\n\nGiven the large surplus ($80.07M, or ~53% of liability PV), contingent immunization is appropriate:\n- The surplus provides a substantial cushion for active management\n- Active management can potentially generate additional returns to fund future benefit increases\n- If the surplus erodes to a predetermined trigger (e.g., $10M), switch to full cash flow matching\n- This balances cost efficiency (active returns) with safety (immunization floor)\n\nAlternative: A laddered cash flow matching approach for the $50M liability (nearest) combined with duration matching for the longer-dated liabilities would be more conservative but sacrifice upside.\n\n**C) Derivatives Overlay:**\n\nCalculate the BPV of liabilities using each cash flow's modified duration. Use receive-fixed interest rate swaps to increase portfolio duration to match liability duration without selling shorter-duration bonds. The notional amount should be set so that:\n\nBPV(portfolio bonds) + BPV(swap overlay) = BPV(liabilities)\n\nSwaps are preferable to futures here because of the long liability horizon (20 years) -- swap tenors can extend to 30 years, while futures are liquid mainly out to 10 years. Use a combination of 5-year, 10-year, and 20-year swaps to match the key rate duration profile of the liabilities."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Liability-Driven Strategies Practice",
+      "problems": [
+        {
+          "id": "l3-pm1-1",
+          "question": "An immunized portfolio for a single liability has the following characteristics: portfolio Macaulay duration = 8 years, liability horizon = 8 years, portfolio convexity = 85. If the portfolio is restructured to increase convexity to 120 while maintaining the same duration, what is the most likely effect?",
+          "options": [
+            "A) The portfolio becomes better immunized against parallel shifts",
+            "B) The portfolio becomes more exposed to non-parallel yield curve shifts",
+            "C) The portfolio's expected return increases"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Higher convexity in an immunized portfolio means the cash flows are more dispersed around the liability date. While increased convexity improves performance for large parallel shifts (option A is a distractor), the primary concern in immunization is structural risk from non-parallel shifts. Greater dispersion means more cash flows at dates far from the liability horizon, increasing vulnerability to yield curve twists and butterflies. Option C is incorrect because convexity adjustment is a risk/structure change, not a return enhancement.",
+          "difficulty": "advanced",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Evaluate the effects of convexity on immunized portfolios"
+        },
+        {
+          "id": "l3-pm1-2",
+          "question": "A pension fund manager employs contingent immunization with an initial surplus of $15 million. After three months of active management, the surplus has declined to $2 million. The manager should most likely:",
+          "options": [
+            "A) Continue active management since a positive surplus remains",
+            "B) Immunize the portfolio immediately to lock in the remaining surplus",
+            "C) Increase active risk to recover the lost surplus before immunizing"
+          ],
+          "correctAnswer": "B",
+          "explanation": "With the surplus declining from $15M to $2M in just three months, the cushion has been nearly eliminated. The prudent action is to immunize immediately. Option A is dangerous because the remaining $2M cushion provides very little room for further losses. Option C compounds the problem by increasing risk when the safety margin is nearly gone. Contingent immunization requires switching to full immunization when the surplus reaches the predetermined minimum -- this rapid erosion suggests that threshold has been reached or is imminent.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe contingent immunization and determine when to switch strategies"
+        },
+        {
+          "id": "l3-pm1-3",
+          "question": "A manager wants to increase portfolio BPV by 5,000 using Treasury futures. Each futures contract has a BPV of $125 and a conversion factor of 0.92. The approximate number of contracts needed is closest to:",
+          "options": [
+            "A) 37",
+            "B) 40",
+            "C) 43"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Number of contracts = Target BPV change / BPV per contract = 5,000 / (125 x 0.92) = 5,000 / 115 = 43.5, rounded to approximately 43. The conversion factor adjusts the BPV of the futures contract to account for the cheapest-to-deliver bond. Option B (40) ignores the conversion factor (5,000/125). Option A uses an incorrect calculation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate the number of futures contracts for a duration overlay"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of contingent immunization to a pension fund trustee who understands basic investing but not fixed income portfolio management. Cover when it works well, when it doesn't, and what triggers the switch from active management to immunization."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is minimizing dispersion important for single-liability immunization but not sufficient for multiple liabilities?",
+        "In what market environments would contingent immunization most likely fail?",
+        "How does the choice between cash flow matching and duration matching depend on the liability profile?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Cash flow matching**: Eliminates reinvestment and price risk but is expensive and inflexible\n- **Single-liability immunization**: Match Macaulay duration to horizon, ensure surplus, minimize dispersion\n- **Multiple-liability immunization**: Match BPV, asset dispersion must bracket liability dispersion, minimize convexity\n- **Contingent immunization**: Active management with immunization safety net; switch when surplus hits minimum\n- **Derivatives overlay**: Use futures/swaps to adjust duration; N = (BPV target - BPV portfolio) / BPV futures\n- **Structural risk**: Non-parallel yield curve shifts can break immunization; minimize by concentrating cash flows"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Yield Curve Strategies** -- how to profit from expected changes in the shape and level of the yield curve. The duration concepts from immunization become tools for positioning: bullet, barbell, and ladder strategies each express different views on how the curve will evolve."
+    }
+  ]
+}

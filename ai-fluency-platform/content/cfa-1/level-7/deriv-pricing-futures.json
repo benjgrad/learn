@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "DV.6: Pricing Futures",
+    "description": "Understand how futures differ from forwards due to daily settlement, margin mechanics, convergence at expiration, and the relationship between contango and backwardation.",
+    "level": "level-7",
+    "slug": "deriv-pricing-futures",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Two investors take identical long positions \u2014 one via a forward contract, the other via a futures contract. Both agree to buy oil at $75/barrel in 3 months. If oil rises steadily over those 3 months, will both investors have exactly the same profit at expiration? Why or why not?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Futures vs. Forward Prices\n\nFutures and forwards are conceptually similar \u2014 both are agreements to buy/sell an asset at a future date. However, **daily settlement** creates a key difference.\n\n### Daily Settlement (Mark-to-Market)\n\nFutures contracts are settled daily. Each day, the clearinghouse calculates the gain or loss based on the change in the futures price, and cash is transferred between accounts.\n\n**Example:** A trader is long one oil futures contract (1,000 barrels) at $75.\n\n| Day | Settlement Price | Daily Gain/Loss | Account Balance |\n|---|---|---|---|\n| 0 | $75.00 | \u2014 | $5,000 (initial margin) |\n| 1 | $76.50 | +$1,500 | $6,500 |\n| 2 | $74.00 | \u2212$2,500 | $4,000 |\n| 3 | $75.50 | +$1,500 | $5,500 |\n\nGains are credited and can be withdrawn; losses are debited and may trigger margin calls.\n\n### When Do Futures and Forward Prices Differ?\n\nIf interest rates are **constant** (or uncorrelated with the underlying), futures and forward prices are theoretically identical. When interest rates are **positively correlated** with the underlying (e.g., stock index futures), futures prices tend to be slightly **higher** than forward prices. The daily settlement allows the futures long to reinvest gains when rates are high and borrow at low rates when covering losses."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If a trader's margin account falls below the maintenance margin, what must the trader do? What happens if the trader does not act?",
+      "answer": "The trader receives a margin call and must deposit variation margin to bring the account back to the initial margin level (not just the maintenance level). If the trader fails to meet the margin call, the broker will close (liquidate) the position to limit further losses. This forced liquidation protects the clearinghouse and the counterparty from credit risk."
+    },
+    {
+      "type": "markdown",
+      "content": "## Margin Mechanics\n\n| Term | Definition |\n|---|---|\n| **Initial margin** | Deposit required to open a futures position |\n| **Maintenance margin** | Minimum balance before a margin call is triggered |\n| **Variation margin** | Additional deposit required to restore balance to initial margin |\n| **Margin call** | Notification that the account has fallen below maintenance margin |\n\nTypically, maintenance margin is about **75% of initial margin**.\n\n## Convergence at Expiration\n\nAs a futures contract approaches expiration, the futures price must **converge** to the spot price:\n\n$$\\lim_{t \\to T} F_t = S_T$$\n\nIf $F_T > S_T$, an arbitrageur would short the futures and buy the spot, profiting from the difference. If $F_T < S_T$, the reverse trade applies. Arbitrage forces convergence.\n\n## Contango and Backwardation\n\n- **Contango**: futures price > spot price ($F_0 > S_0$). The futures curve slopes **upward**. Common when storage costs are significant and convenience yield is low.\n- **Backwardation**: futures price < spot price ($F_0 < S_0$). The futures curve slopes **downward**. Common when convenience yield is high (strong desire to hold the physical asset).\n\nNote: \"Normal contango\" and \"normal backwardation\" refer to the relationship between the futures price and the **expected future spot price**, which is a distinct concept."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A trader goes long 10 gold futures contracts (100 oz each) at $2,000/oz. Initial margin is $8,000 per contract and maintenance margin is $6,000 per contract. On day 1, gold settles at $1,992. Calculate the account balance after day 1, determine if a margin call occurs, and calculate any required deposit.",
+      "solution": "**Starting account balance:** 10 \u00d7 $8,000 = $80,000\n\n**Day 1 loss:** (1,992 \u2212 2,000) \u00d7 100 oz \u00d7 10 contracts = (\u2212$8) \u00d7 1,000 = \u2212$8,000\n\n**Account balance after day 1:** $80,000 \u2212 $8,000 = $72,000\n\n**Maintenance margin requirement:** 10 \u00d7 $6,000 = $60,000\n\n**Margin call?** No. $72,000 > $60,000, so the account is above maintenance margin.\n\nIf gold had instead settled at $1,978 (a $22 decline), the loss would be $22,000, leaving a balance of $58,000 \u2014 below the $60,000 maintenance level. The trader would need to deposit $80,000 \u2212 $58,000 = $22,000 to restore to initial margin."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Pricing Futures Practice",
+      "problems": [
+        {
+          "id": "dv6-1",
+          "question": "Which of the following best explains why futures prices converge to spot prices at expiration?",
+          "options": [
+            "A) Exchange rules require futures prices to equal spot prices at delivery",
+            "B) Arbitrage between the spot and futures markets forces convergence",
+            "C) The clearinghouse adjusts the settlement price to match the spot price"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Convergence is driven by arbitrage. If F_T > S_T, traders sell futures and buy spot to lock in a profit, pushing the futures price down. If F_T < S_T, traders buy futures and sell spot. This arbitrage activity forces F_T toward S_T. Option A is not the mechanism \u2014 exchanges don't set prices. Option C is incorrect \u2014 the clearinghouse does not adjust prices; market forces do.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain convergence of futures and spot prices at expiration"
+        },
+        {
+          "id": "dv6-2",
+          "question": "A crude oil futures market is in contango. This most likely indicates that:",
+          "options": [
+            "A) Futures prices are below the current spot price",
+            "B) Storage costs exceed the convenience yield",
+            "C) The market expects spot prices to decline"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Contango means F\u2080 > S\u2080 (upward-sloping futures curve). From the cost of carry model, F\u2080 = S\u2080 \u00d7 (1 + r + s \u2212 y)^T. The forward price exceeds spot when carry costs (financing + storage) exceed carry benefits (convenience yield), meaning storage costs are significant relative to convenience yield. Option A describes backwardation (F\u2080 < S\u2080). Option C conflates contango with expected price direction \u2014 contango is about the current term structure, not expectations.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Distinguish between contango and backwardation"
+        },
+        {
+          "id": "dv6-3",
+          "question": "A trader is long one S&P 500 E-mini futures contract. Initial margin is $12,000 and maintenance margin is $10,500. The contract was entered at 4,500 (multiplier = $50). After day 1, the index settles at 4,470. The variation margin required is closest to:",
+          "options": [
+            "A) $0",
+            "B) $500",
+            "C) $1,500"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Day 1 loss = (4,470 \u2212 4,500) \u00d7 $50 = \u2212$30 \u00d7 $50 = \u2212$1,500. Account balance = $12,000 \u2212 $1,500 = $10,500. The balance ($10,500) equals the maintenance margin ($10,500), so no margin call is triggered \u2014 the balance must fall below maintenance margin, not just equal it. No variation margin is required. Option B assumes partial restoration. Option C would be the variation margin if the balance had fallen below $10,500.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate margin requirements for futures positions"
+        },
+        {
+          "id": "dv6-4",
+          "question": "Compared to an otherwise identical forward contract, a futures contract is most likely to have a higher price when:",
+          "options": [
+            "A) Interest rates are negatively correlated with the underlying asset",
+            "B) Interest rates are positively correlated with the underlying asset",
+            "C) Interest rates are constant"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When rates and the underlying are positively correlated, the long futures position benefits: gains are received (via daily settlement) when rates are high (allowing reinvestment at higher rates), and losses are paid when rates are low (borrowing at lower rates). This reinvestment advantage makes futures more valuable than forwards, pushing futures prices above forward prices. Option A would make futures less valuable than forwards. Option C means no difference.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain when futures and forward prices differ"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between contango and backwardation. What do each tell us about the costs and benefits of holding the physical underlying asset? Draw on the cost of carry model in your explanation."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does daily settlement reduce counterparty risk compared to forwards?",
+        "Why might a commodity producer prefer futures over forwards despite the daily margin requirements?",
+        "If a futures market shifts from backwardation to contango, what has changed about supply/demand dynamics?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Futures are settled daily (mark-to-market); forwards settle only at expiration\n- **Margin:** initial margin \u2192 maintenance margin \u2192 margin call \u2192 variation margin (restore to initial)\n- Futures and forward prices are equal when rates are constant or uncorrelated with the underlying\n- Positive correlation between rates and underlying \u2192 futures price > forward price\n- **Convergence:** $F_T \\to S_T$ as expiration approaches (enforced by arbitrage)\n- **Contango:** $F_0 > S_0$ (carry costs > carry benefits)\n- **Backwardation:** $F_0 < S_0$ (carry benefits > carry costs)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Pricing Swaps** \u2014 extending the forward pricing framework to understand interest rate swaps, currency swaps, and equity swaps as portfolios of forward contracts."
+    }
+  ]
+}

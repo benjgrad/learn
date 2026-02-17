@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "Pathway: Portfolio Management Practice Drill",
+    "description": "20 practice problems covering the Portfolio Management pathway for Level III.",
+    "level": "level-6",
+    "slug": "pw-pm-practice",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Pathway: Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Pathway: Portfolio Management Practice Drill\n\nThese problems cover liability-driven investing, yield curve strategies, credit strategies, equity strategies, multi-asset portfolio management, and portfolio construction. Level III demands integration of these topics in institutional and total-portfolio contexts."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Intermediate)",
+      "problems": [
+        {
+          "id": "pw-pm-p1",
+          "question": "A pension fund's fixed income manager is implementing a liability-driven investing (LDI) strategy. The fund's liabilities have a present value of $800 million, a modified duration of 14 years, and a convexity of 280. The manager constructs a hedging portfolio with a modified duration of 14 years but a convexity of 220. What risk remains in this hedge?",
+          "options": [
+            "A) The hedge is adequate because duration is matched; convexity differences are immaterial",
+            "B) The convexity mismatch means the hedging portfolio will underperform relative to liabilities for large parallel rate changes in either direction, leaving the fund exposed to surplus volatility from large rate movements",
+            "C) The convexity mismatch only matters if rates decrease, not if rates increase"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When the hedging assets have lower convexity than the liabilities (220 < 280), a large parallel rate shift in either direction will cause the liabilities to change more in value than the assets. For a rate increase, liabilities fall less than assets (asset value drops more). For a rate decrease, liabilities rise more than assets (asset value increases less). In both cases, the surplus (assets minus liabilities) deteriorates. This creates surplus volatility that the duration match alone does not eliminate. Option A ignores convexity risk. Option C is incorrect because convexity effects are symmetric for parallel shifts.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Evaluate the impact of convexity mismatch on an LDI hedging portfolio"
+        },
+        {
+          "id": "pw-pm-p2",
+          "question": "A fixed income portfolio manager believes the yield curve will flatten through a combination of rising short-term rates and stable long-term rates. Which yield curve strategy is most appropriate?",
+          "options": [
+            "A) A barbell strategy overweighting 2-year and 30-year bonds",
+            "B) A bullet strategy concentrating at the 10-year point",
+            "C) A flattener trade: short the 2-year point (underweight short duration) and long the 30-year point (overweight long duration)"
+          ],
+          "correctAnswer": "C",
+          "explanation": "A yield curve flattener profits when the spread between long-term and short-term rates narrows. If short rates rise (2-year bonds decline in price) and long rates stay stable (30-year bonds hold value), the flattener trade profits from both legs:\n\n- **Short 2-year:** gains as 2-year prices fall when rates rise\n- **Long 30-year:** holds value as long rates remain stable\n\nOption A (barbell) has exposure to both short and long ends but does not express a directional view on the curve shape. Option B (bullet) is neutral on the curve and benefits from parallel shifts, not reshaping.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Select a yield curve strategy based on a specific curve view"
+        },
+        {
+          "id": "pw-pm-p3",
+          "question": "A credit portfolio manager is analyzing two investment-grade corporate bonds with similar maturities:\n\n| Bond | OAS | Rating | Sector |\n|------|-----|--------|--------|\n| Bond A | 120 bps | BBB+ | Industrials |\n| Bond B | 95 bps | A- | Financials |\n\nThe manager believes the economic cycle is moving from expansion to slowdown. Which bond is more attractive on a relative value basis?",
+          "options": [
+            "A) Bond A, because the wider spread provides more compensation and industrials typically outperform in a slowdown",
+            "B) Bond B, because higher-quality credits (A-) tend to outperform lower-quality credits (BBB+) in an economic slowdown as investors seek safety, and the lower spread reflects this quality advantage",
+            "C) Bond A, because the OAS spread pickup of 25 bps is always worth the additional credit risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "In an economic slowdown, credit spreads typically widen, and lower-quality credits (BBB) tend to underperform higher-quality credits (A) as default risk becomes more salient and investors engage in a 'flight to quality.' Bond B's A- rating provides more protection in a deteriorating economic environment. While Bond A offers a higher spread (120 vs. 95 bps), this spread may not adequately compensate for the increased downgrade and default risk in a slowdown. The spread differential could widen further, causing Bond A to underperform. Option A incorrectly assumes industrials outperform in slowdowns (they are typically cyclical). Option C ignores the cyclical context entirely.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Apply credit cycle analysis to relative value decisions in fixed income"
+        },
+        {
+          "id": "pw-pm-p4",
+          "question": "An equity portfolio manager uses a factor-based approach to construct a portfolio. She targets the following factor tilts relative to the benchmark:\n\n| Factor | Target Active Exposure |\n|--------|----------------------|\n| Value (book-to-market) | +0.25 |\n| Momentum | +0.15 |\n| Quality (ROE) | +0.20 |\n| Size (small cap) | 0.00 (neutral) |\n\nWhich risk is this portfolio most exposed to?",
+          "options": [
+            "A) Idiosyncratic risk, because the portfolio is factor-neutral on size",
+            "B) Factor crowding risk -- if many managers simultaneously hold similar value, momentum, and quality tilts, a reversal in these factors could cause correlated selling and amplified losses",
+            "C) Interest rate risk, because value stocks are sensitive to interest rate changes"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Factor crowding occurs when many institutional investors hold similar factor exposures, creating concentrated positioning across the market. If the factors reverse (e.g., value underperforms, momentum crashes, quality underperforms), the correlated unwinding by multiple managers can amplify losses beyond what the factor model predicts. This is a systemic risk that is particularly relevant for factor-based strategies that have become popular. Option A is partially true (idiosyncratic risk exists in any active portfolio) but is not the defining risk of this strategy. Option C is a secondary consideration and does not capture the portfolio's primary risk.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Identify factor crowding risk in factor-based equity portfolios"
+        },
+        {
+          "id": "pw-pm-p5",
+          "question": "A multi-asset portfolio manager needs to allocate $1 billion across equities, fixed income, and alternatives to meet a 7% return target with a maximum volatility constraint of 12%. The manager's capital market expectations are:\n\n| Asset Class | Expected Return | Volatility |\n|-------------|----------------|------------|\n| Global Equities | 8.5% | 16% |\n| Investment-Grade Bonds | 4.0% | 5% |\n| Alternatives | 9.0% | 12% |\n\nIgnoring correlations, which observation is most relevant for the allocation decision?",
+          "options": [
+            "A) The portfolio must be 100% equities to meet the 7% return target",
+            "B) Alternatives offer the highest return per unit of risk (Sharpe-like ratio), and a combination of alternatives and bonds may achieve the return target with lower volatility than a pure equity allocation",
+            "C) Fixed income should be excluded because its return is below the target"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Comparing return-per-unit-of-risk:\n- **Equities:** $8.5\\% / 16\\% = 0.53$\n- **Bonds:** $4.0\\% / 5\\% = 0.80$\n- **Alternatives:** $9.0\\% / 12\\% = 0.75$\n\nBonds actually have the best ratio, and alternatives are second. A blend can achieve the 7% target: for example, 50% alternatives ($9.0\\%$) + 30% equities ($8.5\\%$) + 20% bonds ($4.0\\%$) = $4.5 + 2.55 + 0.80 = 7.85\\%$ with volatility well below 12% (due to diversification). Option A ignores the potential for blending. Option C makes the error of excluding an asset class because its standalone return is below the target -- bonds contribute to the portfolio through diversification and risk reduction.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Apply multi-asset portfolio construction to meet return and risk objectives"
+        },
+        {
+          "id": "pw-pm-p6",
+          "question": "A liability-driven investor is constructing a cash flow matching portfolio for a defined benefit plan. The plan has the following projected benefit payments:\n\n| Year | Payment ($ millions) |\n|------|---------------------|\n| 1 | 20 |\n| 2 | 22 |\n| 3 | 25 |\n| 4 | 28 |\n| 5 | 30 |\n\nThe investor uses zero-coupon bonds priced at par with yields matching each maturity. What is the total cost of the cash flow matching portfolio?",
+          "options": [
+            "A) $125 million (the sum of all payments)",
+            "B) Less than $125 million, because the present value of future payments is less than their nominal sum when discounted at positive yields",
+            "C) More than $125 million, because a risk premium must be added"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Cash flow matching requires purchasing zero-coupon bonds that mature at each payment date with face values equal to the payments. Since yields are positive (the bonds are priced at par, implying the yield equals the coupon, but for zero-coupon bonds, the price is the present value), the cost today is the present value of each payment:\n\n$$\\text{Cost} = \\sum_{t=1}^{5} \\frac{\\text{Payment}_t}{(1 + y_t)^t}$$\n\nWith positive yields, each present value is less than the nominal payment, so the total cost is less than $125 million. Option A ignores the time value of money. Option C confuses the present value calculation with risk premiums.",
+          "difficulty": "basic",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Calculate the cost of a cash flow matching portfolio"
+        },
+        {
+          "id": "pw-pm-p7",
+          "question": "A portfolio manager is evaluating whether to overweight high-yield bonds in a credit portfolio. The current high-yield spread over Treasuries is 350 bps, compared to a 10-year average of 450 bps. The manager expects a modest economic slowdown. Which assessment is most accurate?",
+          "options": [
+            "A) The tight spread (350 bps vs. 450 bps average) suggests high-yield bonds are expensive and offer inadequate compensation for the increased default risk expected in a slowdown",
+            "B) The tight spread indicates that credit quality has improved permanently, justifying the lower spread",
+            "C) Spreads are mean-reverting, so the manager should overweight high-yield because spreads will tighten further to a new equilibrium"
+          ],
+          "correctAnswer": "A",
+          "explanation": "With spreads 100 bps tighter than the 10-year average and an expected economic slowdown, the risk-reward of high-yield bonds is unattractive. Tight spreads mean less cushion against rising defaults and spread widening that typically accompany a slowdown. Historically, high-yield spreads tend to widen during economic deterioration, and the below-average starting spread amplifies the potential for negative excess returns. Option B assumes a permanent structural change without evidence. Option C misapplies mean reversion (spreads would need to widen toward the average, not tighten further).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Evaluate the attractiveness of high-yield bonds based on spread levels and the economic cycle"
+        },
+        {
+          "id": "pw-pm-p8",
+          "question": "An equity portfolio manager is implementing a 130/30 long-short strategy. The portfolio is long 130% and short 30%, resulting in a net market exposure of 100%. Compared to a long-only strategy with the same benchmark, what is the primary advantage of the 130/30 structure?",
+          "options": [
+            "A) The 130/30 structure doubles the portfolio's expected return through leverage",
+            "B) The 130/30 structure allows the manager to express negative views through short positions, expanding the breadth of active decisions and potentially improving the information ratio",
+            "C) The 130/30 structure reduces portfolio risk by hedging through the short positions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The 130/30 structure's primary advantage is expanding the manager's opportunity set. In a long-only portfolio, the manager can only express negative views by underweighting a stock (maximum underweight is the benchmark weight, often just 1-2%). With short selling, the manager can take meaningful negative positions, allowing more active decisions and greater differentiation from the benchmark. By the fundamental law of active management ($IR = IC \\times \\sqrt{BR}$), increased breadth (BR) improves the expected information ratio. Option A is incorrect; the 130/30 has 100% net exposure, same as long-only, so market return is not doubled. Option C is incorrect because the net exposure is 100%, providing no market hedge.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Explain the advantages of long-short equity strategies relative to long-only strategies"
+        },
+        {
+          "id": "pw-pm-p9",
+          "question": "A fixed income portfolio manager is implementing a credit barbell strategy, holding both AAA-rated government bonds and BB-rated high-yield bonds, with no intermediate credit exposure. Compared to a portfolio with similar overall credit quality that is concentrated in BBB-rated bonds (a credit bullet), which statement is most accurate?",
+          "options": [
+            "A) The credit barbell and credit bullet have identical risk profiles since the weighted-average credit quality is the same",
+            "B) The credit barbell has greater exposure to credit spread volatility and potential for spread curve reshaping; it outperforms when spreads narrow but underperforms significantly when spreads widen due to the high-yield component",
+            "C) The credit bullet is always superior because BBB bonds offer the most efficient risk-return trade-off"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A credit barbell combines high-quality (AAA) and low-quality (BB) bonds, creating a portfolio with the same average credit quality as a BBB bullet but very different risk characteristics. The BB bonds have much higher spread sensitivity and default risk than BBB bonds, so the barbell's performance is more volatile. When spreads narrow, the BB component benefits disproportionately. When spreads widen, the BB component can suffer significant losses (potentially defaults), while the AAA component provides stability. The barbell is more convex in credit spread terms. Option A ignores the non-linear relationship between credit quality and risk. Option C is a generalization that ignores the investor's views and objectives.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Compare credit barbell and bullet strategies in terms of risk and return characteristics"
+        },
+        {
+          "id": "pw-pm-p10",
+          "question": "A multi-asset portfolio manager is evaluating whether to use a risk parity approach versus a traditional 60/40 approach. In a risk parity portfolio, each asset class contributes equally to total portfolio risk. Which statement is most accurate regarding the typical risk parity portfolio?",
+          "options": [
+            "A) Risk parity produces the same allocation as mean-variance optimization with the highest Sharpe ratio",
+            "B) Risk parity typically results in a large allocation to fixed income (which has lower volatility) and smaller allocations to equities (which have higher volatility), often requiring leverage to achieve a target return comparable to 60/40",
+            "C) Risk parity eliminates the need for capital market expectations since it relies only on risk data"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Equal risk contribution means allocating more capital to lower-volatility asset classes (fixed income) and less to higher-volatility asset classes (equities) so that each contributes the same amount of portfolio risk. A typical unlevered risk parity portfolio might be 70-80% fixed income and 20-30% equities, producing a low expected return. To achieve return targets comparable to a 60/40 portfolio, risk parity strategies typically use leverage to scale up the entire portfolio. Option A is incorrect; risk parity and MVO produce different allocations unless asset classes happen to have identical Sharpe ratios. Option C is partially true (risk parity does not require return estimates) but incorrectly states it eliminates the need entirely -- correlation estimates are still needed.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Describe the characteristics and implementation of a risk parity portfolio"
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Advanced)",
+      "problems": [
+        {
+          "id": "pw-pm-p11",
+          "question": "A pension fund's LDI manager is constructing a hedging portfolio using government bonds and interest rate swaps. The liabilities have key rate durations (KRDs) concentrated at the 20-year and 30-year points. Long-duration government bonds are scarce and expensive. Which implementation approach best addresses this challenge?",
+          "options": [
+            "A) Buy available long-duration government bonds and accept the KRD mismatch at the 30-year point",
+            "B) Use a combination of available long-duration government bonds for the 20-year KRD and receive-fixed interest rate swaps to extend duration at the 30-year point, providing a more precise KRD match",
+            "C) Shorten the hedging portfolio's duration to match only the 20-year KRD and leave the 30-year exposure unhedged"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When physical bonds of sufficient duration are unavailable or expensive, interest rate swaps can be used to create synthetic long-duration exposure. Receive-fixed swaps add duration without requiring the purchase of physical bonds, and their terms can be customized to match specific KRD points. This combination approach provides a more precise hedge than relying solely on available bonds (which may not match the 30-year KRD). Option A accepts a known KRD mismatch. Option C deliberately leaves a significant exposure unhedged, which increases surplus risk.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Design an LDI hedging portfolio using a combination of bonds and interest rate swaps"
+        },
+        {
+          "id": "pw-pm-p12",
+          "question": "A fixed income portfolio manager wants to implement a carry trade by going long emerging market local currency bonds and funding the position with short-term US dollar borrowing. Current data:\n\n- EM bond yield: 8.5%\n- USD funding cost: 5.0%\n- Expected EM currency depreciation: 2.0%\n\nWhat is the expected total return of this carry trade?",
+          "options": [
+            "A) 3.5%",
+            "B) 1.5%",
+            "C) 6.5%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The carry trade return has three components:\n\n$$\\text{Expected Return} = \\text{EM Bond Yield} - \\text{USD Funding Cost} - \\text{Expected Currency Depreciation}$$\n$$= 8.5\\% - 5.0\\% - 2.0\\% = 1.5\\%$$\n\nThe interest rate differential (carry) is 3.5%, but the expected currency depreciation reduces the return by 2.0%. If uncovered interest rate parity held exactly, the expected depreciation would equal the interest rate differential (3.5%), producing zero excess return. The 1.5% expected return reflects the partial deviation from uncovered parity. Option A ignores currency depreciation. Option C incorrectly adds the currency effect.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Calculate the expected return of a currency carry trade"
+        },
+        {
+          "id": "pw-pm-p13",
+          "question": "An equity portfolio manager is constructing a market-neutral equity portfolio using a pairs trading approach. She identifies Stock A (she believes overvalued) and Stock B (she believes undervalued) in the same industry. She shorts $5 million of Stock A and goes long $5 million of Stock B. Both stocks have a beta of 1.0. After the trade, her portfolio has zero net market exposure but the pair does not converge as expected. Stock A rises 15% and Stock B falls 10%. What is the loss on this trade?",
+          "options": [
+            "A) $250,000",
+            "B) $1,250,000",
+            "C) $750,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Loss on each leg:\n\n- **Short Stock A (which rose 15%):** Loss = $5M $\\times$ 15% = $750,000\n- **Long Stock B (which fell 10%):** Loss = $5M $\\times$ 10% = $500,000\n\n**Total loss:** $750,000 + $500,000 = $1,250,000\n\nAlthough the portfolio was market-neutral (zero beta), it was fully exposed to relative performance (alpha) risk. The pair diverged rather than converged, creating losses on both legs. This illustrates that market-neutral does not mean risk-free -- idiosyncratic and relative value risks remain. Option A underestimates the loss. Option C miscalculates one leg.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Calculate the P&L of a pairs trade and understand residual risk in market-neutral portfolios"
+        },
+        {
+          "id": "pw-pm-p14",
+          "question": "A multi-asset CIO is constructing a portfolio for an insurance company with the following constraints:\n\n- Regulatory requirement: minimum 40% in investment-grade fixed income\n- Liability duration: 8 years\n- Required surplus return: 2% above liability growth\n- Maximum allocation to equities: 30%\n- Maximum allocation to alternatives: 15%\n\nThe CIO proposes: 50% IG bonds (duration 8), 25% equities, 15% alternatives, 10% cash. What is the most significant weakness of this allocation?",
+          "options": [
+            "A) The equity allocation (25%) is too low to generate the required surplus return",
+            "B) The 10% cash allocation creates a drag on returns and contributes nothing to liability hedging; it would be more efficient to reduce cash and increase the alternatives allocation to the 15% maximum or extend IG bond duration to create a more capital-efficient hedge",
+            "C) The allocation violates the regulatory minimum for fixed income"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The allocation satisfies all hard constraints (50% IG bonds > 40% minimum, 25% equities < 30% maximum, 15% alternatives = maximum). However, the 10% cash allocation is a significant weakness. Cash earns close to the risk-free rate, contributing little to the surplus return target. It also does not match liability duration (cash has near-zero duration vs. the 8-year liability duration), so it actually hurts the liability hedge by reducing the overall portfolio duration below the liability duration. The CIO could deploy this cash more efficiently in the return-seeking portfolio (alternatives) or extend IG bond duration. Option A may be a concern but is not the most significant weakness given the constraints. Option C is factually incorrect (50% > 40%).",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Identify weaknesses in an institutional asset allocation relative to objectives and constraints"
+        },
+        {
+          "id": "pw-pm-p15",
+          "question": "A credit analyst is evaluating a CDS basis trade. The 5-year CDS spread on Company X is 200 bps, but the company's 5-year cash bond trades at a z-spread of 250 bps over the swap curve. The analyst identifies a negative basis (CDS spread < cash spread). Which trade exploits this basis?",
+          "options": [
+            "A) Buy the cash bond and buy CDS protection -- if the basis converges, the combined position earns the 50 bps differential with limited credit risk",
+            "B) Short the cash bond and sell CDS protection",
+            "C) Buy the cash bond only, without any CDS hedge"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A negative basis trade involves buying the cash bond (earning the 250 bps z-spread) and buying CDS protection (paying 200 bps). The net carry is 50 bps ($250 - 200$) with the credit risk fully hedged by the CDS. If the basis converges (i.e., the cash spread tightens relative to the CDS spread), the trade profits from both the carry and the mark-to-market convergence. The risk is that the basis widens further (cash bond spreads widen more than CDS) or that there are technical delivery/settlement issues. Option B is the opposite trade (positive basis trade). Option C takes unhedged credit risk.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Design a CDS basis trade to exploit credit market dislocations"
+        },
+        {
+          "id": "pw-pm-p16",
+          "question": "An equity portfolio manager is comparing two portfolio construction approaches:\n\nApproach 1: Optimization-based (maximize expected alpha subject to tracking error constraint)\nApproach 2: Stratified sampling with alpha overlays\n\nFor a mandate with a 2% tracking error target and a benchmark with 500 stocks, which approach is more susceptible to model risk?",
+          "options": [
+            "A) Approach 1, because optimization relies on estimated inputs (expected returns, covariances) that are subject to estimation error, and small changes in these inputs can produce dramatically different portfolio weights",
+            "B) Approach 2, because stratified sampling introduces discretionary judgment",
+            "C) Both approaches have identical model risk since they target the same tracking error"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Optimization-based approaches are well-known for their sensitivity to input assumptions. Small changes in expected return estimates can produce large changes in optimal weights, potentially leading to concentrated, unstable portfolios. This 'error maximization' property of MVO is a significant source of model risk. Approach 2 (stratified sampling) is less dependent on estimated inputs because it matches observable characteristics (sector weights, factor exposures) without optimizing expected returns, making it more robust to estimation error. However, the alpha overlays in Approach 2 still introduce some model risk. Option B identifies a minor concern. Option C incorrectly equates tracking error targets with model risk.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Compare the model risk of optimization-based and stratified portfolio construction approaches"
+        },
+        {
+          "id": "pw-pm-p17",
+          "question": "A multi-asset manager is implementing a tactical asset allocation (TAA) overlay. The current strategic allocation is 55% equities, 35% bonds, 10% alternatives. The TAA model signals an equity overweight. The manager increases equity to 65% by reducing bonds to 25%. The TAA bet is funded entirely by selling government bonds. What unintended consequence might this create?",
+          "options": [
+            "A) No unintended consequences; TAA is simply adjusting the equity/bond mix",
+            "B) Reducing the bond allocation from 35% to 25% also reduces the portfolio's duration and interest rate hedging capacity, potentially widening the mismatch between portfolio duration and any liability duration if the investor has liabilities",
+            "C) The equity overweight automatically increases the portfolio's credit risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "TAA decisions often have secondary effects. Reducing government bonds from 35% to 25% not only increases equity exposure but also reduces the portfolio's interest rate duration. For an investor with interest-rate-sensitive liabilities (e.g., a pension fund), this reduction increases surplus risk. The TAA overlay should ideally be implemented in a way that isolates the intended bet (equity market view) from unintended consequences (duration change). This might involve using equity futures to add equity exposure without selling bonds, or using interest rate derivatives to maintain the duration target. Option A ignores these second-order effects. Option C confuses equity risk with credit risk.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Identify unintended consequences of tactical asset allocation implementation"
+        },
+        {
+          "id": "pw-pm-p18",
+          "question": "A fixed income manager is constructing a credit portfolio using a bottom-up approach. She identifies a corporate issuer whose credit quality she believes is improving (potential upgrade candidate). The issuer's 5-year bond trades at an OAS of 180 bps. Comparable-rated bonds trade at 150 bps OAS, and the target rating's bonds trade at 110 bps OAS. If the upgrade occurs, what is the approximate price gain from spread compression, assuming a spread duration of 4.2 years?",
+          "options": [
+            "A) Approximately 0.63%",
+            "B) Approximately 2.94%",
+            "C) Approximately 1.68%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "If the issuer is upgraded, the spread should compress from 180 bps to approximately 110 bps (the target rating's spread):\n\n$$\\Delta \\text{Spread} = 180 - 110 = 70 \\text{ bps} = 0.70\\%$$\n\nPrice change from spread compression:\n$$\\Delta P \\approx -\\text{Spread Duration} \\times \\Delta \\text{Spread}$$\n$$= -4.2 \\times (-0.70\\%) = +2.94\\%$$\n\nThe negative sign on the spread change (spreads narrow) combined with the negative spread duration relationship produces a positive price change. Option A uses the difference between the issuer's spread and comparable-rated bonds (180-150 = 30 bps). Option C uses an intermediate spread compression estimate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Calculate the expected price impact of a credit rating upgrade"
+        },
+        {
+          "id": "pw-pm-p19",
+          "question": "An equity portfolio manager is constructing a concentrated portfolio of 25 high-conviction stocks. She uses the Kelly criterion to size positions based on her conviction level and the odds of each stock outperforming. For her highest-conviction idea, she estimates a 65% probability of a 20% gain and a 35% probability of a 10% loss. What is the Kelly-optimal fraction of the portfolio to allocate to this idea?",
+          "options": [
+            "A) Approximately 47%",
+            "B) Approximately 15%",
+            "C) Approximately 30%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The Kelly criterion for a simple binary outcome:\n\n$$f^* = \\frac{p \\times b - q}{b}$$\n\nWhere:\n- $p = 0.65$ (probability of gain)\n- $q = 0.35$ (probability of loss)\n- $b = \\text{gain/loss ratio} = 20\\%/10\\% = 2.0$\n\n$$f^* = \\frac{0.65 \\times 2.0 - 0.35}{2.0} = \\frac{1.30 - 0.35}{2.0} = \\frac{0.95}{2.0} = 0.475 \\approx 47\\%$$\n\nIn practice, portfolio managers use a fraction of the Kelly criterion (e.g., half-Kelly) because the formula is extremely sensitive to estimation errors and assumes exact knowledge of probabilities. A 47% allocation to a single stock would be impractical for most portfolios. Option B and C represent more practical position sizes but do not match the full Kelly calculation.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Apply the Kelly criterion to position sizing and understand its practical limitations"
+        },
+        {
+          "id": "pw-pm-p20",
+          "question": "A multi-asset portfolio manager is evaluating the tracking error contribution of each asset class to the total portfolio tracking error. The portfolio's active positions are:\n\n- Equities: 5% overweight (TE contribution: 60% of total)\n- Fixed Income: 3% underweight (TE contribution: 15% of total)\n- Alternatives: 2% overweight (TE contribution: 5% of total)\n- Cross-asset correlation effects: 20% of total\n\nIf the total portfolio tracking error is 2.5%, and the board's risk budget limits equity TE contribution to 50%, what action should the manager take?",
+          "options": [
+            "A) No action needed; the 60% equity contribution is close enough to the 50% limit",
+            "B) Reduce the equity overweight to bring the equity TE contribution within the 50% budget, potentially by scaling back the active equity position or adding hedges that reduce equity-specific active risk",
+            "C) Increase fixed income active risk to dilute the equity TE contribution percentage"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The equity TE contribution (60%) exceeds the board's risk budget (50%), requiring corrective action. The most direct approach is to reduce the equity active position (from 5% overweight to a smaller overweight) until the equity TE contribution falls within budget. This could be done by selling some of the overweight equity position, adding equity futures hedges, or other techniques that reduce equity-specific active risk. Option A ignores a binding risk limit -- even a small breach requires attention in institutional governance. Option C is poor practice because it increases total portfolio risk (through higher FI active risk) without reducing the equity risk that is over budget.",
+          "difficulty": "advanced",
+          "cfaTopic": "Pathway: Portfolio Management",
+          "learningOutcome": "Manage active risk contributions relative to a risk budget"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** Focus on areas where you scored below 70%. Key Portfolio Management pathway themes include: LDI implementation (key rate durations, convexity matching, swap overlays), yield curve and credit strategies, factor-based equity construction, multi-asset risk budgeting, and tactical allocation implementation."
+    }
+  ]
+}

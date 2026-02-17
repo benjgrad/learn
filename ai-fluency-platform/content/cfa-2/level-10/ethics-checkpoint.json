@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "Ethics Checkpoint",
+    "description": "Test your ability to apply the CFA Code and Standards to complex vignette-based scenarios involving research objectivity, MNPI, conflicts of interest, and fiduciary duties.",
+    "level": "level-10",
+    "slug": "ethics-checkpoint",
+    "order": 5,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Ethics"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Ethics Checkpoint",
+      "problems": [
+        {
+          "id": "eth-cp-1",
+          "question": "**Vignette**: An analyst at a buy-side firm uses client brokerage commissions (soft dollars) to purchase a financial database used for portfolio analysis, a Bloomberg terminal for the investment team, and office renovation costs for the firm's new trading floor. Which expenditure violates the CFA Standards regarding soft dollar arrangements?",
+          "options": [
+            "A) Financial database",
+            "B) Bloomberg terminal",
+            "C) Office renovation"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Office renovation is an administrative/overhead expense that benefits the firm, not the client. It fails the client benefit test required under the Standards. Financial databases and Bloomberg terminals directly support the investment research process that benefits clients. The key principle: soft dollars may only be used for research and services that directly assist in the investment decision-making process.",
+          "difficulty": "basic",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Apply the client benefit test to soft dollar expenditures"
+        },
+        {
+          "id": "eth-cp-2",
+          "question": "A portfolio manager overhears two executives at a restaurant discussing their company's imminent acquisition of a competitor. The PM does not know the executives personally. The PM then buys shares of the target company. This action most likely violates:",
+          "options": [
+            "A) Standard II(A) \u2014 the information is material and nonpublic regardless of how it was obtained",
+            "B) No standard \u2014 the PM did not solicit the information and overheard it in a public place",
+            "C) Standard V(A) \u2014 the PM lacked a reasonable basis because the information was unverified"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Standard II(A) prohibits trading on material nonpublic information regardless of how it was obtained. The acquisition information is clearly material (would affect the target's stock price) and nonpublic (the executives were discussing it privately, not through a public announcement). Overhearing it accidentally in a restaurant does not make it public information \u2014 it was not disseminated through channels designed to reach the investing public. The PM must refrain from trading until the information is publicly announced.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Apply MNPI rules to information obtained through unintended channels"
+        },
+        {
+          "id": "eth-cp-3",
+          "question": "A CFA charterholder manages discretionary accounts and discovers that her firm's recommended stock list includes a company where the research analyst has a significant personal ownership stake that is not disclosed in the research report. The PM's most appropriate first action is to:",
+          "options": [
+            "A) Immediately remove the stock from all client portfolios",
+            "B) Report the disclosure violation to her compliance department",
+            "C) Confront the analyst directly and demand disclosure"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Standard IV(C) Responsibilities of Supervisors requires reporting known violations through proper channels \u2014 the compliance department. Immediately removing the stock (A) could be premature and potentially harmful to clients if the recommendation is still valid; the undisclosed conflict does not necessarily mean the recommendation is wrong. Confronting the analyst directly (C) bypasses proper compliance channels and could allow the analyst to cover up the violation. The correct process: report to compliance, let them investigate, and follow their guidance on client portfolio actions.",
+          "difficulty": "advanced",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Determine the appropriate escalation path for discovered compliance violations"
+        }
+      ]
+    }
+  ]
+}

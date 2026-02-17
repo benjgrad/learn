@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "CORP.4: Corporate Restructuring",
+    "description": "Analyze divestitures, spin-offs, split-offs, equity carve-outs, leveraged recapitalizations, and bankruptcy processes including voluntary, involuntary, DIP, and prepackaged bankruptcy.",
+    "level": "level-4",
+    "slug": "corp-corporate-restructuring",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A large conglomerate announces it will spin off its fastest-growing division into a separate public company. Why might breaking the company apart create more total value than keeping it together? Who benefits and who might be harmed?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Divestitures and Restructuring Transactions\n\nCorporate restructuring involves changing the composition or structure of a company's assets, liabilities, or equity. The goal is typically to **unlock value** that is obscured or destroyed by the current corporate structure.\n\n### Types of Restructuring Transactions\n\n| Transaction | Description | Parent Receives | Result |\n|---|---|---|---|\n| **Divestiture (asset sale)** | Sell a division/subsidiary to a third party | Cash or securities | Division becomes part of buyer |\n| **Spin-off** | Distribute shares of a subsidiary to existing shareholders pro-rata | Nothing (shares go to shareholders) | Two independent public companies |\n| **Split-off** | Shareholders exchange parent shares for subsidiary shares | Retirement of parent shares | Two companies; parent share count reduced |\n| **Equity carve-out (IPO)** | Sell a minority stake in a subsidiary via IPO | Cash from IPO proceeds | Subsidiary partially public; parent retains control |\n| **Tracking stock** | Issue shares that track a division's performance | Cash from issuance | Single legal entity, separate equity |\n\n### Why Restructure?\n\n- **Conglomerate discount**: Diversified companies often trade below the sum of their parts\n- **Improved focus**: Management attention concentrated on core operations\n- **Better capital allocation**: Each entity has its own capital structure appropriate to its risk\n- **Transparency**: Investors can value businesses separately\n- **Regulatory/antitrust**: Required divestiture as condition of merger approval\n- **Tax efficiency**: Spin-offs can be tax-free to shareholders (if meeting IRS requirements)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A conglomerate trades at an enterprise value of $20 billion. Analysts estimate its consumer division is worth $12 billion and its industrial division is worth $10 billion as standalone entities. What is the conglomerate discount and what might cause it?",
+      "answer": "Conglomerate discount = (Sum of parts \u2212 Current EV) / Sum of parts = ($22B \u2212 $20B) / $22B = 9.1%. Causes include: (1) cross-subsidization \u2014 profitable divisions may fund underperforming ones; (2) complexity discount \u2014 investors struggle to value diverse businesses; (3) agency costs \u2014 management may resist divesting even when it creates value; (4) suboptimal capital allocation \u2014 a single capital structure may not suit businesses with different risk profiles. A spin-off or divestiture could unlock the $2B gap."
+    },
+    {
+      "type": "markdown",
+      "content": "## Spin-offs, Split-offs, and Equity Carve-outs\n\n### Spin-off Analysis\n\n**Tax treatment**: Generally tax-free if:\n- Parent distributes at least 80% of subsidiary shares\n- Valid business purpose (not just tax avoidance)\n- Meets IRS active trade or business requirements\n\n**Value creation mechanisms:**\n- Eliminates conglomerate discount\n- Each company attracts investors suited to its risk/growth profile\n- Management incentive alignment (stock-based comp tied to specific business)\n- Removal of internal subsidies forces discipline\n\n**Empirical evidence**: Studies show spin-offs generate **positive abnormal returns** for both parent and spun-off entity on average, suggesting persistent conglomerate discounts.\n\n### Split-off vs. Spin-off\n\n| Feature | Spin-off | Split-off |\n|---|---|---|\n| Shareholder action | Receive shares passively | Must exchange parent shares for subsidiary shares |\n| Parent share count | Unchanged | Reduced |\n| Tax treatment | Can be tax-free | Can be tax-free |\n| Investor selection | All shareholders get subsidiary shares | Only shareholders who choose the subsidiary |\n\n### Equity Carve-out\n\n- Parent sells a **minority stake** (typically 20-30%) via IPO\n- Parent retains control but raises cash\n- Creates a **public market valuation** for the subsidiary\n- Often a precursor to a full spin-off or sale\n- Risk: potential **conflicts of interest** between parent and minority shareholders"
+    },
+    {
+      "type": "markdown",
+      "content": "## Leveraged Recapitalizations and Bankruptcy\n\n### Leveraged Recapitalization\n\nA company takes on significant new debt and uses the proceeds to:\n- Pay a **large special dividend** to shareholders\n- Repurchase a substantial portion of shares\n- Fund a management buyout (MBO)\n\n**Motivations:**\n- Return excess capital to shareholders (tax-efficient if share repurchase)\n- Anti-takeover defense (loads balance sheet with debt, reducing attractiveness)\n- Tax shield from increased interest deductions\n\n**Risks:** Dramatically increased financial leverage; reduced financial flexibility; potential distress\n\n### Bankruptcy\n\n| Type | Description |\n|---|---|\n| **Voluntary** | Company files for bankruptcy on its own initiative |\n| **Involuntary** | Creditors petition the court to force the company into bankruptcy |\n\n### Chapter 11 (Reorganization) \u2014 US\n\n- **Debtor-in-possession (DIP)**: Existing management continues to operate the business\n- DIP financing: New loans with **super-priority** status (repaid before existing creditors)\n- Company proposes a **reorganization plan** within 120 days (exclusivity period)\n- Creditors vote on the plan; court confirms if fair and equitable\n- **Absolute priority rule** (APR): Senior claims paid in full before junior claims receive anything\n\n**Priority of claims:**\n1. Secured creditors (to extent of collateral value)\n2. DIP financing\n3. Administrative claims (legal fees, operational expenses during bankruptcy)\n4. Unsecured creditors (bondholders, suppliers)\n5. Subordinated debt\n6. Preferred stockholders\n7. Common stockholders (usually receive nothing)\n\n### Prepackaged Bankruptcy\n\nA **pre-negotiated** restructuring plan agreed upon by the debtor and major creditors **before** filing. Benefits:\n- **Speed**: Weeks vs. months/years for traditional Chapter 11\n- **Cost**: Lower legal and administrative expenses\n- **Less disruption**: Business continues more normally\n- **Creditor certainty**: Terms already agreed\n- Requires support from a supermajority of each creditor class"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Sum-of-the-Parts Valuation and Restructuring Analysis",
+      "solution": "CongloCorp has three divisions and trades at a market cap of $15 billion with $3 billion in net debt (EV = $18 billion).\n\n| Division | Revenue | EBITDA | Comparable EV/EBITDA |\n|---|---|---|---|\n| Technology | $4B | $1.2B | 15x |\n| Healthcare | $3B | $0.9B | 12x |\n| Industrial | $5B | $0.8B | 8x |\n\nStep 1: Sum-of-the-parts (SOTP) valuation\n- Technology: $1.2B \u00d7 15 = $18.0B\n- Healthcare: $0.9B \u00d7 12 = $10.8B\n- Industrial: $0.8B \u00d7 8 = $6.4B\n- Total SOTP EV = $35.2B\n\nStep 2: Conglomerate discount\n- Current EV = $18B\n- SOTP EV = $35.2B\n- Discount = ($35.2B \u2212 $18B) / $35.2B = 48.9%\n\nThis discount seems too large to be explained by normal conglomerate effects. Possible explanations:\n- Market skepticism about management quality\n- Cross-subsidization destroying value\n- Comparable multiples may be too generous\n\nStep 3: Restructuring options\n- Spin-off Technology (highest multiple, most distinct from other divisions)\n- Sell Industrial to a strategic buyer (may command premium above public market multiple)\n- Retain Healthcare as core business\n\nPotential value unlocked: Even if only 50% of the SOTP gap is captured, shareholders gain ~$8.6 billion."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Corporate Restructuring Practice",
+      "problems": [
+        {
+          "id": "corp-rest-1",
+          "vignette": "MegaDiversified Corp (MDC) trades at an enterprise value of $30 billion. An activist investor, ValueMax Capital, has acquired a 5% stake and is pushing for a restructuring. ValueMax's analysis:\n\n| Division | EBITDA | Peer EV/EBITDA | Implied EV |\n|---|---|---|---|\n| Aerospace | $2.0B | 12x | $24.0B |\n| Consumer Products | $1.5B | 10x | $15.0B |\n| Financial Services | $0.8B | 8x | $6.4B |\n| Corporate overhead | \u2212$0.5B | \u2014 | \u2014 |\n\nMDC's CEO argues the conglomerate structure creates value through internal capital markets and diversification.",
+          "question": "The conglomerate discount implied by ValueMax's analysis is closest to:",
+          "options": [
+            "A) 15%",
+            "B) 25%",
+            "C) 34%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "SOTP EV = $24.0B + $15.0B + $6.4B = $45.4B. However, corporate overhead of \u2212$0.5B should be capitalized and subtracted. At a typical 8-10x multiple: overhead value reduction \u2248 $4-5B. Adjusted SOTP \u2248 $40.4-41.4B. Discount = ($45.4B \u2212 $30B) / $45.4B = 33.9%, or using adjusted: ($40.4B \u2212 $30B) / $40.4B = 25.7%. The answer closest to the raw calculation is C (34%). The CEO's argument about internal capital markets is the classic defense, but empirical evidence generally shows that external capital markets allocate capital more efficiently than conglomerate headquarters. Option A significantly underestimates the discount. Option B is close to the overhead-adjusted figure.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate the conglomerate discount using sum-of-the-parts analysis"
+        },
+        {
+          "id": "corp-rest-2",
+          "vignette": "MDC's board is evaluating restructuring options for the Consumer Products division:\n\nOption 1: Spin-off \u2014 distribute all Consumer Products shares to MDC shareholders\nOption 2: Equity carve-out \u2014 IPO 25% of Consumer Products, retain 75%\nOption 3: Asset sale \u2014 sell Consumer Products to PrivateBuyer for $16.5 billion in cash\n\nMDC has $5 billion in net debt. The board wants to maximize shareholder value while maintaining financial flexibility.",
+          "question": "The restructuring option that provides the best combination of value realization and financial flexibility is most likely:",
+          "options": [
+            "A) Spin-off, because it is tax-free and eliminates the conglomerate discount for the division",
+            "B) Asset sale, because it provides $16.5 billion in immediate cash, exceeding the implied SOTP value, while enabling debt reduction",
+            "C) Equity carve-out, because it raises cash while maintaining control"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The asset sale at $16.5B exceeds the SOTP implied value ($15.0B) by $1.5B, representing a strategic premium from the private buyer. The cash proceeds provide maximum financial flexibility: MDC can repay its $5B in net debt (eliminating financial risk) and still have $11.5B for shareholder returns or reinvestment. The spin-off (Option A) is tax-free but provides no cash and doesn't address MDC's debt. The equity carve-out (Option C) raises only 25% \u00d7 ~$15B = ~$3.75B in cash while creating potential conflicts between MDC and minority shareholders. The asset sale captures the highest value and provides the most strategic optionality.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate and compare restructuring alternatives"
+        },
+        {
+          "id": "corp-rest-3",
+          "vignette": "OverleveragedCo filed for Chapter 11 bankruptcy. The court-appointed examiner estimates the company's reorganization value at $800 million. The following claims exist:\n\n| Claim | Amount |\n|---|---|\n| Secured bank debt (fully collateralized) | $300M |\n| DIP financing | $50M |\n| Administrative claims | $30M |\n| Senior unsecured bonds | $500M |\n| Subordinated notes | $200M |\n| Preferred stock | $100M |\n| Common equity | $150M |\n\nThe company proposes a reorganization plan.",
+          "question": "Under the absolute priority rule, the recovery for senior unsecured bondholders is closest to:",
+          "options": [
+            "A) 84%",
+            "B) 50%",
+            "C) 100%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Apply the absolute priority rule. Total reorganization value: $800M.\n\n1. Secured bank debt: $300M \u2192 Full recovery (100%)\n2. DIP financing: $50M \u2192 Full recovery (100%)\n3. Administrative claims: $30M \u2192 Full recovery (100%)\n\nRemaining value: $800M \u2212 $300M \u2212 $50M \u2212 $30M = $420M\n\n4. Senior unsecured bonds: claim $500M, available $420M \u2192 Recovery = $420M/$500M = 84%\n5. Subordinated notes: $0 (nothing left)\n6. Preferred stock: $0\n7. Common equity: $0\n\nSenior unsecured bondholders receive 84 cents on the dollar. All junior claimants are wiped out. In practice, deviations from strict APR may occur in negotiated plans (e.g., small recovery for equity to avoid litigation delays). Option B significantly understates recovery. Option C overstates it \u2014 the company doesn't have enough value to pay unsecured creditors in full.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Apply the absolute priority rule in bankruptcy to determine creditor recovery rates"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a spin-off, split-off, and equity carve-out to a colleague who works in operations. For each, explain what happens to the parent, the subsidiary, the shareholders, and the cash \u2014 and when each approach makes the most sense."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do conglomerate discounts persist if the market recognizes them? What prevents immediate restructuring?",
+        "How does DIP financing help a bankrupt company survive, and why would anyone lend to a company in bankruptcy?",
+        "What are the ethical considerations when management proposes a leveraged recapitalization that benefits insiders?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Restructuring types: divestiture (cash), spin-off (tax-free), split-off (share exchange), equity carve-out (partial IPO)\n- **Conglomerate discount** = (SOTP value \u2212 Market value) / SOTP value\n- Spin-offs historically generate **positive abnormal returns** for both parent and subsidiary\n- Leveraged recaps increase debt to fund dividends/buybacks \u2014 defense or capital return strategy\n- Bankruptcy: voluntary vs. involuntary; Chapter 11 = reorganization\n- **Absolute priority rule**: secured \u2192 DIP \u2192 administrative \u2192 unsecured \u2192 subordinated \u2192 preferred \u2192 common\n- **DIP financing** has super-priority status, incentivizing lenders\n- **Prepackaged bankruptcy**: pre-negotiated plan \u2192 faster, cheaper, less disruptive"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've now completed the Corporate Issuers section for Level II. The **Corporate Issuers Checkpoint** is next, testing your integrated understanding of dividend policy, ESG, M&A, and restructuring in comprehensive vignette-based questions."
+    }
+  ]
+}

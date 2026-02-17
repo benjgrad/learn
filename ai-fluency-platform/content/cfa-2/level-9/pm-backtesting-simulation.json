@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.6: Backtesting and Simulation",
+    "description": "Apply backtesting methodology, identify biases (survivorship, look-ahead, data-snooping), and use Monte Carlo simulation, bootstrapping, and cross-validation for strategy evaluation.",
+    "level": "level-9",
+    "slug": "pm-backtesting-simulation",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A quantitative strategy shows a backtest Sharpe ratio of 2.5 over 20 years of historical data. The manager tested 500 different strategies before finding this one. Should you invest? What concerns do you have about the reliability of this result?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Backtesting Methodology\n\nBacktesting evaluates an investment strategy by applying it to historical data to see how it would have performed.\n\n### Steps in a Sound Backtest\n\n1. **Specify the strategy** completely before testing (rules-based, no ambiguity)\n2. **Define the investment universe** as it existed at each point in time\n3. **Apply realistic transaction costs**, market impact, and implementation delays\n4. **Use point-in-time data** (only information available at each decision point)\n5. **Evaluate out-of-sample** to assess generalizability\n\n### Common Biases\n\n| Bias | Description | Direction | Mitigation |\n|------|-----------|-----------|------------|\n| **Survivorship bias** | Only includes assets that survived to present | Overstates returns | Use delisted/bankrupt securities |\n| **Look-ahead bias** | Uses information not yet available at decision time | Overstates returns | Use point-in-time databases |\n| **Data-snooping bias** | Testing many strategies on the same data | Overstates significance | Out-of-sample testing, Bonferroni correction |\n| **Time-period bias** | Results sensitive to start/end dates | Either direction | Test across multiple periods |\n| **Transaction cost bias** | Ignores trading costs | Overstates returns | Include realistic cost models |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A researcher finds a factor that earns 3% annually with a t-statistic of 2.5 in a US sample from 1963-2023. She tests it out-of-sample in European markets from 2000-2023 and the premium is 0.5% with a t-statistic of 0.8. How should she interpret this?",
+      "answer": "The out-of-sample evidence substantially weakens the original finding. A t-stat of 0.8 is far from significant. Possible explanations: (1) the in-sample result was partly due to data mining \u2014 the factor worked in the specific sample but does not generalize; (2) the premium may be time-varying and was weaker in the OOS period; (3) the factor may be US-specific. The researcher should be skeptical of the factor's economic significance. Multiple testing adjustments (e.g., requiring t > 3.0 for significance after many tests) would have flagged the original t = 2.5 as marginal."
+    },
+    {
+      "type": "markdown",
+      "content": "## Addressing Data-Snooping\n\n### The Problem\n\nIf you test $N$ strategies, some will appear profitable by chance alone. With 500 independent tests at 5% significance, you expect **25 false positives**.\n\n### Corrections\n\n**Bonferroni correction**: divide the significance level by the number of tests:\n$$\\alpha_{adjusted} = \\frac{\\alpha}{N}$$\n\nFor 500 tests at 5%: $\\alpha_{adjusted} = 0.05/500 = 0.0001$ (much stricter)\n\n**White's Reality Check / Hansen's SPA**: test the best strategy's performance against the null hypothesis that the best of $N$ random strategies would perform equally well.\n\n### Out-of-Sample Testing\n\n| Method | Description |\n|--------|-------------|\n| **Hold-out sample** | Reserve final portion of data for testing (e.g., last 20%) |\n| **Walk-forward** | Train on expanding window, test on next period, repeat |\n| **K-fold cross-validation** | Divide data into K subsets, rotate training/testing |\n\nWalk-forward analysis is most realistic for time-series data because it respects temporal ordering (no future data used in training)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Monte Carlo Simulation and Bootstrapping\n\n### Monte Carlo Simulation\n\nGenerates synthetic scenarios by randomly sampling from assumed distributions:\n\n1. **Specify the model**: define asset return distributions, correlations, and any dynamic relationships\n2. **Generate random paths**: thousands of simulated return sequences\n3. **Compute outcomes**: portfolio value, risk metrics, shortfall probability\n\n**Applications:**\n- Retirement planning (probability of ruin)\n- Option pricing (complex/path-dependent payoffs)\n- VaR estimation (captures non-linear risks)\n- Stress testing (what if volatility doubles?)\n\n**Key limitation**: results depend on the assumed model (\"garbage in, garbage out\")\n\n### Bootstrapping\n\nResamples from actual historical data **with replacement** rather than assuming a distribution:\n\n1. Draw random samples from historical returns (with replacement)\n2. Construct many synthetic return paths\n3. Compute statistics from the synthetic samples\n\n**Advantages**: no distributional assumptions; preserves actual return characteristics (fat tails, skewness)\n**Disadvantages**: assumes the historical sample is representative; does not capture time-series dependencies unless block-bootstrapping is used\n\n### Scenario Generation\n\nCreate plausible future scenarios combining Monte Carlo with expert judgment:\n- **Stochastic models**: interest rate models (Vasicek, CIR), equity models (GBM, jump-diffusion)\n- **Factor-based scenarios**: correlate scenarios across asset classes through common factors\n- **Stress overlays**: add extreme scenarios beyond what normal simulation would produce"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A researcher backtests 200 independent trading strategies at the 5% significance level. She finds 15 strategies with statistically significant positive returns. Apply the Bonferroni correction and determine how many of these 15 strategies are likely to remain significant. What does this suggest about the researcher's findings?",
+      "solution": "**Without correction:**\n\nExpected false positives = 200 \u00d7 5% = 10 strategies\n\nOf the 15 significant strategies, roughly 10 may be false positives, leaving approximately 5 potentially genuine.\n\n**With Bonferroni correction:**\n\n$\\alpha_{adjusted} = 0.05/200 = 0.00025$\n\nThis requires a t-statistic of approximately 3.48 (much stricter than 1.96).\n\nOf the 15 strategies that passed at t > 1.96, far fewer would pass at t > 3.48. Likely only 0-3 strategies would survive the correction.\n\n**Interpretation:**\n\nMost of the 15 'significant' strategies are likely false discoveries from data mining. The researcher should:\n1. Apply multiple testing corrections\n2. Test surviving strategies out-of-sample\n3. Require an economic rationale for each strategy\n4. Use walk-forward analysis to assess real-time performance\n\nThis illustrates why published backtest results often fail to replicate in live trading."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Backtesting and Simulation \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "pm6-1",
+          "question": "**Vignette: Quasar Quantitative Partners**\n\nQuasar developed a momentum strategy using a database of US stocks from 1990-2023. The strategy:\n\n- Buys stocks in the top decile of 12-month returns\n- Shorts stocks in the bottom decile\n- Rebalances monthly\n- Uses the current CRSP database as of 2024\n- Assumes 0.1% transaction costs per trade\n- Backtest Sharpe ratio: 1.8\n\nQuasar tested 50 variations (lookback periods, rebalancing frequencies) before selecting this version.\n\n---\n\n**Question 1:** The most significant bias affecting this backtest is:",
+          "options": [
+            "A) Time-period bias due to the 33-year sample",
+            "B) Survivorship bias from using the current database that excludes delisted stocks",
+            "C) Transaction cost bias from unrealistically low costs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Using the 'current CRSP database as of 2024' means delisted stocks (bankruptcies, acquisitions) are missing. For a momentum strategy that shorts bottom-decile stocks, survivorship bias is critical: many of the worst-performing stocks would have been delisted (bankrupt), and their severe losses are excluded from the backtest. This dramatically overstates the strategy's short-side returns. The 0.1% transaction cost (C) may also be low for small-cap stocks, but survivorship bias is the dominant issue.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Identify survivorship bias in backtesting"
+        },
+        {
+          "id": "pm6-2",
+          "question": "**Question 2 (continued):** Given that Quasar tested 50 strategy variations, the appropriate adjustment to assess statistical significance is to:",
+          "options": [
+            "A) Use a lower confidence level (e.g., 90% instead of 95%)",
+            "B) Require a higher t-statistic threshold (e.g., t > 3.0 instead of t > 2.0)",
+            "C) Increase the sample size by extending the backtest period"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Data-snooping from testing 50 variations requires a multiple testing correction. The Bonferroni-adjusted significance level would be 0.05/50 = 0.001, requiring t > 3.29 approximately. Requiring t > 3.0 is a practical rule-of-thumb adjustment. Option A goes the wrong direction (should be stricter, not more lenient). Option C does not address the fundamental issue of testing multiple hypotheses on overlapping data.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Apply multiple testing corrections to backtested strategies"
+        },
+        {
+          "id": "pm6-3",
+          "question": "**Question 3 (continued):** Quasar wants to estimate the probability that a client's $10M retirement portfolio will be depleted within 30 years under various withdrawal rates. The most appropriate simulation method is:",
+          "options": [
+            "A) Historical backtesting with rolling 30-year windows",
+            "B) Monte Carlo simulation with stochastic return and inflation models",
+            "C) Bootstrapping from daily return data"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Monte Carlo simulation is ideal for retirement planning because it: (1) generates thousands of 30-year paths, far more than the limited non-overlapping historical periods available; (2) can model stochastic relationships between returns, inflation, and withdrawals; (3) provides a probability distribution of outcomes (e.g., '15% chance of depletion at 4% withdrawal rate'). Historical backtesting (A) offers very few independent 30-year periods. Simple bootstrapping (C) may not preserve important time-series properties like mean reversion in returns.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Select appropriate simulation methods for different applications"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a client why a strategy's impressive backtest results should be viewed with caution. Use the concept of data-snooping to illustrate how searching through many strategies will inevitably find some that look good by chance, even if none has genuine predictive power."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is walk-forward analysis more realistic than simple in-sample/out-of-sample splitting for time-series data?",
+        "How does bootstrapping address limitations of parametric Monte Carlo simulation, and what are its own limitations?",
+        "Why might a strategy that works in backtests fail in live trading beyond just data-mining bias?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts and Relationships:**\n\n- Key backtesting biases: survivorship, look-ahead, data-snooping, time-period, transaction cost\n- Data-snooping: testing N strategies \u2192 expect N \u00d7 \u03b1 false positives\n- Bonferroni correction: $\\alpha_{adjusted} = \\alpha / N$\n- Walk-forward analysis respects temporal ordering of time-series data\n- Monte Carlo: flexible, model-dependent, ideal for complex path-dependent problems\n- Bootstrapping: resamples actual data, preserves real distribution features\n- Block bootstrapping preserves time-series dependencies\n- Practical rule: require t > 3.0 for backtested strategies with many variations tested\n- Out-of-sample performance is the ultimate test of a strategy's validity"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have completed the **Portfolio Management** section. The final section covers **Ethics**, where you will apply the CFA Code and Standards to complex real-world scenarios. Ethical judgment is especially critical in areas like backtesting (presenting fair results), risk management (transparent reporting), and portfolio construction (fiduciary duty)."
+    }
+  ]
+}

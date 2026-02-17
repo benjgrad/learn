@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "CORP: Corporate Issuers Practice Drill",
+    "description": "20 practice problems covering all Corporate Issuers topics.",
+    "level": "level-3",
+    "slug": "corp-practice",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Corporate Issuers Practice Drill\n\nThis set contains 20 problems across all Corporate Issuers topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "corp-p-001",
+          "question": "Which of the following corporate governance mechanisms is most likely to reduce agency costs between shareholders and management?",
+          "options": [
+            "A) Staggered board elections",
+            "B) Performance-based executive compensation tied to stock price",
+            "C) Poison pill provisions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Performance-based compensation (stock options, restricted stock, bonuses tied to share price or ROE) aligns management interests with shareholders, reducing agency costs. Staggered boards and poison pills are anti-takeover provisions that can entrench management and increase agency costs by insulating managers from market discipline.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify corporate governance mechanisms that mitigate agency problems."
+        },
+        {
+          "id": "corp-p-002",
+          "question": "A company is evaluating a project requiring an initial investment of $500,000. Expected annual cash flows are $150,000 for 5 years. The cost of capital is 10%. The NPV of the project is closest to:",
+          "options": [
+            "A) $68,618",
+            "B) $250,000",
+            "C) \u2212$68,618"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$NPV = -500{,}000 + 150{,}000 \\times \\frac{1 - (1.10)^{-5}}{0.10}$$\n\n$$= -500{,}000 + 150{,}000 \\times \\frac{1 - 0.62092}{0.10}$$\n\n$$= -500{,}000 + 150{,}000 \\times 3.79079 = -500{,}000 + 568{,}618 = \\$68{,}618$$\n\nSince NPV > 0, the project creates value and should be accepted.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate and interpret the net present value of a capital investment project."
+        },
+        {
+          "id": "corp-p-003",
+          "question": "A corporation is structured as a limited liability company (LLC). Which statement best describes the liability of the owners?",
+          "options": [
+            "A) Owners have unlimited personal liability for the firm's debts.",
+            "B) Owners' liability is limited to their invested capital.",
+            "C) Owners are personally liable only for tax obligations."
+          ],
+          "correctAnswer": "B",
+          "explanation": "In a limited liability company, owners (members) are protected from personal liability beyond their invested capital. If the company fails, creditors cannot pursue the owners' personal assets. This is a key advantage of the LLC and corporate forms over sole proprietorships and general partnerships, where owners face unlimited personal liability.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Compare organizational forms and their liability implications."
+        },
+        {
+          "id": "corp-p-004",
+          "question": "A firm has a current ratio of 2.5 and a quick ratio of 1.2. This difference most likely indicates that the firm has significant:",
+          "options": [
+            "A) Cash and cash equivalents",
+            "B) Inventory relative to current liabilities",
+            "C) Accounts receivable"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The current ratio includes all current assets, while the quick ratio excludes inventory (and sometimes prepaid expenses):\n\n$$\\text{Current Ratio} = \\frac{\\text{Current Assets}}{\\text{Current Liabilities}}, \\quad \\text{Quick Ratio} = \\frac{\\text{Current Assets} - \\text{Inventory}}{\\text{Current Liabilities}}$$\n\nA large gap between the current ratio (2.5) and quick ratio (1.2) indicates that inventory constitutes a significant portion of current assets. This could indicate liquidity risk if inventory is difficult to liquidate quickly.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Interpret working capital and liquidity ratios."
+        },
+        {
+          "id": "corp-p-005",
+          "question": "Which of the following business models is most likely to exhibit high operating leverage?",
+          "options": [
+            "A) A consulting firm with mostly variable labor costs",
+            "B) An airline with significant fixed costs for aircraft and infrastructure",
+            "C) A staffing agency that scales costs with revenue"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Operating leverage measures the sensitivity of operating income to changes in revenue. Firms with high fixed costs relative to variable costs have high operating leverage \u2014 a small change in revenue leads to a proportionally larger change in operating income. Airlines have high fixed costs (aircraft leases, maintenance, airport fees) and relatively lower variable costs per passenger, resulting in high operating leverage. Consulting and staffing firms have mostly variable costs (labor).",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify business characteristics associated with high operating leverage."
+        },
+        {
+          "id": "corp-p-006",
+          "question": "A project has the following cash flows: Year 0: \u2212$200,000; Year 1: $80,000; Year 2: $90,000; Year 3: $100,000. The IRR of the project is closest to:",
+          "options": [
+            "A) 12.4%",
+            "B) 14.8%",
+            "C) 16.2%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The IRR is the discount rate that sets NPV = 0:\n\n$$0 = -200{,}000 + \\frac{80{,}000}{(1+IRR)} + \\frac{90{,}000}{(1+IRR)^2} + \\frac{100{,}000}{(1+IRR)^3}$$\n\nBy trial and error or financial calculator:\n\nAt 14%: $NPV = -200{,}000 + 70{,}175 + 69{,}258 + 67{,}497 = 6{,}930 > 0$\n\nAt 16%: $NPV = -200{,}000 + 68{,}966 + 66{,}872 + 64{,}066 = -96 \\approx 0$\n\nInterpolating: $IRR \\approx 14.8\\%$. The project should be accepted if the cost of capital is below this rate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate and interpret the internal rate of return for a capital project."
+        },
+        {
+          "id": "corp-p-007",
+          "question": "Which of the following is most likely a benefit of using debt financing rather than equity financing?",
+          "options": [
+            "A) Debt reduces the firm's financial risk.",
+            "B) Interest payments on debt are tax-deductible, creating a tax shield.",
+            "C) Debt financing eliminates the need for collateral."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The primary benefit of debt financing is the interest tax shield. Interest payments are tax-deductible, reducing the firm's taxable income:\n\n$$\\text{Tax Shield} = \\text{Interest} \\times \\text{Tax Rate}$$\n\nThis is a central insight of Modigliani-Miller with taxes. Debt increases financial risk (not reduces it) and may require collateral.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Explain the tax advantages of debt financing."
+        },
+        {
+          "id": "corp-p-008",
+          "question": "A company has operating income (EBIT) of $10 million and interest expense of $2 million. Its degree of financial leverage (DFL) is:",
+          "options": [
+            "A) 5.00",
+            "B) 1.25",
+            "C) 0.80"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The degree of financial leverage is:\n\n$$DFL = \\frac{EBIT}{EBIT - \\text{Interest}} = \\frac{10}{10 - 2} = \\frac{10}{8} = 1.25$$\n\nThis means a 1% change in EBIT leads to a 1.25% change in earnings per share (EPS). Higher leverage amplifies returns in both directions.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate and interpret the degree of financial leverage."
+        },
+        {
+          "id": "corp-p-009",
+          "question": "Stakeholder theory differs from shareholder theory primarily in that stakeholder theory:",
+          "options": [
+            "A) Focuses exclusively on maximizing shareholder wealth",
+            "B) Considers the interests of all parties affected by corporate decisions, not just shareholders",
+            "C) Argues that firms should never pay dividends"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Stakeholder theory holds that firms should consider the interests of all stakeholders \u2014 employees, customers, suppliers, creditors, communities, and the environment \u2014 not just shareholders. Shareholder theory (Friedman) argues that management's primary obligation is to maximize shareholder value. In practice, many governance frameworks now incorporate stakeholder considerations through ESG policies.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Compare stakeholder theory and shareholder theory of corporate governance."
+        },
+        {
+          "id": "corp-p-010",
+          "question": "A company's cash conversion cycle (CCC) is 45 days. Its days of inventory on hand (DOH) is 60 days, and its days of sales outstanding (DSO) is 35 days. What is its days of payables outstanding (DPO)?",
+          "options": [
+            "A) 50 days",
+            "B) 40 days",
+            "C) 140 days"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The cash conversion cycle is:\n\n$$CCC = DOH + DSO - DPO$$\n\nSolving for DPO:\n\n$$45 = 60 + 35 - DPO \\implies DPO = 60 + 35 - 45 = 50 \\text{ days}$$\n\nA longer DPO means the company takes longer to pay its suppliers, which conserves cash but may strain supplier relationships.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate and interpret the components of the cash conversion cycle."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "corp-p-011",
+          "question": "According to the pecking order theory, firms prefer to finance new investments in which order?",
+          "options": [
+            "A) Equity, then debt, then internal funds",
+            "B) Internal funds, then debt, then equity",
+            "C) Debt, then internal funds, then equity"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The pecking order theory (Myers and Majluf, 1984) predicts that due to information asymmetry, firms prefer financing in this order: (1) Internal funds (retained earnings) \u2014 no adverse selection, (2) Debt \u2014 lower information sensitivity, (3) Equity \u2014 highest information sensitivity and signaling costs. Issuing equity signals that managers believe shares are overvalued, so it is used as a last resort.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Explain the pecking order theory of capital structure."
+        },
+        {
+          "id": "corp-p-012",
+          "question": "Two mutually exclusive projects have the following characteristics:\n\n| Project | Initial Cost | NPV | IRR |\n|---------|-------------|-----|-----|\n| A | $1,000,000 | $150,000 | 18% |\n| B | $500,000 | $120,000 | 24% |\n\nThe cost of capital is 12%. Which project should be selected?",
+          "options": [
+            "A) Project B, because it has a higher IRR",
+            "B) Project A, because it has a higher NPV",
+            "C) Both projects, because both have positive NPVs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "For mutually exclusive projects, the NPV rule should be used because it correctly accounts for the scale of investment and wealth creation. Project A creates $150,000 in value versus $120,000 for Project B. The IRR can be misleading for mutually exclusive projects of different scales \u2014 a higher IRR on a smaller investment does not necessarily create more value. Since the projects are mutually exclusive (not independent), we cannot select both.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Apply NPV and IRR to evaluate mutually exclusive capital projects."
+        },
+        {
+          "id": "corp-p-013",
+          "question": "A company has a WACC of 9%. It is considering a project in a different industry that has a beta of 1.4 (compared to the company's beta of 1.0). The risk-free rate is 3% and the market risk premium is 6%. The appropriate discount rate for the new project is closest to:",
+          "options": [
+            "A) 9.0%",
+            "B) 11.4%",
+            "C) 12.6%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When a project's risk differs from the company's overall risk, the project-specific required return should be used rather than the firm's WACC. Using CAPM with the project's beta:\n\n$$r_{project} = r_f + \\beta_{project} \\times (R_m - r_f) = 3\\% + 1.4 \\times 6\\% = 3\\% + 8.4\\% = 11.4\\%$$\n\nUsing the company WACC of 9% would understate the risk and overstate the NPV, potentially leading to acceptance of a value-destroying project.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Determine the appropriate discount rate for projects with different risk profiles."
+        },
+        {
+          "id": "corp-p-014",
+          "question": "A board of directors has 12 members, of whom 9 are classified as independent. Which statement about board independence is most accurate?",
+          "options": [
+            "A) The board exceeds typical independence standards, which supports good governance.",
+            "B) A majority independent board guarantees effective oversight.",
+            "C) Independent directors have no conflicts of interest with the company."
+          ],
+          "correctAnswer": "A",
+          "explanation": "With 9 out of 12 (75%) independent directors, the board exceeds the minimum independence requirements of most governance codes and stock exchange listing standards (which typically require a majority). However, independence does not guarantee effective oversight (option B) \u2014 directors may lack expertise, have attendance issues, or face groupthink. Independent directors may still have indirect conflicts (option C), such as social ties to management. Independence is necessary but not sufficient for good governance.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate board composition and independence standards."
+        },
+        {
+          "id": "corp-p-015",
+          "question": "According to Modigliani-Miller Proposition I with taxes, the value of a levered firm is:",
+          "options": [
+            "A) Equal to the value of an unlevered firm",
+            "B) Equal to the value of an unlevered firm plus the present value of the tax shield",
+            "C) Equal to the value of an unlevered firm minus the present value of financial distress costs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Modigliani-Miller Proposition I with taxes states:\n\n$$V_L = V_U + t_c \\times D$$\n\nwhere $V_L$ is the levered firm value, $V_U$ is the unlevered firm value, $t_c$ is the corporate tax rate, and $D$ is the value of debt. The tax shield ($t_c \\times D$) arises because interest payments are tax-deductible. This implies that firm value increases with debt \u2014 but this ignores financial distress costs, which the static trade-off theory incorporates (combining B and C at the optimal level).",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "State and interpret Modigliani-Miller propositions with corporate taxes."
+        },
+        {
+          "id": "corp-p-016",
+          "question": "A platform business model (such as a ride-sharing app) primarily creates value by:",
+          "options": [
+            "A) Manufacturing products at scale to achieve low unit costs",
+            "B) Connecting multiple user groups and benefiting from network effects",
+            "C) Vertically integrating supply chains to control costs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Platform business models create value by facilitating interactions between distinct user groups (e.g., riders and drivers). Value increases with network effects \u2014 the more participants on each side, the more valuable the platform becomes to all participants. This is fundamentally different from manufacturing (scale economies) or vertical integration (supply chain control). Platform businesses typically have high fixed costs for technology development but low marginal costs per transaction.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Distinguish between different business models and their value creation mechanisms."
+        },
+        {
+          "id": "corp-p-017",
+          "question": "A firm is considering shortening its credit terms from net 45 to net 30. The most likely immediate effect is:",
+          "options": [
+            "A) Increased sales revenue from offering more competitive terms",
+            "B) Decreased accounts receivable and a shorter cash conversion cycle",
+            "C) Increased bad debt expense"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Shortening credit terms from net 45 to net 30 means customers must pay 15 days sooner. The immediate effect is a reduction in DSO and accounts receivable, shortening the cash conversion cycle and freeing up cash. However, this may reduce sales if customers prefer longer payment terms and switch to competitors. The net effect on firm value depends on the tradeoff between improved cash flow and potentially lost sales.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Analyze the working capital implications of changing credit policies."
+        },
+        {
+          "id": "corp-p-018",
+          "question": "When the NPV and IRR methods give conflicting rankings for mutually exclusive projects, the conflict is most likely due to:",
+          "options": [
+            "A) Both projects having the same initial investment",
+            "B) Differences in project scale and/or timing of cash flows",
+            "C) Both projects having positive NPVs"
+          ],
+          "correctAnswer": "B",
+          "explanation": "NPV-IRR conflicts for mutually exclusive projects arise from: (1) Scale differences \u2014 a larger project may have a lower IRR but higher NPV, (2) Cash flow timing differences \u2014 earlier vs. later cash flows imply different reinvestment rate assumptions. NPV assumes reinvestment at the cost of capital (more realistic); IRR assumes reinvestment at the IRR itself. When conflicts occur, NPV should prevail as it directly measures value creation.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Explain the sources of conflict between NPV and IRR for mutually exclusive projects."
+        },
+        {
+          "id": "corp-p-019",
+          "question": "A company with annual revenue of $20 million has operating costs of $16 million (of which $12 million are fixed). Its degree of operating leverage (DOL) is closest to:",
+          "options": [
+            "A) 3.00",
+            "B) 2.00",
+            "C) 5.00"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Variable costs = Total operating costs - Fixed costs = $16M - $12M = $4M.\n\nContribution margin = Revenue - Variable costs = $20M - $4M = $16M.\n\nOperating income (EBIT) = Revenue - Operating costs = $20M - $16M = $4M (or equivalently, Contribution margin - Fixed costs = $16M - $12M = $4M).\n\n$$DOL = \\frac{\\text{Contribution Margin}}{\\text{EBIT}} = \\frac{16}{4} = 3.00$$\n\nEquivalently: $DOL = \\frac{Q(P-V)}{Q(P-V) - F}$. This means a 1% increase in revenue leads to a 3% increase in EBIT.",
+          "difficulty": "advanced",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate and interpret the degree of operating leverage."
+        },
+        {
+          "id": "corp-p-020",
+          "question": "A dual-class share structure most likely creates a conflict between:",
+          "options": [
+            "A) Majority shareholders and minority shareholders",
+            "B) Creditors and shareholders",
+            "C) The board of directors and regulatory authorities"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Dual-class share structures give certain shareholders (typically founders and insiders) disproportionate voting rights relative to their economic ownership. For example, Class B shares might carry 10 votes per share while Class A shares carry 1 vote. This creates a principal-principal conflict between controlling shareholders (who hold high-vote shares) and minority shareholders (who hold low-vote shares). Controllers can make decisions that benefit themselves at the expense of minority shareholders.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify agency conflicts arising from dual-class share structures."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers governance, organizational forms, NPV/IRR basics, working capital, and business models. Set B covers capital structure theories, project evaluation conflicts, operating/financial leverage, and advanced governance topics."
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "PM.6: Introduction to Risk Management",
+    "description": "Describe the risk management process, risk governance, and risk measurement tools including VaR.",
+    "level": "level-9",
+    "slug": "pm-intro-risk-management",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A bank announces that its daily 5% Value at Risk (VaR) is $10 million. What does this actually mean? And what does it NOT tell you?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Risk Management Framework\n\nRisk management is the process of **identifying, measuring, and managing** exposures to ensure outcomes are consistent with an organization's objectives and risk tolerance.\n\n### Risk Governance\n\nEffective risk management begins at the top. **Risk governance** defines the organizational structure and policies for managing risk:\n\n- **Board of directors** sets overall risk tolerance and approves the risk management framework\n- **Risk management committee** oversees implementation and reporting\n- **Enterprise risk management (ERM)** takes a holistic view of all risks across the organization, recognizing that risks interact and may offset or compound each other\n\n### Risk Tolerance and Risk Budgeting\n\n**Risk tolerance** is the maximum acceptable level of risk, expressed in quantitative terms (e.g., maximum acceptable loss, minimum capital ratio).\n\n**Risk budgeting** allocates the total risk tolerance across business units, asset classes, or risk factors. It answers: \"How much of our total risk capacity should each area consume?\"\n\n### Types of Financial Risk\n\n| Risk Type | Description | Example |\n|---|---|---|\n| **Market risk** | Loss from changes in market prices | Equity decline, interest rate rise |\n| **Credit risk** | Loss from counterparty default | Bond issuer fails to pay |\n| **Liquidity risk** | Inability to trade without significant price impact | Illiquid bond position |\n| **Operational risk** | Loss from failed processes, systems, or people | Trading system failure, fraud |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A firm sets a total VaR budget of $50 million. It allocates $30 million to the equity desk and $25 million to the fixed-income desk. Does this violate the budget? Why or why not?",
+      "answer": "Not necessarily. Due to diversification, the combined VaR of the two desks will likely be less than the sum ($55 million) if the equity and fixed-income positions are not perfectly correlated. VaR is not additive across portfolios unless the correlation between them is +1. The actual combined VaR depends on the correlation between the desks' P&L \u2014 if the correlation is sufficiently low, the combined VaR could be at or below $50 million. However, the firm must verify this through its risk models rather than simply assuming diversification."
+    },
+    {
+      "type": "markdown",
+      "content": "## Value at Risk (VaR)\n\n**VaR** is the minimum loss expected over a given time period at a specified confidence level. More precisely:\n\n> A daily 5% VaR of $10 million means: \"There is a 5% probability that the portfolio will lose **at least** $10 million over the next day.\"\n\nEquivalently: on 95% of days, the loss will be less than $10 million.\n\n### Three Methods of Estimating VaR\n\n| Method | Approach | Strengths | Weaknesses |\n|---|---|---|---|\n| **Parametric (variance-covariance)** | Assumes returns are normally distributed; uses $\\text{VaR} = \\mu - z\\sigma$ | Simple, fast | Underestimates tail risk; assumes normality |\n| **Historical simulation** | Uses actual historical returns; finds the relevant percentile | No distribution assumption | Assumes past = future; limited by sample size |\n| **Monte Carlo** | Simulates thousands of scenarios from assumed distributions | Flexible; can model complex portfolios | Computationally expensive; depends on assumptions |\n\n### Parametric VaR Example\n\nFor a $100 million portfolio with daily $\\mu = 0.04\\%$ and daily $\\sigma = 1.2\\%$:\n\n$$\\text{5\\% VaR} = -(\\mu - 1.645\\sigma) \\times \\text{Portfolio Value}$$\n$$= -(0.04\\% - 1.645 \\times 1.2\\%) \\times \\$100M$$\n$$= -(0.04\\% - 1.974\\%) \\times \\$100M$$\n$$= 1.934\\% \\times \\$100M = \\$1.934M$$\n\nThe portfolio's daily 5% VaR is approximately **$1.93 million**."
+    },
+    {
+      "type": "markdown",
+      "content": "## Beyond VaR: CVaR, Stress Testing, and Risk Mitigation\n\n### Conditional VaR (CVaR / Expected Shortfall)\n\nVaR tells you the threshold loss, but not how bad things could get *beyond* that threshold. **Conditional VaR (CVaR)** \u2014 also called **Expected Shortfall** \u2014 measures the **average loss** in the worst cases beyond VaR.\n\n> If the 5% VaR is $10 million, the CVaR might be $15 million \u2014 meaning that when losses exceed $10 million, they average $15 million.\n\nCVaR is considered a superior risk measure because it captures **tail risk** \u2014 the severity of extreme losses, not just their frequency.\n\n### Stress Testing and Scenario Analysis\n\n| Technique | Description |\n|---|---|\n| **Stress testing** | Applies extreme but plausible shocks (e.g., interest rates +300 bps, equity markets -40%) |\n| **Scenario analysis** | Models specific events (e.g., 2008 financial crisis, COVID-19 market crash) |\n| **Reverse stress testing** | Asks: \"What scenario would cause the firm to fail?\" \u2014 then assesses its plausibility |\n\n### Risk Mitigation Strategies\n\n- **Diversification:** Reduces unsystematic risk through low-correlation assets\n- **Hedging:** Uses derivatives (options, futures, swaps) to offset specific exposures\n- **Insurance:** Transfers risk to a third party for a premium\n- **Risk transfer:** Securitization, credit default swaps\n- **Setting position limits:** Caps exposure to any single risk factor"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A portfolio has a value of $50 million, with a daily expected return of 0.05% and a daily standard deviation of 1.5%. Calculate the daily 1% VaR using the parametric method (z = 2.326 for 1%). Then explain what additional insight CVaR would provide.",
+      "solution": "**Parametric 1% VaR:**\n\n$\\text{VaR} = -(\\mu - z\\sigma) \\times \\text{Portfolio Value}$\n\n$= -(0.05\\% - 2.326 \\times 1.5\\%) \\times \\$50M$\n\n$= -(0.05\\% - 3.489\\%) \\times \\$50M$\n\n$= 3.439\\% \\times \\$50M = \\$1,719,500$\n\nThe daily 1% VaR is approximately **$1.72 million**. This means there is a 1% probability of losing at least $1.72 million in a single day.\n\n**CVaR insight:** VaR tells us the loss threshold at the 1% level, but not how severe losses could be in that worst 1% of outcomes. CVaR (Expected Shortfall) would tell us the average loss given that we have crossed the VaR threshold. For example, if CVaR is $2.8 million, it means that in the worst 1% of days, the average loss is $2.8 million \u2014 significantly worse than the $1.72 million VaR threshold. This tail risk information is critical for capital adequacy planning."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Risk Management Practice Problems",
+      "problems": [
+        {
+          "id": "pm6-1",
+          "question": "A portfolio manager states: 'Our daily 5% VaR is $2 million.' This statement means that:",
+          "options": [
+            "A) the portfolio will lose exactly $2 million on 5% of trading days",
+            "B) there is a 5% probability that the portfolio will lose at least $2 million on any given day",
+            "C) the maximum possible loss on any given day is $2 million"
+          ],
+          "correctAnswer": "B",
+          "explanation": "VaR is a minimum loss at a given probability. The 5% VaR of $2 million means there is a 5% chance of losing $2 million or more. Option A is incorrect because VaR is a threshold, not an exact loss \u2014 actual losses could be much larger. Option C is incorrect because VaR does not cap losses; the portfolio could lose far more than $2 million in extreme scenarios (which is why CVaR is useful).",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret Value at Risk"
+        },
+        {
+          "id": "pm6-2",
+          "question": "Which VaR method makes no assumption about the distribution of returns?",
+          "options": [
+            "A) Parametric (variance-covariance)",
+            "B) Historical simulation",
+            "C) Monte Carlo simulation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Historical simulation uses actual past returns and simply finds the relevant percentile \u2014 no distributional assumption is needed. Option A (parametric) explicitly assumes returns are normally distributed. Option C (Monte Carlo) requires specifying a distribution from which to generate simulated returns. The tradeoff is that historical simulation assumes the future will resemble the past.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Compare VaR estimation methods"
+        },
+        {
+          "id": "pm6-3",
+          "question": "Conditional VaR (CVaR) is considered a superior risk measure to VaR because CVaR:",
+          "options": [
+            "A) always produces a smaller risk estimate, giving a more conservative view",
+            "B) measures the average loss in the tail beyond the VaR threshold",
+            "C) does not require any assumptions about the return distribution"
+          ],
+          "correctAnswer": "B",
+          "explanation": "CVaR (Expected Shortfall) measures the expected loss given that the loss exceeds the VaR level. This captures the severity of tail losses, not just their probability. VaR only identifies the threshold; CVaR tells you how bad things get beyond that threshold. Option A is incorrect \u2014 CVaR produces a larger (worse) number than VaR, not smaller. Option C is incorrect \u2014 CVaR's distributional requirements depend on the estimation method used.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe Conditional VaR"
+        },
+        {
+          "id": "pm6-4",
+          "question": "A risk manager wants to understand what combination of events could cause the firm to become insolvent. The most appropriate technique is:",
+          "options": [
+            "A) parametric VaR analysis",
+            "B) scenario analysis using the 2008 financial crisis",
+            "C) reverse stress testing"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Reverse stress testing starts from a defined outcome (e.g., insolvency) and works backward to identify which scenarios could cause it. This directly addresses the question 'what could make us fail?' Option A provides a single-number risk measure but doesn't identify specific failure scenarios. Option B tests one historical scenario but may miss other equally dangerous combinations. Reverse stress testing is uniquely designed to find the firm's breaking points.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Describe stress testing and scenario analysis"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a non-financial colleague why VaR alone is insufficient for risk management and why a firm also needs CVaR and stress testing. Use a simple analogy to make the concept accessible."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does the parametric VaR method tend to underestimate risk during periods of market stress?",
+        "How does enterprise risk management (ERM) differ from managing risks in isolation?",
+        "What are the practical limitations of using historical simulation for VaR when markets enter unprecedented territory?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Risk management: identify, measure, and manage exposures\n- Risk governance starts at the board level; ERM takes a holistic view\n- Risk budgeting allocates total risk tolerance across units/factors\n- Four financial risks: market, credit, liquidity, operational\n- **VaR** = minimum loss at a given confidence level over a given period\n- Three VaR methods: parametric (assumes normality), historical (no distribution assumption), Monte Carlo (flexible but expensive)\n- **CVaR** = average loss beyond VaR \u2014 captures tail risk severity\n- Stress testing: extreme shocks; scenario analysis: specific events; reverse stress testing: what breaks us?\n- Mitigation: diversification, hedging, insurance, position limits"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have now completed the Portfolio Management section of CFA Level I. The next step is the **Portfolio Management Checkpoint**, which will test your understanding across all PM topics \u2014 from risk-return tradeoffs and CAPM, through the IPS and behavioral biases, to risk management tools. Review the key formulas before proceeding."
+    }
+  ]
+}

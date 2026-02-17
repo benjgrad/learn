@@ -1,0 +1,385 @@
+{
+  "meta": {
+    "title": "DERIV: Derivatives Practice Drill",
+    "description": "25 practice problems covering all Derivatives topics.",
+    "level": "level-7",
+    "slug": "deriv-practice",
+    "order": 11,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Derivatives Practice Drill\n\nThis set contains 25 problems across all Derivatives topics at mixed difficulty levels. Work through them to identify areas needing review before the checkpoint assessment."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Basic & Intermediate)",
+      "problems": [
+        {
+          "id": "deriv-p-001",
+          "question": "A forward contract obligates the buyer to:",
+          "options": [
+            "A) Purchase the underlying asset at a specified price on a specified future date",
+            "B) Purchase the underlying asset at the current market price on any date",
+            "C) Either buy or sell the underlying asset depending on market conditions"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A forward contract is a bilateral agreement in which the buyer (long position) is obligated to purchase and the seller (short position) is obligated to sell the underlying asset at a predetermined price (forward price) on a specified future date. Unlike options, forward contracts create obligations for both parties and have no optionality. Forwards are OTC instruments, customizable but with counterparty credit risk.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Define forward contracts and distinguish them from options."
+        },
+        {
+          "id": "deriv-p-002",
+          "question": "An investor enters a long forward contract to buy gold at $2,000 per ounce in 6 months. At expiration, the spot price is $2,150. The payoff to the long position is:",
+          "options": [
+            "A) $150 per ounce",
+            "B) \u2212$150 per ounce",
+            "C) $2,150 per ounce"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The payoff to the long position in a forward contract at expiration:\n\n$$\\text{Payoff}_{\\text{long}} = S_T - F_0 = 2{,}150 - 2{,}000 = \\$150$$\n\nThe buyer agreed to pay $2,000 but the asset is worth $2,150 \u2014 a profit of $150. The short position's payoff is $F_0 - S_T = -\\$150$. Forward contracts are zero-sum: the long's gain equals the short's loss.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the payoff of a forward contract at expiration."
+        },
+        {
+          "id": "deriv-p-003",
+          "question": "A European call option with a strike price of $50 is trading at a premium of $4. At expiration, the underlying stock price is $53. The profit from buying this call option is:",
+          "options": [
+            "A) $3",
+            "B) \u2212$1",
+            "C) $7"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Call option payoff at expiration: $\\max(0, S_T - K) = \\max(0, 53 - 50) = \\$3$\n\nProfit = Payoff - Premium = $3 - $4 = -$1\n\nAlthough the option expires in-the-money and is exercised, the profit is negative because the $3 intrinsic value does not cover the $4 premium paid. The breakeven stock price is $K + \\text{Premium} = 50 + 4 = \\$54$.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the profit and payoff of a call option at expiration."
+        },
+        {
+          "id": "deriv-p-004",
+          "question": "The no-arbitrage forward price for a non-dividend-paying stock trading at $100, with a risk-free rate of 5% (annual, continuous compounding), for a 6-month forward is:",
+          "options": [
+            "A) $102.53",
+            "B) $105.00",
+            "C) $102.50"
+          ],
+          "correctAnswer": "A",
+          "explanation": "For a non-dividend-paying asset with continuous compounding:\n\n$$F_0 = S_0 \\times e^{rT} = 100 \\times e^{0.05 \\times 0.5} = 100 \\times e^{0.025}$$\n\n$$= 100 \\times 1.02532 = \\$102.53$$\n\nThe forward price reflects the cost of carry \u2014 the risk-free financing cost of holding the asset. If the forward traded at any other price, arbitrageurs could earn risk-free profits through cash-and-carry or reverse cash-and-carry strategies.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the no-arbitrage forward price using the cost-of-carry model."
+        },
+        {
+          "id": "deriv-p-005",
+          "question": "An interest rate swap with a notional principal of $10 million has the fixed rate at 4% and the floating rate at SOFR (currently 3.5%). The first quarterly net payment (from the fixed-rate payer's perspective) is:",
+          "options": [
+            "A) Fixed-rate payer pays $12,500",
+            "B) Fixed-rate payer receives $12,500",
+            "C) Fixed-rate payer pays $50,000"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The fixed-rate payer pays fixed and receives floating. Net payment (quarterly):\n\n$$\\text{Net} = (\\text{Fixed Rate} - \\text{Floating Rate}) \\times \\text{Notional} \\times \\frac{\\text{Days}}{360}$$\n\nUsing quarterly periods (90/360 = 0.25):\n\n$$\\text{Net} = (0.04 - 0.035) \\times 10{,}000{,}000 \\times 0.25 = 0.005 \\times 2{,}500{,}000 = \\$12{,}500$$\n\nSince fixed > floating, the fixed-rate payer makes a net payment of $12,500.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate net payments on an interest rate swap."
+        },
+        {
+          "id": "deriv-p-006",
+          "question": "Compared to forward contracts, futures contracts are characterized by:",
+          "options": [
+            "A) Customized terms, private negotiation, and higher counterparty risk",
+            "B) Standardized terms, exchange trading, daily settlement, and lower counterparty risk",
+            "C) No margin requirements and settlement only at expiration"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Key differences between forwards and futures:\n\n| Feature | Forwards | Futures |\n|---------|----------|---------|\n| Trading | OTC (private) | Exchange-traded |\n| Terms | Customized | Standardized |\n| Settlement | At expiration | Daily (mark-to-market) |\n| Counterparty risk | Higher | Lower (clearinghouse) |\n| Margin | Negotiable | Required (initial + maintenance) |\n| Liquidity | Lower | Higher |\n\nDaily settlement (marking to market) eliminates the buildup of counterparty credit exposure.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Compare and contrast forward and futures contracts."
+        },
+        {
+          "id": "deriv-p-007",
+          "question": "A European put option has a strike price of $45, the underlying stock trades at $42, and the option premium is $5. The time value of this option is:",
+          "options": [
+            "A) $2",
+            "B) $3",
+            "C) $5"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Option premium = Intrinsic value + Time value\n\nFor a put option, intrinsic value = $\\max(0, K - S) = \\max(0, 45 - 42) = \\$3$\n\n$$\\text{Time Value} = \\text{Premium} - \\text{Intrinsic Value} = 5 - 3 = \\$2$$\n\nTime value reflects the probability that the option could become more valuable before expiration. It is always non-negative and declines as expiration approaches (time decay or theta).",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Decompose an option premium into intrinsic value and time value."
+        },
+        {
+          "id": "deriv-p-008",
+          "question": "Put-call parity for European options on a non-dividend-paying stock states:",
+          "options": [
+            "A) $C + PV(K) = P + S$",
+            "B) $C + S = P + PV(K)$",
+            "C) $C - P = S - K$"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Put-call parity establishes a no-arbitrage relationship:\n\n$$C + PV(K) = P + S$$\n\nor equivalently: $C + \\frac{K}{(1+r)^T} = P + S_0$\n\nwhere $C$ = call premium, $P$ = put premium, $S$ = stock price, $K$ = strike price, $PV(K)$ = present value of strike price.\n\nThis means a fiduciary call (call + bond) has the same payoff as a protective put (put + stock). Any violation of this relationship creates an arbitrage opportunity.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "State and apply put-call parity for European options."
+        },
+        {
+          "id": "deriv-p-009",
+          "question": "An investor writes (sells) a covered call by holding 100 shares of stock at $60 and selling a call option with a strike price of $65 for a premium of $3. The maximum profit on this position is:",
+          "options": [
+            "A) $800",
+            "B) $300",
+            "C) Unlimited"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A covered call caps the upside at the strike price:\n\n$$\\text{Max Profit} = (K - S_0) + \\text{Premium} = (65 - 60) + 3 = \\$8 \\text{ per share}$$\n\nFor 100 shares: $8 \\times 100 = \\$800$\n\nIf the stock rises above $65, the call is exercised and the stock is sold at $65. The maximum loss occurs if the stock goes to zero: $-S_0 + \\text{Premium} = -60 + 3 = -\\$57$ per share. Covered calls are used to generate income in flat or mildly bullish markets.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the maximum profit and loss of a covered call strategy."
+        },
+        {
+          "id": "deriv-p-010",
+          "question": "The forward price of a commodity includes a convenience yield component. When the convenience yield is high, the forward curve is most likely:",
+          "options": [
+            "A) In contango (forward price > spot price)",
+            "B) In backwardation (forward price < spot price)",
+            "C) Flat"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The commodity forward price:\n\n$$F_0 = S_0 \\times e^{(r + c - y)T}$$\n\nwhere $r$ = risk-free rate, $c$ = storage cost, $y$ = convenience yield.\n\nA high convenience yield (benefit of holding the physical commodity) reduces the forward price relative to the spot price, creating backwardation ($F_0 < S_0$). Convenience yield is high when:\n- Inventories are low\n- Supply disruption risk is elevated\n- Immediate consumption is valued (e.g., oil during shortages)\n\nContango occurs when storage costs and financing rates dominate the convenience yield.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain the role of convenience yield in commodity forward pricing."
+        },
+        {
+          "id": "deriv-p-011",
+          "question": "A call option has a delta of 0.65. If the underlying stock price increases by $2, the option price will increase by approximately:",
+          "options": [
+            "A) $1.30",
+            "B) $2.00",
+            "C) $0.65"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Delta measures the sensitivity of the option price to a small change in the underlying price:\n\n$$\\Delta C \\approx \\delta \\times \\Delta S = 0.65 \\times \\$2.00 = \\$1.30$$\n\nDelta ranges from 0 to 1 for calls (0 to -1 for puts). A delta of 0.65 also approximately represents the probability that the option expires in-the-money. Deep in-the-money options have delta approaching 1; deep out-of-the-money options approach 0.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Use delta to estimate the change in option price given a change in the underlying."
+        },
+        {
+          "id": "deriv-p-012",
+          "question": "An equity forward contract is priced on a stock trading at $80 that pays a $2 dividend in 3 months. The risk-free rate is 4% (annual, discrete compounding). The 6-month forward price is closest to:",
+          "options": [
+            "A) $79.58",
+            "B) $81.58",
+            "C) $82.00"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Forward price with discrete dividends:\n\n$$F_0 = (S_0 - PV(D)) \\times (1 + r)^T$$\n\n$PV(D) = \\frac{2}{(1.04)^{0.25}} = \\frac{2}{1.00985} = \\$1.9804$\n\n$$F_0 = (80 - 1.9804) \\times (1.04)^{0.5} = 78.0196 \\times 1.01980 = \\$79.564 \\approx \\$79.58$$\n\nThe dividend reduces the forward price because the forward buyer does not receive the dividend during the contract period.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the forward price of an equity with known discrete dividends."
+        },
+        {
+          "id": "deriv-p-013",
+          "question": "A replicating portfolio for a European call option in a one-period binomial model consists of:",
+          "options": [
+            "A) A long position in a fractional share of the underlying and a short position in a risk-free bond",
+            "B) A short position in the underlying and a long position in a risk-free bond",
+            "C) Equal positions in the stock and bond"
+          ],
+          "correctAnswer": "A",
+          "explanation": "In the binomial model, a call option is replicated by:\n\n- Buying $\\Delta$ (hedge ratio) shares of the underlying stock\n- Borrowing at the risk-free rate (short bond)\n\nThe hedge ratio $\\Delta = \\frac{C_u - C_d}{S_u - S_d}$, where $C_u, C_d$ are option values in up/down states.\n\nThis replicating portfolio has the same payoff as the call in both states. Its cost equals the no-arbitrage call price. This is the foundation of risk-neutral pricing \u2014 the option is valued by constructing a replicating portfolio, not by forecasting the stock's direction.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the replicating portfolio for a European call option in the binomial model."
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Intermediate & Advanced)",
+      "problems": [
+        {
+          "id": "deriv-p-014",
+          "question": "Using a one-period binomial model, a stock is priced at $100. It can move up to $120 (u = 1.20) or down to $85 (d = 0.85). The risk-free rate is 5%. A European call option has a strike price of $100. The risk-neutral probability of an up move is closest to:",
+          "options": [
+            "A) 0.571",
+            "B) 0.500",
+            "C) 0.600"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The risk-neutral probability:\n\n$$\\pi = \\frac{(1 + r) - d}{u - d} = \\frac{1.05 - 0.85}{1.20 - 0.85} = \\frac{0.20}{0.35} = 0.5714$$\n\nThis is not the actual probability of an up move but a mathematical construct that allows us to value the option by discounting expected payoffs at the risk-free rate. The option value:\n\n$$C = \\frac{\\pi \\times C_u + (1 - \\pi) \\times C_d}{1 + r} = \\frac{0.5714 \\times 20 + 0.4286 \\times 0}{1.05} = \\frac{11.428}{1.05} = \\$10.88$$",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate risk-neutral probabilities and option values in the binomial model."
+        },
+        {
+          "id": "deriv-p-015",
+          "question": "A European put option has a strike of $50 and expires in one year. The stock trades at $48, and the risk-free rate is 3%. The put premium is $2. Using put-call parity, the price of the corresponding European call option is closest to:",
+          "options": [
+            "A) $1.46",
+            "B) $0.54",
+            "C) $4.00"
+          ],
+          "correctAnswer": "A",
+          "explanation": "From put-call parity: $C = P + S - PV(K)$\n\n$$C = 2 + 48 - \\frac{50}{1.03} = 2 + 48 - 48.544 = \\$1.456 \\approx \\$1.46$$\n\nVerification: $C + PV(K) = 1.46 + 48.54 = 50.00 = P + S = 2 + 48 = 50.00$ (confirms parity holds).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Use put-call parity to determine the price of one option given the other."
+        },
+        {
+          "id": "deriv-p-016",
+          "question": "A company enters a 3-year pay-fixed, receive-floating interest rate swap with annual settlements. The fixed swap rate is 4.5%. The current term structure of SOFR spot rates is: 1-year: 4.0%, 2-year: 4.3%, 3-year: 4.5%. At inception, the swap value to the fixed-rate payer is:",
+          "options": [
+            "A) Zero",
+            "B) Positive, because floating rates may exceed fixed",
+            "C) Negative, because the fixed rate exceeds current short-term rates"
+          ],
+          "correctAnswer": "A",
+          "explanation": "At inception, a plain vanilla interest rate swap has zero value to both parties. The fixed swap rate is determined so that the present value of fixed payments equals the present value of expected floating payments (which equals par).\n\nThe swap rate is set such that the fixed-rate bond (from the fixed payer's perspective) is priced at par. At inception:\n\n$$\\text{Value}_{\\text{swap}} = PV(\\text{floating}) - PV(\\text{fixed}) = 1.0 - 1.0 = 0$$\n\nAs time passes and rates change, the swap acquires positive value for one party and negative for the other.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain why interest rate swaps have zero value at inception."
+        },
+        {
+          "id": "deriv-p-017",
+          "question": "An FRA (forward rate agreement) buyer agrees to pay 5% on a notional of $1 million for a 90-day period starting in 6 months. At settlement, the actual 90-day rate is 5.8%. The settlement amount (present value, paid at start of loan period) is closest to:",
+          "options": [
+            "A) $1,964",
+            "B) $2,000",
+            "C) $1,500"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The FRA settlement (paid in advance, at the beginning of the loan period, so discounted):\n\n$$\\text{Settlement} = \\frac{(r_{\\text{actual}} - r_{\\text{FRA}}) \\times \\text{Notional} \\times \\frac{\\text{Days}}{360}}{1 + r_{\\text{actual}} \\times \\frac{\\text{Days}}{360}}$$\n\n$$= \\frac{(0.058 - 0.05) \\times 1{,}000{,}000 \\times \\frac{90}{360}}{1 + 0.058 \\times \\frac{90}{360}} = \\frac{0.008 \\times 250{,}000}{1 + 0.0145}$$\n\n$$= \\frac{2{,}000}{1.0145} = \\$1{,}971 \\approx \\$1{,}964$$\n\nThe FRA buyer benefits because the actual rate exceeds the contract rate.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the settlement amount on a forward rate agreement."
+        },
+        {
+          "id": "deriv-p-018",
+          "question": "An option strategy consisting of buying a call with a strike of $50 and selling a call with a strike of $60 (both same expiration) is called a:",
+          "options": [
+            "A) Bull call spread",
+            "B) Bear call spread",
+            "C) Long straddle"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A bull call spread involves:\n- Buying a call at a lower strike ($50) \u2014 pay premium\n- Selling a call at a higher strike ($60) \u2014 receive premium\n\nCharacteristics:\n- **Net cost:** Premium paid - Premium received (net debit)\n- **Max profit:** $(K_2 - K_1) - \\text{Net Premium} = (60 - 50) - \\text{Net Premium}$\n- **Max loss:** Net premium paid\n- **Breakeven:** $K_1 + \\text{Net Premium}$\n- **View:** Moderately bullish (limited upside above $60)\n\nA bear call spread is the opposite (sell lower strike, buy higher). A straddle combines a call and put at the same strike.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Identify and describe common option spread strategies."
+        },
+        {
+          "id": "deriv-p-019",
+          "question": "A two-period binomial model values a European put option on a stock. $S_0 = \\$50$, $u = 1.20$, $d = 0.90$, $r = 5\\%$ per period, $K = \\$50$. The risk-neutral probability of an up move is:",
+          "options": [
+            "A) 0.50",
+            "B) 0.60",
+            "C) 0.40"
+          ],
+          "correctAnswer": "A",
+          "explanation": "$$\\pi = \\frac{(1 + r) - d}{u - d} = \\frac{1.05 - 0.90}{1.20 - 0.90} = \\frac{0.15}{0.30} = 0.50$$\n\nThe stock price tree:\n- $S_{uu} = 50 \\times 1.2^2 = 72$ (put payoff = 0)\n- $S_{ud} = 50 \\times 1.2 \\times 0.9 = 54$ (put payoff = 0)\n- $S_{dd} = 50 \\times 0.9^2 = 40.50$ (put payoff = 9.50)\n\nPut value: $P = \\frac{\\pi^2(0) + 2\\pi(1-\\pi)(0) + (1-\\pi)^2(9.50)}{(1.05)^2} = \\frac{0.25 \\times 9.50}{1.1025} = \\frac{2.375}{1.1025} = \\$2.15$",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Value a European put option using the two-period binomial model."
+        },
+        {
+          "id": "deriv-p-020",
+          "question": "Which of the following factors will increase the value of a European call option?",
+          "options": [
+            "A) An increase in the risk-free interest rate",
+            "B) A decrease in the volatility of the underlying",
+            "C) A decrease in time to expiration"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Factors affecting European call option value:\n\n| Factor | Effect on Call Value |\n|--------|---------------------|\n| Stock price $\\uparrow$ | $\\uparrow$ |\n| Strike price $\\uparrow$ | $\\downarrow$ |\n| Volatility $\\uparrow$ | $\\uparrow$ |\n| Time to expiration $\\uparrow$ | $\\uparrow$ (usually) |\n| Risk-free rate $\\uparrow$ | $\\uparrow$ |\n| Dividends $\\uparrow$ | $\\downarrow$ |\n\nA higher risk-free rate reduces the present value of the strike price, making the call more valuable. Less volatility (B) and less time (C) both decrease call value.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Identify the factors that affect option values."
+        },
+        {
+          "id": "deriv-p-021",
+          "question": "An equity index futures contract is priced at 4,500. The index level is 4,450, the risk-free rate is 3%, the continuous dividend yield is 1.5%, and the contract expires in 3 months. The theoretical futures price is closest to:",
+          "options": [
+            "A) 4,466.73",
+            "B) 4,483.38",
+            "C) 4,500.00"
+          ],
+          "correctAnswer": "A",
+          "explanation": "For an equity index with continuous dividend yield:\n\n$$F_0 = S_0 \\times e^{(r - q)T} = 4{,}450 \\times e^{(0.03 - 0.015) \\times 0.25}$$\n\n$$= 4{,}450 \\times e^{0.00375} = 4{,}450 \\times 1.003757 = 4{,}466.72 \\approx 4{,}466.73$$\n\nSince the market price (4,500) exceeds the theoretical price (4,466.73), an arbitrageur could sell futures and buy the index to capture the mispricing.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the no-arbitrage futures price for an equity index with continuous dividends."
+        },
+        {
+          "id": "deriv-p-022",
+          "question": "A protective put strategy consists of:",
+          "options": [
+            "A) Buying a stock and buying a put option on the stock",
+            "B) Selling a stock and buying a call option on the stock",
+            "C) Buying a stock and selling a call option on the stock"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A protective put combines:\n- Long stock position (upside participation)\n- Long put option (downside protection)\n\nIt acts as insurance: the put sets a floor on the stock position's value at the strike price. By put-call parity, a protective put has the same payoff structure as a fiduciary call (call + risk-free bond).\n\n- **Maximum loss:** $(S_0 - K) + \\text{Put Premium}$ (if $S_T \\leq K$)\n- **Breakeven:** $S_0 + \\text{Put Premium}$\n- **Maximum gain:** Unlimited\n\nOption C describes a covered call, not a protective put.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Describe the protective put strategy and its payoff profile."
+        },
+        {
+          "id": "deriv-p-023",
+          "question": "A currency forward contract to buy EUR for USD is quoted at a forward rate of 1.1500 USD/EUR. The spot rate is 1.1200 USD/EUR. The EUR is trading at a forward:",
+          "options": [
+            "A) Premium, indicating higher USD interest rates than EUR rates",
+            "B) Discount, indicating higher EUR interest rates than USD rates",
+            "C) Premium, indicating higher EUR interest rates than USD rates"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Since the forward rate (1.1500) exceeds the spot rate (1.1200), the EUR is trading at a forward premium (it costs more USD to buy EUR forward than spot).\n\nBy covered interest rate parity:\n$$F = S \\times \\frac{1 + r_{USD}}{1 + r_{EUR}}$$\n\nFor $F > S$: $\\frac{1 + r_{USD}}{1 + r_{EUR}} > 1$, meaning $r_{USD} > r_{EUR}$.\n\nThe higher-interest-rate currency (USD) depreciates forward, while the lower-interest-rate currency (EUR) appreciates forward.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Interpret forward exchange rate premiums and discounts using interest rate parity."
+        },
+        {
+          "id": "deriv-p-024",
+          "question": "The value of an existing long forward contract before expiration can be calculated as:",
+          "options": [
+            "A) $V_t = (F_t - F_0) \\times e^{-r(T-t)}$",
+            "B) $V_t = S_t - F_0$",
+            "C) $V_t = F_0 - F_t$"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The value of a long forward position at time $t$ (before expiration $T$) with continuous compounding:\n\n$$V_t = (F_t - F_0) \\times e^{-r(T-t)}$$\n\nwhere $F_t$ is the current forward price for the same expiration date, $F_0$ is the original forward price, and $(T-t)$ is the remaining time.\n\nThe difference $F_t - F_0$ represents the gain or loss in forward price terms, which is then discounted to present value. At expiration ($t = T$): $V_T = S_T - F_0$, the standard payoff formula.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the mark-to-market value of a forward contract before expiration."
+        },
+        {
+          "id": "deriv-p-025",
+          "question": "Which of the following best describes the no-arbitrage principle in derivatives pricing?",
+          "options": [
+            "A) Derivatives should be priced so that no investor can earn a risk-free profit without any net investment",
+            "B) Derivatives are always priced at their intrinsic value",
+            "C) Arbitrage opportunities exist but are eliminated by transaction costs"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The no-arbitrage principle is the foundation of derivatives pricing. It states that in efficient markets:\n\n1. Two portfolios with identical payoffs must have the same price\n2. No strategy can earn a risk-free profit with zero net investment\n3. The law of one price holds\n\nIf a derivative is mispriced relative to its replicating portfolio, arbitrageurs will exploit the difference \u2014 buying the cheap asset and selling the expensive one \u2014 until prices converge. Transaction costs, liquidity constraints, and short-selling restrictions create 'no-arbitrage bands' rather than exact prices in practice.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Explain the no-arbitrage principle and its role in derivatives pricing."
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** If you scored below 70% on any set, review the corresponding modules. Set A covers forward/futures basics, option fundamentals, put-call parity, and swap mechanics. Set B covers binomial pricing, risk-neutral valuation, FRA settlements, option strategies, and forward valuation."
+    }
+  ]
+}

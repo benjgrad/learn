@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "title": "Equity Investments Checkpoint",
+    "description": "Test your knowledge across all Equity Investments topics with cross-cutting CFA-style questions covering market structure, indices, efficiency, equity securities, company and industry analysis, forecasting, and valuation.",
+    "level": "level-5",
+    "slug": "eq-checkpoint",
+    "order": 10,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Equity Investments"
+  },
+  "blocks": [
+    {
+      "type": "practiceSet",
+      "title": "Equity Investments Checkpoint",
+      "problems": [
+        {
+          "id": "eq-cp-1",
+          "question": "An investor sells short 300 shares of a stock at $50 per share. The initial margin requirement is 50%. If the stock price rises to $60, the investor's margin (as a percentage of the current market value of the short position) is closest to:",
+          "options": [
+            "A) 17%",
+            "B) 25%",
+            "C) 33%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Initial proceeds from short sale = 300 \u00d7 $50 = $15,000. Initial margin deposit = 50% \u00d7 $15,000 = $7,500. Total equity initially = $7,500. At $60: current market value of short position = 300 \u00d7 $60 = $18,000. Account equity = (Initial proceeds + Initial margin) \u2212 Current market value = ($15,000 + $7,500) \u2212 $18,000 = $4,500. Margin = $4,500/$18,000 = 25%. Option A (17%) uses an incorrect denominator. Option C (33%) uses the initial short sale proceeds as the denominator ($4,500/$15,000).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate margin for a short sale position"
+        },
+        {
+          "id": "eq-cp-2",
+          "question": "A price-weighted index contains three stocks with prices of $25, $75, and $100. If only the $25 stock increases by 20%, the percentage change in the index is closest to:",
+          "options": [
+            "A) 2.5%",
+            "B) 6.7%",
+            "C) 20.0%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Initial index = (25 + 75 + 100)/3 = 66.67. New price of the $25 stock = $25 \u00d7 1.20 = $30. New index = (30 + 75 + 100)/3 = 68.33. Percentage change = (68.33 \u2212 66.67)/66.67 = 2.5%. In a price-weighted index, the $25 stock has the smallest weight (25/200 = 12.5%), so its 20% gain translates to only a 2.5% index increase. Option B (6.7%) would be the result in an equal-weighted index (20%/3). Option C (20%) is the individual stock return, not the index return.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate price-weighted index returns and understand weighting effects"
+        },
+        {
+          "id": "eq-cp-3",
+          "question": "According to the efficient market hypothesis, if a market is semi-strong form efficient, which of the following strategies could potentially earn excess risk-adjusted returns?",
+          "options": [
+            "A) Fundamental analysis of public financial statements",
+            "B) Technical analysis using price charts",
+            "C) Trading based on material non-public information"
+          ],
+          "correctAnswer": "C",
+          "explanation": "In a semi-strong efficient market, all publicly available information is reflected in prices. This renders both technical analysis (past prices \u2014 Option B) and fundamental analysis (public financial data \u2014 Option A) ineffective for generating excess returns. Only material non-public (insider) information is not yet reflected in prices and could theoretically generate excess returns. Note that trading on insider information is illegal, but the EMH framework considers whether it could produce alpha.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Apply the EMH framework to evaluate investment strategies"
+        },
+        {
+          "id": "eq-cp-4",
+          "question": "A company has the following financial data: Net income = $120M, Revenue = $2,000M, Total assets = $1,500M, Total equity = $600M. Using the DuPont decomposition, the component most responsible for the company's 20% ROE is:",
+          "options": [
+            "A) Net profit margin (6.0%)",
+            "B) Asset turnover (1.33\u00d7)",
+            "C) Financial leverage (2.50\u00d7)"
+          ],
+          "correctAnswer": "C",
+          "explanation": "DuPont ROE = Net profit margin \u00d7 Asset turnover \u00d7 Equity multiplier. Net profit margin = $120M/$2,000M = 6.0%. Asset turnover = $2,000M/$1,500M = 1.33\u00d7. Equity multiplier = $1,500M/$600M = 2.50\u00d7. Check: 6.0% \u00d7 1.33 \u00d7 2.50 = 20.0%. The equity multiplier (financial leverage) of 2.50\u00d7 is the largest contributor \u2014 without it, the product of margin and turnover yields only 8.0%. The high leverage amplifies the modest profitability. Option A (6% margin) is below average for many industries. Option B (1.33\u00d7 turnover) is moderate.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Interpret DuPont decomposition to identify drivers of ROE"
+        },
+        {
+          "id": "eq-cp-5",
+          "question": "An industry in the shakeout stage of the life cycle is most likely characterized by:",
+          "options": [
+            "A) Rapid revenue growth and many new entrants",
+            "B) Slowing growth, intense competition, and exit of weaker firms",
+            "C) Stable growth, consolidated market, and high dividend payouts"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The shakeout stage features decelerating growth after the rapid expansion of the growth phase. Competition intensifies as supply exceeds demand growth, margins are pressured, and weaker companies that cannot compete effectively exit the industry. Option A describes the growth stage (rapid demand, new entrants attracted by opportunity). Option C describes the mature stage (slow stable growth, few large players, cash returned to shareholders).",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Identify industry life cycle stages and their characteristics"
+        },
+        {
+          "id": "eq-cp-6",
+          "question": "A company has fixed costs of $150 million and variable costs equal to 50% of revenue. If revenue grows from $500M to $600M, the percentage change in operating profit is closest to:",
+          "options": [
+            "A) 20%",
+            "B) 33%",
+            "C) 50%"
+          ],
+          "correctAnswer": "C",
+          "explanation": "At $500M revenue: Total costs = $150M + 0.50 \u00d7 $500M = $400M. Operating profit = $500M \u2212 $400M = $100M. At $600M revenue: Total costs = $150M + 0.50 \u00d7 $600M = $450M. Operating profit = $600M \u2212 $450M = $150M. Percentage change in operating profit = ($150M \u2212 $100M)/$100M = 50%. Revenue grew by 20% but operating profit grew by 50% \u2014 this demonstrates operating leverage (DOL = 50%/20% = 2.5\u00d7). Fixed costs create a magnifying effect on profit changes. Option A (20%) equals the revenue growth rate, which would only apply if all costs were variable. Option B (33%) incorrectly calculates the percentage change.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate the effect of operating leverage on profit growth"
+        },
+        {
+          "id": "eq-cp-7",
+          "question": "Using the Gordon Growth Model, a stock with D\u2080 = $3.00, g = 5%, and r = 12% has an intrinsic value closest to:",
+          "options": [
+            "A) $42.86",
+            "B) $45.00",
+            "C) $60.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "V\u2080 = D\u2081/(r \u2212 g) = D\u2080(1 + g)/(r \u2212 g) = $3.00 \u00d7 1.05/(0.12 \u2212 0.05) = $3.15/0.07 = $45.00. Option A ($42.86) incorrectly uses D\u2080 in the numerator: $3.00/0.07 = $42.86. Remember to grow the current dividend by one period to get D\u2081. Option C ($60.00) uses an incorrect denominator of 0.05 instead of 0.07.",
+          "difficulty": "basic",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Calculate intrinsic value using the Gordon Growth Model"
+        },
+        {
+          "id": "eq-cp-8",
+          "question": "An analyst compares two companies in the same industry:\n\n| Company | EV/EBITDA | ROE | Debt/Equity |\n|---------|-----------|-----|-------------|\n| Alpha   | 8.0\u00d7      | 22% | 0.3\u00d7        |\n| Beta    | 6.5\u00d7      | 24% | 2.0\u00d7        |\n\nWhich of the following is the most appropriate conclusion?",
+          "options": [
+            "A) Beta is clearly the better investment because it has a lower EV/EBITDA and higher ROE",
+            "B) Beta's higher ROE may be largely driven by financial leverage, making Alpha potentially the higher-quality business",
+            "C) Alpha is clearly overvalued because its EV/EBITDA is higher than Beta's"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Beta's debt/equity of 2.0\u00d7 is much higher than Alpha's 0.3\u00d7. Using the DuPont framework, high leverage amplifies ROE. Beta's 24% ROE may be largely a product of its aggressive capital structure rather than superior operating performance. Alpha's 22% ROE achieved with minimal leverage (0.3\u00d7) suggests stronger underlying profitability. Option A ignores the risk implications of Beta's high leverage. Option C draws too strong a conclusion from a single metric \u2014 a higher EV/EBITDA might be justified if Alpha has better growth prospects or lower risk.",
+          "difficulty": "advanced",
+          "cfaTopic": "Equity Investments",
+          "learningOutcome": "Integrate multiple analysis frameworks to evaluate equity investments"
+        }
+      ]
+    }
+  ]
+}

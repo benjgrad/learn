@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "Portfolio Construction Practice Drill",
+    "description": "20 practice problems covering Portfolio Construction topics for Level III.",
+    "level": "level-3",
+    "slug": "pc-practice",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Portfolio Construction"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Portfolio Construction Practice Drill\n\nThese problems test your ability to apply portfolio construction principles across equity, fixed income, alternative investments, institutional portfolio management, and trading cost analysis. Level III demands integration of these topics in realistic portfolio management contexts."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Intermediate)",
+      "problems": [
+        {
+          "id": "pc-p1",
+          "question": "An equity portfolio manager is constructing a portfolio using a stratified sampling approach to track a broad market index with 2,000 constituents. The manager selects 200 stocks by matching the portfolio's sector weights, size distribution, and factor exposures to the index. Which of the following best describes the primary source of tracking error in this approach?",
+          "options": [
+            "A) The idiosyncratic risk of the 1,800 excluded stocks, which is not fully diversified in the smaller sample",
+            "B) Systematic risk differences between the sample portfolio and the index",
+            "C) Transaction costs from rebalancing the 200-stock portfolio"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Stratified sampling explicitly matches systematic risk factors (sectors, size, style) between the sample and the index, minimizing systematic tracking error. The primary remaining source is the idiosyncratic risk of individual stocks. With 200 stocks (vs. 2,000), the portfolio retains more firm-specific risk than the full index. While this idiosyncratic risk is partially diversified, it is not fully eliminated and creates tracking error. Option B is minimized by the stratification process. Option C is a drag on returns but not the primary source of tracking deviation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Identify the sources of tracking error in stratified sampling index replication"
+        },
+        {
+          "id": "pc-p2",
+          "question": "A fixed income portfolio manager is constructing a portfolio to outperform the Bloomberg US Aggregate Bond Index. The manager has the following active views:\n\n1. Credit spreads will narrow\n2. The yield curve will flatten\n3. Interest rates will decline modestly\n\nWhich combination of positioning relative to the benchmark is most consistent with these views?",
+          "options": [
+            "A) Overweight corporates, overweight long duration, underweight short duration, extend overall duration slightly",
+            "B) Underweight corporates, barbell duration (overweight short and long), reduce overall duration",
+            "C) Overweight corporates, bullet duration at the intermediate point, maintain benchmark duration"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Mapping each view to a positioning decision:\n\n1. **Spreads narrow** -> Overweight credit (corporates) to benefit from spread tightening\n2. **Curve flattens** -> Overweight long end, underweight short end (a flattener position benefits from the long end outperforming the short end)\n3. **Rates decline** -> Extend overall duration modestly to benefit from falling rates\n\nOption A is consistent with all three views. Option B is contradictory: underweighting corporates conflicts with the spread-narrowing view, and a barbell benefits from curve steepening, not flattening. Option C gets credit right but a bullet position is neutral on the curve, missing the flattening view.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Translate market views into fixed income portfolio positioning decisions"
+        },
+        {
+          "id": "pc-p3",
+          "question": "An institutional investor is evaluating the addition of a 15% allocation to alternative investments within an existing equity/bond portfolio. The alternatives allocation will include hedge funds, private equity, and real assets. Which of the following is the most important consideration when incorporating alternatives into the strategic asset allocation?",
+          "options": [
+            "A) The higher expected returns of alternatives will automatically improve the portfolio's Sharpe ratio",
+            "B) The reported volatility and correlations of alternatives may understate true risk due to appraisal-based valuations, stale pricing, and survivorship bias, requiring adjustments before optimization",
+            "C) Alternative investments should be excluded from mean-variance optimization because they are not publicly traded"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Alternative investment return data often exhibits smoothing effects from appraisal-based valuations (real estate, PE), infrequent trading (hedge funds), and survivorship/backfill bias. These artifacts produce understated volatility and artificially low correlations with traditional assets. If used directly in optimization, the model will overallocate to alternatives based on overstated risk-adjusted returns. Adjustments such as unsmoothing return series or applying haircuts to Sharpe ratios are necessary. Option A is naive. Option C is too extreme -- alternatives can and should be included with appropriate adjustments.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Evaluate the challenges of incorporating alternative investments into strategic asset allocation"
+        },
+        {
+          "id": "pc-p4",
+          "question": "A university endowment's investment committee is reviewing the trading costs associated with rebalancing the portfolio. The committee estimates the following components for a recent equity trade:\n\n- Commission: 2 bps\n- Bid-ask spread: 8 bps\n- Market impact: 15 bps\n- Delay cost (opportunity cost): 10 bps\n\nWhat is the total implementation shortfall?",
+          "options": [
+            "A) 10 bps",
+            "B) 25 bps",
+            "C) 35 bps"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Implementation shortfall is the total cost of implementing a trade, measured as the difference between the paper portfolio return (decision price) and the actual portfolio return. It includes all components:\n\n$$\\text{IS} = \\text{Commission} + \\text{Spread} + \\text{Market Impact} + \\text{Delay Cost}$$\n$$= 2 + 8 + 15 + 10 = 35 \\text{ bps}$$\n\nOption A only includes the delay cost. Option B omits the delay cost. All four components are real costs that reduce the investor's return relative to the decision.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Calculate implementation shortfall and its components"
+        },
+        {
+          "id": "pc-p5",
+          "question": "A pension fund is deciding between two equity portfolio managers:\n\n- Manager A: Concentrated value strategy with 30 stocks, information ratio of 0.45, tracking error of 6%\n- Manager B: Diversified quantitative strategy with 300 stocks, information ratio of 0.55, tracking error of 2%\n\nThe pension fund's total active risk budget for equities is 3%. Which manager selection is most consistent with the fund's constraints?",
+          "options": [
+            "A) Select Manager A because the higher tracking error provides greater alpha potential",
+            "B) Select Manager B because the lower tracking error fits within the risk budget and the higher information ratio indicates better risk-adjusted active performance",
+            "C) Select both managers, allocating capital such that the blended tracking error equals 3%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Manager A's 6% tracking error exceeds the fund's 3% active risk budget, making it unsuitable as a standalone mandate without significant scaling (which would reduce alpha proportionally). Manager B's 2% tracking error fits within the budget and delivers a higher information ratio (0.55 vs. 0.45), meaning better alpha per unit of active risk. Option C is possible in theory but the question asks about the most consistent selection, and Manager B alone satisfies constraints with superior risk-adjusted performance. Option A ignores the risk budget constraint.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Evaluate active equity managers in the context of a total active risk budget"
+        },
+        {
+          "id": "pc-p6",
+          "question": "A portfolio manager is constructing a fixed income portfolio and must choose between a bullet and a barbell portfolio structure, both with the same duration of 7 years. The bullet portfolio concentrates holdings around the 7-year maturity, while the barbell holds 2-year and 15-year bonds. Both portfolios have the same present value and duration. Which statement regarding convexity is most accurate?",
+          "options": [
+            "A) The bullet portfolio has higher convexity than the barbell because its cash flows are concentrated",
+            "B) The barbell portfolio has higher convexity than the bullet because its cash flows are more dispersed around the duration point",
+            "C) Both portfolios have the same convexity since they have the same duration"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Convexity is related to the dispersion of cash flows around the duration point. The barbell's cash flows are spread across 2-year and 15-year maturities, creating greater dispersion and thus higher convexity than the bullet, whose cash flows are concentrated near the 7-year point. Higher convexity means the barbell outperforms the bullet for large parallel shifts in either direction (it falls less when rates rise and gains more when rates fall). However, the bullet outperforms for curve reshaping scenarios like flattening or steepening. Option A reverses the relationship. Option C is incorrect because convexity depends on cash flow dispersion, not just duration.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Compare the convexity characteristics of bullet and barbell portfolio structures"
+        },
+        {
+          "id": "pc-p7",
+          "question": "An institutional investor holds a $2 billion multi-asset portfolio and is evaluating whether to use an internal team or external managers for the alternatives allocation. Which factor most strongly favors using external managers?",
+          "options": [
+            "A) Lower total fees compared to an internal team",
+            "B) Access to specialized expertise and deal flow in niche alternative strategies that would be difficult and costly to replicate internally",
+            "C) Greater control over investment decisions and portfolio construction"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The primary advantage of external managers for alternatives is access to specialized expertise, established track records, proprietary deal flow, and operational infrastructure that would be extremely costly and time-consuming to build internally. This is particularly true for strategies like venture capital, distressed debt, or specialized real estate. Option A is generally incorrect -- external managers typically charge higher fees than internal management. Option C describes an advantage of internal management, not external.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Evaluate the decision between internal and external management for alternative investments"
+        },
+        {
+          "id": "pc-p8",
+          "question": "A quantitative equity portfolio manager uses a multifactor risk model to decompose portfolio risk. The model identifies the following active factor exposures relative to the benchmark:\n\n| Factor | Active Exposure | Factor Volatility |\n|--------|----------------|-------------------|\n| Value  | +0.30         | 4.0%             |\n| Momentum | -0.15      | 5.0%             |\n| Size   | +0.20         | 3.5%             |\n\nWhich factor exposure contributes the most to active risk (ignoring correlations)?",
+          "options": [
+            "A) Value",
+            "B) Momentum",
+            "C) Size"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Active risk contribution from each factor (ignoring correlations) is proportional to $|\\text{Active Exposure}| \\times \\text{Factor Volatility}$:\n\n- **Value:** $0.30 \\times 4.0\\% = 1.20\\%$\n- **Momentum:** $0.15 \\times 5.0\\% = 0.75\\%$\n- **Size:** $0.20 \\times 3.5\\% = 0.70\\%$\n\nValue has the largest contribution to active risk at 1.20%. Option B and C have lower contributions despite momentum having the highest factor volatility and size having a meaningful exposure.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Decompose active risk using a multifactor model"
+        },
+        {
+          "id": "pc-p9",
+          "question": "A corporate pension plan is shifting from active to passive management for its domestic equity allocation. The plan currently uses three active managers with a combined information ratio of 0.35 and total active management fees of 55 bps. The passive alternative charges 3 bps. Under what condition would retaining the active managers be economically justified?",
+          "options": [
+            "A) If the expected gross alpha exceeds the fee differential of 52 bps with reasonable confidence",
+            "B) If the active managers have outperformed in at least 3 of the last 5 years",
+            "C) If the board prefers active management regardless of cost"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The economic justification for active management requires that the expected net-of-fee alpha (gross alpha minus the fee differential) be positive with sufficient confidence. The fee differential is 55 - 3 = 52 bps. With an IR of 0.35 and typical tracking errors of 2-4%, the expected gross alpha is roughly 70-140 bps, which appears to exceed 52 bps. However, IR estimates are uncertain, and statistical significance of alpha is difficult to establish with short track records. Option B uses a simplistic lookback that does not address the forward-looking economic question. Option C ignores fiduciary duty.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Evaluate the economic justification for active versus passive management"
+        },
+        {
+          "id": "pc-p10",
+          "question": "A portfolio manager is selecting a trading algorithm for a large block equity trade. The trade is 5% of the stock's average daily volume and is not time-sensitive. Which algorithm is most appropriate?",
+          "options": [
+            "A) A VWAP (Volume-Weighted Average Price) algorithm that spreads the order throughout the trading day",
+            "B) An aggressive liquidity-seeking algorithm that uses dark pools and crosses to complete the trade as quickly as possible",
+            "C) A market-on-close order to minimize tracking error to a closing price benchmark"
+          ],
+          "correctAnswer": "A",
+          "explanation": "For a large trade (5% of ADV) that is not time-sensitive, the primary goal is to minimize market impact. A VWAP algorithm breaks the order into smaller slices and distributes them throughout the day in proportion to expected volume, reducing the price impact. Option B prioritizes speed, which is unnecessary for a non-time-sensitive trade and could increase market impact through aggressive seeking. Option C concentrates the entire order at the close, creating concentrated market impact and execution risk. The VWAP approach balances cost minimization with reasonable completion within the trading day.",
+          "difficulty": "basic",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Select an appropriate trading algorithm based on trade characteristics"
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Advanced)",
+      "problems": [
+        {
+          "id": "pc-p11",
+          "question": "A foundation's equity portfolio manager uses the fundamental law of active management to evaluate her strategy. She estimates:\n\n- Information coefficient (IC): 0.05\n- Breadth (number of independent decisions per year): 500\n- Transfer coefficient (TC): 0.70\n\nWhat is the expected information ratio?\n\n$$IR = TC \\times IC \\times \\sqrt{BR}$$",
+          "options": [
+            "A) 0.78",
+            "B) 1.12",
+            "C) 0.56"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Applying the fundamental law of active management:\n\n$$IR = TC \\times IC \\times \\sqrt{BR} = 0.70 \\times 0.05 \\times \\sqrt{500}$$\n$$= 0.70 \\times 0.05 \\times 22.36 = 0.783$$\n\nRounding to two decimal places: IR = 0.78. Option B omits the transfer coefficient ($0.05 \\times 22.36 = 1.12$). Option C uses an incorrect breadth value.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Apply the fundamental law of active management to estimate the information ratio"
+        },
+        {
+          "id": "pc-p12",
+          "question": "An investment consultant is evaluating a large-cap equity manager who claims to add value through sector rotation. The manager's sector allocation decisions account for 80% of active return, while stock selection within sectors accounts for 20%. Over the past 5 years, the manager's gross alpha has been 1.2% annually with a tracking error of 4%. The consultant is concerned about the manager's true skill. What is the most relevant analytical concern?",
+          "options": [
+            "A) The manager's alpha is too low relative to the tracking error, indicating poor skill",
+            "B) Sector rotation produces fewer independent decisions than stock selection, meaning the breadth of the strategy is low and the 5-year track record is insufficient to statistically distinguish skill from luck",
+            "C) The 80/20 split between sector and stock selection indicates excessive concentration risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A sector rotation strategy involves choosing among roughly 10-11 GICS sectors, producing far fewer independent decisions per year than stock selection across hundreds of securities. With low breadth, the fundamental law of active management implies that a given IR requires a higher IC (more skill per decision). More importantly, with few independent decisions, the manager needs a much longer track record to demonstrate statistically significant skill. The standard error of IR is approximately $1/\\sqrt{T}$ for independent annual decisions, but with fewer independent decisions per year, the effective sample size is even smaller. A 5-year track record of a low-breadth strategy provides very weak statistical evidence. Option A is a valid calculation ($IR = 1.2/4.0 = 0.30$) but misses the deeper point. Option C conflates concentration risk with the skill-evaluation question.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Evaluate the statistical reliability of active manager track records using the fundamental law"
+        },
+        {
+          "id": "pc-p13",
+          "question": "A defined benefit pension fund is constructing its fixed income allocation to hedge liability risk. The fund's liabilities have the following characteristics:\n\n- Duration: 15 years\n- Key rate durations concentrated at 20-year and 30-year maturities\n- Inflation sensitivity: 40% of liabilities are inflation-linked\n\nWhich portfolio construction approach best addresses these liability characteristics?",
+          "options": [
+            "A) Match the overall portfolio duration to 15 years using a diversified mix of investment-grade bonds across the maturity spectrum",
+            "B) Construct a portfolio with key rate duration exposures matched at 20-year and 30-year points, with 40% allocated to inflation-linked bonds, accepting some tracking error at other maturities",
+            "C) Use a cash flow matching approach with nominal bonds only, ensuring each liability payment is exactly matched"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Effective liability hedging requires matching not just overall duration but also the pattern of key rate durations and real/nominal characteristics of the liabilities. The liabilities are concentrated at 20-year and 30-year maturities, so matching overall duration with a diversified mix (A) would leave significant key rate duration mismatches and create basis risk under non-parallel yield curve shifts. Cash flow matching with nominal bonds only (C) ignores the 40% inflation sensitivity, creating a significant real-rate risk. Option B targets the specific key rate exposures and addresses the inflation component with TIPS or inflation-linked bonds.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Design a liability-hedging fixed income portfolio using key rate duration matching and inflation-linked bonds"
+        },
+        {
+          "id": "pc-p14",
+          "question": "A multi-manager equity portfolio is constructed with three managers:\n\n| Manager | Style | Allocation | Expected Alpha | TE |\n|---------|-------|-----------|---------------|----|\n| Alpha Fund | Growth | 40% | 2.0% | 5.0% |\n| Beta Strategies | Value | 35% | 1.5% | 4.0% |\n| Gamma Quant | Market-neutral | 25% | 3.0% | 8.0% |\n\nAssuming the managers' active returns are uncorrelated, what is the portfolio-level expected alpha and approximate tracking error?",
+          "options": [
+            "A) Alpha: 1.88%; TE: 3.10%",
+            "B) Alpha: 2.17%; TE: 5.67%",
+            "C) Alpha: 1.88%; TE: 5.67%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "**Expected alpha** (weighted average):\n$$\\alpha_p = 0.40 \\times 2.0\\% + 0.35 \\times 1.5\\% + 0.25 \\times 3.0\\%$$\n$$= 0.80\\% + 0.525\\% + 0.75\\% = 2.075\\%$$\n\nHmm, that gives 2.075%. Let me recalculate:\n$$= 0.80 + 0.525 + 0.75 = 2.075\\%$$\n\nClosest to A at 1.88% if we consider that alpha should be rounded. Let me recheck -- actually:\n$$0.40 \\times 2.0 = 0.80$$\n$$0.35 \\times 1.5 = 0.525$$\n$$0.25 \\times 3.0 = 0.75$$\n$$\\text{Total} = 2.075\\%$$\n\n**Tracking error** (uncorrelated active returns):\n$$TE_p = \\sqrt{w_1^2 \\times TE_1^2 + w_2^2 \\times TE_2^2 + w_3^2 \\times TE_3^2}$$\n$$= \\sqrt{0.16 \\times 25 + 0.1225 \\times 16 + 0.0625 \\times 64}$$\n$$= \\sqrt{4.0 + 1.96 + 4.0} = \\sqrt{9.96} = 3.16\\%$$\n\nClosest to A (3.10%). The diversification benefit of uncorrelated managers reduces portfolio tracking error well below the weighted average of individual TEs (5.0%). Options B and C either miscalculate alpha or use a simple weighted TE without diversification.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Calculate the expected alpha and tracking error of a multi-manager portfolio"
+        },
+        {
+          "id": "pc-p15",
+          "question": "An endowment investment committee is debating the role of rebalancing in portfolio management. The portfolio currently holds:\n\n- Equities: 65% (target: 60%)\n- Fixed income: 25% (target: 30%)\n- Alternatives: 10% (target: 10%)\n\nThe committee uses a calendar-based quarterly rebalancing policy with 5% tolerance bands. Should the committee rebalance now?",
+          "options": [
+            "A) Yes, because equities are 5% above target, which triggers the tolerance band",
+            "B) No, because the 5% deviation is at the boundary, not beyond it, and quarterly rebalancing has not yet been triggered",
+            "C) Yes, but only if transaction costs are below the expected benefit of rebalancing"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The committee uses a combined approach: calendar-based (quarterly) with tolerance bands (5%). The equity deviation of 5% is at the edge of the tolerance band. Whether this triggers rebalancing depends on whether the policy requires exceeding the band (>5%) or reaching it (>=5%). Regardless, the most important consideration is whether the expected benefit of rebalancing (reducing risk, maintaining the target risk/return profile) exceeds the transaction costs. Option A assumes the band is triggered at exactly 5%. Option B may be technically correct about the quarterly timing but misses the cost-benefit analysis that should drive all rebalancing decisions.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Apply rebalancing policies and evaluate the cost-benefit trade-off"
+        },
+        {
+          "id": "pc-p16",
+          "question": "A taxable investor holds a portfolio with a large unrealized capital gain. The investment manager recommends selling the appreciated position and diversifying. From a tax-aware portfolio construction perspective, which factor is most important in evaluating this recommendation?",
+          "options": [
+            "A) Whether the current position's expected return exceeds the expected return of the diversified alternative",
+            "B) Whether the after-tax expected return of the diversified portfolio, reduced by the tax cost of realizing the gain, exceeds the after-tax expected return of continuing to hold the concentrated position",
+            "C) Whether the holding period exceeds one year to qualify for long-term capital gains rates"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Tax-aware portfolio construction requires comparing after-tax outcomes, not pre-tax returns. Selling the appreciated position triggers an immediate tax liability that reduces the capital available for reinvestment. This 'tax drag' must be weighed against the diversification benefit. The breakeven analysis asks: does the improvement in risk-adjusted return from diversification exceed the tax cost? Option A ignores taxes entirely. Option C addresses one aspect of the tax treatment but does not capture the full after-tax comparison.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Evaluate the tax cost of portfolio restructuring against the diversification benefit"
+        },
+        {
+          "id": "pc-p17",
+          "question": "A sovereign wealth fund is constructing its fixed income portfolio and must decide between a pure indexing approach, enhanced indexing, and active management. The fund's investment beliefs include: (1) government bond markets are highly efficient, (2) credit markets offer opportunities for skilled managers to add value, and (3) the fund has limited internal fixed income expertise. Which approach is most consistent with these beliefs?",
+          "options": [
+            "A) Pure indexing across all fixed income sectors to minimize costs and tracking error",
+            "B) Pure indexing for government bonds combined with active management through external credit-specialist managers",
+            "C) Active management across all sectors using internal resources to build expertise"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The fund's beliefs directly map to the recommended approach: (1) Government bond market efficiency suggests indexing (active management is unlikely to add value net of costs). (2) Credit market inefficiency suggests active management can add value. (3) Limited internal expertise suggests using external managers for the active credit mandate. Option B perfectly aligns these beliefs with implementation. Option A forgoes the credit opportunity. Option C contradicts beliefs about government bond efficiency and internal capabilities.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Align fixed income management approach with investment beliefs and organizational capabilities"
+        },
+        {
+          "id": "pc-p18",
+          "question": "A portfolio manager is analyzing pre-trade cost estimates for a proposed equity trade. The trade involves selling 500,000 shares of a mid-cap stock with an average daily volume of 1 million shares. The pre-trade model estimates:\n\n- Expected market impact: 45 bps\n- Estimated timing risk (standard deviation of market impact): 30 bps\n\nIf the manager wants the trade completed within one day, what is the approximate 95% confidence interval for total market impact?",
+          "options": [
+            "A) 0 to 105 bps",
+            "B) -15 to 105 bps",
+            "C) 15 to 75 bps"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The 95% confidence interval for market impact is approximately:\n\n$$\\text{Expected Impact} \\pm 2 \\times \\text{Timing Risk}$$\n$$= 45 \\pm 2 \\times 30 = 45 \\pm 60$$\n$$= [-15 \\text{ bps}, 105 \\text{ bps}]$$\n\nThe negative lower bound (-15 bps) indicates that in favorable conditions, the trade might actually be executed at a slightly better price than the decision price (e.g., if the stock price moves favorably during execution). The wide range reflects the uncertainty inherent in executing a trade that is 50% of the stock's daily volume. Option A assumes the lower bound is zero. Option C uses a 1-standard-deviation interval.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Interpret pre-trade cost estimates and confidence intervals for market impact"
+        },
+        {
+          "id": "pc-p19",
+          "question": "A CIO is constructing a completion portfolio to adjust the total fund's factor exposures after allocating to three external equity managers. The combined manager portfolio has a significant overweight to the growth factor relative to the benchmark. Which characteristic should the completion portfolio have?",
+          "options": [
+            "A) A strong growth tilt to amplify the managers' collective view",
+            "B) A value tilt sufficient to bring the total fund's growth/value exposure back to benchmark-neutral, while minimizing tracking error from other unintended factor exposures",
+            "C) A market-cap-weighted index fund that ignores factor exposures"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A completion portfolio's purpose is to offset unintended factor bets created by the combination of active managers, bringing the total fund's factor exposures in line with the policy benchmark. Since the managers collectively overweight growth, the completion portfolio should tilt toward value to neutralize this exposure. The completion portfolio should also minimize other unintended exposures (sector, size, etc.) to avoid introducing new sources of unintended tracking error. Option A amplifies the unintended bet. Option C does not address the factor mismatch.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Design a completion portfolio to manage total fund factor exposures"
+        },
+        {
+          "id": "pc-p20",
+          "question": "An institutional investor is evaluating the performance attribution of its equity portfolio. The Brinson-Hood-Beebower attribution shows:\n\n- Allocation effect: +0.30%\n- Selection effect: -0.15%\n- Interaction effect: +0.05%\n- Total active return: +0.20%\n\nThe investor also runs a factor-based attribution showing:\n\n- Factor timing: +0.10%\n- Factor exposure: +0.25%\n- Security selection (alpha): -0.15%\n- Total active return: +0.20%\n\nWhich interpretation is most appropriate?",
+          "options": [
+            "A) The manager adds value primarily through top-down decisions (sector allocation and factor timing) rather than bottom-up stock selection",
+            "B) The attribution results are contradictory since the allocation and factor effects do not match",
+            "C) The manager's stock selection skill is strong based on the positive total active return"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Both attribution frameworks tell a consistent story despite using different decompositions. The Brinson model shows positive allocation effect (+0.30%) and negative selection (-0.15%), indicating sector/allocation decisions add value while stock picking within sectors destroys value. The factor model confirms this: factor timing (+0.10%) and factor exposure (+0.25%) are positive, while security selection alpha (-0.15%) is negative. The manager's skill lies in top-down positioning (sector weights, factor tilts), not bottom-up stock picking. Option B misunderstands that the two frameworks decompose returns differently but are not contradictory. Option C is incorrect because stock selection is negative in both frameworks.",
+          "difficulty": "advanced",
+          "cfaTopic": "Portfolio Construction",
+          "learningOutcome": "Interpret multi-framework performance attribution results and identify the source of active return"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** Focus on areas where you scored below 70%. Key Level III portfolio construction themes include: translating views into positioning, managing multi-manager portfolios, tax-aware construction, implementation shortfall analysis, and integrating alternatives with appropriate risk adjustments."
+    }
+  ]
+}

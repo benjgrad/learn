@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PW.3: Estate Planning",
+    "description": "Master wealth transfer techniques including trusts, charitable vehicles, generation-skipping transfer tax, cross-border considerations, and family governance structures.",
+    "level": "level-7",
+    "slug": "pw-pw-estate-planning",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Private Wealth Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If estate taxes are 40% and a wealthy individual wants to transfer $10M to heirs, the estate tax would be $4M. But what if they could 'freeze' the value of the estate at today's level and transfer future growth tax-free? How much could this save over 20 years?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Wealth Transfer Framework\n\nThe core question: Is more wealth preserved by gifting now (paying gift tax) or bequeathing later (paying estate tax)?\n\n### Relative Value of Gifting\n\n$$RV_{\\text{gift}} = \\frac{FV_{\\text{gift}}}{FV_{\\text{bequest}}} = \\frac{[1 + r_g(1-t_{ig})]^n}{[1 + r_e(1-t_{ie})]^n} \\times \\frac{(1-T_g)}{(1-T_e)}$$\n\nWhere:\n- $r_g, r_e$ = return earned by gift recipient and estate, respectively\n- $t_{ig}, t_{ie}$ = investment income tax rates\n- $T_g$ = effective gift tax rate\n- $T_e$ = effective estate tax rate\n- $n$ = years until transfer\n\nGifting is beneficial when $RV > 1$, which generally occurs when:\n- Gift recipient's tax rate is lower\n- Time horizon is long (growth outside the estate)\n- Estate tax rate exceeds gift tax rate (or exemptions are available)\n\n## Trust Structures\n\n### Revocable Trust\n- Grantor retains control and can modify\n- Assets included in estate for tax purposes\n- Avoids probate but no tax benefit\n- Use: Privacy, probate avoidance, incapacity planning\n\n### Irrevocable Trust\n- Grantor gives up control permanently\n- Assets removed from taxable estate\n- Use: Estate tax reduction, asset protection, Medicaid planning"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A grantor retained annuity trust (GRAT) is funded with $5M of stock, pays a 7% annuity for 2 years, and uses the IRS Section 7520 rate of 4%. If the stock appreciates at 12% annually, approximately how much transfers to heirs tax-free?",
+      "answer": "The GRAT's 'hurdle rate' is the Section 7520 rate (4%). Growth above this rate transfers tax-free to the remainder beneficiaries.\n\nApproximate calculation:\n- Year 1: $5M grows to $5.6M (12%). Annuity payment of $350K (7% of $5M) goes back to grantor. Remaining: ~$5.25M\n- Year 2: $5.25M grows to $5.88M (12%). Annuity payment of $350K. Remaining: ~$5.53M\n\nTotal annuity payments: $700K (returned to grantor, not a gift)\nRemainder to heirs: ~$5.53M\n\nIf the GRAT was structured as a 'zeroed-out' GRAT (annuity payments approximately equal the initial gift plus 7520 interest), the gift tax is near zero, and the ~$530K excess growth passes tax-free to heirs. The beauty of GRATs: heads you win (excess growth transfers free), tails you break even (if growth equals or falls below 7520 rate, assets return to grantor)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Advanced Trust Vehicles\n\n### GRAT (Grantor Retained Annuity Trust)\n- Transfer appreciating assets; retain annuity payments\n- Growth above Section 7520 rate passes tax-free to heirs\n- Most effective when: Interest rates are low, asset appreciation is high\n- \"Zeroed-out\" GRAT: Annuity equals gift value + 7520 interest, making taxable gift nearly zero\n\n### Dynasty Trust\n- Designed to last multiple generations (perpetuity in some states)\n- Avoids estate tax at each generation\n- Combined with GST exemption to shield from generation-skipping transfer tax\n\n### Intentionally Defective Grantor Trust (IDGT)\n- Irrevocable for estate purposes (removed from estate)\n- Grantor for income tax purposes (grantor pays income tax, further reducing estate)\n- Sale of assets to IDGT: Exchange for installment note; future appreciation escapes estate\n\n## Charitable Vehicles\n\n| Vehicle | Income During Life | Remainder | Tax Benefit |\n|---|---|---|---|\n| CRT (Charitable Remainder Trust) | To donor/heirs | To charity | Income tax deduction, no CG on sale |\n| CLT (Charitable Lead Trust) | To charity | To heirs | Estate/gift tax reduction |\n| DAF (Donor Advised Fund) | N/A | Grants to charities | Immediate deduction, flexible grants |\n| Private Foundation | Controlled by family | Perpetual charitable | Deduction, but excise tax on income |\n\n## Generation-Skipping Transfer Tax (GSTT)\n\n- Additional 40% tax on transfers to grandchildren or below (skip persons)\n- GST exemption (~$13M per person) can be allocated to shield transfers\n- Planning: Apply GST exemption to dynasty trusts or direct skips early to shelter future growth\n\n## Cross-Border Considerations\n\n- Different countries have different estate/inheritance tax regimes\n- **Situs rules**: Real property taxed where located; personal property taxed where domiciled\n- **Tax treaties**: May provide relief from double taxation\n- **Forced heirship**: Some jurisdictions require minimum shares to specified heirs\n\n## Family Governance\n\n- **Family constitution**: Shared values, mission, decision-making processes\n- **Family council**: Regular meetings, education, conflict resolution\n- **Succession planning**: Leadership transition, next-generation preparation\n- **Trustee selection**: Independent trustee, corporate trustee, trust protector"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Estate Planning Strategy\n\nThe Richardson Family:\n- Robert (72) and Ellen (70), married, US-domiciled\n- Combined estate: $40M (well above estate tax exemption of $13M each)\n- Three adult children (ages 42, 45, 48)\n- Seven grandchildren (ages 8-22)\n- Robert owns a family business valued at $12M\n- Ellen has $8M in a concentrated stock position (cost basis $1M)\n- They donate $200K annually to various charities\n- Concerned about: estate taxes, family harmony, maintaining business in family\n\nA) Calculate the estimated estate tax liability without planning.\nB) Design a comprehensive estate plan using at least three different vehicles.\nC) Address the concentrated stock position within the estate plan.\nD) Recommend a family governance structure.",
+      "solution": "**A) Estimated Estate Tax Without Planning:**\n\nCombined estate: $40M\nCombined lifetime exemption (2024): $13M x 2 = $26M\nTaxable estate: $40M - $26M = $14M\nEstate tax at 40%: $14M x 40% = $5.6M\n\nAdditionally, the estate may grow before both die. At 6% growth for 10 years: $40M grows to $71.6M. Taxable: $71.6M - $26M = $45.6M. Tax: $18.24M. This demonstrates why planning now is critical.\n\n**B) Comprehensive Estate Plan:**\n\n**Vehicle 1: GRAT for Family Business ($12M)**\n- Fund a 2-year zeroed-out GRAT with the business interest\n- If the business appreciates at 8% annually above the 7520 rate (~5%), approximately $700K-$1M of growth transfers tax-free to the next generation\n- Series of rolling GRATs to continually shift growth out of the estate\n- Business eventually controlled by next-generation trust\n\n**Vehicle 2: IDGT for Concentrated Stock**\n- Sell $5M of Ellen's concentrated stock to an IDGT in exchange for a 9-year installment note at the AFR rate (~4%)\n- The IDGT sells the stock without triggering capital gains (grantor trust -- no recognition on sale to/from grantor)\n- IDGT reinvests in diversified portfolio\n- Growth above the note's interest rate accumulates outside the estate\n- Robert and Ellen pay income tax on IDGT earnings, further reducing the estate\n\n**Vehicle 3: Dynasty Trust with GST Exemption**\n- Fund a dynasty trust with $10M (using both spouses' GST exemptions)\n- Trust benefits children and grandchildren in perpetuity\n- No estate tax at each generation's death\n- Trust assets grow tax-free from transfer tax perspective\n- At 7% growth for 50 years, $10M becomes ~$294M -- all outside the transfer tax system\n\n**Vehicle 4: CLT for Charitable Giving**\n- Fund a $3M charitable lead annuity trust\n- CLT pays $200K annually (6.67% payout) to charities for 15 years\n- Remainder passes to children at reduced gift tax value\n- Present value of charitable stream reduces taxable gift by ~$2M\n- Replaces their current annual giving in a more tax-efficient structure\n\n**C) Concentrated Stock Strategy:**\n\n1. $5M sold to IDGT (described above) -- diversifies without current capital gains\n2. $1.5M donated as appreciated stock to the CLT -- avoids capital gains, generates charitable deduction\n3. $1M donated directly to donor-advised fund -- immediate deduction, distribute to charities over time\n4. Remaining $500K: Sell over 2-3 years, using tax-loss harvesting in other accounts to offset gains\n\nTotal $8M concentrated position addressed: $5M via IDGT, $2.5M via charitable vehicles, $500K via staged sale. Total capital gains tax: minimal (only on the $500K staged sale, partially offset by harvested losses).\n\n**D) Family Governance Structure:**\n\n1. **Family Constitution**: Document family values, wealth mission (e.g., 'Stewards for future generations, contributors to community')\n2. **Family Council**: Quarterly meetings including adult children; annual meeting including grandchildren 18+. Agenda: business updates, investment performance, charitable priorities, education\n3. **Business Succession**: Begin transferring management responsibility to the most capable child (if interested). Establish a buy-sell agreement for non-active siblings. Consider appointing a non-family CEO if no child is suitable.\n4. **Trustee Structure**: Independent corporate trustee for dynasty trust (impartial administration). Trust protector (family attorney) with power to modify trust if laws change. Advisory committee of family members for distribution guidance.\n5. **Next-Generation Education**: Structured program for grandchildren -- financial literacy at 16, trust education at 18, board observation at 21, potential trustee role at 30."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Estate Planning Practice",
+      "problems": [
+        {
+          "id": "l3-pw3-1",
+          "question": "A zeroed-out GRAT is funded with $10M of stock when the Section 7520 rate is 3.4%. The stock appreciates at 15% over the 2-year GRAT term. The approximate amount transferred tax-free to the remainder beneficiaries is closest to:",
+          "options": [
+            "A) $0 (the GRAT is zeroed out)",
+            "B) $1.2M",
+            "C) $2.1M"
+          ],
+          "correctAnswer": "C",
+          "explanation": "A zeroed-out GRAT has annuity payments designed so the present value of the retained annuity equals the initial gift -- making the taxable gift zero. However, any growth above the 7520 rate (3.4%) passes tax-free.\n\nWith 15% appreciation on $10M over 2 years:\nFV = $10M x (1.15)^2 = $13.225M\nLess: Annuity payments (approximately $10M + interest at 3.4% over 2 years) = ~$10.35M returned to grantor\nRemainder to heirs: ~$13.225M - $10.35M - $0.875M (approximate mid-year adjustments) = approximately $2.0-2.1M\n\nThis $2.1M transfers completely free of gift and estate tax. The GRAT effectively captured the excess return above 3.4% and shifted it to heirs. Option A confuses 'zeroed-out' (zero taxable gift) with 'zero transfer.'",
+          "difficulty": "advanced",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Calculate the wealth transfer from a GRAT"
+        },
+        {
+          "id": "l3-pw3-2",
+          "question": "A family wants to leave $5M to grandchildren while avoiding the generation-skipping transfer tax. Which approach is most effective?",
+          "options": [
+            "A) Leave $5M directly to grandchildren in the will",
+            "B) Fund a dynasty trust with $5M using the GST exemption during lifetime",
+            "C) Gift $5M to the children who then gift to the grandchildren"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Funding a dynasty trust during lifetime using the GST exemption is most effective because: (1) the $5M is sheltered from GST by applying the GST exemption; (2) all future growth on the $5M is also GST-exempt within the trust; (3) a dynasty trust can benefit multiple generations without incurring estate or GST tax at each generation. Option A subjects the $5M to estate tax and potentially GST (if exemption is already used). Option C doesn't avoid GST -- the children's gifts to grandchildren would be considered indirect skip-generation transfers and would use their GST exemptions instead.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Design strategies to mitigate generation-skipping transfer tax"
+        },
+        {
+          "id": "l3-pw3-3",
+          "question": "Which charitable vehicle is most appropriate for a client who wants to provide income to heirs for 20 years and then have the remainder go to charity, while also reducing the taxable estate?",
+          "options": [
+            "A) Charitable remainder trust (CRT)",
+            "B) Charitable lead trust (CLT)",
+            "C) Donor-advised fund (DAF)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "A CRT provides income to the donor or designated beneficiaries (heirs) for a specified term (up to 20 years or for life), with the remainder going to charity. This matches the client's goals exactly. A CLT (B) does the opposite -- income goes to charity first, remainder to heirs. A DAF (C) provides no income stream to anyone; it's simply a vehicle for making charitable grants. The CRT also provides an immediate income tax deduction based on the present value of the charitable remainder interest and avoids capital gains on contributed appreciated assets.",
+          "difficulty": "basic",
+          "cfaTopic": "Private Wealth Management",
+          "learningOutcome": "Select appropriate charitable vehicles based on client goals"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a wealthy couple why they might want to give away money now rather than leaving it in their will, even though giving it away means paying gift tax. Focus on the concept of 'estate freeze' and growth outside the estate."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do low interest rate environments make GRATs and CLTs more effective?",
+        "What are the risks of irrevocable trusts -- what can go wrong?",
+        "How would estate planning change if estate tax rates were reduced to zero?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Gifting vs bequeathing**: Compare relative value; gifting is better when recipient's growth exceeds estate growth on an after-tax basis\n- **GRAT**: Transfer growth above 7520 rate tax-free; best with low rates, high-growth assets\n- **Dynasty trust**: Multi-generational wealth transfer; avoids estate tax at each generation\n- **IDGT**: Irrevocable for estate purposes, grantor for income tax -- powerful dual benefit\n- **CRT vs CLT**: CRT = income to donor, remainder to charity; CLT = income to charity, remainder to heirs\n- **GST tax**: Additional 40% on skip-generation transfers; use exemption early with high-growth assets\n- **Family governance**: Constitution, council, succession, trustee structure, next-gen education"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we examine **Concentrated Positions** in detail -- a common challenge for HNW/UHNW clients. We'll explore equity monetization strategies, real estate techniques, and private business exit planning that integrate the tax and estate concepts from this module."
+    }
+  ]
+}

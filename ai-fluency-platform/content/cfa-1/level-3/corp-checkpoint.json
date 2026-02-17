@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "title": "CI.8: Corporate Issuers Checkpoint",
+    "description": "Cross-topic assessment covering organizational forms, stakeholders, governance, working capital, capital investments, capital structure, and business models.",
+    "level": "level-3",
+    "slug": "corp-checkpoint",
+    "order": 9,
+    "isCheckpoint": true,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Across all the Corporate Issuers topics you have studied, what are the most important connections between organizational form, governance, financing decisions, and business strategy? How do they all fit together?"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Corporate Issuers Checkpoint \u2014 Cross-Topic Assessment",
+      "problems": [
+        {
+          "id": "ci-cp-1",
+          "question": "A technology startup is choosing its organizational form. The founders want limited liability, pass-through taxation, and the ability to raise capital from venture capital firms. Which form best meets all three requirements?",
+          "options": [
+            "A) General partnership",
+            "B) C-corporation",
+            "C) Limited liability company (LLC)"
+          ],
+          "correctAnswer": "C",
+          "explanation": "An LLC provides limited liability for all members and pass-through taxation (avoiding double taxation). LLCs can accept investment from venture capital firms, making them suitable for startups. A general partnership (A) provides pass-through taxation but not limited liability. A C-corporation (B) provides limited liability and access to capital but subjects income to double taxation. Many VC-backed startups eventually convert to C-corps for IPO purposes, but at the startup stage, the LLC meets all three criteria.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Select an organizational form based on multiple criteria"
+        },
+        {
+          "id": "ci-cp-2",
+          "question": "A company's board of directors approves a large dividend increase funded by issuing new debt. This decision most directly benefits:",
+          "options": [
+            "A) existing bondholders, because the company is demonstrating strong cash flow.",
+            "B) shareholders, at the potential expense of existing bondholders.",
+            "C) all stakeholders equally, because dividends signal financial health."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Issuing debt to fund dividends transfers wealth from bondholders to shareholders. Existing bondholders face increased financial risk (higher leverage, greater probability of default) without additional compensation. Shareholders receive the cash dividend and benefit from the tax shield on the new debt. This is an example of the shareholder-bondholder conflict (asset substitution/risk-shifting). Bondholders are harmed, not benefited (A). The benefits are not shared equally (C) \u2014 they flow primarily to equity holders.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Analyze stakeholder conflicts in financing decisions"
+        },
+        {
+          "id": "ci-cp-3",
+          "question": "A company has the following data: COGS = $3,650,000, Average inventory = $500,000, Average receivables = $400,000, Revenue = $5,000,000, Average payables = $300,000. Its cash conversion cycle is closest to:",
+          "options": [
+            "A) 29 days",
+            "B) 49 days",
+            "C) 79 days"
+          ],
+          "correctAnswer": "B",
+          "explanation": "DOH = $500,000 / ($3,650,000/365) = $500,000 / $10,000 = 50 days. DSO = $400,000 / ($5,000,000/365) = $400,000 / $13,699 = 29.2 days. DPO = $300,000 / ($3,650,000/365) = $300,000 / $10,000 = 30 days. CCC = 50 + 29.2 - 30 = 49.2 days, closest to 49 days. Option A (29 days) equals DSO alone. Option C (79 days) incorrectly adds DPO instead of subtracting it (50 + 29 = 79).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate the cash conversion cycle"
+        },
+        {
+          "id": "ci-cp-4",
+          "question": "Two mutually exclusive projects have the following characteristics:\n\n| Project | NPV | IRR | Profitability Index |\n|---------|-----|-----|--------------------|\n| Alpha | $2.5M | 18% | 1.25 |\n| Beta | $3.1M | 15% | 1.12 |\n\nThe company should select:",
+          "options": [
+            "A) Alpha, because it has a higher IRR and PI.",
+            "B) Beta, because it has a higher NPV.",
+            "C) Alpha, because its higher PI indicates better efficiency."
+          ],
+          "correctAnswer": "B",
+          "explanation": "For mutually exclusive projects (where only one can be chosen), NPV is the correct decision criterion because it directly measures value creation in dollar terms. Beta's NPV of $3.1M exceeds Alpha's $2.5M, meaning Beta adds more value to the firm. Alpha's higher IRR (A) and higher PI (C) reflect a higher percentage return and return per dollar, but these measures can mislead when comparing projects of different scale. PI is most useful for capital rationing among independent projects, not for choosing between mutually exclusive ones.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Apply NPV for mutually exclusive project selection"
+        },
+        {
+          "id": "ci-cp-5",
+          "question": "A company has a target capital structure of 40% debt and 60% equity. Its pre-tax cost of debt is 6%, beta is 1.1, the risk-free rate is 3%, the equity risk premium is 7%, and the tax rate is 25%. WACC is closest to:",
+          "options": [
+            "A) 7.50%",
+            "B) 8.22%",
+            "C) 10.70%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Cost of equity (CAPM) = 3% + 1.1 x 7% = 3% + 7.7% = 10.7%. After-tax cost of debt = 6% x (1 - 0.25) = 4.5%. WACC = 0.60 x 10.7% + 0.40 x 4.5% = 6.42% + 1.80% = 8.22%. Option A (7.50%) fails to properly weight the equity component. Option C (10.70%) is the cost of equity alone, not the blended WACC.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate WACC using CAPM for cost of equity"
+        },
+        {
+          "id": "ci-cp-6",
+          "question": "A company with strong network effects, high switching costs, and a subscription-based revenue model would most likely be described as having:",
+          "options": [
+            "A) a narrow economic moat with volatile revenue.",
+            "B) a wide economic moat with predictable revenue.",
+            "C) no sustainable competitive advantage."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Network effects and high switching costs are two of the strongest sources of sustainable competitive advantage (wide moat). Network effects create barriers to entry as the product becomes more valuable with more users. High switching costs make it costly for customers to leave. A subscription model generates recurring, predictable revenue. Together, these characteristics describe a company with a wide moat and highly visible revenue stream. A narrow moat (A) implies limited competitive protection. No moat (C) contradicts the presence of network effects and switching costs.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Evaluate competitive advantages and business model characteristics"
+        },
+        {
+          "id": "ci-cp-7",
+          "question": "A minority shareholder proposes that the board separate the CEO and chairman roles. This proposal most directly addresses concerns about:",
+          "options": [
+            "A) the company's capital structure.",
+            "B) the separation of ownership and control.",
+            "C) the company's working capital management."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Separating the CEO and chairman roles is a corporate governance mechanism that addresses the separation of ownership and control (the principal-agent problem). When one person holds both roles, the board's ability to independently oversee management is compromised. Splitting the roles strengthens board oversight of the CEO. This is not related to capital structure decisions (A) or working capital management (C) \u2014 it is purely a governance issue aimed at improving accountability.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify governance mechanisms addressing the principal-agent problem"
+        },
+        {
+          "id": "ci-cp-8",
+          "question": "According to MM Proposition II (no taxes), if a company increases its debt-to-equity ratio from 0.5 to 1.5, the cost of equity will:",
+          "options": [
+            "A) decrease because debt is cheaper than equity.",
+            "B) remain unchanged because WACC is constant.",
+            "C) increase to compensate equity holders for greater financial risk."
+          ],
+          "correctAnswer": "C",
+          "explanation": "MM Proposition II states r_E = r_0 + (r_0 - r_D)(D/E). As the D/E ratio increases from 0.5 to 1.5, the cost of equity increases to compensate shareholders for the higher financial risk from greater leverage. While debt is cheaper (A), the higher equity cost exactly offsets this benefit, keeping WACC constant. WACC is constant (B is partially correct about WACC), but the question asks about the cost of equity specifically, which does increase.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Apply MM Proposition II to predict changes in cost of equity"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Choose one Corporate Issuers concept that you found most challenging and explain it in your own words. Then explain how that concept connects to at least two other Corporate Issuers topics. For example, how does capital structure relate to both governance and business models?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which Corporate Issuers topic do you feel most confident about, and which needs the most review?",
+        "How do organizational form, governance, and capital structure decisions interact to shape a company's risk profile?",
+        "If you were advising a company on its overall corporate strategy, which of these topics would be most critical to get right first?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Corporate Issuers \u2014 Integrated Summary:**\n\n- **Organizational form** determines liability, taxation, and access to capital\n- **Stakeholder conflicts** (shareholders vs. bondholders vs. managers) require governance mechanisms\n- **Corporate governance** aligns interests through board oversight, compensation design, and shareholder rights\n- **Working capital** ensures short-term liquidity; CCC = DOH + DSO - DPO\n- **Capital budgeting**: NPV is the gold standard; IRR and PI supplement the analysis\n- **Capital structure**: Trade-off between tax shield benefits and financial distress costs; WACC = $w_E r_E + w_D r_D(1-t)$\n- **Business models**: Create value through competitive advantages; ROIC > WACC creates shareholder value\n- All topics interconnect: governance affects capital allocation, which determines whether ROIC exceeds WACC, which depends on business model strength"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have completed the Corporate Issuers topic area. These concepts \u2014 how companies are organized, governed, financed, and how they allocate capital \u2014 form the foundation for analyzing any company as an investment. These ideas will connect directly to **Equity Valuation** (using WACC and cash flows to value companies), **Financial Statement Analysis** (where you find the data for these calculations), and **Portfolio Management** (where you apply these insights to build investment portfolios)."
+    }
+  ]
+}

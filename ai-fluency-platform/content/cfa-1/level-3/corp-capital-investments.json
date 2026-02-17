@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "CI.5: Capital Investments and Capital Allocation",
+    "description": "Evaluate capital investment decisions using NPV, IRR, payback period, and profitability index, including capital rationing and real options.",
+    "level": "level-3",
+    "slug": "corp-capital-investments",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A company can invest $1 million in Project A (which returns $1.3 million in 1 year) or Project B (which returns $2 million in 5 years). Which should they choose? What information would you need to make this decision properly?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Net Present Value (NPV)\n\n**NPV** is the most theoretically sound capital budgeting criterion. It measures the expected increase in firm value from undertaking a project.\n\n$$\\text{NPV} = \\sum_{t=0}^{n} \\frac{CF_t}{(1+r)^t} = -CF_0 + \\frac{CF_1}{(1+r)} + \\frac{CF_2}{(1+r)^2} + \\cdots + \\frac{CF_n}{(1+r)^n}$$\n\nWhere $CF_t$ is the cash flow at time $t$ and $r$ is the required rate of return (cost of capital).\n\n**Decision rule**: Accept if NPV > 0; reject if NPV < 0.\n\nA positive NPV means the project earns more than the cost of capital, creating value for shareholders.\n\n### Example\n\nA project requires a $500,000 investment and produces cash flows of $150,000 per year for 5 years. The cost of capital is 10%.\n\n$$\\text{NPV} = -500{,}000 + \\frac{150{,}000}{1.10} + \\frac{150{,}000}{1.10^2} + \\frac{150{,}000}{1.10^3} + \\frac{150{,}000}{1.10^4} + \\frac{150{,}000}{1.10^5}$$\n\nUsing the annuity formula:\n\n$$\\text{NPV} = -500{,}000 + 150{,}000 \\times \\frac{1 - (1.10)^{-5}}{0.10} = -500{,}000 + 150{,}000 \\times 3.7908 = -500{,}000 + 568{,}618 = \\$68{,}618$$\n\nSince NPV > 0, accept the project. It adds $68,618 of value to the firm."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If a project has an NPV of exactly zero, should the company accept or reject it? What does an NPV of zero mean?",
+      "answer": "An NPV of zero means the project earns exactly its required rate of return (cost of capital) \u2014 it neither creates nor destroys value. In theory, the firm is indifferent. In practice, NPV = 0 is the breakeven point, and the company might accept it if there are strategic benefits not captured in the cash flows, or reject it due to estimation uncertainty. The key insight is that NPV = 0 does not mean zero profit \u2014 it means the project earns a fair return for its risk."
+    },
+    {
+      "type": "markdown",
+      "content": "## Internal Rate of Return (IRR)\n\nThe **IRR** is the discount rate that makes the NPV equal to zero:\n\n$$0 = \\sum_{t=0}^{n} \\frac{CF_t}{(1+\\text{IRR})^t}$$\n\n**Decision rule**: Accept if IRR > cost of capital; reject if IRR < cost of capital.\n\nFor the previous example, the IRR is approximately 15.24% (the rate that makes NPV = 0). Since 15.24% > 10% cost of capital, accept.\n\n### IRR Limitations\n\n1. **Multiple IRRs**: Projects with non-conventional cash flows (sign changes) can have multiple IRRs, making the rule ambiguous\n2. **Mutually exclusive projects**: IRR can rank projects differently than NPV. When conflicts arise, **always follow NPV**\n3. **Reinvestment assumption**: IRR implicitly assumes cash flows are reinvested at the IRR itself, which may be unrealistic\n\n### NPV vs. IRR Conflicts\n\nFor mutually exclusive projects, NPV and IRR may disagree due to differences in project scale or timing of cash flows. NPV is preferred because it directly measures value creation in dollar terms.\n\n| Criterion | NPV | IRR |\n|---|---|---|\n| Measures | Dollar value added | Percentage return |\n| Reinvestment assumption | Cost of capital | IRR itself |\n| Multiple solutions? | No | Possible |\n| Use for ranking? | Yes (preferred) | Can mislead |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Other Capital Budgeting Criteria\n\n### Payback Period\n\nThe number of years to recover the initial investment from undiscounted cash flows.\n\n**Decision rule**: Accept if payback < maximum acceptable period.\n\n**Advantage**: Simple and intuitive. **Disadvantages**: Ignores time value of money, ignores cash flows after payback, and the cutoff is arbitrary.\n\n### Discounted Payback Period\n\nSame concept but uses discounted cash flows. Accounts for time value of money but still ignores post-payback cash flows.\n\n### Profitability Index (PI)\n\n$$\\text{PI} = \\frac{\\text{PV of future cash flows}}{\\text{Initial investment}} = 1 + \\frac{\\text{NPV}}{\\text{Initial investment}}$$\n\n**Decision rule**: Accept if PI > 1.0 (equivalent to NPV > 0).\n\nPI is especially useful for **capital rationing** \u2014 when a company has more positive-NPV projects than it can fund. Ranking by PI helps maximize total NPV per dollar invested.\n\nFrom our earlier example: PI = $568,618 / $500,000 = 1.137\n\n### Capital Rationing and Real Options\n\n**Capital rationing**: When budget constraints force a company to choose among positive-NPV projects, rank by PI to maximize value per dollar.\n\n**Real options**: Embedded flexibility in projects that has value beyond the static NPV analysis:\n- **Option to delay**: Wait for more information before investing\n- **Option to expand**: Scale up if the project succeeds\n- **Option to abandon**: Exit early if the project fails\n\nReal options add value to projects, meaning the true project value may exceed the static NPV."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A company has a $600,000 budget and must choose among three independent projects. Calculate each project's NPV and PI at a 12% cost of capital, then determine the optimal combination under the budget constraint.\n\n| Project | Investment | Year 1 CF | Year 2 CF | Year 3 CF |\n|---------|------------|-----------|-----------|------------|\n| X | $200,000 | $90,000 | $90,000 | $90,000 |\n| Y | $350,000 | $150,000 | $150,000 | $150,000 |\n| Z | $250,000 | $120,000 | $120,000 | $120,000 |",
+      "solution": "The annuity PV factor for 3 years at 12% is:\n\n$\\text{PVIFA} = \\frac{1-(1.12)^{-3}}{0.12} = 2.4018$\n\n**Project X:**\nPV of CFs = $90,000 x 2.4018 = $216,165\nNPV = $216,165 - $200,000 = **$16,165**\nPI = $216,165 / $200,000 = **1.081**\n\n**Project Y:**\nPV of CFs = $150,000 x 2.4018 = $360,270\nNPV = $360,270 - $350,000 = **$10,270**\nPI = $360,270 / $350,000 = **1.029**\n\n**Project Z:**\nPV of CFs = $120,000 x 2.4018 = $288,216\nNPV = $288,216 - $250,000 = **$38,216**\nPI = $288,216 / $250,000 = **1.153**\n\n**Ranking by PI**: Z (1.153) > X (1.081) > Y (1.029)\n\n**Optimal combination under $600,000 budget:**\nZ + X = $250,000 + $200,000 = $450,000 (within budget)\nTotal NPV = $38,216 + $16,165 = **$54,381**\n\nAlternative: Z + Y = $600,000 exactly, NPV = $38,216 + $10,270 = $48,486\nAlternative: X + Y = $550,000, NPV = $16,165 + $10,270 = $26,435\n\n**Choose Z + X** for the highest total NPV of $54,381."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Capital Investments Practice Problems",
+      "problems": [
+        {
+          "id": "ci5-1",
+          "question": "A project requires an initial investment of $400,000 and generates annual cash flows of $110,000 for 5 years. At a cost of capital of 9%, the NPV is closest to:",
+          "options": [
+            "A) $27,800",
+            "B) $150,000",
+            "C) $427,800"
+          ],
+          "correctAnswer": "A",
+          "explanation": "NPV = -$400,000 + $110,000 x PVIFA(9%, 5). PVIFA = (1 - 1.09^(-5)) / 0.09 = (1 - 0.6499) / 0.09 = 3.8897. PV of cash flows = $110,000 x 3.8897 = $427,867. NPV = $427,867 - $400,000 = $27,867, closest to $27,800. Option B ($150,000) represents undiscounted cash flows minus investment divided by years. Option C ($427,800) is the PV of cash flows without subtracting the initial investment.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate net present value"
+        },
+        {
+          "id": "ci5-2",
+          "question": "When NPV and IRR give conflicting rankings for mutually exclusive projects, an analyst should most likely rely on:",
+          "options": [
+            "A) IRR because it is expressed as a percentage.",
+            "B) NPV because it directly measures value creation.",
+            "C) Payback period as a tiebreaker."
+          ],
+          "correctAnswer": "B",
+          "explanation": "NPV directly measures the dollar increase in shareholder wealth and correctly assumes reinvestment at the cost of capital. IRR can give misleading rankings for mutually exclusive projects due to differences in project scale or cash flow timing, and it assumes reinvestment at the IRR itself. The payback period (C) is an inferior criterion that ignores time value of money and cash flows beyond the payback period.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Compare NPV and IRR decision rules"
+        },
+        {
+          "id": "ci5-3",
+          "question": "A project has the following cash flows: Year 0: -$100,000; Year 1: +$260,000; Year 2: -$165,000. This project most likely has:",
+          "options": [
+            "A) one IRR.",
+            "B) two IRRs.",
+            "C) no IRR."
+          ],
+          "correctAnswer": "B",
+          "explanation": "The cash flows change sign twice (negative to positive to negative), creating a non-conventional cash flow pattern. By Descartes' rule of signs, there can be up to as many positive real IRRs as there are sign changes. With two sign changes, the project can have up to two IRRs. This is why NPV is preferred \u2014 it gives a single, unambiguous answer. One sign change (A) would produce one IRR. No IRR (C) is possible in some cases but is not the most likely outcome with two sign changes.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Identify limitations of the IRR criterion"
+        },
+        {
+          "id": "ci5-4",
+          "question": "Under capital rationing, a company should rank projects by:",
+          "options": [
+            "A) NPV to select the highest individual NPV projects.",
+            "B) profitability index to maximize value per dollar invested.",
+            "C) IRR to select the highest-return projects."
+          ],
+          "correctAnswer": "B",
+          "explanation": "Under capital rationing, the company has a limited budget and must maximize total value created. The profitability index (PI = PV of cash flows / Investment) measures value per dollar invested, helping select the combination of projects that generates the highest total NPV within the budget constraint. Simply picking the highest individual NPV projects (A) may not maximize total NPV if those projects consume too much of the budget. IRR (C) does not account for project scale and can mislead rankings.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Apply capital rationing using the profitability index"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a business executive why NPV is considered the gold standard of capital budgeting techniques. Then explain when and why IRR might give a different answer, and why NPV should be trusted in those cases."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do many companies still use the payback period despite its theoretical shortcomings?",
+        "How might real options change your evaluation of a project with a slightly negative static NPV?",
+        "What challenges arise when estimating the cash flows and discount rate used in NPV analysis?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Decision Rules:**\n\n- $\\text{NPV} = \\sum \\frac{CF_t}{(1+r)^t}$ \u2014 Accept if NPV > 0\n- **IRR**: Rate where NPV = 0 \u2014 Accept if IRR > cost of capital\n- When NPV and IRR conflict, **follow NPV**\n- **Payback**: Years to recover investment (ignores TVM and post-payback CFs)\n- **Profitability Index**: PI = PV of CFs / Investment \u2014 Accept if PI > 1.0\n- **Capital rationing**: Rank by PI to maximize total NPV per dollar\n- **IRR pitfalls**: Multiple IRRs with non-conventional CFs, misleading rankings\n- **Real options**: Delay, expand, abandon \u2014 add value beyond static NPV"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Capital investment decisions depend on the cost of capital used to discount cash flows. The next module covers **Capital Structure** \u2014 how a company's mix of debt and equity financing determines its weighted average cost of capital (WACC) and affects firm value."
+    }
+  ]
+}

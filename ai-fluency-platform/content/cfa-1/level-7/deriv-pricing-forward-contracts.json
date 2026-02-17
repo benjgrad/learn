@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "DV.5: Pricing Forward Contracts",
+    "description": "Price equity forwards (with and without dividends), FX forwards using covered interest rate parity, and fixed-income forwards. Determine value at initiation, during life, and at expiration.",
+    "level": "level-7",
+    "slug": "deriv-pricing-forward-contracts",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Derivatives"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you agree today to buy a share of stock in 6 months for $105, and the current stock price is $100 with a risk-free rate of 6%, have you gotten a fair deal? What if the stock will pay a $2 dividend in 3 months?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Forward Price vs. Forward Value\n\nA critical distinction:\n\n- **Forward price** ($F_0$) \u2014 the price agreed upon today for delivery at expiration. It is set so that the forward contract has **zero value at initiation**.\n- **Forward value** ($V_t$) \u2014 the market value of an existing forward contract at time $t$ after initiation. It starts at zero and changes as the underlying price moves.\n\n### Equity Forward (No Dividends)\n\nFor a stock that pays no dividends:\n\n$$F_0 = S_0 \\times (1 + r_f)^T$$\n\n### Equity Forward (Discrete Dividends)\n\nIf the stock pays known dividends with present value $PV(D)$:\n\n$$F_0 = (S_0 - PV(D)) \\times (1 + r_f)^T$$\n\nThe forward price is reduced because the forward buyer does not receive dividends during the contract life.\n\n### Equity Forward (Continuous Dividend Yield)\n\nFor an index with continuous yield $\\delta$:\n\n$$F_0 = S_0 \\times e^{(r_f - \\delta)T}$$"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Why is the forward price on a dividend-paying stock lower than the forward price on an otherwise identical non-dividend-paying stock?",
+      "answer": "The forward buyer does not receive dividends during the contract life \u2014 only the spot holder does. To make the forward contract fair (zero value at initiation), the forward price must be reduced to compensate the buyer for the foregone dividends. Mathematically, we subtract the present value of dividends from the spot price before compounding forward: F\u2080 = (S\u2080 \u2212 PV(D)) \u00d7 (1 + r)^T."
+    },
+    {
+      "type": "markdown",
+      "content": "## FX Forwards: Covered Interest Rate Parity\n\nThe forward exchange rate is determined by the interest rate differential between the two currencies. This relationship is called **covered interest rate parity (CIRP)**:\n\n$$F_0 = S_0 \\times \\frac{(1 + r_d)^T}{(1 + r_f)^T}$$\n\nWhere:\n- $F_0$ = forward exchange rate (domestic per foreign)\n- $S_0$ = spot exchange rate (domestic per foreign)\n- $r_d$ = domestic risk-free rate\n- $r_f$ = foreign risk-free rate\n\nThe currency with the **higher interest rate** trades at a **forward discount** (forward < spot), and the currency with the **lower interest rate** trades at a **forward premium** (forward > spot).\n\n## Forward Contract Value During Its Life\n\nAfter initiation, the forward's value to the **long** position is:\n\n$$V_t = S_t - \\frac{F_0}{(1 + r_f)^{(T-t)}}$$\n\nAt expiration ($t = T$):\n\n$$V_T = S_T - F_0$$\n\nThe value to the short is the negative of the long's value: $V_{\\text{short}} = -V_{\\text{long}}$."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A stock trades at $60 and will pay a $1.50 dividend in 4 months. The annual risk-free rate is 6% (discrete compounding). Calculate the 6-month forward price.",
+      "solution": "**Step 1:** Find the present value of the dividend:\n\n$$PV(D) = \\frac{1.50}{(1.06)^{4/12}} = \\frac{1.50}{(1.06)^{0.3333}} = \\frac{1.50}{1.01961} = \\$1.4712$$\n\n**Step 2:** Calculate the forward price:\n\n$$F_0 = (S_0 - PV(D)) \\times (1 + r_f)^T = (60 - 1.4712) \\times (1.06)^{0.5}$$\n\n$$F_0 = 58.5288 \\times 1.02956 = \\$60.26$$\n\nNote: without the dividend, $F_0 = 60 \\times 1.02956 = \\$61.77$. The dividend reduces the forward price by approximately the future value of the dividend."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Pricing Forward Contracts Practice",
+      "problems": [
+        {
+          "id": "dv5-1",
+          "question": "A non-dividend-paying stock is currently priced at $45. The risk-free rate is 8% per year. The price of a 3-month forward contract on the stock is closest to:",
+          "options": [
+            "A) $45.00",
+            "B) $45.88",
+            "C) $48.60"
+          ],
+          "correctAnswer": "B",
+          "explanation": "F\u2080 = S\u2080 \u00d7 (1 + r)^T = $45 \u00d7 (1.08)^0.25 = $45 \u00d7 1.01943 = $45.87 \u2248 $45.88. Option A ($45) ignores the cost of carry. Option C ($48.60 = 45 \u00d7 1.08) incorrectly uses a full year instead of 3 months (0.25 years).",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the forward price of an equity forward contract"
+        },
+        {
+          "id": "dv5-2",
+          "question": "The spot USD/EUR exchange rate is $1.20/\u20ac. The US risk-free rate is 5% and the Eurozone risk-free rate is 3%. The 1-year forward rate (USD/EUR) is closest to:",
+          "options": [
+            "A) $1.1769",
+            "B) $1.2000",
+            "C) $1.2233"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Using covered interest rate parity: F\u2080 = S\u2080 \u00d7 (1 + r_d)/(1 + r_f) = 1.20 \u00d7 (1.05)/(1.03) = 1.20 \u00d7 1.01942 = $1.2233. The USD has the higher rate, so the EUR trades at a forward premium (forward > spot). Option A reverses the interest rates. Option B assumes no interest rate differential.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the forward exchange rate using covered interest rate parity"
+        },
+        {
+          "id": "dv5-3",
+          "question": "An investor entered a 1-year forward contract to buy a stock at $52 when it was trading at $50 (risk-free rate = 4%). Six months later, the stock trades at $54. The value of the long forward position is closest to:",
+          "options": [
+            "A) $2.00",
+            "B) $2.98",
+            "C) $4.00"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Value of the long position at time t: V_t = S_t \u2212 F\u2080/(1 + r)^(T\u2212t) = $54 \u2212 $52/(1.04)^0.5 = $54 \u2212 $52/1.01980 = $54 \u2212 $50.99 = $3.01 \u2248 $2.98 (rounding). Option A ignores the present value adjustment of the forward price. Option C uses S_t \u2212 S\u2080 = $54 \u2212 $50, which confuses forward value with stock price change.",
+          "difficulty": "advanced",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Calculate the value of a forward contract during its life"
+        },
+        {
+          "id": "dv5-4",
+          "question": "At expiration of a forward contract, the value to the long is $5. Which of the following must be true?",
+          "options": [
+            "A) S_T > F\u2080 by $5",
+            "B) S_T < F\u2080 by $5",
+            "C) The long position has earned a risk-free profit of $5"
+          ],
+          "correctAnswer": "A",
+          "explanation": "At expiration, the value to the long = S_T \u2212 F\u2080. If this equals $5, then S_T exceeds F\u2080 by $5. The long agreed to buy at F\u2080 and the asset is worth S_T = F\u2080 + $5. Option B has the direction reversed (that would give the long a value of \u2212$5). Option C is wrong because the forward is not risk-free \u2014 the outcome depended on S_T, which was uncertain.",
+          "difficulty": "basic",
+          "cfaTopic": "Derivatives",
+          "learningOutcome": "Determine the value of a forward contract at expiration"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a forward price and a forward value. Why does the forward price make the contract worth zero at initiation, but the value changes afterward?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why does covered interest rate parity imply that you cannot earn arbitrage profits from interest rate differentials between countries?",
+        "If a forward contract has zero value at initiation, why would anyone enter into one?",
+        "How would you verify that a quoted forward price is fair?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas:**\n\n- **Equity forward (no dividends):** $F_0 = S_0(1 + r_f)^T$\n- **Equity forward (discrete dividends):** $F_0 = (S_0 - PV(D))(1 + r_f)^T$\n- **FX forward (CIRP):** $F_0 = S_0 \\times (1 + r_d)^T / (1 + r_f)^T$\n- **Value during life (long):** $V_t = S_t - F_0/(1 + r_f)^{T-t}$\n- **Value at expiration (long):** $V_T = S_T - F_0$\n- Forward price is set so value at initiation = 0\n- Dividends **reduce** the forward price; higher interest rates **increase** it"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Pricing Futures** \u2014 how daily settlement (mark-to-market) causes futures prices to differ slightly from forward prices, and the mechanics of margin accounts, convergence, contango, and backwardation."
+    }
+  ]
+}

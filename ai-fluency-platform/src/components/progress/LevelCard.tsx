@@ -12,16 +12,18 @@ export function LevelCard({
   level,
   levelSlug,
   modules,
+  course = "ai-fluency",
 }: {
   level: LevelInfo;
   levelSlug: string;
   modules: ModuleMeta[];
+  course?: string;
 }) {
   const [completedCount, setCompletedCount] = useState(0);
 
   useEffect(() => {
     const count = modules.filter((m) =>
-      isModuleComplete(`${m.level}/${m.slug}`)
+      isModuleComplete(`${course}/${m.level}/${m.slug}`)
     ).length;
     setCompletedCount(count);
   }, [modules]);
@@ -74,7 +76,7 @@ export function LevelCard({
             return (
               <Link
                 key={mod.slug}
-                href={`/learn/${mod.level}/${mod.slug}`}
+                href={`/learn/${course}/${mod.level}/${mod.slug}`}
                 className="flex items-center gap-2 text-sm py-1 hover:text-foreground transition-colors text-muted-foreground"
               >
                 {complete ? (
@@ -89,11 +91,11 @@ export function LevelCard({
         </div>
         {/* Start button */}
         <Link
-          href={`/learn/${levelSlug}/index`}
+          href={`/learn/${course}/${levelSlug}/index`}
           className="mt-4 inline-block text-sm font-medium hover:underline"
           style={{ color: level.color }}
         >
-          {completedCount > 0 ? "Continue" : "Start"} Level →
+          {completedCount > 0 ? "Continue" : "Start"} {level.levelLabel || "Level"} →
         </Link>
       </CardContent>
     </Card>

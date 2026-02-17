@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "PC.3: Alternative Investments in Portfolio Allocation",
+    "description": "Understand the role of alternatives in institutional portfolios, illiquidity premiums, risk budgeting, and implementation approaches.",
+    "level": "level-3",
+    "slug": "pc-alternative-investments-allocation",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "An endowment allocates 40% to alternatives (PE, hedge funds, real assets). What are the potential benefits and risks of such a high allocation, and what institutional characteristics enable it?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Role of Alternatives in Portfolios\n\n### Why Allocate to Alternatives?\n\n| Benefit | Mechanism |\n|---|---|\n| **Diversification** | Low correlation with public markets (especially for real assets, some HF strategies) |\n| **Illiquidity premium** | Compensation for accepting long lock-up periods |\n| **Return enhancement** | Access to skilled managers, operational improvement (PE) |\n| **Inflation protection** | Real assets (RE, infrastructure, commodities) |\n| **Risk factor diversification** | Exposure to factors unavailable in public markets |\n\n### The Illiquidity Premium\n\nInvestors who can tolerate long lock-ups (7-12 years for PE) earn an **illiquidity premium** \u2014 additional return above comparable public market investments.\n\n**Evidence**: Private equity has historically outperformed public equity by 2-4% net of fees, though measurement is complicated by:\n- **Smoothed returns**: Appraised values create artificial low volatility\n- **Survivorship bias**: Failed funds disappear from databases\n- **Vintage year variation**: Performance varies enormously across vintages\n- **Selection bias**: Top-quartile vs. bottom-quartile PE returns differ by 10%+ annually\n\n### Illiquidity Budget\n\nMaximum percentage of the portfolio that can be committed to illiquid investments:\n\n$$\\text{Illiquidity budget} = 1 - \\frac{\\text{Annual liquidity needs}}{\\text{Total portfolio value}} \\times \\text{Safety factor}$$\n\nConsider:\n- Annual spending/distributions\n- Potential capital calls on unfunded commitments\n- Margin requirements and cash needs\n- Stress scenario (market decline reducing liquid asset values while commitments remain)"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A pension fund reports that its PE allocation has a Sharpe ratio of 1.2, compared to 0.5 for public equities. Should you conclude PE is clearly the superior investment?",
+      "answer": "No. The PE Sharpe ratio is likely overstated due to smoothed (appraised) valuations that understate true volatility. PE returns are typically reported quarterly based on appraisals, not market transactions, creating artificially low volatility. Adjusting for smoothing (unsmoothing) typically doubles or triples the standard deviation, which would reduce the Sharpe ratio to 0.4-0.6 \u2014 comparable to public equities. Additionally, PE returns should be compared net of all fees (management fee + carry) and adjusted for leverage."
+    },
+    {
+      "type": "markdown",
+      "content": "## Risk Budgeting with Alternatives\n\n### Challenges\n\n1. **Smoothed returns** understate volatility and overstate diversification benefits\n2. **Non-normal distributions**: Hedge funds and PE exhibit skewness and kurtosis\n3. **Stale pricing**: Correlations with public markets are understated\n4. **Conditional correlations**: Alternatives may become more correlated in crises\n\n### Adjustments for Alternatives in Optimization\n\n- **Unsmooth returns**: Apply desmoothing (e.g., Getmansky-Lo-Makarov) to get true volatility\n- **Adjust correlations**: Use crisis-period correlations for stress testing\n- **Use factor models**: Decompose alternative returns into public market factor exposures\n- **Constrain allocations**: Set maximum allocation based on illiquidity budget\n\n## Implementation Approaches\n\n| Approach | Description | Pros | Cons |\n|---|---|---|---|\n| **Direct investment** | Single fund commitments | Full control, fund selection | Requires expertise, high minimums |\n| **Fund-of-funds (FoF)** | Portfolio of alternative funds | Diversification, access | Double fee layer, diluted returns |\n| **Co-investment** | Invest alongside GP in specific deals | Lower fees, deal selection | Adverse selection risk, less diversification |\n| **Secondaries** | Buy existing fund interests from LPs | Discount to NAV, J-curve mitigation | Limited selection, pricing complexity |\n| **Listed alternatives** | Publicly traded PE, REIT, infrastructure | Liquidity, transparency | Market pricing (may trade at discount/premium to NAV) |\n\n## Vintage Year Diversification\n\nFor PE/VC, **commitment pacing** across multiple vintage years is essential:\n\n- Commit similar amounts each year over 3-5 years\n- Reduces concentration in any single economic cycle\n- Mitigates the **J-curve effect** (early negative returns from fees + unrealized investments)\n- Typical mature PE program: Commitments overlap as older funds return capital while newer funds are being invested"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Alternatives Allocation",
+      "solution": "**Part A \u2014 Yale Model assessment:**\n\nThe endowment's 45% alternatives allocation is consistent with the \"Yale Model\" (David Swensen's approach). The enabling institutional characteristics:\n\n1. **Perpetual time horizon**: No defined payout date allows tolerance for illiquidity\n2. **Modest spending rate**: 5% annual spending leaves 95% of assets invested long-term\n3. **Governance capacity**: Yale has a dedicated investment office with alternatives expertise\n4. **Size and reputation**: $40B+ attracts access to top-quartile managers (which is critical \u2014 median PE returns may not justify the illiquidity)\n\nRisks of the high allocation:\n1. **Liquidity stress**: In 2008-2009, many endowments faced liquidity crises as capital calls continued while liquid assets declined and spending needs remained\n2. **Manager selection risk**: The wide dispersion of PE returns means below-median manager selection destroys value\n3. **Transparency**: Alternative assets are harder to value, monitor, and risk-manage\n4. **Denominator effect**: When public assets decline, the illiquid allocation percentage rises, potentially breaching policy limits\n\n**Part B \u2014 Smaller endowment constraints:**\n\nA $200M endowment should NOT replicate the Yale Model:\n1. **Access**: Cannot access top-quartile PE/VC managers (high minimums, capacity constraints)\n2. **Diversification**: Cannot diversify across enough vintage years, strategies, and managers\n3. **Governance**: Likely lacks dedicated investment staff for due diligence\n4. **Liquidity**: Smaller spending amounts are a larger percentage of liquid assets\n\nRecommendation: Limit alternatives to 15-20%, primarily through:\n- Diversified fund-of-funds (accepts double fee for diversification and access)\n- Listed alternatives (REITs, infrastructure funds, listed PE) for liquidity\n- One or two co-investment opportunities if governance capacity permits\n\n**Part C \u2014 Risk budgeting adjustment:**\n\nThe reported volatility of the alternatives allocation (8%) is likely smoothed. After desmoothing:\n- True volatility estimate: ~16-20% (2-2.5x reported)\n- True correlation with equities: ~0.6-0.7 (vs. reported 0.3)\n- This changes the risk contribution: alternatives may contribute 35-40% of portfolio risk instead of the reported 15%\n\nThe risk budget should be recalculated using unsmoothed data to ensure the alternatives allocation is not inadvertently concentrating risk."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Alternatives Allocation Practice",
+      "problems": [
+        {
+          "id": "l3-pc3-1",
+          "question": "The primary reason that reported Sharpe ratios for private equity tend to be overstated is:",
+          "options": [
+            "A) PE funds use leverage which amplifies returns",
+            "B) Appraisal-based valuations artificially reduce reported volatility",
+            "C) PE fund managers are more skilled than public equity managers"
+          ],
+          "correctAnswer": "B",
+          "explanation": "PE funds are valued using periodic appraisals (typically quarterly) rather than market transactions. Appraisals tend to smooth out volatility \u2014 they don't fully reflect market movements between valuation dates. This artificially low volatility inflates the Sharpe ratio. The true economic volatility of PE (if marked to market continuously) would be significantly higher, producing a lower Sharpe ratio. Leverage (A) amplifies both return and risk, so it may increase or decrease Sharpe ratio. Skill (C) is debatable and doesn't explain the volatility understatement.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain why alternative investment risk measures may be misleading"
+        },
+        {
+          "id": "l3-pc3-2",
+          "question": "Vintage year diversification in private equity is most important because:",
+          "options": [
+            "A) It guarantees positive returns in every economic cycle",
+            "B) It reduces concentration in any single economic environment and mitigates the J-curve",
+            "C) It minimizes management fees across the PE portfolio"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Committing capital across multiple vintage years ensures the PE portfolio is not concentrated in funds that all buy at the same valuation levels (e.g., 2007 vintage PE performed poorly). It also creates a mature portfolio where older funds returning capital offset the J-curve (early negative returns) of newer funds. It does not guarantee positive returns (A) and does not directly affect fee levels (C) \u2014 fees are a function of fund terms, not commitment timing.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Explain the importance of vintage year diversification"
+        },
+        {
+          "id": "l3-pc3-3",
+          "question": "An investor implementing an alternatives program through fund-of-funds rather than direct investment is most likely prioritizing:",
+          "options": [
+            "A) Minimizing total fees paid",
+            "B) Diversification and access to otherwise unavailable managers",
+            "C) Maximum control over individual investment decisions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Fund-of-funds provide diversification across managers, strategies, and vintage years, plus access to managers that may have high minimums or closed funds. The trade-off is a double fee layer (FoF management fee + underlying fund fees), making A incorrect. Direct investment (C) provides maximum control but requires more resources and expertise. FoF is appropriate for investors who lack the scale or expertise for direct alternative investing.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Compare implementation approaches for alternatives allocation"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of an illiquidity premium to a trustee who asks why the endowment holds 30% in investments that cannot be sold for 7-10 years. Cover why the premium exists, how large it is, and what can go wrong."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Is the illiquidity premium sufficient to justify the lock-up and complexity of alternatives?",
+        "How should a small institution approach alternatives if it cannot access top-quartile managers?",
+        "What lessons from the 2008 endowment liquidity crisis should inform current alternatives allocation?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- Alternatives provide diversification, illiquidity premium, and inflation protection\n- **Smoothed returns** overstate Sharpe ratios and understate correlations\n- **Illiquidity budget**: Maximum illiquid allocation based on spending needs and stress scenarios\n- **Manager selection** is critical \u2014 wide dispersion between top and bottom quartile PE\n- **Implementation**: Direct, FoF (diversification + access), co-investment (lower fees), secondaries (J-curve mitigation)\n- **Vintage year diversification**: Commitment pacing over 3-5 years reduces cycle risk\n- **Yale Model**: Requires perpetual horizon, governance capacity, manager access, and scale\n- Desmoothing is essential for accurate risk budgeting"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we cover **Institutional Portfolio Management** \u2014 how different institutions (pensions, endowments, foundations, insurance, sovereign wealth) construct portfolios based on their unique objectives, constraints, and governance structures."
+    }
+  ]
+}

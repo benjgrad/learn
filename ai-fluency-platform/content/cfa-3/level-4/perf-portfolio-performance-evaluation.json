@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PM.1: Portfolio Performance Evaluation",
+    "description": "Master time-weighted and money-weighted returns, macro and micro performance attribution, fixed-income attribution, and risk-adjusted performance measures.",
+    "level": "level-4",
+    "slug": "perf-portfolio-performance-evaluation",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A portfolio returned 12% over the year, and its benchmark returned 10%. Can we conclude the manager added value? What additional information would you need to make a complete assessment?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Return Measurement\n\n### Time-Weighted Return (TWR)\n\nChains sub-period returns, **eliminating the effect of external cash flows**:\n\n$$TWR = \\prod_{t=1}^{n} (1 + r_t) - 1$$\n\nWhere $r_t$ is the return for each sub-period between cash flows.\n\n**Use when**: Evaluating **manager skill** (manager doesn't control cash flows)\n\n### Money-Weighted Return (MWR) / IRR\n\nThe discount rate that equates PV of cash inflows to PV of cash outflows:\n\n$$\\sum_{t=0}^{n} \\frac{CF_t}{(1+MWR)^t} = 0$$\n\n**Use when**: Evaluating the **investor's experience** (investor controls timing of flows)\n\n### When TWR \u2260 MWR\n\n| Scenario | TWR vs. MWR |\n|---|---|\n| Large inflow before strong period | MWR > TWR (investor benefited from good timing) |\n| Large inflow before weak period | MWR < TWR (investor suffered from bad timing) |\n| No cash flows | MWR = TWR |\n\n**Key insight**: TWR is the standard for manager evaluation because it isolates investment decisions from client cash flow decisions."
+    },
+    {
+      "type": "markdown",
+      "content": "## Performance Attribution\n\n### Macro Attribution\n\nDecomposes total fund return into **policy-level decisions**:\n\n1. **Net of policy (benchmark)** return \u2014 the SAA decision\n2. **Policy allocation effect** \u2014 SAA policy weight \u00d7 benchmark segment returns\n3. **Benchmark timing** \u2014 TAA deviation from policy \u00d7 benchmark return\n4. **Security selection** \u2014 manager excess return within each segment\n5. **Net of fees** \u2014 actual return after all costs\n\n### Micro Attribution: Brinson-Fachler Model\n\nDecomposes active return (portfolio \u2212 benchmark) into three effects:\n\n$$R_P - R_B = \\text{Allocation} + \\text{Selection} + \\text{Interaction}$$\n\n**Allocation effect** (sector/asset class weighting decisions):\n$$\\sum_i (w_{P,i} - w_{B,i})(R_{B,i} - R_B)$$\n\n**Selection effect** (security selection within sectors):\n$$\\sum_i w_{B,i}(R_{P,i} - R_{B,i})$$\n\n**Interaction effect** (combined allocation and selection):\n$$\\sum_i (w_{P,i} - w_{B,i})(R_{P,i} - R_{B,i})$$\n\n### Example\n\n| Sector | Port Weight | BM Weight | Port Return | BM Return |\n|---|---|---|---|---|\n| Equity | 65% | 60% | 14% | 12% |\n| Bonds | 30% | 35% | 5% | 4% |\n| Cash | 5% | 5% | 2% | 2% |\n| **Total** | 100% | 100% | **10.7%** | **9.0%** |\n\nActive return = 10.7% \u2212 9.0% = **1.7%**\n\nAllocation: (0.65\u22120.60)(12%\u22129.0%) + (0.30\u22120.35)(4%\u22129.0%) + (0.05\u22120.05)(2%\u22129.0%) = 0.15% + 0.25% + 0% = **0.40%**\n\nSelection: 0.60(14%\u221212%) + 0.35(5%\u22124%) + 0.05(2%\u22122%) = 1.20% + 0.35% + 0% = **1.55%**\n\nInteraction: 0.05(2%) + (\u22120.05)(1%) + 0 = 0.10% \u2212 0.05% = **0.05%**\n\nTotal: 0.40% + 1.55% \u2212 0.30% = **1.70%** \u2713"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A manager overweighted technology stocks (12% vs. 10% benchmark weight) and the tech sector returned 20% vs. the benchmark's 11% total return. Was the allocation effect for technology positive or negative?",
+      "answer": "Positive. The allocation effect for a sector = (w_P \u2212 w_B) \u00d7 (R_B,sector \u2212 R_B,total) = (0.12 \u2212 0.10) \u00d7 (0.20 \u2212 0.11) = 0.02 \u00d7 0.09 = +0.18%. The manager overweighted a sector that outperformed the total benchmark. Note: the allocation effect uses the benchmark sector return (not the portfolio's sector return) to isolate the weight decision from the selection decision."
+    },
+    {
+      "type": "markdown",
+      "content": "## Fixed-Income Performance Attribution\n\nFI attribution is more complex due to multiple return sources:\n\n| Component | Source |\n|---|---|\n| **Income return** | Coupon income (yield) |\n| **Treasury (duration) effect** | Change in Treasury yield curve |\n| **Yield curve (term structure) effect** | Non-parallel yield curve shifts |\n| **Spread effect** | Change in credit spreads |\n| **Security selection** | Individual bond outperformance |\n| **Trading effect** | Returns from active trading activity |\n\n## Risk-Adjusted Performance Measures\n\n| Measure | Formula | Interpretation |\n|---|---|---|\n| **Sharpe ratio** | $(R_P - R_f) / \\sigma_P$ | Excess return per unit of total risk |\n| **Treynor ratio** | $(R_P - R_f) / \\beta_P$ | Excess return per unit of systematic risk |\n| **Information ratio** | $(R_P - R_B) / \\sigma_{P-B}$ | Active return per unit of active risk |\n| **M-squared (M\u00b2)** | $R_f + (R_P - R_f) \\times \\sigma_B / \\sigma_P$ | Risk-adjusted return at benchmark risk level |\n| **Jensen's alpha** | $R_P - [R_f + \\beta(R_M - R_f)]$ | Return above CAPM prediction |\n\n### When to Use Each\n\n- **Sharpe**: Comparing portfolios as the **total investment** (standalone evaluation)\n- **Treynor**: Comparing portfolios that are part of a **larger diversified portfolio**\n- **IR**: Evaluating **active managers** relative to their benchmarks\n- **M\u00b2**: Same ranking as Sharpe but in percentage terms (easier to interpret)\n- **Alpha**: Manager skill after adjusting for market risk"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Performance Attribution Analysis",
+      "solution": "**Part A \u2014 Brinson-Fachler attribution:**\n\nGiven: Portfolio returned 9.2%, Benchmark returned 7.8%, Active return = 1.4%\n\n| Sector | P Wt | B Wt | P Ret | B Ret |\n|---|---|---|---|---|\n| Dom Equity | 50% | 45% | 12% | 11% |\n| Intl Equity | 20% | 20% | 8% | 6% |\n| Fixed Income | 25% | 30% | 4% | 3.5% |\n| Cash | 5% | 5% | 2% | 2% |\n\nAllocation effect:\n- Dom Eq: (0.50\u22120.45)(0.11\u22120.078) = 0.05 \u00d7 0.032 = 0.16%\n- Intl Eq: (0.20\u22120.20)(0.06\u22120.078) = 0%\n- FI: (0.25\u22120.30)(0.035\u22120.078) = \u22120.05 \u00d7 (\u22120.043) = 0.22%\n- Cash: (0.05\u22120.05)(0.02\u22120.078) = 0%\n- Total allocation: **0.38%**\n\nSelection effect:\n- Dom Eq: 0.45(0.12\u22120.11) = 0.45%\n- Intl Eq: 0.20(0.08\u22120.06) = 0.40%\n- FI: 0.30(0.04\u22120.035) = 0.15%\n- Cash: 0.05(0.02\u22120.02) = 0%\n- Total selection: **1.00%**\n\nInteraction:\n- Dom Eq: 0.05 \u00d7 0.01 = 0.05%\n- Intl Eq: 0 \u00d7 0.02 = 0%\n- FI: \u22120.05 \u00d7 0.005 = \u22120.025%\n- Cash: 0\n- Total interaction: **0.025%**\n\nTotal active return: 0.38% + 1.00% + 0.025% = **1.405% \u2248 1.4%** \u2713\n\n**Part B \u2014 Interpretation:**\n\nThe manager's active return of 1.4% came primarily from **security selection** (1.00%), particularly strong stock-picking in domestic and international equities. Allocation contributed 0.38%, driven by the beneficial overweight to domestic equities and underweight to fixed income (both decisions enhanced returns in a period where equities outperformed bonds). The interaction effect is negligible.\n\n**Part C \u2014 Risk-adjusted assessment:**\n\nWith tracking error of 3.5%, the information ratio = 1.4% / 3.5% = 0.40. This is a respectable but not exceptional IR. An IR of 0.5+ over a 5-year period would provide stronger evidence of skill. The manager should be monitored for:\n1. Consistency of alpha sources (is selection alpha repeatable?)\n2. Style drift (are the allocation bets intentional or unintentional?)\n3. Risk budget utilization (is 3.5% tracking error within the mandate?)"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Performance Evaluation Practice",
+      "problems": [
+        {
+          "id": "l3-pm1-1",
+          "question": "A portfolio earned 15% in a year when the benchmark earned 12%. The portfolio had a standard deviation of 20% and beta of 1.2. The risk-free rate is 3%. The portfolio's Treynor ratio is closest to:",
+          "options": [
+            "A) 0.60",
+            "B) 10.0",
+            "C) 0.10"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Treynor ratio = (R_P \u2212 R_f) / \u03b2_P = (15% \u2212 3%) / 1.2 = 12% / 1.2 = 10.0. The Treynor ratio measures excess return per unit of systematic risk (beta). For comparison, the benchmark's Treynor = (12% \u2212 3%) / 1.0 = 9.0. The portfolio outperformed on a systematic risk-adjusted basis (10.0 > 9.0). Note the Sharpe ratio would be (15% \u2212 3%) / 20% = 0.60 (option A).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Calculate and interpret the Treynor ratio"
+        },
+        {
+          "id": "l3-pm1-2",
+          "question": "In Brinson-Fachler attribution, a positive allocation effect for a sector indicates that the manager:",
+          "options": [
+            "A) Selected better securities within that sector than the benchmark",
+            "B) Overweighted a sector that outperformed the total benchmark (or underweighted one that underperformed)",
+            "C) Had positive interaction between allocation and selection decisions"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The allocation effect = (w_P \u2212 w_B)(R_B,sector \u2212 R_B,total). It is positive when: the manager overweighted (w_P > w_B) a sector that outperformed the total benchmark (R_B,sector > R_B,total), OR underweighted a sector that underperformed. It isolates the weighting decision from security selection. Security selection within the sector (A) is captured by the selection effect. The interaction (C) is a separate component.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Interpret Brinson-Fachler attribution components"
+        },
+        {
+          "id": "l3-pm1-3",
+          "question": "An investor adds $1 million to a portfolio just before a 20% market decline. The time-weighted return for the period is \u22125% and the money-weighted return is \u221212%. This difference is most likely because:",
+          "options": [
+            "A) The time-weighted return is affected by cash flow timing",
+            "B) The money-weighted return reflects the poor timing of the investor's contribution",
+            "C) The manager performed poorly after receiving the cash"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The MWR (\u221212%) is much worse than the TWR (\u22125%) because the investor added a large amount of capital just before a decline. The MWR weights periods by the amount of capital invested \u2014 since more capital was at risk during the bad period, the MWR is worse. The TWR eliminates cash flow timing effects and reflects the manager's investment decisions only. The TWR would be used to evaluate the manager; the MWR reflects the investor's actual experience.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Distinguish between time-weighted and money-weighted returns"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain Brinson-Fachler attribution to a board of trustees who want to understand whether their equity manager's outperformance came from picking the right sectors or picking the right stocks within sectors. Use a specific numerical example."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the information ratio a better measure of active manager skill than simple excess return?",
+        "When would you prefer the money-weighted return over the time-weighted return for evaluation?",
+        "How would you attribute the performance of a multi-asset portfolio that uses derivatives overlays?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **TWR**: Eliminates cash flow effects; use for manager evaluation\n- **MWR**: Reflects investor experience; sensitive to cash flow timing\n- **Brinson-Fachler**: Active return = Allocation + Selection + Interaction\n  - Allocation: weight differences \u00d7 benchmark sector returns\n  - Selection: benchmark weights \u00d7 return differences within sectors\n- **FI attribution**: Income, duration, yield curve, spread, selection, trading\n- **Sharpe**: Excess return / total risk (standalone evaluation)\n- **Treynor**: Excess return / beta (part of larger portfolio)\n- **IR**: Active return / tracking error (active manager evaluation)\n- **M\u00b2**: Sharpe ratio expressed in percentage terms\n- **Jensen's alpha**: Return above CAPM prediction"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we cover **Investment Manager Selection** \u2014 the due diligence process for hiring, evaluating, and terminating investment managers, including style analysis and continuation policies."
+    }
+  ]
+}

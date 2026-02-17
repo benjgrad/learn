@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "MK.1: Private Equity",
+    "description": "Understand PE strategies (buyout, VC, growth equity), fund structures, valuation approaches, LBO modeling, exit routes, and performance metrics including IRR, MOIC, DPI, RVPI, and TVPI.",
+    "level": "level-8",
+    "slug": "pw-mk-private-equity",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A PE fund reports a 25% net IRR. A public equity index returned 15% over the same period. Does this mean the PE fund outperformed? What factors might make this comparison misleading?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Private Equity Strategies\n\n### Buyout\n- Acquire controlling interest in mature companies\n- **Leveraged buyout (LBO)**: Use significant debt (50-70% of purchase price) to amplify equity returns\n- Value creation: Operational improvement, multiple expansion, debt paydown, revenue growth\n- Holding period: 3-7 years\n\n### Venture Capital\n- Invest in early-stage, high-growth companies\n- **Stages**: Seed, Series A/B/C, late-stage/pre-IPO\n- High failure rate (~60-70% of investments lose money) offset by outsized winners\n- Value creation: Product-market fit, scaling, talent acquisition\n- Holding period: 5-10 years\n\n### Growth Equity\n- Minority investments in established, growing companies\n- Less leverage than buyout, less risk than VC\n- Companies are profitable or near-profitable with proven business models\n- Value creation: Capital for expansion, operational expertise, governance\n\n## Fund Structure\n\n- **Limited Partners (LPs)**: Provide capital (pension funds, endowments, family offices)\n- **General Partner (GP)**: Manages the fund, makes investment decisions\n- **Capital calls (drawdowns)**: LP commitments drawn over 3-5 years as deals are made\n- **Distributions**: Cash returned to LPs as investments are exited\n- **Fund life**: Typically 10-12 years with extension options\n\n### Fee Structure\n- **Management fee**: 1.5-2.0% of committed capital (early years) or invested capital (later years)\n- **Carried interest**: 20% of profits above a hurdle rate (typically 8%)\n- **Catch-up provision**: GP receives 100% of profits after hurdle until carry is 'caught up'\n- **Clawback**: GP must return excess carry if later investments underperform"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A VC fund has 10 investments. Seven fail completely (0x return), two return 3x, and one returns 50x. What is the overall fund multiple, and what does this tell you about VC portfolio construction?",
+      "answer": "Assuming equal investment sizes ($1M each, $10M total invested):\n- 7 failures: $0\n- 2 moderate successes: 2 x $3M = $6M\n- 1 home run: $50M\n\nTotal returned: $56M on $10M invested = 5.6x MOIC.\n\nThis illustrates the 'power law' in VC: a single investment (10% of the portfolio) generated 89% of total returns. The portfolio-level return is excellent despite a 70% failure rate. This is why VCs must: (1) invest in enough companies to increase the probability of catching a winner, (2) size up follow-on investments in winners, (3) not abandon the strategy when early results show mostly failures. It's also why comparing VC to public market returns is misleading -- the distribution of returns is fundamentally different."
+    },
+    {
+      "type": "markdown",
+      "content": "## Valuation Approaches\n\n### Discounted Cash Flow (DCF)\n$$V = \\sum_{t=1}^{n} \\frac{FCF_t}{(1+r)^t} + \\frac{TV_n}{(1+r)^n}$$\n- Terminal value typically uses exit multiple method\n- Discount rate reflects illiquidity premium over public comparable\n\n### Comparable Company Analysis\n- Apply public company multiples (EV/EBITDA, P/E) to target's financials\n- Apply **illiquidity discount** (15-30%) or **control premium** (20-40%) as appropriate\n\n### Precedent Transactions\n- Multiples from prior M&A transactions for similar companies\n- Includes control premiums already embedded\n\n### LBO Model (Simplified)\n\n1. **Entry**: Purchase at EV/EBITDA multiple (e.g., 10x), fund with 60% debt / 40% equity\n2. **Hold**: EBITDA grows, debt is paid down from free cash flow\n3. **Exit**: Sell at exit multiple, repay remaining debt\n4. **Equity return**: (Exit equity value / Entry equity) ^ (1/years) - 1\n\n$$\\text{Equity return} = \\left(\\frac{\\text{Exit Multiple} \\times \\text{Exit EBITDA} - \\text{Net Debt at Exit}}{\\text{Initial Equity}}\\right)^{1/n} - 1$$\n\n## Performance Metrics\n\n| Metric | Formula | Measures |\n|---|---|---|\n| **IRR** | Discount rate making NPV of cash flows = 0 | Time-weighted return |\n| **MOIC** | Total value / Invested capital | Absolute return multiple |\n| **DPI** | Distributions / Paid-in capital | Realized return |\n| **RVPI** | Residual value / Paid-in capital | Unrealized return |\n| **TVPI** | (Distributions + Residual) / Paid-in | Total return = DPI + RVPI |\n\n### IRR vs MOIC\n- High IRR + low MOIC = small profit earned quickly\n- Low IRR + high MOIC = large profit earned slowly\n- Both metrics needed for complete picture"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: LBO Analysis and Performance\n\nA PE firm is acquiring a manufacturing company:\n- Purchase price: $500M (10x EBITDA of $50M)\n- Financing: 60% debt ($300M at 6% interest), 40% equity ($200M)\n- EBITDA growth: 8% annually\n- Free cash flow used for debt repayment: $25M/year\n- Planned exit in 5 years at 10x EBITDA (same multiple)\n- Management fee: 2% of committed capital annually\n- Carried interest: 20% above 8% hurdle\n\nA) Calculate the exit equity value.\nB) Calculate the gross MOIC and IRR.\nC) Calculate net-of-fees IRR to LPs.\nD) Discuss what could go wrong with this analysis.",
+      "solution": "**A) Exit Equity Value:**\n\nEBITDA at exit (Year 5): $50M x (1.08)^5 = $73.47M\nExit enterprise value: $73.47M x 10 = $734.7M\nDebt remaining: $300M - (5 x $25M) = $175M\nExit equity value: $734.7M - $175M = $559.7M\n\n**B) Gross MOIC and IRR:**\n\nGross MOIC = $559.7M / $200M = 2.80x\n\nGross IRR: Solve for r in: $200M = $559.7M / (1+r)^5\n(1+r)^5 = 2.80\nr = 2.80^(0.2) - 1 = 22.9%\n\n**C) Net-of-Fees IRR to LPs:**\n\nManagement fees: 2% of $200M committed = $4M/year for 5 years = $20M total\nGross profit: $559.7M - $200M = $359.7M\nProfit net of management fees: $359.7M - $20M = $339.7M\n\nHurdle: 8% on $200M for 5 years = $200M x (1.08^5 - 1) = $93.9M\nProfit above hurdle: $339.7M - $93.9M = $245.8M\nCarried interest: 20% x $245.8M = $49.2M\n\nNet to LPs: $559.7M - $20M (mgmt fee) - $49.2M (carry) = $490.5M\nNet MOIC: $490.5M / $200M = 2.45x\nNet IRR: ($490.5M / $200M)^(1/5) - 1 = 19.7%\n\nFee drag: 22.9% gross - 19.7% net = 3.2% annually\n\n**D) What Could Go Wrong:**\n\n1. **Multiple compression**: If exit multiple drops from 10x to 8x, exit EV = $73.47M x 8 = $587.8M. Exit equity = $587.8M - $175M = $412.8M. MOIC drops to 2.06x, IRR to 15.6%. Multiple compression alone destroys significant value.\n\n2. **Revenue/EBITDA shortfall**: If EBITDA grows at 4% instead of 8%, exit EBITDA = $60.8M. At 10x: EV = $608M, equity = $433M. MOIC = 2.17x.\n\n3. **Refinancing risk**: $300M in debt assumes stable credit markets. If debt needs to be refinanced at higher rates, or covenants are breached, the company could face distress.\n\n4. **FCF below projections**: If free cash flow is only $15M/year (vs $25M), less debt is repaid, and exit equity is lower.\n\n5. **Exit timing**: If the market is unfavorable at year 5, the fund may need to hold longer. Extending to year 7 dramatically reduces IRR even if MOIC is maintained.\n\n6. **Operational risk**: Management execution, competitive dynamics, input cost inflation, regulatory changes."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Private Equity Practice",
+      "problems": [
+        {
+          "id": "l3-mk1-1",
+          "question": "A PE fund has the following performance: DPI = 0.8x, RVPI = 1.4x. The fund's TVPI is:",
+          "options": [
+            "A) 0.56x",
+            "B) 1.75x",
+            "C) 2.2x"
+          ],
+          "correctAnswer": "C",
+          "explanation": "TVPI = DPI + RVPI = 0.8x + 1.4x = 2.2x. The fund has returned 80% of invested capital in cash distributions and still has unrealized investments worth 1.4x of invested capital. Total value is 2.2x invested capital. Note that RVPI is based on NAV estimates, which may be subjective. Option A incorrectly multiplies DPI and RVPI. Option B appears to be an averaging error.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Calculate TVPI from DPI and RVPI"
+        },
+        {
+          "id": "l3-mk1-2",
+          "question": "A buyout fund acquires a company for 8x EBITDA with 65% leverage. After 4 years, EBITDA has grown 30% and half the debt has been repaid. If the exit multiple is also 8x, the equity return is driven primarily by:",
+          "options": [
+            "A) Multiple expansion",
+            "B) EBITDA growth and debt paydown",
+            "C) Favorable financing terms"
+          ],
+          "correctAnswer": "B",
+          "explanation": "With no multiple expansion (entry and exit both at 8x), equity returns come from: (1) EBITDA growth (30% increase means the enterprise value grew from 8 x EBITDA to 8 x 1.3 x EBITDA = 30% EV increase); (2) Debt paydown (50% of debt repaid means equity captures a larger share of EV). Specifically: Entry equity = 35% of 8x EBITDA = 2.8x EBITDA. Exit: EV = 8 x 1.3 = 10.4x original EBITDA. Debt = 0.5 x 65% x 8x = 2.6x EBITDA. Exit equity = 10.4x - 2.6x = 7.8x EBITDA. Equity MOIC = 7.8/2.8 = 2.79x. This return was entirely from operational improvement and financial engineering, not multiple expansion.",
+          "difficulty": "advanced",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Decompose sources of private equity returns"
+        },
+        {
+          "id": "l3-mk1-3",
+          "question": "An LP committed $50M to a PE fund 3 years ago. So far, $35M has been called and $10M has been distributed. The fund reports NAV of the LP's interest at $40M. The LP's net cash position (cash out minus cash in) is:",
+          "options": [
+            "A) -$25M (net cash outflow)",
+            "B) -$35M (total called)",
+            "C) +$15M (distributions plus NAV minus called)"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Net cash position = Distributions received - Capital called = $10M - $35M = -$25M (net cash outflow). The LP has put in $35M in cash and received back $10M, so they are $25M 'out of pocket.' The NAV of $40M represents unrealized value still in the fund -- it's not cash. TVPI = ($10M + $40M) / $35M = 1.43x (total value is positive, but the LP hasn't received it yet). The remaining $15M uncalled commitment is a future obligation. Option B ignores distributions. Option C counts NAV as cash, which is incorrect for cash position analysis.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Analyze LP cash flows in a PE fund"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a pension fund trustee why PE fund IRR can be misleading as a performance measure. Describe the specific ways IRR can be manipulated or misinterpreted, and what metrics should be used alongside it."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do PE firms use leverage so heavily, and what are the limits of this approach?",
+        "How does the J-curve effect influence LP perceptions of PE fund performance?",
+        "What alignment issues exist between GP and LP interests despite the 2-and-20 fee structure?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **PE strategies**: Buyout (leverage + operations), VC (high risk/reward, power law), growth equity (minority, less leverage)\n- **Fund structure**: LP/GP, capital calls, 10-12 year life, 2% mgmt fee + 20% carry\n- **LBO returns**: EBITDA growth + multiple expansion + debt paydown\n- **Valuation**: DCF, comparable companies (with illiquidity/control adjustments), precedent transactions\n- **Metrics**: IRR (time-weighted), MOIC (absolute), DPI (realized), RVPI (unrealized), TVPI = DPI + RVPI\n- **IRR limitations**: Manipulable via timing; use with MOIC for complete picture\n- **VC power law**: Most returns from few investments; portfolio construction is critical"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we explore **Private Debt** -- the credit counterpart to private equity. Where PE seeks equity upside, private debt targets steady income with downside protection through covenants and security interests."
+    }
+  ]
+}

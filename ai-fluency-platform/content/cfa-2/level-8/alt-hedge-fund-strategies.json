@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "Alt.4: Hedge Fund Strategies",
+    "description": "Analyze equity long/short, event-driven, relative value, and macro hedge fund strategies. Evaluate fund of funds, due diligence, and strategy-specific risk/return profiles.",
+    "level": "level-8",
+    "slug": "alt-hedge-fund-strategies",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Alternative Investments"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A merger arbitrage fund buys the target company and shorts the acquirer when an acquisition is announced. If the deal succeeds, the fund earns a small spread. What does the return distribution look like \u2014 and why might standard deviation be misleading as a risk measure?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Equity Hedge Strategies\n\n### Equity Long/Short\n\nThe most common hedge fund strategy. Managers take long positions in undervalued stocks and short positions in overvalued stocks.\n\n**Key metrics:**\n- **Net exposure** = Long % \u2212 Short % (e.g., 130% long \u2212 50% short = 80% net long)\n- **Gross exposure** = Long % + Short % (e.g., 130% + 50% = 180%)\n- A **market-neutral** fund targets ~0% net exposure\n\n**Return sources:**\n- Alpha from stock selection (long and short)\n- Market beta (proportional to net exposure)\n- Factor tilts (value, size, momentum)\n\n### Dedicated Short Bias\n\nMaintain a persistent net short exposure. Profit from declining stock prices. Historically challenging due to the long-term upward bias of equity markets. Valuable as portfolio diversifiers.\n\n### Equity Market Neutral\n\nEqual long and short dollar (or beta) exposure. Isolates pure stock selection alpha from market direction. Returns are typically lower but more consistent. Sensitive to pair correlations breaking down."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A long/short equity fund has $200M long and $120M short. The market rises 10%. If the fund's longs return 12% and shorts return 8%, what is the fund's approximate return (ignoring fees)?",
+      "answer": "Long P&L: $200M \u00d7 12% = +$24M. Short P&L: $120M \u00d7 (\u22128%) = \u2212$9.6M (shorts lose when the market rises). Net P&L = $24M \u2212 $9.6M = $14.4M. On $200M capital (assuming NAV \u2248 long \u2212 short + cash), return \u2248 $14.4M/$200M \u2248 7.2%. The fund captured upside from longs but the shorts were a drag. The 4% alpha on longs (12% vs 8% market) partially offset by the 2% negative alpha on shorts (8% vs 10% market)."
+    },
+    {
+      "type": "markdown",
+      "content": "## Event-Driven Strategies\n\n### Merger Arbitrage\n\nBuy the target company's stock (at a discount to the offer price) and, in stock deals, short the acquirer. The \"spread\" narrows as the deal closes.\n\n- **Risk**: deal failure (spread blows out, large loss)\n- **Return profile**: many small gains, occasional large losses (negatively skewed)\n- Sensitive to deal volume and market conditions\n\n### Distressed Securities\n\nInvest in debt or equity of companies in or near bankruptcy. Managers analyze recovery values, capital structure, and reorganization plans.\n\n- Deep fundamental analysis required\n- Illiquid positions with long holding periods\n- Returns driven by restructuring outcomes\n\n### Activist Investing\n\nTake significant ownership stakes and push for changes: board seats, strategic initiatives, capital return, or management changes.\n\n- Concentrated portfolios (high conviction)\n- Long time horizons to realize value\n- Public campaigns vs. private engagement"
+    },
+    {
+      "type": "markdown",
+      "content": "## Relative Value and Macro Strategies\n\n### Relative Value\n\n| Strategy | Description | Key Risk |\n|----------|-------------|----------|\n| **Fixed Income Arb** | Exploit mispricing between related bonds (on/off the run, swap spreads) | Leverage, liquidity |\n| **Convertible Arb** | Buy convertible bonds, short underlying equity to isolate credit/vol components | Credit, correlation |\n| **Volatility Arb** | Trade implied vs. realized volatility using options | Gap risk, model risk |\n\nRelative value strategies typically use significant **leverage** to amplify small mispricings. This creates vulnerability to liquidity crises (LTCM is the cautionary tale).\n\n### Global Macro\n\n- **Discretionary**: top-down views on currencies, rates, commodities, equities (e.g., Soros's GBP trade)\n- **Systematic**: quantitative models, trend-following, carry trades\n- Highly flexible: can go long or short any asset class globally\n- Often most profitable during periods of market dislocation\n\n### Multi-Strategy and Fund of Funds\n\n**Multi-strategy**: single firm allocates capital across multiple strategies internally. Faster capital reallocation, single layer of fees.\n\n**Fund of funds (FoF)**: invests in multiple hedge funds. Provides diversification and manager selection expertise but adds a second layer of fees (\"2 and 20\" on top of underlying fund fees). Due diligence on underlying managers is the core competency."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A merger arbitrage fund analyzes a deal: Acquirer offers $50/share for Target, currently trading at $47. The fund estimates a 90% probability the deal closes in 3 months and a 10% probability it fails, with Target dropping to $38 on failure. Calculate the expected return and discuss the risk/return profile.",
+      "solution": "**If deal closes (90% probability):**\nReturn = ($50 \u2212 $47)/$47 = 6.38% over 3 months\n\n**If deal fails (10% probability):**\nReturn = ($38 \u2212 $47)/$47 = \u221219.15% over 3 months\n\n**Expected return:**\n$E(r) = 0.90 \\times 6.38\\% + 0.10 \\times (-19.15\\%) = 5.74\\% - 1.92\\% = 3.83\\%$\n\nAnnualized: roughly $3.83\\% \\times 4 \\approx 15.3\\%$\n\n**Risk/Return Profile:**\nThe distribution is **negatively skewed** \u2014 most outcomes are small gains (6.38%) but the rare failure produces a large loss (\u221219.15%). Standard deviation understates the true risk because it does not capture this tail risk. The strategy resembles selling insurance: steady premiums punctuated by occasional large claims. Sharpe ratio may look attractive but masks the downside tail."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Hedge Fund Strategies \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "alt4-1",
+          "question": "**Vignette: Clearwater Investment Committee**\n\nThe Clearwater pension fund is reviewing its alternative investment allocation. The committee is evaluating three hedge fund strategies:\n\n| Fund | Strategy | Net Exposure | Gross Exposure | Avg Annual Return | Std Dev | Sharpe |\n|------|----------|-------------|----------------|-------------------|---------|--------|\n| A | Equity L/S | +65% | 180% | 9.2% | 11.5% | 0.63 |\n| B | Merger Arb | +15% | 120% | 7.8% | 5.2% | 1.08 |\n| C | Global Macro | Varies | 250% | 11.5% | 15.8% | 0.60 |\n\nRisk-free rate: 2.5%. Fund B has a skewness of \u22122.1 and kurtosis of 8.5.\n\n---\n\n**Question 1:** Fund B's Sharpe ratio likely overstates risk-adjusted performance because:",
+          "options": [
+            "A) Its gross exposure is lower than Fund A's",
+            "B) Negative skewness and high kurtosis indicate significant tail risk not captured by standard deviation",
+            "C) Its net exposure is too low to generate meaningful alpha"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Fund B (merger arbitrage) has skewness of \u22122.1 and kurtosis of 8.5, indicating a return distribution with frequent small gains but infrequent large losses (\"picking up pennies in front of a steamroller\"). Standard deviation, which treats upside and downside equally and assumes normality, fails to capture this tail risk. The Sharpe ratio of 1.08 looks attractive but is misleading. Option A is irrelevant to Sharpe ratio interpretation. Option C confuses net exposure with alpha generation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Evaluate limitations of the Sharpe ratio for strategies with non-normal return distributions"
+        },
+        {
+          "id": "alt4-2",
+          "question": "**Question 2 (continued):** Fund A's net exposure of +65% most likely implies that the fund:",
+          "options": [
+            "A) Has eliminated all market risk through hedging",
+            "B) Retains significant equity market beta in addition to stock selection alpha",
+            "C) Uses minimal leverage"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A net exposure of +65% means the fund has 65% net long equity exposure, retaining substantial market beta. If the equity market rises 10%, the fund would gain approximately 6.5% from beta alone, before any alpha contribution. A market-neutral fund (0% net) would eliminate market beta. Option A would require near-zero net exposure. Option C is contradicted by the 180% gross exposure (= long + short), indicating significant leverage.",
+          "difficulty": "basic",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Interpret net and gross exposure metrics for equity long/short funds"
+        },
+        {
+          "id": "alt4-3",
+          "question": "**Question 3 (continued):** An investor choosing between a fund of funds and a multi-strategy fund for their hedge fund allocation should consider that a fund of funds most likely:",
+          "options": [
+            "A) Has lower total fees due to negotiating power with underlying managers",
+            "B) Provides transparency into underlying positions for risk management",
+            "C) Charges an additional layer of management and incentive fees on top of underlying fund fees"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The primary disadvantage of fund of funds is the double fee layer. The FoF charges its own fees (typically 1% management + 10% incentive) on top of underlying hedge funds' fees (typically 2% + 20%). This \"fee on fee\" structure significantly erodes net returns. Option A is incorrect \u2014 while FoFs may negotiate, the additional fee layer more than offsets savings. Option B is typically false \u2014 underlying hedge funds often limit position-level transparency.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Alternative Investments",
+          "learningOutcome": "Compare fund of funds and multi-strategy approaches to hedge fund investing"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to an investment committee member why a merger arbitrage fund's strong Sharpe ratio should be interpreted cautiously. Use the concepts of return distribution shape (skewness, kurtosis) and the analogy of selling insurance to make your point."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why do equity long/short managers often struggle to generate alpha on the short side?",
+        "How did the LTCM crisis illustrate the risks of relative value strategies with high leverage?",
+        "What due diligence factors are most important when evaluating a hedge fund's operational risk?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts and Relationships:**\n\n- Net exposure = longs \u2212 shorts; Gross exposure = longs + shorts\n- Equity L/S: alpha from stock selection + beta from net exposure\n- Merger arb: negatively skewed returns; Sharpe ratio may overstate risk-adjusted performance\n- Distressed: deep fundamental analysis, illiquid, long holding periods\n- Relative value: exploits small mispricings with leverage; vulnerable to liquidity crises\n- Global macro: most flexible strategy; discretionary vs. systematic\n- Fund of funds: diversification + manager selection, but double fee layer\n- For non-normal distributions, use sortino ratio, downside deviation, or VaR instead of Sharpe"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have completed the **Alternative Investments** section. Next is **Portfolio Management**, beginning with Economics and Investment Markets. You will see how macroeconomic factors \u2014 the same ones that drive commodity prices, real estate values, and hedge fund opportunities \u2014 systematically affect portfolio construction and asset allocation decisions."
+    }
+  ]
+}

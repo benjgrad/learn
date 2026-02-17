@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FSA.11: Financial Analysis Techniques",
+    "description": "Master common-size analysis, financial ratio analysis (activity, liquidity, solvency, profitability), DuPont decomposition, trend analysis, and cross-sectional analysis.",
+    "level": "level-4",
+    "slug": "fsa-financial-analysis-techniques",
+    "order": 11,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Company A has a return on equity (ROE) of 18% while Company B has an ROE of 18%. Are these two companies equally profitable and equally risky? What additional information would you need to distinguish between them?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Common-Size Analysis\n\nCommon-size analysis expresses financial statement items as **percentages** of a base amount, enabling comparison across companies of different sizes and across time periods.\n\n### Vertical (Cross-Sectional) Common-Size\n\n| Statement | Base | What It Shows |\n|---|---|---|\n| **Income statement** | Revenue (100%) | Each expense as % of revenue |\n| **Balance sheet** | Total assets (100%) | Each asset/liability/equity item as % of total assets |\n\n### Example: Common-Size Income Statement\n\n| Item | Company A | Company B |\n|---|---|---|\n| Revenue | 100.0% | 100.0% |\n| COGS | 60.0% | 45.0% |\n| **Gross margin** | **40.0%** | **55.0%** |\n| SG&A | 20.0% | 30.0% |\n| **Operating margin** | **20.0%** | **25.0%** |\n| Interest | 5.0% | 2.0% |\n| Tax | 4.5% | 6.9% |\n| **Net margin** | **10.5%** | **16.1%** |\n\nCompany B has higher gross and operating margins despite higher SG&A \u2014 likely a differentiated product with pricing power.\n\n### Horizontal (Trend) Common-Size\n\nExpresses each item as a percentage of a **base year** amount:\n\n$$\\text{Horizontal common-size} = \\frac{\\text{Current year amount}}{\\text{Base year amount}} \\times 100$$\n\nThis reveals growth patterns: if revenue grows 20% but COGS grows 30%, margins are compressing."
+    },
+    {
+      "type": "markdown",
+      "content": "## Financial Ratios: Activity and Liquidity\n\n### Activity (Efficiency) Ratios\n\n$$\\text{Inventory turnover} = \\frac{\\text{COGS}}{\\text{Average inventory}}$$\n\n$$\\text{Days of inventory on hand (DOH)} = \\frac{365}{\\text{Inventory turnover}}$$\n\n$$\\text{Receivables turnover} = \\frac{\\text{Revenue}}{\\text{Average accounts receivable}}$$\n\n$$\\text{Days sales outstanding (DSO)} = \\frac{365}{\\text{Receivables turnover}}$$\n\n$$\\text{Payables turnover} = \\frac{\\text{Purchases}}{\\text{Average accounts payable}}$$\n\n$$\\text{Days payable outstanding (DPO)} = \\frac{365}{\\text{Payables turnover}}$$\n\n$$\\text{Cash conversion cycle} = \\text{DOH} + \\text{DSO} - \\text{DPO}$$\n\nA shorter cash conversion cycle means the company converts inventory to cash more quickly.\n\n### Liquidity Ratios\n\n$$\\text{Current ratio} = \\frac{\\text{Current assets}}{\\text{Current liabilities}}$$\n\n$$\\text{Quick ratio} = \\frac{\\text{Cash + Marketable securities + Receivables}}{\\text{Current liabilities}}$$\n\n$$\\text{Cash ratio} = \\frac{\\text{Cash + Marketable securities}}{\\text{Current liabilities}}$$\n\nHigher liquidity ratios indicate greater ability to meet short-term obligations. However, excessively high ratios may indicate inefficient use of assets."
+    },
+    {
+      "type": "markdown",
+      "content": "## Financial Ratios: Solvency and Profitability\n\n### Solvency (Leverage) Ratios\n\n$$\\text{Debt-to-equity} = \\frac{\\text{Total debt}}{\\text{Total equity}}$$\n\n$$\\text{Debt-to-assets} = \\frac{\\text{Total debt}}{\\text{Total assets}}$$\n\n$$\\text{Financial leverage} = \\frac{\\text{Average total assets}}{\\text{Average equity}}$$\n\n$$\\text{Interest coverage} = \\frac{\\text{EBIT}}{\\text{Interest expense}}$$\n\n### Profitability Ratios\n\n$$\\text{Return on assets (ROA)} = \\frac{\\text{Net income}}{\\text{Average total assets}}$$\n\n$$\\text{Return on equity (ROE)} = \\frac{\\text{Net income}}{\\text{Average shareholders' equity}}$$\n\n$$\\text{Return on invested capital (ROIC)} = \\frac{\\text{NOPAT}}{\\text{Average invested capital}}$$\n\nWhere NOPAT = Net operating profit after tax = EBIT \u00d7 (1 - tax rate)\n\n### DuPont Decomposition\n\n**3-Factor DuPont:**\n$$\\text{ROE} = \\underbrace{\\frac{\\text{Net income}}{\\text{Revenue}}}_{\\text{Net profit margin}} \\times \\underbrace{\\frac{\\text{Revenue}}{\\text{Avg assets}}}_{\\text{Asset turnover}} \\times \\underbrace{\\frac{\\text{Avg assets}}{\\text{Avg equity}}}_{\\text{Financial leverage}}$$\n\n**5-Factor DuPont:**\n$$\\text{ROE} = \\underbrace{\\frac{\\text{NI}}{\\text{EBT}}}_{\\text{Tax burden}} \\times \\underbrace{\\frac{\\text{EBT}}{\\text{EBIT}}}_{\\text{Interest burden}} \\times \\underbrace{\\frac{\\text{EBIT}}{\\text{Revenue}}}_{\\text{EBIT margin}} \\times \\underbrace{\\frac{\\text{Revenue}}{\\text{Avg assets}}}_{\\text{Asset turnover}} \\times \\underbrace{\\frac{\\text{Avg assets}}{\\text{Avg equity}}}_{\\text{Leverage}}$$\n\nThe 5-factor decomposition reveals whether ROE is driven by operating efficiency, tax management, financing decisions, or asset utilization."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company has net income of $50M, revenue of $500M, average assets of $400M, and average equity of $200M. Calculate ROE using the 3-factor DuPont decomposition and identify which factor contributes most to ROE.",
+      "answer": "Net profit margin = $50M / $500M = 10%. Asset turnover = $500M / $400M = 1.25x. Financial leverage = $400M / $200M = 2.0x. ROE = 10% \u00d7 1.25 \u00d7 2.0 = 25%. The financial leverage ratio of 2.0x (meaning the company has twice as many assets as equity, so half its assets are financed by debt) is a significant contributor. Without the leverage, ROA would be only 12.5% (10% \u00d7 1.25). Leverage doubles the return to equity holders but also doubles the risk."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Calculate the cash conversion cycle given: COGS = $600,000, Average inventory = $100,000, Revenue = $1,000,000, Average A/R = $80,000, Purchases = $620,000, Average A/P = $70,000. Then interpret what the result means for the company's working capital management.",
+      "solution": "**Inventory turnover** = $600,000 / $100,000 = 6.0x\n**DOH** = 365 / 6.0 = **60.8 days**\n\n**Receivables turnover** = $1,000,000 / $80,000 = 12.5x\n**DSO** = 365 / 12.5 = **29.2 days**\n\n**Payables turnover** = $620,000 / $70,000 = 8.86x\n**DPO** = 365 / 8.86 = **41.2 days**\n\n**Cash conversion cycle** = 60.8 + 29.2 - 41.2 = **48.8 days**\n\n**Interpretation**: The company takes about 61 days to sell inventory, 29 days to collect receivables, and pays suppliers in about 41 days. The net cash cycle of 49 days means the company must finance approximately 49 days of working capital from other sources. A shorter cycle would free up cash; a longer cycle would require more financing."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Financial Analysis Techniques Practice Problems",
+      "problems": [
+        {
+          "id": "fsa11-1",
+          "question": "Company X has ROE of 15%, driven by: net margin 5%, asset turnover 1.5x, leverage 2.0x. Company Y also has ROE of 15%, driven by: net margin 10%, asset turnover 1.0x, leverage 1.5x. Which company has higher financial risk?",
+          "options": [
+            "A) Company X",
+            "B) Company Y",
+            "C) Both have equal financial risk"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Company X has a financial leverage ratio of 2.0x vs Company Y's 1.5x. Higher leverage means more debt financing, which increases financial risk. Company X achieves its 15% ROE through higher leverage and higher asset turnover but lower margins, while Company Y achieves it through superior margins with less leverage. Company X is more vulnerable to earnings declines because of its higher debt burden. Option B is incorrect because Company Y has lower leverage. Option C is incorrect because leverage differs significantly.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Use DuPont decomposition to compare companies' ROE drivers"
+        },
+        {
+          "id": "fsa11-2",
+          "question": "A company has average inventory of $250,000 and COGS of $1,500,000. Its days of inventory on hand (DOH) is closest to:",
+          "options": [
+            "A) 42 days",
+            "B) 61 days",
+            "C) 88 days"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Inventory turnover = COGS / Average inventory = $1,500,000 / $250,000 = 6.0x. DOH = 365 / 6.0 = 60.8 days, closest to 61 days. Option A (42 days) would correspond to an inventory turnover of about 8.7x. Option C (88 days) would correspond to an inventory turnover of about 4.1x. DOH tells the analyst how many days, on average, inventory sits before being sold.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate and interpret activity ratios"
+        },
+        {
+          "id": "fsa11-3",
+          "question": "In a 5-factor DuPont analysis, a company's tax burden ratio (NI/EBT) is 0.75 and its interest burden ratio (EBT/EBIT) is 0.80. If the company's EBIT margin is 12%, asset turnover is 1.2x, and financial leverage is 2.5x, ROE is closest to:",
+          "options": [
+            "A) 18.0%",
+            "B) 21.6%",
+            "C) 28.8%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "ROE = Tax burden \u00d7 Interest burden \u00d7 EBIT margin \u00d7 Asset turnover \u00d7 Leverage = 0.75 \u00d7 0.80 \u00d7 0.12 \u00d7 1.2 \u00d7 2.5 = 0.216 = 21.6%. Breaking it down: 0.75 \u00d7 0.80 = 0.60 (combined tax and interest drag). 0.60 \u00d7 0.12 = 0.072 (net profit margin). 0.072 \u00d7 1.2 = 0.0864 (ROA). 0.0864 \u00d7 2.5 = 0.216 (ROE). Option A (18%) omits one factor. Option C (28.8%) may use 1.0 for the tax burden instead of 0.75.",
+          "difficulty": "advanced",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Calculate ROE using the 5-factor DuPont decomposition"
+        },
+        {
+          "id": "fsa11-4",
+          "question": "A company's current ratio is 2.5 and its quick ratio is 0.8. This most likely indicates:",
+          "options": [
+            "A) The company has strong overall liquidity",
+            "B) A large portion of current assets consists of inventory",
+            "C) The company has minimal accounts receivable"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A current ratio of 2.5 but a quick ratio of only 0.8 indicates a large gap between current assets and quick assets (cash + marketable securities + receivables). Since the quick ratio excludes inventory and prepaid expenses, the gap suggests inventory is a dominant component of current assets. This means the company's ability to meet short-term obligations depends heavily on selling inventory. Option A overstates liquidity \u2014 the quick ratio below 1.0 suggests potential short-term liquidity concerns. Option C is unlikely \u2014 minimal receivables would not explain the large gap.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Interpret liquidity ratios and their limitations"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the 3-factor DuPont decomposition to someone who understands ROE but has never seen it broken down. Walk through how two companies can have identical ROE but very different risk profiles, and explain why this matters for investment decisions."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is the cash conversion cycle a more useful measure than any single activity ratio?",
+        "How does the 5-factor DuPont help you identify whether a company's ROE improvement is driven by operational improvement or financial engineering?",
+        "When comparing companies across industries, why might common-size analysis be more informative than absolute dollar comparisons?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Formulas and Concepts:**\n\n- Vertical common-size: IS items as % of revenue; BS items as % of total assets\n- Horizontal common-size: items as % of base year amount\n- Cash conversion cycle = DOH + DSO - DPO (shorter is better)\n- Liquidity: Current ratio > Quick ratio > Cash ratio (progressively conservative)\n- 3-Factor DuPont: ROE = Net margin \u00d7 Asset turnover \u00d7 Leverage\n- 5-Factor DuPont: adds Tax burden (NI/EBT) and Interest burden (EBT/EBIT)\n- Higher leverage boosts ROE but increases financial risk\n- Interest coverage = EBIT / Interest expense\n- ROA = Net income / Average total assets\n- ROIC = NOPAT / Average invested capital"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Financial Statement Modeling**, where you'll build a 3-statement financial model using the ratio analysis and common-size techniques from this module. The ratios become inputs for forecasting \u2014 historical margins, turnover rates, and leverage levels form the basis for projecting future performance."
+    }
+  ]
+}

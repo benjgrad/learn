@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "PC.4: Institutional Portfolio Management",
+    "description": "Understand portfolio management for pensions, endowments, foundations, sovereign wealth funds, insurance companies, and banks with their unique objectives and constraints.",
+    "level": "level-3",
+    "slug": "pc-institutional-portfolio-management",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Portfolio Management"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "How would the investment policy of a fully funded corporate pension fund differ from that of a university endowment? Consider risk tolerance, time horizon, liquidity needs, and appropriate asset allocation."
+    },
+    {
+      "type": "markdown",
+      "content": "## Pension Funds\n\n### Defined Benefit (DB) Pension Funds\n\n| Feature | Characteristic |\n|---|---|\n| **Liability** | Explicit, quantifiable (PV of promised benefits) |\n| **Risk bearer** | Employer/plan sponsor |\n| **Objective** | Fund liabilities at minimum cost; manage surplus risk |\n| **Time horizon** | Depends on maturity \u2014 young workforce = long; frozen plan = shorter |\n| **Liquidity** | Benefit payments (predictable but increasing with plan maturity) |\n| **Risk tolerance** | Varies with funded status, sponsor strength, workforce age |\n\n**Asset allocation implications**:\n- **Well-funded, frozen plan**: High allocation to liability-matching bonds (LDI)\n- **Underfunded, ongoing plan**: More return-seeking assets (equities) needed to close funding gap, but this increases surplus risk\n- **Duration matching**: Liability duration often 10-15+ years \u2192 need long-duration bonds\n\n### Defined Contribution (DC) Pension Plans\n\n- Risk borne by **employees** (not sponsor)\n- Investment choices offered through menu of funds\n- **Target-date funds** as default: Glide path from equity-heavy (young) to bond-heavy (near retirement)\n- **Key challenges**: Participant behavior (inertia, poor choices, insufficient savings)\n\n## Endowments\n\n| Feature | Characteristic |\n|---|---|\n| **Liability** | Annual spending (typically 4-5% of AUM) |\n| **Time horizon** | Perpetual (intergenerational equity) |\n| **Risk tolerance** | High (long horizon, diversified income sources) |\n| **Liquidity** | Low (spending is predictable and modest) |\n| **Objective** | Maintain real purchasing power after spending |\n\n**Required return** \u2265 Spending rate + Inflation + Investment costs\n\nExample: 5% spending + 2.5% inflation + 0.5% costs = **8% nominal return target**\n\n**Yale Model**: High alternatives allocation (PE, VC, real assets, absolute return), enabled by perpetual horizon, governance capacity, and manager access."
+    },
+    {
+      "type": "markdown",
+      "content": "## Foundations\n\nSimilar to endowments but with key differences:\n\n| Feature | Foundation | Endowment |\n|---|---|---|\n| **Minimum distribution** | 5% of assets (U.S. tax requirement) | Spending policy set by board |\n| **Supplemental income** | Rarely (unlike endowments with ongoing gifts) | May receive ongoing donations |\n| **Time horizon** | Perpetual or finite (spend-down) | Perpetual |\n| **Tax status** | Tax-exempt but must distribute | Tax-exempt |\n\nA **spend-down foundation** (finite life) can accept higher volatility and illiquidity in early years, shifting to conservative as the end date approaches.\n\n## Sovereign Wealth Funds (SWFs)\n\n| Type | Objective | Time Horizon | Risk Tolerance |\n|---|---|---|---|\n| **Stabilization fund** | Buffer against commodity revenue volatility | Short-medium | Low (need liquidity) |\n| **Savings fund** | Intergenerational wealth transfer | Very long | High |\n| **Development fund** | Invest in domestic economic development | Medium-long | Moderate |\n| **Reserve fund** | Supplement FX reserves | Short-medium | Low |\n\n**Governance challenges**: Political interference, transparency, accountability, home bias.\n\n## Insurance Companies\n\n### Life Insurance\n- **Liabilities**: Long-duration, predictable (mortality tables)\n- **Asset allocation**: Dominated by investment-grade bonds (duration matching)\n- **Regulatory**: Risk-based capital requirements penalize risky assets\n- **Surplus management**: Cautious \u2014 regulatory minimums must be maintained\n\n### Property & Casualty (P&C)\n- **Liabilities**: Shorter duration, less predictable (catastrophic events)\n- **Asset allocation**: More liquid, shorter-duration bonds; modest equity allocation\n- **Tail risk**: Large, concentrated claims (hurricanes, earthquakes)\n\n## Banks\n\n- **Asset-liability management**: Match deposit liabilities with loan/securities assets\n- **Regulatory**: Basel III/IV capital requirements (CET1, leverage ratio, LCR, NSFR)\n- **Liquidity**: Must maintain high-quality liquid assets (HQLA) for stress scenarios"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An endowment has a 5% spending rule and expects 2% inflation. A board member suggests targeting 7% nominal returns 'to be safe.' Is this sufficient?",
+      "answer": "No, 7% is likely insufficient. The required return must cover spending (5%) + inflation (2%) + investment management costs (typically 0.3-0.8%) = approximately 7.3-7.8%. At exactly 7%, the endowment would slowly erode its real purchasing power as costs eat into the margin. Additionally, this is the expected return \u2014 in years where actual returns fall short (and they will), the shortfall compounds. A prudent target would be at least 7.5-8.0% to provide a buffer against below-expected returns and cost drag."
+    },
+    {
+      "type": "markdown",
+      "content": "## Investment Policy Statements (IPS)\n\nEvery institutional investor should have a formal IPS addressing:\n\n### Return Objective\n- Quantified target (absolute or relative)\n- Aligned with spending needs, liability funding, or wealth preservation\n\n### Risk Objective\n- Maximum acceptable volatility, drawdown, or surplus risk\n- Tracking error budget (if benchmarked)\n\n### Constraints\n\n| Constraint | Considerations |\n|---|---|\n| **Liquidity** | Spending needs, capital calls, benefit payments |\n| **Time horizon** | Perpetual, defined, or multi-stage |\n| **Tax** | Tax-exempt (most institutions) or taxable |\n| **Legal/regulatory** | ERISA, insurance capital rules, foundation distribution |\n| **Unique** | ESG mandates, SRI restrictions, social mission alignment |\n\n### Governance Structure\n\n- **Board of trustees/directors**: Sets policy, hires/fires managers\n- **Investment committee**: Oversees implementation within policy\n- **CIO/Staff**: Day-to-day management, manager selection, rebalancing\n- **External consultants**: Advice on asset allocation, manager search\n- **Governance budget**: Complexity of investment program should match governance capacity"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Constructed Response: Institutional IPS Development",
+      "solution": "**Part A \u2014 Return objective:**\n\nThe corporate DB pension fund (85% funded, $850M assets, $1B PV liabilities) has a dual return objective:\n1. **Liability-matching return**: Earn sufficient return to match liability growth (discount rate used for liabilities, approximately 5-6% for a typical corporate plan)\n2. **Recovery return**: Additional return needed to close the $150M funding gap over 10 years. Required recovery: ($150M / $850M) / 10 \u2248 1.8% per year above liability growth\n3. **Combined target**: ~7-8% nominal return, consistent with a moderate equity allocation (40-50%)\n\n**Part B \u2014 Risk objective:**\n\n1. **Surplus risk**: Maximum acceptable annual surplus volatility of ~8-10% (employer can absorb this level of contribution variability)\n2. **Minimum funding ratio**: Do not fall below 70% funded (regulatory trigger for accelerated contributions)\n3. **Contribution risk**: Limit the probability of required contributions exceeding 10% of sponsor EBITDA to <15%\n\n**Part C \u2014 Constraints and asset allocation:**\n\n**Liquidity**: Annual benefit payments of $60M (7% of assets) \u2014 need sufficient liquid assets\n**Time horizon**: Average duration of liabilities ~12 years; workforce is aging, so duration shortening over time\n**Regulatory**: ERISA fiduciary requirements; prudent expert standard\n**Tax**: Tax-exempt (DB pension fund)\n\n**Recommended allocation:**\n- Liability-hedging portfolio (55%): Long-duration corporate and government bonds, duration-matched to liabilities. Purpose: reduce surplus volatility.\n- Return-seeking portfolio (45%): 25% public equities, 10% alternatives (PE, real estate), 10% credit (HY, EM debt). Purpose: generate returns to close funding gap.\n\n**Rationale for not going 100% LDI**: The fund is underfunded \u2014 pure LDI would lock in the deficit. Some return-seeking assets are needed to close the gap, but this must be balanced against the risk of widening the deficit.\n\n**Part D \u2014 Governance:**\n\n- Investment committee meets quarterly to review funded status, manager performance, and compliance\n- CIO has authority for tactical deviations within \u00b15% of policy weights\n- Annual ALM study by external consultant\n- Contribution policy: Target full funding over 10 years with level contributions"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Institutional Portfolio Management Practice",
+      "problems": [
+        {
+          "id": "l3-pc4-1",
+          "question": "Compared to a university endowment, a life insurance company's investment portfolio would most likely have:",
+          "options": [
+            "A) Higher allocation to equities and alternatives",
+            "B) Higher allocation to investment-grade bonds and lower allocation to equities",
+            "C) Similar allocation given both have long time horizons"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Life insurance companies have explicit long-duration liabilities (contractual obligations) and face risk-based capital (RBC) requirements that impose capital charges for risky assets. This drives them toward investment-grade bonds for duration matching and capital efficiency. Endowments have no explicit liabilities and perpetual horizons, enabling higher equity and alternatives allocations. Despite both having long horizons, their risk tolerance and regulatory constraints differ fundamentally.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Compare portfolio requirements across institutional types"
+        },
+        {
+          "id": "l3-pc4-2",
+          "question": "A foundation with a mandate to spend down all assets over 20 years, compared to a perpetual endowment, should have:",
+          "options": [
+            "A) More conservative allocation throughout because the time horizon is shorter",
+            "B) More aggressive allocation in early years, transitioning to conservative as the end date approaches",
+            "C) The same allocation as a perpetual endowment since both are tax-exempt"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A spend-down foundation has a declining effective time horizon. In early years (15-20 years remaining), the horizon is long enough to tolerate equity volatility and earn the equity premium. As the end date approaches, the portfolio should shift to more conservative, liquid investments to ensure remaining distributions can be made with certainty. A perpetual endowment never needs to shift to conservation mode. Option A ignores the early years when a longer horizon exists. Option C ignores the fundamentally different time horizon.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Distinguish between perpetual and spend-down foundation investment approaches"
+        },
+        {
+          "id": "l3-pc4-3",
+          "question": "An underfunded DB pension fund (75% funded) with a strong corporate sponsor should most likely adopt which approach?",
+          "options": [
+            "A) 100% liability-driven investing to eliminate surplus risk",
+            "B) A combination of liability-hedging and return-seeking portfolios",
+            "C) 100% equities to close the funding gap as quickly as possible"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The combination approach is most appropriate. 100% LDI (A) would lock in the 25% deficit with no mechanism to close it \u2014 the sponsor would need to make large cash contributions. 100% equities (C) is reckless \u2014 a market decline could make the fund critically underfunded. The balanced approach hedges a portion of liabilities (reducing surplus volatility) while maintaining return-seeking assets to close the gap. The strong sponsor provides a backstop if returns disappoint.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Portfolio Management",
+          "learningOutcome": "Recommend asset allocation for underfunded pension funds"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of intergenerational equity to an endowment board. Why does it matter for investment policy, and how does the spending rule interact with asset allocation to preserve real purchasing power across generations?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the funded status of a pension fund influence the appropriate level of risk in the portfolio?",
+        "What governance challenges are unique to sovereign wealth funds?",
+        "Should a small foundation with limited governance capacity attempt a Yale-style alternatives-heavy allocation?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Institutional Characteristics:**\n\n- **DB Pensions**: Liability-relative approach, duration matching, surplus risk management\n- **DC Pensions**: Target-date glide paths, participant behavior management\n- **Endowments**: Perpetual horizon, required return \u2265 spending + inflation + costs, Yale Model\n- **Foundations**: Similar to endowments but with 5% minimum distribution; may be spend-down\n- **SWFs**: Vary by type (stabilization vs. savings); governance challenges\n- **Life Insurance**: Long-duration IG bonds, RBC constraints, conservative\n- **P&C Insurance**: Shorter duration, more liquid, tail risk focus\n- **Banks**: ALM, Basel requirements, HQLA buffers\n- Governance capacity must match investment program complexity"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Next, we examine **Trading Costs and Execution** \u2014 the often-overlooked friction that determines whether investment ideas actually translate into portfolio returns."
+    }
+  ]
+}

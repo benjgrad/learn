@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "FI.3: Fixed-Income Cash Flows and Types",
+    "description": "Examine the cash flow structures of bullet bonds, amortizing bonds, sinking funds, floating-rate notes, inflation-linked bonds, and structured notes.",
+    "level": "level-6",
+    "slug": "fi-cash-flows-types",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Fixed Income"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you own a bond that returns principal gradually over its life versus one that returns all principal at maturity, which has more reinvestment risk? Which has more credit risk at any given point?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Bullet, Amortizing, and Sinking Fund Bonds\n\n### Bullet Bonds\n\nA **bullet bond** pays only coupon interest during its life and returns the entire par value at maturity. This is the most common bond structure. The investor faces **concentration risk** because 100% of principal is returned at one point.\n\n### Amortizing Bonds\n\nAn **amortizing bond** repays principal gradually through periodic payments that include both interest and principal. Each payment is identical (like a mortgage), but the split between interest and principal changes over time:\n\n- Early payments: mostly interest\n- Later payments: mostly principal\n\n$$\\text{Payment} = \\frac{r \\times PV}{1 - (1+r)^{-n}}$$\n\nA **partially amortizing** bond repays some principal over its life but has a **balloon payment** at maturity for the remaining balance.\n\n### Sinking Fund Provisions\n\nA **sinking fund** requires the issuer to retire a portion of the bond issue on a schedule (e.g., 10% per year). The issuer either:\n1. Makes cash payments to the trustee to retire bonds at par, or\n2. Purchases bonds in the open market (if trading below par)\n\nSinking funds **reduce credit risk** for investors (less principal outstanding) but create **reinvestment risk** (principal returned early may be reinvested at lower rates)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An amortizing bond and a bullet bond have identical coupons, maturities, and credit quality. Which has a longer duration?",
+      "answer": "The bullet bond has a longer duration. Because the amortizing bond returns principal throughout its life, its weighted-average time to receive cash flows is shorter. The bullet bond concentrates principal repayment at maturity, extending the average time of cash flows. This also means the bullet bond is more sensitive to interest rate changes."
+    },
+    {
+      "type": "markdown",
+      "content": "## Floating-Rate Notes and Inflation-Linked Bonds\n\n### Floating-Rate Notes (FRNs)\n\nFRN coupons reset periodically based on a reference rate plus a fixed **quoted margin**. Because the coupon adjusts with market rates, FRNs have very low interest rate risk \u2014 their price stays near par at each reset date.\n\nIf the issuer's credit quality changes, the **required margin** (what investors demand) may differ from the quoted margin:\n\n- Required margin > Quoted margin \u2192 FRN trades below par (credit deteriorated)\n- Required margin < Quoted margin \u2192 FRN trades above par (credit improved)\n- Required margin = Quoted margin \u2192 FRN trades at par\n\n### Inflation-Linked Bonds (e.g., TIPS)\n\nThe principal of a **Treasury Inflation-Protected Security (TIPS)** adjusts with CPI:\n\n$$\\text{Adjusted Principal} = \\text{Par Value} \\times \\frac{\\text{CPI}_{\\text{current}}}{\\text{CPI}_{\\text{base}}}$$\n\nCoupons are calculated on the **adjusted principal**, so both coupon payments and the final principal increase with inflation. The **real yield** is the stated coupon rate; the **nominal return** includes inflation adjustment."
+    },
+    {
+      "type": "markdown",
+      "content": "## Payment-in-Kind and Structured Notes\n\n### Payment-in-Kind (PIK) Bonds\n\nPIK bonds allow the issuer to pay interest by issuing additional bonds (or increasing the outstanding principal) instead of making cash payments. These are common in **leveraged buyouts** and high-yield situations where the issuer needs to conserve cash in early years. PIK bonds carry higher credit risk because the issuer's debt burden grows over time.\n\n### Structured Notes\n\nStructured notes combine a bond with a **derivative** component to create customized payoff profiles:\n\n- **Inverse floaters**: Coupon moves inversely to the reference rate (e.g., 10% \u2212 SOFR)\n- **Range accrual notes**: Coupon accrues only when a reference rate stays within a defined range\n- **Credit-linked notes**: Return is linked to the credit performance of a reference entity\n\nStructured notes allow investors to express specific market views but typically involve higher complexity and less liquidity than plain vanilla bonds."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "A TIPS bond has a par value of $1,000 and a 2% real coupon (semiannual). At issuance, the CPI reference was 280. Six months later, the CPI is 283.5. Calculate the first semiannual coupon payment.",
+      "solution": "Step 1: Calculate the inflation-adjusted principal.\n\n$$\\text{Adjusted Principal} = \\$1{,}000 \\times \\frac{283.5}{280} = \\$1{,}000 \\times 1.0125 = \\$1{,}012.50$$\n\nStep 2: Apply the semiannual coupon rate to the adjusted principal.\n\n$$\\text{Coupon} = \\$1{,}012.50 \\times \\frac{2\\%}{2} = \\$1{,}012.50 \\times 0.01 = \\$10.125$$\n\nThe coupon is $10.125, which is higher than the $10.00 it would have been without inflation adjustment. Both the coupon and eventual principal repayment grow with inflation."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Fixed-Income Cash Flows Practice",
+      "problems": [
+        {
+          "id": "fi3-1",
+          "question": "An investor holds a bond with a sinking fund provision. Compared to an otherwise identical bond without a sinking fund, the sinking fund bond most likely has:",
+          "options": [
+            "A) Lower credit risk and lower reinvestment risk",
+            "B) Lower credit risk and higher reinvestment risk",
+            "C) Higher credit risk and higher reinvestment risk"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A sinking fund reduces credit risk because the issuer retires principal over time, reducing the outstanding balance and the probability of a large default at maturity. However, it increases reinvestment risk because the investor receives principal back earlier than expected and must reinvest at potentially lower rates. Option A incorrectly states lower reinvestment risk. Option C incorrectly states higher credit risk.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the risk characteristics of bonds with sinking fund provisions"
+        },
+        {
+          "id": "fi3-2",
+          "question": "A TIPS bond has a par value of $100, a 1.5% real coupon (annual), and a CPI reference of 300 at issuance. One year later, the CPI is 309. The first annual coupon payment is closest to:",
+          "options": [
+            "A) $1.50",
+            "B) $1.55",
+            "C) $1.60"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Adjusted principal = $100 \u00d7 (309/300) = $100 \u00d7 1.03 = $103.00. Coupon = $103.00 \u00d7 1.5% = $1.545, closest to $1.55. Option A uses the unadjusted par value ($100 \u00d7 1.5% = $1.50). Option C would require a higher inflation rate (CPI \u2248 312).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Calculate coupon payments for inflation-linked bonds"
+        },
+        {
+          "id": "fi3-3",
+          "question": "An inverse floating-rate note has a coupon formula of 8% \u2212 SOFR. If SOFR increases from 3% to 5%, the coupon on this note:",
+          "options": [
+            "A) Increases from 5% to 3%",
+            "B) Decreases from 5% to 3%",
+            "C) Decreases from 3% to 1%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Inverse floater coupon = 8% \u2212 SOFR. When SOFR = 3%: coupon = 8% \u2212 3% = 5%. When SOFR = 5%: coupon = 8% \u2212 5% = 3%. The coupon decreases from 5% to 3%. This is the key feature of inverse floaters \u2014 they move opposite to interest rates. Option A reverses the direction (states the coupon increases). Option C uses incorrect starting values.",
+          "difficulty": "basic",
+          "cfaTopic": "Fixed Income",
+          "learningOutcome": "Describe the cash flow characteristics of structured notes"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a bullet bond and an amortizing bond in terms of cash flow patterns. Describe how this difference affects reinvestment risk and interest rate sensitivity, using concrete examples."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why would an investor prefer a TIPS bond during periods of expected high inflation?",
+        "What circumstances would make a PIK bond structure attractive to an issuer?",
+        "How does the reset mechanism of a floating-rate note limit its price volatility?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Bullet bonds**: All principal returned at maturity \u2014 longest duration for a given maturity\n- **Amortizing bonds**: Principal returned gradually \u2014 shorter duration, lower interest rate risk\n- **Sinking funds**: Mandatory early retirement \u2014 lower credit risk, higher reinvestment risk\n- **FRNs**: Coupon resets to reference rate + margin \u2014 price stays near par at reset dates\n- **TIPS**: Principal adjusts with CPI \u2014 coupon paid on adjusted principal protects against inflation\n- **PIK bonds**: Interest paid in additional bonds \u2014 conserves cash but increases leverage\n- **Structured notes**: Bond + derivative \u2014 customized payoffs (inverse floaters, range accruals)"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Issuance and Trading of Fixed-Income Securities**, exploring how bonds are brought to market through primary issuance (underwriting, auctions) and how they trade in secondary markets. Understanding market mechanics is essential for evaluating bond liquidity and pricing."
+    }
+  ]
+}

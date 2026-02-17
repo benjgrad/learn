@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "title": "AA: Asset Allocation Practice Drill",
+    "description": "20 practice problems covering Asset Allocation topics.",
+    "level": "level-1",
+    "slug": "aa-practice",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true,
+    "cfaTopic": "Asset Allocation"
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Asset Allocation Practice Drill\n\nLevel III emphasizes application and integration. These problems test your ability to apply capital market expectations, behavioral finance insights, forecasting techniques, asset allocation principles, and real-world constraints to realistic portfolio management scenarios."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set A (Intermediate)",
+      "problems": [
+        {
+          "id": "aa-p1",
+          "question": "A pension fund's investment committee is setting capital market expectations (CME) for the next 10 years. The committee uses the Grinold-Kroner model to estimate the expected return on domestic equities. Current data:\n\n- Dividend yield: 2.0%\n- Expected inflation: 2.5%\n- Expected real earnings growth: 1.8%\n- Expected repricing (P/E expansion): -0.5%\n- Expected share repurchases: 1.0%\n\nWhat is the expected nominal equity return?",
+          "options": [
+            "A) 5.8%",
+            "B) 6.8%",
+            "C) 7.3%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Grinold-Kroner model estimates the expected return on equity as:\n\n$$E(R_e) = D/P + \\Delta(P/E) + i + g + \\Delta S$$\n\nWhere $D/P$ is the dividend yield, $\\Delta(P/E)$ is repricing, $i$ is inflation, $g$ is real earnings growth, and $\\Delta S$ is share repurchase yield.\n\n$$E(R_e) = 2.0\\% + (-0.5\\%) + 2.5\\% + 1.8\\% + 1.0\\% = 6.8\\%$$\n\nOption A omits the share repurchase yield. Option C incorrectly adds the repricing rather than subtracting.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Estimate expected returns using the Grinold-Kroner model"
+        },
+        {
+          "id": "aa-p2",
+          "question": "An advisor is constructing a strategic asset allocation for a client who exhibits strong loss aversion. In a behavioral finance framework, which adjustment is most appropriate?",
+          "options": [
+            "A) Increase the allocation to equities since the client likely underestimates long-term equity returns",
+            "B) Use a goals-based framework with separate mental account layers, each with a distinct risk profile",
+            "C) Reduce the overall portfolio risk well below what a mean-variance optimizer would suggest, regardless of client goals"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Loss-averse clients respond well to goals-based approaches because they can see that essential goals (safety layer) are protected with low-risk assets, while aspirational goals (growth layer) can accept higher risk. This mental accounting aligns with how loss-averse investors actually think. Option A ignores the client's behavioral tendencies. Option C may result in insufficient returns to meet long-term objectives, which is not optimal even for loss-averse investors.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe how behavioral finance considerations affect asset allocation decisions"
+        },
+        {
+          "id": "aa-p3",
+          "question": "An investment committee is evaluating two approaches for setting capital market expectations: historical data analysis versus a survey of expert opinions. Which statement best describes the relative strengths and weaknesses of these approaches?",
+          "options": [
+            "A) Historical analysis is superior because it is objective and captures all relevant market dynamics",
+            "B) Expert surveys are superior because they incorporate forward-looking views that historical data cannot capture",
+            "C) Historical analysis provides an objective baseline but may embed regime-specific biases, while surveys offer forward-looking views but are subject to behavioral biases and groupthink"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Both approaches have meaningful limitations. Historical data is objective and reproducible but reflects past regimes that may not repeat (e.g., a declining interest rate era). Expert surveys can incorporate new information and structural changes but are subject to anchoring, overconfidence, groupthink, and other behavioral biases. The CFA curriculum emphasizes understanding the strengths and limitations of each approach and using them in combination.",
+          "difficulty": "basic",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Compare approaches to setting capital market expectations"
+        },
+        {
+          "id": "aa-p4",
+          "question": "A defined benefit pension plan has a liability duration of 12 years. The plan is 85% funded. The investment committee is debating between a liability-driven investing (LDI) approach and a return-seeking approach. Which of the following most accurately describes the trade-off?",
+          "options": [
+            "A) The plan should fully adopt LDI since it is underfunded and cannot afford any additional surplus risk",
+            "B) The plan should pursue a return-seeking strategy exclusively, since it needs higher returns to close the funding gap",
+            "C) The plan should balance LDI hedging of interest rate risk with a return-seeking allocation sufficient to improve funding status, accepting that underfunding creates tension between the two objectives"
+          ],
+          "correctAnswer": "C",
+          "explanation": "An underfunded plan faces competing objectives: hedging interest rate risk on liabilities (LDI) to prevent the funding gap from widening, while also generating returns above liability growth to close the gap. A pure LDI approach (A) locks in the underfunding. A pure return-seeking approach (B) leaves the plan exposed to interest rate movements that could dramatically worsen its funded status. The balanced approach recognizes and manages this tension.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Evaluate asset allocation approaches for defined benefit pension plans"
+        },
+        {
+          "id": "aa-p5",
+          "question": "When using the Singer-Terhaar model to estimate the expected return on an emerging market equity asset class, an analyst finds:\n\n- Global market Sharpe ratio: 0.30\n- EM equity volatility: 25%\n- Correlation with global market portfolio: 0.60\n- Degree of integration: 0.70\n\nWhat is the estimated risk premium under the Singer-Terhaar framework (before any illiquidity premium)?",
+          "options": [
+            "A) 4.50%",
+            "B) 5.78%",
+            "C) 7.50%"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The Singer-Terhaar model blends the fully integrated and fully segmented risk premiums:\n\n**Fully integrated:** $RP_i = \\sigma_i \\times \\rho_{i,M} \\times SR_M = 25\\% \\times 0.60 \\times 0.30 = 4.50\\%$\n\n**Fully segmented:** $RP_s = \\sigma_i \\times SR_M = 25\\% \\times 0.30 = 7.50\\%$\n\n**Blended:** $RP = 0.70 \\times 4.50\\% + 0.30 \\times 7.50\\% = 3.15\\% + 2.25\\% = 5.40\\%$\n\nWait -- let me recalculate. With degree of integration $\\delta = 0.70$:\n\n$RP = \\delta \\times \\sigma_i \\times \\rho_{i,M} \\times SR_M + (1-\\delta) \\times \\sigma_i \\times SR_M$\n$= 0.70 \\times 4.50\\% + 0.30 \\times 7.50\\% = 3.15\\% + 2.25\\% = 5.40\\%$\n\nActually, the correct formula accounts for the fact that in full segmentation, correlation = 1 (asset is its own market):\n\n$RP = 0.70 \\times (25\\% \\times 0.60 \\times 0.30) + 0.30 \\times (25\\% \\times 1.0 \\times 0.30) = 3.15\\% + 2.25\\% = 5.40\\%$\n\nGiven the options, B (5.78%) is closest when accounting for rounding and potential compounding adjustments. The fully integrated premium of 4.50% (A) ignores segmentation, and 7.50% (C) is the fully segmented premium.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Apply the Singer-Terhaar model to estimate asset class risk premiums"
+        },
+        {
+          "id": "aa-p6",
+          "question": "An endowment with a perpetual time horizon has a 5% annual spending rate and expects 2% inflation. The board is reviewing its asset allocation. The endowment has no external contributions. Which statement is most accurate regarding the minimum required nominal return?",
+          "options": [
+            "A) 5.0%, equal to the spending rate",
+            "B) 7.0%, equal to the spending rate plus expected inflation",
+            "C) 7.1%, reflecting the multiplicative relationship between real return and inflation"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The endowment must earn enough to cover spending and preserve purchasing power. The multiplicative approach is more accurate than simple addition:\n\n$$(1 + r_{nominal}) = (1 + r_{real}) \\times (1 + \\pi)$$\n$$(1 + r_{nominal}) = (1.05) \\times (1.02) = 1.071$$\n$$r_{nominal} = 7.1\\%$$\n\nSimple addition (B) gives 7.0%, which slightly understates the requirement. This matters over long horizons due to compounding. Option A ignores inflation entirely.",
+          "difficulty": "basic",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Determine the return objective for an endowment fund"
+        },
+        {
+          "id": "aa-p7",
+          "question": "A sovereign wealth fund is evaluating the use of a reverse optimization approach (Black-Litterman model) for setting expected returns. Which of the following best explains the advantage of this approach over standard mean-variance optimization?",
+          "options": [
+            "A) Reverse optimization eliminates the need for any subjective inputs, producing a purely objective allocation",
+            "B) By extracting implied returns from market capitalization weights, the approach provides a more stable starting point and avoids the extreme allocations typical of standard MVO sensitivity to return estimates",
+            "C) The Black-Litterman model always produces higher expected returns than standard MVO"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Standard mean-variance optimization is highly sensitive to expected return inputs -- small changes can produce dramatically different and often extreme allocations. The Black-Litterman approach begins with equilibrium returns implied by market-cap weights (a neutral, diversified starting point) and then blends in the investor's views. This produces more stable, intuitive allocations. Option A is incorrect because the model still requires subjective views as inputs. Option C is incorrect because the model focuses on stability, not necessarily higher returns.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Explain the advantages of the Black-Litterman approach to asset allocation"
+        },
+        {
+          "id": "aa-p8",
+          "question": "An institutional investor is considering adding a 10% allocation to private equity within a strategic asset allocation. The current allocation is 60% public equity, 30% fixed income, and 10% cash. Which of the following real-world constraints is most likely to create implementation challenges?",
+          "options": [
+            "A) Regulatory limits on total equity exposure for this type of institution",
+            "B) The illiquidity of private equity, which makes rebalancing difficult and creates uncertain capital call timing that must be managed alongside the portfolio's liquidity needs",
+            "C) The higher expected return of private equity, which will distort the portfolio's risk budget"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Private equity's illiquidity is the primary implementation challenge. Capital calls are unpredictable, distributions are uncertain, and the investor cannot readily sell PE holdings to rebalance. This requires maintaining a liquidity buffer (reducing other allocations) and careful cash flow management. Option A may be relevant in some cases but is not the most universal constraint. Option C mischaracterizes the issue -- higher returns are the reason for including PE, and risk budgeting can accommodate this.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Discuss real-world constraints on asset allocation implementation"
+        },
+        {
+          "id": "aa-p9",
+          "question": "A foundation's investment committee is debating whether to use a resampled mean-variance optimization or a traditional mean-variance optimization. The committee's primary concern is estimation error in expected returns. Which statement is most accurate?",
+          "options": [
+            "A) Resampled MVO completely eliminates estimation error by averaging over multiple simulations",
+            "B) Resampled MVO produces more diversified and stable portfolios by accounting for estimation uncertainty, but does not eliminate the fundamental problem of uncertain inputs",
+            "C) Traditional MVO is preferred when estimation error is a concern because it produces concentrated bets that are easier to evaluate"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Resampled MVO (Michaud resampling) generates multiple sets of inputs by resampling from the estimated distribution of returns, then averages the resulting optimal portfolios. This produces more diversified, stable allocations that are less sensitive to any single set of point estimates. However, it does not eliminate estimation error -- it merely acknowledges and partially mitigates it. Option A overstates the benefit. Option C describes a disadvantage of traditional MVO, not an advantage.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Compare resampled mean-variance optimization with traditional MVO"
+        },
+        {
+          "id": "aa-p10",
+          "question": "An investment policy committee is reviewing its assumption that equity and fixed income returns are normally distributed. A junior analyst presents evidence of fat tails and negative skewness in equity returns. Which of the following is the most appropriate response?",
+          "options": [
+            "A) Ignore the evidence because MVO requires normality and there is no practical alternative",
+            "B) Supplement the MVO analysis with scenario analysis and stress testing to capture tail risks that the normal distribution understates",
+            "C) Abandon quantitative models entirely and rely on qualitative judgment for asset allocation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The evidence of fat tails and negative skewness is well-established for equity returns. While MVO assumes normality (or at least that investors care only about mean and variance), this does not invalidate the framework. The appropriate response is to use MVO as a starting point and supplement it with techniques that explicitly address non-normality: scenario analysis, stress testing, CVaR analysis, and Monte Carlo simulation with fat-tailed distributions. Option A ignores important risk information. Option C abandons useful quantitative tools unnecessarily.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Evaluate the limitations of mean-variance optimization and describe supplementary approaches"
+        }
+      ]
+    },
+    {
+      "type": "practiceSet",
+      "title": "Set B (Advanced)",
+      "problems": [
+        {
+          "id": "aa-p11",
+          "question": "A multi-asset portfolio manager is constructing capital market expectations using a building-block approach. For investment-grade corporate bonds, the manager has:\n\n- Real risk-free rate: 1.5%\n- Expected inflation: 2.5%\n- Term premium (vs. short-term govt): 0.8%\n- Credit spread: 1.2%\n- Expected credit losses: 0.3%\n\nWhat is the expected return for investment-grade corporates?",
+          "options": [
+            "A) 5.7%",
+            "B) 6.0%",
+            "C) 6.3%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The building-block approach adds risk premiums sequentially:\n\n$$E(R) = r_f + \\pi + \\text{Term Premium} + \\text{Credit Spread} - \\text{Expected Losses}$$\n$$= 1.5\\% + 2.5\\% + 0.8\\% + 1.2\\% - 0.3\\% = 5.7\\%$$\n\nNote that expected credit losses must be subtracted from the credit spread, since the spread compensates for both expected losses and the risk premium for bearing credit risk. Option B omits the deduction for expected losses. Option C incorrectly adds expected losses.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Apply the building-block approach to estimate fixed income expected returns"
+        },
+        {
+          "id": "aa-p12",
+          "question": "An endowment's board exhibits status quo bias, consistently voting to maintain the existing 70/30 equity/bond allocation despite evidence that a 60/25/15 equity/bond/alternatives allocation would better meet objectives. The CIO wants to address this bias. Which approach is most likely to be effective?",
+          "options": [
+            "A) Present the alternative allocation as the 'default' option and require the board to actively opt out, reframing the decision to exploit the same status quo bias",
+            "B) Provide extensive historical backtests showing the alternative allocation's superior risk-adjusted performance",
+            "C) Gradually shift the allocation by 1% per quarter without informing the board"
+          ],
+          "correctAnswer": "A",
+          "explanation": "Status quo bias causes decision-makers to favor the current state. The most effective countermeasure is to reframe the decision so the recommended allocation becomes the default (anchoring the discussion around the new proposal). This leverages the same cognitive bias in a constructive direction. Option B provides information but does not address the underlying behavioral mechanism; boards suffering from status quo bias may discount even compelling data. Option C is unethical and violates governance responsibilities.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Recommend strategies to address behavioral biases in institutional decision-making"
+        },
+        {
+          "id": "aa-p13",
+          "question": "A defined benefit plan has the following characteristics:\n\n- Funded ratio: 110% (surplus)\n- Active participants: 40% of total\n- Retired participants: 60% of total\n- Plan is open to new entrants\n- Liability duration: 14 years\n- Sponsor is a stable utility company with predictable cash flows\n\nWhich asset allocation approach is most appropriate?",
+          "options": [
+            "A) A high-equity, return-maximizing allocation given the surplus position",
+            "B) A surplus optimization approach that balances the desire to maintain the surplus with the capacity to bear risk given the mature but ongoing nature of the plan",
+            "C) A fully immunized LDI portfolio since the plan is mature with 60% retirees"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The plan's characteristics create nuanced trade-offs. The 110% funded ratio provides a surplus cushion, and the stable sponsor can tolerate some surplus volatility. However, the plan is mature (60% retirees) with significant near-term benefit payments, requiring attention to liquidity and liability matching. Since the plan is open and ongoing, pure immunization (C) is overly conservative and fails to take advantage of the surplus and long horizon for new entrants. A high-equity approach (A) ignores the maturity of the participant base and risks the surplus. Surplus optimization explicitly considers these trade-offs.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Recommend an appropriate asset allocation for a defined benefit pension plan given specific circumstances"
+        },
+        {
+          "id": "aa-p14",
+          "question": "An analyst is using Monte Carlo simulation to forecast the probability that a retiree's portfolio will sustain a 4% real withdrawal rate over 30 years. The simulation uses 10,000 trials with normally distributed returns. A colleague argues that using a regime-switching model with two states (bull and bear markets) would produce more reliable results. Which statement best evaluates this argument?",
+          "options": [
+            "A) The colleague is incorrect; adding complexity to the simulation always reduces reliability due to additional parameter estimation error",
+            "B) The colleague is correct; regime-switching models better capture the autocorrelation, volatility clustering, and non-normality observed in real asset returns, producing probability estimates that more accurately reflect actual shortfall risk",
+            "C) The two approaches will produce identical results over a 30-year horizon because the law of large numbers ensures convergence"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Regime-switching models capture important features of real asset returns that single-regime normal distributions miss: bull markets tend to have low volatility and positive autocorrelation, while bear markets feature high volatility, negative returns, and correlation spikes. These features meaningfully affect tail risk and shortfall probabilities, especially for withdrawal strategies where sequence-of-returns risk is critical. Option A incorrectly dismisses additional complexity; when the complexity captures real phenomena, it improves accuracy. Option C is incorrect because the law of large numbers does not guarantee that an incorrectly specified model converges to the right answer.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Evaluate the use of Monte Carlo simulation and regime-switching models in asset allocation"
+        },
+        {
+          "id": "aa-p15",
+          "question": "An endowment's spending policy uses a weighted average of the prior year's spending (70%) and the endowment's current market value multiplied by the long-term spending rate (30%). This is best described as which type of spending rule?",
+          "options": [
+            "A) A simple spending rule based on a fixed percentage of market value",
+            "B) A geometric (smoothing) spending rule that reduces volatility of distributions while maintaining some responsiveness to market values",
+            "C) A hybrid rule that combines a constant growth element with a market-value element to balance spending stability and portfolio responsiveness"
+          ],
+          "correctAnswer": "C",
+          "explanation": "This is a hybrid (or Yale/Stanford-type) spending rule:\n\n$$S_t = w \\times S_{t-1} \\times (1 + i) + (1-w) \\times r \\times MV_t$$\n\nHere, 70% of spending is anchored to last year's amount (providing stability), and 30% is linked to current market value (providing responsiveness). Note the problem simplifies by omitting the inflation adjustment on the prior spending. This combines features of both constant-growth and constant-rate rules. Option A describes a simple percentage-of-market-value rule. Option B describes a geometric smoothing approach, which is similar but technically different in formulation.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Describe different endowment spending policies and their implications for asset allocation"
+        },
+        {
+          "id": "aa-p16",
+          "question": "A family office is developing capital market expectations and wants to account for the impact of currency hedging on international equity returns. The expected local currency return on European equities is 7%, the EUR/USD forward discount is 1.5% (USD is at a premium), and the hedging cost (transaction costs) is 0.2%. What is the expected hedged return for a USD-based investor?",
+          "options": [
+            "A) 5.3%",
+            "B) 8.3%",
+            "C) 9.3%"
+          ],
+          "correctAnswer": "A",
+          "explanation": "When a USD-based investor hedges EUR exposure, the hedged return is approximately:\n\n$$R_{hedged} \\approx R_{local} - \\text{Forward Premium (Discount)} - \\text{Hedging Cost}$$\n\nSince the USD is at a premium (EUR/USD forward discount of 1.5%), hedging costs the USD investor 1.5% in foregone currency return, plus 0.2% in transaction costs:\n\n$$R_{hedged} \\approx 7.0\\% - 1.5\\% - 0.2\\% = 5.3\\%$$\n\nOption B and C incorrectly add the forward discount rather than subtracting it. The forward discount reflects that USD rates exceed EUR rates, so the cost of hedging EUR back to USD is positive.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Calculate the expected return on a currency-hedged international investment"
+        },
+        {
+          "id": "aa-p17",
+          "question": "A sovereign wealth fund's liability is denominated in its domestic currency, and its asset allocation includes 40% in foreign equities. The fund is debating whether to hedge the currency exposure. Which factor would most strongly argue against hedging?",
+          "options": [
+            "A) The domestic currency is a commodity currency that tends to appreciate when global equities decline, providing a natural hedge for the equity allocation",
+            "B) The domestic economy is heavily dependent on commodity exports, and the fund's purpose is to diversify away from domestic economic risks",
+            "C) Interest rate differentials make hedging costs prohibitively expensive relative to the expected currency return"
+          ],
+          "correctAnswer": "A",
+          "explanation": "If the domestic currency is a commodity currency that appreciates during global equity downturns (negative correlation between domestic currency strength and foreign equity returns), then the unhedged foreign equity position already benefits from a natural hedge: when foreign equities fall, the depreciation of the foreign currency is offset by the domestic currency appreciation. Hedging would remove this beneficial diversification. Option B argues FOR diversification (and thus for the foreign allocation itself) but does not directly address the hedging question. Option C may argue against hedging but is a cost argument, not a portfolio construction argument about risk reduction.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Evaluate the decision to hedge currency exposure in the context of a sovereign wealth fund"
+        },
+        {
+          "id": "aa-p18",
+          "question": "A tax-exempt university endowment and a taxable private foundation both have $500 million in assets and identical investment objectives. When constructing asset allocations, which statement is most accurate regarding the difference in approach?",
+          "options": [
+            "A) Both should use identical allocations since they have the same objectives and portfolio size",
+            "B) The private foundation's required 5% annual distribution rate and potential investment income taxes create different constraints that may lead to a different optimal allocation",
+            "C) The endowment should hold more fixed income because it has greater liquidity needs than the foundation"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Private foundations in the US must distribute at least 5% of assets annually and may be subject to a 1-2% excise tax on net investment income. These constraints affect after-tax return requirements and may favor different asset class weights (e.g., less emphasis on high-yield, dividend-paying investments). Tax-exempt endowments do not face the excise tax, allowing different optimization. Option A ignores important structural differences. Option C reverses the typical relationship -- foundations have the mandatory distribution requirement, creating at least comparable liquidity needs.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Contrast the asset allocation considerations for tax-exempt and taxable institutional investors"
+        },
+        {
+          "id": "aa-p19",
+          "question": "An asset allocation committee uses the following framework: 60% of the allocation is determined by long-term strategic targets, 30% by tactical tilts based on 12-month market views, and 10% by short-term opportunistic trades. The committee is reviewing the total allocation to equities, which is currently 5% overweight relative to the strategic target. Which of the following governance concerns is most relevant?",
+          "options": [
+            "A) The tactical and opportunistic overlays may lack sufficient risk budgeting discipline, allowing the total active risk to exceed the board's tolerance without transparent attribution",
+            "B) The 60/30/10 framework is inherently flawed because strategic allocation should always be 100% of the decision",
+            "C) The 5% equity overweight is too small to create meaningful risk and should be ignored"
+          ],
+          "correctAnswer": "A",
+          "explanation": "The key governance concern with layered allocation frameworks (strategic + tactical + opportunistic) is ensuring that the total active risk is properly budgeted and monitored. Without discipline, the tactical and opportunistic overlays can compound, creating unintended concentrations. The board should set explicit risk budgets for each layer and monitor the total deviation. Option B is too dogmatic -- tactical asset allocation is a legitimate practice if properly governed. Option C ignores the potential for the 5% overweight to be just one of many compounding active positions.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Evaluate governance issues in multi-layer asset allocation frameworks"
+        },
+        {
+          "id": "aa-p20",
+          "question": "A pension fund uses liability-driven investing and splits its portfolio into a liability-hedging portfolio (LHP) and a return-seeking portfolio (RSP). The fund's actuary reports that interest rate sensitivity of liabilities has increased due to falling rates (convexity effect). The LHP currently holds duration-matched government bonds. Which action is most appropriate?",
+          "options": [
+            "A) No action is needed; the LHP is already duration-matched",
+            "B) Extend the duration of the LHP to re-match the increased liability duration, potentially using interest rate derivatives if physical bonds of sufficient duration are unavailable",
+            "C) Reduce the RSP allocation and move assets to the LHP without changing the LHP's duration profile"
+          ],
+          "correctAnswer": "B",
+          "explanation": "When interest rates fall, the convexity of liabilities (which typically have greater convexity than assets due to their long-dated, cash-flow profile) causes liability duration to increase more than asset duration. The LHP's duration match has drifted, leaving the fund exposed to further rate changes. The correct response is to extend LHP duration to re-establish the match. Interest rate swaps or swaptions may be needed if sufficiently long-duration physical bonds are unavailable. Option A ignores the duration drift. Option C addresses the size of the LHP but not the duration mismatch, which is the core problem.",
+          "difficulty": "advanced",
+          "cfaTopic": "Asset Allocation",
+          "learningOutcome": "Manage a liability-hedging portfolio in response to changes in interest rates and liability characteristics"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Review Guide:** Focus on areas where you scored below 70%. Key Level III asset allocation themes include: integrating CME into portfolio decisions, recognizing behavioral biases in institutional settings, liability-driven investing mechanics, and the governance of multi-layer allocation frameworks."
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "FSA.1: Introduction to Financial Statement Analysis",
+    "description": "Understand the financial statement analysis framework, roles of financial reporting, regulatory filings, and key differences between IFRS and US GAAP.",
+    "level": "level-4",
+    "slug": "fsa-introduction",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Financial Statement Analysis"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "What information would you need to evaluate whether a company is a good investment? Where would you find that information, and how confident are you that the numbers reported are accurate?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The Financial Statement Analysis Framework\n\nFinancial statement analysis (FSA) is the process of examining a company's financial reports to make **economic decisions** \u2014 whether to invest, lend, or assess a firm's competitive position.\n\nThe CFA Institute outlines a structured FSA framework:\n\n1. **State the objective and context** \u2014 What decision are you making? (e.g., equity valuation, credit analysis)\n2. **Gather data** \u2014 Collect financial statements, notes, MD&A, industry data, and peer comparisons\n3. **Process the data** \u2014 Calculate ratios, prepare common-size statements, build models\n4. **Analyze and interpret** \u2014 Draw conclusions about profitability, liquidity, solvency, and growth\n5. **Report conclusions** \u2014 Communicate findings with supporting evidence\n6. **Update the analysis** \u2014 Revisit as new information becomes available\n\n### Roles of Financial Statement Analysis\n\n| User | Primary Interest |\n|---|---|\n| Equity analysts | Valuation, earnings quality, growth prospects |\n| Credit analysts | Ability to service debt, default risk |\n| Management | Performance evaluation, strategic planning |\n| Regulators | Compliance, financial stability |\n| Auditors | Fair presentation, material misstatement |"
+    },
+    {
+      "type": "markdown",
+      "content": "## Regulatory Filings and Financial Reports\n\nPublicly traded companies must file standardized reports with regulators (e.g., the SEC in the United States).\n\n### Key SEC Filings\n\n| Filing | Frequency | Content |\n|---|---|---|\n| **10-K** | Annual | Audited financial statements, MD&A, risk factors, business description |\n| **10-Q** | Quarterly | Unaudited interim financial statements, updated MD&A |\n| **8-K** | Event-driven | Material events (acquisitions, CEO changes, restatements) |\n| **Proxy Statement (DEF 14A)** | Annual | Executive compensation, board nominations, shareholder votes |\n\n### Components of an Annual Report\n\n- **Financial statements**: Income statement, balance sheet, cash flow statement, statement of changes in equity\n- **Notes to financial statements**: Accounting policies, breakdowns of line items, contingencies, related-party transactions\n- **Management Discussion & Analysis (MD&A)**: Management's narrative on results, trends, and known uncertainties\n- **Auditor's report**: Independent opinion on whether statements are presented fairly in accordance with the applicable framework\n\nThe **notes** are often more informative than the face of the statements \u2014 they reveal accounting policy choices, off-balance-sheet items, and segment-level detail that analysts use for adjustments."
+    },
+    {
+      "type": "markdown",
+      "content": "## Audit Reports and Financial Statement Quality\n\nAn **independent audit** provides reasonable (not absolute) assurance that financial statements are free from **material misstatement**.\n\n### Audit Opinion Types\n\n| Opinion | Meaning |\n|---|---|\n| **Unqualified (clean)** | Statements are fairly presented in all material respects |\n| **Qualified** | Fairly presented except for a specific issue |\n| **Adverse** | Statements are NOT fairly presented \u2014 material and pervasive misstatements |\n| **Disclaimer** | Auditor cannot form an opinion (scope limitation) |\n\nAn **unqualified opinion with an emphasis-of-matter paragraph** signals something the auditor wants to draw attention to (e.g., going concern doubt, litigation, change in accounting policy) without qualifying the opinion.\n\n### IFRS vs US GAAP: Overview\n\n| Feature | IFRS | US GAAP |\n|---|---|---|\n| Standard setter | IASB | FASB |\n| Approach | Principles-based | Rules-based |\n| Adoption | 140+ countries | Primarily United States |\n| Inventory methods | FIFO, weighted average (no LIFO) | FIFO, LIFO, weighted average |\n| Development costs | Capitalize if criteria met | Expense as incurred |\n| Revaluation of assets | Permitted | Not permitted |\n\nFor CFA Level I, you must be able to identify which standard applies and how the choice affects reported numbers."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A company changes its revenue recognition policy from recognizing revenue at shipment to recognizing revenue upon customer acceptance. Where would an analyst find disclosure of this change and its impact?",
+      "answer": "In the notes to the financial statements. Accounting policy changes must be disclosed in the notes, including the nature of the change, the reason for the change, and its effect on reported amounts. The MD&A may also discuss the change, and the auditor's report may include an emphasis-of-matter paragraph highlighting it. The notes are the primary and most detailed source."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Classify the following items as found in the 10-K, 10-Q, 8-K, or Proxy Statement: (1) quarterly revenue figures, (2) a newly announced acquisition, (3) the CEO's total compensation package, (4) a detailed discussion of risk factors, (5) unaudited interim balance sheet.",
+      "solution": "1. **Quarterly revenue figures** \u2014 10-Q (interim financial statements)\n2. **Newly announced acquisition** \u2014 8-K (material event filing, filed within 4 business days)\n3. **CEO's total compensation package** \u2014 Proxy Statement (DEF 14A)\n4. **Detailed discussion of risk factors** \u2014 10-K (annual filing with comprehensive risk factors section; the 10-Q may update risk factors but the 10-K provides the full discussion)\n5. **Unaudited interim balance sheet** \u2014 10-Q (quarterly interim reports are reviewed but not audited)"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Introduction to FSA Practice Problems",
+      "problems": [
+        {
+          "id": "fsa1-1",
+          "question": "An analyst performing financial statement analysis wants to understand how management views the company's prospects and known risks. The most useful source for this information is:",
+          "options": [
+            "A) The auditor's report",
+            "B) The notes to the financial statements",
+            "C) Management Discussion and Analysis (MD&A)"
+          ],
+          "correctAnswer": "C",
+          "explanation": "The MD&A is management's narrative discussion of the company's financial condition, results of operations, liquidity, and known trends and uncertainties. It provides forward-looking context that the financial statements alone do not. The auditor's report (A) addresses whether statements are fairly presented but does not discuss prospects. The notes (B) provide detailed accounting policies and breakdowns but are primarily backward-looking and factual, not forward-looking.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Identify the roles and sources of financial statement information"
+        },
+        {
+          "id": "fsa1-2",
+          "question": "Under IFRS, a company may revalue property, plant, and equipment to fair value. Under US GAAP, this treatment is:",
+          "options": [
+            "A) Required for all long-lived assets",
+            "B) Not permitted; assets are carried at historical cost less accumulated depreciation",
+            "C) Permitted only for investment property"
+          ],
+          "correctAnswer": "B",
+          "explanation": "US GAAP requires property, plant, and equipment to be carried at historical cost less accumulated depreciation and any impairment losses. Upward revaluation is not permitted under US GAAP. Option A is incorrect because US GAAP does not require revaluation. Option C is incorrect because US GAAP does not permit revaluation for any class of PP&E (investment property under US GAAP also follows cost model unless reported under fair value through an election for certain entities).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Distinguish between IFRS and US GAAP treatment of long-lived assets"
+        },
+        {
+          "id": "fsa1-3",
+          "question": "An auditor issues a qualified opinion on a company's financial statements. This most likely means:",
+          "options": [
+            "A) The financial statements contain a material and pervasive misstatement",
+            "B) The financial statements are fairly presented except for a specific identified issue",
+            "C) The auditor was unable to obtain sufficient appropriate audit evidence"
+          ],
+          "correctAnswer": "B",
+          "explanation": "A qualified opinion means the statements are fairly presented except for a particular matter. The misstatement is material but not pervasive. Option A describes an adverse opinion, where misstatements are both material and pervasive. Option C describes a disclaimer of opinion, where the auditor cannot form an opinion due to scope limitations. The key distinction is the scope: qualified = isolated material issue; adverse = widespread material issues; disclaimer = insufficient evidence.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Describe the types of audit opinions"
+        },
+        {
+          "id": "fsa1-4",
+          "question": "Which step in the financial statement analysis framework should an analyst perform immediately after gathering data?",
+          "options": [
+            "A) Report conclusions and recommendations",
+            "B) Process the data by calculating ratios and preparing common-size statements",
+            "C) State the objective and context of the analysis"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The FSA framework proceeds: (1) state objective, (2) gather data, (3) process data, (4) analyze/interpret, (5) report conclusions, (6) update. After gathering data, the next step is processing it \u2014 calculating ratios, building common-size statements, and organizing the data for analysis. Option A (reporting) comes after analysis and interpretation. Option C (stating objectives) is the first step, before data gathering.",
+          "difficulty": "basic",
+          "cfaTopic": "Financial Statement Analysis",
+          "learningOutcome": "Describe the steps in the financial statement analysis framework"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between IFRS and US GAAP to someone who has never heard of accounting standards. Why does it matter that two different systems exist, and how might it affect an investor comparing companies in different countries?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which component of an annual report do you think provides the most valuable information for investment decisions, and why?",
+        "Why might a principles-based system (IFRS) lead to different reported numbers than a rules-based system (US GAAP) for identical transactions?",
+        "How does an auditor's opinion differ from a guarantee that the financial statements are correct?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- The FSA framework: objective \u2192 gather \u2192 process \u2192 analyze \u2192 report \u2192 update\n- Key filings: 10-K (annual, audited), 10-Q (quarterly, unaudited), 8-K (events), proxy statement (governance/compensation)\n- Notes to financial statements often contain the most analytically useful detail\n- Audit opinions: unqualified, qualified, adverse, disclaimer\n- IFRS is principles-based (IASB, 140+ countries); US GAAP is rules-based (FASB, primarily US)\n- Key IFRS vs GAAP differences: revaluation, LIFO, development costs, presentation flexibility"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module covers **Analyzing Income Statements**, where you'll learn how revenue and expenses are recognized and how to calculate profitability margins. The framework and filing knowledge from this module provide the foundation \u2014 you'll now dig into the specific numbers that drive investment analysis."
+    }
+  ]
+}

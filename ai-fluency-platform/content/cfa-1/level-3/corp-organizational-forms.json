@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "CI.1: Organizational Forms",
+    "description": "Understand sole proprietorships, partnerships, corporations, LLCs, and cooperatives, including ownership structures and the separation of ownership and control.",
+    "level": "level-3",
+    "slug": "corp-organizational-forms",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Corporate Issuers"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Why do most large businesses choose to organize as corporations rather than partnerships or sole proprietorships? What advantages and disadvantages might a corporate structure create?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Sole Proprietorships and Partnerships\n\nThe simplest business forms are **sole proprietorships** and **partnerships**. These are easy to establish but carry significant limitations for growth.\n\n### Sole Proprietorship\n\nA business owned and operated by a single individual. The owner has **unlimited personal liability** \u2014 creditors can pursue the owner's personal assets if the business cannot pay its debts. Income is taxed once at the owner's personal rate (single taxation). The business has a **limited life** tied to the owner.\n\n### Partnerships\n\n**General partnerships** involve two or more owners who share management responsibilities and profits. All general partners bear **unlimited liability** and are **jointly and severally liable** \u2014 each partner can be held responsible for the full amount of partnership debts.\n\n**Limited partnerships (LPs)** have at least one general partner (with unlimited liability and management authority) and one or more limited partners. Limited partners enjoy **liability limited to their investment** but generally cannot participate in management without losing their limited liability protection.\n\n| Feature | Sole Proprietorship | General Partnership | Limited Partnership |\n|---|---|---|---|\n| Liability | Unlimited | Unlimited (joint & several) | GP: Unlimited; LP: Limited |\n| Taxation | Single (personal) | Single (pass-through) | Single (pass-through) |\n| Life | Limited | Limited | Limited |\n| Management | Owner only | All partners | General partner(s) |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "In a limited partnership, if the business goes bankrupt owing $2 million and a limited partner invested $50,000, what is the maximum that limited partner can lose?",
+      "answer": "$50,000. A limited partner's liability is limited to their capital contribution. They cannot be required to contribute additional funds or have personal assets seized \u2014 provided they did not participate in management. The general partner, however, bears unlimited liability and could be personally responsible for the full $2 million shortfall."
+    },
+    {
+      "type": "markdown",
+      "content": "## Corporations\n\nA **corporation** is a legal entity separate from its owners. This separation provides critical advantages that make corporations the dominant form for large businesses.\n\n### Key Features\n\n- **Limited liability**: Shareholders can lose only their invested capital, not personal assets\n- **Perpetual life**: The corporation continues regardless of changes in ownership\n- **Transferability of ownership**: Shares can be bought and sold freely, especially for publicly traded companies\n- **Access to capital**: Can issue equity and debt securities to large pools of investors\n- **Professional management**: Managed by hired executives rather than owners directly\n\n### Double Taxation\n\nThe major disadvantage of the traditional C-corporation is **double taxation**:\n\n$$\\text{After-tax income to shareholder} = \\text{Earnings} \\times (1 - t_c) \\times (1 - t_p)$$\n\nWhere $t_c$ is the corporate tax rate and $t_p$ is the personal tax rate on dividends.\n\n**Example**: A corporation earns $100 and faces a 21% corporate rate and 15% dividend rate:\n\n$$\\$100 \\times (1 - 0.21) \\times (1 - 0.15) = \\$79 \\times 0.85 = \\$67.15$$\n\nCompare this to a partnership where the same $100 taxed once at 37% yields $63.00 \u2014 the relative advantage depends on the specific tax rates involved."
+    },
+    {
+      "type": "markdown",
+      "content": "## Other Organizational Forms\n\n### Limited Liability Companies (LLCs)\n\nLLCs combine the **limited liability** of a corporation with the **pass-through taxation** of a partnership. Members are not personally liable for business debts, and profits flow through to members' personal tax returns without corporate-level taxation. LLCs offer flexibility in management structure and profit distribution.\n\n### Cooperatives\n\nCooperatives are owned and controlled by their **members** (customers, employees, or producers) rather than outside investors. Each member typically has one vote regardless of their investment. Cooperatives operate for the benefit of members rather than to maximize profit. Common examples include credit unions, agricultural cooperatives, and consumer cooperatives.\n\n### Separation of Ownership and Control\n\nIn corporations, **owners (shareholders)** are typically separate from **managers (executives)**. This creates the **principal-agent problem**:\n\n- **Principals** (shareholders) hire **agents** (managers) to run the company\n- Agents may pursue their own interests (higher pay, empire building, risk avoidance) rather than maximizing shareholder value\n- This conflict requires **corporate governance mechanisms** to align interests\n\nMechanisms to mitigate agency conflicts include:\n- Board of directors oversight\n- Performance-based compensation (stock options, bonuses)\n- Threat of takeover (market for corporate control)\n- Shareholder activism and proxy voting"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Compare the after-tax income received by an owner under a corporate structure versus a partnership, given the following: pre-tax earnings of $200,000, corporate tax rate of 21%, personal dividend tax rate of 20%, and personal ordinary income tax rate of 37%.",
+      "solution": "**Corporate structure (double taxation):**\n\nCorporate tax: $200{,}000 \\times 0.21 = $42{,}000\n\nAfter-corporate-tax income: $200{,}000 - $42{,}000 = $158{,}000\n\nPersonal dividend tax: $158{,}000 \\times 0.20 = $31{,}600\n\nAfter-tax to shareholder: $158{,}000 - $31{,}600 = **$126,400**\n\nEffective combined rate: $1 - ($126{,}400 / $200{,}000) = 36.8\\%$\n\n**Partnership structure (single taxation):**\n\nPersonal tax: $200{,}000 \\times 0.37 = $74{,}000\n\nAfter-tax to partner: $200{,}000 - $74{,}000 = **$126,000**\n\nEffective rate: 37.0%\n\nIn this case, the two structures produce nearly identical after-tax results ($126,400 vs $126,000). The relative advantage depends on the specific corporate, dividend, and personal tax rates."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Organizational Forms Practice Problems",
+      "problems": [
+        {
+          "id": "ci1-1",
+          "question": "Which organizational form best provides both limited liability for all owners and avoidance of double taxation?",
+          "options": [
+            "A) General partnership",
+            "B) Corporation (C-corp)",
+            "C) Limited liability company (LLC)"
+          ],
+          "correctAnswer": "C",
+          "explanation": "An LLC provides limited liability protection for all members while offering pass-through taxation, avoiding the double taxation issue of C-corporations. A general partnership offers pass-through taxation but exposes all partners to unlimited liability. A C-corporation offers limited liability but subjects income to double taxation (corporate and personal level).",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Compare features of different organizational forms"
+        },
+        {
+          "id": "ci1-2",
+          "question": "The principal-agent problem in corporations arises most directly from:",
+          "options": [
+            "A) the separation of ownership and control.",
+            "B) the limited liability of shareholders.",
+            "C) the double taxation of corporate income."
+          ],
+          "correctAnswer": "A",
+          "explanation": "The principal-agent problem arises because shareholders (principals) delegate decision-making authority to managers (agents) who may have different interests. This separation of ownership and control is unique to corporations where professional managers run the firm on behalf of dispersed owners. Limited liability (B) is a feature that protects shareholders but does not create the agency conflict. Double taxation (C) is a tax issue, not a governance issue.",
+          "difficulty": "basic",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Describe the principal-agent problem in corporate governance"
+        },
+        {
+          "id": "ci1-3",
+          "question": "A corporation earns $500,000 in pre-tax income. The corporate tax rate is 21% and the personal dividend tax rate is 15%. Assuming all after-tax earnings are distributed as dividends, the total tax burden is closest to:",
+          "options": [
+            "A) $163,500",
+            "B) $164,250",
+            "C) $180,000"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Corporate tax: $500,000 x 0.21 = $105,000. After-tax earnings: $500,000 - $105,000 = $395,000. Dividend tax: $395,000 x 0.15 = $59,250. Total tax: $105,000 + $59,250 = $164,250. Option A ($163,500) incorrectly applies the 15% tax to the pre-tax income. Option C ($180,000) represents a flat 36% rate, which does not reflect the sequential application of the two tax rates.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Calculate the tax impact of double taxation on corporate earnings"
+        },
+        {
+          "id": "ci1-4",
+          "question": "In a limited partnership, a limited partner who begins actively participating in management decisions most likely:",
+          "options": [
+            "A) gains additional voting rights.",
+            "B) loses their limited liability protection.",
+            "C) converts the partnership into a corporation."
+          ],
+          "correctAnswer": "B",
+          "explanation": "A limited partner who participates in management may lose their limited liability status and become exposed to unlimited personal liability, similar to a general partner. This is a key constraint on limited partners \u2014 they receive liability protection in exchange for not participating in management. Active participation does not grant additional voting rights (A) or change the organizational form (C).",
+          "difficulty": "intermediate",
+          "cfaTopic": "Corporate Issuers",
+          "learningOutcome": "Describe features and limitations of limited partnerships"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of limited liability and why it was critical to the growth of modern corporations. Use a concrete example to illustrate how an investor in a corporation is protected compared to a partner in a general partnership."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why might a small business owner prefer a sole proprietorship despite its limitations?",
+        "How does the separation of ownership and control create both benefits and problems?",
+        "In what situations would an LLC be preferred over a corporation?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Concepts:**\n\n- **Sole proprietorship**: Single owner, unlimited liability, single taxation, limited life\n- **General partnership**: Multiple owners, unlimited joint & several liability, pass-through taxation\n- **Limited partnership**: GP has unlimited liability & management; LP has limited liability, no management\n- **Corporation**: Separate legal entity, limited liability, perpetual life, transferable shares, double taxation\n- **LLC**: Limited liability + pass-through taxation (best of both)\n- **Cooperative**: Member-owned, one member one vote, operates for member benefit\n- **Principal-agent problem**: Managers may not act in shareholders' best interest\n- Double tax formula: $\\text{Net} = E \\times (1 - t_c)(1 - t_p)$"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now that you understand how businesses are organized and the agency conflicts that arise, the next module covers **Investors and Other Stakeholders** \u2014 who provides capital to corporations, what different types of investors expect, and how stakeholder interests can conflict with shareholder goals."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "Ethics.1: Code and Standards L2",
+    "description": "Apply the CFA Code and Standards to complex scenarios emphasizing research objectivity, sell-side vs. buy-side conflicts, soft dollar arrangements, and professional conduct.",
+    "level": "level-10",
+    "slug": "ethics-code-standards-l2",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "cfaTopic": "Ethics"
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A sell-side analyst's firm has an investment banking relationship with a company the analyst covers. The analyst genuinely believes the stock is overvalued. What pressures might prevent the analyst from issuing a 'Sell' recommendation, and how should the Standards guide their decision?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Deeper Application of the Code and Standards\n\nAt Level II, ethical analysis moves from recognizing violations to navigating **ambiguous, multi-stakeholder scenarios** where standards may appear to conflict.\n\n### The Six Components of the Code of Ethics (Review)\n\n1. Act with integrity, competence, diligence, and respect\n2. Place client interests above your own\n3. Use reasonable care and exercise independent professional judgment\n4. Practice and encourage others to practice professionally and ethically\n5. Promote the integrity and viability of global capital markets\n6. Maintain and improve professional competence\n\n### Key Standards for Level II Focus\n\n| Standard | L2 Focus Area |\n|----------|---------------|\n| I(B) Independence and Objectivity | Research analyst conflicts, IB pressure |\n| I(C) Misrepresentation | Performance presentation, omission of material facts |\n| II(A) Material Nonpublic Information | Mosaic theory application |\n| III(A) Loyalty, Prudence, and Care | Fiduciary duty in complex structures |\n| V(A) Diligence and Reasonable Basis | Research quality, reliance on third-party research |\n| V(B) Communication with Clients | Fair disclosure, distinguishing fact from opinion |\n| VI(A-B) Conflicts of Interest | Disclosure and priority of transactions |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An analyst receives a draft earnings report from a company's IR team 'for review' before the public release. Can the analyst trade on this information?",
+      "answer": "No. The draft earnings report is Material Nonpublic Information (MNPI). Trading on it would violate Standard II(A). The analyst should: (1) not trade or cause others to trade on the information, (2) not communicate the information to others who might trade, (3) attempt to have the company make the information public, and (4) document the receipt of MNPI and notify compliance. Even if the analyst's model already predicted similar results, acting on the confirmed MNPI is a violation."
+    },
+    {
+      "type": "markdown",
+      "content": "## Research Objectivity and Sell-Side Conflicts\n\n### Investment Banking Pressure\n\nSell-side analysts face inherent conflicts when their firm has banking relationships:\n\n| Pressure Source | Example | Standard Violated |\n|-----------------|---------|-------------------|\n| IB revenue at stake | Pressure to issue favorable ratings on IB clients | I(B) Independence and Objectivity |\n| Management access | Favorable coverage in exchange for access to company management | I(B), V(A) |\n| Compensation tied to banking | Analyst bonus linked to IB deals | VI(A) Conflicts of Interest |\n\n### Best Practices for Research Objectivity\n\n- **Firewall**: separate research from investment banking operations\n- **Compensation**: base analyst pay on research quality and accuracy, not IB revenue\n- **Restricted lists**: prevent coverage when conflicts are unmanageable\n- **Disclosure**: prominently disclose all conflicts in research reports\n- **Review**: have compliance review reports for objectivity, not just factual accuracy\n\n### Buy-Side Conflicts\n\nBuy-side analysts and portfolio managers face different but equally important conflicts:\n- **Soft dollar arrangements**: using client commissions to pay for research and services\n- **Client favoritism**: allocating IPOs or attractive trades to favored clients\n- **Personal trading**: front-running client orders\n- **Performance presentation**: cherry-picking favorable time periods or accounts"
+    },
+    {
+      "type": "markdown",
+      "content": "## Soft Dollar Arrangements\n\nSoft dollars use **client brokerage commissions** to pay for research and services rather than the manager paying directly.\n\n### CFA Standards Guidance\n\nSoft dollar arrangements are permissible if they meet the **client benefit test** \u2014 the research or service must directly benefit the client, not primarily the manager.\n\n| Permissible (Benefits Client) | Not Permissible (Benefits Manager) |\n|-------------------------------|------------------------------------|\n| Third-party research reports | Office rent and furniture |\n| Quantitative analytical software | Personal travel expenses |\n| Market data services | Marketing materials |\n| Performance measurement tools | Office supplies |\n| Financial databases | Legal fees for the firm |\n\n### Key Requirements\n\n1. **Disclosure**: fully disclose soft dollar practices to clients\n2. **Best execution**: soft dollar considerations must not compromise best execution\n3. **Client benefit**: services purchased must benefit the clients whose commissions are used\n4. **Mixed-use**: if a service is partly for investment and partly administrative, only the investment portion can be soft-dollar funded\n5. **Documentation**: maintain records of soft dollar policies and expenditures"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Scenario: Sarah, a sell-side analyst, covers TechCo. Her firm is pitching to underwrite TechCo's secondary offering. Sarah's research indicates TechCo is fairly valued at best, but her managing director asks her to raise her price target to support the offering. Sarah's compensation includes a bonus partially tied to investment banking revenue. Identify all ethical issues and describe the appropriate course of action under the CFA Standards.",
+      "solution": "**Ethical Issues:**\n\n1. **I(B) Independence and Objectivity**: The MD's request directly pressures Sarah to issue a non-objective recommendation. The IB relationship creates a conflict between honest research and firm revenue.\n\n2. **VI(A) Conflicts of Interest**: Sarah's compensation is tied to IB revenue, creating a personal financial incentive to issue a favorable rating. This conflict must be disclosed.\n\n3. **I(C) Misrepresentation**: Raising the price target without a legitimate analytical basis would misrepresent her professional opinion.\n\n4. **V(A) Diligence and Reasonable Basis**: A price target change must be supported by analysis, not business relationships.\n\n**Appropriate Actions:**\n\n1. Decline to change the recommendation without an analytical basis\n2. Document the pressure and report it to compliance\n3. If the recommendation is published, include disclosure of the firm's IB relationship with TechCo\n4. Disclose the compensation conflict in the research report\n5. If the firm overrides her recommendation, consider whether to dissociate from the report\n6. If pressures cannot be resolved, consider whether continued employment is compatible with ethical obligations"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Code and Standards L2 \u2014 Vignette Set",
+      "problems": [
+        {
+          "id": "eth1-1",
+          "question": "**Vignette: Silverstone Research Partners**\n\nMarcus Chen is a senior equity analyst at Silverstone, a full-service investment bank. He covers the healthcare sector. Relevant facts:\n\n- Silverstone recently underwrote PharmaCo's $500M bond offering\n- Marcus's year-end bonus includes a component tied to 'firm profitability'\n- Marcus has maintained a 'Buy' rating on PharmaCo for 18 months\n- PharmaCo's recent Phase III trial failure makes Marcus believe the stock is now overvalued\n- Marcus's managing director says: 'Let's wait until the quiet period from our last offering ends before making any rating changes'\n\n---\n\n**Question 1:** Marcus's most appropriate action regarding his PharmaCo rating is to:",
+          "options": [
+            "A) Maintain the Buy rating until the quiet period ends as his MD suggested",
+            "B) Immediately change his rating to reflect his honest analysis, with full disclosure of the IB relationship",
+            "C) Drop coverage of PharmaCo entirely to avoid the conflict"
+          ],
+          "correctAnswer": "B",
+          "explanation": "Standard I(B) requires independence and objectivity. Marcus must issue recommendations based on his honest analysis regardless of the firm's banking relationship. Delaying a rating change to protect the IB relationship (Option A) violates this standard and potentially harms clients who rely on his research. The quiet period for the bond offering restricts the firm from publishing research to promote the offering, but it does not prevent honest downgrade based on new material information (a failed trial). Dropping coverage (C) is excessive if the conflict can be managed through disclosure.",
+          "difficulty": "intermediate",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Apply Standard I(B) Independence and Objectivity in sell-side conflicts"
+        },
+        {
+          "id": "eth1-2",
+          "question": "**Question 2 (continued):** Marcus learns during a private dinner with PharmaCo's CFO that the company plans to announce a major acquisition next week. Marcus had independently been analyzing this target company and believed an acquisition was likely. Under the mosaic theory, Marcus:",
+          "options": [
+            "A) Can trade because his independent analysis reached the same conclusion",
+            "B) Cannot trade because the CFO's confirmation constitutes material nonpublic information",
+            "C) Can trade only for client accounts, not his personal account"
+          ],
+          "correctAnswer": "B",
+          "explanation": "The mosaic theory allows analysts to form conclusions from non-material, public pieces of information. However, once Marcus receives direct confirmation from the CFO about a specific upcoming acquisition announcement, this is Material Nonpublic Information (MNPI) under Standard II(A). Even though Marcus's independent analysis pointed in the same direction, the CFO's explicit confirmation is material and nonpublic. Marcus cannot trade, recommend, or communicate this MNPI. Option C \u2014 the restriction applies to all accounts, not just personal trading.",
+          "difficulty": "advanced",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Distinguish between mosaic theory and material nonpublic information"
+        },
+        {
+          "id": "eth1-3",
+          "question": "**Vignette: Wellington Asset Management**\n\nAna Torres manages a large-cap equity fund at Wellington. She uses soft dollars to pay for:\n\n1. Bloomberg terminal subscriptions for her investment team\n2. A quantitative screening tool used for stock selection\n3. New office furniture for the trading floor\n4. Travel to an industry conference where she meets with portfolio company management\n\n---\n\n**Question 1:** Which expenditure is NOT a permissible use of soft dollars under CFA Standards?",
+          "options": [
+            "A) Bloomberg terminal subscriptions",
+            "B) Quantitative screening tool",
+            "C) New office furniture"
+          ],
+          "correctAnswer": "C",
+          "explanation": "Office furniture is an administrative expense that benefits the firm, not the client. It fails the client benefit test required for soft dollar expenditures. Bloomberg terminals (A) and quantitative tools (B) directly support investment research that benefits clients. Conference travel (item 4) is more nuanced \u2014 if the primary purpose is meeting portfolio company management for investment research, it may be permissible, but personal sightseeing or general marketing would not be. Office furniture clearly has no investment research benefit.",
+          "difficulty": "basic",
+          "cfaTopic": "Ethics",
+          "learningOutcome": "Evaluate soft dollar expenditures against the client benefit test"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a new analyst at an investment bank why the firewall between research and investment banking exists, and how conflicts of interest can compromise research objectivity even when individual analysts have good intentions."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How can an analyst maintain objectivity when their compensation is indirectly tied to banking relationships?",
+        "What is the practical difference between material nonpublic information and insights derived from the mosaic theory?",
+        "Why are soft dollar arrangements potentially harmful to clients even when the purchases benefit the investment process?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "**Key Principles:**\n\n- Independence and objectivity must not be compromised by IB relationships or compensation\n- Mosaic theory: combining non-material, public information is allowed; receiving MNPI is not\n- Soft dollars must pass the client benefit test \u2014 only investment-related services qualify\n- Disclose all conflicts of interest prominently and proactively\n- Research objectivity requires: firewalls, independent compensation, compliance review\n- When pressured to compromise, document and escalate \u2014 ultimately, professional integrity takes precedence\n- Quiet periods restrict promotional research but do not prevent honest downgrades based on new information"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The next module provides **Guidance for Standards L2**, with advanced application scenarios covering all seven Standards. You will work through gray-area situations where the correct course of action requires careful judgment \u2014 exactly the skill tested on the CFA Level II exam."
+    }
+  ]
+}
