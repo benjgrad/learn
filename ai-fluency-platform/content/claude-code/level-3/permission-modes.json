@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "3.3 Permission Modes",
+    "description": "Default, Auto-Accept Edits, Plan Mode — the trust spectrum and when to switch between modes.",
+    "level": "level-3",
+    "slug": "permission-modes",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When Claude Code asks your permission before editing a file or running a command, do you usually (A) read it carefully and decide, (B) approve it quickly because you trust Claude, or (C) find it annoying because it slows you down? Be honest — your answer reveals which permission mode might be best for you."
+    },
+    {
+      "type": "markdown",
+      "content": "## The trust spectrum\n\nClaude Code has a fundamental tension: you want it to work autonomously (that is the whole point of an agent), but you also want to stay in control (it is your computer, your files, your work). Permission modes let you set where you land on that spectrum.\n\nThink of it like handing someone the keys to your office. You could stand over their shoulder and approve every action. You could give them free rein. Or you could give them access to some things but not others. Permission modes are how you make that choice.\n\n## The three main modes\n\n### Default Mode — Review everything\n\nIn Default mode, Claude asks your permission before taking any action that changes something — editing a file, running a command, creating a file. Reading and searching happen without permission because they do not change anything.\n\nThis is the mode you start with, and it is the right mode for:\n- Learning how Claude Code works (you see every action)\n- Working on sensitive files where mistakes matter\n- Tasks where you want to understand each step\n- When you are building trust with a new type of task\n\nThe permission prompt shows you exactly what Claude wants to do. You press Enter to approve or Escape to cancel. This is your safety net — nothing changes without your explicit approval.\n\n### Auto-Accept Edits — Trust file changes, review commands\n\nIn this mode, Claude can read, write, and edit files without asking. But it still asks permission before running Bash commands (terminal commands), because those have the widest range of potential effects.\n\nSwitch to Auto-Accept Edits by pressing **Shift+Tab** or typing the mode name. This mode is right for:\n- Work sessions where Claude is making many small edits\n- Writing and document work where the risk of a bad edit is low\n- When you trust Claude's edits but want to review commands\n- Experienced users who review with `/diff` at the end rather than approving each change\n\nThis mode significantly speeds up Claude's work because it does not pause for approval on every edit. The trade-off is that you need to review changes afterward using `/diff` rather than approving them one at a time.\n\n### Plan Mode — Think but do not act\n\nPlan Mode is the opposite of autonomy. Claude can read, search, and analyze, but it cannot make any changes. Instead of acting, Claude describes what it **would** do and asks for your approval of the plan.\n\nThis mode is powerful for:\n- High-stakes work where you want to review the approach before any action\n- Understanding complex tasks before committing to changes\n- When you want Claude's analysis and recommendations without any execution\n- Learning — seeing Claude's plan teaches you how it thinks about tasks\n\nThe workflow in Plan Mode: you give Claude a task, it investigates and proposes a plan, you review the plan, then you switch to Default or Auto-Accept and tell Claude to execute the plan.\n\n## How to switch modes\n\nThe fastest way to switch is **Shift+Tab**, which cycles through the available modes. You can switch at any point during a conversation — even mid-task.\n\nA common workflow:\n1. Start in **Plan Mode** for a complex task — Claude proposes an approach\n2. Review the plan and make adjustments\n3. Switch to **Auto-Accept Edits** — Claude executes the plan quickly\n4. Run `/diff` to review all changes\n5. Switch back to **Default** if you need to run specific commands with review\n\n## A note on Don't Ask and Bypass\n\nClaude Code also has more permissive modes that reduce or eliminate permission prompts. These modes exist for power users running automated workflows or working in sandboxed environments where the consequences of any action are limited.\n\nFor most people, most of the time, **Default** and **Auto-Accept Edits** provide the right balance. Default when you want to see everything. Auto-Accept when you want speed with a safety net on commands.\n\n## The real insight\n\nPermission modes are not just about security. They are about **flow**.\n\nIn Default mode, every permission prompt is an interruption. You are reviewing each action, which keeps you in a supervisory mindset. This is great for learning and for sensitive work, but it prevents you from entering a collaborative flow.\n\nIn Auto-Accept Edits, Claude works more fluidly. You can describe what you want, then watch Claude work through the gather-act-verify loop without interruption. You review the results, not the process. This shifts your role from supervisor to reviewer — a more efficient use of your attention.\n\nThe key is matching the mode to the moment. Low-stakes writing? Auto-Accept. Modifying important configuration? Default. Planning a big refactor? Plan Mode first, then execute.\n\nAs you get more experienced with Claude Code, you will develop an intuition for which mode fits each situation. That intuition is a sign that you are moving from beginner to proficient."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You are about to ask Claude to reorganize 50 files in your documents folder. Which permission mode would you use and why?",
+      "answer": "**Start in Plan Mode** to have Claude analyze the folder and propose an organizational scheme without moving anything. Review the plan — make sure the categories make sense and no files are being put in the wrong place. Then switch to **Auto-Accept Edits** and tell Claude to execute the plan. The file moves will happen quickly without 50 individual permission prompts. Finally, verify the result. This approach gives you control over the strategy (Plan Mode) and speed in execution (Auto-Accept), which is the best of both worlds for a bulk operation."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Try switching between permission modes during a single task. Start in Plan Mode: ask Claude to propose how it would improve a document or organize some files. Review the plan. Then switch to Auto-Accept Edits (Shift+Tab) and tell Claude to execute. Finally, run /diff to review the changes. Notice how each mode changes the flow of the interaction.",
+      "solution": "You should notice three distinct experiences: Plan Mode feels like a conversation (Claude explains, you approve), Auto-Accept feels like delegation (Claude works, you wait for results), and reviewing with /diff feels like auditing (you check the output). The combination is powerful — you get the thoughtfulness of planning with the speed of autonomous execution. If you found any mode uncomfortable, that is useful data about your trust level and where you want to build confidence."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which permission mode do you default to? Is it the right one for most of your work, or are you playing it too safe (or too loose)?",
+        "Has there been a time when a permission prompt saved you from a mistake? What about a time when permission prompts slowed you down unnecessarily?",
+        "How does the concept of 'matching the mode to the moment' apply to how you delegate to humans? Do you micromanage some tasks that could be delegated more freely?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Permission modes control the trust spectrum: Default (review everything), Auto-Accept Edits (trust file changes, review commands), and Plan Mode (think but do not act). Switch with Shift+Tab. Match the mode to the moment — Plan Mode for strategy, Auto-Accept for execution, Default for sensitive work. The right mode is about flow, not just safety."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Permission modes control what happens during a session. But what about between sessions? The next module covers how your work persists — continuing sessions, resuming old ones, and forking when you want to explore two paths."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "5.3 Scoping Work",
+    "description": "Breaking big asks into phases Claude can handle without overflowing context.",
+    "level": "level-5",
+    "slug": "scoping-work",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You ask Claude Code to 'rewrite this entire 50-page document to be clearer and more concise.' What do you think will happen? Will it succeed? Will quality be consistent from beginning to end? Write your prediction before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The too-big problem\n\nYou now know two critical facts from Level 4: context is finite, and quality falls off a cliff when it fills up. These facts create a hard constraint on what you can ask Claude to do in a single session.\n\nWhen you ask for something too big, one of two things happens:\n\n1. **Context overflow mid-task.** Claude starts strong, but as it reads files, generates output, and processes your feedback, the context fills up. The last 30% of the work is dramatically worse than the first 30%. You end up with an inconsistent result — good beginning, mediocre middle, poor ending.\n\n2. **Shallow execution.** To avoid running out of context, Claude takes shortcuts. Instead of deeply engaging with each section, it does a surface-level pass. You get something that looks complete but lacks the depth and precision you wanted.\n\nNeither is what you want. The solution is **scoping** — breaking big work into pieces that each fit comfortably within a session.\n\n## The art of decomposition\n\nThe key insight about scoping is this: **chunk by milestone, not by step.**\n\nA step is a single action: \"read this file,\" \"edit this section,\" \"run this check.\" A milestone is a **meaningful intermediate result**: \"the executive summary is complete,\" \"the data is cleaned and validated,\" \"the first three chapters are revised.\"\n\nWhen you chunk by milestone, each phase of work produces something tangible. You can review it, confirm it is right, and move on. If you need to start a new session (because context is getting full), the milestone gives you a natural handoff point.\n\nWhen you chunk by step, you end up with a long list of instructions that Claude tries to execute in sequence. There is no natural pause point, no intermediate result to check, and no way to course-correct until the end.\n\n### Bad decomposition (by steps):\n1. Read all the files\n2. Create an outline\n3. Write the introduction\n4. Write section 1\n5. Write section 2\n6. Write section 3\n7. Write the conclusion\n8. Review everything\n9. Fix any issues\n\nThis is nine steps that must happen in sequence in one session. By step 6, the context is strained.\n\n### Good decomposition (by milestones):\n- **Session 1:** Explore all source materials and create a detailed outline with key points for each section. *Milestone: approved outline.*\n- **Session 2:** Write the introduction and sections 1-2 based on the outline. *Milestone: draft of first half.*\n- **Session 3:** Write sections 3-4 and the conclusion based on the outline. *Milestone: draft of second half.*\n- **Session 4:** Review the complete document for consistency, tone, and accuracy. *Milestone: final draft.*\n\nEach session has a clear goal, a manageable scope, and a tangible output. Each session starts fresh with a clean context and a focused prompt referencing the previous milestone.\n\n## Warning signs that a task is too big\n\nLearn to recognize these before you start:\n\n- **\"Do everything\" language:** \"Rewrite the whole document.\" \"Reorganize all the files.\" \"Clean up the entire dataset.\"\n- **Multiple distinct outputs:** If the task produces more than 2-3 distinct deliverables, it probably needs to be split.\n- **More than 10 files involved:** If Claude needs to read and process more than 10 files, context will fill up fast.\n- **Estimated output over 2,000 words:** If you expect Claude to generate a lot of text, the output itself consumes significant context.\n- **Multiple phases of different work:** Research + analysis + writing + review is four different kinds of work. Each deserves its own session.\n- **You cannot write a single clear prompt:** If you struggle to describe the task in one focused prompt, it is probably multiple tasks.\n\n## The handoff pattern\n\nWhen you split work across sessions, you need a clean handoff. Here is the pattern:\n\n1. **End session N** by having Claude summarize what was accomplished and what the next session should pick up.\n2. **Start session N+1** with a prompt that references the milestone from session N and states the new goal.\n\nFor example:\n\n**End of session 1:**\n\"Summarize what we have accomplished and what the next session should focus on. Write this summary to a file called /docs/progress.md.\"\n\n**Start of session 2:**\n\"I am continuing work on the quarterly report. The outline is complete and approved — see /docs/q4-outline.md. The progress notes are in /docs/progress.md. This session's goal: write the first three sections of the report following the outline.\"\n\nThis handoff costs maybe 200 tokens of context. Compare that to carrying forward an entire session's worth of accumulated context.\n\n## Scoping in practice\n\nHere is a real example of scoping a large task:\n\n**Original ask:** \"I have 200 customer feedback emails. Analyze them, categorize the feedback, identify top themes, create a summary report with recommendations, and draft response templates for each category.\"\n\nThat is at least 5 distinct deliverables. Here is the scoped version:\n\n- **Session 1:** Explore a sample of 30-40 emails to identify categories and themes. Milestone: category list with descriptions.\n- **Session 2:** Categorize all 200 emails using the category list (may need subagents). Milestone: categorized spreadsheet.\n- **Session 3:** Analyze the categorized data — top themes, frequencies, sentiment. Milestone: analysis summary.\n- **Session 4:** Write the summary report with recommendations based on the analysis. Milestone: report draft.\n- **Session 5:** Draft response templates for each category. Milestone: template set.\n\nFive focused sessions, each with a clear goal and a tangible deliverable. Each session starts fresh with maximum context budget for that phase of work."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Someone asks Claude Code: 'Read all 30 files in this project, understand the architecture, refactor the naming conventions, update all the tests, and write documentation.' Is this well-scoped? How would you break it up?",
+      "answer": "This is **badly scoped** — it is at least 4 distinct tasks crammed into one prompt. Break it into milestones: **Session 1 (Explore):** Read the project and map the architecture. Milestone: architecture document. **Session 2 (Plan):** Propose new naming conventions with before/after examples. Milestone: naming convention guide. **Session 3 (Implement):** Refactor naming in source files. Milestone: renamed source files. **Session 4 (Implement):** Update tests to match new names. Milestone: passing test suite. **Session 5 (Write):** Create documentation based on the new architecture. Milestone: docs. Each session has a clear deliverable and stays within context budget."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Think of the biggest task you have ever asked (or wanted to ask) Claude Code to do. Write it down as a single prompt. Then decompose it into 3-5 milestone-based sessions, each with a clear goal and deliverable. Which approach do you think would produce better results?",
+      "solution": "The single prompt likely includes 'everything' language and multiple types of work. The decomposed version should have each session focused on one type of work (explore OR write OR organize — not all at once) with a concrete deliverable. If you actually execute the milestone-based approach, you will find each session is faster, produces higher quality output, and you have clear checkpoints to review before moving forward. The total time may be similar, but the result quality will be significantly better."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a task where Claude's quality degraded partway through. Was the scope too large for a single session?",
+        "What is the smallest 'milestone' that still feels like meaningful progress? That is your ideal session size.",
+        "How does the handoff pattern change the way you think about multi-session projects?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Big tasks must be decomposed into milestones, not steps. Each milestone should be a meaningful intermediate result that fits in one session. Warning signs of a too-big task: 'do everything' language, multiple outputs, 10+ files, estimated output over 2,000 words. Use the handoff pattern — save progress to a file, start fresh with a focused prompt — to maintain quality across sessions."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now that you understand the four-phase workflow and scoping, the next three modules apply these concepts to specific workflows: research, writing, and data work. Each one shows how the explore-plan-implement-verify pattern adapts to different kinds of knowledge work."
+    }
+  ]
+}

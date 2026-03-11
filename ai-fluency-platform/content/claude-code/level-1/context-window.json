@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "1.4 The Context Window",
+    "description": "Everything Claude knows is in the context window right now. Nothing else exists.",
+    "level": "level-1",
+    "slug": "context-window",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you have a long conversation with Claude Code — say 50 messages back and forth — does Claude remember everything you said at the beginning? What do you think happens as the conversation gets longer?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Claude's only memory\n\nImagine you have a desk. On this desk, you can spread out papers, notes, files, and documents. But the desk has a fixed size. Once it is full, you have to remove something old to make room for something new.\n\nThe **context window** is Claude's desk.\n\nEverything Claude knows during your session — your messages, Claude's responses, every file it read, every command output, the instructions from your project's configuration — all of it sits on this desk. When the desk fills up, the oldest items get compressed or removed.\n\nThis has three consequences you should understand right now:\n\n### 1. Claude does not remember previous sessions\n\nWhen you start a new Claude Code session, the desk is empty. Claude does not know what you talked about yesterday. (You can use `claude -c` to continue a session, which reloads the previous desk.)\n\n### 2. Long sessions degrade\n\nAs your conversation grows, the desk fills up. When it reaches capacity (~95% full), Claude Code automatically **compacts** the conversation — summarizing older messages to free up space. This means details from early in your conversation may be lost.\n\n### 3. Everything has a cost\n\nEvery file Claude reads takes up desk space. Every command output takes up desk space. Every message you send and every response Claude generates takes up desk space. This is why experienced users think carefully about what they ask Claude to read.\n\n## Checking your desk\n\nYou can see how full your context window is at any time by typing:\n\n```\n/context\n```\n\nThis shows a colored grid where each cell represents a portion of the context window. Different colors show what is consuming the space — your messages, Claude's responses, tool call results, and system information.\n\n## What this means for you right now\n\nAt Level 1, you do not need to manage context actively. But you should know two things:\n\n1. **If Claude seems to 'forget' something you said earlier, it probably did.** The context window filled up and that information was compressed away.\n2. **Starting a fresh session with `/clear` is not a failure.** It is often the smartest move. A fresh desk means Claude operates at full capacity."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You ask Claude Code to read 10 large files, then ask a question about the first file. Claude gives an answer that seems wrong or vague. What is the most likely explanation?",
+      "answer": "The most likely explanation is that the contents of the first file were **pushed out of the context window** by the later files. Claude is not being lazy or wrong — it literally cannot see the first file's contents anymore. The fix is to ask Claude to re-read that specific file, or to start a fresh session focused on just the files you need."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In your Claude Code session, type '/context' and look at the grid. How full is your context window? What colors do you see? Now ask Claude to read a few files, then check '/context' again. Did the grid change?",
+      "solution": "After reading files, you should see the grid become more filled — new colored cells appear representing the file contents now in Claude's context. If you started with a fresh session, the grid will be mostly empty. After reading several files, you will see it begin to fill. This is your desk getting cluttered."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Does the 'desk' analogy change how you think about asking Claude to read files? Would you be more selective about what you ask Claude to look at?",
+        "Have you ever had a long AI conversation where the AI seemed to lose track of the topic? Could the context window explain that?",
+        "How might you structure a complex task differently knowing that context is finite?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The context window is Claude's only memory. It has a fixed size. When it fills up, old information is lost. Check it with '/context', and know that starting fresh with '/clear' is a strategy, not a failure."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now understand the three foundations: the agentic loop, the interface, and the context window. The next module puts it all together with a guided hands-on exercise where you collaborate with Claude Code on a real task."
+    }
+  ]
+}

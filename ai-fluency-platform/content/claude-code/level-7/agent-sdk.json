@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "7.6 The Agent SDK",
+    "description": "Use the Python and TypeScript SDKs for full programmatic control when the CLI is not enough.",
+    "level": "level-7",
+    "slug": "agent-sdk",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have been using Claude Code through the command line. But what if you wanted to build your own application that uses Claude's agentic capabilities — a custom dashboard, an internal tool, or a complex workflow with conditional logic? What would you need beyond the CLI?"
+    },
+    {
+      "type": "markdown",
+      "content": "## When the CLI is not enough\n\nThe command line is powerful. With `-p`, scripts, and CI integration, you can automate a lot. But some use cases need more:\n\n- **Dynamic prompts**: The prompt depends on data you compute at runtime\n- **Conditional workflows**: If Claude finds X, do A; if it finds Y, do B\n- **Custom UIs**: You want Claude's capabilities inside your own application\n- **Complex orchestration**: Multiple Claude calls chained with business logic between them\n- **Streaming**: Process Claude's output as it generates, not just at the end\n\nThe Claude Code SDK gives you programmatic access to the same agentic capabilities you use from the terminal — but from Python or TypeScript code.\n\n## What the SDK provides\n\nThe SDK is not just an API wrapper. It gives you the full agentic loop — gather, act, verify — controlled from your code:\n\n```python\n# Python example — conceptual\nfrom claude_code import Agent\n\nagent = Agent()\nresult = agent.run(\n    prompt=\"Analyze the CSV files in /data and identify anomalies\",\n    max_turns=10,\n    allowed_tools=[\"Read\", \"Glob\", \"Grep\"]\n)\n\nif result.found_anomalies:\n    # Take different action based on Claude's findings\n    agent.run(\n        prompt=f\"Investigate these anomalies in detail: {result.anomalies}\",\n        max_turns=20\n    )\n```\n\nThe agent has the same tools, the same loop, and the same capabilities as the CLI. But you control the flow from code.\n\n## Key SDK capabilities\n\n### Conversation management\nCreate, continue, and branch conversations programmatically. Resume a previous session, fork a conversation to explore different paths, or manage multiple concurrent sessions.\n\n### Tool control\nSpecify exactly which tools the agent can use for each call. A read-only analysis gets Read and Grep. A fix-and-verify task gets Read, Edit, and Bash.\n\n### Streaming output\nProcess Claude's responses as they stream in, rather than waiting for the complete response. This enables real-time UIs, progress indicators, and early termination if the output is going off track.\n\n### Event hooks\nListen for specific events during the agentic loop — tool calls, completions, errors — and inject custom logic. This is the programmatic equivalent of hooks, but with full programming language control.\n\n## Who is this for?\n\nThe SDK is the most technical feature in this course. It is primarily for:\n\n- **Developers** building internal tools that need AI capabilities\n- **Automation engineers** creating complex workflows beyond what scripts can handle\n- **Teams** building custom dashboards or interfaces around Claude\n\nIf you are a knowledge worker who does not write code, you do not need the SDK. The CLI, skills, hooks, and MCP cover most use cases. But understanding that the SDK exists helps you know what is possible — and what to ask a developer on your team to build for you.\n\n## The abstraction ladder\n\nThink of Claude Code's interfaces as a ladder of abstraction:\n\n```\n  Most control, most complexity\n           ▲\n           │\n    SDK (Python/TypeScript)\n           │\n    CLI non-interactive (-p)\n           │\n    CLI interactive\n           │\n    Skills and hooks\n           │\n           ▼\n  Least control, least complexity\n```\n\nEach step up gives you more control but requires more technical skill. Start at the bottom and only climb when you hit a limitation that the current level cannot handle.\n\n## Real-world SDK applications\n\n**Internal review tool**: A web application where team members submit documents, the SDK sends them through a multi-step review pipeline (check formatting, verify claims, suggest edits), and results appear in a dashboard.\n\n**Customer support triage**: Incoming support tickets are automatically analyzed by Claude, categorized, and routed to the right team, with suggested responses for common issues.\n\n**Report generation pipeline**: Data is pulled from databases, analyzed by Claude with specific prompts for each section, assembled into a report, and quality-checked — all orchestrated by SDK code.\n\n**Content pipeline**: New content is processed through multiple Claude agents in sequence: first a fact-checker, then an editor, then a formatter — with custom logic between each step deciding what needs human intervention."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A developer on your team says they want to use the SDK to build a simple script that summarizes a file every morning. Is the SDK the right choice? What would you recommend instead?",
+      "answer": "The SDK is **overkill** for this task. A simple `claude -p \"Summarize file.txt\"` in a cron job or scheduled script does the same thing with far less complexity. The SDK is for when you need programmatic control — conditional logic, dynamic prompts, streaming, or embedding Claude in a larger application. For a straightforward automated task, the CLI with -p is the right tool. Recommend the SDK only when the developer hits a limitation that the CLI cannot handle."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Think of a workflow in your organization that involves multiple steps with decision points between them. Map it out as a flowchart: Step 1 produces a result, if result is X do Step 2a, if result is Y do Step 2b, etc. Would this workflow benefit from the SDK, or could it be handled with CLI scripts? What is the deciding factor?",
+      "solution": "The deciding factor is **conditional complexity**. If the workflow is linear (step 1 then step 2 then step 3), CLI scripts with -p handle it fine. If the workflow branches based on Claude's output (analyze first, then take different paths depending on findings), the SDK's ability to parse Claude's output and make programmatic decisions is valuable. Workflows with 2+ decision points that depend on Claude's analysis are SDK territory. Workflows that are sequential or have simple pass/fail gates work fine with CLI."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Where does your use case sit on the abstraction ladder? Are you at the right level, or could you move up or down?",
+        "If you had a developer who could build anything with the SDK, what internal tool would you ask them to build?",
+        "What is the danger of over-engineering with the SDK when a simple script would suffice?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The Python and TypeScript SDKs give full programmatic control over Claude's agentic capabilities — dynamic prompts, conditional workflows, streaming, and custom applications. Use the SDK when CLI scripts are not enough. But most use cases are well-served by the CLI with -p. Choose the simplest tool that handles your requirements."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "So far, all of Level 7 has assumed you are working from your computer. But what about when you are on mobile, working remotely, or want to hand off a session to someone else? The next module covers working from anywhere."
+    }
+  ]
+}

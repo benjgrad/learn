@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "6.8 Checkpoint",
+    "description": "Build a custom workflow with at least one skill and one hook working together.",
+    "level": "level-6",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Level 6 Checkpoint\n\nThis checkpoint is different from previous ones. Instead of answering questions, you are going to **build something**. The goal is a working workflow that uses at least one skill and one hook, composed together to solve a real problem you face.\n\nThis is the transition from theory to practice — from understanding the building blocks to using them."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the difference between a skill and a hook? When would you use each one, and what happens when they work together?",
+      "answer": "A **skill** is a custom slash command you invoke manually — it encodes a workflow you want to run on demand. A **hook** is an automatic reaction that fires when specific events happen — it runs without you remembering to trigger it. Together, a skill defines *what* to do and a hook ensures *safety or follow-up* happens automatically. For example, a skill might restructure a document while a hook automatically backs up the original before any edits happen."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You want Claude Code to automatically send a Slack notification whenever it finishes a task that modified more than 3 files. Which hook event would you use, and what would the hook need to track?",
+      "answer": "You would use a **Stop** hook, which fires when Claude finishes a task. The hook's command would need to check how many files were modified — for instance, by running `git diff --name-only` to count changed files. If the count exceeds 3, it sends the Slack notification (either via a direct API call or by triggering an MCP tool). A PostToolUse hook on Write/Edit could alternatively keep a running count in a temp file that the Stop hook reads."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Explain the difference between a custom subagent and the main Claude Code session. Why would you restrict an agent's tools?",
+      "answer": "A custom subagent runs in its own context with its own tool set, model choice, and turn limit. The main session is your general-purpose workspace with access to all tools. You restrict an agent's tools to **enforce focus and build trust** — a 'reviewer' that can only Read is guaranteed to never accidentally modify your files. Restrictions also make agents more predictable: fewer tools means fewer ways to go off-track. Additionally, subagents protect your main session's context budget by doing their work in a separate context window."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Build a working composed workflow. Requirements: (1) Create at least one skill in .claude/skills/ that automates a workflow you do regularly. (2) Create at least one hook in .claude/settings.json that provides a safety net or automatic follow-up. (3) The skill and hook should relate to each other — for example, the skill edits files and the hook backs them up first, or the skill produces output and the hook validates it. (4) Test both by invoking the skill and confirming the hook fires. Document what you built and what happened.",
+      "solution": "A successful checkpoint has: (1) A skill file with valid frontmatter and clear instructions that works when invoked. (2) A hook in settings.json that fires on the correct event. (3) Evidence that both work — the skill produced the expected output and the hook did its job automatically. Common examples: a '/cleanup' skill that organizes files + a PreToolUse hook that prevents deletion of important files. A '/draft-report' skill + a PostToolUse hook that logs all files created. If the hook did not fire, check: correct event name in settings, valid JSON, matcher pattern matches the tool Claude used. If the skill did not work, check: file location, frontmatter syntax, clear instructions."
+    },
+    {
+      "type": "markdown",
+      "content": "## Ready for Level 7?\n\nIf you have a working skill and hook, you have graduated from consumer to builder. You can now extend Claude Code to match your specific needs.\n\nLevel 7 takes a different kind of leap. Instead of making one Claude session more powerful, you will learn to run **multiple sessions in parallel** — worktrees, agent teams, batch operations, and automation. The mental model shifts from a single worker to a fleet.\n\nStart with [Level 7: The Fleet](/level-7/)."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "8.2 When Not to Use Claude",
+    "description": "The tasks better done manually, the trap of automation theater, and the skill of knowing when the overhead exceeds the benefit.",
+    "level": "level-8",
+    "slug": "when-not-to-use",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Think of a time you used Claude Code for something that would have been faster to do yourself. What made you reach for the tool? Was it habit, optimism, or genuine complexity?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The automation theater trap\n\nThere is a seductive pattern that emerges once you get good with Claude Code: you start using it for everything. Rename a file? Claude. Fix a typo? Claude. Check what time it is? ...Claude?\n\nThis is **automation theater** — the appearance of productivity through tool use, without actual productivity gains. It happens when the overhead of prompting, waiting, and verifying exceeds the effort of just doing the thing yourself.\n\nMastery is not about using Claude for everything. It is about using Claude for the **right things**.\n\n## The overhead equation\n\nEvery Claude Code interaction has overhead:\n\n- **Prompting time**: Thinking about and writing the instruction\n- **Execution time**: Waiting for Claude to work through the loop\n- **Verification time**: Checking that the output is correct\n- **Correction time**: Fixing mistakes if the output is wrong\n\nIf the sum of these exceeds the time to do the task manually, you lost time by using Claude. And it is not just time — there is a context-switching cost to interrupting your flow to delegate a trivial task.\n\n## Tasks better done manually\n\n### Quick edits you can visualize\nIf you know exactly what to change and where, just change it. Opening a file and fixing a typo takes 10 seconds. Prompting Claude to do it takes 30 seconds minimum, plus verification.\n\n### Tasks requiring your judgment throughout\nSome tasks need continuous human judgment — choosing the right word for a specific emotional tone, deciding which photo looks best, making subjective design decisions. Claude can suggest, but if you override every suggestion, you are doing the work twice.\n\n### Tasks with trivial scope\nMoving one file, deleting one line, adding one sentence. The overhead of explaining what you want exceeds the effort of doing it. Save Claude for tasks where the ratio flips — where explanation is short but execution is long.\n\n### Tasks where being wrong is expensive and hard to verify\nIf Claude makes an error that is expensive to fix and difficult to detect, the verification burden can be overwhelming. Legal language, financial calculations, medical information — areas where wrong answers have real consequences and checking requires as much expertise as doing the work.\n\n### Tasks that build your own understanding\nSometimes the point is not the output — it is the learning. If you delegate research on a topic you need to deeply understand, you get the summary but miss the understanding that comes from doing the research yourself. Use Claude to accelerate learning, not to bypass it.\n\n## The 2-minute rule\n\nA practical heuristic: **if you can do the task in under 2 minutes, just do it.** The overhead of prompting, executing, and verifying almost never beats 2 minutes of manual work for simple tasks.\n\nClaude's sweet spot is tasks that are:\n- Clear to describe (low prompting overhead)\n- Time-consuming to execute (high manual effort)\n- Easy to verify (low checking overhead)\n\nExamples: reformatting a long document, searching across many files, generating consistent output from a template, analyzing data with specific criteria.\n\n## The deeper issue: tool-shaped thinking\n\nThe biggest risk of automation theater is not wasted time — it is **tool-shaped thinking**. When all you have is Claude Code, everything looks like a prompt. You start framing problems as Claude tasks even when they are not.\n\nHealthy tool use means sometimes choosing:\n- A spreadsheet over Claude for tabular analysis\n- A search engine over Claude for quick fact-checking\n- Your own brain over Claude for creative decisions\n- A conversation with a colleague over Claude for ambiguous requirements\n- Nothing at all — some \"tasks\" do not need doing\n\nMastery includes the meta-skill of choosing the right tool for each situation, and sometimes that tool is not Claude."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A colleague says they use Claude Code for everything, including tasks like 'rename this file' and 'add a comma to line 3.' They are proud of their Claude usage. What feedback would you give them?",
+      "answer": "You would point out the **overhead equation**: for tasks that take under 2 minutes manually, the prompting + waiting + verification overhead likely exceeds the manual effort. They are spending more time, not less. The recommendation: reserve Claude for tasks with high execution effort and low description effort. A rename or single-character edit is faster by hand. A 50-file restructuring is faster with Claude. The sign of mastery is not how often you use the tool, but how well you choose *when* to use it."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Review your last week of Claude Code usage. Identify: (1) Three tasks where Claude was clearly the right choice — high effort, easy to verify. (2) Three tasks where you might have been faster doing it manually. (3) One task you did manually that Claude would have handled better. What pattern do you see in your over-use and under-use?",
+      "solution": "Most people find they over-use Claude for small, well-understood tasks (automation theater) and under-use it for tedious-but-straightforward tasks they do manually out of habit. The pattern is usually: Claude is underused for boring, repetitive work and overused for quick, easy work. The ideal is the opposite — delegate the boring repetition and keep the quick decisions for yourself."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What tasks have you been delegating to Claude that you should probably do yourself? Be honest.",
+        "Is there a task you keep doing manually because 'it is faster' that actually is not — you just have not tried delegating it?",
+        "How do you distinguish between using Claude because it is genuinely helpful and using it because it feels productive?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Mastery includes knowing when NOT to use Claude. The overhead of prompting, executing, and verifying must be less than doing the task manually. Apply the 2-minute rule: if you can do it in 2 minutes, just do it. Claude's sweet spot is tasks that are easy to describe, time-consuming to execute, and straightforward to verify."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Knowing when not to use Claude is one kind of judgment. Knowing what to do when Claude goes wrong is another. The next module covers failure modes — loops, hallucinations, and misunderstandings — and how to recognize and recover from them."
+    }
+  ]
+}

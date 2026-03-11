@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 6: The Workshop",
+    "description": "Stop repeating yourself. Build custom tools, automatic reactions, and external connections that make Claude Code uniquely yours.",
+    "level": "level-6",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Welcome to Level 6\n\nUp to now, you have been learning to use Claude Code as it ships. You have mastered the agentic loop, written effective briefings, managed your context budget, navigated permissions, and structured complex projects. You are a skilled operator.\n\nBut you are still a **consumer**.\n\nEvery time you start a session, you type the same setup instructions. Every time you finish a task, you manually check the same things. Every time you want Claude to talk to an external service, you copy-paste data in and out. You are doing repetitive work to set up the tool that is supposed to eliminate your repetitive work.\n\nLevel 6 changes that. The mental model shifts from **using tools** to **building tools**.\n\n### Claude Code is a workshop, not a fixed tool\n\nThink of Claude Code as a well-equipped workshop rather than a single power tool. Out of the box, you get a workbench and a set of standard tools. But the real power comes when you build your own jigs, fixtures, and custom tools — the ones designed for exactly the work you do.\n\nIn this level, you will learn four categories of customization:\n\n| Module | Feature | What it does |\n| :-- | :-- | :-- |\n| 6.1-6.2 | **Skills** | Custom slash commands that encode your workflows |\n| 6.3-6.4 | **Hooks** | Automatic reactions — when X happens, do Y |\n| 6.5 | **Custom Subagents** | Specialized agents with specific roles and restrictions |\n| 6.6 | **MCP** | Connect external services — GitHub, Slack, databases, email |\n| 6.7 | **Composing** | How all four work together as an ecosystem |\n\n### The compounding effect\n\nHere is what makes this level transformative: each tool you build saves you time on every future session. A skill you spend 10 minutes creating might save you 2 minutes per day. A hook that auto-formats your work eliminates an entire class of mistakes forever. An MCP connection to your project management tool means you never copy-paste task descriptions again.\n\nAfter a few weeks of building, your Claude Code does not look like anyone else's. It has your workflows, your safety checks, your integrations. You stop repeating yourself and start **compounding**."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code is a workshop, not a fixed tool. Skills, hooks, custom agents, and MCP connections let you build custom tools that compound over time. Every workflow you automate saves time in every future session. You stop being a consumer and start being a builder."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Before you start building, think about your last week of Claude Code usage. What instructions did you type more than once? What checks did you always perform manually? What external tools did you wish Claude could access directly? Write down two or three of these — they will become your first custom tools."
+    }
+  ]
+}

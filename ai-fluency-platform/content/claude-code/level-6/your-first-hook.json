@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "6.4 Your First Hook",
+    "description": "Build a working hook that solves a real annoyance, configure it, and test it in a live session.",
+    "level": "level-6",
+    "slug": "your-first-hook",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You are about to configure a hook in your Claude Code settings. Where do you think hook configuration lives — in a separate file, in CLAUDE.md, or somewhere else? How do you think you test whether a hook is working?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Building a real hook\n\nLet us build three hooks that solve real annoyances. You will configure one, test it, and have templates for the other two.\n\n### Where hooks live\n\nHooks are configured in your Claude Code settings file. You can set them at different scopes:\n\n- **Project**: `.claude/settings.json` in your project directory\n- **User**: `~/.claude/settings.json` for all projects\n\nThe structure is straightforward:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [],\n    \"PostToolUse\": [],\n    \"Stop\": [],\n    \"Notification\": []\n  }\n}\n```\n\nEach array holds hook objects with `matcher` (optional regex for tool name) and `command` (the shell command to run).\n\n### Hook 1: Protect sensitive files\n\nThe most immediately useful hook is a safety net. Let us protect files that Claude should never modify.\n\nCreate or edit `.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Write|Edit\",\n        \"command\": \"bash -c 'INPUT=$(cat); echo \\\"$INPUT\\\" | grep -qE \\\"(\\\\.env|secrets|credentials|password)\\\" && echo \\\"BLOCKED: This file appears to contain sensitive data. Ask the user before editing.\\\" && exit 1 || exit 0'\"\n      }\n    ]\n  }\n}\n```\n\nNow test it: ask Claude to edit a file called `secrets.json` or `.env`. You should see the hook block the action and Claude report that it was prevented from editing.\n\n### Hook 2: Desktop notification when done\n\nLong-running tasks are common. Instead of watching the terminal, let Claude tell you when it is finished.\n\nOn Linux:\n```json\n{\n  \"hooks\": {\n    \"Stop\": [\n      {\n        \"command\": \"notify-send 'Claude Code' 'Task finished — come take a look'\"\n      }\n    ]\n  }\n}\n```\n\nOn macOS:\n```json\n{\n  \"hooks\": {\n    \"Stop\": [\n      {\n        \"command\": \"osascript -e 'display notification \\\"Task finished\\\" with title \\\"Claude Code\\\"'\"\n      }\n    ]\n  }\n}\n```\n\nTest it: give Claude a task that takes more than a few seconds. When it finishes, you should see a desktop notification.\n\n### Hook 3: Log all file changes\n\nWant a record of every file Claude modifies? A PostToolUse hook can maintain a changelog:\n\n```json\n{\n  \"hooks\": {\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Write|Edit\",\n        \"command\": \"bash -c 'echo \\\"$(date): Modified file\\\" >> .claude/change-log.txt'\"\n      }\n    ]\n  }\n}\n```\n\nThis appends a timestamped entry to a log file after every edit. Simple, but surprisingly useful when you want to review what Claude changed across a session.\n\n### Testing and debugging hooks\n\nHooks can be tricky to debug because they run silently. Here are practical strategies:\n\n1. **Start with echo**: Before writing complex logic, make your hook command just `echo \"Hook fired\"` to confirm the trigger works.\n2. **Check exit codes**: Remember, PreToolUse hooks block on non-zero exit. If your hook is accidentally blocking everything, check that your command exits 0 on the happy path.\n3. **Log to a file**: Add `>> /tmp/hook-debug.log 2>&1` to your command to capture output for inspection.\n4. **Test the command standalone**: Run your hook command directly in the terminal with sample input before putting it in settings.\n\n### Common pitfalls\n\n**Quoting hell**: Hook commands are JSON strings containing shell commands. The nested quoting gets painful. When in doubt, write your command as a separate shell script and reference it from the hook: `\"command\": \"bash /path/to/my-hook.sh\"`.\n\n**Blocking everything**: A PreToolUse hook with no matcher and a buggy exit code will block every single tool call. Always test with a narrow matcher first.\n\n**Performance**: Hooks run synchronously. A hook that takes 5 seconds adds 5 seconds to every matching tool call. Keep hook commands fast.\n\n**Forgetting scope**: A hook in your user settings applies to every project. Make sure your hooks make sense globally before putting them there."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Set up the 'protect sensitive files' hook (Hook 1) in your project's .claude/settings.json. Then ask Claude Code to create or edit a file with 'secrets' in the name. Verify that the hook blocks the action. Then ask Claude to edit a normal file and verify the hook allows it through.",
+      "solution": "If the hook blocks the sensitive file edit, you should see Claude report that it was prevented. If it also blocks normal files, your regex is too broad — check the grep pattern. If it does not block anything, verify: Is the settings file in the right location? Is the JSON valid? Is the hook under 'PreToolUse'? The most common issue is JSON syntax errors from nested quoting. Try validating your settings.json with a JSON linter."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a PreToolUse hook and a PostToolUse hook to someone who has never heard of hooks. When would you use each one, and what is the critical difference in what they can do?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Did your hook work on the first try? If not, what went wrong and how did you debug it?",
+        "Now that you have a working hook, what is the next automatic reaction you want to set up?",
+        "How does having automatic safety nets change your approach to giving Claude permission to do things?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Hooks live in .claude/settings.json under a hooks object keyed by event type. Start with a simple hook, test it with echo first, and watch for quoting issues. The most valuable first hook is a PreToolUse safety net that protects files you never want Claude to touch."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have built custom commands (skills) and automatic reactions (hooks). Next, we explore custom subagents — specialized AI workers with specific roles and restrictions. Think of them as employees you hire for particular jobs."
+    }
+  ]
+}

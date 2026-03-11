@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "3.8 Checkpoint",
+    "description": "Complete a multi-step task using at least 4 different slash commands and demonstrate dashboard knowledge.",
+    "level": "level-3",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Level 3 Checkpoint\n\nThis checkpoint tests whether you know the dashboard — the tools, commands, and modes that make Claude Code work. You will answer knowledge questions and complete a hands-on exercise that uses multiple features together. Answer without looking back at the modules."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Name the six built-in tools Claude Code uses. For each one, give a one-sentence description of when Claude reaches for it.",
+      "answer": "**Read** — when Claude needs to see what is in a file (documents, code, images, PDFs). **Edit** — when Claude needs to make targeted changes to an existing file without rewriting the whole thing. **Write** — when Claude needs to create a new file or completely rewrite an existing one. **Glob** — when Claude needs to find files by name pattern (like 'all CSV files'). **Grep** — when Claude needs to search inside files for specific text or patterns. **Bash** — when Claude needs to run a terminal command for anything else (scripts, installs, system info)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You are 25 minutes into a complex session. Claude is giving shorter, less detailed responses and seems to be forgetting earlier context. What is happening and what are your two best options?",
+      "answer": "The **context window is filling up**. As the conversation grows, earlier messages are compressed or dropped to make room. Your two best options: (1) Run **`/compact`** to summarize the conversation and free up space — this preserves key information while reducing token usage. (2) Run **`/clear`** and start a fresh session with a well-crafted briefing that includes the essential context — this gives Claude maximum space to work. Use /compact if you want to keep working on the same task. Use /clear if the task can be re-briefed quickly."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Explain the three main permission modes and give a scenario where each is the best choice.",
+      "answer": "**Default Mode** (review everything): Best for sensitive work. Scenario: you are editing an important configuration file and want to approve each change individually. **Auto-Accept Edits** (trust file changes, review commands): Best for productive flow. Scenario: Claude is making many small edits to a document and you want it to work quickly, reviewing with /diff at the end. **Plan Mode** (think but do not act): Best for high-stakes planning. Scenario: you want Claude to analyze a complex reorganization and propose a plan before any files are moved. Switch between them with Shift+Tab."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Match each task to the best input method: (A) Analyzing a specific report file. (B) Getting a quick answer about text on your clipboard. (C) Working with files from two different project folders. (D) Applying the same formatting rules to every task.",
+      "answer": "**(A) @-mention** — reference the file directly with @reports/file.md. **(B) Piping from clipboard** — `pbpaste | claude -p \"your question\"` for a quick one-shot answer. **(C) /add-dir** — add the second project folder so Claude can access both. **(D) --system-prompt-file** — put the formatting rules in a file and load it with every session. Each input method has a natural use case, and picking the right one saves time."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Complete this multi-step exercise using at least 4 different slash commands or features. Task: (1) Start a Claude Code session and check your context usage (/context). (2) Ask Claude to create a short document — a meeting agenda, a project outline, or a to-do list. (3) Review the changes (/diff). (4) If you want to modify the result, ask Claude to adjust it. (5) Copy the final result (/copy). (6) Rename the session (/rename). Write down which commands you used and how each one helped.",
+      "solution": "A successful completion uses at least: **/context** (awareness of your budget), **/diff** (reviewing what Claude created), **/copy** (getting the output ready to use), and **/rename** (organizing your session). Bonus points for also using **/compact** (if the session is getting long), **/rewind** (if you want to undo and retry), or **Shift+Tab** to switch permission modes. The goal is not just using the commands but understanding when each one adds value. If you found yourself reaching for a command naturally, the dashboard knowledge has landed."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a workflow for a task you do regularly. Write out the steps using Claude Code features: which input method would you use, which permission mode, which slash commands for managing the session, and which output method. Example: 'Weekly status email: pipe last week's notes in, use auto-accept for drafting speed, /copy the result, /rename the session as Weekly Update Mar 10.'",
+      "solution": "A good workflow design uses at least three different features and matches each one to a specific need. For example: 'Quarterly report: @mention the data file and last quarter's report as a format reference. Start in Plan Mode to review Claude's approach. Switch to Auto-Accept for execution. /diff to review. Ask Claude to save as reports/q1-2025.md. /rename session as Q1 Report Draft.' The key insight: knowing the dashboard lets you design efficient workflows rather than improvising every time."
+    },
+    {
+      "type": "markdown",
+      "content": "## Ready for Level 4?\n\nIf you can name the tools, use the slash commands from memory, switch between permission modes, and design workflows that combine multiple features, you are ready. Level 4 moves from knowing the tools to using them strategically — working with context and memory to tackle complex, multi-step projects.\n\nStart with [Level 4: Context and Memory](/level-4/)."
+    }
+  ]
+}

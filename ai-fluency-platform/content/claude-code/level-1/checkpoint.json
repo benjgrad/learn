@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "1.6 Checkpoint",
+    "description": "Test your understanding of the agentic loop, the interface, and the context window.",
+    "level": "level-1",
+    "slug": "checkpoint",
+    "order": 6,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Level 1 Checkpoint\n\nThis checkpoint tests whether the core mental models from Level 1 have landed. Answer these questions without looking back at the modules. If you struggle with any of them, revisit the relevant module before moving to Level 2."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What are the three phases of the agentic loop, and what is your role in relation to it?",
+      "answer": "The three phases are **Gather** (reading files, searching, checking status), **Act** (editing, writing, running commands), and **Verify** (checking results, running tests). Your role is to **manage the loop**: set clear goals, provide the right context, approve actions through permission prompts, and intervene when the loop goes off track."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have been working with Claude Code for 30 minutes and it starts giving vague, incorrect answers about files it read earlier. What is the most likely cause, and what should you do?",
+      "answer": "The most likely cause is that the **context window is full** — the file contents from earlier have been compressed or removed to make room for newer messages. You should run `/context` to check, and either `/compact` to free up space or `/clear` to start a fresh session focused on what you need right now."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the difference between 'claude', 'claude \"do something\"', and 'claude -p \"do something\"'?",
+      "answer": "`claude` starts an interactive session where you can send multiple messages. `claude \"do something\"` starts an interactive session with an initial prompt. `claude -p \"do something\"` runs in print mode — Claude processes your prompt, prints the response, and exits. Use the first two for ongoing work and the last for quick one-off answers."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Without any help, use Claude Code to complete a task you choose. Afterward, write down: (1) How many gather/act/verify steps you observed, (2) Whether you used any slash commands, (3) What you would do differently with a fresh start.",
+      "solution": "The goal is not a perfect task execution but **conscious observation** of the loop. If you can identify gather, act, and verify phases in Claude's behavior, you have internalized the Level 1 mental model. If you used '/context' or '/clear', bonus points — you are already managing your context budget."
+    },
+    {
+      "type": "markdown",
+      "content": "## Ready for Level 2?\n\nIf you can confidently answer the questions above, you are ready. Level 2 introduces the most impactful skill in Claude Code: how to write briefings that get the right result on the first try. The mental model shifts from \"managing a loop\" to \"writing a briefing for a capable colleague.\"\n\nStart with [Module 2.1: The Briefing Mindset](/level-2/briefing-mindset/)."
+    }
+  ]
+}

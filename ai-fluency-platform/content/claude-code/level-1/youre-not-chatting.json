@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "1.1 You're Not Chatting",
+    "description": "Claude Code is an autonomous agent, not a chatbot. Understanding the agentic loop changes everything.",
+    "level": "level-1",
+    "slug": "youre-not-chatting",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When you type a message into Claude Code, what do you think happens next? Does Claude just generate text like a chatbot, or does something different happen? Write down your intuition before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The chatbot trap\n\nIf you have used ChatGPT, Gemini, or any other AI chat interface, you have built a mental model: you type something, the AI types something back. It is a conversation.\n\nClaude Code looks similar on the surface. You type, Claude responds. But what happens between your message and Claude's response is fundamentally different.\n\nWhen you give Claude Code a task, it does not just generate text. It **takes actions**:\n\n- It reads files on your computer\n- It searches through folders and code\n- It edits documents\n- It runs commands in your terminal\n- It creates new files\n- It checks its own work\n\nEach of these actions shows up in your terminal as a **tool call** — a visible step that Claude is taking to accomplish your goal.\n\n## The agentic loop\n\nClaude Code operates in a loop:\n\n```\n┌─────────────┐\n│   GATHER    │  Read files, search, check status\n└──────┬──────┘\n       │\n       ▼\n┌─────────────┐\n│     ACT     │  Edit files, run commands, write\n└──────┬──────┘\n       │\n       ▼\n┌─────────────┐\n│   VERIFY    │  Check results, run tests, read output\n└──────┬──────┘\n       │\n       ▼\n   Done? ───No──→ Back to GATHER\n       │\n      Yes\n       │\n       ▼\n   Response to you\n```\n\nThis loop can run for dozens of steps before Claude responds to you. A single prompt might trigger Claude to:\n\n1. Search your project for relevant files (gather)\n2. Read three files to understand the context (gather)\n3. Edit one file to make a change (act)\n4. Run a command to test the change (verify)\n5. Notice an error in the output (verify → gather)\n6. Read the error details (gather)\n7. Make a second edit to fix the issue (act)\n8. Run the test again (verify)\n9. Confirm it passes (verify)\n10. Report back to you\n\nThat is ten steps from a single prompt. A chatbot would have given you text. Claude Code gave you **working results**.\n\n## Why this matters\n\nThe agentic loop changes three things about how you should work with Claude Code:\n\n| Chatbot mindset | Agentic mindset |\n| :-- | :-- |\n| I ask questions, Claude answers | I set goals, Claude works toward them |\n| I evaluate text quality | I evaluate whether the *result* is correct |\n| If the answer is wrong, I ask again | If the result is wrong, I steer Claude's loop |\n\nWhen you understand the loop, you stop writing messages like \"Can you help me fix this bug?\" and start writing messages like \"Fix the login timeout bug in auth.js. The expected behavior is X. Run the test suite after fixing it.\"\n\nThe first message starts a conversation. The second message starts a **loop with a clear success condition**."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You ask Claude Code to 'organize my downloads folder.' Claude reads the folder contents, creates subfolders, moves files, and reports back. How many 'tool calls' do you think this involved — roughly 3, 10, or 30+?",
+      "answer": "Likely **10-30+** tool calls. Claude would need to: list the folder contents (1 call), analyze the file types (possibly several reads), create subdirectories (several mkdir calls), move each file (one call per file), and verify the final state. A folder with 50 files could easily trigger 60+ tool calls. This is normal — the agentic loop is designed to handle multi-step tasks autonomously."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open Claude Code and give it a simple task: 'List the 5 largest files in my current directory and tell me what they are.' Watch the tool calls that appear. How many steps does Claude take? Can you label each step as gather, act, or verify?",
+      "solution": "Claude will typically: (1) Run a command to list files with sizes (gather), (2) Read or inspect the largest files to understand what they are (gather), (3) Report back to you. Most of the work here is 'gather' — Claude is collecting information before synthesizing a response. This is a simple task with ~3-5 tool calls, but it illustrates the loop pattern clearly."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "In your own words, explain the difference between a chatbot and an agentic system like Claude Code. What does the gather→act→verify loop mean for how you should write your prompts?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a task you recently did manually that involved multiple steps (organizing files, researching a topic, editing a document). Could you describe the goal to Claude Code and let the agentic loop handle the steps?",
+        "When you watched Claude Code's tool calls, did any surprise you? Did Claude take steps you would not have thought of?",
+        "How does knowing about the loop change what you think is 'too complex' to ask Claude Code to do?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code is an autonomous agent that runs a gather→act→verify loop, not a chatbot that generates text. A single prompt can trigger dozens of tool calls. Your job is to set clear goals and success criteria, then let the loop run."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now that you understand what Claude Code is, the next module covers how to install it and start your first session. If you already have Claude Code installed, feel free to skim 1.2 and jump to 1.3, where you will learn to read Claude's 'body language' — the visual cues that tell you what the loop is doing."
+    }
+  ]
+}

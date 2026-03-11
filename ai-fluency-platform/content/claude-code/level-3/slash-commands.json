@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "3.2 Slash Commands",
+    "description": "The commands that control your session: /clear, /compact, /context, /cost, /diff, /rewind, and more.",
+    "level": "level-3",
+    "slug": "slash-commands",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "How many slash commands in Claude Code can you name right now? Write them down. After this module, see how many were new to you."
+    },
+    {
+      "type": "markdown",
+      "content": "## Your control panel\n\nClaude Code's tools (Read, Edit, Grep, etc.) are what Claude uses to do work. Slash commands are what **you** use to control the session. They are typed at the prompt and execute immediately — they are not sent to Claude as messages.\n\nThink of them as the buttons and knobs on your dashboard. You do not need all of them every day, but the ones you do need are indispensable.\n\n## The daily essentials\n\nThese are the commands you will use most often. Learn these first.\n\n### /clear — Fresh start\n\nWipes the conversation history and starts a clean session. This is the reset button from Module 2.6. Use it when:\n- You are in a correction spiral\n- You want to switch to a completely different task\n- The context window feels cluttered\n\n`/clear` does not close Claude Code or lose your session. It just clears the conversation so you can start fresh.\n\n### /compact — Compress without losing everything\n\nWhen your context window is getting full but you do not want to lose everything, `/compact` summarizes the conversation so far and replaces the detailed history with a compressed version. You keep the key information but free up space.\n\nUse `/compact` when:\n- Claude seems to be forgetting things from earlier in the conversation\n- You have been working for a while and want to keep going\n- You get a warning about context length\n\nYou can also provide a focus: `/compact focus on the database changes` tells Claude what to prioritize when summarizing.\n\n### /context — Check your budget\n\nShows how much of the context window is used. Think of it as checking your fuel gauge. Run it periodically during long sessions to know when you need to `/compact` or `/clear`.\n\n### /cost — Check your spending\n\nShows the cost of the current session. Useful for staying aware of usage, especially during long or complex tasks.\n\n## The workflow commands\n\nThese commands help you manage the work itself.\n\n### /diff — See what changed\n\nShows a diff of all files Claude has modified in the current session. This is your review tool — before you accept Claude's work as done, run `/diff` to see exactly what was changed, added, or removed.\n\nThis is especially valuable when Claude has made changes across multiple files. Instead of reading each file, `/diff` gives you a consolidated view of every change.\n\n### /rewind — Undo the last step\n\nReverts Claude's last action — the last tool call and its result are removed from the conversation. If Claude made a change you do not like, `/rewind` takes you back to before that change happened.\n\nYou can run `/rewind` multiple times to go back several steps. Think of it as an undo button that works on the conversation itself, not just on files.\n\n### /copy — Grab the output\n\nCopies Claude's last response to your clipboard. Perfect for when Claude generates text you want to paste elsewhere — an email, a document, a message.\n\n### /export — Save the whole conversation\n\nExports the entire conversation to a file. Useful for keeping a record of complex work sessions, sharing context with colleagues, or creating documentation of what was done.\n\n## The navigation commands\n\n### /model — Switch models\n\nLets you change which AI model Claude Code uses mid-session. Different models have different strengths — some are faster, some are more capable for complex reasoning.\n\n### /help — When you forget\n\nShows all available commands and what they do. You do not need to memorize everything — `/help` is always there.\n\n## The commands you will grow into\n\nThese are less common but powerful in specific situations:\n\n| Command | What it does | When to use it |\n| :-- | :-- | :-- |\n| `/add-dir` | Adds another directory to Claude's scope | When your work spans multiple folders or projects |\n| `/rename` | Renames the current session | When you want to find this session later |\n| `/fork` | Creates a branch of the current session | When you want to try two different approaches |\n\n## Building muscle memory\n\nYou do not need to memorize all of these at once. Here is a practical starting point:\n\n**Week 1:** Use `/clear`, `/context`, and `/cost` in every session. Get comfortable checking your context budget and resetting when needed.\n\n**Week 2:** Add `/compact` and `/diff` to your routine. Start compressing instead of clearing when you want to keep working, and review changes with `/diff` before considering a task done.\n\n**Week 3:** Add `/rewind` and `/copy`. Start using undo when Claude goes in the wrong direction, and copy outputs instead of manually selecting text.\n\nAfter three weeks, these commands will be automatic. You will reach for `/context` like you check the time — quickly, frequently, without thinking about it."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have been working with Claude for 20 minutes on a complex task. Claude's responses are getting shorter and less detailed. What is likely happening and which two commands should you run?",
+      "answer": "Claude is likely running low on context window space. When the context fills up, Claude has less room for detailed responses and may lose track of earlier information. Run **`/context`** to check how full the context window is, then run **`/compact`** to compress the conversation history and free up space. If the context is extremely full, you might need `/clear` instead — but `/compact` preserves the key information from your session while freeing space for Claude to give fuller responses."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In your next Claude Code session, use at least three slash commands: /context (to check your context usage), /compact or /clear (to manage context), and /diff or /copy (to work with output). Note which ones feel natural and which feel unfamiliar.",
+      "solution": "The goal is to start building the habit of actively managing your session rather than just sending prompts. /context should become a reflex — check it whenever Claude seems to be losing track. /diff is invaluable for reviewing work before you consider it done. /copy saves time whenever you need Claude's output somewhere else. If any command felt awkward, use it deliberately in your next three sessions until it becomes natural."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which slash commands were new to you? Which ones do you wish you had known about earlier?",
+        "How often do you check your context window usage? Has that habit changed since learning about /context?",
+        "Think about your workflow: which two or three commands would save you the most time if you used them consistently?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Slash commands are your control panel for managing Claude Code sessions. The daily essentials are /clear (fresh start), /compact (compress context), /context (check usage), and /cost (check spending). For workflow: /diff (review changes), /rewind (undo), /copy (grab output). Start with three commands and build from there."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Slash commands control the conversation. But there is another layer of control that affects how much autonomy Claude has: permission modes. The next module covers the trust spectrum — from asking permission for everything to running fully autonomously."
+    }
+  ]
+}

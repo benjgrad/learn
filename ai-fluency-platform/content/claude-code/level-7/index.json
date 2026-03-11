@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 7: The Fleet",
+    "description": "Move from one session to many. Worktrees, teams, batch operations, and automation turn you into a fleet commander.",
+    "level": "level-7",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Welcome to Level 7\n\nEverything you have learned so far operates within a single Claude Code session. One conversation, one task at a time, one thread of work. You have gotten very good at making that single thread productive.\n\nBut think about how you actually work. You have three projects running in parallel. You need to update the same thing across 40 files. You want Claude to handle a review while you focus on writing. You want a CI pipeline to use Claude automatically.\n\nOne session cannot do all of that. You need a **fleet**.\n\n### From single-threaded to multi-threaded\n\nThe mental model for this level: you stop being a worker who uses a tool, and start being a **fleet commander** who dispatches work across multiple agents.\n\n| Module | Feature | What it enables |\n| :-- | :-- | :-- |\n| 7.1 | **Worktrees** | Parallel branches — multiple Claudes on different tasks |\n| 7.2 | **Agent Teams** | Lead + teammates investigating in parallel |\n| 7.3 | **Batch Mode** | Fan out one instruction across many targets |\n| 7.4 | **Non-Interactive** | Claude as a building block in scripts |\n| 7.5 | **CI/CD** | Claude in automated pipelines |\n| 7.6 | **SDK** | Full programmatic control |\n| 7.7 | **Remote & Mobile** | Working from anywhere |\n\n### Why this matters for everyone\n\nYou might think parallel work is only for developers. It is not. Consider:\n\n- A marketing manager who needs the same copy changes across 20 product pages\n- An analyst who wants Claude to research three different market segments simultaneously\n- A team lead who wants automated report generation every Monday morning\n- A consultant who needs Claude to review documents while they are in meetings\n\nAll of these require Claude to work independently, in parallel, or on a schedule. That is what this level teaches.\n\n### The scaling insight\n\nHere is the insight that makes this level transformative: Claude Code's cost is time and tokens, not headcount. Running 5 parallel sessions costs no more per session than running 1. The bottleneck is no longer Claude's throughput — it is your ability to decompose work and dispatch it effectively.\n\nThe skills from Level 2 (writing clear briefings) and Level 4 (managing context) become even more critical here. A poorly briefed parallel session wastes tokens in the background. A well-briefed one completes work while you are focused elsewhere."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "One Claude Code session is a worker. Multiple sessions — via worktrees, teams, batch mode, and automation — make you a fleet commander. The bottleneck shifts from Claude's throughput to your ability to decompose and dispatch work effectively."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Before you start, think about your current work. What tasks are you doing sequentially that could be done in parallel? Where do you wish Claude could work independently while you focus on something else? These scenarios will become real by the end of this level."
+    }
+  ]
+}

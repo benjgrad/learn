@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "2.3 Give Something to Verify",
+    "description": "The single highest-leverage habit: include expected output, test criteria, or a reference so Claude can verify its own work.",
+    "level": "level-2",
+    "slug": "give-something-to-verify",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Imagine you ask Claude to reformat a spreadsheet. In Scenario A, you just say 'reformat this data as a table.' In Scenario B, you include an example of what one row should look like in the final format. How much difference do you think that one example makes — a little, a lot, or almost none?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The verification gap\n\nIn Level 1, you learned that Claude Code runs a gather-act-verify loop. In Module 2.1, you learned to define what done looks like. Now we are going to focus on the most important part of that loop: the **verify** step.\n\nHere is the uncomfortable truth: Claude always verifies its work before responding to you. But the quality of that verification depends entirely on what you gave it to verify against.\n\nWhen your prompt is \"rewrite this email to be better,\" Claude's self-check is: \"Does this seem better than before? I think so.\" That is a subjective judgment, not a verification.\n\nWhen your prompt includes \"the output should be under 150 words, include all three action items from the original, and use a friendly-but-professional tone,\" Claude's self-check becomes a checklist: word count, action items present, tone correct. That is real verification.\n\nBut the most powerful version of this technique goes one step further: **give Claude an actual artifact to verify against.**\n\n## Five ways to give something to verify\n\n### 1. Include an example of the expected output\n\nThis is the simplest and most powerful technique. Show Claude what one correct instance of the output looks like.\n\n> Convert these meeting notes to action items. Here is what one should look like:\n>\n> - **[Marketing] Sarah** — Finalize Q2 campaign brief by Friday 3/15. Dependencies: needs budget approval from VP.\n>\n> Use that exact format for all action items.\n\nClaude now has a template to match. It will copy the format, the level of detail, and the structure. Without that example, Claude has to guess at all of those decisions.\n\n### 2. Provide test criteria\n\nFor technical work, tell Claude how to test its own output.\n\n> Write a function that converts temperatures from Fahrenheit to Celsius. After writing it, test it with these values: 32F should be 0C, 212F should be 100C, -40F should be -40C. Run the tests and show me the results.\n\nClaude will write the function AND verify it works correctly before showing you. Without test criteria, Claude writes the function, glances at it, and says \"here you go\" — and the edge cases might be wrong.\n\n### 3. Reference an existing format\n\nPoint Claude to something that already exists as a model.\n\n> Write a project update email in the same format as the one in `emails/last-week-update.txt`. Same sections, same level of detail, but with this week's information.\n\nClaude reads the reference, extracts the pattern, and applies it to new content. This is especially powerful for maintaining consistency across documents, emails, or reports.\n\n### 4. Describe what wrong looks like\n\nSometimes it is easier to describe failure than success.\n\n> Summarize this research paper. Common mistakes to avoid: do not just list the sections, do not use the paper's jargon without explaining it, and do not editorialize about the quality of the research. Stick to what the authors found.\n\nThis gives Claude anti-patterns to check against. During verification, Claude can ask: \"Am I just listing sections? Am I using unexplained jargon? Am I editorializing?\" Each \"no\" increases confidence.\n\n### 5. State the acceptance criteria explicitly\n\nBorrow from project management: write out what you will check when you review the output.\n\n> Create a budget spreadsheet for the team offsite. I will consider this done when:\n> - Every line item has a quantity, unit cost, and total\n> - The grand total is calculated correctly\n> - There is a 15% contingency line item\n> - Categories are: Venue, Food, Activities, Travel, Miscellaneous\n\nThis is the most explicit form of the pattern. Claude has a literal acceptance checklist and will verify against each item.\n\n## Why this is the highest-leverage habit\n\nEverything else in this course builds on this technique. Specificity (Module 2.2) is about giving Claude clear constraints. The briefing mindset (Module 2.1) is about defining done. This module ties them together with a mechanism: **give Claude something concrete to check its work against.**\n\nThe pattern works because it aligns your expectations with Claude's self-evaluation. Without verification criteria, there is a gap between what you are hoping for and what Claude thinks you want. That gap is where disappointment lives.\n\nWith verification criteria, Claude's judgment of \"I'm done\" matches your judgment of \"this is right.\" The gap closes, and first-try quality goes up dramatically.\n\n## The one-line version\n\nIf you remember nothing else from this module, remember this: **every prompt should include at least one thing Claude can check its output against.** An example. A test. A format reference. A checklist. Anything concrete.\n\nThe more important the task, the more verification anchors you should provide."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You ask Claude to 'write a thank-you email to a client.' Which addition would most improve the output quality: (A) adding 'make it good and professional,' (B) adding 'keep it under 100 words and mention the March deliverable specifically,' or (C) adding 'use your best judgment on length and content'?",
+      "answer": "**(B) is the best addition.** It gives Claude two concrete things to verify: word count (under 100) and specific content (mention March deliverable). Option A adds subjective adjectives that Claude cannot verify — what does 'good' mean? Option C explicitly tells Claude to guess, which is what it would do anyway without guidance. The key principle: verifiable constraints beat subjective adjectives every time."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Try the 'example output' technique right now. Pick any formatting or writing task: converting data, writing an email, creating a list. First, run the task WITHOUT an example. Then, run the same task WITH one example of what the output should look like. Compare the two results. How much closer was the second attempt to what you actually wanted?",
+      "solution": "Most people find that including an example of the expected output dramatically improves first-try accuracy — often the difference between 'close but needs editing' and 'ready to use.' The example anchors Claude's decisions about format, level of detail, tone, and structure all at once. This is why it is the simplest and most powerful verification technique: one example communicates dozens of implicit preferences."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why giving Claude something to verify against improves output quality. Connect this to the gather-act-verify loop from Level 1 — what changes in that loop when verification criteria are present?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about the last time Claude gave you output that was technically correct but not what you wanted. Could you have prevented that by including an example or test criteria?",
+        "Which of the five verification techniques (example output, test criteria, reference format, describing wrong, acceptance criteria) feels most natural for the kind of work you do?",
+        "How much time do you typically spend fixing Claude's output after the fact? Would investing 30 seconds in verification criteria save you that time?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The single highest-leverage habit: every prompt should include at least one thing Claude can check its output against — an example, a test, a format reference, anti-patterns to avoid, or an explicit acceptance checklist. When Claude can verify its own work, first-try quality jumps dramatically."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "So far you have learned to define done, be specific about the what, and give something to verify against. But what about tasks where you do not even know what you want yet? The next module introduces a powerful technique for ambiguous work: letting Claude interview you before it starts."
+    }
+  ]
+}

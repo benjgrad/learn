@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "7.3 Batch Mode — Fan Out",
+    "description": "Apply the same instruction across many files or targets simultaneously with batch operations.",
+    "level": "level-7",
+    "slug": "batch-skill",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You need to make the same type of change to 40 files — update a header format, add a disclaimer paragraph, or standardize a naming convention. How would you approach this today? What could go wrong if you do them one at a time?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The mass-update problem\n\nSome tasks are not complex — they are **repetitive**. You need the same change applied consistently across dozens or hundreds of targets. Doing them one at a time is tedious and error-prone. Doing them manually invites inconsistency.\n\nBatch mode solves this: give Claude one instruction and a set of targets, and it fans the work out across all of them.\n\n## How batch mode works\n\nThe `/batch` command takes an instruction and applies it to multiple targets. The basic pattern:\n\n```\n/batch \"Add a copyright header with the current year to every file\" across all .md files in docs/\n```\n\nClaude identifies the target files, applies the instruction to each one, and reports the results. The instruction is the same for every target — what changes is the target file.\n\n## When batch mode is the right tool\n\n**Consistent formatting**: Apply the same style changes across all documents in a folder. Every file gets the same treatment.\n\n**Mass updates**: A company name changed, a date format needs updating, a disclaimer needs adding. One instruction, dozens of files.\n\n**Large-scale refactoring**: Rename a concept across an entire project. Update every reference to the old name in every file.\n\n**Template application**: You have a new template and need existing files to conform. Batch mode restructures each file to match.\n\n**Standardization**: Different team members used different conventions. Batch mode brings everything into alignment.\n\n## The instruction matters enormously\n\nBatch mode amplifies your instruction — for better or worse. A vague instruction applied 40 times creates 40 vaguely modified files. A precise instruction applied 40 times creates 40 perfectly consistent files.\n\nGood batch instructions:\n- Specify exactly what to change and what to preserve\n- Include the expected format or template\n- Define edge cases (\"If the file already has a header, replace it rather than adding a second one\")\n- State what success looks like\n\n**Weak**: \"Fix the formatting in these files\"\n\n**Strong**: \"In each file, ensure the title is an H1 heading, add a blank line after the title, convert any bullet lists to use dashes instead of asterisks, and ensure the file ends with a single newline. Do not change any content — only formatting.\"\n\n## Batch mode vs. find-and-replace\n\nYou might wonder: why not just use find-and-replace? The answer is that batch mode understands **context**.\n\nFind-and-replace is literal: it changes text pattern X to text pattern Y. Batch mode understands what it is reading. It can:\n\n- Add a paragraph that makes sense in context, not just paste the same text\n- Restructure differently depending on the file's current state\n- Handle edge cases where files are structured differently\n- Make intelligent decisions about files that do not fit the pattern\n\nThis is the difference between a search-replace tool and an agent that reads, understands, and edits each file individually while maintaining consistency across all of them.\n\n## Practical strategies\n\n### Start with a dry run\nBefore batch-editing 100 files, test your instruction on 2-3 files manually. Confirm the result is what you want, then batch the rest.\n\n### Review in bulk\nAfter a batch operation, use `git diff` to review all changes at once. Look for patterns — if one file was handled differently, investigate why.\n\n### Group similar targets\nIf your 40 files fall into 3 categories that need slightly different treatment, run 3 batch operations with category-specific instructions rather than one generic one.\n\n### Set expectations for time\nBatch operations that touch many files take proportionally more time and tokens. A batch across 50 files is roughly 50x the cost of editing one file. Factor this into your context budget planning."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You run a batch operation to add a disclaimer to 30 markdown files. After it finishes, you check and find that 28 files look perfect, but 2 files have the disclaimer in the wrong location. What went wrong and what should you do?",
+      "answer": "The 2 files likely had a **different structure** than the other 28 — perhaps a different heading hierarchy or an unusual layout that confused the placement logic. This is normal with batch operations: edge cases exist. Fix those 2 files individually with a targeted instruction that accounts for their specific structure. For future batches, preview a few files first to identify structural variations and either handle them in your instruction ('if the file starts with frontmatter, place the disclaimer after it') or group them into a separate batch."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Identify a batch-appropriate task in your work: something that needs the same change across multiple files or documents. Write the batch instruction you would use. Then stress-test it: What edge cases could exist? What files might be structured differently? Revise your instruction to handle those cases.",
+      "solution": "Strong batch instructions anticipate variation. If you wrote 'add a header to every file,' revise it to 'add a header to every file — if a header already exists, replace it; if the file starts with YAML frontmatter, place the header after the closing ---; if the file is empty, skip it.' The more edge cases your instruction handles, the more consistent your batch results will be. Testing on 2-3 representative files before the full batch is always worth the time."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What repetitive task in your work have you been putting off because it involves too many files?",
+        "How does the quality of your batch instruction compare to the quality of a one-off instruction? Why does precision matter more for batch operations?",
+        "What is the trade-off between batch speed and manual review? When would you batch-and-review versus do each file individually?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Batch mode fans out one instruction across many targets — consistent, context-aware mass updates that go beyond find-and-replace. The instruction quality matters exponentially: a precise instruction across 40 files gives 40 perfect results; a vague one gives 40 problems. Always dry-run on a few files first and review with git diff after."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Batch mode runs inside an interactive session. But what if you want Claude to run without any interaction at all — as part of a script, a cron job, or an automated pipeline? That is non-interactive mode, and it unlocks a completely different category of use."
+    }
+  ]
+}

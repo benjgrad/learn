@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "6.7 Composing Your Extensions",
+    "description": "Skills, hooks, agents, and MCP are powerful alone. Together they create a personalized system that transforms how you work.",
+    "level": "level-6",
+    "slug": "composing-extensions",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have learned four building blocks: skills, hooks, custom agents, and MCP. Can you imagine a workflow where two or more of these work together? What would a 'composed' workflow look like compared to using each piece in isolation?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The ecosystem view\n\nSo far you have learned four building blocks as separate features. But their real power emerges when they work together. A skill can delegate to a custom agent. A hook can trigger after a skill runs. An MCP connection can provide data that a skill processes. The combinations multiply your capabilities.\n\nLet us see how this works with concrete examples.\n\n## Example 1: The morning briefing\n\nImagine starting each day with a single command that:\n1. Checks your calendar for today's meetings (MCP: Google Calendar)\n2. Reads unresolved Jira tickets assigned to you (MCP: Jira)\n3. Scans your email for anything flagged urgent (MCP: Gmail)\n4. Delegates deep research on the top priority to a focused agent (Custom Agent: researcher)\n5. Produces a structured daily briefing\n\nThis is one skill that orchestrates MCP connections and a custom agent:\n\n```markdown\n---\nname: morning-brief\ndescription: Generate a comprehensive morning briefing from all sources\n---\n\n# Morning Briefing\n\n1. Use the Google Calendar tools to list today's events\n2. Use the Jira tools to find my open tickets, sorted by priority\n3. Use Gmail tools to search for emails flagged important in the last 24 hours\n4. For the highest-priority item, delegate to the 'researcher' agent to gather full context\n5. Synthesize everything into a briefing:\n   - Schedule overview\n   - Top 3 priorities with context\n   - Urgent items requiring immediate attention\n   - Suggested time blocks for focused work\n\nKeep the briefing scannable — I want to read it in 3 minutes.\n```\n\nOne command. Four data sources. One focused agent. A complete picture of your day.\n\n## Example 2: The review-and-publish pipeline\n\nA content team might compose:\n- **Skill** (`/review-draft`): Orchestrates the review process\n- **Agent** (`reviewer`): Read-only agent that provides editorial feedback\n- **Agent** (`fact-checker`): Searches the web and internal docs to verify claims\n- **Hook** (PostToolUse): After any Write to the `published/` directory, automatically notifies the team via Slack (MCP)\n\nThe skill calls both agents, merges their feedback, presents it to you, and when you approve the final version and it gets written to the publish directory, the hook handles notification automatically.\n\n## Example 3: The safety-first editing workflow\n\n- **Hook** (PreToolUse): Before any file edit, creates a backup copy\n- **Skill** (`/careful-edit`): Reads the file, proposes changes, asks for confirmation\n- **Agent** (`auditor`): After edits, reviews changes against style guidelines\n- **Hook** (Stop): When done, generates a diff summary of all changes made\n\nThis workflow ensures that every edit is backed up, reviewed, and documented — automatically.\n\n## Composition patterns\n\nAs you build your ecosystem, these patterns emerge:\n\n### The Orchestrator Pattern\nA skill acts as the coordinator, calling agents and MCP tools in sequence. The skill defines the workflow; the agents and tools do the work.\n\n### The Safety Wrapper Pattern\nHooks wrap around skills and agents to enforce constraints. PreToolUse hooks prevent mistakes; PostToolUse hooks verify quality; Stop hooks produce audit trails.\n\n### The Enrichment Pattern\nMCP connections feed external data into skills. The skill defines what to do with the data; MCP provides the data.\n\n### The Delegation Pattern\nThe main session handles high-level decisions while custom agents handle focused subtasks. Each agent has exactly the tools it needs and nothing more.\n\n## Building your ecosystem incrementally\n\nDo not try to build a complete ecosystem in one sitting. The best approach:\n\n1. **Start with one skill** for your most common workflow\n2. **Add one hook** for your biggest recurring annoyance\n3. **Connect one MCP service** you interact with most\n4. **Create one agent** for a task you delegate frequently\n5. **Notice where they could connect**, and compose\n\nEach piece you add increases the value of every other piece. This is the compounding effect in action — your Claude Code gets meaningfully better each week, in ways that are unique to how you work."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A skill calls a custom 'researcher' agent to gather information, then uses MCP to create a Jira ticket with the findings. A PreToolUse hook prevents creating Jira tickets with the priority 'Critical' without explicit user confirmation. The skill tries to create a Critical ticket. What happens?",
+      "answer": "The hook fires before the Jira MCP tool creates the ticket. Since the hook detects a Critical priority and blocks (exit 1), the ticket creation is prevented. Claude sees the block message and reports back that it could not create the ticket without user confirmation. The skill's research work is preserved — only the final action was blocked. This shows how hooks provide safety even for composed workflows: they operate at the tool-call level regardless of what triggered the call."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Map out a composed workflow for something you do weekly. Draw the pieces: which skills, hooks, agents, or MCP connections would be involved? Write it as a diagram or list showing the sequence: 'Skill X calls Agent Y, which uses MCP Z, and Hook W fires after step 3.' You do not need to build it — just design it.",
+      "solution": "A good composed workflow has a clear trigger (a skill you invoke), uses 2-3 building blocks, and has at least one safety measure (a hook). For example: '/weekly-report' skill that (1) queries project management MCP for completed tasks, (2) delegates to a 'summarizer' agent to synthesize, (3) writes the report, triggering a PostToolUse hook that sends it to Slack via MCP. If your design has more than 4 components, consider whether you are over-engineering — start simpler and add complexity as needed."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which composition pattern — orchestrator, safety wrapper, enrichment, or delegation — would be most valuable for your work right now?",
+        "What is the risk of over-engineering your extension ecosystem? How do you know when you have enough automation?",
+        "If you could have one fully composed workflow ready tomorrow, what would it do?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Skills, hooks, agents, and MCP compose into workflows greater than the sum of their parts. Skills orchestrate, hooks enforce safety, agents specialize, and MCP connects external data. Build incrementally — each piece increases the value of every other piece. The compounding effect makes your Claude Code uniquely powerful over time."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have the complete toolkit for building your personal Claude Code workshop. The checkpoint ahead will challenge you to build a working composed workflow — a skill and a hook working together to solve a real problem. Review your notes from this level and pick the workflow you want to build."
+    }
+  ]
+}

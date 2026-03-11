@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "4.3 CLAUDE.md — Your Project's Always-On Briefing",
+    "description": "CLAUDE.md loads every session, so every line must earn its place.",
+    "level": "level-4",
+    "slug": "claude-md",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you could give Claude Code a set of permanent instructions that it would follow in every session — like a standing brief for a new team member — what would you include? Write down your top 5 items before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The always-on briefing\n\nEvery time you start a Claude Code session, one of the first things that happens — before you type a single word — is that Claude reads a special file called `CLAUDE.md`. If this file exists in your project directory, its contents are loaded directly into the context window.\n\nThink of CLAUDE.md as a standing brief. It is the document you hand to a skilled contractor on their first day: here is what this project is, here are our conventions, here is what matters, here is what to avoid. The contractor reads it, internalizes it, and then starts working with that knowledge as a foundation.\n\nThis is incredibly powerful. Without CLAUDE.md, every session starts from zero — you have to re-explain your project, your preferences, and your conventions. With a good CLAUDE.md, every session starts from a **shared understanding**.\n\nBut there is a cost. CLAUDE.md loads **every single session**. If your CLAUDE.md is 500 lines of detailed instructions, that is 2,000+ tokens consumed before you even say hello. Those tokens are gone from your budget for the entire session.\n\nThis creates a tension: you want to include enough to be useful, but not so much that you are wasting budget. Every line in CLAUDE.md must earn its place.\n\n## Where CLAUDE.md lives\n\nClaude Code looks for CLAUDE.md files in multiple locations, and they stack:\n\n1. **`~/.claude/CLAUDE.md`** — Your personal global file. Applies to every project. Good for personal preferences like tone, response style, or general working conventions.\n2. **`./CLAUDE.md`** — Your project root. The most important one. Project-specific context, conventions, architecture overview.\n3. **Subdirectory CLAUDE.md files** — If Claude is working in a subdirectory that has its own CLAUDE.md, it loads that too. Useful for monorepos or projects with distinct sections.\n\nAll of these are loaded and combined. So your global preferences plus your project specifics are always available.\n\n## What to include\n\nThe best CLAUDE.md files follow a pattern: **high-value, stable information that Claude cannot easily figure out on its own.**\n\n### Must-have sections\n\n- **Project overview** (2-3 sentences): What is this project? What does it do? Who is it for?\n- **Key conventions**: Naming conventions, file organization patterns, style preferences. Things Claude would otherwise guess about — and guess wrong.\n- **Common commands**: How to build, test, deploy. Commands Claude should use when verifying its work.\n- **Architecture notes**: Brief overview of how things are organized. \"Frontend is in /app, API is in /server, shared types are in /types.\"\n- **Do-nots**: Things Claude should avoid. \"Never modify the database schema directly.\" \"Do not use library X, we use library Y instead.\"\n\n### Good-to-have sections\n\n- **Compact Instructions**: A section that persists through compaction (we will cover this in module 4.5). Critical context that should survive even when the session is compressed.\n- **Tone and style guidance**: \"Write in active voice.\" \"Keep responses concise.\" \"Explain your reasoning before making changes.\"\n\n## What to leave out\n\nThis is where most people go wrong. They treat CLAUDE.md like a documentation dump. Here is what does NOT belong:\n\n- **Information Claude can discover**: Do not paste your entire folder structure. Claude can run `ls`. Do not paste your package.json. Claude can read it when needed.\n- **Detailed API documentation**: If Claude needs API details, it can read the relevant file. Do not pre-load thousands of tokens of documentation.\n- **Step-by-step tutorials**: CLAUDE.md is a brief, not a manual.\n- **Temporary instructions**: If something only matters for today's work, put it in your prompt, not in CLAUDE.md.\n- **Everything you know about the project**: CLAUDE.md is a **briefing**, not an encyclopedia. Include what Claude needs to know to start working effectively, not everything that exists.\n\n## The 500-line rule\n\nA practical guideline: keep your CLAUDE.md under 500 lines. This is not a hard limit, but if you are significantly over 500 lines, you are probably including things that should be discovered on-demand rather than pre-loaded.\n\nAt 500 lines, your CLAUDE.md costs roughly 1,500-2,500 tokens per session. That is a meaningful but acceptable cost for the value it provides. At 1,500 lines, you are spending 5,000-8,000 tokens before you start — that is like reading a large file every session whether you need it or not.\n\n## A template to start with\n\nHere is a template you can adapt:\n\n```markdown\n# Project Name\n\nBrief description of what this project does (1-2 sentences).\n\n## Architecture\n\n- Frontend: /app (React/Next.js)\n- API: /server (Express)\n- Database: PostgreSQL via Prisma\n- Key config: /config/settings.json\n\n## Conventions\n\n- Use TypeScript for all new files\n- Component naming: PascalCase\n- API routes: kebab-case\n- Tests live next to the files they test (file.test.ts)\n\n## Commands\n\n- Build: `npm run build`\n- Test: `npm test`\n- Lint: `npm run lint`\n- Dev server: `npm run dev`\n\n## Important Rules\n\n- Never modify migration files directly\n- Always run tests after making changes\n- Use the existing error handling pattern in /lib/errors.ts\n\n## Compact Instructions\n\nWhen compacting this session, preserve:\n- Current task and its acceptance criteria\n- Key decisions made and their reasoning\n- Files that have been modified\n```\n\nThis template is roughly 40 lines and costs very little context. Start minimal and add only what you find yourself repeating across sessions."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A colleague shows you their CLAUDE.md file. It is 1,200 lines long and includes: a full API reference, the entire folder structure printed out, a list of every team member and their roles, plus their actual project conventions. What feedback would you give?",
+      "answer": "The file is **way too long** — it is costing 4,000-8,000 tokens every session. The API reference should be removed (Claude can read API files on demand). The folder structure should be removed (Claude can discover this with `ls` or `find`). The team member list is irrelevant to Claude's work. Keep only the **project conventions, architecture overview, key commands, and important rules**. The goal is to cut it down to under 500 lines — probably closer to 100-200 lines of high-value, stable information that Claude cannot easily figure out on its own."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Create a CLAUDE.md file for a project you work on (or a personal folder). Use the template above as a starting point. Keep it under 100 lines. Then start a Claude Code session in that directory and ask Claude a question about the project. Notice how Claude references the CLAUDE.md information without you having to explain it.",
+      "solution": "The key insight is how much smoother the session feels when Claude already knows your conventions and structure. Compare this to a session without CLAUDE.md where you would need to spend several messages explaining the same things. That upfront investment of ~500 tokens saves thousands of tokens of back-and-forth explanation. If you find yourself wanting to add more than 100 lines, ask: 'Can Claude discover this by reading a file when it needs to?' If yes, leave it out."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the CLAUDE.md tradeoff to someone new to Claude Code. Why is it powerful? Why can it also be a problem? What is the guiding principle for deciding what to include?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What information do you find yourself repeating to Claude at the start of every session? That is probably a candidate for CLAUDE.md.",
+        "If you had to cut your CLAUDE.md to just 10 lines, what would survive? Those are your highest-value instructions.",
+        "How does the 'always-on cost' of CLAUDE.md change how you think about project documentation versus session-specific instructions?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "CLAUDE.md is your project's always-on briefing — it loads every session, so every line must earn its place. Include stable, high-value information Claude cannot easily discover: conventions, key commands, architecture, and important rules. Leave out anything Claude can read on demand. Keep it under 500 lines."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "CLAUDE.md is the briefing you write yourself. The next module covers Claude's own memory system — how it remembers things across sessions automatically, and how you can use rules files for path-specific instructions."
+    }
+  ]
+}

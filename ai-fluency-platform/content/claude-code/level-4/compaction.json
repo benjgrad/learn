@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "4.5 Compaction",
+    "description": "What survives compression, what is lost, and how to use compaction strategically.",
+    "level": "level-4",
+    "slug": "compaction",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Your context window is 90% full. Claude Code offers to 'compact' the conversation. What do you think compaction does? Does it delete messages? Summarize them? Something else? Write down your guess before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## What is compaction?\n\nWhen your context window fills up, Claude Code faces a choice: stop working, or make room. Compaction is how it makes room.\n\nHere is what happens: Claude takes the entire conversation so far — your messages, its responses, file reads, tool outputs, everything — and **compresses it into a summary**. The original messages are removed from the context window and replaced with a condensed version that captures the key points.\n\nThink of it like taking notes at the end of a long meeting, then shredding the meeting transcript. The notes capture the decisions and action items, but the specific wording, the tangents, the detailed discussions — those are gone.\n\n## How compaction works\n\nThere are two ways compaction happens:\n\n### Auto-compaction\n\nWhen the context window gets critically full (typically around 95%), Claude Code automatically compacts. You will see a brief message indicating this is happening. The session continues, but with a compressed history.\n\nAuto-compaction is a safety net. It prevents the session from crashing, but it happens at the worst possible time — when you are already in the danger zone. The summary is generated under pressure, and you have no control over what is prioritized.\n\n### Manual compaction with `/compact`\n\nYou can trigger compaction yourself at any time by typing `/compact`. You can also provide a focus: `/compact focus on the database migration work` — this tells Claude what to prioritize in the summary.\n\nManual compaction is a strategic tool. You choose when it happens, and you can influence what survives.\n\n## What survives compaction\n\nThe summary typically preserves:\n\n- **Key decisions made** — \"We decided to use approach X instead of Y\"\n- **Current task and progress** — \"We are implementing the login flow, completed the frontend, working on the API\"\n- **Important context** — project details, conventions discussed, constraints identified\n- **Recent work** — what was just done or is in progress\n\n## What gets lost\n\nThe summary typically loses:\n\n- **Exact wording** — the specific text of your prompts and Claude's responses\n- **Detailed reasoning** — the back-and-forth discussion about why a decision was made\n- **File contents** — the actual code or text Claude read (Claude would need to re-read files)\n- **Tangents and corrections** — early mistakes, abandoned approaches, side discussions\n- **Nuance** — subtle requirements or preferences mentioned in passing\n\nThis is why context degradation is so insidious. After compaction, Claude has a summary that says something like \"User wants concise reports with bullet points.\" But it has lost the specific conversation where you explained \"I want bullet points for findings, but narrative paragraphs for the recommendations section, and always end with a one-line summary.\" The nuance is gone.\n\n## The Compact Instructions pattern\n\nThis is one of the most powerful techniques in this entire course.\n\nYou can add a section to your CLAUDE.md called **Compact Instructions**. When Claude compacts, it looks for this section and treats it as guidance for what to preserve in the summary.\n\n```markdown\n## Compact Instructions\n\nWhen compacting this session, always preserve:\n- The current task and its specific acceptance criteria\n- Key decisions made and their reasoning\n- All files that have been modified and why\n- Any user preferences stated during the session\n- The next planned step\n```\n\nBecause CLAUDE.md is loaded from disk (not from the conversation), it survives compaction. The Compact Instructions section will be there after compaction, guiding what the summary looks like.\n\nThis is your insurance policy. It does not guarantee perfect preservation, but it dramatically improves what survives.\n\n## Strategic compaction\n\nExperts do not wait for auto-compaction. They compact strategically:\n\n### Compact at phase transitions\n\nJust finished researching and about to start writing? `/compact focus on the key findings and outline`. This clears the research context and preserves only the conclusions. You get a fresh, focused workspace for the writing phase.\n\n### Compact before complex work\n\nAbout to tackle a complex task that will need lots of context? Compact first to maximize available space. `/compact keep only the current task and file locations`.\n\n### Compact after big file reads\n\nIf Claude just read several large files to understand something, and you have the understanding you need, compact. The file contents are no longer needed in context — Claude can re-read specific sections if it needs to.\n\n### Compact with focus\n\nAlways tell Claude what to prioritize: `/compact focus on the API design decisions and the endpoint specifications`. Without guidance, Claude makes its best guess about what matters. With guidance, it preserves what you actually need.\n\n## When NOT to compact\n\n- **In the middle of a complex edit** — compaction might lose the details Claude needs to finish\n- **When precise wording matters** — if you need Claude to reference exact text from earlier\n- **When the session is still young** — if you are under 50% context, compacting is premature and loses information unnecessarily"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have been working on a report for 30 minutes. Claude has read 8 files, you have made several key decisions about structure, and you are about to start a new section. Should you compact? If so, how?",
+      "answer": "**Yes, compact.** You are at a natural phase transition — shifting from research/decisions to writing a new section. The command: `/compact focus on the report structure decisions, the outline we agreed on, and which files contain the source data`. This clears the 8 file reads from context (thousands of tokens) while preserving the decisions and structure. If Claude needs to re-read a specific file later, it can — but it will not be carrying all 8 files in context for the rest of the session."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Add a 'Compact Instructions' section to a CLAUDE.md file (or create a simple CLAUDE.md with just this section). Then start a session, do some work, and run `/compact`. Check whether the compacted summary respects your instructions. Compare this to compacting without the section.",
+      "solution": "You should see that the compacted summary prioritizes the items you listed in Compact Instructions. Without the section, the summary is generic — it captures the broad strokes but may miss specific details you care about. With the section, the summary is targeted. This is especially noticeable for nuanced decisions or specific preferences. The Compact Instructions section acts as a template for what Claude should preserve."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a recent long session where Claude's quality degraded. Would strategic compaction at a phase transition have helped?",
+        "What information from your typical sessions is most important to preserve through compaction?",
+        "How does the ability to add Compact Instructions to CLAUDE.md change your approach to long sessions?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Compaction compresses your conversation into a summary, freeing context space but losing detail and nuance. Use `/compact` strategically at phase transitions rather than waiting for auto-compaction. Always provide focus: `/compact focus on X`. Add a 'Compact Instructions' section to your CLAUDE.md to guide what survives — this is your insurance policy for long sessions."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Compaction is one way to manage a full context window. The next module covers a more drastic but often more effective approach: `/clear` — throwing away context entirely and starting fresh."
+    }
+  ]
+}

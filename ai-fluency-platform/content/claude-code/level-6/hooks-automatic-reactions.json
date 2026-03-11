@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "6.3 Hooks — Automatic Reactions",
+    "description": "Hooks let you automate responses to events inside Claude Code. When X happens, Y happens automatically.",
+    "level": "level-6",
+    "slug": "hooks-automatic-reactions",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Think about safety nets and automations in tools you already use — auto-save in Google Docs, spell check as you type, email filters that sort your inbox. What kinds of automatic reactions would be useful inside Claude Code?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The problem with manual vigilance\n\nYou have learned that Claude Code is powerful but imperfect. You know to verify its work, protect sensitive files, and check outputs. But here is the uncomfortable truth: **you will forget**.\n\nYou will forget to check that Claude did not touch your production config file. You will forget to run the linter after edits. You will forget to back up a file before Claude rewrites it. Not because you are careless — because you are human, and manual vigilance does not scale.\n\nHooks solve this. They are automatic reactions that fire when specific events happen inside Claude Code. Think of them as \"if-this-then-that\" rules for your Claude sessions.\n\n## How hooks work\n\nA hook has two parts: a **trigger** (when does it fire?) and an **action** (what does it do?). Hooks are defined in your Claude Code settings file.\n\nThe key events you can hook into:\n\n| Event | When it fires | Common use |\n| :-- | :-- | :-- |\n| **PreToolUse** | Before Claude uses any tool | Block dangerous actions, validate inputs |\n| **PostToolUse** | After Claude uses a tool | Auto-format, log changes, run checks |\n| **Stop** | When Claude finishes a task | Send notifications, run final validations |\n| **Notification** | When Claude sends a notification | Desktop alerts, custom notification routing |\n\n### PreToolUse: The guardian\n\nPreToolUse hooks run before Claude takes an action. They can **block** the action entirely. This is your safety net.\n\nExample: Prevent Claude from editing any file in your `credentials/` directory:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Write|Edit\",\n        \"command\": \"bash -c 'echo \\\"$TOOL_INPUT\\\" | grep -q credentials/ && echo \\\"BLOCK: Cannot edit credential files\\\" && exit 1 || exit 0'\"\n      }\n    ]\n  }\n}\n```\n\nIf the hook's command exits with a non-zero code, the tool use is blocked and Claude sees the error message. This happens automatically — you do not need to remember to watch for it.\n\n### PostToolUse: The assistant\n\nPostToolUse hooks run after Claude completes an action. They cannot undo the action, but they can trigger follow-up work.\n\nExample: After any file edit, automatically run a formatter:\n\n```json\n{\n  \"hooks\": {\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Write|Edit\",\n        \"command\": \"bash -c 'prettier --write \\\"$TOOL_INPUT\\\"'\"\n      }\n    ]\n  }\n}\n```\n\n### Stop: The closer\n\nStop hooks run when Claude completes a task and is about to return control to you. Use this for final validations or notifications.\n\nExample: Send a desktop notification when a long task finishes:\n\n```json\n{\n  \"hooks\": {\n    \"Stop\": [\n      {\n        \"command\": \"notify-send 'Claude Code' 'Task complete'\"\n      }\n    ]\n  }\n}\n```\n\n### The matcher field\n\nThe `matcher` field filters which tool calls trigger the hook. It uses a regex pattern against the tool name. Common matchers:\n\n- `\"Write|Edit\"` — any file modification\n- `\"Bash\"` — any terminal command\n- `\"Read\"` — any file read\n- `\".*\"` — everything (use carefully)\n\nIf you omit the matcher, the hook fires for every tool use of that type.\n\n## The if-this-then-that analogy\n\nIf you have ever used IFTTT, Zapier, or email filters, hooks work the same way. You define a trigger condition and an automatic response. The difference is that hooks operate inside your Claude Code session, reacting to what Claude does in real time.\n\nThe power is in what you no longer have to think about. Once a hook is set up, it runs every time, without fail, without you remembering. Your manual vigilance becomes automated vigilance."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You set up a PreToolUse hook with the matcher 'Bash' that checks if the command contains 'rm -rf'. Claude tries to run 'rm -rf /tmp/old-files'. What happens?",
+      "answer": "The PreToolUse hook fires because the tool name matches 'Bash'. The hook's command checks the tool input and finds 'rm -rf' in the command. If the hook command exits with a non-zero code (exit 1), the Bash command is **blocked** — Claude never executes it. Claude sees the error message from the hook and knows the action was prevented. It can then ask you for guidance or try an alternative approach."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Think of one 'safety net' hook (something that should be blocked) and one 'convenience' hook (something that should happen automatically after an action). Write pseudocode for each — you do not need exact syntax, just: trigger event, matcher pattern, and what the command should do.",
+      "solution": "Safety net example: PreToolUse hook, matcher 'Write|Edit', command checks if the file path contains '.env' or 'secrets' and blocks with exit 1. Convenience example: PostToolUse hook, matcher 'Write', command runs a word count on the modified file and appends to a log. The key insight is separating *blocking* hooks (PreToolUse + exit 1) from *reactive* hooks (PostToolUse that triggers follow-up work)."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What is one thing you have manually checked after Claude's work that a PostToolUse hook could handle automatically?",
+        "Are there files or directories in your projects that Claude should never touch? How would a PreToolUse hook protect them?",
+        "How does the concept of automated vigilance change your comfort level with giving Claude more autonomy?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Hooks are automatic reactions: PreToolUse blocks dangerous actions before they happen, PostToolUse triggers follow-up work after actions complete, and Stop fires when Claude finishes a task. Manual vigilance does not scale — hooks make your safety nets and quality checks automatic and reliable."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You understand the four hook types and what they can do. In the next module, you will build a real hook, configure it in your settings, and test it live. Start thinking about which automatic reaction would save you the most worry."
+    }
+  ]
+}

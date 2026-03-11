@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "4.1 Why Claude Gets Worse Over Time",
+    "description": "Quality does not degrade gradually — it falls off a cliff when context fills up.",
+    "level": "level-4",
+    "slug": "why-claude-gets-worse",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have been working with Claude Code for 40 minutes. It was brilliant at first, but now it is giving vague answers and seems to have forgotten what you discussed earlier. What do you think is happening? Write down your theory before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The cliff, not the slope\n\nHere is what most people expect: as the context window fills up, Claude gradually gets a little worse. Like a car running low on gas — it slows down, sputters, and eventually stops.\n\nThat is not what happens. What actually happens is more like driving off a cliff.\n\nClaude's performance stays remarkably consistent at 50% context usage, 60%, even 70%. You would not notice much difference. Then somewhere around 80-90%, quality drops noticeably. And when you push past 90%, it does not just get a little worse — it gets **dramatically** worse. Claude starts contradicting things it said five minutes ago. It \"forgets\" key details from files it already read. It gives generic answers instead of specific ones. It may start hallucinating information that is not in any file it has accessed.\n\nThis is not Claude getting dumber. This is a fundamental property of how large context windows work.\n\n## The desk analogy\n\nImagine you are working at a physical desk with a strict rule: every document you reference must stay on the desk. No drawers, no filing cabinets — everything on the surface.\n\nAt first, the desk is clean. You have the brief you need, a few reference documents, and plenty of space to think. You do great work.\n\nAs the day goes on, more papers pile up. Old memos, printouts from earlier research, notes from conversations. The desk is getting cluttered but you can still find what you need — you just have to dig a little.\n\nThen you hit a tipping point. The desk is so covered that you cannot find anything without moving six other things. You start losing track of what you have and what you need. You accidentally reference an outdated version of a document because it was on top of the pile. Your work quality crashes — not because you got less capable, but because your workspace is overwhelmed.\n\nThat is exactly what happens to Claude.\n\n## What the percentages feel like\n\n| Context usage | What you will notice |\n| :-- | :-- |\n| **0-50%** | Peak performance. Claude remembers everything, gives specific answers, follows complex instructions precisely. |\n| **50-75%** | Still strong. Occasionally you might need to remind Claude of something from early in the session, but work quality is high. |\n| **75-85%** | Subtle degradation begins. Claude may miss details from earlier context. Responses start getting slightly more generic. |\n| **85-95%** | Noticeable problems. Claude loses track of earlier decisions, may contradict itself, starts giving vaguer answers. |\n| **95-100%** | The cliff. Auto-compaction kicks in (we will cover this in module 4.5). Before it does, Claude may produce significantly wrong output with high confidence. |\n\n## Why users blame Claude\n\nThe insidious thing about context degradation is that it feels like Claude changed. You had a great collaborator, and now you have a mediocre one. The natural human reaction is to blame the tool: \"Claude is unreliable\" or \"It was good at first but then it just lost it.\"\n\nBut Claude did not change. Your context budget ran out. The fix is not to complain or retry — it is to **manage your budget**.\n\nThis is also why the exact same prompt can produce wildly different results in the same session. Early in a clean session, your prompt gets Claude's full attention against a clear workspace. Late in a cluttered session, the same prompt competes with thousands of tokens of accumulated context. The prompt did not change; the workspace did.\n\n## The expert response\n\nWhen experts notice quality dropping, they do not push through. They ask themselves:\n\n1. **How long have I been in this session?** (More than 20 minutes of active work is a warning sign)\n2. **How many files has Claude read?** (Each one is still on the desk)\n3. **Can I compact or clear?** (Fresh start with a better prompt often beats fighting through)\n\nThe rest of this level teaches you exactly how to answer those questions and act on them. But the first step is the mindset shift: **when Claude gets worse, it is usually a context problem, not a Claude problem.**"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your Claude Code session has been running for 45 minutes. Claude just gave you a response that contradicts something it said 30 minutes ago. You know the earlier response was correct. What is the most likely cause, and what are your two best options?",
+      "answer": "The most likely cause is **context window saturation** — the earlier conversation has been pushed far back in the context, and Claude is no longer attending to it effectively. Your two best options are: (1) Run `/compact` to compress the context and free up space, keeping a summary of the key decisions. (2) Run `/clear` to start a fresh session, re-stating the key decisions and current goal in your opening prompt. Option 2 is often better if quality has degraded significantly, because even compacted context is less precise than a fresh, well-written prompt."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Start a Claude Code session and work on something for at least 15-20 minutes — reading files, asking questions, making edits. Pay attention to the quality of responses over time. Then check your context usage. Can you identify the point where responses started to shift?",
+      "solution": "The goal is to build intuition for context pressure. You may not hit the cliff in 15 minutes, but you should start noticing that Claude's responses about files read early in the session become less specific over time. If you run `/compact` or `/clear` and immediately re-ask a question that got a vague answer, you will likely see a dramatically better response — that is the proof that context was the issue."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a colleague why Claude Code seems to 'forget' things during long sessions. Use the desk analogy or your own metaphor. Why is this a cliff rather than a gradual decline?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about your longest Claude Code session. Did you notice quality changes over time? Looking back, was context likely a factor?",
+        "Have you ever blamed Claude for being 'inconsistent' when the real issue might have been a full context window?",
+        "How does knowing about the context cliff change your approach to long or complex tasks?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude's quality does not degrade gradually — it falls off a cliff as context fills up. When Claude seems to 'get dumber,' the desk is full, not the brain. Expert users monitor context pressure and act before they hit the cliff, rather than pushing through and getting worse results."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now you know why Claude gets worse. The next module explains exactly what fills up the context window — so you can start making informed decisions about what is worth the cost and what is waste."
+    }
+  ]
+}

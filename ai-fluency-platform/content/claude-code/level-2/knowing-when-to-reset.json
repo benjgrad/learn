@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "2.6 Knowing When to Reset",
+    "description": "Correction spirals vs. starting fresh. Two failed corrections means it is time to reset with a better briefing.",
+    "level": "level-2",
+    "slug": "knowing-when-to-reset",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have sent Claude a task and the result is not quite right. You send a correction. The second attempt is different but still wrong. You send another correction. The third attempt is worse than the second. What do you do? Most people send a fourth correction. Think about whether that is the right move."
+    },
+    {
+      "type": "markdown",
+      "content": "## The correction spiral\n\nHere is a pattern that everyone who uses AI tools has experienced:\n\n1. You send a prompt. The result is 70% right.\n2. You say \"No, I meant X not Y.\" The result is now 60% right — Claude fixed X but broke something else.\n3. You say \"That's closer, but now Z is wrong.\" The result is 55% right.\n4. You say \"Go back to what you had before but change...\" Claude does not remember what it had before.\n5. You are now frustrated, 15 minutes have passed, and the output is worse than attempt #1.\n\nThis is a **correction spiral**. Each correction adds more constraints to an already confused context. Claude is trying to satisfy your original prompt, your first correction, your second correction, and your latest instruction — all at once. These instructions often contradict each other in subtle ways, and Claude's attempt to reconcile them produces increasingly muddled results.\n\n## Why correction spirals happen\n\nCorrection spirals are not a sign that Claude is bad at following instructions. They are a sign that the **original briefing was insufficient**, and no amount of patching will fix it.\n\nThink of it like giving someone driving directions. If you say \"turn left,\" they turn left. If you then say \"wait, I meant turn right at the next light,\" they adjust. But if you keep saying \"actually, go back, no wait, go forward, take the second right, no the third,\" they are lost — not because they cannot drive, but because your corrections have created a contradictory mess.\n\nThe same thing happens in Claude's context window. Each correction is a new message that Claude must integrate with everything that came before. After three or four corrections, the context contains so many conflicting signals that Claude cannot determine what you actually want.\n\n## The two-correction rule\n\nHere is the rule of thumb: **after two failed corrections, stop correcting and reset.**\n\nThis means running `/clear` and starting a new conversation with a better briefing — one that incorporates everything you learned from the failed attempt.\n\nThis feels wrong. It feels like giving up. Your brain says: \"But I've already invested five minutes in this conversation. One more correction will get it right.\" That is the sunk cost fallacy. The five minutes are gone whether you continue or restart. The question is: what will produce a good result faster — a fifth correction or a fresh start with better instructions?\n\nThe answer is almost always the fresh start.\n\n## How to reset effectively\n\nA reset is not starting from scratch. It is starting from knowledge. After a failed attempt, you know things you did not know before:\n\n- You know what Claude misunderstood (so you can be clearer)\n- You know what the output should NOT look like (so you can add anti-patterns)\n- You know which details matter to you (so you can include them upfront)\n- You know the format you want (so you can provide an example)\n\nA good reset looks like this:\n\n1. **Run `/clear`** to start with a clean context.\n2. **Write a new briefing** that incorporates what you learned. Include the constraints, examples, and anti-patterns that the first attempt revealed were necessary.\n3. **Optionally, include a note** like: \"I want a concise project summary. A previous attempt was too long and too focused on technical details. Keep it under 200 words and focus on business impact.\"\n\nThe new briefing is better because the failed attempt taught you what your original briefing was missing.\n\n## Signals that you should reset\n\nWatch for these signs:\n\n- **Contradictory output**: Claude's response includes elements from two different corrections that do not fit together.\n- **Regression**: Claude fixes the new thing you asked about but breaks something it got right before.\n- **Literal compliance, wrong spirit**: Claude follows your exact words but misses the point. This usually means the context is so noisy that Claude is clinging to literal instructions.\n- **Apology loops**: Claude keeps saying \"I apologize for the confusion\" and producing nearly identical output. The context is stuck.\n- **You feel frustrated**: This is actually a reliable signal. If you are annoyed, the conversation has probably become adversarial rather than collaborative. A fresh start resets the emotional tone too.\n\n## The broader principle\n\nThe ability to reset is one of the most powerful aspects of working with Claude Code. Unlike a human colleague who would be confused or offended if you said \"forget everything, let me start over,\" Claude has no ego. `/clear` costs nothing.\n\nThis changes the calculus of experimentation. You can try a vague prompt, see what happens, learn from the result, reset, and try a better prompt. Each attempt teaches you something. The cost of a failed attempt is just the time it took, and that time was not wasted — it was research.\n\nThe people who get the best results from Claude Code are not the ones who write perfect prompts on the first try. They are the ones who recognize when a conversation has gone off track and restart quickly with a better briefing. They treat `/clear` as a tool, not a failure."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have been going back and forth with Claude for 8 messages. The output keeps changing but never hits what you want. You estimate you are 10 minutes into this conversation. What should you do, and why?",
+      "answer": "**Run `/clear` and start over with a new briefing.** Eight messages of corrections means the context is almost certainly muddled with contradictory signals. Spend 2 minutes writing a better prompt that includes: what you want (clearly), an example of the desired output, and what you do NOT want (based on what the failed attempts looked like). This 2-minute investment will likely produce a better result than another 10 minutes of corrections. The 10 minutes already spent are a sunk cost — do not let them influence your decision."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Deliberately create a correction spiral. Give Claude a vague task ('write me a bio'), then send 3-4 vague corrections ('make it more professional', 'no, shorter', 'add more personality', 'go back to the longer version but more professional'). Notice how the output degrades. Then run /clear and write one well-crafted briefing that includes everything you discovered you wanted. Compare the final results.",
+      "solution": "The deliberately corrected version should become increasingly muddled — each correction pulling the output in a slightly different direction. The fresh briefing, informed by everything you learned during the spiral, should produce a noticeably better result on the first try. This exercise makes the abstract concept concrete: you can feel the difference between a corrected-into-submission output and a cleanly-briefed output."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How often do you find yourself in correction spirals — once a day, once a week, rarely? What triggers them for you?",
+        "What is your emotional reaction to running /clear after spending time on a conversation? Does it feel like giving up, or like a strategic move?",
+        "Can you apply the two-correction rule to work with humans too? When do you stop correcting and instead re-explain from scratch?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "After two failed corrections, stop correcting and reset. Run /clear and write a new briefing that incorporates what you learned from the failed attempt. This is faster than continuing to patch a confused context, and the new briefing will be better because the failed attempt taught you what was missing from the original."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now have the complete Level 2 toolkit: the briefing mindset, specificity, verification criteria, the interview pattern, input methods, and the reset rule. The checkpoint in the next module will test whether these concepts have landed by asking you to rewrite bad prompts into effective briefings."
+    }
+  ]
+}

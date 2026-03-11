@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "6.1 Skills — Your Custom Commands",
+    "description": "Skills turn multi-step workflows into single slash commands. Learn the format and see what becomes possible.",
+    "level": "level-6",
+    "slug": "skills-custom-commands",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have a workflow you repeat several times a week in Claude Code — maybe summarizing meeting notes, reviewing a document, or preparing a weekly report. Right now you type out the instructions each time. What if you could reduce that to a single command? How do you think that might work?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The repetition tax\n\nEvery time you type the same instructions into Claude Code, you pay a tax. Not just in typing time — in context tokens, in mental effort, and in inconsistency. Maybe you forget a step. Maybe you phrase it slightly differently and get a different result. Maybe you spend two minutes recalling exactly how you wanted the output formatted.\n\nSkills eliminate this tax entirely.\n\n## What is a skill?\n\nA skill is a custom slash command that you define in a simple text file. When you type `/skill-name` in Claude Code, it reads your file and follows the instructions inside it. That is the entire concept.\n\nSkills live in the `.claude/skills/` directory of your project (or your home directory for global skills). Each skill is a single Markdown file with a specific format:\n\n```\n---\nname: daily-summary\ndescription: Summarize today's work across all active projects\n---\n\n# Daily Summary Skill\n\nReview the following and create a structured summary:\n\n1. Check git log for today's commits across all repos\n2. Read any open TODO items in CLAUDE.md\n3. List any files modified today\n\nFormat the output as:\n- **Completed**: What got done\n- **In Progress**: What's partially done\n- **Blocked**: What needs attention\n- **Tomorrow**: Suggested priorities\n\nKeep the summary under 300 words. Use plain language, not technical jargon.\n```\n\nThe frontmatter (between the `---` lines) gives the skill its name and description. Everything below is the instruction set — what Claude should do when you invoke the skill.\n\n## The $ARGUMENTS variable\n\nSkills become much more powerful with parameters. Use `$ARGUMENTS` as a placeholder for whatever the user types after the command:\n\n```\n---\nname: review-doc\ndescription: Review a document for clarity and completeness\n---\n\nReview the document at $ARGUMENTS with these criteria:\n\n1. Is the main point clear in the first paragraph?\n2. Are there any logical gaps or unsupported claims?\n3. Is the tone appropriate for the intended audience?\n4. Are there any sections that could be cut without losing meaning?\n\nProvide specific, actionable feedback. Quote the relevant text when suggesting changes.\n```\n\nNow `/review-doc quarterly-report.md` passes the filename as the argument, and Claude knows exactly what to review and how.\n\n## Where skills live\n\nSkills can exist at three levels:\n\n| Location | Scope | Use case |\n| :-- | :-- | :-- |\n| `.claude/skills/` in a project | Project-specific | Workflows tied to this project |\n| `~/.claude/skills/` | Global (all projects) | Personal workflows you use everywhere |\n| Shared via version control | Team-wide | Skills your whole team uses |\n\nProject skills take precedence over global skills with the same name. This means you can have a general `/review` skill globally but override it with a project-specific one that knows your project's particular standards.\n\n## Why this beats copy-paste\n\nYou might think: \"I could just keep my instructions in a text file and paste them in.\" You could. But skills are better for three reasons:\n\n1. **Discoverability**: Type `/` in Claude Code and your skills appear in autocomplete. You do not need to remember where you saved that text file.\n2. **Parameterization**: `$ARGUMENTS` makes skills flexible without rewriting them.\n3. **Shareability**: Check `.claude/skills/` into version control and your entire team gets the same workflows.\n\nThe real power is not any single skill. It is that once you start building them, you start seeing repeatable patterns everywhere — and each one you capture makes every future session faster."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You create a skill file at `.claude/skills/SKILL.md` with the name 'prep-meeting' and `$ARGUMENTS` in the body. How would you invoke it, and what happens to $ARGUMENTS if you type `/prep-meeting Q2 budget review`?",
+      "answer": "You invoke it by typing `/prep-meeting Q2 budget review` in Claude Code. The `$ARGUMENTS` placeholder in the skill body gets replaced with `Q2 budget review` — the entire string after the command name. Claude then follows the rest of the instructions in the skill file, using that argument wherever `$ARGUMENTS` appears. If you invoke `/prep-meeting` with no arguments, `$ARGUMENTS` would be empty."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "List three tasks you do repeatedly in Claude Code (or would do if you could automate them). For each one, write a one-sentence description of what the skill would do. Then pick the simplest one and sketch out what the skill file contents would look like — the frontmatter and the instruction body.",
+      "solution": "The goal is to identify your personal repetition patterns. Common examples for non-developers: (1) 'Summarize this PDF and extract action items' (2) 'Draft a response to this email matching my tone' (3) 'Review this document against our style guide.' Your sketch should have --- frontmatter with name and description --- followed by step-by-step instructions. If the skill needs input (like a filename), use $ARGUMENTS."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about the difference between a skill and a detailed prompt you type from memory each time. Beyond saving keystrokes, what changes when you formalize a workflow into a skill file?",
+        "If your team all used the same skills, how would that change consistency across your work?",
+        "What is the most repetitive thing you do in Claude Code right now that you have been tolerating because it seemed too small to fix?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "A skill is a Markdown file in .claude/skills/ that turns a multi-step workflow into a single slash command. Use $ARGUMENTS for parameterization. Skills are discoverable via autocomplete, shareable via version control, and they compound — every one you build makes every future session faster."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now understand what skills are and why they matter. In the next module, you will actually build one from scratch — step by step — and test it in a live session. Think about which of your repetitive tasks you want to tackle first."
+    }
+  ]
+}

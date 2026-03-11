@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "7.2 Agent Teams",
+    "description": "Coordinate multiple agents working on a single problem — a lead agent assigns tasks and teammates investigate in parallel.",
+    "level": "level-7",
+    "slug": "agent-teams",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Imagine you are a team lead assigning work to three people. You describe the overall goal, break it into parts, assign each part to someone with the right skills, and synthesize their results. What if you could do the same with AI agents?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Beyond solo agents\n\nWorktrees give you parallel sessions, but each one is independent. You brief them separately and review them separately. There is no coordination between them.\n\nAgent teams add coordination. A **lead agent** decomposes a problem, assigns subtasks to **teammate agents**, and synthesizes their results. Think of it as the difference between three freelancers working independently versus a project team with a manager.\n\n## How agent teams work\n\nWhen you use agent teams, the flow looks like this:\n\n1. **You** give the lead agent a complex task\n2. **The lead** analyzes the task and identifies subtasks that can be done in parallel\n3. **The lead** creates teammate agents and assigns each a focused subtask\n4. **Teammates** work independently, investigating their assigned areas\n5. **Teammates** report back to the lead with their findings\n6. **The lead** synthesizes the results and presents a unified answer to you\n\nThe lead handles decomposition, assignment, and synthesis. The teammates handle focused investigation. You handle the initial goal and the final decision.\n\n## The tech lead analogy\n\nThis is exactly how a skilled tech lead works. They do not try to investigate every aspect of a complex problem themselves. They break the problem down, assign pieces to team members who can investigate in parallel, then synthesize the findings into a recommendation.\n\nYou become the executive. The lead agent is your tech lead. The teammates are your investigation team.\n\n```\n         You\n          │\n          ▼\n      Lead Agent\n     ┌────┼────┐\n     ▼    ▼    ▼\n  Agent  Agent  Agent\n  (research) (analysis) (comparison)\n     │    │    │\n     └────┼────┘\n          ▼\n    Synthesized Result\n          │\n          ▼\n         You\n```\n\n## When to use teams vs. worktrees\n\n| Scenario | Use worktrees | Use agent teams |\n| :-- | :-- | :-- |\n| Independent tasks | Yes — each is a separate project | No — no coordination needed |\n| One complex investigation | No — too much manual coordination | Yes — lead handles synthesis |\n| Research across multiple areas | Maybe — if you want to review each separately | Yes — if you want one synthesized answer |\n| Tasks that build on each other | No — do them sequentially | Possibly — if subtasks are parallel |\n\nThe key question: **Do you want separate results or a synthesized result?** Worktrees give you separate branches to review individually. Teams give you one unified output.\n\n## Practical example\n\nImagine you ask: \"Research our three main competitors and create a comparison matrix of their pricing, features, and market positioning.\"\n\nWithout teams, Claude investigates each competitor sequentially. With teams:\n\n- **Lead agent** identifies the three competitors and creates a teammate for each\n- **Teammate 1** researches Competitor A's pricing, features, and positioning\n- **Teammate 2** researches Competitor B\n- **Teammate 3** researches Competitor C\n- **All three work simultaneously**\n- **Lead agent** receives all three reports and creates the comparison matrix\n\nThe total time is roughly the time for one competitor's research (the longest of the three) plus synthesis time, instead of three times that.\n\n## Setting up teams\n\nAgent teams are accessible through Claude Code's team capabilities. The lead agent uses the ability to create and message teammates. You can influence the team structure by:\n\n- Describing the subtask decomposition in your initial prompt\n- Defining custom agents (from Level 6) that teammates can use\n- Setting constraints on how many teammates to spawn\n\nThe more specific your initial decomposition, the better the team performs. Vague goals lead to vague delegation.\n\n## Current limitations\n\nAgent teams are an evolving feature. Important things to know:\n\n- **Token usage scales with team size**: Each teammate has its own context, so costs multiply\n- **Coordination adds overhead**: For simple tasks, a single session is faster than team setup + synthesis\n- **Quality depends on decomposition**: If the lead agent misdecomposes the problem, all teammates do the wrong work\n- **Not all tasks decompose well**: Sequential, dependent tasks cannot be parallelized\n\nUse teams when the task is genuinely complex, has natural parallel subtasks, and would benefit from synthesized results. Do not use teams for tasks a single session handles well."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You ask Claude to use an agent team to 'research, write, and proofread a market analysis report.' The lead creates three teammates: one for research, one for writing, and one for proofreading. What is wrong with this decomposition?",
+      "answer": "The tasks are **sequential, not parallel**. The writer cannot write without the researcher's findings, and the proofreader cannot proofread without the writer's draft. Assigning all three simultaneously means the writer and proofreader have nothing to work with. A better decomposition would parallelize the *research* phase — one teammate researches market size, another researches competitors, a third researches trends — then have the lead synthesize and write. Tasks must be independent to benefit from parallel execution."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take a complex task from your work and decompose it into subtasks that could run in parallel. Write: (1) The overall goal, (2) 2-4 subtasks that are genuinely independent, (3) What each teammate would need to know, (4) How you would synthesize the results. Check that no subtask depends on another's output.",
+      "solution": "Good decompositions split by dimension (research by topic, analysis by region, review by section) rather than by phase (research then write then proofread). Each subtask should produce a complete, standalone result that the lead can synthesize. If you find yourself writing 'after Teammate A finishes, Teammate B should...' you have a sequential dependency, not a parallel opportunity."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In your work, what problems have natural parallel structure? What problems are inherently sequential?",
+        "How does the quality of your initial task description affect team performance? What happens if you are vague?",
+        "What is the trade-off between running one thorough session and running a team of focused agents?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Agent teams add coordination to parallel work: a lead agent decomposes tasks, assigns subtasks to teammates working in parallel, and synthesizes results. Use teams when you need a unified answer to a complex question with naturally parallel subtasks. The key skill is decomposition — tasks must be genuinely independent to benefit from parallelism."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Teams parallelize investigation. But sometimes you do not need investigation — you need the same change applied across many targets. That is batch mode, and it is a different kind of parallel power."
+    }
+  ]
+}

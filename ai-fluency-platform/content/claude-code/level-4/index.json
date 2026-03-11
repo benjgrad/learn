@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 4: The Budget",
+    "description": "Master context management — the single biggest skill gap between intermediate and expert Claude Code users.",
+    "level": "level-4",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Welcome to Level 4\n\nYou have learned to write good prompts, steer Claude effectively, and work with tools. Now we address the skill that separates intermediate users from experts: **context management**.\n\nHere is the mental model that changes everything: context is **RAM, not disk**.\n\nWhen you open a Claude Code session, you have a finite workspace — the context window. Think of it as a physical desk. Every file Claude reads, every message you send, every tool output, every error log — it all lands on that desk. And unlike a real desk where you can stack papers to the ceiling, this desk has a hard limit. When it fills up, things do not just slow down. They **fall off a cliff**.\n\nMost users discover this the hard way. They are 30 minutes into a productive session, Claude is doing great work, and then suddenly the responses get vague. Claude \"forgets\" files it read ten minutes ago. It starts making mistakes it would not have made at the start. The user thinks Claude got dumber. What actually happened is the desk got full.\n\n### What you will learn\n\n| Module | Topic | Core Idea |\n| :-- | :-- | :-- |\n| 4.1 | Why Claude Gets Worse | Quality does not degrade gradually — it falls off a cliff |\n| 4.2 | What Consumes Your Budget | Every input has a cost — learn what is expensive |\n| 4.3 | CLAUDE.md | Your project's always-on briefing document |\n| 4.4 | The Memory System | How Claude remembers across sessions |\n| 4.5 | Compaction | What survives compression and what is lost |\n| 4.6 | The /clear Strategy | Starting fresh as a strategic move |\n| 4.7 | Subagents as Shields | Delegating research to protect your context |\n| 4.8 | Checkpoint | Diagnose and fix a stale session |\n\n### The mental model: Context is a budget\n\nEvery action in Claude Code has a cost measured in tokens — the units of the context window. You have a fixed budget per session. Spend it wisely and you get expert-level work for an hour. Spend it carelessly and you get fifteen minutes of great work followed by confusion and errors.\n\nThe expert move is not to avoid using context. It is to **spend it on what matters and protect it from waste**."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Context is RAM, not disk. Every file read, message, and tool output costs tokens from a fixed budget. When that budget runs out, quality does not degrade gradually — it collapses. The single biggest skill gap between intermediate and expert users is managing this budget deliberately."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Before diving in, think about your recent Claude Code sessions. Have you ever noticed Claude's quality dropping partway through a session? Did you blame Claude, or did you consider that the context window might have been the issue? Keep that experience in mind as you work through this level."
+    }
+  ]
+}

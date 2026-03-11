@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "7.5 CI/CD Integration",
+    "description": "Run Claude Code in GitHub Actions and CI pipelines for automated code review, issue resolution, and PR creation.",
+    "level": "level-7",
+    "slug": "ci-cd-integration",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Every time someone on your team submits changes, someone else has to review them. Every time an issue is filed, someone triages it. What if Claude could handle the first pass of these tasks automatically, before a human even looks?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Claude in the pipeline\n\nCI/CD — Continuous Integration and Continuous Delivery — is the practice of automating work that happens when code or documents change. When someone submits a pull request, automated tests run. When code merges, it deploys automatically.\n\nClaude Code can be a step in these pipelines. Instead of just running mechanical tests, the pipeline can run an intelligent agent that reviews changes, catches issues, and even fixes problems.\n\n## What CI/CD integration looks like\n\nThe most common platform is GitHub Actions, though the concepts apply to any CI system. Here is the flow:\n\n1. Someone opens a pull request or files an issue\n2. GitHub Actions triggers a workflow\n3. The workflow runs Claude Code in non-interactive mode\n4. Claude reviews the changes, adds comments, or creates fixes\n5. Humans review Claude's output and make final decisions\n\nClaude is not replacing human reviewers. It is giving them a **head start** — a first pass that catches common issues and provides context.\n\n## Real use cases\n\n### Automated code review\n\nWhen a pull request is opened, Claude reviews the diff:\n\n```yaml\n# .github/workflows/ai-review.yml\nname: AI Code Review\non:\n  pull_request:\n    types: [opened, synchronize]\n\njobs:\n  review:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Run Claude Review\n        run: |\n          claude -p \"Review this pull request. Check for: logical errors, security issues, missing edge cases, and style inconsistencies. Post your review as PR comments.\" --max-turns 15 --max-budget-usd 1.00\n```\n\nThis gives every PR an instant first-pass review. The human reviewer sees Claude's comments alongside the code and can focus on high-level design decisions instead of catching typos.\n\n### Issue triage and resolution\n\nWhen an issue is filed, Claude can assess it:\n\n- Is this a duplicate of an existing issue?\n- What files are likely affected?\n- Can this be fixed automatically?\n\nFor simple issues, Claude can even create a fix and submit a pull request, which a human then reviews and merges.\n\n### Documentation updates\n\nWhen code changes, documentation often needs updating. A CI step can detect which documents are affected by the code change and update them automatically — or at least flag them for human review.\n\n### Automated content checks\n\nFor non-code projects (documentation sites, content repositories, knowledge bases), Claude can verify:\n- Broken links\n- Outdated information\n- Formatting consistency\n- Compliance with templates or style guides\n\n## The headless workflow concept\n\nIn CI/CD, Claude runs \"headless\" — no terminal, no human, no interactive session. Everything from Level 7.4 applies: the prompt must be self-contained, safety flags must be set, and the output must be structured.\n\nBut CI adds new considerations:\n\n**Authentication**: The CI environment needs API keys and permissions configured as secrets.\n\n**Cost at scale**: If you have 50 pull requests a day, that is 50 Claude runs. Budget accordingly with `--max-budget-usd`.\n\n**Signal-to-noise**: If Claude comments on every PR with obvious observations, developers will start ignoring it. Tune your prompts to focus on meaningful issues.\n\n**Trust calibration**: Claude's automated reviews should inform, not block. A failed AI review should not prevent merging — it should flag items for human attention.\n\n## The broader principle\n\nCI/CD integration is really about embedding intelligence into your team's existing workflows. Instead of asking people to go to Claude, Claude comes to where the work is happening.\n\nThis principle extends beyond code:\n- A document repository could run Claude on every new upload\n- A shared drive could have Claude summarize new additions weekly\n- A project board could have Claude assess new tickets as they arrive\n\nThe pattern is always the same: **event triggers pipeline, pipeline runs Claude, Claude produces useful output for humans to act on**."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your team sets up Claude as an automated PR reviewer. After two weeks, developers complain that they ignore Claude's comments because most are trivial (formatting suggestions, obvious observations). How do you fix this?",
+      "answer": "The problem is **signal-to-noise ratio**. Fix it by: (1) Tuning the prompt to focus on substantive issues — 'Only comment on logical errors, security vulnerabilities, and missing edge cases. Do NOT comment on style, formatting, or obvious observations.' (2) Setting a threshold — 'Only leave a comment if the issue is medium or high severity.' (3) Reducing frequency — maybe run Claude only on PRs that touch critical files rather than every PR. The goal is for every Claude comment to be worth reading. Fewer, better comments build trust; many trivial comments destroy it."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a CI/CD workflow for your team or project. Describe: (1) The trigger event (PR opened, issue created, file uploaded), (2) What Claude should do when triggered, (3) The prompt you would use (remember: self-contained, focused on high-value observations), (4) Safety and cost constraints. You do not need to implement it — just design the complete workflow.",
+      "solution": "A well-designed CI workflow has: a specific trigger (not 'on everything'), a focused Claude task (not 'review everything'), cost constraints (--max-budget-usd per run), and clear output expectations (comments on the PR, a report file, or a pass/fail signal). The most common mistake is making Claude's scope too broad. A review that checks for 3 specific things is more valuable than one that 'reviews everything.' Also consider: should Claude's output block the pipeline (risky) or just inform humans (safer)?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What repetitive review or triage work does your team do that could benefit from an AI first pass?",
+        "How would you calibrate trust in automated Claude reviews? What should be auto-approved versus human-reviewed?",
+        "What is the difference between Claude replacing a reviewer and Claude informing a reviewer? Why does this distinction matter?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "CI/CD integration embeds Claude into your team's automated pipelines — reviewing PRs, triaging issues, checking documentation, and more. The key is signal-to-noise: focus Claude on high-value observations, set cost controls, and use its output to inform humans rather than replace them. The pattern is event-triggers-Claude-informs-human."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "CI/CD and scripts use Claude through the command line. But sometimes you need deeper programmatic control — dynamic prompts, conditional logic, complex orchestration. That is what the SDK provides, and it is the next step."
+    }
+  ]
+}

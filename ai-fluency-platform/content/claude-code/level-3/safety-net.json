@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "3.7 The Safety Net",
+    "description": "Rewind, diff, permission prompts, and Esc — the guardrails that let you use Claude Code confidently.",
+    "level": "level-3",
+    "slug": "safety-net",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "What is your biggest fear about letting an AI agent make changes to your files and run commands on your computer? Write it down. Then think: what would it take to make you comfortable? What safety features would you need?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why safety nets matter\n\nThe biggest barrier to getting value from Claude Code is not skill — it is confidence. People hold back because they are worried about what might go wrong. What if Claude edits the wrong file? What if it runs a destructive command? What if it makes changes they cannot undo?\n\nThese fears are reasonable. Claude Code is an agent that takes real actions on your real computer. But the tool is designed with multiple layers of safety, and once you understand them, you can work with much more confidence — and confidence translates directly to speed and effectiveness.\n\nLet us walk through every safety net available to you.\n\n## Layer 1: Permission prompts\n\nIn Default mode, Claude asks your permission before any action that changes something. You see exactly what Claude wants to do — which file it wants to edit, what command it wants to run, what it wants to create — and you approve or deny.\n\nThis is the most basic safety net, and it is on by default. Every change requires your explicit \"yes.\"\n\n**How to use it well:**\n- Actually read the permission prompt. It takes 2 seconds and can save you from unintended changes.\n- Pay special attention to Bash commands — they have the widest range of effects.\n- If you are unsure, press Escape to cancel and ask Claude to explain what it wants to do.\n\nEven in Auto-Accept Edits mode, Bash commands still require your approval. The permission system is designed so you always have a checkpoint before the most consequential actions.\n\n## Layer 2: Escape to stop\n\nAt any point while Claude is working, you can press **Esc** to interrupt it. Claude stops what it is doing immediately.\n\nThis is your emergency brake. Use it when:\n- Claude is heading in the wrong direction and you want to redirect\n- A task is taking too long and you want to try a different approach\n- You realize you gave the wrong instructions\n- You just want to pause and think\n\nPressing Esc does not undo anything Claude has already done — it just stops further action. If Claude already edited a file before you pressed Esc, that edit stands. But no further edits will happen.\n\n## Layer 3: /rewind — Undo\n\nMade a wrong turn? `/rewind` removes Claude's last action from the conversation and reverts any changes it made.\n\n```\n/rewind\n```\n\nYou can run `/rewind` multiple times to go back several steps. Each rewind removes one turn — Claude's last response and the tool calls it made.\n\nThis is more powerful than it sounds. If Claude edited three files in its last turn, `/rewind` reverts all three edits. If Claude ran a command and you do not like the result, `/rewind` takes you back to before the command was run.\n\n**When to use /rewind:**\n- Claude's last edit made things worse\n- You want to try a different approach to the same task\n- Claude misunderstood your instruction and acted on it\n- You approved a permission you should have denied\n\n## Layer 4: /diff — Review before accepting\n\nBefore you consider any task \"done,\" run `/diff` to see every change Claude has made in the session.\n\n```\n/diff\n```\n\nThis shows you a unified diff of all modified files — what was removed, what was added, and where. It is your audit trail.\n\n**Best practice:** Make `/diff` the last step of every task. Ask Claude to do the work, then review with `/diff` before moving on. This turns Claude Code into a propose-and-review workflow:\n\n1. You describe the task\n2. Claude does the work\n3. You run `/diff` to review every change\n4. You approve (by moving on) or `/rewind` and try again\n\nThis workflow gives you the speed of autonomous execution with the control of manual review.\n\n## Layer 5: Git as the ultimate safety net\n\nIf you are working in a project that uses Git (or any version control), you have the strongest safety net of all: every change Claude makes can be reverted with `git checkout` or `git stash`.\n\n**Before starting a complex task with Claude:**\n- Make sure your current work is committed or stashed\n- This way, if Claude makes changes you do not like, you can revert everything with `git checkout .`\n\n**After Claude finishes:**\n- Use `git diff` (or `/diff`) to review changes\n- Commit what you want to keep\n- Revert what you do not\n\nGit is not a Claude Code feature, but it is the most powerful safety net available. If you use version control, Claude Code's changes are always reversible.\n\n## The confidence equation\n\nHere is what changes when you understand the safety net:\n\n**Without safety knowledge:** \"I better be really careful with my prompts because Claude might mess something up.\"\n\n**With safety knowledge:** \"Let me try this. If it does not work, I will /rewind. If I want to review first, I will use /diff. If anything goes really wrong, I have Git.\"\n\nThe first mindset leads to timid, over-constrained prompts. The second leads to bold experimentation — which is how you discover what Claude Code can really do.\n\nThe safety net does not just protect you from mistakes. It gives you permission to experiment. And experimentation is how you learn.\n\n## Safety net summary\n\n| Layer | What it does | When to use it |\n| :-- | :-- | :-- |\n| Permission prompts | Asks before every change | Always on in Default mode |\n| Esc | Stops Claude immediately | When you want to interrupt |\n| /rewind | Undoes the last action | When Claude goes wrong |\n| /diff | Shows all changes for review | Before accepting any task as done |\n| Git | Reverts any file changes | As the ultimate backstop |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Claude just edited 5 files as part of a refactoring task. You want to review the changes before moving on. What should you do? What if you see a problem in one of the files?",
+      "answer": "Run **`/diff`** to see all changes across all 5 files in one view. Review each change. If you see a problem, you have options: (1) **`/rewind`** to undo ALL the changes and try again with better instructions, (2) **ask Claude to fix** just the problematic file while keeping the other changes, or (3) if you are using Git, **selectively stage** the good changes and revert the bad ones. The best choice depends on the scope of the problem — if one file is wrong, ask Claude to fix it. If the whole approach is wrong, /rewind and start over."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Deliberately test the safety net. Ask Claude to create or edit a file, then immediately run /rewind to undo it. Check that the change was actually reverted. Then ask Claude to make a change again and use /diff to review it before moving on. This builds muscle memory for the safety workflow: act, review, accept or rewind.",
+      "solution": "After /rewind, the file should be back to its original state — Claude's change is fully undone. After using /diff, you should see a clear summary of what was changed. The workflow to internalize: let Claude work freely, then review with /diff, then either accept (move on) or rewind (try again). This gives you speed without sacrificing control. Once this becomes habit, you will feel much more comfortable letting Claude take action."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Has fear of Claude making a mistake ever stopped you from trying something? How does knowing about the safety net change that?",
+        "Do you currently review Claude's changes before accepting them, or do you take the results at face value? Would /diff change your review habits?",
+        "Think about the five layers of safety. Which ones did you already know about? Which are new? How does knowing all five change your comfort level?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code has five layers of safety: permission prompts (approve each action), Esc (stop immediately), /rewind (undo last action), /diff (review all changes), and Git (revert anything). Understanding these layers transforms your mindset from cautious to confident. The safety net does not just protect you — it gives you permission to experiment, which is how you learn."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now have a comprehensive understanding of Claude Code's dashboard: tools, commands, modes, sessions, input methods, output methods, and safety nets. The Level 3 checkpoint will test this knowledge by asking you to complete a real task using multiple features together."
+    }
+  ]
+}

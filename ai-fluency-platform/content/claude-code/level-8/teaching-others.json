@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "8.6 Teaching Others",
+    "description": "How to onboard teammates, build shared configuration, and create organizational standards for Claude Code.",
+    "level": "level-8",
+    "slug": "teaching-others",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A new team member asks you to help them get started with Claude Code. Where do you begin? What do you teach first, and what do you deliberately save for later?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The multiplier effect\n\nYour personal Claude Code mastery helps you. Teaching your team multiplies that impact across everyone. A team where one person is an expert and five people struggle is far less effective than a team where six people are competent.\n\nBut teaching Claude Code is different from teaching most tools. It is not about memorizing commands or clicking the right buttons. It is about building mental models. And mental models are best taught through experience, not lectures.\n\n## What to teach first\n\nThe biggest mistake in onboarding is showing all the features. New users do not need to know about hooks, MCP, worktrees, or the SDK. They need three things:\n\n### 1. The loop\n\"Claude Code is not a chatbot. It takes actions. Give it a task and watch what happens.\" Then let them try it. The agentic loop is best understood by watching it run.\n\n### 2. The briefing\n\"The quality of your result depends on the quality of your instruction. Be specific about what you want, what format you need, and how to verify.\" Then show a bad prompt and a good prompt side by side and let them see the difference.\n\n### 3. The escape hatches\n\"If something goes wrong: Ctrl+C interrupts, /clear starts fresh, git undo reverts changes. You cannot break anything permanently.\" This removes fear, which is the biggest barrier to experimentation.\n\nEverything else can wait. People who understand the loop, write decent briefings, and know their escape hatches will discover the rest through use.\n\n## Building shared configuration\n\nThe most impactful thing you can do for your team is set up the project-level configuration:\n\n### Team CLAUDE.md\n\nCreate a `.claude/CLAUDE.md` that encodes your team's shared context:\n\n```markdown\n# Project Context\n- This is a [description of the project]\n- Our primary users are [audience]\n- We prioritize [values/standards]\n\n# Conventions\n- File naming: kebab-case\n- Documentation style: concise, action-oriented\n- All changes should be reviewed before merging\n\n# Important Files\n- /docs/style-guide.md — our writing standards\n- /templates/ — approved templates for all document types\n\n# Common Mistakes\n- Do not modify files in /production/ directly\n- Always run quality checks before marking work as done\n```\n\nThis ensures every team member's Claude session starts with the same context and follows the same rules.\n\n### Team skills\n\nCreate skills for workflows your team does frequently:\n- `/onboard-task` — how to pick up a new task from the project board\n- `/review` — the team's review checklist\n- `/weekly-update` — standard format for status reports\n- `/handoff` — how to document work for the next person\n\nThese skills standardize quality across the team without requiring everyone to remember the process.\n\n### Team hooks\n\nSet up hooks that protect the project:\n- Block edits to protected directories\n- Enforce naming conventions\n- Run quality checks after changes\n\nThese guard rails help new users avoid common mistakes while they are still learning.\n\n## The onboarding sequence\n\nA practical onboarding plan for a new team member:\n\n**Day 1**: Install Claude Code. Run it. Give it a simple task. Watch the loop. Use /clear.\n\n**Day 2**: Show the team CLAUDE.md and explain what it does. Try the team's skills. Experience the hooks in action (try to edit a protected file and see the block).\n\n**Week 1**: Work on a real task with Claude Code. Have an experienced team member available for questions. Focus on briefing quality.\n\n**Week 2**: Review their CLAUDE.md additions and prompt patterns. Share tips based on what you observe. Introduce subagents.\n\n**Month 1**: Introduce advanced features as they become relevant — not before. Skills, hooks, and MCP are best taught when the user has a real problem they solve.\n\n## Common teaching mistakes\n\n**Feature dumping**: Showing all features on day one overwhelms and confuses. Teach in response to need.\n\n**Over-configuring**: Setting up a complex hook system before the user understands basic interaction. They cannot debug what they do not understand.\n\n**Not sharing your failures**: Beginners need to hear that experts also get loops, hallucinations, and wrong results. It normalizes the experience.\n\n**Assuming technical comfort**: Not everyone is comfortable with the terminal. Adjust your pace and start with whatever interface they are most comfortable with.\n\n## Building organizational standards\n\nAs your team grows, document your Claude Code practices:\n\n- Which skills are standard? What do they do?\n- What goes in project CLAUDE.md versus personal configuration?\n- What are the safety hooks that every project should have?\n- How do you review Claude-generated output before it ships?\n\nThese standards scale your expertise beyond people you can personally mentor."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A new team member's first Claude Code experience is frustrating — Claude misunderstood their request and made unwanted changes. They say 'this tool does not work.' How do you respond?",
+      "answer": "First, **normalize the experience**: 'That happens to everyone, including me. It is not that the tool does not work — it is that Claude misunderstood the instruction.' Then teach the recovery: show them git undo or Ctrl+Z, so they know nothing is permanently broken. Then **diagnose the briefing**: look at their prompt together and identify the ambiguity. Rewrite it with them and show the better result. Finally, teach the escape hatches: /clear, Ctrl+C, git revert. The goal is to transform frustration into a learning moment about briefing quality, not to defend the tool."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Draft a team CLAUDE.md for your project or team. Include: (1) Project context in 3-5 sentences, (2) 3-5 conventions or standards, (3) A list of important files or directories, (4) 2-3 common mistakes to avoid. Then design one team skill that encodes a workflow everyone on your team does.",
+      "solution": "A good team CLAUDE.md is concise (under 50 lines), focused on information that affects Claude's behavior (not general project documentation), and prioritized (most important items first). Common mistakes: making it too long (Claude's attention degrades), including information Claude does not need (meeting schedules, team members' names unless relevant), or being too vague ('follow best practices' — which ones?). The team skill should encode a specific, repeatable workflow with clear steps and expected output format."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "If you had to explain Claude Code to someone in 60 seconds, what would you say? What would you leave out?",
+        "What is the most important thing you wish someone had told you when you started using Claude Code?",
+        "How do you balance giving teammates enough guidance to be productive with giving them room to develop their own intuition?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Teaching Claude Code means teaching mental models, not features. Start with the loop, briefing quality, and escape hatches. Build shared configuration (team CLAUDE.md, skills, hooks) that standardizes quality without requiring everyone to be an expert. Teach advanced features in response to real needs, not upfront."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have learned to use Claude Code, optimize it, and teach it. One challenge remains: proving that your patterns truly transfer — that you can apply everything to an unfamiliar domain you have never worked in. That is the final capstone."
+    }
+  ]
+}

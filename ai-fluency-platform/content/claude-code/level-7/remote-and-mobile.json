@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "7.7 Remote and Mobile Access",
+    "description": "Work from anywhere — remote sessions, teleporting between devices, mobile access, and the desktop app.",
+    "level": "level-7",
+    "slug": "remote-and-mobile",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You start a Claude Code session on your office computer, but then you need to leave for a meeting. The session is mid-task. What do you do — let it finish unattended, cancel and restart later, or is there another option?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Untethering from your desk\n\nClaude Code started as a terminal tool — tied to your computer, your terminal session, your desk. But work does not stay at your desk. You commute, you move between rooms, you check in from your phone. The tools should follow you.\n\nClaude Code now supports multiple ways to work beyond a single terminal window.\n\n## Remote sessions\n\nWhen Claude Code runs on a remote server or cloud instance, your sessions persist even when you disconnect. This is fundamentally different from running locally:\n\n- Start a task on your office computer\n- Disconnect (close the laptop, lose WiFi, go home)\n- Reconnect from your home computer and pick up where you left off\n\nThe session is running on the server, not on your local machine. Your terminal is just a window into it.\n\nThis is especially powerful for long-running tasks. Start a large refactoring job, disconnect, and check back in an hour. The work continues without you.\n\n## Teleport: CLI to web and back\n\nOne of Claude Code's more novel features is the ability to **teleport** a session between interfaces. You can start in the CLI and move to a web view, or vice versa.\n\nWhy would you want this?\n\n- **Rich output**: Some results are easier to read in a web browser than in a terminal — tables, long documents, visualizations.\n- **Sharing**: Hand a web link to a colleague so they can see what Claude is doing.\n- **Mobile**: Move a session to a web view that works on your phone's browser.\n- **Presentation**: Show stakeholders what Claude is working on without them needing to install anything.\n\nThe session state transfers seamlessly. It is the same conversation, the same context, the same work — just viewed through a different window.\n\n## The desktop app\n\nClaude Code also has a desktop application that wraps the CLI experience in a native window. Benefits include:\n\n- System notifications when tasks complete (without needing hooks)\n- Better visual rendering of Claude's output\n- Easier session management — see all active sessions at a glance\n- Integration with OS features like keyboard shortcuts and window management\n\nThe desktop app runs the same Claude Code underneath. Think of it as a more polished window rather than a different tool.\n\n## Mobile access\n\nAccessing Claude Code from a mobile device works through the web interface. You are not going to write long prompts on your phone — but you can:\n\n- Check on a long-running task's progress\n- Approve a permission request that is blocking work\n- Read Claude's output and decide on next steps\n- Send a quick follow-up instruction\n\nMobile access is about **monitoring and lightweight intervention**, not primary work. It unblocks situations where Claude is waiting for your input and you are away from your computer.\n\n## The multi-device workflow\n\nPutting it all together, a multi-device workflow might look like:\n\n1. **Morning, desktop**: Start a complex analysis with Claude Code in the terminal\n2. **Mid-morning, meeting**: Teleport the session to web view on your tablet to check progress\n3. **Lunch, phone**: Get a notification that Claude needs input; approve from your phone\n4. **Afternoon, laptop**: Pick up the session from a different computer and review results\n5. **Evening, couch**: Check the final output on your phone's browser\n\nThe work flows continuously. The device changes. Claude does not care where you are — it just needs your guidance when it needs your guidance.\n\n## Practical considerations\n\n**Network dependency**: Remote sessions require internet. If you lose connectivity, the session continues on the server, but you cannot see or interact with it until you reconnect.\n\n**Security**: Accessing sessions from multiple devices means authentication matters. Ensure your accounts are secured, especially if you are working on sensitive projects.\n\n**Battery and bandwidth**: Mobile access uses minimal data for text interactions, but if Claude is producing large outputs, it can drain mobile data.\n\n**Latency**: Remote sessions may have slight delays compared to local ones. For most work this is imperceptible, but for rapid back-and-forth it can be noticeable."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You start a Claude Code session on your work computer, give it a complex research task, and then leave for the day. You want to check the results from home. What needs to be true for this to work, and what are your options?",
+      "answer": "For this to work, the session needs to be running on a **remote server or persistent environment**, not your local machine (which might sleep or shut down). If it is remote, you can reconnect from home via the CLI or web interface and see the results. If it was a local session, you would need your work computer to stay on and awake. Alternatively, you could use non-interactive mode (-p) which completes and saves results to a file that you can access remotely. The teleport feature also lets you move the session to a web view accessible from any browser."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Plan a multi-device workflow for a real task in your work. Map out: (1) Where you start the task and on what device, (2) When and why you would switch devices, (3) What you would need to do from each device (full work vs. monitoring vs. quick input). Does the workflow benefit from remote access, or is single-device sufficient?",
+      "solution": "Multi-device workflows benefit people who are frequently mobile or switch between locations. If your work is entirely at one desk, you may not need this. But if you have long-running tasks, remote access prevents 'blocked waiting for input' delays. The most common valuable pattern: start a task at your desk, get notified on your phone when it needs input, approve quickly, and review the finished result wherever you are. Even if you rarely use mobile access, knowing it exists means you never have to cancel a task just because you need to leave."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How often do you abandon or delay tasks because you need to leave your computer? Would remote access change that pattern?",
+        "What is the minimum interaction you would need from a mobile device — just monitoring, or actual input?",
+        "How does the ability to share a session via web view change collaboration with non-technical colleagues?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code works beyond your terminal: remote sessions persist across disconnections, teleport moves sessions between CLI and web, the desktop app provides native integration, and mobile access enables monitoring and lightweight input. The key benefit is continuity — tasks flow across devices without stopping."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now have the full fleet toolkit: parallel worktrees, agent teams, batch operations, automated scripts, CI pipelines, the SDK, and remote access. The checkpoint will test your ability to set up an automated workflow — the culmination of this level's parallel power."
+    }
+  ]
+}

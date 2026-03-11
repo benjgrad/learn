@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "4.8 Checkpoint",
+    "description": "Diagnose a stale session and apply context management strategies to fix it.",
+    "level": "level-4",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Level 4 Checkpoint\n\nThis checkpoint tests whether you have internalized the context budget mental model. You should be able to diagnose context problems, identify what is consuming budget, and choose the right strategy to fix it. Answer without looking back at the modules."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have been working with Claude Code for 35 minutes. Claude just gave a response that contradicts a decision you made 20 minutes ago, and its suggestions are becoming generic. Diagnose the problem and describe your fix, step by step.",
+      "answer": "**Diagnosis:** The context window is near capacity. The decision from 20 minutes ago is buried under accumulated context (file reads, tool outputs, conversation). Claude is not attending to it effectively, causing contradictions and generic responses.\n\n**Fix:** (1) Pause and note the current goal, key decisions, and modified files. (2) Run `/clear` (not just `/compact`, because the context is *confused* with contradictions, not just full). (3) Write a fresh prompt that includes: the current task, the key decision from 20 minutes ago stated explicitly, the relevant file paths, and the specific next step. This gives Claude a clean workspace with the essential information in ~100-200 tokens instead of the cluttered 100,000+ tokens of the old session."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your colleague's CLAUDE.md is 1,400 lines. It includes the full project folder structure, a copy of the API documentation, the team's coding standards, common terminal commands, and a changelog of recent updates. What would you cut and what would you keep?",
+      "answer": "**Keep:** The team's coding standards (conventions Claude needs to follow) and the common terminal commands (quick reference Claude uses every session). These are high-value, stable, and hard for Claude to discover on its own.\n\n**Cut:** (1) The full folder structure — Claude can run `ls` or `find` to discover this on demand. (2) The API documentation — Claude can read the API docs file when it actually needs them. (3) The changelog — this is temporary information that does not help Claude work. If recent changes matter, include only the current relevant context, not the full history.\n\n**Result:** The file should go from 1,400 lines to probably 100-200 lines, saving thousands of tokens per session."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You are about to start a complex task that will require reading many files. Your session is already 40% full from earlier work on a different task. What is your strategy?",
+      "answer": "**Strategy:** (1) Since you are switching tasks, `/clear` is the best first move — the earlier task's context is just noise for the new task. (2) Before clearing, note any relevant connections between the old task and the new one. (3) Write a fresh opening prompt for the new task with clear goals and relevant file paths. (4) For the file-heavy investigation phase, encourage Claude to use a subagent for the broad survey, so the research does not fill your fresh context. (5) Once the subagent returns findings, you have a clean context with the summary and plenty of budget for the actual work."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Set up a complete context management system for a project: (1) Create a CLAUDE.md under 100 lines with project overview, conventions, commands, and a Compact Instructions section. (2) Create at least one rules file in .claude/rules/ for a specific area of your project. (3) Start a session, do some work, and practice strategic compaction at a natural phase transition. Report what you learned.",
+      "solution": "The goal is to demonstrate the full system working together. Your CLAUDE.md should load automatically, giving Claude project context from the start. The rules file should activate when Claude works in the relevant area. The strategic compaction should noticeably improve Claude's focus for the next phase. If you notice that compaction preserved the items from your Compact Instructions section, the system is working as designed. Common mistakes: making CLAUDE.md too long, putting temporary instructions in CLAUDE.md instead of the prompt, or forgetting to provide focus when compacting."
+    },
+    {
+      "type": "markdown",
+      "content": "## Ready for Level 5?\n\nIf you can confidently diagnose context problems, choose between compacting and clearing, write an effective CLAUDE.md, and understand when to use subagents, you have mastered the context budget. This is genuinely the skill that separates intermediate from expert users.\n\nLevel 5 shifts from managing context to **planning work**. You will learn Plan Mode, the four-phase workflow, and how to tackle complex tasks by breaking them into phases Claude can handle. The mental model: the cheapest mistake to fix is one you never make.\n\nStart with [Module 5.1: Plan Mode](/level-5/plan-mode/)."
+    }
+  ]
+}

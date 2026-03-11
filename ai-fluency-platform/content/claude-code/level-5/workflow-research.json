@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "5.4 Workflow: Research",
+    "description": "Using Claude Code as a research tool — explore, gather, synthesize, verify.",
+    "level": "level-5",
+    "slug": "workflow-research",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You need to research a topic you are unfamiliar with — say, understanding how your company's benefits program compares to industry standards. How would you use Claude Code for this? Write down your approach before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## Research as a workflow\n\nResearch is one of the most universally useful Claude Code workflows. Whether you are investigating a topic, gathering competitive intelligence, analyzing internal documents, or preparing for a presentation, the pattern is the same: find information, understand it, synthesize it, and verify your conclusions.\n\nMost people approach research with Claude Code the same way they would use a search engine: ask a question, get an answer. But Claude Code is not a search engine. It is a research assistant that can read files, search through documents, analyze data, and build understanding across multiple sources. Treating it as a search engine wastes 90% of its capability.\n\n## The research workflow\n\nHere is how to use the four-phase workflow for research:\n\n### Phase 1: Explore — Survey the landscape\n\nStart in Plan Mode. The goal is to understand what information is available and where it lives.\n\n**For local research (files on your computer):**\n\"I need to understand our Q4 marketing performance. Explore the /marketing/q4 directory. What reports and data files are available? What time periods do they cover? What metrics are tracked?\"\n\n**For broader research:**\n\"I need to understand the current state of remote work policies in our industry. Search through the files in /hr/research and /hr/policies. What do we currently have? What industry benchmarks are referenced?\"\n\nThe key: do not try to find answers yet. Just map the terrain. After this phase, you should know:\n- What sources are available\n- What they contain (at a high level)\n- What gaps exist\n- What additional information you might need\n\n### Phase 2: Plan — Define your research questions\n\nWith the landscape mapped, define what you actually need to learn. This is where most research goes off the rails — without clear questions, you end up reading everything and understanding nothing.\n\n\"Based on what you found, here are my three research questions: (1) How did our conversion rate compare to Q3? (2) Which marketing channels had the best ROI? (3) What experiments ran in Q4 and what were the results? Propose a plan for answering each question — which files should we read and in what order?\"\n\nClaude produces a research plan. You review it, adjust the questions if needed, and agree on the approach.\n\n### Phase 3: Implement — Gather and synthesize\n\nNow Claude reads the relevant files, extracts key information, and synthesizes findings. This is where subagents (Level 4.7) can be extremely valuable — especially if you need to read many files.\n\n\"Execute the research plan. For each question, read the relevant files and compile the key findings. Give me a structured summary with specific numbers and evidence.\"\n\nA few tips for this phase:\n- **Ask for evidence, not opinions.** \"What does the data say?\" not \"What do you think?\"\n- **Request specific numbers.** \"What was the exact conversion rate?\" not \"How was conversion?\"\n- **Use subagents for breadth.** If you need to scan 20 files, have a subagent do the survey and return a summary.\n\n### Phase 4: Verify — Check the findings\n\nResearch without verification is just storytelling. This phase is critical.\n\n\"Review the findings you compiled. For each key claim, tell me: (1) which specific file and section the data comes from, (2) whether there are any contradicting data points in other files, (3) your confidence level in the finding.\"\n\nYou can also spot-check by having Claude re-read specific files to confirm key numbers. This costs some context, but it is worth it for accuracy.\n\n## A complete research example\n\nLet us walk through a real scenario:\n\n**Task:** You need to prepare a briefing on your department's hiring trends for a leadership meeting.\n\n**Explore:** \"Scan the /hr/reports directory. What hiring-related data do we have for the past 12 months? What formats are the files in? What metrics are tracked?\"\n\nClaude finds: monthly hiring reports (PDF summaries), a tracking spreadsheet (applications, interviews, offers, acceptances by department), and quarterly diversity reports.\n\n**Plan:** \"I need to answer these questions for the briefing: (1) How has time-to-hire changed over 12 months? (2) Which roles are hardest to fill? (3) What is our offer acceptance rate trend? Propose which files to analyze for each question.\"\n\nClaude maps the spreadsheet columns to each question and identifies which monthly reports have relevant commentary.\n\n**Implement:** \"Read the tracking spreadsheet and the Q3 and Q4 monthly reports. Compile the answers to my three questions with specific numbers and month-over-month trends.\"\n\nClaude extracts: time-to-hire increased from 32 to 41 days, senior engineering roles take 60+ days, offer acceptance dropped from 78% to 71%.\n\n**Verify:** \"For the time-to-hire increase, which months showed the biggest jumps? Cross-reference with the monthly reports — is there commentary explaining the increase?\"\n\nClaude finds that the October report mentions a new compliance step that added 5 days to the process. The briefing now has context, not just numbers.\n\n## Research pitfalls to avoid\n\n- **Reading everything.** Not all files are relevant. Let the explore phase identify what matters.\n- **Trusting without verifying.** Claude's synthesis is only as good as its reading. Spot-check key findings.\n- **Losing the thread.** Long research sessions can drift. Compact at phase transitions to keep the context focused.\n- **Confusing Claude's knowledge with your data.** Claude may have general knowledge about a topic. Make sure findings come from *your* files, not from Claude's training data. Ask Claude to cite specific files."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You ask Claude to 'research everything about our competitor and write a complete analysis.' What is wrong with this prompt, and how would you restructure it using the research workflow?",
+      "answer": "The prompt is **too broad and unscoped** — 'everything' is not a research question. Restructure it: **Explore:** 'Scan /competitive-intel/ and tell me what data we have on [competitor].' **Plan:** Define 3-4 specific questions: 'What is their pricing vs ours? What features do they offer that we do not? What is their market positioning?' **Implement:** Read the relevant files and compile structured findings for each question. **Verify:** Cross-reference key claims with specific sources. This produces a focused, well-sourced analysis instead of a vague overview."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Choose a real research question from your work. Use the four-phase research workflow: explore what information is available, define specific research questions, gather and synthesize findings, then verify the key claims. Compare the quality of this structured approach to how you would normally research the same topic.",
+      "solution": "The structured approach typically produces research that is more focused (you answer specific questions rather than 'looking into' a topic), better sourced (you know where each finding came from), and more reliable (you verified the key claims). The explore phase often reveals sources you did not know existed, and the verify phase catches errors that would otherwise end up in your final deliverable."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How is the four-phase research workflow different from how you normally research topics?",
+        "When you research something, do you usually define your questions before or after you start reading? How might defining them first change your results?",
+        "How could you use subagents to make the research phase more context-efficient?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Research with Claude Code follows the four-phase workflow: explore what is available, plan specific research questions, gather and synthesize findings, then verify key claims with source citations. The most common mistake is skipping the explore and plan phases — jumping straight to 'research everything' produces vague, unfocused results. Define your questions first, then let Claude find the answers."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Research produces findings. The next module covers what you do with those findings: writing. You will learn how to use Claude Code as a writing partner across the full drafting process — from outline to final revision."
+    }
+  ]
+}

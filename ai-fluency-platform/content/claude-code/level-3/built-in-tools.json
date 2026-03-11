@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "3.1 Built-in Tools",
+    "description": "Read, Edit, Write, Glob, Grep, Bash — understand what each tool does and when Claude reaches for it.",
+    "level": "level-3",
+    "slug": "built-in-tools",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When you ask Claude Code to 'find all mentions of the word deadline in my project,' what do you think happens behind the scenes? Does Claude read every file one by one, or does it have a smarter approach? Write down your guess."
+    },
+    {
+      "type": "markdown",
+      "content": "## The six core tools\n\nEvery action Claude Code takes is performed through a tool. When you see tool calls flash by in your terminal, those are these tools in action. Claude chooses which tool to use for each step — you rarely need to tell it. But understanding the tools helps you understand what Claude is doing and lets you steer when needed.\n\nHere is what each tool does, in plain language:\n\n| Tool | What it does | When Claude uses it |\n| :-- | :-- | :-- |\n| **Read** | Opens a file and reads its contents | When it needs to understand what is in a file — code, documents, data, images, PDFs |\n| **Edit** | Makes targeted changes to an existing file | When it needs to change specific parts of a file without rewriting the whole thing |\n| **Write** | Creates a new file or completely rewrites an existing one | When creating something from scratch or when changes are so extensive that a full rewrite is cleaner |\n| **Glob** | Searches for files by name pattern | When it needs to find files matching a pattern like \"all .csv files\" or \"anything named config\" |\n| **Grep** | Searches file contents for specific text | When it needs to find where a word, phrase, or pattern appears across many files |\n| **Bash** | Runs a terminal command | When it needs to do anything else — run a script, install something, check status, list directories |\n\n## Understanding each tool\n\n### Read\n\nRead is Claude's eyes. It opens a file and brings the contents into the conversation. Claude uses Read when it needs to understand what is in a file before taking action.\n\nWhat makes Read powerful: it works on more than text files. Claude can Read images (screenshots, photos, diagrams), PDFs, and Jupyter notebooks. When you paste a screenshot or reference a PDF, Read is what Claude uses under the hood.\n\nRead has limits: it reads up to 2,000 lines by default. For very large files, Claude can read specific sections by specifying a line offset. You might see Claude read lines 1-200, then jump to lines 500-700 — it is navigating a large file strategically.\n\n### Edit\n\nEdit is Claude's precision instrument. Instead of rewriting an entire file, Edit replaces a specific section of text with new text. Think of it like find-and-replace, but intelligent.\n\nWhy Edit matters: it is safer than Write. If a file has 500 lines and Claude needs to change 3 of them, Edit touches only those 3 lines. The other 497 lines stay exactly as they are. This makes Edit the preferred tool for modifying existing files.\n\n### Write\n\nWrite creates a new file or completely replaces an existing one. Claude uses Write when starting from scratch — creating a new document, a new script, a new configuration file.\n\nWhen you see Write on an existing file, it means Claude is doing a complete rewrite. This happens when the changes are so extensive that Edit would be impractical.\n\n### Glob\n\nGlob finds files by name pattern. It is like a search function for your file system, but it uses patterns:\n\n- `**/*.csv` finds all CSV files in any subfolder\n- `**/config*` finds any file with \"config\" in the name\n- `src/**/*.js` finds all JavaScript files under the src folder\n\nGlob is fast because it only looks at file names, not contents. Claude uses it as a first step when it needs to locate files before reading them.\n\n### Grep\n\nGrep searches inside files for specific text or patterns. It is the tool Claude reaches for when you say \"find everywhere this function is used\" or \"which files mention the client deadline.\"\n\nGrep is powerful because it searches across many files at once. Instead of opening and reading every file in a project, Claude runs one Grep to find exactly which files contain the relevant text, then Reads only those files.\n\n### Bash\n\nBash is the catch-all. It runs any terminal command — listing directories, running scripts, checking system information, installing packages, running tests, or executing custom commands.\n\nBash is the most flexible tool but also the one that triggers permission prompts most often, since running arbitrary commands has the most potential for side effects.\n\n## How Claude combines tools\n\nA single task often involves multiple tools working together. When you ask Claude to \"find and fix the typo in my project proposal,\" the sequence might be:\n\n1. **Glob** — find all document files in the project (`**/*.md`, `**/*.txt`)\n2. **Grep** — search for common typo patterns or the specific text you mentioned\n3. **Read** — open the file containing the match to understand the context\n4. **Edit** — fix the typo\n\nFour tools, one task. Claude orchestrates this automatically.\n\n## When to steer Claude toward a specific tool\n\nMost of the time, Claude picks the right tool. But occasionally you might want to nudge:\n\n- **\"Search for files named...\"** steers toward Glob\n- **\"Search inside all files for...\"** steers toward Grep\n- **\"Run the command...\"** steers toward Bash\n- **\"Create a new file...\"** steers toward Write\n- **\"Update the existing file...\"** steers toward Edit\n\nYou are not specifying the tool by name — you are using natural language that implies the right tool. This is the dashboard mindset: you know what is available, so you steer naturally."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You ask Claude to 'check if any of my project files mention the March deadline.' Which tools will Claude most likely use, and in what order?",
+      "answer": "Claude will most likely use **Grep** to search across all files for text like \"March deadline\" or related phrases. If the search returns results, Claude will then use **Read** to open the matching files and show you the context around each mention. If the project is very large, Claude might first use **Glob** to narrow down which types of files to search (skipping images, binaries, etc.). The key insight: Claude does NOT read every file one by one. Grep searches across all files simultaneously, making this a fast operation even in large projects."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Give Claude a task and watch the tool calls carefully. Try something like 'find the largest file in this directory and tell me what is in it.' Count how many tool calls happen and identify which of the six tools each one uses. Can you label each as gather, act, or verify from the Level 1 framework?",
+      "solution": "You should see at least 2-3 tool calls: likely a Bash command (like 'ls -lS') to find the largest file (gather), then a Read to examine its contents (gather), then the response to you. Most of these are 'gather' steps because the task is informational. If Claude also decides to summarize or reformat information, there might be no 'act' step at all — not every task involves editing or writing. The goal is to build your ability to recognize which tool is being used and why."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "In your own words, explain the difference between Glob and Grep. When would Claude use each one? Give an example of a task that would use both."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Now that you know about the six tools, do any of Claude's past behaviors make more sense? Think about times you saw multiple tool calls flash by — can you guess which tools were being used?",
+        "Which tool do you think Claude uses most often in your work? Which one do you think you underutilize?",
+        "How does knowing about Edit vs. Write change your comfort level with letting Claude modify your files?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code has six core tools: Read (view files), Edit (targeted changes), Write (create/rewrite files), Glob (find files by name), Grep (search file contents), and Bash (run commands). Claude chooses the right tool automatically, but knowing what each does helps you understand Claude's actions and steer when needed."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The six tools are what Claude uses to do work. But you have your own set of controls: slash commands. The next module covers the commands that let you manage your session, check your context, and control the flow of work."
+    }
+  ]
+}

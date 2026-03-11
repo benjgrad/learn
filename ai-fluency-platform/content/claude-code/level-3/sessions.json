@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "3.4 Sessions",
+    "description": "Your work does not disappear. Continue, resume, rename, and fork sessions to manage ongoing work.",
+    "level": "level-3",
+    "slug": "sessions",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When you close Claude Code and open it again, what happens to your previous conversation? Do you think it is gone, saved somewhere, or something else? Write down what you think before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## Sessions are saved\n\nEvery Claude Code conversation is automatically saved as a session. When you close your terminal or start a new conversation, the previous session is not lost — it is stored and can be resumed later.\n\nThis is a bigger deal than it sounds. It means you can:\n- Close your laptop at the end of the day and pick up exactly where you left off tomorrow\n- Work on multiple tasks by switching between sessions\n- Go back to an old session to remember what you did or what Claude suggested\n- Share context by exporting a session\n\nLet us look at how to manage sessions effectively.\n\n## Continuing the last session: --continue\n\nThe simplest case: you closed Claude Code and want to pick up where you left off.\n\n```bash\nclaude --continue\n```\n\nThis reopens your most recent session with all the conversation history intact. Claude remembers what you were working on, what files were discussed, and where you left off.\n\n**When to use --continue:**\n- You stepped away and want to resume the same task\n- You closed the terminal accidentally\n- You want to ask follow-up questions about work Claude did earlier\n\n**When NOT to use --continue:**\n- You want to start a completely different task (start a new session instead)\n- The previous session's context window was full (continuing will not help — start fresh)\n- It has been a long time and you cannot remember what the session was about\n\n## Browsing and resuming: --resume\n\nWhen you want to go back to a specific session, not just the most recent one:\n\n```bash\nclaude --resume\n```\n\nThis shows a list of your recent sessions. You can browse through them, see what each one was about, and select the one you want to reopen.\n\nThis is powerful for managing multiple workstreams. You might have a session for a writing project, another for data analysis, and another for planning. `--resume` lets you jump between them without losing context in any of them.\n\n## Naming sessions: /rename\n\nBy default, sessions are identified by their start time and a summary of the conversation. This gets hard to navigate when you have many sessions. Use `/rename` to give a session a descriptive name:\n\n```\n/rename Q2 budget planning\n```\n\nNow when you use `--resume`, this session shows up as \"Q2 budget planning\" instead of a cryptic auto-generated label. Name your sessions the way you would name documents — by what they contain, not when they were created.\n\n## Forking: /fork\n\nForking creates a copy of your current session, including all the conversation history up to this point. You continue in the new fork, and the original session stays unchanged.\n\nThis is useful when you want to explore two different approaches without committing to either:\n\n1. You are working on a project plan with Claude\n2. You reach a decision point — should you go with Approach A or Approach B?\n3. Run `/fork` to create a copy of the session\n4. Explore Approach A in the current session\n5. Later, `--resume` back to the original and explore Approach B\n6. Compare the results\n\nForking is also useful as a safety net. Before asking Claude to make major changes, fork the session. If the changes do not work out, your original session is untouched.\n\n## Practical session management\n\nHere is how experienced Claude Code users manage their sessions:\n\n**One session per task.** Do not try to do everything in one long session. Start a new session for each distinct task. This keeps the context window focused and makes sessions easy to find later.\n\n**Rename important sessions immediately.** As soon as you start a session that you will want to come back to, run `/rename` with a descriptive name. Future you will thank present you.\n\n**Use --continue for resuming, not /clear for switching.** If you want to switch tasks, start a new session rather than clearing the current one. The old session is preserved and you can come back to it.\n\n**Compact before continuing.** If you are continuing a session from yesterday, run `/compact` early to free up context space. The detailed back-and-forth from yesterday can be summarized while preserving the key decisions and context.\n\n## The mindset shift\n\nSessions change the way you think about Claude Code. Without sessions, every interaction is ephemeral — when it is gone, it is gone. With sessions, Claude Code becomes more like a notebook. You have ongoing threads of work. You can review what you did last week. You can pick up interrupted tasks.\n\nThis is especially powerful for complex projects that span multiple days. Instead of re-explaining the project every time you start Claude Code, you continue the session and Claude already has the context."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have been working with Claude on a project plan for 30 minutes. You need to switch to a quick unrelated task — answering an email. What should you do?",
+      "answer": "**Start a new Claude Code session** for the email task (just run `claude` in a new terminal or close and reopen). Do NOT `/clear` the project plan session — that would destroy your context. When you are done with the email, use `claude --continue` or `claude --resume` to go back to the project plan session. Your 30 minutes of context will still be there. This is the 'one session per task' principle in action."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Practice the session lifecycle: (1) Start a session and do some work. (2) Run /rename to give it a descriptive name. (3) Close Claude Code. (4) Reopen with 'claude --resume' and find your named session. (5) Optionally, try /fork before making a change, then use --resume to compare the fork with the original.",
+      "solution": "The resume command should show your named session in the list, making it easy to find. If you tried /fork, you should see both the original and the forked session in the resume list. The key takeaway: your work is persistent. Every session is saved. Naming and forking give you control over how those sessions are organized and how you navigate between them."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How many times have you re-explained context to Claude Code that you had already covered in a previous conversation? Would session continuation have saved that time?",
+        "Do you tend to work in one long session or many short ones? Which approach would sessions make more effective for your workflow?",
+        "Think about a current multi-day project. Would having a persistent session with Claude change how you approach the daily work?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Every Claude Code session is automatically saved. Use --continue to resume the last session, --resume to browse and select from past sessions, /rename to name sessions descriptively, and /fork to branch a session before exploring alternatives. One session per task, name the important ones, and compact before continuing old sessions."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now know how sessions work. The next two modules focus on the practical mechanics of moving information in and out of Claude Code — getting data in (Module 3.5) and getting results out (Module 3.6). Module 3.5 expands on the input methods from Level 2 with additional techniques."
+    }
+  ]
+}

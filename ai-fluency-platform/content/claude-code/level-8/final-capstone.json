@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "title": "8.7 Final Capstone",
+    "description": "End-to-end project on an unfamiliar domain. Plan, implement, verify, automate — prove your patterns transfer.",
+    "level": "level-8",
+    "slug": "final-capstone",
+    "order": 7,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Final Capstone\n\nThis is not a quiz. It is not a feature check. It is a **transfer test**.\n\nThe challenge: pick a domain you have never worked in before and complete an end-to-end project using Claude Code. The domain should be unfamiliar enough that you cannot rely on existing knowledge — you have to rely on the patterns and mental models you have developed throughout this course.\n\nThe point is to prove that what you learned is not tied to specific features or specific projects. It is a **way of working** that transfers to anything.\n\n## The challenge\n\nChoose one of these projects (or propose your own in a domain that is new to you):\n\n### Option A: Technical Documentation\nCreate a complete user guide for a tool or process you have never documented before. Research the topic, structure the content, write the guide, and build a quality-check workflow to verify accuracy.\n\n### Option B: Data Analysis\nFind a public dataset you have never worked with (government data, sports statistics, environmental data). Analyze it, identify three interesting findings, create a summary report, and set up a skill that could repeat the analysis on updated data.\n\n### Option C: Process Automation\nIdentify a manual process in your organization that you have no experience with (but have permission to automate). Map the process, build a Claude Code workflow (skill + hook) that handles it, and document how a teammate would use it.\n\n### Option D: Content Creation\nCreate a structured content piece in a format you have never used — a curriculum outline, a technical specification, a business proposal, a research brief. Use Claude Code end-to-end: research, outline, draft, review, and finalize.\n\n## The requirements\n\nRegardless of which project you choose, you must demonstrate these patterns:\n\n### 1. Planning phase\n- Write a clear project brief before starting\n- Define success criteria upfront\n- Break the work into phases with checkpoints\n\n### 2. Execution phase\n- Use appropriate tools: skills, hooks, agents, or MCP as needed\n- Manage your context budget — compact or clear strategically\n- Verify after each phase, not just at the end\n\n### 3. Recovery phase\n- Encounter at least one failure (you will) and recover from it\n- Document what went wrong and how you adapted\n\n### 4. Automation phase\n- Create at least one reusable artifact: a skill, hook, or script that would make repeating this type of project easier\n\n### 5. Reflection\n- What patterns from the course did you apply?\n- What worked differently than expected?\n- What would you do differently next time?"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have chosen a project in an unfamiliar domain and you are about to start. Write the first three things you do — in order — before asking Claude to do any work.",
+      "answer": "1. **Write a project brief**: Define the goal, success criteria, scope, and constraints. This is the briefing mindset from Level 2 — invest in clarity before execution. 2. **Plan the phases**: Break the project into 3-5 phases with verification checkpoints between each. This is the blueprint from Level 5 — structure before action. 3. **Set up the configuration**: Create or update CLAUDE.md with the project context, set up any hooks for safety, and consider whether a custom skill or agent would help. This is the workshop from Level 6 — prepare your tools before starting. Only after these three steps do you give Claude its first task."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Complete the capstone project. Choose one of the four options (or your own), work through all five phases, and produce: (1) The finished project output, (2) At least one reusable artifact (skill, hook, or script), (3) A reflection document covering what patterns you applied, what surprised you, and what you would change.",
+      "solution": "There is no single correct output — the capstone is about demonstrating your process, not a specific deliverable. A strong capstone shows: clear planning before execution, strategic context management throughout, graceful recovery from at least one failure, a reusable artifact that would speed up similar future work, and honest reflection on what worked and what did not. The reflection is arguably the most important part — it demonstrates conscious competence, the stage just before mastery becomes unconscious instinct."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "After completing the capstone, a colleague asks: 'What did you actually learn from this course that you could not have figured out on your own?' What is your answer?",
+      "answer": "The strongest answer is about **mental models, not features**. Something like: 'I learned to think about Claude Code as a collaboration, not a tool. The specific insight is that the quality of the interaction is determined by my input — my briefings, my context management, my verification habits — not by Claude's capabilities. I also learned to build for reuse (skills, hooks) rather than one-off prompting, and to recognize failure modes fast enough to recover cheaply. I could have discovered the features on my own, but the mental models — the loop, the budget, the workshop — changed how I think about AI collaboration entirely.'"
+    },
+    {
+      "type": "markdown",
+      "content": "## Congratulations\n\nIf you have completed this capstone, you have done something most Claude Code users never do: you have moved from learning features to developing intuition.\n\nYou understand not just what Claude Code can do, but **when** to use it, **how** to collaborate with it effectively, and **why** certain approaches work better than others. You can teach these principles to others. You can apply them to unfamiliar territory.\n\nThe tool is invisible now. What remains is your judgment.\n\n### What comes next\n\nClaude Code will continue to evolve. New features will ship. Capabilities will expand. But the mental models you have internalized — the loop, the briefing, the budget, the workshop, the fleet — these are stable principles that will apply to every future version and every future AI tool.\n\nYou are not just a Claude Code user. You are fluent in AI collaboration."
+    }
+  ]
+}

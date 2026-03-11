@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "7.4 Non-Interactive Automation",
+    "description": "Use claude -p in scripts to make Claude Code a building block in automated workflows — no human in the loop.",
+    "level": "level-7",
+    "slug": "non-interactive-automation",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "What if Claude Code could run without you sitting at the keyboard — triggered by a script, a schedule, or another program? What kinds of tasks would you automate this way?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Claude as a building block\n\nEverything so far has assumed you are sitting at a terminal, typing to Claude, watching it work. But many valuable tasks do not need a human in the loop:\n\n- Generate a daily report every morning at 8am\n- Process incoming files as they arrive in a folder\n- Summarize meeting transcripts automatically after each meeting\n- Run quality checks on documents before they are published\n\nNon-interactive mode turns Claude Code from a tool you operate into a **building block** you embed in automated workflows.\n\n## The -p flag: print mode\n\nThe simplest form of non-interactive use is the `-p` flag:\n\n```bash\nclaude -p \"Summarize the key decisions in meeting-notes.txt\"\n```\n\nClaude processes the prompt, does its work, prints the result, and exits. No interactive session, no waiting for input. It runs the same agentic loop — gather, act, verify — but without pausing for permission prompts.\n\n## Essential flags for automation\n\n| Flag | What it does | Example |\n| :-- | :-- | :-- |\n| `-p \"prompt\"` | Run non-interactively | `claude -p \"summarize file.txt\"` |\n| `--output-format json` | Structured output for parsing | Machine-readable results |\n| `--max-turns N` | Limit the agentic loop | Prevent runaway sessions |\n| `--max-budget-usd N` | Set a spending cap | Cost control |\n| `--allowedTools` | Restrict available tools | Safety for unattended runs |\n\nThese flags give you control over cost, safety, and output format when there is no human watching.\n\n## Building automated workflows\n\n### Example 1: Daily summary script\n\n```bash\n#!/bin/bash\n# daily-summary.sh — Run every morning at 8am via cron\n\nSUMMARY=$(claude -p \"Read all files modified in the last 24 hours in ~/projects/ and create a brief summary of what changed and why.\" --max-turns 10 --max-budget-usd 0.50)\n\necho \"$SUMMARY\" > ~/daily-summaries/$(date +%Y-%m-%d).md\n```\n\n### Example 2: Document processor\n\n```bash\n#!/bin/bash\n# process-transcript.sh — Run after each meeting recording is transcribed\n\nTRANSCRIPT=$1\nOUTPUT=\"${TRANSCRIPT%.txt}-summary.md\"\n\nclaude -p \"Read $TRANSCRIPT. Extract: (1) Key decisions made, (2) Action items with owners, (3) Open questions. Format as markdown.\" --max-turns 5 > \"$OUTPUT\"\n```\n\n### Example 3: Quality gate\n\n```bash\n#!/bin/bash\n# quality-check.sh — Run before publishing\n\nRESULT=$(claude -p \"Review $1 for: spelling errors, broken links, missing sections per our template. Output JSON with {pass: boolean, issues: []}\" --output-format json --max-turns 8)\n\n# Parse the result and decide whether to publish\nPASS=$(echo \"$RESULT\" | jq -r '.pass')\nif [ \"$PASS\" = \"true\" ]; then\n  echo \"Quality check passed. Publishing.\"\nelse\n  echo \"Quality check failed. Issues found:\"\n  echo \"$RESULT\" | jq -r '.issues[]'\nfi\n```\n\n## The --output-format json flag\n\nWhen Claude's output feeds into another program, plain text is hard to parse. The `--output-format json` flag gives you structured output that scripts can work with reliably.\n\nThis is critical for automation: your script needs to extract specific fields from Claude's response, not parse free-form text. JSON output makes that deterministic.\n\n## Safety considerations for unattended runs\n\nWhen Claude runs without a human watching, safety becomes your responsibility upfront rather than in real-time:\n\n1. **--max-turns**: Prevents infinite loops. If Claude gets stuck, it stops after N iterations instead of burning tokens indefinitely.\n2. **--max-budget-usd**: Hard cost cap. If something goes wrong, you lose at most this amount.\n3. **--allowedTools**: Restrict what Claude can do. A summary script does not need Write or Bash tools — restrict it to Read only.\n4. **Test thoroughly**: Run your script manually several times before scheduling it. Edge cases that a human would catch go unnoticed in automation.\n\n## The mental model shift\n\nInteractive mode: you are the operator, Claude is the tool.\nNon-interactive mode: you are the architect, Claude is a component.\n\nYou design the workflow, define the inputs and outputs, set the safety constraints, and let it run. This is a different skill from prompting — it is **systems design**. Your prompt needs to be complete on the first try because there is no opportunity for follow-up."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You write a script that runs `claude -p` every hour to check a folder for new files and process them. After a week, you notice your API bill is much higher than expected. What are three things you should check?",
+      "answer": "Check: (1) **--max-turns** — Without this flag, each run could loop extensively if files are complex. Set a reasonable limit. (2) **--max-budget-usd** — Without a spending cap, each run has no cost limit. Add one. (3) **Trigger frequency vs. necessity** — Running every hour when new files only arrive once a day means 23 wasted runs. Consider checking whether new files exist before running Claude, or switching to an event-based trigger instead of a timer. Also check if Claude is reading unnecessary files (large ones) that inflate token costs."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design an automated workflow using claude -p. Write: (1) What the script does, (2) The exact claude -p command with all safety flags, (3) What triggers the script (cron schedule, file watcher, manual), (4) What could go wrong and how your flags prevent it. You do not need to run it — just design it completely.",
+      "solution": "A complete design includes: a clear purpose, the -p prompt that works without follow-up, --max-turns to prevent runaway loops, --max-budget-usd for cost control, --allowedTools if the task only needs read access, and a trigger mechanism. Common gaps: forgetting to handle the case where Claude returns an error, not limiting tools for safety, or writing a prompt that assumes interactive follow-up. The prompt for -p must be self-contained — everything Claude needs in one shot."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What daily or weekly tasks in your work are routine enough to automate with a script?",
+        "How does writing a prompt for automation differ from writing one for an interactive session? What assumptions can you not make?",
+        "What is the right balance between automation and human oversight? Which tasks should always have a human review step?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The -p flag turns Claude Code into a building block for automated workflows. Combine it with --max-turns, --max-budget-usd, --output-format json, and --allowedTools for safe, cost-controlled, scriptable AI operations. The key shift: your prompt must be self-contained and your safety constraints must be set upfront, because no human is watching."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Non-interactive mode works great for scripts you run yourself. But what about running Claude in a team's shared infrastructure — CI/CD pipelines that trigger automatically on every code push or pull request? That is the next frontier."
+    }
+  ]
+}

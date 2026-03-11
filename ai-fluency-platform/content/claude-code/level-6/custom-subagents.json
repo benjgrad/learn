@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "6.5 Custom Subagents",
+    "description": "Build specialized agents with specific roles, restricted tools, and different capabilities for focused work.",
+    "level": "level-6",
+    "slug": "custom-subagents",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Imagine you could create specialized versions of Claude — one that only reads and reviews, one that only searches and researches, one that handles only a specific type of task. How would you use these, and why might restricting an agent's capabilities actually make it better?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Why constraints make agents better\n\nThis might seem counterintuitive: why would you take a powerful AI and limit what it can do? The answer is the same reason organizations have job roles.\n\nA general-purpose agent given a vague task will try to do everything. A focused agent with a clear role and restricted tools will do one thing well. Constraints are not limitations — they are **focus**.\n\nCustom subagents let you define specialized workers with specific roles, tool access, and even different AI models. You put them in the `.claude/agents/` directory, and they become available for delegation.\n\n## The anatomy of a custom agent\n\nA custom agent is a Markdown file with YAML frontmatter:\n\n```markdown\n---\nname: reviewer\ndescription: Reviews documents and code without making changes\ntools:\n  - Read\n  - Glob\n  - Grep\n---\n\n# Document Reviewer\n\nYou are a careful reviewer. Your job is to read, analyze, and provide feedback. You NEVER edit, create, or delete files. You only observe and comment.\n\nWhen reviewing, focus on:\n1. Logical consistency — do the arguments hold together?\n2. Completeness — are there gaps or missing pieces?\n3. Clarity — could someone unfamiliar with the topic follow this?\n4. Actionability — are recommendations specific enough to act on?\n\nAlways cite specific sections when making observations. Format feedback as a structured review with severity ratings: Critical, Important, Suggestion.\n```\n\nNotice the `tools` list in the frontmatter. This agent can only read, search, and browse files. It cannot edit, write, or run commands. This is not a bug — it is the entire point. A reviewer that cannot edit is a reviewer you can trust to only review.\n\n## Key frontmatter options\n\n| Field | What it controls | Example |\n| :-- | :-- | :-- |\n| `name` | How you reference the agent | `reviewer` |\n| `description` | What it does (shown in listings) | `Reviews without editing` |\n| `tools` | Which tools the agent can use | `[Read, Glob, Grep]` |\n| `model` | Which AI model to use | `claude-sonnet-4-20250514` |\n| `maxTurns` | How many loop iterations allowed | `10` |\n\nThe `model` field is particularly interesting. You might use a faster, cheaper model for simple research tasks and reserve the most capable model for complex analysis. This is cost optimization built into your workflow.\n\n## Example agents for knowledge workers\n\n### The Researcher\n\n```markdown\n---\nname: researcher\ndescription: Searches and synthesizes information without modifying anything\ntools:\n  - Read\n  - Glob\n  - Grep\n  - WebSearch\n  - WebFetch\nmaxTurns: 15\n---\n\nYou are a research assistant. Find information, synthesize it, and present findings. Never modify any files. Your output should include sources and confidence levels for each finding.\n```\n\nThis agent can search the web and read files but cannot change anything. Perfect for \"go find out about X\" tasks where you want thorough research without risk.\n\n### The Formatter\n\n```markdown\n---\nname: formatter\ndescription: Formats and restructures documents according to templates\ntools:\n  - Read\n  - Write\n  - Edit\nmodel: claude-sonnet-4-20250514\nmaxTurns: 5\n---\n\nYou are a formatting specialist. Your only job is to restructure documents to match a given template or style guide. Do not change the substance of any content — only restructure, reformat, and clean up presentation.\n```\n\nUsing a faster model with limited turns makes this agent cheap and fast for a simple, well-defined task.\n\n### The Auditor\n\n```markdown\n---\nname: auditor\ndescription: Checks work against standards and produces compliance reports\ntools:\n  - Read\n  - Glob\n  - Grep\nmaxTurns: 20\n---\n\nYou are a quality auditor. Review all files in the project against the standards documented in CLAUDE.md. Produce a compliance report listing:\n- PASS: Requirements met\n- FAIL: Requirements not met (with specific file and line)\n- WARN: Ambiguous or partially met\n\nBe thorough. Check every standard. Do not skip anything.\n```\n\n## How to use custom agents\n\nOnce an agent file is in `.claude/agents/`, you can delegate to it from your main Claude session. Claude can spin up the subagent to handle a focused task, then return the results to the main session.\n\nThe subagent runs in its own context — it does not consume your main session's context budget. This is the same \"subagents as shields\" concept from Level 4, but now you control the shield's exact capabilities.\n\n## When to create a custom agent vs. a skill\n\nSkills and agents can seem similar, but they serve different purposes:\n\n- **Skill**: A set of instructions for your main Claude session. Same tools, same context, same model.\n- **Agent**: A separate worker with its own tools, context, and optionally its own model. Runs independently and returns results.\n\nUse a skill when you want Claude to follow a specific workflow. Use an agent when you want a separate, constrained worker for a focused job."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You create a custom agent called 'checker' with tools limited to [Read, Glob]. You ask it to fix a bug in a file. What happens?",
+      "answer": "The 'checker' agent cannot fix the bug because it does not have access to the Write or Edit tools. It can read the file and identify the bug, but it cannot make changes. It would report its findings — what the bug is and where it is — but the actual fix would need to be done by an agent (or the main session) that has editing tools. This is the point of tool restrictions: the checker checks, it does not change."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a custom agent for a role that would be useful in your work. Write the complete agent file contents — frontmatter with name, description, tools, and optionally model and maxTurns — plus the system instructions. Think about what tools it should NOT have access to and why.",
+      "solution": "A well-designed agent has a clear, narrow role. The tools list should include only what is necessary — nothing more. The system instructions should reinforce the role boundaries. For example, a 'proofreader' agent might have Read and Edit tools but explicit instructions to only fix grammar and spelling, never change meaning. The maxTurns setting prevents runaway sessions. If you find yourself giving an agent every tool, you probably want a skill instead."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What is the relationship between trust and constraints? How does limiting an agent's tools affect how much you trust its output?",
+        "In your work, what tasks would benefit from a 'specialist' approach — an agent that does one thing reliably rather than a generalist that does everything?",
+        "How does the model field change your cost calculations? When would you use a cheaper, faster model vs. the most capable one?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Custom subagents in .claude/agents/ let you create focused workers with specific roles, restricted tools, and optional model choices. Constraints make agents better by enforcing focus. Use agents for isolated, well-defined tasks; use skills for workflows in your main session."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Skills give you custom commands. Hooks give you automatic reactions. Agents give you specialized workers. The last building block is connecting to the outside world — external services and tools that Claude Code cannot access natively. That is MCP, and it is next."
+    }
+  ]
+}

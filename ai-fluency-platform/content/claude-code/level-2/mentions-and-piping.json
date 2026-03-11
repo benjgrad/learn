@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "2.5 Mentions and Piping",
+    "description": "How to give Claude the right briefing materials using @file references, image paste, piping, and system prompts.",
+    "level": "level-2",
+    "slug": "mentions-and-piping",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "If you wanted Claude to analyze a spreadsheet, how would you get that data into Claude Code? Would you copy-paste it? Describe it in words? Something else? Think about what methods you have tried or would try."
+    },
+    {
+      "type": "markdown",
+      "content": "## The briefing materials problem\n\nYou now know how to write a great briefing. But a briefing without supporting materials is like a project kickoff without the relevant documents. If Claude does not have access to the information it needs, even the most precise prompt will produce output based on guesses.\n\nClaude Code has several ways to bring information into a conversation. Each is suited to different situations, and knowing which to use when is a practical skill that saves time every day.\n\n## @file mentions\n\nThe simplest way to reference a file is to type `@` followed by the path:\n\n> Summarize the key findings in @reports/q1-analysis.pdf\n\n> Compare the approaches in @proposal-v1.md and @proposal-v2.md\n\nWhen you type `@`, Claude Code shows an autocomplete menu of files in your current directory. You can type part of the filename to filter.\n\nWhat makes this powerful: the file content is loaded directly into your prompt. Claude does not need to spend a tool call reading the file — it already has the content. This is faster and uses less of the agentic loop for file access.\n\n**When to use @file:** When you know exactly which file Claude needs and want to reference it directly in your prompt. Great for one to three files that are central to the task.\n\n## Image paste with Ctrl+V\n\nClaude Code supports pasting images directly into the prompt. Take a screenshot, copy an image, or use a snipping tool, then press `Ctrl+V` (or `Cmd+V` on Mac) in the Claude Code terminal.\n\nThis is surprisingly useful for non-coding tasks:\n\n> [paste screenshot of a table from a PDF]\n> Extract the data from this table and convert it to a CSV format.\n\n> [paste photo of a whiteboard]\n> Transcribe the action items from this whiteboard photo and organize them by owner.\n\n> [paste screenshot of an error message]\n> What does this error mean and how do I fix it?\n\n**When to use image paste:** When information exists as an image — screenshots, photos of whiteboards, charts, diagrams, UI mockups, error messages. Claude can read text in images, interpret charts, and understand diagrams.\n\n## Piping data with the shell\n\nFor larger inputs or automated workflows, you can pipe data directly into Claude Code:\n\n```bash\ncat meeting-notes.txt | claude -p \"Extract all action items from these meeting notes\"\n```\n\n```bash\ncurl -s https://api.example.com/data | claude -p \"Summarize this API response\"\n```\n\n```bash\npbpaste | claude -p \"Rewrite this email to be more concise\"\n```\n\nThe `-p` flag runs Claude in print mode — it processes the piped input with your prompt, prints the response, and exits. This is perfect for one-off transformations where you do not need an interactive session.\n\nYou can also pipe without `-p` to start an interactive session with the piped content as context:\n\n```bash\ncat data.csv | claude \"Analyze this dataset\"\n```\n\n**When to use piping:** When you are already in the terminal and want a quick transformation, when the data comes from another command, or when you are building a workflow that chains multiple tools together.\n\n## System prompt files\n\nFor recurring tasks where you always want Claude to follow certain rules, you can use a system prompt file:\n\n```bash\nclaude --system-prompt-file my-rules.txt \"Write the weekly update email\"\n```\n\nThe system prompt file might contain:\n\n> You are writing for Acme Corp. Brand voice: professional but approachable. Always use Oxford commas. Never use the word \"synergy.\" Format all dates as Month Day, Year.\n\nThis saves you from repeating the same constraints every time you start a new session.\n\n**When to use system prompt files:** When you have consistent rules that apply to many tasks — brand guidelines, formatting standards, terminology preferences, or role-specific instructions.\n\n## Choosing the right input method\n\n| Situation | Best method |\n| :-- | :-- |\n| Referencing 1-3 specific files | @file mentions |\n| Screenshot, photo, or diagram | Ctrl+V image paste |\n| Quick one-off transformation | Pipe with `claude -p` |\n| Output from another command | Pipe from shell |\n| Consistent rules across sessions | `--system-prompt-file` |\n| Many files across directories | Let Claude search (it will use Glob/Grep) |\n\nNotice the last row: sometimes the best approach is to not manually provide files at all. If you say \"find all the configuration files in this project and check for security issues,\" Claude will use its tools to locate the files itself. You only need to manually provide files when Claude would not know where to look or when you want a specific file in the context immediately.\n\n## Combining methods\n\nThe real power comes from combining these methods in a single prompt:\n\n> [paste image of the new UI mockup]\n> Update the landing page copy in @content/landing.md to match this new design. Follow the brand guidelines in @docs/brand-voice.md. The tone should be more conversational than the current version.\n\nThree input methods in one prompt: an image for the design reference, an @file for the content to update, and another @file for the brand guidelines. Claude has everything it needs to produce an excellent first draft."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have a 500-line CSV file and want Claude to find trends in it. Which input method should you use: (A) copy-paste the whole CSV into the chat, (B) use @data.csv in your prompt, (C) pipe it with 'cat data.csv | claude -p \"find trends\"'?",
+      "answer": "**Either (B) or (C) works well, depending on whether you want interactivity.** Use `@data.csv` if you want an interactive session where you can ask follow-up questions about the data. Use piping with `-p` if you want a quick one-shot analysis. **Avoid (A)** — copy-pasting 500 lines into the chat is messy, error-prone, and harder for Claude to parse cleanly. The @mention and piping methods deliver the data intact and are designed for this purpose."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Try at least two different input methods in one session. For example: (1) Use an @file mention to reference a document, then (2) paste a screenshot with Ctrl+V. Or: (1) pipe a file into Claude with 'cat file | claude -p \"summarize this\"', then (2) start an interactive session with @file. Notice how each method feels different and how Claude handles the input.",
+      "solution": "The @file method should feel seamless — Claude has the content right in the conversation and can reference it immediately. Image paste is useful when you realize how many things exist as images (screenshots, photos, PDFs rendered as images). Piping is fast for one-shot tasks but you lose interactivity. The point of this exercise is to build muscle memory for choosing the right input method for each situation, rather than defaulting to copy-paste for everything."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which input method have you been using most? Are there situations where a different method would be faster or more effective?",
+        "Think about information you work with regularly — emails, spreadsheets, documents, images. Which input methods map best to each type?",
+        "Have you tried piping data from the command line? Even if you are not a developer, could 'pbpaste | claude -p' (paste from clipboard) save you time for quick tasks?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code has multiple input methods, each suited to different situations: @file mentions for direct references, Ctrl+V for images, piping for shell workflows and quick transforms, and --system-prompt-file for persistent rules. Choose based on the situation rather than defaulting to copy-paste. Sometimes the best approach is to let Claude find the files itself."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now know how to write a great briefing and how to get information into Claude. The next module covers a crucial judgment call: when to stop correcting Claude and start over. The answer might surprise you."
+    }
+  ]
+}

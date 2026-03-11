@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "3.6 Getting Results Out",
+    "description": "Copy, export, print mode, structured output — how to get Claude's work into the formats you need.",
+    "level": "level-3",
+    "slug": "getting-results-out",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When Claude produces a great result — a well-written email, a data summary, a formatted table — how do you currently get that output into the place where you need it? Do you copy-paste from the terminal? Screenshot it? Something else? Think about whether there might be a better way."
+    },
+    {
+      "type": "markdown",
+      "content": "## The output problem\n\nClaude Code is great at producing results. But those results live inside your terminal. You need them in an email, a document, a spreadsheet, a Slack message, a report, or a file. Getting results from the terminal to their destination is the last mile of every task.\n\nMost people manually select text in the terminal and copy it. This works but it is slow, error-prone (you might miss a line), and loses formatting. Claude Code has better options.\n\n## /copy — Instant clipboard\n\nThe simplest output method. After Claude gives you a response, type:\n\n```\n/copy\n```\n\nClaude's last response is now on your clipboard, ready to paste wherever you need it. This preserves the full text of the response, including any formatting.\n\n**When to use /copy:**\n- Claude wrote an email and you want to paste it into your email client\n- Claude generated a list or table you want to put in a document\n- Claude produced any text you want to use somewhere else\n- You want the full response, not just a snippet\n\n## /export — Save the whole conversation\n\nWhen you want to keep a record of an entire session:\n\n```\n/export\n```\n\nThis saves the full conversation — your prompts and Claude's responses — to a file. Useful for:\n- Documentation: keeping a record of decisions made with Claude's help\n- Sharing: showing a colleague what you and Claude worked through\n- Review: going back later to check Claude's reasoning or recommendations\n- Templates: saving a successful interaction as a model for future similar tasks\n\n## Print mode (claude -p) — Quick answers\n\nPrint mode is not just an input method — it is an output method too. When you use `claude -p`, the response goes directly to stdout, which means you can capture it:\n\n```bash\n# Save to a file\nclaude -p \"Write a project summary for Q1\" > summary.md\n\n# Pipe to another command\nclaude -p \"List 10 blog post ideas about remote work\" | head -5\n\n# Pipe to clipboard (macOS)\nclaude -p \"Rewrite this more concisely: $(cat draft.txt)\" | pbcopy\n\n# Pipe to clipboard (Linux)\nclaude -p \"Rewrite this more concisely: $(cat draft.txt)\" | xclip -selection clipboard\n```\n\nPrint mode turns Claude Code into a command-line tool that fits into any workflow. The output is clean text — no interactive UI, no prompts, just the result.\n\n**Power move:** Chain Claude with other tools:\n\n```bash\n# Generate, then immediately save\nclaude -p \"Create a meeting agenda for the team sync\" > agenda.md && open agenda.md\n\n# Transform data through Claude\ncat raw-data.csv | claude -p \"Clean this CSV: fix formatting, remove duplicates, standardize dates\" > clean-data.csv\n```\n\n## Structured output with --output-format\n\nFor programmatic use, you can ask Claude to return structured output:\n\n```bash\nclaude -p \"Analyze this data\" --output-format json\n```\n\nThis wraps Claude's response in a JSON structure that includes the response text and metadata. This is primarily useful when Claude Code is part of an automated pipeline — a script that processes Claude's output programmatically.\n\nFor most day-to-day work, you will not need `--output-format`. But it is good to know it exists for when you want to build workflows around Claude.\n\n## Asking Claude to create files directly\n\nSometimes the best output method is not extracting Claude's response at all — it is asking Claude to write the result directly to a file:\n\n> Create a project plan and save it to project-plan.md\n\n> Write the quarterly report and save it as reports/q1-2025.md\n\n> Generate the budget spreadsheet and save it as budget.csv\n\nClaude uses the Write tool to create the file directly in your file system. You do not need to copy anything — the result is already where you need it.\n\nThis is often the cleanest approach for:\n- Documents you want to keep\n- Files that will be shared or committed\n- Data files in specific formats\n- Any output that has a natural \"home\" in your file system\n\n## Matching output to destination\n\n| You need the result in... | Best approach |\n| :-- | :-- |\n| An email or chat message | `/copy` then paste |\n| A new file | Ask Claude to save it directly |\n| Your clipboard for later | `claude -p \"...\" | pbcopy` |\n| Another command or script | Pipe with `claude -p \"...\" | next-command` |\n| A shared document | `/export` for full conversation, `/copy` for just the response |\n| A specific file format (CSV, JSON, MD) | Ask Claude to save in that format |\n| A record of the whole session | `/export` |\n\n## The workflow mindset\n\nThe most effective approach depends on your workflow. If you are doing quick one-off tasks, print mode with piping is fastest. If you are working interactively, `/copy` is your friend. If you want Claude to produce deliverables, have it write files directly.\n\nThe common thread: stop manually selecting text in your terminal. There is almost always a faster, more reliable way to get Claude's output where it needs to go."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You want Claude to draft three versions of a customer email, and you need to paste each one into your email client to review. What is the most efficient workflow?",
+      "answer": "Ask Claude to generate all three versions in one response, clearly labeled (Version A, B, C). Then use **`/copy`** to get the full response on your clipboard and paste it into a document where you can review all three. Alternatively, ask Claude to save them as separate files: 'Save each version as email-v1.txt, email-v2.txt, email-v3.txt' — then open each file directly. The file approach is better if you want to edit them further; the /copy approach is faster if you just want to review and pick one."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Try two different output methods in one session. First: ask Claude something and use /copy to grab the response. Second: use print mode to pipe a result somewhere — either to a file ('claude -p \"...\" > output.md') or to your clipboard ('claude -p \"...\" | pbcopy'). Which felt more natural for your workflow?",
+      "solution": "/copy is best for interactive sessions where you want to grab a specific response. Print mode piping is best for one-shot tasks or automation. Most people find /copy more natural at first because they are already in an interactive session. But once you discover piping, it becomes a power tool for quick transformations — especially chaining Claude with other commands. Try to use each one at least once this week to build the habit."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How much time do you spend getting Claude's output from the terminal to its final destination? Is that friction slowing you down?",
+        "Could any of your recurring tasks be turned into a one-line pipe command? Think: 'cat input | claude -p transform > output'.",
+        "When Claude produces a deliverable (a report, an email, a plan), do you usually copy it out or ask Claude to save it as a file? Which approach matches your workflow better?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Stop manually selecting text in your terminal. Use /copy for quick clipboard access, /export for full conversation records, print mode (claude -p) for piping results to files or other commands, and ask Claude to write files directly when the result has a natural destination. Match the output method to where the result needs to end up."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now know how to get data in and results out. The last module before the checkpoint covers the most important topic for confident use: the safety net. /rewind, /diff, permissions, and Esc — the guardrails that let you experiment freely."
+    }
+  ]
+}

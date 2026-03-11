@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "7.1 Worktrees — Parallel Universes",
+    "description": "Use worktrees to run multiple Claude sessions on different branches simultaneously without conflicts.",
+    "level": "level-7",
+    "slug": "worktrees",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have two tasks: redesign the report format and fix the data import bug. Both involve editing some of the same files. How would you handle this today? How long would it take, and what could go wrong if you tried to do both at once?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The single-branch bottleneck\n\nHere is a common frustration: you are working on Task A with Claude, and an urgent Task B comes in. You have two bad options:\n\n1. **Stop Task A**, stash your changes, switch context, do Task B, switch back, and try to remember where you were.\n2. **Finish Task A first**, keeping Task B waiting.\n\nBoth options are single-threaded. You can only work on one thing at a time because you have one working directory with one set of files.\n\nWorktrees fix this.\n\n## What is a worktree?\n\nA worktree is an independent copy of your project on a separate git branch, in its own directory. Think of it as a **parallel universe** for your project. Changes in one worktree do not affect any other.\n\nWhen you run `claude -w`, Claude Code creates a new worktree, checks out a fresh branch, and starts a session in that isolated environment. You can have multiple worktrees running simultaneously — each with its own Claude session working on a different task.\n\n```\nYour Project\n├── main branch (your primary directory)\n├── worktree-1/ (branch: fix-data-import)\n│   └── Claude session working on the bug\n├── worktree-2/ (branch: redesign-reports)\n│   └── Claude session redesigning reports\n└── worktree-3/ (branch: update-documentation)\n    └── Claude session updating docs\n```\n\nEach worktree is a real directory on your filesystem with a full copy of the project files. Each has its own branch, its own changes, and its own Claude session.\n\n## How to use worktrees\n\n### Creating a worktree\n\n```bash\nclaude -w\n```\n\nClaude Code creates a new worktree, sets up a branch, and drops you into a session. Give it a task and let it work.\n\n### Working in parallel\n\nOpen another terminal and run `claude -w` again. Now you have two independent Claude sessions, each on its own branch, working on different tasks simultaneously. Neither can interfere with the other.\n\n### Reviewing and merging\n\nWhen a worktree's task is done, you review the changes like any git branch:\n- Check the diff\n- Run tests\n- Merge into your main branch if satisfied\n- Discard the branch if it did not work out\n\nThis is the power of the parallel universe analogy. Each universe is an experiment. Good experiments get merged into reality. Failed experiments get deleted. No risk to your main work.\n\n## When worktrees shine\n\n**Multiple independent tasks**: You have three things on your to-do list that do not depend on each other. Spin up three worktrees, brief each one, and let them work in parallel.\n\n**Risky experiments**: You want Claude to try a radical restructure, but you are not sure it will work. Do it in a worktree. If it fails, delete the worktree. Your main branch never knew it happened.\n\n**A/B approaches**: You are not sure which approach to a problem is better. Spin up two worktrees, give each one a different approach, and compare the results.\n\n**Urgent interruptions**: You are deep in a task when something urgent comes in. Instead of stashing and switching, spin up a new worktree for the urgent work. Your original task keeps its state untouched.\n\n## The mental model shift\n\nWithout worktrees, you think sequentially: finish A, then start B, then do C.\n\nWith worktrees, you think in parallel: launch A, B, and C simultaneously, then review all three results.\n\nThis changes not just your speed but your **risk tolerance**. When experiments are cheap (just a worktree you can delete), you try more things. When you try more things, you find better solutions.\n\n## Practical limits\n\nWorktrees are powerful but not infinite:\n\n- Each worktree uses disk space (a full copy of your project files)\n- Each Claude session uses API tokens independently\n- Managing too many parallel sessions becomes its own overhead\n- Tasks that depend on each other should not be parallelized — they need to happen in sequence\n\nThe sweet spot for most people is 2-4 simultaneous worktrees. Enough to unblock parallel work without overwhelming your ability to review the results."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You spin up two worktrees: one to reorganize your report templates and one to update the data sources. Both worktrees edit the file `config.json`. When you merge both branches back to main, what happens?",
+      "answer": "You will get a **merge conflict** on `config.json` because both branches modified the same file. This is normal git behavior — worktrees do not magically resolve conflicts. You will need to manually resolve the conflict by choosing which changes to keep (or combining both). This is why worktrees are best for **independent** tasks. If two tasks need to touch the same files, consider whether they really should be parallelized or done sequentially."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Think of two tasks you could work on in parallel right now. For each one, write: (1) A clear briefing you would give Claude in that worktree session, (2) What files each task would touch, (3) Whether the tasks overlap (if they do, consider different tasks). If you have a git project available, try spinning up a worktree with `claude -w` and giving it one of the tasks.",
+      "solution": "Good parallel tasks are independent — they touch different files or different sections of the same file. Examples: Task A updates the introduction section of a report while Task B updates the appendix. Task A redesigns a spreadsheet template while Task B writes a user guide. If you tried `claude -w`, you should have seen Claude create a new branch and work in an isolated directory. The key learning: your main branch was untouched the entire time."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does the ability to create cheap, disposable experiments change what you are willing to try?",
+        "Think about your last week. Which tasks could have been parallelized? How much time would that have saved?",
+        "What is the hardest part of parallel work — the technical setup, or the mental overhead of tracking multiple streams?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Worktrees create parallel universes for your project — isolated branches where Claude works independently. Use them for parallel tasks, risky experiments, A/B approaches, and urgent interruptions. The mental model shifts from sequential work to parallel dispatch. Best for independent tasks that touch different files."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Worktrees give you parallel sessions that you manage individually. But what if you could have multiple agents collaborating on a single complex task, with one leading and others investigating? That is agent teams, and it is next."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "1.2 Getting Started",
+    "description": "Install Claude Code, authenticate, and run your first session.",
+    "level": "level-1",
+    "slug": "getting-started",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "How do you think you install and run Claude Code? Is it an app you download, a website you visit, or something else? If you already have it installed, predict: what happens when you type 'claude' in your terminal with no arguments?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Installing Claude Code\n\nClaude Code is a **command-line tool** — you run it in your terminal (Terminal on macOS, a terminal emulator on Linux, or PowerShell/WSL on Windows). If you have never used a terminal before, don't worry. You only need to know how to open it and type commands.\n\n### Step 1: Install\n\nOpen your terminal and run:\n\n```\nnpm install -g @anthropic-ai/claude-code\n```\n\nThis installs Claude Code globally on your machine. If you do not have `npm` (Node.js package manager), you will need to install Node.js first from nodejs.org.\n\n### Step 2: Authenticate\n\nRun:\n\n```\nclaude auth login\n```\n\nThis connects Claude Code to your Anthropic account. Follow the prompts to sign in.\n\n### Step 3: Start a session\n\nNavigate to any folder on your computer and run:\n\n```\nclaude\n```\n\nThat is it. You are now in an interactive Claude Code session.\n\n## Three ways to start\n\nClaude Code has three main modes of use:\n\n| Mode | Command | When to use it |\n| :-- | :-- | :-- |\n| **Interactive** | `claude` | You want to have an ongoing session, ask follow-up questions, and collaborate |\n| **With a prompt** | `claude \"your question here\"` | You want to start a session with an initial task |\n| **Quick answer** | `claude -p \"your question\"` | You want an answer printed to the terminal, then Claude exits |\n\nThe interactive mode is what you will use most often. Think of it as opening a workspace where Claude Code can see your files and help you work.\n\n## Resuming previous work\n\nClaude Code remembers your sessions. If you close your terminal and come back later:\n\n- `claude --continue` or `claude -c` — Resume your most recent session\n- `claude --resume` or `claude -r` — Pick from a list of previous sessions\n\nYour conversation history, the files Claude read, and the context it built up are all preserved."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Install Claude Code (if you haven't already) and start an interactive session. Type a simple question like 'What files are in this directory?' Watch what happens — Claude will use tools to answer, not just guess.",
+      "solution": "Claude Code should make a tool call (likely using Bash to run 'ls' or using the Glob tool) to actually look at your directory. It reads real data from your system rather than guessing. If you see tool calls appearing before Claude's response, the agentic loop is working."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code runs in your terminal. Type 'claude' to start, 'claude -c' to resume. It works in whatever directory you open it from, and it can see and interact with the files there."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now that you have a running session, the next module teaches you to read what Claude Code is showing you — the permission prompts, tool calls, and status indicators that tell you what the agentic loop is doing at each moment."
+    }
+  ]
+}

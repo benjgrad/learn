@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "3.5 Getting Data In",
+    "description": "All the ways to give Claude information: @-mentions, images, piping, system prompts, and adding directories.",
+    "level": "level-3",
+    "slug": "getting-data-in",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Think about the different types of information you work with: documents, spreadsheets, images, websites, emails, databases. For each one, how would you get that information into Claude Code? Some are obvious. Others might surprise you."
+    },
+    {
+      "type": "markdown",
+      "content": "## Every way to get information into Claude\n\nModule 2.5 introduced the basics: @file mentions, image paste, piping, and system prompt files. This module is the comprehensive reference. Bookmark it and come back when you need a reminder.\n\n## Method 1: @-mentions (file references)\n\nType `@` followed by a file path to include a file's contents directly in your prompt.\n\n```\nSummarize the key points in @reports/quarterly-review.md\n```\n\nClaude Code shows autocomplete suggestions as you type. The file content is loaded into your prompt immediately — Claude does not need to use a tool call to read it.\n\n**Tips:**\n- You can @-mention multiple files: `Compare @v1.md and @v2.md`\n- Works with any text file: markdown, CSV, JSON, plain text, code\n- The file must be within Claude Code's working directory or added directories\n- For very large files, Claude may only receive a portion — consider mentioning specific sections\n\n## Method 2: Image paste (Ctrl+V / Cmd+V)\n\nCopy any image to your clipboard and paste it into Claude Code.\n\n**What works:**\n- Screenshots of anything on your screen\n- Photos from your camera (copy from photo viewer)\n- Diagrams, charts, mockups\n- Whiteboard photos\n- Screenshots of error messages\n- Tables from PDFs that are hard to copy as text\n\n**Practical examples:**\n- Paste a screenshot of a spreadsheet: \"Extract this data into a CSV file\"\n- Paste a UI mockup: \"Describe what this interface shows and suggest improvements\"\n- Paste a chart: \"What trends do you see in this chart? Summarize the key takeaways.\"\n- Paste a handwritten note: \"Transcribe this and format it as a clean to-do list\"\n\n## Method 3: Piping from the shell\n\nPipe data from any command directly into Claude:\n\n```bash\n# Quick transforms\ncat notes.txt | claude -p \"Convert these notes to action items\"\n\n# Chain with other commands\ncurl -s https://api.example.com/data | claude -p \"Summarize this JSON\"\n\n# Clipboard contents\npbpaste | claude -p \"Rewrite this email to be more concise\"  # macOS\nxclip -o | claude -p \"Rewrite this email to be more concise\"  # Linux\n\n# Command output\nls -la | claude -p \"Which of these files was modified most recently?\"\n\n# Interactive session with piped context\ncat project-spec.md | claude \"Help me estimate the timeline for this project\"\n```\n\nThe `-p` flag means print mode — Claude processes the input, prints a response, and exits. Without `-p`, you start an interactive session with the piped content as initial context.\n\n**When piping shines:** Quick one-off transformations, processing command output, building automated workflows, and working with data from APIs or other tools.\n\n## Method 4: System prompt files\n\n```bash\nclaude --system-prompt-file brand-guidelines.txt \"Write the weekly newsletter\"\n```\n\nThe system prompt file contains persistent instructions that apply to everything in the session. It is loaded before your prompt and shapes all of Claude's responses.\n\n**Good uses for system prompt files:**\n- Brand voice and style guidelines\n- Company-specific terminology\n- Output format requirements\n- Role descriptions (\"You are a financial analyst reviewing...\")\n- Rules that apply across many tasks\n\nYou can create different system prompt files for different types of work: one for writing, one for data analysis, one for project management.\n\n## Method 5: Adding directories with /add-dir\n\nBy default, Claude Code can access files in the directory where you launched it. Use `/add-dir` to expand its reach:\n\n```\n/add-dir ~/Documents/project-resources\n```\n\nNow Claude can read, search, and reference files in that directory too. This is useful when:\n- Your task involves files spread across multiple locations\n- You want Claude to reference a shared resource folder\n- You are working on a project that depends on files in another project\n\n## Method 6: Let Claude find it\n\nSometimes the best input method is no input method. If the information exists somewhere in your project, you can just describe what you need:\n\n> Find all files in this project that contain pricing information and create a summary.\n\nClaude will use Glob and Grep to locate the files, Read to examine them, and then produce the summary. You do not need to know where the files are — that is Claude's job.\n\n**Use this when:**\n- You do not know exactly which file contains the information\n- The information is spread across many files\n- You want Claude to be thorough rather than limited to files you thought of\n\n## Choosing the right method — quick reference\n\n| You have... | Use... |\n| :-- | :-- |\n| A specific file you want Claude to read | @file mention |\n| An image, screenshot, or photo | Ctrl+V paste |\n| Output from another command | Pipe with `|` |\n| Text on your clipboard | Pipe with `pbpaste |` or `xclip -o |` |\n| Persistent rules for a type of work | `--system-prompt-file` |\n| Files in another directory | `/add-dir` |\n| Information somewhere in your project | Just describe it and let Claude search |\n| A URL you want Claude to read | Pipe with `curl -s URL |` |"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have a PDF report, a screenshot of a chart from that report, and notes from a meeting about the report — all in different locations. You want Claude to synthesize all three into an executive summary. How would you get all this information to Claude?",
+      "answer": "Use multiple input methods in one session: **@mention** the PDF report (Claude can read PDFs), **Ctrl+V paste** the chart screenshot, and either **@mention** the meeting notes file or **describe** what the meeting notes contain if they are in your head. Your prompt might look like: 'Create an executive summary that combines the findings from @reports/q1.pdf, this chart [paste image], and these meeting notes @notes/q1-meeting.md. Focus on the three most actionable insights.' Claude handles all three input types in a single interaction."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Try a piping workflow. Pick something from your clipboard or a file on your system and pipe it into Claude with a transformation request. For example: 'pbpaste | claude -p \"Rewrite this to be more concise\"' (macOS) or 'xclip -o | claude -p \"Rewrite this to be more concise\"' (Linux). Try at least one pipe-based command and one @-mention in the same day.",
+      "solution": "Piping should feel fast and direct — you get a result without starting an interactive session. This is ideal for quick transformations. Compare it to @-mentions, which are better for interactive work where you might ask follow-up questions. The goal is to have both tools in your repertoire and choose based on the situation: piping for one-shot transforms, @-mentions for interactive exploration."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What types of information do you most often need to share with Claude? Which input method maps best to each type?",
+        "Have you been manually copy-pasting information that could be @-mentioned or piped instead? What would change if you switched?",
+        "Think about a recurring task you do with Claude. Would a system prompt file save you from repeating the same instructions every time?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code has six ways to receive information: @-mentions for specific files, Ctrl+V for images, piping for shell data and quick transforms, --system-prompt-file for persistent rules, /add-dir for expanding scope, and letting Claude search for it. Choose the method that matches your data source. Combine methods for complex tasks."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Getting data in is half the equation. The next module covers getting results out — copying output, exporting conversations, structured output formats, and using print mode for quick answers that feed into other tools."
+    }
+  ]
+}

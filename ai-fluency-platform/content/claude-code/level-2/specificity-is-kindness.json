@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "2.2 Specificity Is Kindness",
+    "description": "Precise constraints beat verbose explanations. Learn where the line is between helpful specificity and counterproductive micromanagement.",
+    "level": "level-2",
+    "slug": "specificity-is-kindness",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Which do you think produces a better result: a 5-sentence prompt with specific constraints, or a 3-paragraph prompt with detailed background explanation? Write down your guess and reasoning."
+    },
+    {
+      "type": "markdown",
+      "content": "## The two ways prompts go wrong\n\nThere are two failure modes when briefing Claude, and they look very different:\n\n**Under-specifying the WHAT:** You do not give Claude enough information about what you want. \"Write me a blog post.\" About what? For whom? How long? What tone? Claude fills in every blank with its best guess, and its guesses probably do not match your preferences.\n\n**Over-specifying the HOW:** You tell Claude exactly which steps to take, which tools to use, which order to work in. \"First read file A, then read file B, then compare lines 15-30, then write the output to file C using this exact format.\" You have turned an autonomous agent into a command executor, and you have probably written a worse plan than Claude would have come up with on its own.\n\nThe sweet spot is **precise constraints on the outcome, freedom on the approach.**\n\n## What counts as a useful constraint\n\nA constraint is useful when it helps Claude verify its own work. Think of constraints as the rubric you would hand to someone grading the output.\n\n**Useful constraints (outcome-focused):**\n- \"Under 300 words\"\n- \"Written for a non-technical audience\"\n- \"Include at least 3 specific examples\"\n- \"Tone: professional but warm, similar to Mailchimp's brand voice\"\n- \"Output as a markdown table with columns for Name, Date, and Status\"\n- \"Must handle the case where the input is empty\"\n\n**Less useful constraints (process-focused):**\n- \"Start by reading the README\"\n- \"Use the grep tool to find all instances\"\n- \"Don't use any external libraries\"\n- \"Write it in exactly 4 paragraphs\"\n\nThe second group is not always wrong — sometimes you have a genuine reason to constrain the process. But notice that process constraints limit Claude's ability to find the best approach, while outcome constraints sharpen Claude's ability to deliver the right result.\n\n## The specificity spectrum\n\nLet us look at the same request at five levels of specificity:\n\n**Level 1 — Too vague:**\n> Analyze this data.\n\nClaude's internal reaction: Analyze it how? What are you looking for? What format do you want?\n\n**Level 2 — Slightly better:**\n> Analyze this sales data and tell me what's interesting.\n\n\"Interesting\" is subjective. Claude will guess what you find interesting.\n\n**Level 3 — Good for exploration:**\n> Analyze this sales data. Identify the top 3 trends, any anomalies, and compare Q1 to Q2 performance. Present findings as bullet points with supporting numbers.\n\nClaude knows what to look for, how to structure the output, and can verify against specific criteria.\n\n**Level 4 — Good for specific needs:**\n> Analyze this sales data to answer: Did the pricing change on March 1 affect conversion rates? Compare the 30 days before and after March 1. Show the data in a table and state whether the difference is statistically significant.\n\nClaude has a specific question to answer, a clear methodology, and a defined output format.\n\n**Level 5 — Over-specified:**\n> Open the file sales_q1.csv. Read rows 1-500. Calculate the mean of column D for rows where column A date is before March 1. Then calculate the mean for dates after March 1. Subtract the first from the second. If the difference is more than 5%, say it's significant.\n\nYou have written the code yourself, just in English. Claude cannot improve on your approach, catch edge cases, or suggest a better analysis method. Also, a 5% threshold is not how statistical significance works — but Claude cannot push back because you have dictated the method.\n\nMost tasks land best at Level 3 or 4.\n\n## The golden rule\n\n**Be specific about what you want. Be flexible about how Claude gets there.**\n\nThis means:\n- Specify the output format (table, bullet points, JSON, email)\n- Specify the audience (technical, executive, customer-facing)\n- Specify the constraints (word count, must-include items, tone)\n- Specify the success criteria (what makes this output correct)\n- Do NOT specify which files to read (let Claude find them)\n- Do NOT specify which tools to use (let Claude choose)\n- Do NOT specify the order of operations (let Claude plan)\n\nThere are exceptions. If you know Claude keeps choosing the wrong file, say \"read config.yaml, not config.json.\" If a specific approach is required for a business reason, say so. But make those exceptions deliberate, not habitual.\n\n## Why specificity is kindness\n\nThe title of this module is not a metaphor. When you give someone vague instructions, you are putting the burden on them to read your mind. When you give specific constraints, you are removing ambiguity and making success achievable.\n\nThe same is true with Claude. Vague prompts force Claude to guess. Specific constraints let Claude succeed. Every constraint you add is one less thing Claude has to guess about — and one more thing Claude can verify in its output."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You want Claude to reorganize your notes folder. Which prompt is better and why? (A) 'Organize my notes into folders by topic. Create a README in each folder listing the contents.' (B) 'Go through each file in my notes folder. Read the first 10 lines. Decide the category. Create a folder for that category. Move the file there. Then create a README.'",
+      "answer": "**Prompt A is better.** It specifies the desired outcome (organized by topic, with READMEs) but lets Claude decide how to accomplish it. Claude might find a more efficient approach — perhaps reading file names and contents to batch-categorize, or asking you about ambiguous files. **Prompt B** over-specifies the process (read first 10 lines, one file at a time) and may produce worse results — what if the topic is not clear from the first 10 lines? Claude cannot adapt because you have locked in the method."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take this vague prompt and rewrite it at Level 3 and Level 4 specificity: 'Help me prepare for my meeting tomorrow.' Do not over-specify the how — focus on constraints about the what. Then run your Level 4 version with Claude and see if the output matches your expectations.",
+      "solution": "A Level 3 rewrite might be: 'Help me prepare for tomorrow's team standup. Create a bullet-point list of my key updates, any blockers, and questions I need answered. Keep it to one page.' A Level 4 rewrite adds more context: 'Help me prepare for tomorrow's quarterly review with the VP of Sales. I need: a one-page summary of our team's Q1 results, three talking points about the pipeline, and a list of asks I want to make. Tone should be confident and data-driven. Use the sales report I shared last week as the source.' The key difference is that Level 4 has a specific audience, a specific occasion, and specific deliverables."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "In your own words, explain the difference between over-specifying the 'how' and being specific about the 'what.' Why does one help Claude and the other limit it?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a time you got exactly the wrong output from an AI. Was the problem that you under-specified the what, or over-specified the how?",
+        "Do you tend toward vague prompts (hoping Claude figures it out) or micromanaged prompts (dictating every step)? Which failure mode is your default?",
+        "What is one constraint you almost never include in your prompts but probably should — audience, format, length, or tone?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Be specific about what you want (outcome, format, audience, constraints). Be flexible about how Claude gets there (tools, order, approach). Under-specifying the what forces Claude to guess. Over-specifying the how prevents Claude from finding the best approach. The sweet spot is precise constraints on the outcome with freedom on the method."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Specificity gets you most of the way to great results. But there is one habit that multiplies everything else: giving Claude something to verify its own work against. That is the single highest-leverage technique in all of Claude Code, and it is the subject of the next module."
+    }
+  ]
+}

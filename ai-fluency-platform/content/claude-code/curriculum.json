@@ -1,0 +1,709 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "title": "The Loop",
+      "subtitle": "Understanding what you're working with",
+      "color": "#3b82f6",
+      "description": "Most people treat Claude Code like a chatbot. This level shifts your mental model: Claude Code is an autonomous agent that runs a gather, act, verify loop. You are the manager of this loop. Understanding this changes everything about how you use it.",
+      "moduleCount": 5
+    },
+    {
+      "level": 2,
+      "title": "The Briefing",
+      "subtitle": "How to talk to an agent",
+      "color": "#8b5cf6",
+      "description": "You are writing a briefing for a capable but context-free colleague. The quality of the briefing determines the quality of the work. Learn to define what done looks like, give Claude something to verify, and know when to reset instead of correct.",
+      "moduleCount": 6
+    },
+    {
+      "level": 3,
+      "title": "The Dashboard",
+      "subtitle": "Knowing your tools",
+      "color": "#06b6d4",
+      "description": "Claude Code has a dashboard of tools, slash commands, permission modes, and session controls. You don't need to tell Claude which to use, but knowing what's available helps you understand what's possible and steer when needed.",
+      "moduleCount": 7
+    },
+    {
+      "level": 4,
+      "title": "The Budget",
+      "subtitle": "Mastering context",
+      "color": "#f97316",
+      "description": "Context is a budget. Every file read, every message, every tool output costs context. When you overspend, quality collapses like a cliff. This is the single biggest skill gap between intermediate and expert users. Learn CLAUDE.md, memory, compaction, and strategic resets.",
+      "moduleCount": 7
+    },
+    {
+      "level": 5,
+      "title": "The Blueprint",
+      "subtitle": "Planning before building",
+      "color": "#ef4444",
+      "description": "The cheapest mistake to fix is one you never make. Plan Mode lets you explore and think before spending tokens on implementation. Learn the four-phase workflow and apply it to research, writing, data management, and debugging.",
+      "moduleCount": 7
+    },
+    {
+      "level": 6,
+      "title": "The Workshop",
+      "subtitle": "Building your own tools",
+      "color": "#10b981",
+      "description": "Claude Code is a workshop, not a fixed tool. Build custom skills, set up automatic hooks, create specialized subagents, and connect external services through MCP. Your Claude Code becomes uniquely yours.",
+      "moduleCount": 7
+    },
+    {
+      "level": 7,
+      "title": "The Fleet",
+      "subtitle": "Parallel power",
+      "color": "#ec4899",
+      "description": "One Claude session is one worker. With worktrees, agent teams, batch mode, and CI/CD integration, you become a fleet commander coordinating multiple parallel streams of work. This is where Claude Code becomes transformatively powerful.",
+      "moduleCount": 7
+    },
+    {
+      "level": 8,
+      "title": "The Intuition",
+      "subtitle": "Mastering the meta-game",
+      "color": "#6366f1",
+      "description": "Mastery is not knowing every feature. It is having intuition for the collaboration. You know when to give Claude freedom, when to constrain it, when to reset, and when to take over. The tool becomes invisible. You just think and ship.",
+      "moduleCount": 6
+    }
+  ],
+  "modules": {
+    "root": [
+      {
+        "title": "Getting Started",
+        "description": "How to approach this course, who it's for, and what you'll learn at each level.",
+        "level": "root",
+        "slug": "getting-started",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": false
+      }
+    ],
+    "level-1": [
+      {
+        "title": "Level 1: The Loop",
+        "description": "Understand what Claude Code actually is and how the agentic loop works.",
+        "level": "level-1",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "1.1 You're Not Chatting",
+        "description": "Claude Code is an autonomous agent, not a chatbot. Understanding the agentic loop changes everything.",
+        "level": "level-1",
+        "slug": "youre-not-chatting",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.2 Getting Started",
+        "description": "Install Claude Code, authenticate, and run your first session.",
+        "level": "level-1",
+        "slug": "getting-started",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.3 What You See on Screen",
+        "description": "Learn to read Claude Code's visual cues — tool calls, permission prompts, and the status line.",
+        "level": "level-1",
+        "slug": "reading-the-interface",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.4 The Context Window",
+        "description": "Everything Claude knows is in the context window right now. Nothing else exists.",
+        "level": "level-1",
+        "slug": "context-window",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.5 Your First Real Collaboration",
+        "description": "A guided exercise where you use Claude Code to complete a real task end-to-end.",
+        "level": "level-1",
+        "slug": "first-collaboration",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "1.6 Checkpoint",
+        "description": "Test your understanding of the agentic loop, the interface, and the context window.",
+        "level": "level-1",
+        "slug": "checkpoint",
+        "order": 6,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-2": [
+      {
+        "title": "Level 2: The Briefing",
+        "description": "Learn to communicate with Claude Code like writing a briefing for a capable colleague.",
+        "level": "level-2",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "2.1 The Briefing Mindset",
+        "description": "Define what done looks like, not how to get there.",
+        "level": "level-2",
+        "slug": "briefing-mindset",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.2 Specificity Is Kindness",
+        "description": "Precise constraints save Claude and you time. Learn the difference between vague and clear.",
+        "level": "level-2",
+        "slug": "specificity-is-kindness",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.3 Give Something to Verify",
+        "description": "The single highest-leverage habit: include expected output, test criteria, or a reference.",
+        "level": "level-2",
+        "slug": "give-something-to-verify",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.4 The Interview Pattern",
+        "description": "For complex work, ask Claude to interview you first before starting.",
+        "level": "level-2",
+        "slug": "interview-pattern",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.5 Mentions and Piping",
+        "description": "Give Claude the right briefing materials with @-mentions, image paste, and piping.",
+        "level": "level-2",
+        "slug": "mentions-and-piping",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.6 Knowing When to Reset",
+        "description": "Correction spirals vs. starting fresh. The sunk cost trap in AI collaboration.",
+        "level": "level-2",
+        "slug": "knowing-when-to-reset",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "2.7 Checkpoint",
+        "description": "Rewrite bad prompts into effective briefings, then execute them.",
+        "level": "level-2",
+        "slug": "checkpoint",
+        "order": 7,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-3": [
+      {
+        "title": "Level 3: The Dashboard",
+        "description": "Know every built-in tool and when to reach for it.",
+        "level": "level-3",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "3.1 Built-in Tools",
+        "description": "Read, Edit, Write, Glob, Grep, Bash — what each does, in plain language.",
+        "level": "level-3",
+        "slug": "built-in-tools",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.2 Slash Commands",
+        "description": "The commands you will use daily — /clear, /compact, /context, /cost, and more.",
+        "level": "level-3",
+        "slug": "slash-commands",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.3 Permission Modes",
+        "description": "Default, Auto-Accept, Plan Mode — choosing your trust level.",
+        "level": "level-3",
+        "slug": "permission-modes",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.4 Sessions",
+        "description": "Picking up where you left off with --continue, --resume, /rename, and /fork.",
+        "level": "level-3",
+        "slug": "sessions",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.5 Getting Data In",
+        "description": "@-mentions, image paste, piping, and other ways to give Claude information.",
+        "level": "level-3",
+        "slug": "getting-data-in",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.6 Getting Results Out",
+        "description": "/copy, /export, print mode, and structured output for getting Claude's work where you need it.",
+        "level": "level-3",
+        "slug": "getting-results-out",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.7 The Safety Net",
+        "description": "/rewind, /diff, permission prompts, and Esc — the controls that let you use Claude Code confidently.",
+        "level": "level-3",
+        "slug": "safety-net",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "3.8 Checkpoint",
+        "description": "Complete a multi-step task using at least 4 different slash commands.",
+        "level": "level-3",
+        "slug": "checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-4": [
+      {
+        "title": "Level 4: The Budget",
+        "description": "Context is finite. Managing it is the single biggest skill gap between intermediate and expert users.",
+        "level": "level-4",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "4.1 Why Claude Gets Worse Over Time",
+        "description": "The context cliff — quality does not degrade gradually, it falls off.",
+        "level": "level-4",
+        "slug": "why-claude-gets-worse",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.2 What Consumes Your Budget",
+        "description": "Messages, file reads, tool output, CLAUDE.md — everything has a cost.",
+        "level": "level-4",
+        "slug": "what-consumes-budget",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.3 CLAUDE.md — Your Project's Always-On Briefing",
+        "description": "Persistent instructions that load every session. What to include, what to leave out.",
+        "level": "level-4",
+        "slug": "claude-md",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.4 The Memory System",
+        "description": "Auto-memory, the rules directory, and how Claude remembers across sessions.",
+        "level": "level-4",
+        "slug": "memory-system",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.5 Compaction",
+        "description": "Squeezing more into the context window with /compact and auto-compaction.",
+        "level": "level-4",
+        "slug": "compaction",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.6 The /clear Strategy",
+        "description": "When to throw away context and start fresh — it is strategy, not failure.",
+        "level": "level-4",
+        "slug": "the-clear-strategy",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.7 Subagents as Context Shields",
+        "description": "Using Explore agents to investigate without bloating your main window.",
+        "level": "level-4",
+        "slug": "subagents-as-shields",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.8 Checkpoint",
+        "description": "Diagnose a stale session — identify what is consuming context and fix it.",
+        "level": "level-4",
+        "slug": "checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-5": [
+      {
+        "title": "Level 5: The Blueprint",
+        "description": "The cheapest mistake to fix is one you never make. Plan before building.",
+        "level": "level-5",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "5.1 Plan Mode",
+        "description": "Read-only exploration — safe, cheap, and clarifying.",
+        "level": "level-5",
+        "slug": "plan-mode",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.2 The Four-Phase Workflow",
+        "description": "Explore, Plan, Implement, Verify — the canonical pattern for non-trivial tasks.",
+        "level": "level-5",
+        "slug": "four-phase-workflow",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.3 Scoping Work",
+        "description": "Breaking big asks into phases Claude can handle without context overflow.",
+        "level": "level-5",
+        "slug": "scoping-work",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.4 Workflow: Research",
+        "description": "Using Claude Code to research a topic, gather findings, and synthesize.",
+        "level": "level-5",
+        "slug": "workflow-research",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.5 Workflow: Writing",
+        "description": "Drafting, revising, and restructuring documents with Plan Mode.",
+        "level": "level-5",
+        "slug": "workflow-writing",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.6 Workflow: Data",
+        "description": "Organizing, cleaning, and transforming data and files.",
+        "level": "level-5",
+        "slug": "workflow-data",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.7 Workflow: Debugging",
+        "description": "The universal debug loop: reproduce, locate, understand, fix, verify.",
+        "level": "level-5",
+        "slug": "workflow-debugging",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "5.8 Checkpoint",
+        "description": "Use the four-phase workflow on a real task from your work.",
+        "level": "level-5",
+        "slug": "checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-6": [
+      {
+        "title": "Level 6: The Workshop",
+        "description": "Build your own tools, automations, and integrations. Claude Code becomes uniquely yours.",
+        "level": "level-6",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "6.1 Skills — Your Custom Commands",
+        "description": "Create custom slash commands with SKILL.md files and parameterized templates.",
+        "level": "level-6",
+        "slug": "skills-custom-commands",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.2 Your First Skill",
+        "description": "Guided walkthrough: build a skill for a task you do repeatedly.",
+        "level": "level-6",
+        "slug": "your-first-skill",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.3 Hooks — Automatic Reactions",
+        "description": "When something happens, do something else automatically.",
+        "level": "level-6",
+        "slug": "hooks-automatic-reactions",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.4 Your First Hook",
+        "description": "Guided walkthrough: build a hook that solves a real annoyance.",
+        "level": "level-6",
+        "slug": "your-first-hook",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.5 Custom Subagents",
+        "description": "Create agents with specific roles, restricted tools, and different models.",
+        "level": "level-6",
+        "slug": "custom-subagents",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.6 MCP — Connecting to the Outside World",
+        "description": "Connect external tools and services through the Model Context Protocol.",
+        "level": "level-6",
+        "slug": "mcp-connecting-outside",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.7 Composing Your Extensions",
+        "description": "How skills, hooks, agents, and MCP compose into a full ecosystem.",
+        "level": "level-6",
+        "slug": "composing-extensions",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "6.8 Checkpoint",
+        "description": "Build a custom workflow with at least one skill and one hook working together.",
+        "level": "level-6",
+        "slug": "checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-7": [
+      {
+        "title": "Level 7: The Fleet",
+        "description": "Coordinate multiple parallel Claude sessions for transformative speed.",
+        "level": "level-7",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "7.1 Worktrees — Parallel Universes",
+        "description": "Isolated git branches where Claude works independently.",
+        "level": "level-7",
+        "slug": "worktrees",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.2 Agent Teams",
+        "description": "Lead plus teammates with parallel investigation and task assignment.",
+        "level": "level-7",
+        "slug": "agent-teams",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.3 Batch Mode — Fan Out",
+        "description": "Apply the same change across many files at once with /batch.",
+        "level": "level-7",
+        "slug": "batch-skill",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.4 Non-Interactive Automation",
+        "description": "Using claude -p in scripts with JSON output, turn limits, and budget controls.",
+        "level": "level-7",
+        "slug": "non-interactive-automation",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.5 CI/CD Integration",
+        "description": "Running Claude Code in GitHub Actions and automated pipelines.",
+        "level": "level-7",
+        "slug": "ci-cd-integration",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.6 The Agent SDK",
+        "description": "Python and TypeScript SDK for programmatic agent control.",
+        "level": "level-7",
+        "slug": "agent-sdk",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.7 Remote and Mobile Access",
+        "description": "Remote sessions, teleport, mobile access, and the desktop app.",
+        "level": "level-7",
+        "slug": "remote-and-mobile",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.8 Checkpoint",
+        "description": "Set up an automated workflow that runs Claude Code without you in the loop.",
+        "level": "level-7",
+        "slug": "checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ],
+    "level-8": [
+      {
+        "title": "Level 8: The Intuition",
+        "description": "Mastery is intuition for the collaboration. The tool becomes invisible.",
+        "level": "level-8",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true
+      },
+      {
+        "title": "8.1 Patterns That Matter",
+        "description": "All the mental models synthesized into intuitive behavior.",
+        "level": "level-8",
+        "slug": "patterns-that-matter",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "8.2 When Not to Use Claude",
+        "description": "Tasks better done manually and the trap of automation theater.",
+        "level": "level-8",
+        "slug": "when-not-to-use",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "8.3 When Claude Breaks",
+        "description": "Loops, hallucinations, misunderstandings — recovery patterns and when to take over.",
+        "level": "level-8",
+        "slug": "when-claude-breaks",
+        "order": 3,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "8.4 Evolving Your Setup",
+        "description": "CLAUDE.md pruning, skill iteration, and reviewing your usage patterns.",
+        "level": "level-8",
+        "slug": "evolving-your-setup",
+        "order": 4,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "8.5 Settings Architecture",
+        "description": "User, project, local, and managed settings — precedence rules and team sharing.",
+        "level": "level-8",
+        "slug": "settings-architecture",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "8.6 Teaching Others",
+        "description": "How to onboard teammates and build team-wide standards.",
+        "level": "level-8",
+        "slug": "teaching-others",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "8.7 Final Capstone",
+        "description": "End-to-end project proving your patterns of thought transfer to any domain.",
+        "level": "level-8",
+        "slug": "final-capstone",
+        "order": 7,
+        "isCheckpoint": true,
+        "isIndex": false
+      }
+    ]
+  }
+}

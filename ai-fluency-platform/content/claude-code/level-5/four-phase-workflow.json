@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "5.2 The Four-Phase Workflow",
+    "description": "Explore, Plan, Implement, Verify — the canonical pattern for non-trivial tasks.",
+    "level": "level-5",
+    "slug": "four-phase-workflow",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You need to create a quarterly report from multiple data sources. Most people would just say 'Write me a quarterly report from these files.' What do you think would happen if you broke this into distinct phases instead? Write down what phases you would use before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The pattern that changes everything\n\nEvery effective Claude Code session for non-trivial work follows the same four phases. Whether you are writing a report, reorganizing files, analyzing data, or debugging a problem, the pattern is:\n\n1. **Explore** — Understand the current state\n2. **Plan** — Decide what to do and how\n3. **Implement** — Execute the plan\n4. **Verify** — Confirm the result is correct\n\nThis is not new wisdom. Builders, engineers, writers, and strategists have followed this pattern for centuries. But most Claude Code users skip steps 1 and 2, jumping straight to implementation. This is the single most common cause of wasted time and context.\n\n## The four phases in detail\n\n### Phase 1: Explore\n\n**Goal:** Understand what exists, what you are working with, and what the constraints are.\n\nThis is where Plan Mode shines. You let Claude read, search, and analyze without making any changes. At the end of this phase, you and Claude share a common understanding of the starting point.\n\n**Typical prompts:**\n- \"Read through the files in /reports and tell me what data is available for Q4.\"\n- \"Analyze the structure of this document. What sections exist? What is the flow?\"\n- \"Look at these spreadsheet files and tell me what columns they have in common.\"\n\n**What you get:** A clear picture of the raw material — what you have, how it is organized, what is missing, what is inconsistent.\n\n### Phase 2: Plan\n\n**Goal:** Agree on the approach before any work begins.\n\nStill in Plan Mode or in conversation. You and Claude discuss the approach, make decisions, and create a concrete plan. This is where you catch problems that would be expensive to fix later.\n\n**Typical prompts:**\n- \"Based on what you found, propose an outline for the quarterly report.\"\n- \"What is the best way to reorganize these files? Give me three options.\"\n- \"Before we start cleaning this data, what are the potential issues we should handle?\"\n\n**What you get:** An explicit plan — an outline, a sequence of steps, a decision about approach. You review it, modify it, and agree before moving forward.\n\n**Why this phase matters most:** This is where the leverage is. A five-minute planning conversation can prevent a thirty-minute rework cycle. Every decision made in the planning phase is one less surprise during implementation.\n\n### Phase 3: Implement\n\n**Goal:** Execute the agreed plan.\n\nNow you switch to normal mode and let Claude work. Because you explored and planned first, Claude has a clear, specific brief. It knows exactly what to do, in what order, and what the expected result looks like.\n\n**Typical prompts:**\n- \"Execute the outline we agreed on. Start with the executive summary section.\"\n- \"Reorganize the files according to the plan. Move them into the new folder structure.\"\n- \"Clean the data using the rules we discussed. Start with the date formatting.\"\n\n**What you get:** Implementation that matches the plan. Fewer surprises, fewer corrections, less wasted context.\n\n### Phase 4: Verify\n\n**Goal:** Confirm the result is correct and complete.\n\nAfter implementation, you check the work. This can mean reading the output, running a check, comparing before and after, or simply reviewing what changed.\n\n**Typical prompts:**\n- \"Read the completed report and check: Does it follow the outline? Are all sections present? Are the numbers consistent with the source data?\"\n- \"List the new folder structure and confirm all files were moved correctly.\"\n- \"Summarize what changed in the data cleaning. Were any rows removed? Were any values modified?\"\n\n**What you get:** Confidence that the work is correct, or specific issues to fix.\n\n## A concrete example: the quarterly report\n\nLet us walk through the full workflow with a non-coding task.\n\n**Task:** Create a Q4 summary report from sales data, customer feedback, and team updates.\n\n**Phase 1 — Explore (Plan Mode):**\n\"I need to create a Q4 report. The relevant files are in /data/q4/. Read through them and tell me: what data sources are available, what time periods they cover, and what the key metrics are.\"\n\nClaude reads the files and reports: three CSV files (sales by region, customer satisfaction scores, support tickets), two text files (team updates from marketing and engineering), and one spreadsheet with financial summaries. All cover October through December.\n\n**Phase 2 — Plan:**\n\"Propose a report outline that leads with the most impactful findings. The audience is the executive team — they want the story, not the raw data. Keep it under 2,000 words.\"\n\nClaude proposes an outline: Executive summary (200 words), Key metrics dashboard, Regional performance highlights, Customer satisfaction trends, Operational updates, Outlook for Q1. You adjust: move customer satisfaction higher, add a \"Risks and concerns\" section.\n\n**Phase 3 — Implement (Normal Mode):**\n\"Write the report following the adjusted outline. Pull specific numbers from the data files. Use active voice, keep paragraphs short, and bold the key metrics.\"\n\n**Phase 4 — Verify:**\n\"Read the completed report. Check that: (1) all numbers match the source files, (2) every section from the outline is present, (3) the executive summary is under 200 words, (4) the tone is appropriate for executives.\"\n\n## When to skip planning\n\nNot every task needs all four phases. Simple tasks — \"rename this file,\" \"fix this typo,\" \"add a row to this spreadsheet\" — can go straight to implementation. The four-phase workflow is for **non-trivial tasks** where:\n\n- Multiple files or sources are involved\n- The task has several steps\n- Getting it wrong would be costly to undo\n- You are not sure about the best approach\n\nA good rule of thumb: **if you cannot describe the complete result in one sentence, use the four-phase workflow.**"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A colleague asks Claude Code to 'reorganize my project files into a better structure.' After 15 minutes of Claude moving files around, the result is not what they wanted and some files are in the wrong places. What went wrong, and how would the four-phase workflow have prevented this?",
+      "answer": "They **skipped Explore and Plan**, jumping straight to Implement. Claude guessed at what 'better structure' meant without understanding the current state or the user's preferences. The four-phase workflow would have prevented this: (1) **Explore:** Claude scans the current structure and reports what exists. (2) **Plan:** Claude proposes 2-3 organizational schemes, the user picks one and adjusts it. (3) **Implement:** Claude reorganizes according to the agreed plan. (4) **Verify:** Claude confirms all files are in the right place. The planning phase would have caught the misalignment before any files were moved."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Choose a real task from your work — something that involves at least 3-4 steps. Use the four-phase workflow explicitly: explore in Plan Mode, create a plan, switch to normal mode to implement, then verify. Compare the result to how you would have approached it before learning this workflow.",
+      "solution": "The key comparison is between the planned approach and your usual approach. Most users find that the planned version: (1) produces a better result on the first try, (2) requires fewer corrections, (3) uses less total context, and (4) takes about the same total time (planning time is offset by reduced rework time). The explore phase often reveals things you would not have anticipated — missing files, data inconsistencies, structural issues — that would have caused problems mid-implementation."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Walk through the four-phase workflow using an example from your own work. Describe what you would do in each phase and why the planning phase is worth the time investment."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about your last complex Claude Code task. Which of the four phases did you actually use? Which did you skip?",
+        "When is planning overhead and when is it an investment? Where is the line for you?",
+        "How does the four-phase workflow interact with context management from Level 4?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The four-phase workflow — Explore, Plan, Implement, Verify — is the canonical pattern for non-trivial tasks. Most users skip to Implement and pay for it in corrections and rework. The planning phase is where the leverage is: five minutes of planning regularly saves thirty minutes of rework. If you cannot describe the complete result in one sentence, use the four phases."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The four-phase workflow works great for tasks that fit in a single session. But what about tasks that are too big? The next module covers scoping — how to break large asks into phases Claude can actually handle."
+    }
+  ]
+}

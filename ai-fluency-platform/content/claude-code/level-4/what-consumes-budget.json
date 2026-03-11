@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "4.2 What Consumes Your Budget",
+    "description": "Every input has a token cost — learn what is expensive and what is cheap.",
+    "level": "level-4",
+    "slug": "what-consumes-budget",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Rank these from most to least expensive in context tokens: (a) a 5-line message from you, (b) Claude reading a 500-line file, (c) the output from running a terminal command, (d) the CLAUDE.md file loading at session start. Write down your ranking before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## Everything has a price tag\n\nIn Level 1, we introduced the context window. Now it is time to get specific about what fills it up. Every piece of information in a Claude Code session occupies tokens — and tokens are your finite budget.\n\nThe tricky part is that most of the context spending happens **invisibly**. You see your messages and Claude's responses, but you do not see the thousands of tokens consumed by file reads, tool outputs, and system instructions happening behind the scenes.\n\n## The budget table\n\nHere is a rough guide to what things cost. These are approximations — exact token counts vary — but the relative scale is what matters.\n\n| Input | Approximate cost | Notes |\n| :-- | :-- | :-- |\n| **Your message** (short prompt) | 20-100 tokens | Cheap. A few sentences cost almost nothing. |\n| **Your message** (long detailed prompt) | 200-800 tokens | Still relatively cheap. Detailed prompts are a great investment. |\n| **Claude's response** (short) | 50-200 tokens | Moderate. |\n| **Claude's response** (long, detailed) | 500-2000 tokens | These add up. Long explanations cost real budget. |\n| **Reading a 50-line file** | ~200-400 tokens | Reasonable. Quick reads are fine. |\n| **Reading a 500-line file** | ~2,000-4,000 tokens | Expensive. Think before reading large files. |\n| **Reading a 1,000-line file** | ~4,000-8,000 tokens | Very expensive. Consider reading specific sections instead. |\n| **Tool output** (command results) | Varies widely | A simple `ls` is cheap. A verbose build log can be thousands of tokens. |\n| **CLAUDE.md** | Depends on length | Loaded every session. A 200-line file might cost 800-1,500 tokens. |\n| **System prompt** | ~500-1,000 tokens | Always present, you cannot control this. |\n\nWith a context window of roughly 200,000 tokens, you might think you have plenty. But it fills up faster than you expect.\n\n## The hidden budget eaters\n\n### 1. File reads are the biggest spender\n\nEvery time Claude reads a file, the **entire content** enters the context window. If Claude reads the same file three times during a session (to check something, then later to edit, then again to verify), that is three copies of the file in the context.\n\nThe expert move: tell Claude which specific file and even which section you need. \"Read lines 45-80 of report.txt\" is dramatically cheaper than \"Read report.txt\" for a long file.\n\n### 2. Verbose tool output\n\nWhen Claude runs a command, the output goes into the context. A clean `git status` costs almost nothing. But a build command that dumps 200 lines of warnings? That is thousands of tokens of noise that push out useful information.\n\nThe expert move: if you know a command will produce verbose output, tell Claude to focus on specific parts. \"Run the build and just tell me if it succeeded or failed — do not paste the full output.\"\n\n### 3. Back-and-forth conversation\n\nEvery message in the conversation stays in context. If you spend ten messages going back and forth clarifying what you want, that is ten messages of context that could have been one clear, detailed prompt.\n\nThis is a direct connection to Level 2. Good prompts are not just about getting better results — they are about **spending less context** to get those results.\n\n### 4. Claude's own explanations\n\nWhen Claude writes a long explanation of what it did, that explanation costs tokens. Sometimes you want the explanation. Often you do not. If you are doing a series of edits, adding \"No need to explain each change\" to your prompt can save significant context.\n\n## The budget mindset\n\nYou do not need to count tokens obsessively. But you should develop an instinct for what is cheap and what is expensive:\n\n- **Cheap**: Short messages, small file reads, concise commands\n- **Moderate**: Detailed prompts (worth the cost), medium files, normal responses\n- **Expensive**: Large file reads, verbose command output, long explanatory responses, repeated reads of the same files\n- **Very expensive**: Reading entire codebases, running commands with huge output, extended back-and-forth conversations\n\nThe key insight is that **your prompts are almost always the cheapest thing in the window**. Never skimp on prompt quality to \"save tokens\" — a detailed prompt costs 200 tokens but might save 10,000 by preventing Claude from reading wrong files or going down the wrong path."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You need Claude to fix a bug in a specific function. The function is on lines 120-145 of a 2,000-line file. What is the budget-smart way to ask Claude to investigate this?",
+      "answer": "Direct Claude to read the specific section: \"Read lines 110-155 of app.js — the handleLogin function — and fix the timeout bug.\" This costs roughly 200-400 tokens instead of the 8,000-16,000 tokens it would cost to read the entire 2,000-line file. You give a few extra lines of context around the function for safety. Even better, if you know related code is elsewhere, point Claude to those specific locations too rather than letting it search broadly."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In your next Claude Code session, before each prompt, consciously estimate whether it will be a cheap or expensive operation. After 10 prompts, check your context usage. Were your estimates roughly right?",
+      "solution": "Most users are surprised by how expensive file reads and tool outputs are relative to their own messages. The insight to land is: your prompts are nearly free compared to the file operations they trigger. A prompt that says 'look through all the files in this directory' could trigger 10+ file reads costing tens of thousands of tokens. A prompt that says 'read the config section in settings.json' triggers one small read. Same goal, vastly different budget impact."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about your typical Claude Code session. What do you think consumes the most context — your messages, Claude's responses, or file operations?",
+        "Have you ever asked Claude to 'read everything' or 'look through all the files'? How might you rephrase that now?",
+        "How does the budget mindset change the way you think about the back-and-forth clarification pattern from earlier levels?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "File reads and tool outputs are the biggest context spenders — far more expensive than your prompts. Never skimp on prompt quality to 'save tokens.' Instead, be specific about what files and sections Claude should read, avoid verbose command output, and minimize back-and-forth clarification by writing clear prompts up front."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now that you know what consumes context, the next module covers one of the most important context items: CLAUDE.md, the file that loads into every session automatically. Since it costs budget every time, every line needs to earn its place."
+    }
+  ]
+}

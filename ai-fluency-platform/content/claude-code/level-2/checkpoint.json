@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "2.7 Checkpoint",
+    "description": "Test your briefing skills: rewrite bad prompts into effective briefings and execute them.",
+    "level": "level-2",
+    "slug": "checkpoint",
+    "order": 7,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Level 2 Checkpoint\n\nThis checkpoint tests whether you have internalized the briefing mindset. You will rewrite bad prompts, identify missing elements, and run a real task using the techniques from Level 2. Answer without looking back at the modules — if you struggle, revisit the relevant module before moving to Level 3."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Rewrite this prompt as an effective briefing: 'Help me make a budget for my team.'",
+      "answer": "A strong rewrite might look like: \"Create a monthly operating budget for my 8-person marketing team. Include line items for: salaries (I will fill in the numbers), software subscriptions, advertising spend, events, and miscellaneous. Format as a spreadsheet with columns for Budget, Actual, and Variance. Add a row for totals. The budget period is Q2 2025 (April-June) with one column per month. I will consider this done when every category has a line item, formulas calculate correctly, and there is a summary row.\"\n\nThe rewrite adds: specific team size and function, defined categories, a clear format, a time period, and acceptance criteria. The original prompt forces Claude to guess all of these."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Rewrite this prompt as an effective briefing: 'Analyze this data and tell me what's important.'",
+      "answer": "A strong rewrite depends on context, but a good general version: \"Analyze this sales data from Q1. I need to know: (1) which products had the highest and lowest revenue growth compared to last quarter, (2) whether there are any regions significantly underperforming, and (3) any data anomalies that might indicate errors. Present findings as a bullet-point summary with supporting numbers. Flag anything that would require action from the sales leadership team.\"\n\nThe rewrite specifies: what kind of analysis, what questions to answer, what format for the output, and what the audience cares about. The original leaves every decision to Claude's guessing."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the interview pattern, when should you use it, and how do you trigger it?",
+      "answer": "The interview pattern is a technique where you tell Claude to **ask you clarifying questions before starting work**. Trigger it by saying something like: \"Before you start, interview me to understand my requirements. Ask me questions one at a time.\" Use it when: the task is ambiguous, you cannot clearly articulate what done looks like, or the task has many embedded decisions you have not made yet. Do not use it for simple, well-defined tasks where a direct briefing is faster."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have sent Claude a task and two corrections. The output is still wrong. What should you do, and what should your next prompt look like?",
+      "answer": "**Run `/clear` and start over.** Two failed corrections means the context is likely muddled with contradictory signals. Your new prompt should incorporate everything you learned from the failed attempt: the constraints you discovered matter, an example of what the output should look like, and anti-patterns based on what went wrong. The new briefing will be better than the original because the failed attempt was research — it taught you what was missing."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Choose a real task you need done this week. Write a complete briefing using all Level 2 techniques: (1) define what done looks like, (2) include specific constraints on the output, (3) give Claude something to verify against (example, test, or checklist), and (4) provide the relevant materials using @file, paste, or piping. Execute the briefing and evaluate: did you get a usable result on the first try?",
+      "solution": "A successful checkpoint completion means: your briefing defined the outcome, not the process; it included at least 3 specific constraints (format, length, audience, tone, content requirements); it gave Claude something to verify against (an example, a checklist, or explicit acceptance criteria); and you provided the necessary input materials. If the first result was close to usable (needing only minor tweaks), your briefing was effective. If it required major rework, examine which of the four elements was weakest and revisit that module."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take one of these intentionally bad prompts and rewrite it into a briefing, then run it: (A) 'Make me a presentation.' (B) 'Write something for social media.' (C) 'Help me with this spreadsheet.' Your rewrite should take at least 30 seconds to compose. If you can write it in 5 seconds, it is not specific enough.",
+      "solution": "Example rewrite for (B): \"Write 3 LinkedIn posts announcing our company's new remote work policy. Audience: potential job candidates. Tone: enthusiastic but authentic, not corporate. Each post should be 100-150 words, include a specific benefit of the policy, and end with a call to action to check our careers page. Here is the policy document: @docs/remote-policy.md. One post should focus on flexibility, one on trust, one on work-life balance.\"\n\nThis rewrite specifies: platform, quantity, audience, tone, length, required content, source material, and thematic variety. The original prompt would produce one generic post for an unknown platform."
+    },
+    {
+      "type": "markdown",
+      "content": "## Ready for Level 3?\n\nIf you can rewrite vague prompts into effective briefings, include verification criteria, and know when to reset, you are ready. Level 3 shifts from *how to talk to Claude* to *knowing what Claude can do*. You will learn the tools, commands, and modes that make up Claude Code's dashboard — and how knowing them helps you work more effectively.\n\nStart with [Module 3.1: Built-in Tools](/level-3/built-in-tools/)."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "5.8 Checkpoint",
+    "description": "Apply the four-phase workflow to a real task from your own work.",
+    "level": "level-5",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Level 5 Checkpoint\n\nThis checkpoint is different from previous ones. Instead of answering questions about concepts, you will apply the four-phase workflow to a real task from your own work. The goal is to demonstrate that you can plan before building — and that planning produces better results.\n\nAnswer the knowledge checks without looking back at the modules, then complete the hands-on exercise."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is Plan Mode, how do you activate it, and why is it valuable even though it limits what Claude can do?",
+      "answer": "**Plan Mode** is a read-only mode activated with **Shift+Tab**. Claude can read files, search, and analyze but cannot edit files or run state-changing commands. It is valuable precisely *because* of the limitation: (1) **Safety** — you can explore unfamiliar territory without risk of accidental changes, (2) **Budget efficiency** — no tokens spent on edit operations or error handling, (3) **Clarity** — Claude focuses entirely on analysis and understanding rather than simultaneously trying to act. Plan Mode encourages the expert habit of understanding before acting."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You need to process 200 customer feedback emails: categorize them, identify themes, write a summary report, and draft response templates. Is this one task or many? How would you scope it?",
+      "answer": "This is **at least 4-5 distinct tasks** disguised as one. Scope it by milestones: **Session 1:** Explore a sample of emails to develop a category list. Milestone: approved categories. **Session 2:** Categorize all 200 emails (use subagents for the scanning). Milestone: categorized list. **Session 3:** Analyze categories for themes, frequencies, and patterns. Milestone: analysis summary. **Session 4:** Write the summary report based on the analysis. Milestone: report draft. **Session 5:** Draft response templates for each category. Milestone: template set. Each session starts fresh with a focused prompt referencing the previous milestone. Warning signs this was too big for one session: multiple distinct outputs, 200+ source files, and multiple types of work (categorization, analysis, writing)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your colleague asks Claude to 'fix the budget spreadsheet — the totals are wrong.' Claude immediately starts editing formulas. What step did both of them skip, and what could go wrong?",
+      "answer": "They skipped **Reproduce and Locate** from the debug loop. Claude jumped to Fix without first confirming which totals are wrong, what they should be, or which formula is causing the error. What could go wrong: (1) Claude might 'fix' a formula that was actually correct, breaking it. (2) The wrong total might be a symptom — the real problem could be wrong input data, not a formula error. (3) Claude might fix one formula while similar errors exist in other cells. The correct approach: Reproduce (which totals are wrong? what should they be?), Locate (which specific cells/formulas are producing wrong values? trace dependencies), Understand (why is the formula wrong — typo, wrong range, missing data?), Fix (minimum change to root cause), Verify (check the fixed totals AND similar formulas elsewhere)."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Choose a real task from your work that involves multiple steps — something you would normally just jump into. Apply the full four-phase workflow: (1) Explore in Plan Mode — what does the current state look like? (2) Plan — what is your approach, what are the steps, what could go wrong? (3) Implement — execute the plan. (4) Verify — confirm the result. Write down: how long did planning take, how long did implementation take, did the plan prevent any mistakes, and how does the result compare to your usual approach?",
+      "solution": "The key metrics to evaluate: **Planning time** — usually 3-10 minutes depending on task complexity. **Implementation time** — usually shorter than usual because the plan prevented rework. **Mistakes prevented** — the explore phase typically reveals 1-3 issues you would have hit during implementation. **Result quality** — usually higher because decisions were made deliberately in the planning phase rather than reactively during execution. If your planning time was zero and you jumped to implementation, go back and try again — the habit takes practice. If you spent more time planning than implementing, that is normal for complex tasks and is a sign the workflow is working."
+    },
+    {
+      "type": "markdown",
+      "content": "## Ready for Level 6?\n\nIf you can apply the four-phase workflow to real tasks, scope large work into manageable sessions, and use Plan Mode strategically, you have internalized the planning mindset. This is the skill that makes everything else more effective — better prompts, better context management, better results.\n\nLevel 6 covers the tools and settings that give you fine-grained control over Claude Code's behavior: permissions, configuration, and the settings that experts customize to match their workflow.\n\nStart with [Level 6: The Controls](/level-6/)."
+    }
+  ]
+}

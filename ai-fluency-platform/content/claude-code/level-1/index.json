@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 1: The Loop",
+    "description": "Understand what Claude Code actually is and how the agentic loop works.",
+    "level": "level-1",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Welcome to Level 1\n\nMost people open Claude Code and start typing like they are in a chat window. That works, but it misses the point. Claude Code is not a chatbot. It is an **autonomous agent** — a system that gathers information, takes action, checks the result, and repeats.\n\nThis distinction changes everything about how you use it.\n\nThe goal of Level 1 is to shift your mental model from **Claude Code as a chatbot** to **Claude Code as a loop you manage**.\n\n### What you will learn\n\n| Module | Topic | Core Idea |\n| :-- | :-- | :-- |\n| 1.1 | You're Not Chatting | The gather→act→verify loop that drives everything |\n| 1.2 | Getting Started | Installation, authentication, your first session |\n| 1.3 | What You See on Screen | Reading permission prompts, tool calls, and the status line |\n| 1.4 | The Context Window | Claude's only memory — and why it matters |\n| 1.5 | Your First Real Collaboration | A guided hands-on exercise |\n| 1.6 | Checkpoint | Prove your understanding without help |\n\n### The mental model: The Loop\n\nEvery interaction with Claude Code follows the same pattern:\n\n1. **Gather** — Claude reads files, searches code, checks status\n2. **Act** — Claude edits a file, runs a command, writes something new\n3. **Verify** — Claude checks the result, runs tests, reads output\n4. **Repeat** — If the result is not right, Claude gathers more information and tries again\n\nYou are not having a conversation. You are **managing a loop**. Your job is to set the goal clearly, provide the right context, and intervene when the loop goes off track."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code is not a chatbot — it is an autonomous agent that runs a gather→act→verify loop. Your role is to manage this loop: set clear goals, provide context, and steer when needed."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "As you work through Level 1, pay attention to the tool calls Claude makes. Can you identify which ones are 'gather' (reading, searching), which are 'act' (editing, writing), and which are 'verify' (running tests, checking output)?"
+    }
+  ]
+}

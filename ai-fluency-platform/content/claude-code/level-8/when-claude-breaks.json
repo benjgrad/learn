@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "8.3 When Claude Breaks",
+    "description": "Recognize loops, hallucinations, and misunderstandings. Learn when to steer, when to reset, and when to take over manually.",
+    "level": "level-8",
+    "slug": "when-claude-breaks",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Think about the last time Claude Code produced a clearly wrong or confusing result. How did you notice it was wrong? How did you recover? Did you know immediately, or did it take a while to realize?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Failure is normal\n\nClaude Code will fail. Not occasionally — regularly. It will loop on an unsolvable problem, hallucinate a file that does not exist, misunderstand your intent, or confidently produce wrong output. This is not a bug in the system. It is a fundamental property of how large language models work.\n\nThe difference between a novice and an expert is not that experts experience fewer failures. It is that experts **recognize failures faster and recover more efficiently**.\n\n## Failure mode 1: The loop\n\n### What it looks like\nClaude tries something, it fails, Claude tries essentially the same thing again, it fails again. The agentic loop keeps cycling without making progress. You see the same tool calls repeating with slight variations.\n\n### Why it happens\nClaude does not have a strong sense of \"I already tried this and it did not work.\" If the approach seems reasonable, it will try it again with minor modifications. This is especially common with:\n- Debugging errors where Claude does not understand the root cause\n- Tasks where the obvious approach fails and Claude lacks the domain knowledge for the non-obvious approach\n- Environment issues (missing dependencies, wrong permissions) that Claude cannot diagnose\n\n### How to recover\n- **Interrupt early**: As soon as you see the same pattern twice, intervene. Do not wait for five iterations hoping the sixth will work.\n- **Diagnose out loud**: Tell Claude what you observe: \"You have tried modifying the config three times and it keeps failing. The issue might be X instead.\"\n- **Change the approach**: \"Stop trying to fix this directly. Instead, try [different approach].\"\n- **Take over**: Some loops require human debugging. Recognize when Claude lacks the context to solve the problem and do it yourself.\n\n## Failure mode 2: The hallucination\n\n### What it looks like\nClaude references a file that does not exist, uses a function that is not in the codebase, or cites information it invented. The output sounds confident and plausible but is factually wrong.\n\n### Why it happens\nLarge language models generate text based on patterns, not truth. When Claude's training data suggests something should exist (a common file name, a standard function), it may reference it even if it is not actually present in your project. This is more common when:\n- Context is stale (late in a long session)\n- Claude is working with an unfamiliar codebase or domain\n- The question requires precise factual recall\n\n### How to recover\n- **Verify factual claims**: When Claude says \"the file at X contains Y,\" check. Especially early in a session before trust is established.\n- **Ask for sources**: \"Which file did you find this in? Show me the exact line.\"\n- **Fresh context**: If hallucinations increase, the session may be stale. Compact or clear and try again with fresh context.\n- **Do not argue**: If Claude insists something is true and it is not, do not debate. State the fact and redirect: \"That file does not exist. The actual file is X.\"\n\n## Failure mode 3: The misunderstanding\n\n### What it looks like\nClaude does something correctly but it is the wrong thing. It understood the words but not the intent. The output is polished, professional, and completely not what you wanted.\n\n### Why it happens\nAmbiguity in your prompt. When you said \"clean up the report,\" you meant restructure the sections. Claude thought you meant fix the grammar. Both interpretations are valid. Claude picked the wrong one.\n\n### How to recover\n- **Acknowledge the ambiguity**: \"I was not clear. When I said X, I meant Y.\"\n- **Be specific**: Follow up with the precise instruction, not a vaguer rephrasing.\n- **Improve your briefings**: Persistent misunderstandings mean your prompts need more context or clearer success criteria.\n- **Undo and retry**: Use git to revert the wrong changes, then give the corrected instruction.\n\n## The recovery decision tree\n\nWhen something goes wrong, ask these questions in order:\n\n1. **Is Claude looping?** → Interrupt and redirect or take over\n2. **Is the output factually wrong?** → Correct the fact and continue\n3. **Is the output the wrong thing entirely?** → Clarify your intent and retry\n4. **Is the session stale?** → Compact or clear and start fresh\n5. **Is this beyond Claude's ability?** → Do it yourself. Not every task is a Claude task.\n\n## Building failure tolerance\n\nExpert users build failure tolerance into their workflows:\n\n- **Verification in the prompt**: \"After making changes, run the tests\" catches failures automatically\n- **Git as an undo button**: Always work in a git repo so any wrong change can be reverted\n- **Checkpoints**: For complex tasks, verify after each phase rather than at the end\n- **Hooks as safety nets**: PreToolUse hooks that block dangerous actions\n\nThe goal is not to prevent all failures — that is impossible. The goal is to make failures **cheap and recoverable**."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Claude has been working on a task for 10 minutes. You notice it has tried to fix the same error four times with slight variations, and the error persists. What do you do?",
+      "answer": "**Interrupt immediately** — you should have intervened after the second attempt. Then: (1) Read the error message yourself to understand what is actually wrong. (2) Tell Claude what you observe: 'You have tried this four times. The error is not what you think it is.' (3) Either provide the diagnosis if you know it, suggest a completely different approach, or take over and fix it manually. The key insight: Claude repeating the same approach is not persistence — it is a loop. It will not suddenly work on the fifth try."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Think of a recent Claude Code failure you experienced. Classify it: loop, hallucination, or misunderstanding. Then write: (1) How you noticed it was wrong, (2) How long it took you to notice, (3) How you recovered, (4) What you would do differently next time to catch it faster.",
+      "solution": "The most common pattern people discover: they noticed the failure later than they should have, usually because they were trusting Claude's confident tone. The 'do differently' answer almost always involves earlier verification — checking Claude's work after the first step rather than waiting until the end, or building verification into the prompt itself. Speed of recognition is the primary skill improvement area."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How do you distinguish between Claude making progress slowly and Claude being stuck in a loop? What signals do you watch for?",
+        "When Claude sounds confident but is wrong, what is your emotional reaction? How do you prevent confidence from overriding your critical evaluation?",
+        "At what point do you decide to stop steering Claude and just do the task yourself? What is your threshold?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude fails through loops (repeating the same approach), hallucinations (confidently stating falsehoods), and misunderstandings (doing the wrong thing well). Experts recognize failures fast and recover efficiently: interrupt loops early, verify factual claims, clarify ambiguous intent, and build failure tolerance into workflows with git, verification prompts, and hooks."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Handling failures is reactive. The next module is proactive: evolving your setup over time so that your Claude Code configuration grows with your usage patterns, becoming more efficient and more tailored with each iteration."
+    }
+  ]
+}

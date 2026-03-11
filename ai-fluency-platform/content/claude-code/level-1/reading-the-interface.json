@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "1.3 What You See on Screen",
+    "description": "Learn to read Claude Code's visual cues — tool calls, permission prompts, and the status line.",
+    "level": "level-1",
+    "slug": "reading-the-interface",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When Claude Code is working on a task, what do you think you see in the terminal? Just text appearing, or something more? If you have used Claude Code, what do the colored boxes and prompts mean?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Reading Claude's body language\n\nA human colleague gives you signals while working: they pause to think, they ask clarifying questions, they show you drafts. Claude Code does the same thing — through its terminal interface. Learning to read these signals makes you a better collaborator.\n\n### Tool calls: the visible loop\n\nWhen Claude Code takes an action, you see a **tool call** appear in your terminal. Each tool call has a name and shows what Claude is doing:\n\n| Tool call | What it means | Loop phase |\n| :-- | :-- | :-- |\n| `Read` | Claude is reading a file | Gather |\n| `Glob` | Claude is searching for files by name pattern | Gather |\n| `Grep` | Claude is searching file contents for a pattern | Gather |\n| `Edit` | Claude is modifying a file | Act |\n| `Write` | Claude is creating a new file | Act |\n| `Bash` | Claude is running a terminal command | Gather, Act, or Verify |\n\nWatching tool calls is like watching over a colleague's shoulder. You can see *exactly* what Claude is doing at each step.\n\n### Permission prompts: the safety gate\n\nBefore Claude takes certain actions, it asks for your permission. You will see a prompt that describes what Claude wants to do and asks you to approve or deny it.\n\nThis is your **safety gate**. Claude Code can read files, edit documents, and run commands on your actual computer. Permission prompts ensure you stay in control.\n\nCommon responses to permission prompts:\n- **Allow once** — Let Claude do this specific action\n- **Allow always** — Trust this type of action for the rest of the session\n- **Deny** — Block this action\n\n### The status line\n\nAt the bottom of your terminal, the status line shows:\n- The current **permission mode** (how much trust you are giving Claude)\n- The **model** being used\n- Token usage and cost information\n\n### Keyboard shortcuts you should know now\n\n| Shortcut | What it does |\n| :-- | :-- |\n| `Esc` | Stop Claude mid-action |\n| `Shift+Tab` | Switch permission modes |\n| `Ctrl+C` | Cancel current input |\n| `Ctrl+L` | Clear the terminal screen |\n| `/` | Open the command menu (at start of input) |"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Give Claude Code a task and watch the tool calls. Try: 'Find the largest file in this directory and tell me what it contains.' Count the tool calls. For each one, write down whether it was gather, act, or verify.",
+      "solution": "You should see Claude make at least 2-3 tool calls: one to list/search files (Bash or Glob — gather), one to read the largest file (Read — gather), then Claude synthesizes a response. If the file is very large, Claude might read only part of it. Every tool call should be visible in your terminal with the tool name shown."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Did the permission prompts make you feel more or less comfortable letting Claude work? Why?",
+        "When Claude made tool calls, were you able to follow what it was doing? Or did it move too fast?",
+        "If you pressed Esc to stop Claude mid-action, what happened? This is an important safety control to practice."
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code shows you everything it does through tool calls and permission prompts. Learning to read these signals — and knowing you can press Esc to stop at any time — is how you stay in control of the agentic loop."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You can now read what Claude Code is doing. The next module explains the invisible constraint behind everything: the context window. Understanding this single concept will prevent the most common frustration new users experience."
+    }
+  ]
+}

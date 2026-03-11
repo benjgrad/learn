@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "4.4 The Memory System",
+    "description": "How Claude remembers preferences across sessions with MEMORY.md and rules files.",
+    "level": "level-4",
+    "slug": "memory-system",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You tell Claude Code 'I prefer concise responses — no long explanations.' It works for this session. But next time you open Claude Code, it is back to long explanations. How do you think you could make this preference stick across sessions? Write your guess before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The persistence problem\n\nIn Level 4.3, you learned about CLAUDE.md — a file you write and maintain to brief Claude at the start of every session. But there is another side to persistence: things Claude learns **during** a session that should carry forward.\n\nMaybe you told Claude \"Always use double quotes in this project\" and it followed that perfectly. But next session, it is back to single quotes. Or you explained a tricky part of your project architecture, and next session Claude has no memory of it.\n\nThis is where the memory system comes in. Claude Code has two mechanisms for persisting information across sessions: **MEMORY.md** and **rules files**.\n\n## MEMORY.md — Auto-memory\n\nWhen you tell Claude something that sounds like a preference or a project fact that should persist, Claude can write it to a file called `MEMORY.md`. This file lives in your project's `.claude/` directory.\n\nYou can also explicitly ask Claude to remember something:\n\n- \"Remember that we use PostgreSQL, not MySQL.\"\n- \"Add to your memory that the deploy command is `make deploy-staging`.\"\n- \"Remember I prefer bullet points over paragraphs.\"\n\nWhen Claude updates MEMORY.md, you will see a tool call for the file write — it is not hidden. You can also edit this file directly. It is just a markdown file.\n\nMEMORY.md is loaded at the start of each session, similar to CLAUDE.md. The same budget rules apply: everything in it costs tokens. Keep it focused on genuinely useful cross-session information.\n\n### What belongs in MEMORY.md vs CLAUDE.md\n\n| CLAUDE.md | MEMORY.md |\n| :-- | :-- |\n| You write and maintain it | Claude writes it (you can edit) |\n| Project structure, conventions, commands | Learned preferences, discovered facts |\n| Stable — changes rarely | Grows over time as Claude learns |\n| The \"onboarding document\" | The \"notes from experience\" |\n\nThink of CLAUDE.md as the employee handbook and MEMORY.md as the personal notes a team member takes during their first few weeks.\n\n## Rules files — path-specific instructions\n\nSometimes you need instructions that only apply in certain situations. For example:\n\n- When working in the `/tests` directory, always use a specific testing pattern\n- When editing configuration files, always validate the schema afterward\n- When working on the frontend, follow specific accessibility guidelines\n\nThis is what **rules files** are for. They live in the `.claude/rules/` directory and can be scoped to specific file paths.\n\nRules files are markdown files that contain instructions Claude should follow when working in specific contexts. For example:\n\n```\n# .claude/rules/tests.md\nWhen writing or modifying tests:\n- Use describe/it blocks, not test()\n- Always include at least one positive and one negative test case\n- Mock external services, never call them directly\n```\n\n```\n# .claude/rules/docs.md\nWhen working on documentation:\n- Use active voice\n- Keep sentences under 25 words\n- Include a practical example for every concept\n```\n\nRules files are loaded contextually — they only consume budget when Claude is working in the relevant area. This makes them more budget-efficient than putting everything in CLAUDE.md.\n\n## How memory survives compaction\n\nHere is a crucial detail: when Claude compacts the conversation (covered in the next module), the information in MEMORY.md and rules files is **not lost**. They are files on disk, not part of the conversation context. They will be reloaded fresh if needed.\n\nThis is one of the key advantages of the memory system over simply telling Claude things in conversation. Anything you say in a message exists only in the context window and can be lost during compaction. Anything in MEMORY.md or rules files persists on disk.\n\nThe pattern for important information is:\n\n1. **Tell Claude in your message** — immediate effect, lost on compaction\n2. **Ask Claude to remember it** — saved to MEMORY.md, persists across sessions\n3. **Write it in CLAUDE.md** — you control it directly, loaded every session\n4. **Create a rules file** — loaded only when relevant, most budget-efficient for scoped instructions\n\n## Practical setup\n\nHere is how to set up the memory system:\n\n1. **Start with CLAUDE.md** in your project root. Put your core conventions and structure there.\n2. **Let MEMORY.md grow naturally.** As Claude discovers project-specific facts, it will offer to save them. Review the file occasionally and prune anything outdated.\n3. **Add rules files for recurring patterns.** If you find yourself giving the same instruction every time you work on a specific part of your project, that is a rules file candidate.\n4. **Review periodically.** Memory and rules can become stale. Once a quarter, review your `.claude/` directory and clean up anything that no longer applies.\n\nThe goal is a layered system: global preferences in `~/.claude/CLAUDE.md`, project-level context in `./CLAUDE.md`, learned facts in `MEMORY.md`, and scoped instructions in rules files. Each layer adds context only when it is relevant."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have a project where frontend files follow one coding style and backend files follow another. Where is the best place to put these style instructions — CLAUDE.md, MEMORY.md, or rules files? Why?",
+      "answer": "**Rules files** are the best choice. Create `.claude/rules/frontend.md` with frontend style instructions and `.claude/rules/backend.md` with backend instructions. This is better than CLAUDE.md because the instructions only load when Claude is working in the relevant area — you do not pay the token cost for frontend rules when working on the backend. It is better than MEMORY.md because these are intentional conventions you want to control directly, not things Claude discovered on its own."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In a Claude Code session, tell Claude a preference: 'Remember that I prefer concise responses with bullet points instead of paragraphs.' Then check that Claude created or updated the MEMORY.md file. Start a new session and see if the preference persists.",
+      "solution": "Claude should write to `.claude/MEMORY.md` (or the project's memory location). When you start a new session, Claude should follow the preference without you re-stating it. If it does not, check that the MEMORY.md file exists and contains the preference. This exercise demonstrates the difference between ephemeral context (your messages) and persistent memory (files on disk)."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What preferences or instructions do you find yourself repeating to Claude? Which of those belong in CLAUDE.md vs MEMORY.md vs a rules file?",
+        "How does the layered memory system change your approach to project setup?",
+        "What is the risk of letting MEMORY.md grow unchecked? How often should you review it?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code has a layered memory system: CLAUDE.md for project conventions you maintain, MEMORY.md for preferences Claude learns, and rules files for path-specific instructions. Memory and rules files persist on disk and survive compaction. Use rules files for scoped instructions — they are the most budget-efficient because they only load when relevant."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Now you understand what persists across sessions. The next module covers what happens when your context fills up mid-session: compaction. What survives, what is lost, and how to control it."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "2.4 The Interview Pattern",
+    "description": "For ambiguous tasks, let Claude interview you to gather requirements before it starts working.",
+    "level": "level-2",
+    "slug": "interview-pattern",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When you have a vague idea of what you want but cannot articulate it clearly, what do you usually do? Do you (A) try your best to describe it and iterate on the result, or (B) ask someone to help you figure out what you actually need? Think about which approach you default to — and which tends to work better."
+    },
+    {
+      "type": "markdown",
+      "content": "## The problem with ambiguous tasks\n\nThe previous three modules assumed you know what you want. You can define done, set constraints, and provide verification criteria because the task is clear in your head.\n\nBut many real tasks are not like that.\n\n\"I need a presentation for the board meeting.\" What should be in it? You have a rough idea, but you have not thought through the structure, the key messages, or the level of detail.\n\n\"Help me plan a team reorganization.\" Where do you even start? You know the current structure is not working, but you have not mapped out the options.\n\n\"I want to improve our onboarding process.\" Improve how? Faster? More thorough? More engaging? You have a feeling, not a specification.\n\nFor tasks like these, writing a detailed briefing is impossible — because you do not yet know what the briefing should say. Attempting to write one anyway usually produces a vague prompt that leads to generic output.\n\n## The interview pattern\n\nHere is the technique: instead of struggling to write the perfect prompt, tell Claude to **interview you first.**\n\nThe basic form:\n\n> I need to create a presentation for next week's board meeting. Before you start building it, interview me to understand what I need. Ask me questions one at a time until you have enough information to create an excellent first draft.\n\nWhat happens next is powerful. Claude shifts from execution mode to requirements-gathering mode. It asks questions like:\n\n- What is the main message you want the board to take away?\n- How long should the presentation be?\n- What does the board already know about this topic?\n- Are there specific metrics or data points they will expect to see?\n- What decisions do you need from them after this presentation?\n- Is there a format or template you usually use for board presentations?\n\nEach answer you give sharpens the briefing. After five to eight questions, Claude has gathered enough context to produce a first draft that is dramatically better than what you would have gotten from a vague prompt.\n\n## Why this works so well\n\nThree reasons:\n\n**1. Claude asks questions you did not think to answer.** You know your task intuitively, but you have blind spots. Claude's questions surface assumptions you did not realize you were making. \"What decisions do you need from the board?\" might prompt you to realize the whole point of the presentation is to get budget approval — something you had not explicitly stated.\n\n**2. It builds the briefing collaboratively.** Instead of you writing the briefing and Claude executing it, you are co-creating the briefing through dialogue. The result is a richer, more accurate set of requirements than either of you would produce alone.\n\n**3. It prevents wasted cycles.** Without the interview, you would get a generic draft, spend ten minutes reviewing it, send three corrections, get a revised draft, send two more corrections, and eventually arrive at something acceptable. The interview takes three minutes upfront and produces a better first draft.\n\n## Variations of the pattern\n\n**The scoped interview:**\n> I need a project plan for migrating our data to the new system. Interview me, but focus your questions on: timeline, team capacity, risks, and dependencies. I already know the technical approach — I need help structuring the plan.\n\nThis prevents Claude from asking questions about things you already have figured out.\n\n**The options interview:**\n> I want to reorganize my team but I am not sure how. Interview me about our current structure, pain points, and goals. Then present me with 3 possible reorganization options with pros and cons for each.\n\nClaude gathers information, then uses it to generate options instead of a single plan.\n\n**The checklist interview:**\n> I am planning a product launch. Interview me to build a comprehensive launch checklist. Ask about each area: marketing, sales, engineering, support, legal. At the end, produce the checklist organized by team.\n\nClaude systematically covers each area, ensuring nothing is missed.\n\n**The constraint-discovery interview:**\n> I need to write a policy document for our remote work guidelines. Interview me to uncover all the constraints and decisions I need to make. I probably have not thought of everything.\n\nExplicitly asking Claude to find your blind spots.\n\n## When to use the interview pattern\n\nUse it when:\n- You cannot clearly articulate what done looks like\n- The task has many decisions embedded in it that you have not made yet\n- You have a feeling about what you want but not a specification\n- The cost of a wrong first draft is high (a lot of rework)\n\nDo not use it when:\n- You know exactly what you want (just write the briefing directly)\n- The task is simple and well-defined\n- Speed matters more than precision (the interview adds 2-5 minutes)\n\nThe interview pattern is one of those techniques that feels awkward the first time and indispensable by the third time. Once you see how much better the output is when Claude understands your actual requirements, you will start using it for every complex task."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You need Claude to help you write a company blog post, but you only have a vague topic in mind. Which approach is best? (A) Write the most detailed prompt you can manage and iterate. (B) Tell Claude 'write a blog post about our product update.' (C) Say 'I want to write a blog post about our latest product update. Interview me before you start writing — ask about audience, key points, tone, and what I want readers to do after reading it.'",
+      "answer": "**(C) is the best approach.** When you have a vague idea, the interview pattern lets Claude systematically uncover the information needed for a great result. Option A forces you to fabricate specificity you do not have. Option B guarantees a generic result. With (C), Claude will ask about your audience, the specific features to highlight, competitors to differentiate from, the call to action, and the brand voice — producing a first draft that actually sounds like your company talking to your customers."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Try the interview pattern right now. Think of a task you have been putting off because it feels too ambiguous — planning something, writing something, organizing something. Tell Claude: 'I need to [task]. Before you start, interview me to understand what I need. Ask me questions one at a time.' Answer Claude's questions honestly. Then evaluate: is the result better than what you would have gotten from a direct prompt?",
+      "solution": "The interview should have taken 3-8 questions before Claude felt ready to work. The resulting output should be noticeably more tailored to your actual needs than a cold start. If Claude asked fewer than 3 questions, add 'ask me at least 5 questions' to your prompt. If the questions felt irrelevant, add scope constraints like 'focus your questions on X, Y, and Z.' The interview pattern gets better as you learn to guide Claude's questions toward the areas where you have the most uncertainty."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a recent project where the requirements were unclear at the start. How much rework happened because of assumptions made early? Could an interview-style process have surfaced those issues sooner?",
+        "When Claude interviews you, does it ask questions you had not considered? What does that suggest about your blind spots?",
+        "Could you use the interview pattern with human colleagues too — not just Claude? When someone gives you a vague request, could you interview them before starting?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "When you cannot write a clear briefing because the task is ambiguous, tell Claude to interview you first. Claude will ask clarifying questions that surface your assumptions, uncover requirements you had not considered, and build a shared understanding — producing a dramatically better first draft than a vague prompt ever could."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now have the core briefing techniques: define done, be specific, give something to verify, and use the interview pattern for ambiguity. The next module covers the practical mechanics of getting information into Claude — file references, image paste, piping data, and more."
+    }
+  ]
+}

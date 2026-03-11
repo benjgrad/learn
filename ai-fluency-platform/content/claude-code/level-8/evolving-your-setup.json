@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "8.4 Evolving Your Setup",
+    "description": "Your CLAUDE.md, skills, and configuration should grow and change with you. Learn to prune, iterate, and optimize over time.",
+    "level": "level-8",
+    "slug": "evolving-your-setup",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Think about a tool configuration or document you set up months ago and never revisited. Is it still accurate? Is it still useful? Or has it drifted out of date while your actual work evolved?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The configuration debt problem\n\nYou built a CLAUDE.md in Level 4. You created skills in Level 6. You set up hooks and MCP connections. All of it was tuned for how you worked at that point in time.\n\nBut you are not the same user you were then. Your projects changed. Your workflows evolved. You discovered what actually matters and what was aspirational but unused. Meanwhile, your configuration files stayed frozen.\n\nThis is **configuration debt** — the gap between how your setup is configured and how you actually work. Like all debt, it compounds. Outdated CLAUDE.md instructions confuse Claude. Unused skills clutter your autocomplete. Overly aggressive hooks slow down sessions they were never meant to affect.\n\n## Pruning CLAUDE.md\n\nCLAUDE.md is your most valuable configuration file. It is also the one most prone to bloat. Over time, people add instructions but rarely remove them.\n\nSigns your CLAUDE.md needs pruning:\n- It is longer than a page. Claude's attention degrades on long instructions.\n- It contains instructions for projects or workflows you no longer do.\n- It has contradictory rules added at different times.\n- Claude consistently ignores certain instructions (they may be buried too deep).\n\n### The pruning process\n\n1. **Read it fresh**: Read your CLAUDE.md as if you are a new team member. What is clear? What is confusing? What seems irrelevant?\n2. **Check usage**: Which instructions does Claude actually follow? Which ones get ignored?\n3. **Cut ruthlessly**: If an instruction has not affected Claude's behavior in the past month, remove it. You can always add it back.\n4. **Prioritize**: Put the most important instructions at the top. Claude pays more attention to what comes first.\n5. **Consolidate**: If you have ten formatting rules, combine them into three clear principles.\n\n## Iterating on skills\n\nSkills should evolve with your workflows:\n\n- **Track usage**: Which skills do you actually invoke? Delete the ones you built but never use.\n- **Refine prompts**: After using a skill 10 times, you know its failure modes. Edit the instructions to handle the edge cases you have discovered.\n- **Split or merge**: A skill that tries to do too much should be split. Two skills that always run together should be merged.\n- **Version your skills**: Since skills live in your git repo, you can see their history. Review how they have changed over time.\n\n## Reviewing your usage patterns\n\nClaude Code provides tools to understand your own usage:\n\n- `/stats` shows usage statistics — how many tokens, how many sessions, which tools are used most\n- `/insights` provides patterns and suggestions based on your usage history\n\nReview these periodically. They reveal:\n- Where you spend the most tokens (and whether it is worth it)\n- Which workflows take the most turns (candidates for better briefings or skills)\n- Patterns in your failures (systematic issues you could prevent with hooks)\n\n## The quarterly review\n\nSet a recurring reminder — monthly or quarterly — to review your Claude Code setup:\n\n1. **CLAUDE.md**: Prune, reorder, clarify\n2. **Skills**: Delete unused, refine used, create new ones for recent patterns\n3. **Hooks**: Are they still relevant? Are any too aggressive or too lax?\n4. **MCP connections**: Are you using all of them? Are there new services to connect?\n5. **Agents**: Do the role definitions still match how you use them?\n6. **Stats review**: Look at /stats and /insights for optimization opportunities\n\nThis review takes 30 minutes and can significantly improve your daily experience.\n\n## The evolution mindset\n\nYour configuration is a **living document**, not a finished product. The best setups are not the ones built perfectly on day one — they are the ones that have been iterated over dozens of sessions, refined by real usage, and pruned of what does not work.\n\nTreat your configuration the way a chef treats their kitchen: regularly reorganize, sharpen the knives, throw away expired ingredients, and make room for new tools."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your CLAUDE.md is 500 lines long and Claude seems to ignore instructions that appear after line 200. What is happening and what should you do?",
+      "answer": "Claude pays decreasing attention to content deeper in long documents — this is an attention and context budget issue. Instructions buried at line 400 may be functionally invisible. **Fix by**: (1) Cutting the file drastically — 500 lines is far too long. Aim for under 100 lines. (2) Moving the most important instructions to the top. (3) Removing anything that is not actively improving Claude's behavior. (4) Converting detailed instructions into skills (which are loaded on-demand) rather than keeping them in CLAUDE.md (which is loaded every session). A lean, prioritized CLAUDE.md is far more effective than a comprehensive but bloated one."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "If you have a CLAUDE.md file, open it now and do a 15-minute pruning session. For each instruction, ask: 'Has this actually affected Claude's behavior in the last two weeks?' Remove anything where the answer is no. If you do not have a CLAUDE.md, review your skills or hooks instead with the same critical eye. Report: How many lines or items did you remove?",
+      "solution": "Most people remove 30-50% of their configuration on first pruning. Common removals: aspirational instructions that Claude never follows, overly specific rules for edge cases that rarely occur, redundant instructions that say the same thing different ways, and instructions for projects or workflows that have ended. If you removed nothing, either your configuration is already minimal (good) or you were not ruthless enough (revisit with fresh eyes in a week)."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What is in your configuration right now that you added in a moment of frustration? Is it still needed, or was it a reaction to a one-time problem?",
+        "How often do you review your setup? Is there a natural cadence that would work for you?",
+        "What signal would tell you it is time to revise your CLAUDE.md — a type of error, a change in projects, or just accumulated time?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Configuration is a living document that accumulates debt over time. Schedule regular pruning of CLAUDE.md, skills, hooks, and MCP connections. Use /stats and /insights to identify optimization opportunities. A lean, current configuration is far more effective than a comprehensive but stale one."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Evolving your setup addresses personal configuration. But Claude Code has a full settings architecture with multiple layers and precedence rules. Understanding this architecture gives you precise control — that is the next module."
+    }
+  ]
+}

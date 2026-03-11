@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "1.5 Your First Real Collaboration",
+    "description": "A guided exercise where you use Claude Code to complete a real task end-to-end.",
+    "level": "level-1",
+    "slug": "first-collaboration",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Think of a small task you have been putting off — organizing something, writing something, researching something. How would you describe it to a capable colleague who has never seen your files before? Write that description down before continuing."
+    },
+    {
+      "type": "markdown",
+      "content": "## Putting it together\n\nYou now know three things:\n1. Claude Code runs a **gather→act→verify loop** (Module 1.1)\n2. You can **read what Claude is doing** through tool calls and permission prompts (Module 1.3)\n3. The **context window** is finite — Claude only knows what is in it right now (Module 1.4)\n\nTime to put these together. In this module, you will complete a real task with Claude Code while consciously observing the loop, the interface, and the context.\n\n## Choose your exercise\n\nPick one of these tasks (or use your own):\n\n### Option A: Organize information\n- Navigate to a folder that has accumulated files (downloads, documents, notes)\n- Start Claude Code: `claude`\n- Say: \"Look at the files in this directory. Suggest a way to organize them into folders by type or topic. Show me your plan before making any changes.\"\n\n### Option B: Write a document\n- Navigate to any folder\n- Start Claude Code: `claude`\n- Say: \"I need to write a [type of document — email, summary, proposal, etc.] about [topic]. Ask me questions to understand what I need, then write a draft.\"\n\n### Option C: Research and summarize\n- Navigate to a folder with some documents or data files\n- Start Claude Code: `claude`\n- Say: \"Read the files in this directory and give me a summary of what is here, what the key themes are, and what might be missing.\"\n\n## What to watch for\n\nAs Claude works, observe:\n\n1. **The gather phase**: What files does Claude read? What commands does it run to understand the situation?\n2. **The act phase**: When does Claude shift from reading to doing? Does it ask for your approval?\n3. **The verify phase**: Does Claude check its own work? Does it confirm the result matches your goal?\n4. **Permission prompts**: What does Claude ask permission for? How does it feel to approve or deny?\n5. **Your context window**: Run `/context` after the task. How much of the window did this task consume?\n\n## After the task\n\nAsk yourself:\n- Did Claude understand what I wanted on the first try?\n- If not, what would I say differently next time?\n- Did I have to intervene, or did the loop handle it autonomously?\n- Was I comfortable with the level of control I had?\n\nThese questions prepare you for Level 2, where you will learn to write better briefings that get the right result on the first try."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Complete one of the three exercises above. After finishing, write down: (1) How many tool calls you observed, (2) One thing that surprised you, (3) One thing you would say differently next time.",
+      "solution": "There is no single 'right' answer here. The goal is to experience the agentic loop firsthand. Common surprises: Claude often takes more steps than expected (the loop is thorough); permission prompts can feel frequent at first but become natural; Claude sometimes asks clarifying questions before acting, which is a sign of good behavior. If you noticed something you would say differently, you are already thinking like a Level 2 learner."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How did this experience compare to using a chatbot like ChatGPT? What felt different?",
+        "Did you feel like you were 'in charge' of the process, or did Claude take over? Was that comfortable?",
+        "What kinds of tasks from your daily work could benefit from this kind of agent-assisted collaboration?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The best way to learn Claude Code is to use it on real tasks. Observe the loop, read the tool calls, and notice what you would do differently next time. Every session teaches you something about how to collaborate better."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have completed your first real collaboration with Claude Code. The checkpoint in 1.6 will test whether the mental models from this level have landed. After that, Level 2 teaches the single most impactful skill: how to write briefings that get the right result on the first try."
+    }
+  ]
+}

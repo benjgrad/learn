@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "8.5 Settings Architecture",
+    "description": "Understand the full configuration system — user, project, local, and managed settings — and how precedence works.",
+    "level": "level-8",
+    "slug": "settings-architecture",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have settings in your home directory and settings in your project directory. If they conflict — say, your home directory allows a tool but your project directory blocks it — which one wins? Why might this matter?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The layers of configuration\n\nClaude Code does not have one configuration file. It has a **layered architecture** where settings cascade from broad to specific, with more specific settings overriding broader ones.\n\nUnderstanding these layers is essential when you work across multiple projects, collaborate with a team, or need to troubleshoot why Claude is behaving unexpectedly.\n\n## The four layers\n\n```\n┌─────────────────────────┐\n│  Managed (enterprise)   │  Highest precedence\n├─────────────────────────┤\n│  Local (.claude.local)  │\n├─────────────────────────┤\n│  Project (.claude/)     │\n├─────────────────────────┤\n│  User (~/.claude/)      │  Lowest precedence\n└─────────────────────────┘\n```\n\n### User settings (~/.claude/)\n\nYour personal defaults. These apply to every project unless overridden. Put things here that are about **you**, not about any specific project:\n- Your preferred output style\n- Personal MCP connections (email, calendar)\n- Global skills you use everywhere\n- Personal hooks (like desktop notifications)\n\n### Project settings (.claude/)\n\nShared with the team via version control. These apply to everyone working on this project. Put things here that are about **the project**:\n- CLAUDE.md with project-specific standards\n- Project skills and hooks\n- Team MCP connections (Jira, shared databases)\n- Permission rules for the project\n\n### Local settings (.claude.local/)\n\nProject-specific but personal. These are NOT committed to version control — they are your personal overrides for this project. Put things here when:\n- You need different settings than the team for this project\n- You want to test a change before proposing it to the team\n- You have personal API keys or connections for this project\n\n### Managed settings (enterprise)\n\nSet by your organization's administrators. These have the highest precedence and cannot be overridden. Used for:\n- Security policies (required hooks, blocked tools)\n- Compliance requirements\n- Organization-wide standards\n\n## Precedence rules\n\nWhen the same setting exists at multiple layers, more specific wins:\n\n**Managed > Local > Project > User**\n\nPractical examples:\n\n- User settings allow `Bash` tool. Project settings restrict it. **Project wins** — Bash is restricted.\n- Project settings define a skill called `review`. You define the same skill in local. **Local wins** — your version runs.\n- Managed settings require a security hook. You try to disable it in project settings. **Managed wins** — the hook stays.\n\n## What goes where: a decision guide\n\n| Question | Layer |\n| :-- | :-- |\n| Is this about me, regardless of project? | **User** |\n| Should the whole team use this? | **Project** |\n| Is this my personal override for this project? | **Local** |\n| Is this a company-wide policy? | **Managed** |\n\n## Sharing configuration with teams\n\nThe project layer (`.claude/`) is designed for team sharing. When you commit it to version control:\n\n- **CLAUDE.md**: Everyone gets the same project context and standards\n- **Skills**: Everyone gets the same custom commands\n- **Hooks**: Everyone gets the same safety nets\n- **Settings**: Everyone gets the same tool permissions\n\nThis is how you scale your personal optimization to your team. Instead of teaching everyone individually, you encode your best practices into shared configuration.\n\n### What to share vs. keep personal\n\n**Share** (project layer):\n- Coding standards and style guides\n- Project-specific workflows\n- Safety hooks that protect the project\n- Shared MCP connections\n\n**Keep personal** (user or local layer):\n- Notification preferences\n- Personal MCP connections (email, calendar)\n- Model preferences\n- Experimental skills you are still testing\n\n## Debugging configuration issues\n\nWhen Claude behaves unexpectedly, check the layers:\n\n1. Is there a managed setting overriding you? (Ask your admin)\n2. Is there a local setting you forgot about?\n3. Is the project setting different from what you expected?\n4. Are your user defaults interfering?\n\nThe most common debugging scenario: \"This works on my machine but not my colleague's.\" The answer is almost always a difference in user or local settings."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your team's project settings (.claude/) define a hook that blocks editing .env files. You add a local setting (.claude.local/) that removes this hook. Your company's managed settings require this hook. What happens when you try to edit a .env file?",
+      "answer": "The hook **still blocks you**. Even though your local settings tried to remove it, the managed settings require it — and managed has the highest precedence. The precedence order is Managed > Local > Project > User. Company-wide security policies cannot be overridden at any lower level. This is by design: managed settings exist precisely so that critical policies cannot be circumvented by individual users or projects."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Audit your current Claude Code configuration across all layers. List: (1) What is in your user settings (~/.claude/), (2) What is in your project settings (.claude/), (3) Whether you have any local overrides. For each setting, ask: is it at the right layer? Should anything move from user to project (to share with the team) or from project to local (because it is personal)?",
+      "solution": "Common findings: personal preferences (like notification hooks) are in the project layer when they should be in user settings. Team-valuable skills are in the user layer when they should be shared in the project. MCP connections for personal services (email) are in the project layer, leaking personal config to teammates. The fix: move settings to the appropriate layer based on the audience — me, my team, or this project specifically."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you ever had a configuration conflict between layers? How did you discover it?",
+        "What settings in your personal configuration would benefit your entire team if shared?",
+        "How does the layered architecture change how you think about configuration as a solo user versus as a team member?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Claude Code has four configuration layers: User (personal defaults), Project (team-shared), Local (personal project overrides), and Managed (enterprise policies). More specific layers override broader ones. Put personal preferences in user settings, team standards in project settings, and use local for personal project overrides. This architecture lets you scale your configuration to teams."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You understand how configuration works for yourself. But mastery includes helping others. The next module covers how to onboard teammates, build shared standards, and create a team-wide Claude Code culture."
+    }
+  ]
+}

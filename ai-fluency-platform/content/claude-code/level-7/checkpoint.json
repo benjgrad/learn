@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "7.8 Checkpoint",
+    "description": "Set up an automated workflow using non-interactive mode to prove you can deploy Claude as a building block.",
+    "level": "level-7",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Level 7 Checkpoint\n\nThis checkpoint tests your ability to move from interactive use to automated deployment. You will design and implement an automated workflow that uses Claude Code as a building block — running without your real-time supervision."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "What is the difference between `claude` (interactive), `claude -p` (non-interactive), and `claude -w` (worktree)? When would you use each one?",
+      "answer": "**`claude`** starts an interactive session — you type, Claude responds, you steer. Use for complex, exploratory tasks where you need to guide the work. **`claude -p \"prompt\"`** runs non-interactively — Claude processes the prompt, prints results, and exits. Use for automated scripts, CI pipelines, and scheduled tasks. **`claude -w`** creates a worktree — an isolated branch with its own session. Use for parallel tasks that should not interfere with each other. The key distinction: interactive is for collaboration, -p is for automation, -w is for parallelism."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You want to run Claude automatically every morning to generate a summary of yesterday's work. What flags do you need, and what could go wrong without them?",
+      "answer": "Essential flags: **-p** for non-interactive mode (no human to type), **--max-turns** to prevent infinite loops (if Claude gets confused about what 'yesterday' means and keeps searching), **--max-budget-usd** for cost control (so a stuck session does not burn through your budget). Optional but recommended: **--allowedTools** to restrict to Read and Glob only (a summary task should not need Write or Bash), **--output-format json** if the output feeds into another system. Without these: a stuck session could loop indefinitely (no max-turns), cost could spiral (no budget cap), and Claude could accidentally modify files (no tool restriction)."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your team wants Claude to automatically review every pull request. After a month, developers say they ignore Claude's comments. Diagnose the problem and propose a fix.",
+      "answer": "The problem is almost certainly **low signal-to-noise ratio**: Claude is commenting on too many things, including trivial issues that developers already know about. Fix by: (1) Narrowing the prompt to only flag serious issues (security vulnerabilities, logical errors, missing tests) and explicitly exclude style/formatting comments. (2) Setting a severity threshold so only important findings generate comments. (3) Reducing scope — maybe only review PRs that touch critical directories. (4) Getting developer feedback on which comments were useful and tuning the prompt accordingly. The goal is that every Claude comment is worth reading."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Build a working automated workflow. Requirements: (1) Write a shell script that uses `claude -p` to accomplish a useful task. (2) Include --max-turns and --max-budget-usd flags. (3) The script should save Claude's output to a file. (4) Run the script at least once and verify the output. Bonus: set it up on a schedule (cron) or as a git hook. Document what you built and share the script.",
+      "solution": "A minimal working solution is a bash script like: `#!/bin/bash\\nclaude -p \"List files modified in the last 24 hours and summarize the changes\" --max-turns 10 --max-budget-usd 0.50 > ~/summaries/$(date +%Y-%m-%d).md`. This uses -p for non-interactive mode, has safety flags, and saves output. More advanced solutions add error handling (`if [ $? -ne 0 ]; then echo 'Claude failed' | mail ...`), use --output-format json for structured output, restrict tools with --allowedTools, or set up a cron schedule (`0 8 * * * /path/to/script.sh`). The key test: does it work without you touching the keyboard?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Ready for Level 8?\n\nIf you can deploy Claude Code as an automated building block, you have moved from operator to architect. You can make Claude work while you sleep.\n\nLevel 8 is the final level, and it is different from everything before it. Instead of learning new features, you will develop **intuition** — the meta-skills that separate someone who knows Claude Code from someone who has mastered it. The tool becomes invisible.\n\nStart with [Level 8: The Intuition](/level-8/)."
+    }
+  ]
+}

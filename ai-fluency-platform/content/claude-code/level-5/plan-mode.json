@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "5.1 Plan Mode",
+    "description": "Read-only exploration with Shift+Tab — safe, cheap, and clarifying.",
+    "level": "level-5",
+    "slug": "plan-mode",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Imagine you could let Claude Code read and analyze everything in your project, but prevent it from making any changes. What would you use that for? Write down two or three scenarios before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The safety of read-only\n\nEvery Level so far has involved Claude taking action — editing files, running commands, creating things. But some of the most valuable Claude Code work involves **no action at all**.\n\nPlan Mode is a read-only mode where Claude can explore, analyze, and reason but cannot modify anything. No file edits. No command execution that changes state. Just reading, searching, and thinking.\n\nYou toggle Plan Mode on and off with **Shift+Tab**. When Plan Mode is active, you will see an indicator in the interface. Claude can still read files, search through directories, and analyze content — but every tool that would change something is disabled.\n\n## Why this matters\n\nPlan Mode solves three problems at once:\n\n### 1. Safety\n\nWhen you are exploring unfamiliar territory — a project you did not create, a directory structure you do not fully understand, data you have not looked at — you want to investigate before committing to changes. Plan Mode guarantees that Claude will not accidentally modify, delete, or overwrite anything during exploration.\n\nThis is especially valuable when working with important documents, production data, or shared files. You can let Claude poke around freely, knowing nothing will change.\n\n### 2. Budget efficiency\n\nRemember Level 4? Every action Claude takes costs context. In Plan Mode, the context cost is limited to reads and analysis — no tokens spent on edit operations, command outputs, or error handling from failed changes. You get understanding at a lower cost.\n\nMore importantly, Plan Mode encourages a pattern where you **understand before you act**. Without Plan Mode, the temptation is to start making changes immediately and fix problems as they arise. Each fix costs context. Plan Mode front-loads the understanding so execution is cleaner.\n\n### 3. Clarity\n\nPlan Mode responses tend to be more analytical and thoughtful. When Claude cannot take action, it focuses entirely on understanding and explanation. You get better analysis, clearer reasoning, and more comprehensive overviews than when Claude is simultaneously trying to understand and act.\n\nThis is like the difference between a surgeon studying scans before surgery versus figuring things out while operating. The pre-surgery analysis leads to a better plan and a cleaner procedure.\n\n## How to use Plan Mode\n\n### Entering and exiting\n\nPress **Shift+Tab** to toggle Plan Mode on and off. You can switch freely during a session — explore in Plan Mode, then switch to normal mode to execute, then switch back to plan if you need more analysis.\n\n### What Claude can do in Plan Mode\n\n- Read files and directories\n- Search for patterns across your project\n- Analyze content and structure\n- Answer questions about what it finds\n- Propose plans, outlines, and approaches\n- Compare files or sections\n- Identify patterns, issues, or opportunities\n\n### What Claude cannot do in Plan Mode\n\n- Edit or create files\n- Run commands that change state\n- Delete anything\n- Install packages or modify configurations\n\n## Plan Mode for non-coding tasks\n\nPlan Mode is not just for programmers. Here are scenarios where anyone can benefit:\n\n**Organizing files:** Before reorganizing a folder with hundreds of files, use Plan Mode to scan the contents, categorize them, and propose a structure. Once you approve the plan, switch to normal mode to execute it.\n\n**Understanding a dataset:** Before cleaning or transforming data, use Plan Mode to explore the data file. Ask Claude to identify patterns, missing values, outliers, or formatting issues. Then create a targeted cleaning plan.\n\n**Analyzing a document:** Before revising a long report, use Plan Mode to have Claude read it and provide structural analysis: what sections exist, how they flow, where there are gaps or redundancies.\n\n**Auditing a project:** Use Plan Mode to survey a project you inherited. Ask Claude to map the structure, identify key files, and explain how things connect. You get a comprehensive overview without any risk of accidental changes.\n\n**Preparing a presentation:** Use Plan Mode to have Claude analyze your source materials and suggest a presentation outline before you start building slides.\n\n## The Plan Mode habit\n\nThe goal is to make this automatic: **start complex tasks in Plan Mode**. Explore, understand, form a plan. Then switch to normal mode with a clear execution brief.\n\nThis habit alone will save you more time and context than any other technique in this course. It is the foundation of the four-phase workflow you will learn in the next module."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You inherited a project folder with 200+ files and need to reorganize it. Should you start in Plan Mode or normal mode? What would your first prompt look like?",
+      "answer": "**Start in Plan Mode.** Your first prompt should be exploratory: \"Scan this project folder. Tell me how many files there are, what types, how they are currently organized, and whether you see any natural groupings or patterns.\" In Plan Mode, Claude will read the directory structure and sample files without any risk of moving, renaming, or deleting anything. Once you have a clear picture and an agreed-upon reorganization plan, switch to normal mode to execute. Starting in normal mode risks Claude immediately starting to move files based on incomplete understanding."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open Claude Code in a project or folder. Press Shift+Tab to enter Plan Mode. Ask Claude to explore and analyze: 'What is in this directory? How is it organized? What patterns do you see?' Notice how the responses are purely analytical with no proposed changes. Then switch back to normal mode and notice the difference in how Claude responds.",
+      "solution": "In Plan Mode, Claude's responses should be descriptive and analytical — it tells you what it found, identifies patterns, and may suggest approaches, but it does not try to take action. When you switch back to normal mode, Claude shifts toward action-oriented responses — it is ready to make changes. The key insight is feeling the difference: Plan Mode encourages thinking, normal mode encourages doing. Expert users toggle between these deliberately."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "In your own words, explain Plan Mode to a colleague who has never heard of it. Why would you willingly limit Claude's capabilities? What do you gain from the restriction?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a time you asked Claude to make changes and the result was wrong. Would exploring in Plan Mode first have prevented the mistake?",
+        "When in your workflow would you switch from Plan Mode to normal mode? What is the trigger?",
+        "How does Plan Mode relate to the context budget concepts from Level 4?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Plan Mode (Shift+Tab) lets Claude read and analyze without making changes. It provides safety, budget efficiency, and clearer analysis. The expert habit is to start complex tasks in Plan Mode — explore and understand first, then switch to normal mode to execute with confidence. This applies to any task: organizing files, analyzing data, revising documents, or auditing projects."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Plan Mode is the foundation. The next module builds on it with the full four-phase workflow: Explore, Plan, Implement, Verify. This is the canonical pattern for tackling any non-trivial task with Claude Code."
+    }
+  ]
+}

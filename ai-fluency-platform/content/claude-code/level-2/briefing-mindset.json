@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "2.1 The Briefing Mindset",
+    "description": "Define what done looks like, not how to get there. The shift from instructions to briefings.",
+    "level": "level-2",
+    "slug": "briefing-mindset",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You need Claude to improve an email you wrote. Which prompt do you think will produce a better result: (A) 'Make this email better' or (B) 'Rewrite this email to be concise, professional, and include the three project deadlines from the attached doc.' Write down why you think so before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The difference between instructions and briefings\n\nWhen most people use Claude Code, they write **instructions**: step-by-step directions for how to do something. \"First read this file, then find the section about X, then rewrite it to be better.\"\n\nThis feels natural. It is how we learned to give directions in school. But it is the wrong approach for an autonomous agent.\n\nA **briefing** is different. Instead of telling Claude *how* to work, you tell Claude *what done looks like*. You describe the destination, not the route.\n\nHere is the difference in practice:\n\n**Instruction-style (how):**\n> Read the quarterly report. Find the executive summary. Make it shorter. Use bullet points. Remove the jargon.\n\n**Briefing-style (what done looks like):**\n> Rewrite the executive summary of this quarterly report. The result should be under 200 words, use bullet points for the key metrics, and be understandable by someone with no finance background. Keep all the numbers accurate.\n\nBoth might produce a decent result. But the briefing-style prompt gives Claude something critical: a **definition of done**. Claude can check its own work against your criteria. Is it under 200 words? Are there bullet points? Would a non-finance person understand it? Are the numbers right?\n\nThe instruction-style prompt gives Claude a to-do list but no way to evaluate quality. \"Make it shorter\" — shorter than what? How much shorter? \"Remove the jargon\" — what counts as jargon to you?\n\n## Why this matters more than you think\n\nRemember the agentic loop from Level 1: gather, act, verify. The **verify** step is where quality happens. When Claude finishes a draft, it checks its work before responding to you. But it can only check against criteria you provided.\n\nIf your prompt is \"make this better,\" Claude's verify step is essentially: \"Is this... better? I think so?\" That is not verification. That is guessing.\n\nIf your prompt is \"rewrite to be under 200 words, use bullet points, no jargon,\" Claude's verify step becomes: \"Word count: 187. Bullet points: yes. Jargon check: I replaced 'EBITDA margin' with 'profit margin' and added a brief definition. Done.\"\n\nSame agent. Same capability. Dramatically different output quality — because you gave it something to verify against.\n\n## The briefing checklist\n\nEvery good briefing answers these questions:\n\n1. **What is the task?** (Not \"help me with\" but a specific action: rewrite, create, analyze, organize)\n2. **What does done look like?** (Format, length, tone, audience, specific requirements)\n3. **What context does Claude need?** (Files, background, constraints, preferences)\n4. **How will we know it worked?** (Success criteria, expected output, tests to run)\n\nYou do not need to answer all four every time. A simple task might only need #1 and #2. But for anything that matters, hitting all four will dramatically improve your results.\n\n## Real examples across different work\n\n**Writing:**\n- Vague: \"Write me a cover letter.\"\n- Briefing: \"Write a cover letter for the Marketing Manager role at Acme Corp. I have 6 years of experience in B2B marketing. Tone: confident but not arrogant. Length: under 400 words. Emphasize my data-driven approach and team leadership. The job posting is in the attached file.\"\n\n**Research:**\n- Vague: \"Research competitor pricing.\"\n- Briefing: \"Create a comparison table of pricing tiers for Slack, Teams, and Discord for a 50-person company. Include: monthly cost per user, key features at each tier, and any annual discount. Format as a markdown table. Note which features are relevant for a remote-first marketing agency.\"\n\n**Organization:**\n- Vague: \"Help me plan this event.\"\n- Briefing: \"Create a timeline and checklist for a 30-person team offsite on April 15. Budget: $5,000. Location: already booked at Riverside Hotel. I need: a day-of schedule with team-building activities, a catering plan, and an AV equipment list. The team is mostly remote and has never met in person.\"\n\nNotice the pattern: the briefing-style prompts are longer, but they are not verbose. Every word adds a constraint or context that helps Claude produce the right output on the first try."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A colleague asks Claude: 'Summarize this report for my boss.' What are at least three things missing from this briefing that would improve the output?",
+      "answer": "At minimum, the prompt is missing: (1) **What the boss cares about** — financial results? timeline? risks? (2) **Format and length** — a three-sentence email? a one-page memo? bullet points? (3) **Tone and audience** — how senior is the boss, how technical, do they want detail or just the headline? Other useful additions: what decisions the summary should support, whether to include recommendations, and what the original report is about."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Pick a real task you need done — an email to write, a document to summarize, something to organize. First, write the prompt you would naturally type. Then, rewrite it as a briefing using the four-question checklist: What is the task? What does done look like? What context is needed? How will we know it worked? Run both prompts and compare the results.",
+      "solution": "The briefing-style prompt should produce a result that is closer to what you actually wanted on the first try. The natural prompt will likely require follow-up corrections. Pay attention to how specific your 'definition of done' was — the more concrete your criteria, the better Claude's self-verification works. If both results were similar, your task may have been simple enough that either approach works. Try again with something more complex."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between telling Claude *how* to do something and telling Claude *what done looks like*. Why does the second approach produce better results with an agentic system?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about your last three interactions with any AI tool. How many of them included a clear definition of 'done'?",
+        "When you delegate work to a human colleague, do you tend to give instructions (how) or briefings (what done looks like)? Is there a parallel?",
+        "What is the hardest part of writing a good briefing for you — defining the task, describing the output, providing context, or setting success criteria?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "A briefing defines what done looks like. An instruction defines how to get there. Briefings produce better results because they give Claude concrete criteria to verify against during the agentic loop. Every good briefing answers: What is the task? What does done look like? What context is needed? How will we know it worked?"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now know to define what done looks like. But how specific should you be? In the next module, you will learn why precise constraints are more helpful than long explanations — and where the line is between helpful specificity and counterproductive micromanagement."
+    }
+  ]
+}

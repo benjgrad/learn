@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "6.2 Your First Skill",
+    "description": "Build a skill from scratch, test it, and see the workflow improvement firsthand.",
+    "level": "level-6",
+    "slug": "your-first-skill",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You are about to create a skill file and test it. How many steps do you think are involved? What could go wrong on the first try?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Building your first skill: step by step\n\nLet us walk through creating a skill from nothing to working command. The process is simpler than you think — and once you have done it once, you will start building skills instinctively.\n\n### Step 1: Create the skills directory\n\nIf this is your first skill, you need to create the directory. In your project folder (or home directory for a global skill):\n\n```\nmkdir -p .claude/skills\n```\n\n### Step 2: Create the skill file\n\nCreate a new Markdown file in that directory. The filename can be anything — Claude uses the `name` field in the frontmatter, not the filename. But it helps to keep them consistent:\n\n```\n.claude/skills/daily-summary.md\n```\n\n### Step 3: Write the skill\n\nHere is a complete, working skill for a daily summary:\n\n```markdown\n---\nname: daily-summary\ndescription: Generate a structured summary of today's work\n---\n\n# Daily Work Summary\n\nGenerate a summary of work done today. Follow these steps:\n\n1. Check the current date\n2. Look at recent git commits (last 24 hours) if in a git repo\n3. Check for any modified files\n4. Read CLAUDE.md or any TODO files for context on active projects\n\nFormat the output as:\n\n## Daily Summary — [Date]\n\n### Completed\n- Bullet points of finished work\n\n### In Progress  \n- Items started but not finished\n\n### Notes\n- Anything noteworthy or that needs follow-up\n\nKeep it concise. Focus on outcomes, not activities.\n```\n\n### Step 4: Test it\n\nOpen Claude Code in the same project directory and type:\n\n```\n/daily-summary\n```\n\nClaude reads your skill file and executes the instructions. Watch the tool calls — you will see it checking git logs, reading files, and assembling the summary exactly as you specified.\n\n### Step 5: Iterate\n\nYour first version will not be perfect. Maybe the summary is too long. Maybe it misses a source of information you care about. Edit the skill file and test again. Skills are just text files — iteration is instant.\n\n## Three example skills for knowledge workers\n\nHere are three skills designed for people who are not developers. Each one encodes a real workflow.\n\n### Example 1: Meeting Prep\n\n```markdown\n---\nname: meeting-prep\ndescription: Prepare a briefing for an upcoming meeting\n---\n\nPrepare a meeting briefing for: $ARGUMENTS\n\n1. Search for any recent documents, notes, or emails related to this topic\n2. Summarize the key context I need to know\n3. List any open questions or decisions that need to be made\n4. Suggest 3 talking points I should raise\n5. Note any data or facts I should have ready\n\nFormat as a single-page briefing I can review in 5 minutes.\n```\n\nUsage: `/meeting-prep Q2 budget review with finance team`\n\n### Example 2: Weekly Review\n\n```markdown\n---\nname: weekly-review\ndescription: Generate a weekly review of accomplishments and priorities\n---\n\n# Weekly Review\n\nGenerate a weekly review by:\n\n1. Checking git log for the past 7 days\n2. Reading any project CLAUDE.md files for context\n3. Scanning for recently modified documents\n\nStructure the output as:\n\n## Week of [Date Range]\n\n### Accomplishments\n- What got done this week (be specific)\n\n### Challenges\n- What was harder than expected\n\n### Next Week Priorities\n- Top 3 things to focus on\n\n### Metrics (if available)\n- Any quantifiable progress\n\nKeep it honest — do not inflate accomplishments.\n```\n\n### Example 3: Document Review\n\n```markdown\n---\nname: review\ndescription: Structured review of any document\n---\n\nReview the document at $ARGUMENTS using this framework:\n\n1. **Clarity**: Is the main message obvious within 30 seconds of reading?\n2. **Structure**: Does the organization help or hinder understanding?\n3. **Evidence**: Are claims supported? Are there logical gaps?\n4. **Tone**: Is it appropriate for the intended audience?\n5. **Length**: Could anything be cut without losing meaning?\n\nFor each category, give:\n- A rating: Strong / Adequate / Needs Work\n- One specific example from the text\n- One concrete suggestion\n\nEnd with a 2-sentence overall assessment.\n```\n\n## Common mistakes to avoid\n\n**Too vague**: \"Summarize stuff\" gives Claude no structure. Be specific about what to look at and how to format the output.\n\n**Too rigid**: Do not try to script every tool call. Tell Claude *what* you want, not *how* to use its tools. Let the agentic loop do its job.\n\n**Forgetting $ARGUMENTS**: If your skill needs input, use the placeholder. Otherwise you will need to edit the skill file every time.\n\n**Giant skills**: A skill that tries to do 15 things will be inconsistent. Better to have three focused skills than one sprawling one."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Create one of the three example skills above (or your own from the previous module) and test it in Claude Code. After testing, edit the skill to improve one thing about the output — maybe the format, the length, or the sources it checks. Test the edited version and compare.",
+      "solution": "The key learning is how fast the iterate cycle is. Create the file, test, edit, test again. If your skill worked on the first try, try making it more specific — add output formatting requirements or additional steps. If it did not work, check: Is the file in .claude/skills/? Does the frontmatter have the correct --- delimiters? Is the name field present? Most first-attempt issues are structural, not content-related."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Walk through the process of creating a skill as if you were teaching a colleague. What are the essential steps, and what is the most common mistake you would warn them about?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How did it feel to invoke your skill for the first time? Was the output what you expected, or did you need to iterate?",
+        "Now that you have built one skill, what is the next one you want to build? What repetitive workflow would benefit most?",
+        "Think about your team. If everyone had access to the same skills directory, which workflows would benefit from standardization?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Building a skill takes five minutes: create .claude/skills/, write a Markdown file with frontmatter and instructions, and test with /skill-name. The real skill is iteration — your first version is a draft, and editing is instant. Focus skills on outcomes and structure, not on scripting tool calls."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You can now build custom commands that encode your workflows. But skills still require you to invoke them manually. What if some actions should happen automatically — every time, without you remembering? That is what hooks do, and that is where we go next."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "4.7 Subagents as Context Shields",
+    "description": "Delegate research to subagents so their investigation does not fill your main context window.",
+    "level": "level-4",
+    "slug": "subagents-as-shields",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You need Claude to research something — read through several files, search the web, gather information — before doing the actual work. But all that research will fill your context. What if you could have a separate Claude do the research and just hand you the summary? Write down how you think this might work before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The research dilemma\n\nYou have a task that requires investigation. Maybe you need to understand how something works before you can improve it. Maybe you need to find relevant information across many files. Maybe you need to research a topic online.\n\nThe problem: **research is expensive context**. Reading ten files, analyzing their structure, checking cross-references — that is easily 20,000-40,000 tokens of context. And after the research phase, you still need to do the actual work. If the research filled 40% of your context, you have only 60% left for the work itself.\n\nThis is where subagents come in.\n\n## What is a subagent?\n\nA subagent is a separate Claude Code instance that runs in its own context window. It can read files, run commands, search, and investigate — but all of that work happens in **its own** context, not yours.\n\nWhen the subagent finishes, it returns a summary to your main session. Your main context receives only the summary — maybe 200-500 tokens — instead of the thousands of tokens the research consumed.\n\nThink of it as delegation. Instead of going to the library yourself, picking through shelves, reading chapters, and taking notes — you send an assistant to do all that and come back with a one-page brief.\n\n## How to use subagents\n\nClaude Code can spawn subagents when it determines that an investigation is needed. You can also encourage this behavior explicitly:\n\n### Triggering exploration\n\nWhen you want Claude to investigate something without filling your context, frame it as exploration:\n\n- \"Explore the /data directory and summarize what each file contains and how they relate.\"\n- \"Investigate how the reporting system works — check the relevant files and give me a brief summary.\"\n- \"Research the structure of this project and tell me the key components.\"\n\nClaude may use a subagent to handle this investigation. The subagent reads the files, builds understanding, and returns a concise summary to your main session.\n\n### The key benefit: context isolation\n\nConsider two approaches to the same task:\n\n**Without subagent:**\n1. Claude reads file A (1,000 tokens)\n2. Claude reads file B (2,000 tokens)\n3. Claude reads file C (1,500 tokens)\n4. Claude reads file D (3,000 tokens)\n5. Claude searches for patterns (500 tokens)\n6. Claude reads two more files (2,500 tokens)\n7. Claude summarizes findings (500 tokens)\n\nTotal context cost: **11,000 tokens** — all sitting in your main window.\n\n**With subagent:**\n1. Subagent does steps 1-6 in its own context\n2. Subagent returns a 300-token summary to your main session\n\nTotal context cost to you: **300 tokens**. The other 10,700 tokens existed only in the subagent's context, which is discarded after it finishes.\n\nThat is a 97% reduction in context cost for the same information.\n\n## When to use subagents vs direct reads\n\nSubagents are not always the right choice. Here is the decision framework:\n\n### Use a subagent when:\n- **You need a broad survey.** Scanning many files, directories, or sources to build an understanding.\n- **The investigation is a means, not an end.** You need the findings, not the raw data.\n- **You are mid-session and protecting budget.** Your context is already partially full and you need to conserve space.\n- **The research is exploratory.** You do not know exactly where the information is, so the search might touch many files.\n\n### Read files directly when:\n- **You know exactly what you need.** \"Read lines 50-80 of config.json\" is cheap and precise.\n- **You need the raw content.** You want Claude to work with the actual text, not a summary of it.\n- **The file is small.** A 30-line file is not worth the overhead of a subagent.\n- **You need to edit the file.** Claude needs the actual content in context to make precise edits.\n\n## The pattern in practice\n\nHere is a real-world workflow showing subagents as shields:\n\n**Task:** Reorganize a folder of 50 meeting notes into a structured archive.\n\n1. **Explore phase (subagent):** \"Explore the /meetings folder. Categorize the notes by topic, date range, and participants. Give me a summary of what is there and suggest an organization structure.\"\n   - The subagent reads all 50 files. Your context gets a 400-token summary.\n\n2. **Decide phase (you + Claude):** Review the suggested structure, discuss modifications. This costs maybe 1,000 tokens of conversation.\n\n3. **Execute phase (Claude directly):** \"Reorganize the files according to this structure: [agreed plan].\" Claude creates folders and moves files. It reads individual files briefly as needed for naming.\n\nThe subagent handled the expensive research. Your main context stayed clean for the decision-making and execution.\n\n## A note on trust\n\nSubagent summaries are summaries — they are Claude's interpretation of what it found, not the raw data. For most tasks, this is fine. But if precision matters (exact numbers, specific wording, legal details), you should verify key points by reading the source directly.\n\nThink of it like getting a verbal summary from a colleague. You trust them for the overview, but you double-check the critical details yourself."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You need to understand how a project is structured before you start making changes. The project has about 30 files across 5 directories. Should you have Claude read all the files directly, or use a subagent? What is the context cost difference?",
+      "answer": "**Use a subagent.** Reading 30 files directly could cost 30,000-60,000 tokens (assuming an average of 1,000-2,000 tokens per file), which would consume 15-30% of your context window before you start any real work. A subagent does all that reading in its own context and returns a structured summary — perhaps 500-1,000 tokens. The difference is roughly **30x-60x** less context consumption. Your main session gets the understanding it needs with plenty of budget left for the actual work."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In a Claude Code session, ask Claude to explore a directory you are unfamiliar with: 'Explore the [directory] and give me a summary of what is there, how things are organized, and what the key files are.' Notice how much (or how little) context this consumes compared to reading files one by one.",
+      "solution": "The key observation is the context efficiency. If Claude uses a subagent for the exploration, your main context will receive a concise summary. Compare this to a session where you ask 'Read file A, now read file B, now read file C...' — the difference in context consumption is dramatic. The subagent approach gives you the same understanding at a fraction of the cost."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about tasks where you have had Claude read many files. Could a subagent have handled the investigation phase more efficiently?",
+        "When would you NOT want a subagent summary — when is the raw content essential?",
+        "How does the 'send an assistant to the library' framing change how you think about dividing work between investigation and execution?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Subagents run investigations in their own context window, returning only a concise summary to your main session. This can reduce context cost by 30-60x for research-heavy tasks. Use subagents for broad surveys and exploratory research. Read files directly when you need exact content or the file is small. Think of subagents as sending an assistant to the library instead of going yourself."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now have a complete toolkit for managing context: understanding the cliff, knowing what costs what, configuring CLAUDE.md and memory, compacting strategically, clearing when needed, and shielding with subagents. The checkpoint will test whether you can put it all together to diagnose and fix a stale session."
+    }
+  ]
+}

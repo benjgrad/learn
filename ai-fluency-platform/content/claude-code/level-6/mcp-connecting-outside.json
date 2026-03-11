@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "6.6 MCP — Connecting to the Outside World",
+    "description": "Model Context Protocol connects Claude Code to external services like GitHub, Slack, databases, and email.",
+    "level": "level-6",
+    "slug": "mcp-connecting-outside",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Right now, if you want Claude Code to know about a Jira ticket or a Slack message, you copy-paste the content in. What if Claude could access those services directly — read your tickets, check your calendar, query a database? What would change about your workflow?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The copy-paste bottleneck\n\nClaude Code is powerful inside your local environment. It reads files, runs commands, searches code. But your work does not live only on your computer. It lives in Jira tickets, Google Docs, Slack channels, email threads, databases, and a dozen other services.\n\nEvery time you need Claude to work with information from one of these services, you become the middleman. You open the service, find the information, copy it, paste it into Claude, wait for the response, then copy the result back. You are a human API.\n\nMCP — the **Model Context Protocol** — eliminates this bottleneck. It gives Claude Code a standardized way to connect to external services directly.\n\n## What MCP actually is\n\nMCP is a protocol — a standard way for AI tools to talk to external services. Think of it as USB for AI: just as USB gives you a standard port to connect any peripheral to your computer, MCP gives Claude Code a standard way to connect to any service that supports it.\n\nAn MCP server is a small program that translates between Claude Code and an external service. When you configure an MCP connection, Claude gains new tools — tools that talk to that service.\n\nFor example, connecting the GitHub MCP server gives Claude tools like:\n- Search issues\n- Read pull requests\n- Create issues\n- Comment on PRs\n\nConnecting a Google Calendar MCP server gives Claude tools to check your schedule, find free time, and create events.\n\n## Configuration: the .mcp.json file\n\nMCP connections are configured in `.mcp.json` files. Like other Claude Code settings, these exist at different scopes:\n\n| Location | Scope | Shared? |\n| :-- | :-- | :-- |\n| `.mcp.json` in project root | Project | Yes, via version control |\n| `~/.mcp.json` | User (all projects) | No, personal |\n\nA basic configuration looks like:\n\n```json\n{\n  \"mcpServers\": {\n    \"github\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp-server.example.com/github\"\n    },\n    \"calendar\": {\n      \"type\": \"http\",\n      \"url\": \"https://mcp-server.example.com/calendar\"\n    }\n  }\n}\n```\n\nEach entry names a server and tells Claude Code how to reach it. The `type` field specifies the connection method — HTTP is the most common for remote services.\n\n## Popular integrations\n\nThe MCP ecosystem is growing rapidly. Here are integrations that knowledge workers find most valuable:\n\n**Project management**: Jira, Linear, Asana — read tickets, update status, create issues without leaving Claude Code.\n\n**Communication**: Slack, Gmail — search messages, draft responses, read threads for context.\n\n**Documentation**: Confluence, Notion, Google Docs — read and update documentation directly.\n\n**Calendar**: Google Calendar — check availability, schedule meetings, find conflicts.\n\n**Data**: PostgreSQL, MySQL, Airtable — query databases, pull reports, check data.\n\nThe mental model: each MCP connection is a new set of tools in Claude's toolbox. Before MCP, Claude could read files and run commands. After MCP, Claude can read your Jira board, check your calendar, search your Slack history, and query your database — all from the same session.\n\n## The \"API to your world\" frame\n\nHere is the way to think about MCP: it turns Claude Code into a universal interface for your digital life.\n\nInstead of switching between 8 browser tabs, 3 apps, and a terminal, you describe what you want in natural language and Claude orchestrates across all your connected services.\n\n\"Check my calendar for this afternoon, find the Jira ticket about the Q2 review, read the latest Slack messages in #project-updates, and draft a meeting prep document that synthesizes all of it.\"\n\nWithout MCP, that sentence describes 10 minutes of manual work. With MCP, it describes one Claude Code prompt.\n\n## Security and access\n\nMCP connections have access to real services with real data. A few important principles:\n\n1. **Least privilege**: Only connect services Claude actually needs. Do not connect your production database \"just in case.\"\n2. **Scoped access**: Many MCP servers support read-only modes or limited permissions. Use them.\n3. **Project vs. user scope**: Put team-shared connections in the project `.mcp.json`. Keep personal connections (like your email) in your user config.\n4. **Review the tools**: When you connect an MCP server, check what tools it provides. Make sure you are comfortable with the capabilities."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You connect a Jira MCP server and a Gmail MCP server to Claude Code. You then ask Claude to 'find the Jira ticket about the homepage redesign and email a status update to the team.' What tools does Claude now have access to, and what is happening behind the scenes?",
+      "answer": "Claude now has Jira tools (search issues, read issue details, update issues) and Gmail tools (search emails, read messages, create drafts). Behind the scenes, Claude uses the Jira search tool to find the ticket, reads its details, then uses the Gmail tool to draft and send an email summarizing the status. Each MCP tool call goes through the respective MCP server, which authenticates with the real service and returns data to Claude. The user sees tool calls in the terminal just like any other Claude Code action."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Make a list of 5 external services you use in a typical work week. For each one, describe: (1) What information you would want Claude to read from it, (2) What actions you would want Claude to take in it, (3) Whether it should be a project-level or user-level connection. This planning exercise prepares you for setting up real MCP connections.",
+      "solution": "Common lists include: email (read messages, draft replies, user-level), project management (read tickets, update status, project-level), calendar (check schedule, find free time, user-level), documentation (read docs, update pages, project-level), chat (search history, read threads, user-level). The key distinction is whether the connection is personal (user-level) or shared by the team (project-level). Most people are surprised by how much copy-paste work MCP could eliminate."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about your typical workflow when starting a project task. How many different services do you check? How much time is spent gathering context from those services?",
+        "What concerns do you have about giving Claude direct access to services like email or project management tools? How do the security principles (least privilege, scoped access) address those concerns?",
+        "If Claude could access all your work tools directly, how would your role change? What would you spend your time on instead of context-gathering?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "MCP is Claude Code's API to your digital world. It connects external services — GitHub, Slack, email, databases, calendars — through a standard protocol, giving Claude new tools for each connected service. Configure connections in .mcp.json. Apply least-privilege access and scope connections appropriately between project and user levels."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now know all four building blocks: skills (custom commands), hooks (automatic reactions), custom agents (specialized workers), and MCP (external connections). The next module shows how these pieces compose together into something greater than the sum of their parts."
+    }
+  ]
+}

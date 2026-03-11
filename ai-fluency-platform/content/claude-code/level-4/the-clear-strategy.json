@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "4.6 The /clear Strategy",
+    "description": "Starting fresh is strategy, not failure — learn when to throw away context.",
+    "level": "level-4",
+    "slug": "the-clear-strategy",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have been working with Claude Code for 35 minutes. Quality has dropped and Claude seems confused. You could keep trying, compact, or clear the session and start over. Which feels most natural to you? What makes you hesitate about clearing? Write down your instinct before reading on."
+    },
+    {
+      "type": "markdown",
+      "content": "## The sunk cost trap — revisited\n\nIn Level 3, we talked about the sunk cost fallacy: continuing down a bad path because you have already invested time. Now we revisit it through the lens of context management.\n\nHere is the scenario that plays out hundreds of times a day for Claude Code users:\n\n1. You start a session. Great results.\n2. Twenty minutes in, you have read a dozen files, had several back-and-forth exchanges, and made good progress.\n3. Claude starts getting vague. It misremembers something from earlier. Its suggestions do not quite fit.\n4. You try to correct it. This adds more messages, consuming more context.\n5. The corrections are not working. Claude seems to be going in circles.\n6. You push through for another 15 minutes, getting increasingly frustrated.\n\nAt step 3, the expert move is often to `/clear` and start fresh. But most users do not do this. Why?\n\nBecause it **feels** like throwing away 20 minutes of work. All those file reads, all those decisions, all that progress — gone. Starting over feels like admitting failure.\n\nBut here is the reality: **the work is not in the context window. The work is in the files on disk.**\n\nEvery file Claude edited is saved. Every decision that resulted in a change is persisted. The only thing you lose by clearing is the *conversation about the work* — and that conversation was actively harming you because it was cluttering the context.\n\n## When /clear beats /compact\n\nCompaction compresses the conversation. `/clear` deletes it entirely. When is the nuclear option better?\n\n### Clear when the context is *confused*, not just *full*\n\nIf Claude went down a wrong path and you course-corrected several times, that confusion is still in the context — even after compaction. The summary will include the wrong approaches and the corrections, which can bias Claude's thinking. A fresh start with a clear prompt avoids this entirely.\n\n### Clear when you are changing topics\n\nIf you finished one task and are starting a completely different one, the old context is just noise. Compacting it preserves a summary you do not need. Clearing gives you a full budget for the new task.\n\n### Clear when quality has significantly degraded\n\nIf Claude is giving notably worse responses, a compressed summary of a degraded session is still a degraded starting point. A fresh session with a crisp, focused prompt will produce immediately better results.\n\n### Clear when you can write a better opening prompt now\n\nAfter 30 minutes of working on something, you understand the problem much better than you did at the start. Your opening prompt 30 minutes ago was written with less understanding. A fresh session lets you benefit from what you have learned by writing a **much better** initial prompt.\n\nThis is the key insight: **/clear + a better prompt is not starting over. It is starting *ahead*.**\n\n## The /clear workflow\n\nHere is how experts use `/clear`:\n\n1. **Pause and take stock.** Before clearing, mentally note: What is my current goal? What decisions have been made? What files were modified?\n2. **Clear the session.** Type `/clear`.\n3. **Write a fresh, focused prompt.** Include: the current goal, key decisions already made, relevant file paths, and specific next steps. This is your \"briefing from scratch\" — and it will be better than the one you started with.\n4. **Continue working.** Claude starts fresh with a clean workspace and a clear, well-written brief.\n\nFor example, instead of fighting through a cluttered session:\n\n```\n/clear\n\nI am working on reorganizing the quarterly report. Here is the current status:\n- Source data is in /data/q4-results.csv\n- Draft outline is in /docs/q4-report-outline.md\n- I have decided to lead with the customer satisfaction section\n- The executive summary needs to be under 200 words\n\nNext step: Draft the customer satisfaction section using the data from rows 45-120 of the CSV.\n```\n\nThat prompt gives Claude everything it needs in ~100 tokens instead of the 50,000+ tokens of accumulated context that was cluttering the previous session.\n\n## The 20-minute rule\n\nA practical heuristic: **if you have been working actively for 20+ minutes and notice quality dropping, consider `/clear`**. You do not need to clear every 20 minutes — some sessions stay clean for much longer. But 20 minutes of active file reading, editing, and conversation is often enough to fill the context significantly.\n\nThe 20-minute check is not a timer. It is a trigger for awareness: \"Am I still getting quality results? Is the context cluttered? Would a fresh start with a better prompt serve me better?\"\n\n## /clear is not failure\n\nThe biggest mental shift in this module is reframing `/clear` from \"I give up\" to \"I am upgrading my context.\" Expert users clear sessions frequently — not because they are struggling, but because they understand that a fresh context with a well-crafted prompt outperforms a cluttered context with accumulated noise.\n\nThink of it like restarting your computer. It is not because the computer is broken. It is because a clean start runs better."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You have been working for 25 minutes on organizing a set of research notes. Claude has read 15 files, you have gone back and forth on the organization structure, and Claude is now giving generic suggestions that do not reflect your earlier decisions. Should you compact or clear? Explain your reasoning.",
+      "answer": "**Clear.** Three factors point to `/clear` over `/compact`: (1) Claude is giving generic suggestions, meaning the context is confused, not just full — compacting preserves that confusion. (2) You went back and forth on the structure, so the context contains abandoned approaches that will bias the summary. (3) After 25 minutes of working, you now understand the organization structure much better than when you started. A fresh prompt that states 'I am organizing research notes. The structure is [your final decision]. The files are in [location]. Next step: [specific action]' will be dramatically more effective than any compacted summary of the cluttered session."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Next time you notice Claude's quality dropping during a session, try the /clear workflow: pause, note your current state, clear, and write a fresh focused prompt. Compare the quality of Claude's first response in the new session to the degraded responses you were getting before.",
+      "solution": "Almost everyone who tries this is surprised by how much better the fresh response is. The new response will be more specific, more aligned with your needs, and more confident — because Claude is working from a clean workspace with a clear brief. The key learning is visceral: you have to experience the difference to internalize the habit. Once you see how much better a fresh start performs, the sunk cost trap loses its power."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What makes you hesitate to use /clear? Is it the sunk cost feeling, the effort of re-explaining, or something else?",
+        "Think about your last frustrating Claude Code session. At what point would /clear have been the right move?",
+        "How does the idea that '/clear + better prompt = starting ahead' change your relationship with long sessions?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "/clear is strategy, not failure. The work lives in your files, not in the context window. When quality drops, a fresh session with a well-crafted prompt consistently outperforms fighting through a cluttered session. Use the 20-minute check: if quality is dropping after 20+ minutes of active work, consider clearing and restarting with a better brief."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Clearing and compacting are reactive strategies — you use them when the context is already strained. The next module covers a proactive approach: using subagents to investigate things without bloating your main context window at all."
+    }
+  ]
+}

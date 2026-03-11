@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "8.1 Patterns That Matter",
+    "description": "Synthesize every mental model from the course into a unified intuition for how expert Claude Code usage actually works.",
+    "level": "level-8",
+    "slug": "patterns-that-matter",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Without looking back at earlier levels, list every mental model or pattern you remember from this course. How many can you name? Which ones have you actually internalized — meaning you use them without consciously thinking about it?"
+    },
+    {
+      "type": "markdown",
+      "content": "## The mental models, unified\n\nAcross seven levels, you have encountered distinct mental models. Each one reframed how you think about some aspect of Claude Code. Let us gather them in one place and see how they compose.\n\n### The core models\n\n**Gather-Act-Verify** (Level 1): Claude operates in a loop, not a conversation. Your job is to set goals and steer the loop, not to exchange messages.\n\n**The Briefing** (Level 2): Every prompt is a briefing for a capable colleague. Quality of input determines quality of output. The five elements: context, goal, constraints, format, and verification.\n\n**Progressive Trust** (Level 3): Start restrictive, earn autonomy. Permission levels map to your confidence. Tools and access expand as trust builds.\n\n**Context is RAM** (Level 4): You have a finite budget that degrades quality when exhausted. Spend it on what matters. CLAUDE.md is always-on context. Compaction is lossy compression. /clear is a strategic reset.\n\n**The Blueprint** (Level 5): Complex work needs structure. Plan first, execute in phases, verify between phases. Break large goals into checkpointed steps.\n\n**The Workshop** (Level 6): Build your own tools. Skills encode workflows. Hooks automate reactions. Agents specialize. MCP connects. Each tool compounds.\n\n**The Fleet** (Level 7): Scale through parallelism. Worktrees for independent tasks. Teams for coordinated investigation. Automation for unattended work.\n\n### How they compose\n\nThese models are not separate techniques — they are layers that stack:\n\n```\nFleet (scaling)                    ← How many\n  Workshop (customization)         ← With what tools\n    Blueprint (structure)          ← In what order\n      Budget (context management)  ← With what resources\n        Trust (permissions)        ← With what access\n          Briefing (communication) ← With what instructions\n            Loop (foundation)      ← Through what mechanism\n```\n\nEvery expert decision touches multiple layers simultaneously.\n\nWhen you decide to \"spin up a worktree for this research task,\" you are implicitly applying:\n- **Fleet**: choosing parallel execution\n- **Workshop**: possibly using a custom research agent\n- **Blueprint**: this task is one phase of a larger plan\n- **Budget**: protecting your main session's context\n- **Trust**: the worktree might have different permission settings\n- **Briefing**: the prompt you give the worktree is a complete briefing\n- **Loop**: the worktree runs its own gather-act-verify cycle\n\nAn expert does not think through each layer. They just... do it. The layers have collapsed into a single intuition.\n\n### The five instincts of expert users\n\nThrough observation, expert Claude Code users share five instincts:\n\n**1. Front-load clarity**: They spend more time on the prompt than the average user. Not more words — more precision. They know that 2 minutes of briefing quality saves 10 minutes of steering.\n\n**2. Watch the budget**: They have a feel for when context is getting stale. They compact or clear proactively, not reactively. They delegate to subagents to protect their main session.\n\n**3. Plan before executing**: For anything beyond a single-step task, they describe the plan first and verify it before execution begins. They catch wrong approaches at the planning stage, when they are cheap to fix.\n\n**4. Verify always**: They never assume Claude got it right. They build verification into their prompts (\"run the tests after\"), their workflows (auditor agents), and their automation (CI checks).\n\n**5. Build for reuse**: When they notice a pattern they have used twice, they encode it — as a skill, a hook, an agent, or a CLAUDE.md entry. They invest in their future selves.\n\n### The pattern underneath the patterns\n\nIf you distill everything down to one principle, it is this: **treat Claude as a capable but fallible colleague, and design your collaboration accordingly.**\n\nYou would not give a new colleague a vague instruction and expect a perfect result. You would brief them clearly. You would check their work. You would give them more responsibility as they prove themselves. You would set up processes to catch mistakes. You would build shared tools and documentation.\n\nThat is all this is. The mental models are just specific applications of good collaboration practice, adapted for an AI agent."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A colleague asks you: 'What is the single most important thing to learn about Claude Code?' You can only give one sentence. What do you say?",
+      "answer": "There is no single right answer, but the strongest answers point to **the quality of your input determining the quality of your output**. Something like: 'Claude Code is only as good as the briefing you give it — spend your time on clear goals, specific constraints, and built-in verification, and the tool does the rest.' Weaker answers focus on specific features ('learn about CLAUDE.md' or 'use worktrees') which are useful but miss the underlying principle. The meta-skill is communication quality, not feature knowledge."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Pick the mental model from this course that had the biggest impact on how you use Claude Code. Explain it to someone who has never heard of Claude Code — not the feature, but the underlying principle. Why does it matter?"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which of the five expert instincts do you already practice naturally? Which one is your biggest gap?",
+        "Think of your last frustrating Claude Code session. Which mental model, if applied, would have prevented the frustration?",
+        "The course says 'treat Claude as a capable but fallible colleague.' Has your mental model of Claude actually shifted since Level 1? How?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Seven mental models — loop, briefing, trust, budget, blueprint, workshop, fleet — stack into a unified intuition. Expert users apply them simultaneously without conscious thought. The pattern underneath all patterns: treat Claude as a capable but fallible colleague and design your collaboration accordingly."
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Knowing when and how to use Claude is one side of mastery. The other side is equally important: knowing when NOT to use it. That uncomfortable but essential topic is next."
+    }
+  ]
+}
