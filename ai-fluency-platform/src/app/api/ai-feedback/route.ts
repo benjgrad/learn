@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { checkAndIncrementUsage, rateLimitResponse } from "@/lib/rate-limit";
+import { MODELS } from "@/lib/models";
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 
@@ -87,7 +88,7 @@ export async function POST(request: NextRequest) {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
+        model: MODELS.fast,
         max_tokens: 1024,
         stream: true,
         system: systemPrompt,

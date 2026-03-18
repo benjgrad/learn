@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { checkAndIncrementUsage, rateLimitResponse } from "@/lib/rate-limit";
+import { MODELS } from "@/lib/models";
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const MAX_MESSAGES = 30;
@@ -78,7 +79,7 @@ Keep responses concise. Questions should be 2-4 sentences. Evaluations should be
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: MODELS.strong,
         max_tokens: 2048,
         stream: true,
         system: systemPrompt,
