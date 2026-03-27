@@ -13,6 +13,8 @@ import aiFlCurriculum from "../../../content/ai-fluency/curriculum.json";
 import cfa1Curriculum from "../../../content/cfa-1/curriculum.json";
 import cfa2Curriculum from "../../../content/cfa-2/curriculum.json";
 import cfa3Curriculum from "../../../content/cfa-3/curriculum.json";
+import claudeCodeCurriculum from "../../../content/claude-code/curriculum.json";
+import systemDesignCurriculum from "../../../content/system-design/curriculum.json";
 import coursesData from "../../../content/courses.json";
 
 const courses = coursesData as { id: string; title: string; description: string; color: string }[];
@@ -22,6 +24,8 @@ const curricula: Record<string, CurriculumData> = {
   "cfa-1": cfa1Curriculum as CurriculumData,
   "cfa-2": cfa2Curriculum as CurriculumData,
   "cfa-3": cfa3Curriculum as CurriculumData,
+  "claude-code": claudeCodeCurriculum as CurriculumData,
+  "system-design": systemDesignCurriculum as CurriculumData,
 };
 
 function getLevelOrder(curriculum: CurriculumData): string[] {

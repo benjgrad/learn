@@ -72,7 +72,7 @@ export function LevelCard({
         {/* Module list */}
         <div className="space-y-1">
           {modules.map((mod) => {
-            const complete = isModuleComplete(`${mod.level}/${mod.slug}`);
+            const complete = isModuleComplete(`${course}/${mod.level}/${mod.slug}`);
             return (
               <Link
                 key={mod.slug}
