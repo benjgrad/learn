@@ -1,19 +1,10 @@
 import { NextRequest } from "next/server";
 import { checkAndIncrementUsage, rateLimitResponse } from "@/lib/rate-limit";
-import { MODELS } from "@/lib/models";
+import { streamAnthropicResponse, AnthropicError } from "@/lib/anthropic";
 
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const MAX_MESSAGES = 20;
 
 export async function POST(request: NextRequest) {
-  if (!ANTHROPIC_API_KEY) {
-    return new Response(
-      JSON.stringify({ error: "ANTHROPIC_API_KEY not configured" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
-  // Rate limiting
   const rateLimit = await checkAndIncrementUsage(request);
   if (!rateLimit.allowed) {
     return rateLimitResponse(rateLimit);
@@ -39,77 +30,25 @@ export async function POST(request: NextRequest) {
 
     const recentMessages = messages.slice(-MAX_MESSAGES);
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: MODELS.fast,
-        max_tokens: 1024,
-        stream: true,
-        system: systemPrompt,
-        messages: recentMessages,
-      }),
+    const { response } = await streamAnthropicResponse({
+      tier: "fast",
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: recentMessages,
     });
 
-    if (!response.ok) {
-      const error = await response.text();
-      return new Response(error, { status: response.status });
-    }
+    // Add rate limit headers to the stream response
+    response.headers.set("X-RateLimit-Remaining", String(rateLimit.remaining));
+    response.headers.set(
+      "X-RateLimit-Authenticated",
+      String(rateLimit.authenticated)
+    );
 
-    // Transform Anthropic SSE stream to our expected format
-    const reader = response.body?.getReader();
-    const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
-
-    const stream = new ReadableStream({
-      async start(controller) {
-        if (!reader) {
-          controller.close();
-          return;
-        }
-        let buffer = "";
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-            controller.close();
-            return;
-          }
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6);
-              try {
-                const parsed = JSON.parse(data);
-                if (parsed.type === "content_block_delta" && parsed.delta?.text) {
-                  controller.enqueue(
-                    encoder.encode(`data: ${JSON.stringify({ text: parsed.delta.text })}\n\n`)
-                  );
-                }
-              } catch {
-                // skip non-JSON lines
-              }
-            }
-          }
-        }
-      },
-    });
-
-    return new Response(stream, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        "X-RateLimit-Remaining": String(rateLimit.remaining),
-        "X-RateLimit-Authenticated": String(rateLimit.authenticated),
-      },
-    });
+    return response;
   } catch (error) {
+    if (error instanceof AnthropicError) {
+      return new Response(error.message, { status: error.status });
+    }
     return new Response(
       JSON.stringify({ error: String(error) }),
       { status: 500, headers: { "Content-Type": "application/json" } }

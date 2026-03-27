@@ -1,11 +1,7 @@
-// Central model configuration
-// Using "-latest" aliases so the API always resolves to the newest
-// non-deprecated version in each family. This prevents outages when
-// date-pinned model versions are retired.
+// Model resolution is now handled dynamically by src/lib/anthropic.ts
+// which queries the Anthropic Models API, with env var and hardcoded fallbacks.
+//
+// API routes should use streamAnthropicResponse({ tier: "fast" | "strong", ... })
+// instead of referencing model IDs directly.
 
-export const MODELS = {
-  /** Fast / cheap — used for feedback, chat */
-  fast: "claude-haiku-4-5-latest",
-  /** Capable — used for interviews, complex tasks */
-  strong: "claude-sonnet-4-latest",
-} as const;
+export type ModelTier = "fast" | "strong";
