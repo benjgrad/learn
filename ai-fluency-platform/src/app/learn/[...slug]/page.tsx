@@ -55,6 +55,8 @@ export default async function LearnPage({ params }: PageProps) {
   const levelColor = getLevelColor(course, meta.level);
   const levelTitle = getLevelTitle(course, meta.level);
   const { prev, next } = getAdjacentModules(course, meta.level, meta.slug);
+  const courses = getCourses();
+  const courseInfo = courses.find((c) => c.id === course);
 
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)]">
@@ -102,6 +104,7 @@ export default async function LearnPage({ params }: PageProps) {
           levelColor={levelColor}
           nextModule={next}
           course={course}
+          isDrillCourse={courseInfo?.isDrillCourse}
         />
 
         {/* Prev/Next navigation */}

@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "title": "Rule of 2 and 4",
+    "description": "Convert outs into probabilities instantly using the Rule of 2 and 4.",
+    "level": "level-3",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Rule of 2 and 4\n\nNow that you can count outs, let's turn them into probabilities. You could do exact math at the table, but there's a much faster way: the **Rule of 2 and 4**. It's a mental shortcut that gives you surprisingly accurate estimates in seconds.\n\n## What It Is\n\nThe rule is beautifully simple:\n\n- **On the turn** (one card to come): multiply your outs by **2** to get your approximate hit percentage.\n- **On the flop** (two cards to come): multiply your outs by **4** to get your approximate hit percentage.\n\nThat's it. No calculator needed.\n\n## Why It Works\n\n### Rule of 2\nOn the turn, there are 46 unseen cards (52 total minus your 2 hole cards minus 4 board cards). Each out gives you roughly a **1/46 = 2.2%** chance of hitting. Multiplying by 2 is a close approximation of 2.2%.\n\n### Rule of 4\nOn the flop, you get two chances to hit (the turn AND the river). With 47 unseen cards on the flop, each out is roughly 2.1% per card, and you get two cards. So each out is worth about 4.2% across both streets. Multiplying by 4 captures this nicely.\n\n## Worked Examples\n\n**Example 1 -- Flush draw on the turn:**\nYou have 9 outs (flush draw) with one card to come.\n9 outs x 2 = **~18%** chance of hitting the flush on the river.\n(Exact probability: 9/46 = 19.6%)\n\n**Example 2 -- Flush draw on the flop:**\nYou have 9 outs (flush draw) with two cards to come.\n9 outs x 4 = **~36%** chance of hitting the flush by the river.\n(Exact probability: ~35.0%)\n\n**Example 3 -- Gutshot on the turn:**\nYou have 4 outs with one card to come.\n4 outs x 2 = **~8%** chance.\n(Exact: 8.7%)\n\n**Example 4 -- Open-ended straight draw on the flop:**\nYou have 8 outs with two cards to come.\n8 outs x 4 = **~32%** chance.\n(Exact: ~31.5%)\n\n## Accuracy Comparison\n\nHere's how the Rule of 2 and 4 stacks up against exact probabilities:\n\n| Outs | Rule of 2 (turn) | Exact (turn) | Rule of 4 (flop) | Exact (flop) |\n|------|-------------------|--------------|-------------------|--------------|\n| 2 | 4% | 4.3% | 8% | 8.4% |\n| 4 | 8% | 8.7% | 16% | 16.5% |\n| 6 | 12% | 13.0% | 24% | 24.1% |\n| 8 | 16% | 17.4% | 32% | 31.5% |\n| 9 | 18% | 19.6% | 36% | 35.0% |\n| 12 | 24% | 26.1% | 48% | 45.0% |\n| 15 | 30% | 32.6% | 60% | 54.1% |\n\n## A Note on Accuracy\n\nThe Rule of 2 is accurate across the board -- it's always within a couple of percentage points.\n\nThe Rule of 4 is very accurate up to about 8-9 outs. Above that, it starts to **slightly overestimate** your probability. With 15 outs, the rule says 60% but the exact answer is 54%. Why? Because multiplying by 4 doesn't account for the fact that hitting on the turn means you don't need the river, and the denominators shrink as cards are dealt.\n\nFor practical purposes, this overestimation rarely matters. The Rule of 4 is still the standard tool used by professional players at the table. Just be aware that with very high out counts (12+), your actual probability is a few points lower than the estimate.\n\n## Up Next\n\nThe two drills in this level will make this rule automatic. First you'll practice the Rule of 2 (one card to come), then the Rule of 4 (two cards to come). Practice until the multiplication feels effortless!"
+    }
+  ]
+}

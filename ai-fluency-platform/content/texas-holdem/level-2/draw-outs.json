@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Single Draw Outs",
+    "description": "Count outs for common single draws: flush draws, straight draws, and overcards.",
+    "level": "level-2",
+    "slug": "draw-outs",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Single Draw Outs\n\nCount how many outs you have for each draw. Focus on one draw at a time — we'll get to combo draws in the next module. Take your time and build that counting reflex!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Single Draw Outs Drill",
+      "instructions": "Count the number of outs that complete your draw. Only count clean outs for the specific draw described.",
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 90,
+      "generator": "count-outs",
+      "problemCount": 10
+    }
+  ]
+}

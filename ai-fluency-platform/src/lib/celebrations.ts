@@ -24,6 +24,17 @@ export function celebrateModule(color: string = "#3b82f6") {
   });
 }
 
+export function celebrateDrillPass(color: string = "#dc2626") {
+  confetti({
+    particleCount: 60,
+    spread: 60,
+    origin: { y: 0.6 },
+    colors: [color, "#fbbf24", "#10b981"],
+    scalar: 0.9,
+    ticks: 90,
+  });
+}
+
 export function celebrateLevel() {
   const duration = 3000;
   const end = Date.now() + duration;

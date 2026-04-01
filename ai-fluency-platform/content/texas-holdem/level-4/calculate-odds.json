@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Calculate Pot Odds",
+    "description": "Compute the odds the pot is offering you.",
+    "level": "level-4",
+    "slug": "calculate-odds",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Calculate Pot Odds\n\nTime to drill the pot odds formula. Remember: **pot odds = call amount / (total pot including your call)**. Work through each one and let the formula become automatic!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Calculate Pot Odds",
+      "instructions": "For each problem, calculate the pot odds as a percentage. Pot odds = call amount / (pot + opponent bet + your call).",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120,
+      "generator": "pot-odds",
+      "problemCount": 10
+    }
+  ]
+}

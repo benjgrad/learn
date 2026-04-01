@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Position Play",
+    "description": "Decide what to do based on your position.",
+    "level": "level-6",
+    "slug": "position-play",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Position Play\n\nSame hand, different position, different decision. Tighten up early, open up late. Practice thinking about position with every hand you see!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Position Play",
+      "instructions": "Decide what to do with your hand from the given position. Assume a standard 6-max game with no prior action (no raises before you) unless stated otherwise.",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120,
+      "generator": "position-play",
+      "problemCount": 10
+    }
+  ]
+}

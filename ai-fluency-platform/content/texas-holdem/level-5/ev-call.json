@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "EV of a Call",
+    "description": "Calculate whether a call is profitable.",
+    "level": "level-5",
+    "slug": "ev-call",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## EV of a Call\n\nFor each problem, calculate the expected value of calling. Remember: **EV = (win% x pot) - (lose% x call amount)**. Positive means profitable, negative means you're losing money long-term. Let's sharpen that EV intuition!"
+    },
+    {
+      "type": "drillSet",
+      "title": "EV of a Call",
+      "instructions": "Calculate the EV of calling. EV = (win% x pot) - (lose% x call). The pot shown is what's already in the pot before your call.",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 150,
+      "generator": "ev-call",
+      "problemCount": 10
+    }
+  ]
+}

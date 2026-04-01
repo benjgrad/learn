@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Combo Draw Outs",
+    "description": "Count outs when you have multiple draws at once — be careful about overlapping outs!",
+    "level": "level-2",
+    "slug": "combo-draws",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Combo Draw Outs\n\nSometimes you have more than one draw at once — a flush draw plus overcards, or a straight draw plus a flush draw. When counting combo draw outs, be careful not to double-count cards that complete multiple draws. Let's practice getting those totals right!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Combo Draw Outs Drill",
+      "instructions": "Count the total number of outs across all your draws. Be careful about overlapping outs — a card that completes both a flush and a straight should only be counted once.",
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 90,
+      "generator": "combo-outs",
+      "problemCount": 10
+    }
+  ]
+}

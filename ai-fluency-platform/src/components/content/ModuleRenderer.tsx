@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useMemo } from "react";
 import type { ContentBlock, ModuleMeta } from "@/types/content";
 import { PredictPrompt } from "@/components/learning/PredictPrompt";
 import { ExplainBack } from "@/components/learning/ExplainBack";
@@ -12,12 +12,14 @@ import { KeyTakeaway } from "@/components/learning/KeyTakeaway";
 import { ProviderContent } from "@/components/learning/ProviderContent";
 import { ProviderToggle } from "@/components/learning/ProviderToggle";
 import { PracticeSet } from "@/components/learning/PracticeSet";
+import { DrillSet } from "@/components/learning/DrillSet";
 import { PixelAgentTeam } from "@/components/learning/PixelAgentTeam";
+import { DrillModuleComplete } from "@/components/progress/DrillModuleComplete";
 import { ModuleChat } from "@/components/learning/ModuleChat";
 import { ProgressBar } from "@/components/progress/ProgressBar";
 import { ModuleComplete } from "@/components/progress/ModuleComplete";
 import { useProgress } from "@/lib/store/use-progress";
-import { celebrateInteraction, celebrateModule } from "@/lib/celebrations";
+import { celebrateInteraction, celebrateModule, celebrateDrillPass } from "@/lib/celebrations";
 import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -38,6 +40,7 @@ interface ModuleRendererProps {
   levelColor: string;
   nextModule: ModuleMeta | null;
   course?: string;
+  isDrillCourse?: boolean;
 }
 
 export function ModuleRenderer({
@@ -47,6 +50,7 @@ export function ModuleRenderer({
   levelColor,
   nextModule,
   course,
+  isDrillCourse,
 }: ModuleRendererProps) {
   const modulePath = `${course}/${meta.level}/${meta.slug}`;
   const {
@@ -56,6 +60,14 @@ export function ModuleRenderer({
     markModuleComplete,
     isInteractionComplete,
     getInteractionData,
+    markDrillPassed,
+    storeDrillAttempt,
+    isDrillPassed,
+    getDrillAttempts,
+    incrementPracticeSession,
+    getPracticeCount,
+    isTestUnlocked: isTestUnlockedCheck,
+    getMasteryLevel,
   } = useProgress(modulePath, meta.level);
 
   // Count total interactive blocks
@@ -67,7 +79,8 @@ export function ModuleRenderer({
         b.type === "tryItYourself" ||
         b.type === "calibrationCheck" ||
         b.type === "reflectPrompt" ||
-        b.type === "practiceSet"
+        b.type === "practiceSet" ||
+        b.type === "drillSet"
     ).length
   );
 
@@ -87,6 +100,53 @@ export function ModuleRenderer({
     markModuleComplete();
     celebrateModule(levelColor);
   }, [markModuleComplete, levelColor]);
+
+  // Collect all drill keys for auto-completion logic
+  // interactionIndex increments for every interactive block, so drill keys
+  // use the same indexing as in the render loop below
+  const allDrillKeys = useMemo(() => {
+    let idx = 0;
+    const keys: string[] = [];
+    for (const b of blocks) {
+      const isInteractive =
+        b.type === "predictPrompt" ||
+        b.type === "explainBack" ||
+        b.type === "tryItYourself" ||
+        b.type === "calibrationCheck" ||
+        b.type === "reflectPrompt" ||
+        b.type === "practiceSet" ||
+        b.type === "drillSet";
+      if (isInteractive) {
+        if (b.type === "drillSet") {
+          keys.push(`drillSet-${idx}`);
+        }
+        idx++;
+      }
+    }
+    return keys;
+  }, [blocks]);
+
+  const handleDrillPassed = useCallback(
+    (key: string, attempt: import("@/types/progress").DrillAttempt) => {
+      markDrillPassed(key, attempt, allDrillKeys);
+      celebrateDrillPass(levelColor);
+    },
+    [markDrillPassed, allDrillKeys, levelColor]
+  );
+
+  const handleDrillFailed = useCallback(
+    (key: string, attempt: import("@/types/progress").DrillAttempt) => {
+      storeDrillAttempt(key, attempt);
+    },
+    [storeDrillAttempt]
+  );
+
+  const handlePracticeComplete = useCallback(
+    (key: string) => {
+      incrementPracticeSession(key);
+    },
+    [incrementPracticeSession]
+  );
 
   return (
     <div>
@@ -219,6 +279,32 @@ export function ModuleRenderer({
               );
             }
 
+            case "drillSet": {
+              const key = `drillSet-${interactionIndex++}`;
+              return (
+                <DrillSet
+                  key={i}
+                  title={block.title}
+                  instructions={block.instructions}
+                  problems={block.problems}
+                  generator={block.generator}
+                  problemCount={block.problemCount}
+                  passThreshold={block.passThreshold}
+                  timeLimitSeconds={block.timeLimitSeconds}
+                  interactionKey={key}
+                  onComplete={handleInteractionComplete}
+                  onDrillPassed={handleDrillPassed}
+                  onDrillFailed={handleDrillFailed}
+                  onPracticeComplete={handlePracticeComplete}
+                  isPassed={isDrillPassed(key)}
+                  previousAttempts={getDrillAttempts(key)}
+                  practiceSessionCount={getPracticeCount(key)}
+                  masteryLevel={getMasteryLevel(key)}
+                  isTestUnlocked={isTestUnlockedCheck(key)}
+                />
+              );
+            }
+
             case "pixelAgentTeam":
               return <PixelAgentTeam key={i} />;
 
@@ -244,14 +330,23 @@ export function ModuleRenderer({
       </div>
 
       {/* Module completion */}
-      {!meta.isIndex && (
+      {!meta.isIndex && isDrillCourse ? (
+        <DrillModuleComplete
+          isComplete={moduleComplete}
+          drillKeys={allDrillKeys}
+          isDrillPassed={isDrillPassed}
+          getMasteryLevel={getMasteryLevel}
+          nextModule={nextModule}
+          course={course}
+        />
+      ) : !meta.isIndex ? (
         <ModuleComplete
           isComplete={moduleComplete}
           onMarkComplete={handleModuleComplete}
           nextModule={nextModule}
           course={course}
         />
-      )}
+      ) : null}
 
       {/* Floating chat */}
       <ModuleChat

@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Starting Hands",
+    "description": "Classify starting hands by strength.",
+    "level": "level-6",
+    "slug": "starting-hands",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Starting Hand Classification\n\nKnow your hand tiers cold. Premium, strong, playable, marginal, or trash — practice classifying each hand until it's instant!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Starting Hands",
+      "instructions": "Classify each starting hand or compare hands by strength. Remember: suited hands are stronger than their offsuit counterparts.",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120,
+      "generator": "starting-hands",
+      "problemCount": 10
+    }
+  ]
+}

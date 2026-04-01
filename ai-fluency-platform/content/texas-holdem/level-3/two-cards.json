@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Rule of 4 — Two Cards to Come",
+    "description": "Use the Rule of 4 to estimate probabilities with two cards to come.",
+    "level": "level-3",
+    "slug": "two-cards",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Rule of 4 — Two Cards to Come\n\nYou're on the flop with two cards to come. Multiply your outs by 4 to estimate your probability of hitting by the river. With two chances to catch your card, those odds add up fast!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Rule of 4 Drill",
+      "instructions": "You are on the flop (two cards to come). Given the number of outs, use the Rule of 4 to estimate the probability of completing your draw by the river.",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120,
+      "generator": "rule-of-4",
+      "problemCount": 10
+    }
+  ]
+}

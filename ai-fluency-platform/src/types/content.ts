@@ -23,11 +23,26 @@ export interface PracticeProblem {
   learningOutcome?: string;
 }
 
+export interface DrillProblem {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  explanation: string;
+  difficulty: "basic" | "intermediate" | "advanced";
+  cards?: {
+    hand?: string[];
+    board?: string[];
+    displayAs?: "hand" | "board" | "both";
+  };
+}
+
 export interface CourseInfo {
   id: string;
   title: string;
   description: string;
   color: string;
+  isDrillCourse?: boolean;
 }
 
 export interface LessonReviewQuestion {
@@ -60,6 +75,16 @@ export type ContentBlock =
       vignette?: string;
       problems: PracticeProblem[];
     }
+  | {
+      type: "drillSet";
+      title: string;
+      instructions?: string;
+      problems?: DrillProblem[];
+      generator?: string;
+      problemCount?: number;
+      passThreshold: number;
+      timeLimitSeconds: number;
+    }
   | { type: "pixelAgentTeam" }
   | {
       type: "providerContent";
@@ -80,6 +105,8 @@ export interface LevelInfo {
   description: string;
   moduleCount: number;
   levelLabel?: string; // "Level" (default) or "Topic" for CFA courses
+  passThreshold?: number;
+  timeLimitSeconds?: number;
 }
 
 export interface CurriculumData {

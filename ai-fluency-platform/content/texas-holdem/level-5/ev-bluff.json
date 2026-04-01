@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "EV of a Bluff",
+    "description": "Calculate whether a bluff is profitable.",
+    "level": "level-5",
+    "slug": "ev-bluff",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## EV of a Bluff\n\nBluffing isn't about luck — it's about math. If your opponent folds often enough, a bluff is profitable regardless of your cards. **EV = (fold% x pot) - (call% x your bet)**. Let's build your bluffing math skills!"
+    },
+    {
+      "type": "drillSet",
+      "title": "EV of a Bluff",
+      "instructions": "Calculate the EV of bluffing. EV = (fold% x pot) - (call% x your bet). Assume you always lose when called.",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 150,
+      "generator": "ev-bluff",
+      "problemCount": 10
+    }
+  ]
+}

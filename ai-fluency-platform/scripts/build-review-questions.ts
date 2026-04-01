@@ -29,6 +29,7 @@ const COURSES = [
   "system-design",
   "web-fundamentals",
   "react-literacy",
+  "texas-holdem",
 ];
 
 function findLessonFiles(courseDir: string): string[] {

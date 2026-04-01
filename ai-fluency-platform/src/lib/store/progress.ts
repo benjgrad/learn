@@ -4,6 +4,7 @@ import type {
   ProgressStore,
   ModuleProgressState,
   InteractionState,
+  DrillAttempt,
 } from "@/types/progress";
 import { syncProgress } from "./db-sync";
 
@@ -132,6 +133,194 @@ export function getLevelCompletionCount(levelId: string): number {
 
 export function getAllProgress(): ProgressStore {
   return getStore();
+}
+
+export function storeDrillAttempt(
+  modulePath: string,
+  levelId: string,
+  drillKey: string,
+  attempt: DrillAttempt
+): void {
+  const store = getStore();
+
+  if (!store.modules[modulePath]) {
+    store.modules[modulePath] = {
+      modulePath,
+      levelId,
+      completed: false,
+      interactions: {},
+    };
+  }
+
+  const mod = store.modules[modulePath];
+  if (!mod.drillAttempts) mod.drillAttempts = {};
+  if (!mod.drillAttempts[drillKey]) mod.drillAttempts[drillKey] = [];
+  mod.drillAttempts[drillKey].push(attempt);
+
+  saveStore(store);
+  syncProgress(modulePath, levelId, mod.completed, mod.completedAt, mod.interactions);
+}
+
+export function markDrillPassed(
+  modulePath: string,
+  levelId: string,
+  drillKey: string,
+  attempt: DrillAttempt,
+  allDrillKeys: string[]
+): void {
+  const store = getStore();
+
+  if (!store.modules[modulePath]) {
+    store.modules[modulePath] = {
+      modulePath,
+      levelId,
+      completed: false,
+      interactions: {},
+    };
+  }
+
+  const mod = store.modules[modulePath];
+  if (!mod.drillAttempts) mod.drillAttempts = {};
+  if (!mod.drillAttempts[drillKey]) mod.drillAttempts[drillKey] = [];
+  mod.drillAttempts[drillKey].push(attempt);
+
+  if (!mod.drillPassed) mod.drillPassed = {};
+  mod.drillPassed[drillKey] = true;
+
+  // Mark interaction as complete too
+  mod.interactions[drillKey] = {
+    completed: true,
+    completedAt: new Date().toISOString(),
+  };
+
+  // Auto-complete module if all drills are passed
+  const allPassed = allDrillKeys.every((key) => mod.drillPassed?.[key]);
+  if (allPassed) {
+    mod.completed = true;
+    mod.completedAt = new Date().toISOString();
+  }
+
+  saveStore(store);
+  syncProgress(modulePath, levelId, mod.completed, mod.completedAt, mod.interactions);
+}
+
+export function isDrillPassed(modulePath: string, drillKey: string): boolean {
+  const progress = getModuleProgress(modulePath);
+  return progress?.drillPassed?.[drillKey] || false;
+}
+
+export function getDrillAttempts(modulePath: string, drillKey: string): DrillAttempt[] {
+  const progress = getModuleProgress(modulePath);
+  return progress?.drillAttempts?.[drillKey] || [];
+}
+
+export function isLevelFullyPassed(
+  course: string,
+  levelSlug: string,
+  modules: { slug: string; isIndex?: boolean }[]
+): boolean {
+  const nonIndexModules = modules.filter((m) => !m.isIndex);
+  if (nonIndexModules.length === 0) return false;
+  return nonIndexModules.every((m) =>
+    isModuleComplete(`${course}/${levelSlug}/${m.slug}`)
+  );
+}
+
+// -- Practice session tracking for drill courses --
+
+const PRACTICE_SESSIONS_REQUIRED = 5;
+const DAILY_PRACTICE_LIMIT = 2; // per level per day
+
+function getToday(): string {
+  return new Date().toISOString().split("T")[0];
+}
+
+export function incrementPracticeSession(
+  modulePath: string,
+  levelId: string,
+  drillKey: string
+): void {
+  const store = getStore();
+
+  if (!store.modules[modulePath]) {
+    store.modules[modulePath] = {
+      modulePath,
+      levelId,
+      completed: false,
+      interactions: {},
+    };
+  }
+
+  const mod = store.modules[modulePath];
+  if (!mod.practiceSessionCount) mod.practiceSessionCount = {};
+  mod.practiceSessionCount[drillKey] =
+    (mod.practiceSessionCount[drillKey] || 0) + 1;
+
+  if (!mod.practiceSessionDates) mod.practiceSessionDates = {};
+  if (!mod.practiceSessionDates[drillKey]) mod.practiceSessionDates[drillKey] = [];
+  mod.practiceSessionDates[drillKey].push(getToday());
+
+  saveStore(store);
+  syncProgress(modulePath, levelId, mod.completed, mod.completedAt, mod.interactions);
+}
+
+export function getPracticeSessionCount(
+  modulePath: string,
+  drillKey: string
+): number {
+  const progress = getModuleProgress(modulePath);
+  return progress?.practiceSessionCount?.[drillKey] || 0;
+}
+
+export function isTestUnlocked(
+  modulePath: string,
+  drillKey: string
+): boolean {
+  return getPracticeSessionCount(modulePath, drillKey) >= PRACTICE_SESSIONS_REQUIRED;
+}
+
+/**
+ * Count practice sessions done today across ALL drills in a level.
+ */
+export function getPracticeSessionsToday(
+  course: string,
+  levelSlug: string,
+  moduleMetaList: { slug: string; isIndex?: boolean }[]
+): number {
+  const today = getToday();
+  let count = 0;
+
+  for (const mod of moduleMetaList) {
+    if (mod.isIndex) continue;
+    const modPath = `${course}/${levelSlug}/${mod.slug}`;
+    const progress = getModuleProgress(modPath);
+    if (!progress?.practiceSessionDates) continue;
+
+    for (const dates of Object.values(progress.practiceSessionDates)) {
+      count += dates.filter((d) => d === today).length;
+    }
+  }
+
+  return count;
+}
+
+export function canPracticeToday(
+  course: string,
+  levelSlug: string,
+  moduleMetaList: { slug: string; isIndex?: boolean }[]
+): boolean {
+  return getPracticeSessionsToday(course, levelSlug, moduleMetaList) < DAILY_PRACTICE_LIMIT;
+}
+
+export function getMasteryLevel(
+  modulePath: string,
+  drillKey: string
+): import("@/types/progress").MasteryLevel {
+  if (isDrillPassed(modulePath, drillKey)) return "mastered";
+  const sessions = getPracticeSessionCount(modulePath, drillKey);
+  if (sessions >= PRACTICE_SESSIONS_REQUIRED) return "almost-ready";
+  if (sessions > 0) return "practicing";
+  return "not-started";
 }
 
 // Migration map: old CFA single-level paths -> new topic-level paths

@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Call or Fold",
+    "description": "Compare pot odds to hand odds and decide.",
+    "level": "level-4",
+    "slug": "call-or-fold",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Call or Fold?\n\nNow combine everything: count your outs, estimate your probability, calculate pot odds, and decide. If your chance of winning is better than the price you're paying — call. Otherwise, fold. Practice making these decisions quickly and confidently!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Call or Fold",
+      "instructions": "Use the Rule of 2 (outs x 2 for one card to come) and pot odds to decide whether to call or fold.",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120,
+      "generator": "call-or-fold",
+      "problemCount": 10
+    }
+  ]
+}

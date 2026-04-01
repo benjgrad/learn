@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "title": "Expected Value",
+    "description": "Learn to think in terms of EV.",
+    "level": "level-5",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Expected Value (EV)\n\nPot odds tell you whether a call is profitable. Expected Value takes it further -- it tells you **how much** you gain or lose on average with each decision. EV is the single most important concept in poker.\n\n## What Is Expected Value?\n\nExpected Value is the average amount you'd win (or lose) if you made the same decision thousands of times. A single hand might go either way, but EV tells you whether the decision itself was correct.\n\n**EV = (probability of winning x amount won) - (probability of losing x amount lost)**\n\n- **Positive EV (+EV):** You profit in the long run. This is a good decision regardless of the outcome of any single hand.\n- **Negative EV (-EV):** You lose in the long run. Even if you get lucky once, this decision bleeds money over time.\n- **Zero EV:** You break even. Neither good nor bad.\n\n## EV of a Call\n\nWhen deciding whether to call a bet:\n\n- **Amount won** = the current pot (what's already in there, including your opponent's bet)\n- **Amount lost** = the amount you must call\n\n**EV = (win% x pot) - (lose% x call amount)**\n\n### Worked Example\n\nPot is **$100**, you must call **$25**, and you estimate you'll win **30%** of the time.\n\n- EV = (0.30 x $100) - (0.70 x $25)\n- EV = $30 - $17.50\n- EV = **+$12.50**\n\nThis is a +EV call. On average, you gain $12.50 every time you make this play. Even though you'll lose 70% of the time, the times you win more than make up for it.\n\n### Another Example -- A Losing Call\n\nPot is **$50**, you must call **$50**, and you estimate you'll win **25%** of the time.\n\n- EV = (0.25 x $50) - (0.75 x $50)\n- EV = $12.50 - $37.50\n- EV = **-$25.00**\n\nThis is a -EV call. You're paying too much relative to your chance of winning. Fold and save your chips.\n\n## EV of a Bluff\n\nBluffing has its own EV formula. When you bluff, you either win the pot (opponent folds) or lose your bet (opponent calls).\n\n**EV = (fold% x pot) - (call% x your bet)**\n\n### Worked Example\n\nThe pot is **$100**. You bet **$50** as a bluff. You estimate your opponent folds **60%** of the time.\n\n- EV = (0.60 x $100) - (0.40 x $50)\n- EV = $60 - $20\n- EV = **+$40.00**\n\nA very profitable bluff! Even though you're betting with nothing, the math is strongly in your favor.\n\n### When Does a Bluff Break Even?\n\nSet EV = 0 and solve for fold%. For a half-pot bluff ($50 into $100):\n\n- 0 = (fold% x $100) - ((1 - fold%) x $50)\n- 0 = 100f - 50 + 50f\n- 50 = 150f\n- f = **33.3%**\n\nA half-pot bluff only needs your opponent to fold one-third of the time to break even. Anything above that is pure profit.\n\n## The Big Picture\n\n**Good poker = consistently making +EV decisions.**\n\nYou won't win every hand. You'll make the right call and miss your draw. You'll make a great bluff and get snapped off. That's normal. What matters is that over hundreds and thousands of hands, your +EV decisions add up to profit.\n\nThink of it like this: a casino doesn't win every bet, but every game has a small edge in their favor. Over millions of plays, that edge prints money. As a poker player, you're building your own edge -- one +EV decision at a time.\n\n## Up Next\n\nThe two drills in this level will sharpen your EV calculations. First you'll calculate EV for calls, then EV for bluffs. Once you can do these quickly, you'll have the math toolkit to evaluate any poker decision!"
+    }
+  ]
+}

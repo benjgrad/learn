@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Rank the Hands",
+    "description": "Determine which of two hands wins on a given board.",
+    "level": "level-1",
+    "slug": "rank-hands",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Rank the Hands\n\nTwo players. One board. Who wins? Compare the two hands and pick the winner. Remember — you use the best five cards from the seven available (two hole cards + five board cards). Keep at it and this will become second nature!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Hand Ranking Drill",
+      "instructions": "Two players each hold two hole cards. A shared board is dealt. Determine which player wins, or if it's a split pot.",
+      "passThreshold": 0.9,
+      "timeLimitSeconds": 60,
+      "generator": "rank-hands",
+      "problemCount": 10
+    }
+  ]
+}

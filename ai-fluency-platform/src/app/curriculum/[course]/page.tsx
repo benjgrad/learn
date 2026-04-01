@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getCurriculum, getCourses } from "@/lib/content";
 import { LevelCard } from "@/components/progress/LevelCard";
+import { DrillCurriculumGrid } from "@/components/progress/DrillCurriculumGrid";
 
 interface PageProps {
   params: Promise<{ course: string }>;
@@ -35,25 +36,29 @@ export default async function CurriculumCoursePage({ params }: PageProps) {
           {courseInfo.description}
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {curriculum.levels.map((level) => {
-          const levelSlug =
-            level.level === 0 ? "foundations" : `level-${level.level}`;
-          const modules = (curriculum.modules[levelSlug] || []).filter(
-            (m) => !m.isIndex
-          );
+      {courseInfo.isDrillCourse ? (
+        <DrillCurriculumGrid curriculum={curriculum} course={course} />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {curriculum.levels.map((level) => {
+            const levelSlug =
+              level.level === 0 ? "foundations" : `level-${level.level}`;
+            const modules = (curriculum.modules[levelSlug] || []).filter(
+              (m) => !m.isIndex
+            );
 
-          return (
-            <LevelCard
-              key={level.level}
-              level={level}
-              levelSlug={levelSlug}
-              modules={modules}
-              course={course}
-            />
-          );
-        })}
-      </div>
+            return (
+              <LevelCard
+                key={level.level}
+                level={level}
+                levelSlug={levelSlug}
+                modules={modules}
+                course={course}
+              />
+            );
+          })}
+        </div>
+      )}
     </main>
   );
 }

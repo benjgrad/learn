@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Identify the Hand",
+    "description": "Identify the best possible hand from a set of cards.",
+    "level": "level-1",
+    "slug": "identify-hand",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Identify the Hand\n\nLook at the cards and name the best possible five-card hand. Practice reading boards quickly and confidently — the more you do it, the more natural it becomes!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Hand Identification Drill",
+      "instructions": "For each problem, identify the best five-card poker hand that can be made from the cards shown.",
+      "passThreshold": 0.9,
+      "timeLimitSeconds": 60,
+      "generator": "hand-rankings",
+      "problemCount": 10
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Rule of 2 — One Card to Come",
+    "description": "Use the Rule of 2 to estimate probabilities with one card to come.",
+    "level": "level-3",
+    "slug": "one-card",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false,
+    "isPracticeOnly": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Rule of 2 — One Card to Come\n\nYou're on the turn with one card to come. Multiply your outs by 2 to estimate your probability of hitting. This shortcut is surprisingly accurate and will serve you well at the table!"
+    },
+    {
+      "type": "drillSet",
+      "title": "Rule of 2 Drill",
+      "instructions": "You are on the turn (one card to come). Given the number of outs, use the Rule of 2 to estimate the probability of completing your draw.",
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120,
+      "generator": "rule-of-2",
+      "problemCount": 10
+    }
+  ]
+}

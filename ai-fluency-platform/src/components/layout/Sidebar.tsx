@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { ChevronDown, ChevronRight, CheckCircle2, Circle } from "lucide-react";
+import { ChevronDown, ChevronRight, CheckCircle2, Circle, Lock } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { isModuleComplete } from "@/lib/store/progress";
+import { isModuleComplete, isLevelFullyPassed, getMasteryLevel } from "@/lib/store/progress";
+import { getMasteryColor, type MasteryLevel } from "@/lib/poker/messages";
 import type { LevelInfo, ModuleMeta, CurriculumData } from "@/types/content";
 
 import aiFlCurriculum from "../../../content/ai-fluency/curriculum.json";
@@ -16,6 +17,7 @@ import claudeCodeCurriculum from "../../../content/claude-code/curriculum.json";
 import systemDesignCurriculum from "../../../content/system-design/curriculum.json";
 import webFundamentalsCurriculum from "../../../content/web-fundamentals/curriculum.json";
 import reactLiteracyCurriculum from "../../../content/react-literacy/curriculum.json";
+import texasHoldemCurriculum from "../../../content/texas-holdem/curriculum.json";
 import coursesData from "../../../content/courses.json";
 import type { CourseInfo } from "@/types/content";
 
@@ -29,11 +31,33 @@ const curricula: Record<string, CurriculumData> = {
   "system-design": systemDesignCurriculum as CurriculumData,
   "web-fundamentals": webFundamentalsCurriculum as CurriculumData,
   "react-literacy": reactLiteracyCurriculum as CurriculumData,
+  "texas-holdem": texasHoldemCurriculum as CurriculumData,
 };
 
 function getLevelOrder(curriculum: CurriculumData): string[] {
   return curriculum.levels.map((l) =>
     l.level === 0 ? "foundations" : `level-${l.level}`
+  );
+}
+
+function MasteryDotSidebar({ modulePath }: { modulePath: string }) {
+  const mastery = getMasteryLevel(modulePath, "drillSet-0");
+  const color = getMasteryColor(mastery);
+  const opacity: Record<MasteryLevel, number> = {
+    "not-started": 0.2,
+    "practicing": 0.5,
+    "almost-ready": 0.75,
+    "mastered": 1,
+  };
+  return (
+    <div
+      className="w-3.5 h-3.5 rounded-full border-2 shrink-0"
+      style={{
+        borderColor: color,
+        backgroundColor: mastery === "not-started" ? "transparent" : color,
+        opacity: opacity[mastery],
+      }}
+    />
   );
 }
 
@@ -51,6 +75,8 @@ export function Sidebar({
   const course = courseProp || pathname.split("/")[2] || "ai-fluency";
   const curriculum = curricula[course] || curricula["ai-fluency"];
   const levelOrder = getLevelOrder(curriculum);
+  const courseInfo = courses.find((c) => c.id === course);
+  const isDrill = courseInfo?.isDrillCourse;
 
   // Re-render when localStorage changes (progress updates)
   useEffect(() => {
@@ -82,7 +108,7 @@ export function Sidebar({
         </Link>
       </div>
       <div className="space-y-1">
-        {levelOrder.map((levelSlug) => {
+        {levelOrder.map((levelSlug, levelIndex) => {
           const levelNum =
             levelSlug === "foundations"
               ? 0
@@ -95,6 +121,14 @@ export function Sidebar({
           ) || [];
           const isActive = activeLevel === levelSlug;
 
+          // TODO: TEMPORARY - all levels unlocked for testing. Revert this!
+          const isLevelLocked = false;
+          // if (isDrill && levelIndex > 0) {
+          //   const prevSlug = levelOrder[levelIndex - 1];
+          //   const prevModules = curriculum.modules[prevSlug] || [];
+          //   isLevelLocked = !isLevelFullyPassed(course, prevSlug, prevModules);
+          // }
+
           return (
             <Collapsible key={levelSlug} defaultOpen={isActive}>
               <CollapsibleTrigger className="flex items-center gap-2 w-full px-2 py-1.5 text-sm font-medium rounded-md hover:bg-accent transition-colors">
@@ -103,11 +137,15 @@ export function Sidebar({
                 ) : (
                   <ChevronRight className="h-4 w-4 shrink-0" />
                 )}
-                <span
-                  className="w-2 h-2 rounded-full shrink-0"
-                  style={{ backgroundColor: levelInfo?.color || "#6b7280" }}
-                />
-                <span className="truncate text-left">
+                {isDrill && isLevelLocked ? (
+                  <Lock className="h-3 w-3 shrink-0 text-muted-foreground" />
+                ) : (
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0"
+                    style={{ backgroundColor: levelInfo?.color || "#6b7280" }}
+                  />
+                )}
+                <span className={`truncate text-left ${isLevelLocked ? "opacity-50" : ""}`}>
                   {levelSlug === "foundations"
                     ? "Foundations"
                     : `${(levelInfo?.levelLabel || "Level")[0]}${levelNum}: ${levelInfo?.title || levelSlug}`}
@@ -122,6 +160,18 @@ export function Sidebar({
                       `${course}/${mod.level}/${mod.slug}`
                     );
 
+                    if (isLevelLocked) {
+                      return (
+                        <div
+                          key={mod.slug}
+                          className="flex items-center gap-2 px-2 py-1 text-sm text-muted-foreground opacity-40"
+                        >
+                          <Circle className="h-3.5 w-3.5 shrink-0 opacity-30" />
+                          <span className="truncate">{mod.title}</span>
+                        </div>
+                      );
+                    }
+
                     return (
                       <Link
                         key={mod.slug}
@@ -133,7 +183,9 @@ export function Sidebar({
                             : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                         }`}
                       >
-                        {completed ? (
+                        {isDrill ? (
+                          <MasteryDotSidebar modulePath={`${course}/${mod.level}/${mod.slug}`} />
+                        ) : completed ? (
                           <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
                         ) : (
                           <Circle className="h-3.5 w-3.5 shrink-0 opacity-30" />
@@ -148,6 +200,24 @@ export function Sidebar({
           );
         })}
       </div>
+
+      {/* Decision Trainer link for drill courses */}
+      {isDrill && (
+        <div className="mt-4 px-2 pt-3 border-t">
+          <Link
+            href={`/play/${course}`}
+            onClick={onNavigate}
+            className={`flex items-center gap-2 px-2 py-1.5 text-sm rounded-md transition-colors ${
+              pathname === `/play/${course}`
+                ? "bg-accent font-medium"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+            }`}
+          >
+            <span className="text-base">🎯</span>
+            <span>Decision Trainer</span>
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

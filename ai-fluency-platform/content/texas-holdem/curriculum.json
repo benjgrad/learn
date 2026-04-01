@@ -1,0 +1,300 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "title": "Hand Rankings",
+      "subtitle": "Know every hand instantly",
+      "color": "#dc2626",
+      "description": "Master the ten poker hand rankings from Royal Flush down to High Card. You need to identify hands at a glance — no hesitation, no second-guessing. Speed and accuracy are everything.",
+      "moduleCount": 2,
+      "passThreshold": 0.9,
+      "timeLimitSeconds": 60
+    },
+    {
+      "level": 2,
+      "title": "Counting Outs",
+      "subtitle": "See your outs at a glance",
+      "color": "#ea580c",
+      "description": "Learn to count your outs — the cards that can improve your hand. Flush draws, straight draws, overcards, and combo draws. The foundation of all poker math.",
+      "moduleCount": 2,
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 90
+    },
+    {
+      "level": 3,
+      "title": "Rule of 2 and 4",
+      "subtitle": "Quick probability estimation",
+      "color": "#d97706",
+      "description": "Convert outs into probabilities instantly using the Rule of 2 and 4. Multiply outs by 2 for one card to come, by 4 for two cards to come. Fast, practical poker math.",
+      "moduleCount": 2,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120
+    },
+    {
+      "level": 4,
+      "title": "Pot Odds",
+      "subtitle": "Is the price right?",
+      "color": "#ca8a04",
+      "description": "Compare the price the pot is offering to the probability of completing your hand. Learn to make mathematically correct calling and folding decisions.",
+      "moduleCount": 2,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120
+    },
+    {
+      "level": 5,
+      "title": "Expected Value",
+      "subtitle": "Think in EV",
+      "color": "#65a30d",
+      "description": "Move beyond pot odds to expected value — the average amount you win or lose per decision. Learn to calculate EV for calls, raises, and bluffs.",
+      "moduleCount": 2,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 150
+    },
+    {
+      "level": 6,
+      "title": "Position & Preflop",
+      "subtitle": "Starting hands by position",
+      "color": "#0d9488",
+      "description": "Not all starting hands are equal — and position changes everything. Learn which hands to play from early, middle, and late position, and why position is power.",
+      "moduleCount": 2,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120
+    },
+    {
+      "level": 7,
+      "title": "Putting It Together",
+      "subtitle": "Full hand analysis",
+      "color": "#7c3aed",
+      "description": "Combine everything — hand rankings, outs, probability, pot odds, EV, and position — into complete hand analysis. Real scenarios that test all your skills at once.",
+      "moduleCount": 2,
+      "passThreshold": 0.75,
+      "timeLimitSeconds": 180
+    }
+  ],
+  "modules": {
+    "level-1": [
+      {
+        "title": "Hand Rankings",
+        "description": "Learn and drill the ten poker hand rankings.",
+        "level": "level-1",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Identify the Hand",
+        "description": "Given cards, name the best poker hand.",
+        "level": "level-1",
+        "slug": "identify-hand",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Rank the Hands",
+        "description": "Compare two hands and pick the winner.",
+        "level": "level-1",
+        "slug": "rank-hands",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      }
+    ],
+    "level-2": [
+      {
+        "title": "Counting Outs",
+        "description": "Learn to count outs for common draw types.",
+        "level": "level-2",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Draw Outs",
+        "description": "Count outs for flush draws, straight draws, and overcards.",
+        "level": "level-2",
+        "slug": "draw-outs",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Combo Draws",
+        "description": "Count outs when you have multiple draws at once.",
+        "level": "level-2",
+        "slug": "combo-draws",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      }
+    ],
+    "level-3": [
+      {
+        "title": "Rule of 2 and 4",
+        "description": "Convert outs to probabilities quickly.",
+        "level": "level-3",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "One Card to Come",
+        "description": "Use the Rule of 2 on the turn.",
+        "level": "level-3",
+        "slug": "one-card",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Two Cards to Come",
+        "description": "Use the Rule of 4 on the flop.",
+        "level": "level-3",
+        "slug": "two-cards",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      }
+    ],
+    "level-4": [
+      {
+        "title": "Pot Odds",
+        "description": "Learn to calculate and compare pot odds.",
+        "level": "level-4",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Calculate Pot Odds",
+        "description": "Compute the odds the pot is offering you.",
+        "level": "level-4",
+        "slug": "calculate-odds",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Call or Fold",
+        "description": "Compare pot odds to hand odds and decide.",
+        "level": "level-4",
+        "slug": "call-or-fold",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      }
+    ],
+    "level-5": [
+      {
+        "title": "Expected Value",
+        "description": "Learn to think in terms of EV.",
+        "level": "level-5",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "EV of a Call",
+        "description": "Calculate whether a call is profitable.",
+        "level": "level-5",
+        "slug": "ev-call",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "EV of a Bluff",
+        "description": "Calculate whether a bluff is profitable.",
+        "level": "level-5",
+        "slug": "ev-bluff",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      }
+    ],
+    "level-6": [
+      {
+        "title": "Position & Preflop",
+        "description": "Learn starting hand selection by position.",
+        "level": "level-6",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Starting Hands",
+        "description": "Classify starting hands by strength.",
+        "level": "level-6",
+        "slug": "starting-hands",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Position Play",
+        "description": "Decide what to do based on your position.",
+        "level": "level-6",
+        "slug": "position-play",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      }
+    ],
+    "level-7": [
+      {
+        "title": "Putting It Together",
+        "description": "Combine all concepts in full hand analysis.",
+        "level": "level-7",
+        "slug": "index",
+        "order": 0,
+        "isCheckpoint": false,
+        "isIndex": true,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Full Hand Analysis A",
+        "description": "Mixed scenarios covering all concepts.",
+        "level": "level-7",
+        "slug": "full-analysis-a",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      },
+      {
+        "title": "Full Hand Analysis B",
+        "description": "More mixed scenarios at higher difficulty.",
+        "level": "level-7",
+        "slug": "full-analysis-b",
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false,
+        "isPracticeOnly": true
+      }
+    ]
+  }
+}
