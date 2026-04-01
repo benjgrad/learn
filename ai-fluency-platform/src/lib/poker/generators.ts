@@ -344,8 +344,8 @@ function makeRankProblem(
 
   return {
     id: "",
-    question: `**Player 1** holds ${formatCards(hand1)}. **Player 2** holds ${formatCards(hand2)}. The board is ${formatCards(board)}. Who wins?`,
-    cards: { board, displayAs: "board" },
+    question: `Who wins this hand?`,
+    cards: { hand1, hand2, board, displayAs: "versus" },
     options: ["A) Player 1 wins", "B) Player 2 wins", "C) Split pot"],
     correctAnswer,
     explanation: correctText,

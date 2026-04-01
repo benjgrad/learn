@@ -32,8 +32,10 @@ export interface DrillProblem {
   difficulty: "basic" | "intermediate" | "advanced";
   cards?: {
     hand?: string[];
+    hand1?: string[];
+    hand2?: string[];
     board?: string[];
-    displayAs?: "hand" | "board" | "both";
+    displayAs?: "hand" | "board" | "both" | "versus";
   };
 }
 

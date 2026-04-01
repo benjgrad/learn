@@ -308,6 +308,8 @@ export function DrillSet({
         {problem.cards && (
           <CardDisplay
             hand={problem.cards.hand}
+            hand1={problem.cards.hand1}
+            hand2={problem.cards.hand2}
             board={problem.cards.board}
             displayAs={problem.cards.displayAs}
             size="sm"
@@ -444,6 +446,8 @@ export function DrillSet({
         {problem.cards && (
           <CardDisplay
             hand={problem.cards.hand}
+            hand1={problem.cards.hand1}
+            hand2={problem.cards.hand2}
             board={problem.cards.board}
             displayAs={problem.cards.displayAs}
             size="sm"
@@ -520,6 +524,8 @@ export function DrillSet({
         {problem.cards && (
           <CardDisplay
             hand={problem.cards.hand}
+            hand1={problem.cards.hand1}
+            hand2={problem.cards.hand2}
             board={problem.cards.board}
             displayAs={problem.cards.displayAs}
             size="sm"
