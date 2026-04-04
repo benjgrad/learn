@@ -29,9 +29,29 @@ export function Header() {
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-72 p-0">
+          <SheetContent side="left" className="w-72 p-0 flex flex-col">
             <SheetTitle className="sr-only">Navigation</SheetTitle>
-            <Sidebar onNavigate={() => setMobileOpen(false)} />
+            <div className="flex-1 overflow-y-auto">
+              <Sidebar onNavigate={() => setMobileOpen(false)} />
+            </div>
+            {/* Mobile-only: badges and sign out */}
+            <div className="sm:hidden border-t p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <SparksBadge />
+                <XpBadge />
+              </div>
+              {user && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => { handleSignOut(); setMobileOpen(false); }}
+                  className="gap-1.5 w-full justify-start"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Sign Out
+                </Button>
+              )}
+            </div>
           </SheetContent>
         </Sheet>
 
@@ -63,8 +83,11 @@ export function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <SparksBadge />
-          <XpBadge />
+          {/* Badges: hidden on small screens to prevent overflow */}
+          <div className="hidden sm:flex items-center gap-2">
+            <SparksBadge />
+            <XpBadge />
+          </div>
           {user ? (
             <>
               <Link href="/dashboard">
@@ -77,10 +100,10 @@ export function Header() {
                 variant="ghost"
                 size="sm"
                 onClick={handleSignOut}
-                className="gap-1.5"
+                className="gap-1.5 hidden sm:flex"
               >
                 <LogOut className="h-4 w-4" />
-                <span className="hidden sm:inline">Sign Out</span>
+                <span className="hidden md:inline">Sign Out</span>
               </Button>
               <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-medium" title={user.email ?? "Signed in"}>
                 {user.email ? user.email[0].toUpperCase() : <User className="h-4 w-4" />}
