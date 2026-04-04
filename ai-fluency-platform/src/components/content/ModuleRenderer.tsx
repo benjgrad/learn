@@ -96,8 +96,17 @@ export function ModuleRenderer({
     (key: string, userInput: string, aiFeedback?: string) => {
       markInteraction(key, { userInput, aiFeedback, completed: true });
       celebrateInteraction(levelColor);
+
+      // Award sparks for answering a question / completing an exercise
+      const sparkKey = generateIdempotencyKey(
+        "anon",
+        "lesson_completed",
+        `interaction:${modulePath}:${key}`
+      );
+      addSparks(3, "lesson_completed", sparkKey, { modulePath, interaction: key });
+      syncSparkEarn("lesson_completed", 3, sparkKey, { modulePath, interaction: key });
     },
-    [markInteraction, levelColor]
+    [markInteraction, levelColor, modulePath]
   );
 
   const handleModuleComplete = useCallback(() => {
@@ -143,8 +152,26 @@ export function ModuleRenderer({
     (key: string, attempt: import("@/types/progress").DrillAttempt) => {
       markDrillPassed(key, attempt, allDrillKeys);
       celebrateDrillPass(levelColor);
+
+      // Award sparks for passing a drill test
+      const sparkKey = generateIdempotencyKey(
+        "anon",
+        "lesson_completed",
+        `drill:${modulePath}:${key}:${attempt.attemptNumber}`
+      );
+      const drillSparks = 15;
+      addSparks(drillSparks, "lesson_completed", sparkKey, {
+        modulePath,
+        drill: key,
+        accuracy: attempt.accuracy,
+      });
+      syncSparkEarn("lesson_completed", drillSparks, sparkKey, {
+        modulePath,
+        drill: key,
+        accuracy: attempt.accuracy,
+      });
     },
-    [markDrillPassed, allDrillKeys, levelColor]
+    [markDrillPassed, allDrillKeys, levelColor, modulePath]
   );
 
   const handleDrillFailed = useCallback(

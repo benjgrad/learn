@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { shouldShowQuiz } from "@/lib/store/xp";
+import { getStreakState } from "@/lib/sparks/streak";
 import { getAllProgress } from "@/lib/store/progress";
 import { selectQuestions } from "@/lib/store/quiz-history";
 import { DailyQuizModal } from "./DailyQuizModal";
@@ -12,7 +12,9 @@ export function DailyQuizProvider() {
   const [questions, setQuestions] = useState<ReviewQuestion[]>([]);
 
   useEffect(() => {
-    if (!shouldShowQuiz()) return;
+    const streakState = getStreakState();
+    const today = new Date().toISOString().slice(0, 10);
+    if (streakState.lastActivityDate === today) return;
 
     const timer = setTimeout(async () => {
       try {

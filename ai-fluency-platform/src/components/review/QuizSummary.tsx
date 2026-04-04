@@ -1,66 +1,48 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { Progress } from "@/components/ui/progress";
-import type { RankTier } from "@/types/review";
+import { useEffect, useState } from "react";
 import { celebrateLevel } from "@/lib/celebrations";
 
 interface QuizSummaryProps {
-  xpEarned: number;
-  totalXp: number;
-  currentRank: RankTier;
-  nextRank: RankTier | null;
-  xpPercentage: number;
+  sparksEarned: number;
+  totalSparks: number;
   streak: number;
-  didRankUp: boolean;
   correctCount: number;
   totalQuestions: number;
 }
 
 export function QuizSummary({
-  xpEarned,
-  totalXp,
-  currentRank,
-  nextRank,
-  xpPercentage,
+  sparksEarned,
+  totalSparks,
   streak,
-  didRankUp,
   correctCount,
   totalQuestions,
 }: QuizSummaryProps) {
-  const [displayXp, setDisplayXp] = useState(0);
-  const [showRankUp, setShowRankUp] = useState(false);
-  const celebratedRef = useRef(false);
+  const [displaySparks, setDisplaySparks] = useState(0);
 
-  // Animated XP counter
+  // Animated spark counter
   useEffect(() => {
     const duration = 1000;
     const steps = 30;
-    const increment = xpEarned / steps;
-    let current = 0;
+    const increment = sparksEarned / steps;
     let step = 0;
 
     const interval = setInterval(() => {
       step++;
-      current = Math.min(xpEarned, Math.round(increment * step));
-      setDisplayXp(current);
+      setDisplaySparks(Math.min(sparksEarned, Math.round(increment * step)));
       if (step >= steps) clearInterval(interval);
     }, duration / steps);
 
     return () => clearInterval(interval);
-  }, [xpEarned]);
+  }, [sparksEarned]);
 
-  // Rank up celebration
+  // Celebrate on mount
   useEffect(() => {
-    if (didRankUp && !celebratedRef.current) {
-      celebratedRef.current = true;
-      const timer = setTimeout(() => {
-        setShowRankUp(true);
-        celebrateLevel();
-      }, 1200);
+    if (correctCount === totalQuestions) {
+      const timer = setTimeout(() => celebrateLevel(), 500);
       return () => clearTimeout(timer);
     }
-  }, [didRankUp]);
+  }, [correctCount, totalQuestions]);
 
   return (
     <div className="flex flex-col items-center gap-6 py-2">
@@ -72,43 +54,20 @@ export function QuizSummary({
         </p>
       </div>
 
-      {/* XP earned */}
+      {/* Sparks earned */}
       <div className="text-center">
-        <div className="text-5xl font-bold text-indigo-500 tabular-nums">
-          +{displayXp}
+        <div className="text-5xl font-bold text-amber-500 tabular-nums">
+          +{displaySparks}
         </div>
-        <p className="text-sm text-muted-foreground mt-1">XP earned</p>
+        <p className="text-sm text-muted-foreground mt-1">Sparks earned</p>
       </div>
 
-      {/* Rank progress */}
-      <div className="w-full space-y-2">
-        <div className="flex items-center justify-between text-sm">
-          <span className="font-medium">
-            {currentRank.emoji} {currentRank.name}
-          </span>
-          <span className="text-muted-foreground tabular-nums">
-            {totalXp} XP
-          </span>
-        </div>
-        <Progress value={xpPercentage} className="h-3" />
-        {nextRank && (
-          <p className="text-xs text-muted-foreground text-right">
-            {nextRank.minXp - totalXp} XP to {nextRank.emoji} {nextRank.name}
-          </p>
-        )}
+      {/* Balance */}
+      <div className="w-full text-center">
+        <p className="text-sm text-muted-foreground">
+          Total balance: <span className="font-semibold text-foreground">{totalSparks.toLocaleString()} &#9889;</span>
+        </p>
       </div>
-
-      {/* Rank up announcement */}
-      {showRankUp && (
-        <div className="text-center animate-in fade-in zoom-in-50 duration-500 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 rounded-2xl px-6 py-4 w-full">
-          <p className="text-xs font-medium text-indigo-500 uppercase tracking-wide mb-1">
-            Rank Up!
-          </p>
-          <p className="text-2xl font-bold">
-            {currentRank.emoji} {currentRank.name}
-          </p>
-        </div>
-      )}
 
       {/* Streak */}
       {streak > 0 && (
@@ -119,6 +78,20 @@ export function QuizSummary({
           </span>
         </div>
       )}
+
+      {/* Perfect score callout */}
+      {correctCount === totalQuestions && (
+        <div className="text-center animate-in fade-in zoom-in-50 duration-500 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-2xl px-6 py-4 w-full">
+          <p className="text-xs font-medium text-amber-600 uppercase tracking-wide mb-1">
+            Perfect Score!
+          </p>
+          <p className="text-lg font-bold">
+            +{SPARK_PERFECT_LABEL} bonus Sparks
+          </p>
+        </div>
+      )}
     </div>
   );
 }
+
+const SPARK_PERFECT_LABEL = 5;

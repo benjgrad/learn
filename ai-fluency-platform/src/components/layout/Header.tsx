@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Menu, LogIn, LogOut, LayoutDashboard, BookOpen, User } from "lucide-react";
 import { Sidebar } from "./Sidebar";
-import { XpBadge } from "@/components/review/XpBadge";
 import { SparksBadge } from "@/components/sparks/SparksBadge";
 
 export function Header() {
@@ -38,7 +37,6 @@ export function Header() {
             <div className="sm:hidden border-t p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <SparksBadge />
-                <XpBadge />
               </div>
               {user && (
                 <Button
@@ -86,7 +84,6 @@ export function Header() {
           {/* Badges: hidden on small screens to prevent overflow */}
           <div className="hidden sm:flex items-center gap-2">
             <SparksBadge />
-            <XpBadge />
           </div>
           {user ? (
             <>

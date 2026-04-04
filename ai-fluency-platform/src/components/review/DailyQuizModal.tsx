@@ -10,22 +10,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { QuizQuestion } from "./QuizQuestion";
 import { QuizSummary } from "./QuizSummary";
-import { useXp } from "@/lib/store/use-xp";
-import {
-  updateStreak,
-  dismissQuiz,
-  recordQuiz,
-  addXp as addXpToStore,
-  getXpProgress,
-  getCurrentRank,
-  getNextRank,
-} from "@/lib/store/xp";
 import { recordAnswer } from "@/lib/store/quiz-history";
 import { celebrateInteraction } from "@/lib/celebrations";
-import { addSparks } from "@/lib/sparks/store";
+import { addSparks, getBalance } from "@/lib/sparks/store";
 import { syncSparkEarn } from "@/lib/sparks/db-sync";
 import { generateIdempotencyKey } from "@/lib/sparks/idempotency";
 import { SPARK_CONFIG } from "@/lib/sparks/config";
+import { updateStreak as updateSparkStreak, getStreakBonus } from "@/lib/sparks/streak";
+import { dismissQuiz, recordQuiz } from "@/lib/store/xp";
 import type { ReviewQuestion } from "@/types/review";
 
 type QuizState = "intro" | "question" | "summary";
@@ -44,14 +36,12 @@ export function DailyQuizModal({
   const [state, setState] = useState<QuizState>("intro");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
-  const [sessionXp, setSessionXp] = useState(0);
-  const [didRankUp, setDidRankUp] = useState(false);
+  const [sessionSparks, setSessionSparks] = useState(0);
   const [streak, setStreak] = useState(0);
-  const { refresh } = useXp();
 
   const handleStart = useCallback(() => {
-    const { streak: s } = updateStreak();
-    setStreak(s);
+    const result = updateSparkStreak();
+    setStreak(result.newStreak);
     setState("question");
   }, []);
 
@@ -68,60 +58,65 @@ export function DailyQuizModal({
         recordAnswer(currentQuestion.id, correct);
       }
 
-      const xp = correct ? 10 : 3;
-      const result = addXpToStore(xp);
-      setSessionXp((prev) => prev + xp);
+      // Award sparks per answer
+      const answerSparks = correct ? 5 : 1;
+      const answerKey = generateIdempotencyKey(
+        "anon",
+        "quiz_completed",
+        `answer:${new Date().toISOString().slice(0, 10)}:${currentIndex}`
+      );
+      addSparks(answerSparks, "quiz_completed", answerKey);
+      syncSparkEarn("quiz_completed", answerSparks, answerKey);
+      setSessionSparks((prev) => prev + answerSparks);
+
       if (correct) {
         setCorrectCount((prev) => prev + 1);
-        celebrateInteraction("#6366f1");
+        celebrateInteraction("#f59e0b");
       }
-      if (result.rankUp) setDidRankUp(true);
 
       setTimeout(() => {
         if (currentIndex + 1 < questions.length) {
           setCurrentIndex((prev) => prev + 1);
         } else {
-          // Quiz complete — add completion bonus + streak bonus
-          const completionXp = 5;
-          const streakBonus = streak * 5;
-          const bonusTotal = completionXp + streakBonus;
-          const bonusResult = addXpToStore(bonusTotal);
-          setSessionXp((prev) => prev + bonusTotal);
-          if (bonusResult.rankUp) setDidRankUp(true);
+          // Quiz complete — completion bonus + streak bonus
+          const finalCorrect = correctCount + (correct ? 1 : 0);
+          const isPerfect = finalCorrect === questions.length;
+          const completionSparks = SPARK_CONFIG.quizBaseReward +
+            (isPerfect ? SPARK_CONFIG.quizPerfectBonus : 0);
+          const streakBonus = getStreakBonus(streak);
+          const bonusTotal = completionSparks + streakBonus;
+
+          const bonusKey = generateIdempotencyKey(
+            "anon",
+            "quiz_completed",
+            `bonus:${new Date().toISOString().slice(0, 10)}`
+          );
+          addSparks(bonusTotal, "quiz_completed", bonusKey, {
+            correctCount: finalCorrect,
+            totalQuestions: questions.length,
+            isPerfect,
+            streakBonus,
+          });
+          syncSparkEarn("quiz_completed", bonusTotal, bonusKey, {
+            correctCount: finalCorrect,
+            totalQuestions: questions.length,
+            isPerfect,
+            streakBonus,
+          });
+          setSessionSparks((prev) => prev + bonusTotal);
 
           recordQuiz({
             date: new Date().toISOString().slice(0, 10),
             questionsAnswered: questions.length,
-            correctCount: correctCount + (correct ? 1 : 0),
-            xpEarned: sessionXp + xp + bonusTotal,
+            correctCount: finalCorrect,
+            xpEarned: 0,
           });
 
-          // Award sparks for quiz completion
-          const finalCorrect = correctCount + (correct ? 1 : 0);
-          const isPerfect = finalCorrect === questions.length;
-          const quizSparks =
-            SPARK_CONFIG.quizBaseReward +
-            finalCorrect * SPARK_CONFIG.quizPerCorrectBonus +
-            (isPerfect ? SPARK_CONFIG.quizPerfectBonus : 0);
-          const today = new Date().toISOString().slice(0, 10);
-          const sparkKey = generateIdempotencyKey("anon", "quiz_completed", today);
-          addSparks(quizSparks, "quiz_completed", sparkKey, {
-            correctCount: finalCorrect,
-            totalQuestions: questions.length,
-            isPerfect,
-          });
-          syncSparkEarn("quiz_completed", quizSparks, sparkKey, {
-            correctCount: finalCorrect,
-            totalQuestions: questions.length,
-            isPerfect,
-          });
-
-          refresh();
           setState("summary");
         }
       }, 100);
     },
-    [currentIndex, questions.length, streak, correctCount, sessionXp, refresh]
+    [currentIndex, questions, streak, correctCount]
   );
 
   const handleFinish = useCallback(() => {
@@ -179,13 +174,9 @@ export function DailyQuizModal({
         {state === "summary" && (
           <div className="animate-in fade-in zoom-in-95 duration-500">
             <QuizSummary
-              xpEarned={sessionXp}
-              totalXp={getXpProgress().current}
-              currentRank={getCurrentRank()}
-              nextRank={getNextRank()}
-              xpPercentage={getXpProgress().percentage}
+              sparksEarned={sessionSparks}
+              totalSparks={getBalance()}
               streak={streak}
-              didRankUp={didRankUp}
               correctCount={correctCount}
               totalQuestions={questions.length}
             />
