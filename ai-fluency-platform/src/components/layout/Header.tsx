@@ -82,7 +82,7 @@ export function Header() {
           </SheetContent>
         </Sheet>
 
-        <Link href="/" className="font-bold text-lg">
+        <Link href={user ? "/dashboard" : "/"} className="font-bold text-lg">
           Learning Platform
         </Link>
 

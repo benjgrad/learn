@@ -96,19 +96,23 @@ export function DailyReviewCard() {
           </span>
           <p className="text-xs text-muted-foreground">Current Streak</p>
 
-          {completedToday ? (
-            <p className="text-sm text-green-600 dark:text-green-400 font-medium">
+          {completedToday && (
+            <p className="text-sm text-green-600 dark:text-green-400 font-medium mb-1">
               {"\u2713"} Completed today!
             </p>
-          ) : (
-            <Button
-              onClick={handleStartReview}
-              disabled={loading}
-              className="w-full"
-            >
-              {loading ? "Loading..." : "Start Daily Review"}
-            </Button>
           )}
+          <Button
+            onClick={handleStartReview}
+            disabled={loading}
+            variant={completedToday ? "outline" : "default"}
+            className="w-full"
+          >
+            {loading
+              ? "Loading..."
+              : completedToday
+                ? "Practice More"
+                : "Start Daily Review"}
+          </Button>
         </CardContent>
       </Card>
 
