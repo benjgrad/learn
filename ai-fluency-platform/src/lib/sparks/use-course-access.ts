@@ -9,15 +9,21 @@ import {
 } from "./course-access";
 
 export function useCourseAccess(courseId: string) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const email = user?.email;
   const [hasAccess, setHasAccess] = useState(true);
   const [cost, setCost] = useState(0);
 
   const refresh = useCallback(() => {
+    // Don't gate until we know who the user is
+    if (loading) {
+      setHasAccess(true);
+      setCost(0);
+      return;
+    }
     setHasAccess(canAccessCourse(courseId, email));
     setCost(getCourseCost(courseId, email));
-  }, [courseId, email]);
+  }, [courseId, email, loading]);
 
   useEffect(() => {
     refresh();

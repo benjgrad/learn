@@ -5,6 +5,11 @@ import { useParams } from "next/navigation";
 import { InterviewSetup } from "@/components/interview/InterviewSetup";
 import { InterviewChat } from "@/components/interview/InterviewChat";
 import { getAllProgress } from "@/lib/store/progress";
+import { useAuth } from "@/lib/auth-context";
+import { isSparkGatingEnabled } from "@/lib/sparks/feature-flags";
+import { spendSparks, getBalance } from "@/lib/sparks/store";
+import { syncSparkSpend } from "@/lib/sparks/db-sync";
+import { generateIdempotencyKey } from "@/lib/sparks/idempotency";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -40,9 +45,13 @@ interface CourseInfo {
   color: string;
 }
 
+const INTERVIEW_COST = 100;
+
 export default function InterviewCoursePage() {
   const params = useParams();
   const courseId = params.course as string;
+  const { user } = useAuth();
+  const gated = isSparkGatingEnabled(user?.email);
 
   const [phase, setPhase] = useState<"loading" | "setup" | "interview">(
     "loading"
@@ -51,6 +60,8 @@ export default function InterviewCoursePage() {
   const [studiedTopics, setStudiedTopics] = useState<StudiedTopic[]>([]);
   const [difficulty, setDifficulty] = useState("intermediate");
   const [focusAreas, setFocusAreas] = useState<string[]>([]);
+  const [sparkBalance, setSparkBalance] = useState(0);
+  const [sparkError, setSparkError] = useState("");
 
   useEffect(() => {
     async function loadData() {
@@ -90,6 +101,7 @@ export default function InterviewCoursePage() {
         }
 
         setStudiedTopics(topics);
+        setSparkBalance(getBalance());
         setPhase("setup");
       } catch {
         setPhase("setup");
@@ -100,6 +112,29 @@ export default function InterviewCoursePage() {
   }, [courseId]);
 
   const handleStart = (diff: string, focus: string[]) => {
+    if (gated) {
+      const key = generateIdempotencyKey(
+        user?.id || "anon",
+        "cooldown_skip",
+        `interview:${courseId}:${Date.now()}`
+      );
+      const result = spendSparks(INTERVIEW_COST, "cooldown_skip", key, {
+        type: "interview_session",
+        courseId,
+      });
+      if (!result.success) {
+        setSparkError(
+          `Not enough Sparks. You need ${INTERVIEW_COST} but have ${result.newBalance}.`
+        );
+        return;
+      }
+      syncSparkSpend("cooldown_skip", INTERVIEW_COST, key, {
+        type: "interview_session",
+        courseId,
+      });
+      setSparkBalance(result.newBalance);
+    }
+    setSparkError("");
     setDifficulty(diff);
     setFocusAreas(focus);
     setPhase("interview");
@@ -137,7 +172,22 @@ export default function InterviewCoursePage() {
       );
     }
 
-    return <InterviewSetup courseName={courseName} studiedTopics={studiedTopics} onStart={handleStart} />;
+    return (
+      <div>
+        <InterviewSetup courseName={courseName} studiedTopics={studiedTopics} onStart={handleStart} />
+        {gated && (
+          <div className="max-w-md mx-auto px-4 mt-4 text-center">
+            <p className="text-sm text-muted-foreground">
+              Each interview session costs <span className="font-semibold">{INTERVIEW_COST} &#9889;</span> Sparks.
+              You have <span className="font-semibold">{sparkBalance.toLocaleString()} &#9889;</span>.
+            </p>
+            {sparkError && (
+              <p className="text-sm text-red-500 mt-1">{sparkError}</p>
+            )}
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
