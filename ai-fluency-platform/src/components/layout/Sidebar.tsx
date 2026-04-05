@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ChevronDown, ChevronRight, CheckCircle2, Circle, Lock } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { isModuleComplete, isLevelFullyPassed, getMasteryLevel } from "@/lib/store/progress";
+import { isModuleComplete, isLevelFullyPassed, getMasteryLevel, getAllProgress } from "@/lib/store/progress";
 import { getMasteryColor, type MasteryLevel } from "@/lib/poker/messages";
 import type { LevelInfo, ModuleMeta, CurriculumData } from "@/types/content";
 
@@ -71,8 +71,20 @@ export function Sidebar({
   const pathname = usePathname();
   const [, setTick] = useState(0);
 
-  // Derive course from prop or URL
-  const course = courseProp || pathname.split("/")[2] || "ai-fluency";
+  // Derive course from prop, URL, or most recent activity
+  const courseFromUrl = pathname.startsWith("/learn/") ? pathname.split("/")[2] : undefined;
+  const recentCourse = useMemo(() => {
+    if (courseProp || courseFromUrl) return courseProp || courseFromUrl || "ai-fluency";
+    const progress = getAllProgress();
+    let latest = "ai-fluency";
+    let latestTime = "";
+    for (const [key, state] of Object.entries(progress.modules)) {
+      const t = (state as any).completedAt || "";
+      if (t > latestTime) { latestTime = t; latest = key.split("/")[0]; }
+    }
+    return latest;
+  }, [courseProp, courseFromUrl]);
+  const course = recentCourse;
   const curriculum = curricula[course] || curricula["ai-fluency"];
   const levelOrder = getLevelOrder(curriculum);
   const courseInfo = courses.find((c) => c.id === course);
@@ -119,6 +131,7 @@ export function Sidebar({
           const modules = curriculum.modules[levelSlug]?.filter(
             (m: ModuleMeta) => !m.isIndex
           ) || [];
+          const hasIndex = (curriculum.modules[levelSlug] || []).some((m: ModuleMeta) => m.isIndex);
           const isActive = activeLevel === levelSlug;
 
           // TODO: TEMPORARY - all levels unlocked for testing. Revert this!
@@ -131,12 +144,16 @@ export function Sidebar({
 
           return (
             <Collapsible key={levelSlug} defaultOpen={isActive}>
-              <CollapsibleTrigger className="flex items-center gap-2 w-full px-2 py-1.5 text-sm font-medium rounded-md hover:bg-accent transition-colors">
-                {isActive ? (
-                  <ChevronDown className="h-4 w-4 shrink-0" />
-                ) : (
-                  <ChevronRight className="h-4 w-4 shrink-0" />
-                )}
+              <div className="flex items-center gap-2 w-full px-2 py-1.5 text-sm font-medium rounded-md hover:bg-accent transition-colors">
+                <CollapsibleTrigger asChild>
+                  <button className="shrink-0">
+                    {isActive ? (
+                      <ChevronDown className="h-4 w-4" />
+                    ) : (
+                      <ChevronRight className="h-4 w-4" />
+                    )}
+                  </button>
+                </CollapsibleTrigger>
                 {isDrill && isLevelLocked ? (
                   <Lock className="h-3 w-3 shrink-0 text-muted-foreground" />
                 ) : (
@@ -145,12 +162,24 @@ export function Sidebar({
                     style={{ backgroundColor: levelInfo?.color || "#6b7280" }}
                   />
                 )}
-                <span className={`truncate text-left ${isLevelLocked ? "opacity-50" : ""}`}>
-                  {levelSlug === "foundations"
-                    ? "Foundations"
-                    : `${(levelInfo?.levelLabel || "Level")[0]}${levelNum}: ${levelInfo?.title || levelSlug}`}
-                </span>
-              </CollapsibleTrigger>
+                {hasIndex ? (
+                  <Link
+                    href={`/learn/${course}/${levelSlug}/index`}
+                    onClick={onNavigate}
+                    className={`truncate text-left flex-1 ${isLevelLocked ? "opacity-50 pointer-events-none" : "hover:underline"}`}
+                  >
+                    {levelSlug === "foundations"
+                      ? "Foundations"
+                      : `${(levelInfo?.levelLabel || "Level")[0]}${levelNum}: ${levelInfo?.title || levelSlug}`}
+                  </Link>
+                ) : (
+                  <span className={`truncate text-left flex-1 ${isLevelLocked ? "opacity-50" : ""}`}>
+                    {levelSlug === "foundations"
+                      ? "Foundations"
+                      : `${(levelInfo?.levelLabel || "Level")[0]}${levelNum}: ${levelInfo?.title || levelSlug}`}
+                  </span>
+                )}
+              </div>
               <CollapsibleContent>
                 <div className="ml-6 mt-1 space-y-0.5">
                   {modules.map((mod: ModuleMeta) => {

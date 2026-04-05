@@ -6,12 +6,15 @@ import {
   getLevelColor,
   getLevelTitle,
   getCourses,
+  getCurriculum,
 } from "@/lib/content";
 import { ModuleRenderer } from "@/components/content/ModuleRenderer";
+import { LessonGateWrapper } from "@/components/sparks/LessonGateWrapper";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -57,6 +60,9 @@ export default async function LearnPage({ params }: PageProps) {
   const { prev, next } = getAdjacentModules(course, meta.level, meta.slug);
   const courses = getCourses();
   const courseInfo = courses.find((c) => c.id === course);
+  const firstLessonInLevel = meta.isIndex
+    ? (getCurriculum(course).modules[meta.level] || []).find((m: any) => !m.isIndex) || null
+    : null;
 
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)]">
@@ -97,15 +103,35 @@ export default async function LearnPage({ params }: PageProps) {
         <Separator className="mb-8" />
 
         {/* Module content */}
-        <ModuleRenderer
-          blocks={blocks}
-          meta={meta}
-          levelTitle={levelTitle}
-          levelColor={levelColor}
-          nextModule={next}
-          course={course}
-          isDrillCourse={courseInfo?.isDrillCourse}
-        />
+        <LessonGateWrapper
+          courseId={course}
+          prevModulePath={prev ? `${course}/${prev.level}/${prev.slug}` : null}
+        >
+          <ModuleRenderer
+            blocks={blocks}
+            meta={meta}
+            levelTitle={levelTitle}
+            levelColor={levelColor}
+            nextModule={next}
+            course={course}
+            isDrillCourse={courseInfo?.isDrillCourse}
+          />
+        </LessonGateWrapper>
+
+        {/* Begin First Lesson CTA for index pages */}
+        {meta.isIndex && firstLessonInLevel && (
+          <div className="mt-8 text-center">
+            <Link href={`/learn/${course}/${firstLessonInLevel.level}/${firstLessonInLevel.slug}`}>
+              <Button size="lg" className="gap-2">
+                Begin First Lesson
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+            <p className="text-sm text-muted-foreground mt-2">
+              {firstLessonInLevel.title}
+            </p>
+          </div>
+        )}
 
         {/* Prev/Next navigation */}
         {!meta.isIndex && (

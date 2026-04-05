@@ -1,7 +1,7 @@
 "use client";
 
 import type { CooldownState } from "@/types/sparks";
-import { SPARK_CONFIG } from "./config";
+import { SPARK_CONFIG, getEffectiveConfig } from "./config";
 import { spendSparks } from "./store";
 import { syncSparkSpend } from "./db-sync";
 import { generateIdempotencyKey } from "./idempotency";
@@ -39,7 +39,8 @@ export function getCooldownState(courseId: string): CooldownState | null {
   return cooldowns[key] ?? null;
 }
 
-export function recordLessonUsed(courseId: string): CooldownState {
+export function recordLessonUsed(courseId: string, email?: string | null): CooldownState {
+  const config = getEffectiveConfig(email);
   const cooldowns = getCooldowns();
   const key = getCooldownKey(courseId);
   const today = getTodayString();
@@ -53,9 +54,9 @@ export function recordLessonUsed(courseId: string): CooldownState {
 
   existing.lessonsUsedToday += 1;
 
-  if (existing.lessonsUsedToday >= SPARK_CONFIG.freeLessonsPerDay) {
+  if (existing.lessonsUsedToday >= config.freeLessonsPerDay) {
     const nextAvailable = new Date();
-    nextAvailable.setHours(nextAvailable.getHours() + SPARK_CONFIG.cooldownHours);
+    nextAvailable.setHours(nextAvailable.getHours() + config.cooldownHours);
     existing.nextLessonAvailable = nextAvailable.toISOString();
   }
 
@@ -66,8 +67,10 @@ export function recordLessonUsed(courseId: string): CooldownState {
 
 export function skipCooldown(
   courseId: string,
-  userId: string
+  userId: string,
+  email?: string | null
 ): { success: boolean; newBalance: number } {
+  const config = getEffectiveConfig(email);
   const idempotencyKey = generateIdempotencyKey(
     userId,
     "cooldown_skip",
@@ -75,7 +78,7 @@ export function skipCooldown(
   );
 
   const result = spendSparks(
-    SPARK_CONFIG.cooldownSkipCost,
+    config.cooldownSkipCost,
     "cooldown_skip",
     idempotencyKey,
     { courseId }
@@ -91,7 +94,7 @@ export function skipCooldown(
 
     syncSparkSpend(
       "cooldown_skip",
-      SPARK_CONFIG.cooldownSkipCost,
+      config.cooldownSkipCost,
       idempotencyKey,
       { courseId }
     );

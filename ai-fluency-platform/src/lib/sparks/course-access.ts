@@ -1,7 +1,8 @@
 "use client";
 
 import type { CourseUnlock } from "@/types/sparks";
-import { SPARK_CONFIG } from "./config";
+import { SPARK_CONFIG, getEffectiveConfig } from "./config";
+import { isSparkGatingEnabled } from "./feature-flags";
 import { spendSparks, getBalance } from "./store";
 import { syncSparkSpend } from "./db-sync";
 import { generateIdempotencyKey } from "./idempotency";
@@ -24,30 +25,35 @@ function saveUnlocks(unlocks: CourseUnlock[]): void {
   localStorage.setItem(UNLOCKS_KEY, JSON.stringify(unlocks));
 }
 
-export function getCourseCost(courseId: string): number {
-  if (SPARK_CONFIG.freeCourses.includes(courseId)) return 0;
-  return SPARK_CONFIG.coursePrices[courseId] ?? 0;
+export function getCourseCost(courseId: string, userEmail?: string | null): number {
+  const config = getEffectiveConfig(userEmail);
+  if (config.freeCourses.includes(courseId)) return 0;
+  return config.coursePrices[courseId] ?? 0;
 }
 
 export function getUnlockedCourses(): CourseUnlock[] {
   return getUnlocks();
 }
 
-export function canAccessCourse(_courseId: string): boolean {
-  // All courses are free — nothing is restricted
-  return true;
+export function canAccessCourse(courseId: string, userEmail?: string | null): boolean {
+  if (!isSparkGatingEnabled(userEmail)) return true;
+  const config = getEffectiveConfig(userEmail);
+  if (config.freeCourses.includes(courseId)) return true;
+  const unlocks = getUnlocks();
+  return unlocks.some((u) => u.courseId === courseId);
 }
 
 export function unlockCourse(
   courseId: string,
-  userId: string
+  userId: string,
+  userEmail?: string | null
 ): { success: boolean; newBalance: number } {
   // Already unlocked?
-  if (canAccessCourse(courseId)) {
+  if (canAccessCourse(courseId, userEmail)) {
     return { success: true, newBalance: getBalance() };
   }
 
-  const cost = getCourseCost(courseId);
+  const cost = getCourseCost(courseId, userEmail);
   if (cost === 0) {
     // Free course — just record the unlock
     const unlocks = getUnlocks();

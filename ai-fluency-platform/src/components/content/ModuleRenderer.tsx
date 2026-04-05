@@ -20,10 +20,12 @@ import { ProgressBar } from "@/components/progress/ProgressBar";
 import { ModuleComplete } from "@/components/progress/ModuleComplete";
 import { useProgress } from "@/lib/store/use-progress";
 import { celebrateInteraction, celebrateModule, celebrateDrillPass } from "@/lib/celebrations";
-import { addSparks } from "@/lib/sparks/store";
-import { syncSparkEarn } from "@/lib/sparks/db-sync";
+import { useAuth } from "@/lib/auth-context";
+import { addSparks, spendSparks, getBalance } from "@/lib/sparks/store";
+import { syncSparkEarn, syncSparkSpend } from "@/lib/sparks/db-sync";
 import { generateIdempotencyKey } from "@/lib/sparks/idempotency";
 import { SPARK_CONFIG } from "@/lib/sparks/config";
+import { PRACTICE_SKIP_COST } from "@/lib/sparks/feature-flags";
 import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -56,6 +58,18 @@ export function ModuleRenderer({
   course,
   isDrillCourse,
 }: ModuleRendererProps) {
+  const { user } = useAuth();
+  const userEmail = user?.email ?? undefined;
+  const [sparkBalance, setSparkBalance] = useState(() =>
+    typeof window !== "undefined" ? getBalance() : 0
+  );
+
+  // Refresh spark balance periodically
+  useEffect(() => {
+    const interval = setInterval(() => setSparkBalance(getBalance()), 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   const modulePath = `${course}/${meta.level}/${meta.slug}`;
   const {
     completedCount,
@@ -186,6 +200,33 @@ export function ModuleRenderer({
       incrementPracticeSession(key);
     },
     [incrementPracticeSession]
+  );
+
+  const handlePayToSkipPractice = useCallback(
+    async (drillKey: string): Promise<boolean> => {
+      const idempotencyKey = generateIdempotencyKey(
+        user?.id || "anon",
+        "cooldown_skip",
+        `practice_skip:${modulePath}:${drillKey}:${new Date().toISOString().slice(0, 10)}`
+      );
+      const result = spendSparks(PRACTICE_SKIP_COST, "cooldown_skip", idempotencyKey, {
+        modulePath,
+        drillKey,
+        type: "practice_skip",
+      });
+      if (result.success) {
+        syncSparkSpend("cooldown_skip", PRACTICE_SKIP_COST, idempotencyKey, {
+          modulePath,
+          drillKey,
+          type: "practice_skip",
+        });
+        setSparkBalance(result.newBalance);
+        return true;
+      }
+      setSparkBalance(getBalance());
+      return false;
+    },
+    [modulePath, user?.id]
   );
 
   return (
@@ -341,6 +382,9 @@ export function ModuleRenderer({
                   practiceSessionCount={getPracticeCount(key)}
                   masteryLevel={getMasteryLevel(key)}
                   isTestUnlocked={isTestUnlockedCheck(key)}
+                  userEmail={userEmail}
+                  sparkBalance={sparkBalance}
+                  onPayToSkipPractice={() => handlePayToSkipPractice(key)}
                 />
               );
             }

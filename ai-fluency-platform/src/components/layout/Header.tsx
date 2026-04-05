@@ -30,6 +30,35 @@ export function Header() {
           </SheetTrigger>
           <SheetContent side="left" className="w-72 p-0 flex flex-col">
             <SheetTitle className="sr-only">Navigation</SheetTitle>
+            {/* Top-level nav links for mobile */}
+            <div className="border-b px-3 py-3 space-y-0.5">
+              {user && (
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium rounded-md hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
+                >
+                  <LayoutDashboard className="h-4 w-4 shrink-0" />
+                  Dashboard
+                </Link>
+              )}
+              <Link
+                href="/curriculum"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium rounded-md hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
+              >
+                <BookOpen className="h-4 w-4 shrink-0" />
+                Curriculum
+              </Link>
+              <Link
+                href="/interview"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium rounded-md hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
+              >
+                <BookOpen className="h-4 w-4 shrink-0" />
+                Interview Me
+              </Link>
+            </div>
             <div className="flex-1 overflow-y-auto">
               <Sidebar onNavigate={() => setMobileOpen(false)} />
             </div>

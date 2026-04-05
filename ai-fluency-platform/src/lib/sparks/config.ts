@@ -1,4 +1,5 @@
 import type { SparkEconConfig, SparkPurchaseTier } from "@/types/sparks";
+import { isSparkGatingEnabled } from "./feature-flags";
 
 export const SPARK_CONFIG: SparkEconConfig = {
   lessonReward: 10,
@@ -41,6 +42,26 @@ export const SPARK_CONFIG: SparkEconConfig = {
   diminishingReturnsThreshold: 3,
   diminishingReturnsMultiplier: 0.5,
 };
+
+const BEN_CONFIG_OVERRIDES: Partial<SparkEconConfig> = {
+  cooldownHours: 20,
+  freeLessonsPerDay: 5,
+  coursePrices: {
+    "web-fundamentals": 75,
+    "react-literacy": 100,
+    "claude-code": 100,
+    "system-design": 100,
+    "cfa-1": 50,
+    "cfa-2": 75,
+    "cfa-3": 75,
+  },
+  freeCourses: ["ai-fluency", "texas-holdem"],
+};
+
+export function getEffectiveConfig(email: string | null | undefined): SparkEconConfig {
+  if (!isSparkGatingEnabled(email)) return SPARK_CONFIG;
+  return { ...SPARK_CONFIG, ...BEN_CONFIG_OVERRIDES } as SparkEconConfig;
+}
 
 export const PURCHASE_TIERS: SparkPurchaseTier[] = [
   { id: "starter", sparks: 50, priceUsd: 0.99, bonusSparks: 25, label: "Starter" },

@@ -35,10 +35,15 @@ export function DrillModuleComplete({
             </p>
             {nextModule && (
               <Link href={`/learn/${course ? `${course}/` : ""}${nextModule.level}/${nextModule.slug}`}>
-                <Button className="gap-2">
-                  Continue to {nextModule.title}
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+                <div className="flex flex-col items-center gap-1">
+                  <p className="text-xs text-muted-foreground truncate max-w-[280px] text-center">
+                    Next: {nextModule.title}
+                  </p>
+                  <Button className="gap-2">
+                    Continue
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </Link>
             )}
           </div>

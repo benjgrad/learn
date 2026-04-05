@@ -28,6 +28,7 @@ import {
   getMasteryColor,
   type MasteryLevel,
 } from "@/lib/poker/messages";
+import { isSparkGatingEnabled, PRACTICE_SKIP_COST } from "@/lib/sparks/feature-flags";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -50,6 +51,9 @@ interface DrillSetProps {
   masteryLevel?: MasteryLevel;
   canPractice?: boolean;
   isTestUnlocked?: boolean;
+  userEmail?: string;
+  sparkBalance?: number;
+  onPayToSkipPractice?: () => Promise<boolean>;
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -87,6 +91,9 @@ export function DrillSet({
   masteryLevel = "not-started",
   canPractice = true,
   isTestUnlocked = false,
+  userEmail,
+  sparkBalance = 0,
+  onPayToSkipPractice,
 }: DrillSetProps) {
   const [phase, setPhase] = useState<DrillPhase>("intro");
   const [currentProblems, setCurrentProblems] = useState<DrillProblem[]>([]);
@@ -98,6 +105,7 @@ export function DrillSet({
   const [reviewIndex, setReviewIndex] = useState<number | null>(null);
   // In practice mode, track which problems have been revealed
   const [revealed, setRevealed] = useState<Record<number, boolean>>({});
+  const [paidToTest, setPaidToTest] = useState(false);
 
   const getProblems = useCallback((): DrillProblem[] => {
     if (generator) {
@@ -238,7 +246,7 @@ export function DrillSet({
 
           {/* Test button */}
           {!isPassed && (
-            isTestUnlocked ? (
+            (isTestUnlocked || paidToTest) ? (
               <Button
                 onClick={startTest}
                 className="w-full gap-2"
@@ -247,10 +255,25 @@ export function DrillSet({
                 Ready to Test
               </Button>
             ) : (
-              <div className="w-full p-3 rounded-md bg-muted/30 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
-                <Lock className="h-4 w-4" />
-                Complete {5 - practiceSessionCount} more practice session{5 - practiceSessionCount !== 1 ? "s" : ""} to unlock
-              </div>
+              <>
+                <div className="w-full p-3 rounded-md bg-muted/30 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  Complete {5 - practiceSessionCount} more practice session{5 - practiceSessionCount !== 1 ? "s" : ""} to unlock
+                </div>
+                {userEmail && isSparkGatingEnabled(userEmail) && onPayToSkipPractice && (
+                  <Button
+                    onClick={async () => {
+                      const success = await onPayToSkipPractice();
+                      if (success) setPaidToTest(true);
+                    }}
+                    variant="outline"
+                    className="w-full gap-2 mt-2"
+                    disabled={sparkBalance < PRACTICE_SKIP_COST}
+                  >
+                    Pay {PRACTICE_SKIP_COST} Sparks to test now
+                  </Button>
+                )}
+              </>
             )
           )}
         </div>
@@ -370,10 +393,11 @@ export function DrillSet({
         )}
 
         {/* Navigation */}
-        <div className="flex justify-between items-center mt-4 pt-3 border-t border-amber-200 dark:border-amber-800">
+        <div className="flex flex-col-reverse sm:flex-row justify-between items-stretch sm:items-center gap-2 mt-4 pt-3 border-t border-amber-200 dark:border-amber-800">
           {!isRevealed && selectedAnswer ? (
             <Button
               size="sm"
+              className="w-full sm:w-auto"
               onClick={() => setRevealed((prev) => ({ ...prev, [currentIndex]: true }))}
             >
               Check Answer
@@ -382,21 +406,23 @@ export function DrillSet({
             <Button
               size="sm"
               variant="ghost"
+              className="w-full sm:w-auto"
               onClick={() => setCurrentIndex((i) => i + 1)}
             >
               Next <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
           ) : allDone ? (
-            <Button size="sm" onClick={() => finishSession("practice")}>
+            <Button size="sm" className="w-full sm:w-auto" onClick={() => finishSession("practice")}>
               Finish Practice
             </Button>
           ) : (
-            <div />
+            <div className="hidden sm:block" />
           )}
           {!isRevealed && !selectedAnswer && currentIndex < currentProblems.length - 1 && (
             <Button
               size="sm"
               variant="ghost"
+              className="w-full sm:w-auto"
               onClick={() => setCurrentIndex((i) => i + 1)}
             >
               Skip <ChevronRight className="h-4 w-4 ml-1" />
@@ -475,14 +501,15 @@ export function DrillSet({
           })}
         </div>
 
-        <div className="flex justify-between items-center pt-3 border-t border-blue-200 dark:border-blue-800">
-          <div className="text-sm text-muted-foreground">
+        <div className="flex flex-col-reverse sm:flex-row justify-between items-stretch sm:items-center gap-2 pt-3 border-t border-blue-200 dark:border-blue-800">
+          <div className="text-sm text-muted-foreground text-center sm:text-left">
             {answeredCount}/{currentProblems.length} answered
           </div>
           {currentIndex < currentProblems.length - 1 ? (
             <Button
               size="sm"
               variant="ghost"
+              className="w-full sm:w-auto"
               onClick={() => setCurrentIndex((i) => i + 1)}
             >
               {selectedAnswer ? "Next" : "Skip"} <ChevronRight className="h-4 w-4 ml-1" />
@@ -490,6 +517,7 @@ export function DrillSet({
           ) : (
             <Button
               size="sm"
+              className="w-full sm:w-auto"
               onClick={() => finishSession("test")}
             >
               Submit ({answeredCount}/{currentProblems.length})

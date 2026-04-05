@@ -22,7 +22,7 @@ interface AchievementEntry {
 }
 
 // Client-side achievement definitions (mirrors DB seed data)
-const ACHIEVEMENT_LIST: AchievementEntry[] = [
+export const ACHIEVEMENT_LIST: AchievementEntry[] = [
   { id: "first_lesson", name: "First Steps", sparkReward: 10, criteria: { type: "lessons_completed", count: 1 } },
   { id: "lessons_10", name: "Getting Started", sparkReward: 25, criteria: { type: "lessons_completed", count: 10 } },
   { id: "lessons_50", name: "Dedicated Learner", sparkReward: 50, criteria: { type: "lessons_completed", count: 50 } },

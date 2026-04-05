@@ -24,8 +24,7 @@ export function CourseUnlockGate({
   const { balance, refresh: refreshSparks } = useSparks();
   const { user } = useAuth();
 
-  // All courses are free — always show content
-  if (true) {
+  if (hasAccess) {
     return <>{children}</>;
   }
 
