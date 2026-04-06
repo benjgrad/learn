@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Drawing Trumps",
+    "description": "When to draw trumps, when to delay",
+    "level": "level-6",
+    "slug": "drawing-trumps",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Default: Draw Trumps Early\n\nIn most suit contracts, your first priority after winning the opening lead is to **draw the opponents' trumps**. Why? Because every trump the opponents hold is a potential threat — they might ruff one of your side-suit winners.\n\nImagine you're in 4♠ with AKQ of hearts as side winners. If you try to cash them before drawing trumps and an opponent is void in hearts, they'll ruff your winner. That's a trick you should have had, lost because you didn't draw trumps first.\n\n**The rule of thumb:** Draw trumps unless you have a specific reason not to.\n\n## Counting Opponents' Trumps\n\nAs you draw trumps, keep track of how many the opponents have played. The math is simple:\n\nYou and dummy hold some number of trumps. Subtract from 13 to find how many the opponents started with.\n\n| Your Combined Trumps | Opponents Have | Likely Split | Rounds to Draw |\n|---------------------|----------------|--------------|----------------|\n| 10 | 3 | 2-1 (78%) | 2 rounds |\n| 9 | 4 | 3-1 (50%) or 2-2 (40%) | 2-3 rounds |\n| 8 | 5 | 3-2 (68%) | 3 rounds |\n| 7 | 6 | 4-2 (48%) or 3-3 (36%) | 3-4 rounds |\n\n**Count as they play.** If you hold 8 trumps (5 in hand, 3 in dummy) and opponents have 5, play trumps and count: after round 1 (both follow), 3 left. After round 2 (both follow), 1 left. After round 3 (one follows, one shows out), drawn! Or if they're 3-2, after round 3 all trumps are out.\n\nA handy habit: count **their** trumps, not yours. Start from the number they hold and count down to zero.\n\n## When to DELAY Drawing Trumps\n\nThere are three common situations where you should NOT draw trumps immediately:\n\n### 1. You Need to Ruff Losers in Dummy First\n\nIf your plan to make the contract involves ruffing a loser in dummy, you need dummy's trumps for that! Drawing trumps removes dummy's trumps and kills your ruffing plan.\n\n**Example:** You're in 4♠.\n\n```\n         ♠ K 7 3\n         ♥ 8 5\n         ♦ A K 7 5 3\n         ♣ 9 6 4\n\n         ♠ A Q J T 6\n         ♥ A 7 3\n         ♦ 8 4\n         ♣ A K 5\n```\n\nLosers: ♥ two (73), ♣ one (5) = 3 losers. You can afford 3, so you're okay... barely. But if you can ruff a heart in dummy, you reduce losers to 2 and have a safety margin.\n\n**Plan:** Win the lead. Play ♥A, then a heart. Win the return. Play your last heart and ruff it with dummy's ♠K (or a low spade). NOW draw trumps.\n\nIf you had drawn trumps first, dummy would have no trumps left for the ruff.\n\n### 2. You Need Trump Entries to Dummy\n\nSometimes dummy's trumps are your only way to get to dummy — to cash established winners or take finesses.\n\n**Example:** Dummy has a long diamond suit you've established, but the only entry to dummy is a trump. Don't draw all the trumps — save one in dummy as an entry.\n\n### 3. You Need to Establish a Side Suit First\n\nIf you need to set up a long suit in dummy for discards, you may need to give up the lead. If you've drawn all your trumps, you've used up tricks. If the opponents return your weak suit, you can't ruff.\n\n**Example:** You need to establish dummy's 5-card club suit to discard losers. This requires giving up a club trick. You want to have trumps available in case the opponents lead a suit you're short in.\n\n## The Decision Framework\n\nBefore drawing trumps, ask yourself:\n\n1. **Do I need to ruff anything in dummy?** If yes, ruff FIRST.\n2. **Do I need dummy's trumps as entries?** If yes, don't draw all of them.\n3. **Do I need to establish a suit while I still have trump control?** If yes, work on that suit first.\n4. **None of the above?** Draw trumps immediately.\n\n## A Complete Example\n\nYou're South in 4♠. West leads the ♣K.\n\n```\n         ♠ Q 8 5 3\n         ♥ 5\n         ♦ A K 7 4 3\n         ♣ 8 6 5\n\n         ♠ A K J T 4\n         ♥ A 8 3\n         ♦ 8 5\n         ♣ A 7 2\n```\n\n**Losers:** ♥ two (83), ♣ two (72) = 4 losers. Can afford 3. Must eliminate one.\n\n**Plan:** Dummy has a singleton heart! Ruff a heart in dummy. Also, dummy's diamonds might provide discards.\n\n**Sequence:** Win ♣A. Play ♥A, then a low heart. Win whatever they return. Play your last heart and **ruff it in dummy** with a low spade. NOW draw trumps: ♠A, ♠K, ♠Q (checking to see they're all out). Cash ♦AK for possible discards.\n\nYou ruffed a heart in dummy, reducing losers from 4 to 3. Contract made."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Draw Trumps Now or Later?",
+      "problems": [
+        {
+          "id": "dt-1",
+          "question": "You're in 4♠ with 5 trumps in hand and 3 in dummy. You have 3 losers — exactly what you can afford. Dummy has no ruffing potential and no long suits to establish. What should you do?",
+          "options": ["A) Draw trumps immediately", "B) Delay drawing trumps to establish a side suit", "C) Ruff something in dummy first", "D) Cash side-suit winners first"],
+          "correctAnswer": "A",
+          "explanation": "No ruffing needed, no side suit to establish, no entry problems. The default applies: draw trumps immediately to prevent opponents from ruffing your winners.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "dt-2",
+          "question": "You're in 4♥ with 4 losers (one too many). Dummy has a doubleton spade and you have three spades including the Ace. You plan to ruff your third spade in dummy. Should you draw trumps first?",
+          "options": ["A) Yes — always draw trumps before doing anything else", "B) No — you need dummy's trumps to ruff, so ruff first", "C) Draw two rounds of trumps, then ruff", "D) It doesn't matter"],
+          "correctAnswer": "B",
+          "explanation": "If you draw all the trumps, dummy will have none left for ruffing. Play ♠A, then lose a spade, win the return, and ruff the third spade in dummy. Then draw trumps.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "dt-3",
+          "question": "You're in 4♠. Opponents have 5 trumps. After two rounds of trumps, both opponents have followed each time. How many opposing trumps remain?",
+          "options": ["A) 0", "B) 1", "C) 2", "D) 3"],
+          "correctAnswer": "B",
+          "explanation": "Opponents started with 5 trumps. Each round, 2 were played (one from each defender). After 2 rounds: 5 - 4 = 1 remaining.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "dt-4",
+          "question": "You're in 4♥. You have 2 club losers. Dummy has ♦AKQ73 and you have ♦84. If you can establish the diamonds, you can discard your club losers. Should you draw trumps first?",
+          "options": ["A) Yes — draw trumps, then work on diamonds", "B) No — establish diamonds first in case you need trump control", "C) It depends on how many trumps the opponents have", "D) Draw one round of trumps, then work on diamonds"],
+          "correctAnswer": "A",
+          "explanation": "You have ♦AKQ — you don't need to give up the lead to establish diamonds. Cash them after drawing trumps. If you needed to lose a diamond trick to establish the suit, delaying trumps might be correct, but here your diamonds are ready to run.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Draw trumps early unless you have a specific reason to delay. The three main reasons to wait: (1) you need to ruff losers in dummy first, (2) dummy's trumps are needed as entries, or (3) you must establish a side suit while maintaining trump control. Count the opponents' trumps as they play — start from their total and count down to zero."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is the most common reason to delay drawing trumps?",
+      "options": ["You want to save trumps for the endgame", "You need to ruff losers in dummy first", "You should never delay drawing trumps"],
+      "correctIndex": 1,
+      "explanation": "If your plan involves ruffing a loser in dummy, you need dummy's trumps to still be there. Draw trumps after you've completed your ruffs.",
+      "encourageCorrect": "Right! Ruffing in dummy is one of the most powerful declarer tools — but it requires leaving trumps in dummy.",
+      "encourageIncorrect": "The top reason to delay is needing dummy's trumps for ruffing. If you draw them all first, you lose that option."
+    },
+    {
+      "question": "You and dummy hold 8 trumps total. How many trumps do the opponents hold?",
+      "options": ["4 trumps", "5 trumps", "6 trumps"],
+      "correctIndex": 1,
+      "explanation": "13 total cards in each suit. 13 - 8 = 5 trumps in the opponents' hands.",
+      "encourageCorrect": "Simple subtraction, but it's the foundation of trump management. Five out usually split 3-2.",
+      "encourageIncorrect": "Each suit has 13 cards total. 13 minus your 8 = 5 cards held by the opponents."
+    }
+  ]
+}

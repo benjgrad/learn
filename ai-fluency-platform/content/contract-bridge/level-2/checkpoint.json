@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 2 Checkpoint",
+    "description": "Mixed hand evaluation under time pressure",
+    "level": "level-2",
+    "slug": "checkpoint",
+    "order": 6,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between HCP, distributional points, and total points. When would you use length points vs. shortness points? How do quick tricks differ from all of these, and when are they most useful?"
+    },
+    {
+      "type": "drillSet",
+      "title": "Mixed Hand Evaluation Checkpoint",
+      "generator": "mixed-evaluation",
+      "problemCount": 15,
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 120
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "Third-Hand Play",
+    "description": "Third hand high, with exceptions",
+    "level": "level-7",
+    "slug": "third-hand-play",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Your Partner Led — Now What?\n\nWhen partner makes the opening lead and dummy plays low, you're the \"third hand\" to play. Your job is to help partner's lead succeed. The foundational rule:\n\n> **Third hand high.**\n\nPlay your highest card to try to win the trick or force declarer to use a high card. This simple rule works in the vast majority of situations.\n\n## Why Third Hand High?\n\nPartner led from a suit — probably their longest and strongest. They're trying to establish that suit. By playing high, you either:\n\n1. **Win the trick** and can return partner's suit\n2. **Force out a higher card from declarer**, promoting partner's remaining honors\n\n### Example\n\nPartner leads the ♥5. Dummy plays the ♥3. You hold ♥KJ4.\n\n```\n         ♥ 8 3 (dummy)\n   ♥ Q T 9 5 2         ♥ K J 4 (you)\n         ♥ A 7 6 (declarer)\n```\n\nPlay the **♥K** (third hand high). Declarer wins the ♥A. But now partner's ♥QT9 are promoted — when partner regains the lead, they cash four heart tricks.\n\nIf you had played the ♥J instead, declarer would win the ♥A, and partner's Queen would still need to be established. You'd need an extra round — and might not have time.\n\n## When You Have Equal Cards: Play the Lowest\n\nWhen you have touching honors (like KQ, QJ, or JT), play the **lower** (or lowest) of the equals.\n\nWhy? This gives partner information. If you play the Queen and it wins, partner knows declarer has the King (because you'd have played the King if you had it). This helps partner work out the layout.\n\n### Example\n\nPartner leads the ♠4. Dummy plays low. You hold ♠QJ5.\n\nPlay the **♠J** (lower of touching honors). If it wins, partner knows declarer has the King. If declarer wins with the King, partner knows you have the Queen.\n\nWith ♠KQ5, play the **♠Q** (lower of equals). Same principle.\n\n## Exception 1: Third-Hand Finesse\n\nWhen you can see that a finesse will win, don't blindly play your highest card.\n\n### Example\n\nPartner leads the ♦3. Dummy plays low. You hold ♦AQJ.\n\n```\n         ♦ 7 5 4 (dummy)\n   ♦ K 9 8 3             ♦ A Q J (you)\n         ♦ T 6 2 (declarer)\n```\n\nDon't play the ♦A! Play the **♦J**. If it wins (and it will — partner's lead of the 3 suggests the King), you keep the AQ for two more tricks later. Playing the Ace wastes a trick.\n\nThe rule: with **AQJ** or **AJT** (when you can see that dummy has only small cards), finesse rather than playing your Ace.\n\n## Exception 2: Dummy Has an Honor\n\nIf dummy plays **high** (say, the Queen), you don't need to play high if dummy's card wins the trick. Save your honor.\n\n### Example\n\nPartner leads the ♠5. Dummy plays the ♠Q. You hold ♠K73.\n\nIf dummy's ♠Q wins, play **low** (♠3). Don't waste your King — it will capture dummy's remaining honor later.\n\nBut if dummy plays the ♠Q and you know it won't win (because you have the Ace), play the **♠A** — no point letting dummy's Queen win.\n\n## Exception 3: You Can Read the Layout\n\nWith experience, you'll sometimes know that playing high won't help.\n\nPartner leads the ♥2 (fourth best). Dummy has ♥QJ3. You hold ♥K54.\n\nRule of 11: 11 - 2 = 9 cards higher than the 2 in your hand, dummy, and declarer. You see ♥K54 (2 higher) + dummy ♥QJ3 (2 higher) = 4 higher that you can see. So declarer has 9 - 4 = 5 cards higher than the 2? That can't be right — let's recount. Higher than the 2: in your hand (K, 5, 4 — all higher) = 3. In dummy (Q, J, 3 — Q and J are higher) = 2. Total visible: 5. Declarer has 9 - 5 = 4 higher cards. That means declarer has the A and T and others.\n\nWith this information, you know your King can't win this trick (declarer has the Ace). Play **low** and save your King to cover dummy's Queen or Jack later.\n\n## Returning Partner's Suit\n\nAfter winning a trick as third hand, you usually **return partner's suit** to continue the attack.\n\n**Which card to return?**\n- From a remaining doubleton (e.g., 7-3), return the **higher** card (7)\n- From three or more remaining cards (e.g., 8-7-3), return the **original fourth best** — or the lowest if you started with only four\n\nThis helps partner count your original length.\n\n## Quick Summary\n\n| Situation | Action |\n|-----------|--------|\n| Dummy plays low | Play HIGH |\n| You have touching honors (KQ, QJ) | Play the LOWER equal |\n| You have AQJ and dummy is small | FINESSE the Jack |\n| Dummy's honor wins | Play LOW (save your honor) |\n| You win the trick | RETURN partner's suit |"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Third-Hand Play Problems",
+      "problems": [
+        {
+          "id": "thp-1",
+          "question": "Partner leads the ♥6. Dummy plays the ♥3. You hold ♥KT5. What do you play?",
+          "options": ["A) ♥5 (low)", "B) ♥T (middle)", "C) ♥K (third hand high)", "D) It depends on the contract"],
+          "correctAnswer": "C",
+          "explanation": "Third hand high! Play the ♥K. You're trying to win the trick or force declarer's Ace, promoting partner's honors.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "thp-2",
+          "question": "Partner leads the ♠4. Dummy plays the ♠2. You hold ♠QJ8. What do you play?",
+          "options": ["A) ♠Q (highest)", "B) ♠J (lower of touching honors)", "C) ♠8 (lowest)", "D) ♠Q or ♠J, doesn't matter"],
+          "correctAnswer": "B",
+          "explanation": "With touching honors (QJ), play the lower one: ♠J. This tells partner useful information — if the J wins, partner knows declarer has the Queen (since you'd have played lower from QJ, meaning you have the Q behind it).",
+          "difficulty": "basic"
+        },
+        {
+          "id": "thp-3",
+          "question": "Partner leads the ♦5. Dummy plays the ♦4. You hold ♦AQJ. What do you play?",
+          "options": ["A) ♦A (third hand high)", "B) ♦Q (second highest)", "C) ♦J (finesse — hoping partner led from the King)", "D) ♦J, but only against notrump"],
+          "correctAnswer": "C",
+          "explanation": "This is the third-hand finesse. With AQJ when dummy has small cards, finesse the Jack. Partner likely led from the King, so the Jack will win. Playing the Ace wastes a trick.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "thp-4",
+          "question": "Partner leads the ♣3. Dummy plays the ♣Q, which wins. You hold ♣K85. What do you play?",
+          "options": ["A) ♣K (must beat dummy's Queen)", "B) ♣5 (play low — save the King for later)", "C) ♣8 (signal encouragement)", "D) ♣K, always cover an honor"],
+          "correctAnswer": "B",
+          "explanation": "Dummy's Queen won the trick. Don't waste your King — play low (♣5). Your King will capture dummy's remaining honor on a future trick. You'd only play the King if you needed to win this specific trick.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "thp-5",
+          "question": "Partner leads the ♥7. Dummy has ♥J64. You hold ♥A93. Dummy plays the ♥4. What do you play?",
+          "options": ["A) ♥A (third hand high)", "B) ♥9 (save the Ace for the Jack)", "C) ♥3 (play low)", "D) ♥9, but only if you think partner has the Queen"],
+          "correctAnswer": "A",
+          "explanation": "Third hand high — play the ♥A. You need to win this trick to return partner's suit. If you play the 9, declarer might win cheaply. The Ace guarantees the trick.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "When you hold touching honors as third hand (like QJ or KQ), why do you play the lower one rather than the higher one?",
+      "answer": "Playing the lower of touching honors gives partner information. If you play the Jack and it wins, partner knows declarer has the Queen (because with QJ, you'd play the J). If you play the Jack and declarer wins with the King, partner knows YOU have the Queen. This information helps partner plan the defense. If you played the Queen instead, partner wouldn't know whether you also held the Jack."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Partner leads a low card and dummy plays low. What is the general rule for third hand?",
+      "options": ["Play your lowest card", "Play your highest card", "Play a middle card to signal"],
+      "correctIndex": 1,
+      "explanation": "Third hand high! Play your highest card to win the trick or force declarer to play a high card.",
+      "encourageCorrect": "That's the rule! Third hand high is one of the first things every defender should learn.",
+      "encourageIncorrect": "The rule is 'third hand high' — play your highest card. You're trying to win or promote partner's honors."
+    },
+    {
+      "question": "Partner leads the ♠5. Dummy plays low. You hold ♠KQ3. Which card do you play?",
+      "options": ["♠K (highest)", "♠Q (lower of touching honors)", "♠3 (lowest)"],
+      "correctIndex": 1,
+      "explanation": "With touching honors, play the lower one. The ♠Q from KQ tells partner useful information about your holding.",
+      "encourageCorrect": "Exactly! Lower of equals. If the Queen wins, partner knows you have the King. If it loses to the Ace, partner knows you have the Queen.",
+      "encourageIncorrect": "With touching honors (KQ), play the lower one: the Queen. This helps partner read the layout."
+    }
+  ]
+}

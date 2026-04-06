@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "title": "Level 9 Checkpoint",
+    "description": "Competitive bidding decisions across varied scenarios",
+    "level": "level-9",
+    "slug": "checkpoint",
+    "order": 7,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Explain the Law of Total Tricks and how it guides competitive bidding decisions. Include an example where you'd use it to decide whether to bid one more or defend."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Mixed Competitive Problems",
+      "problems": [
+        {
+          "id": "l9-cp-1",
+          "question": "Neither vulnerable. You have a 9-card heart fit. The opponents bid 3♠. The Law says you should compete to what level?",
+          "options": ["A) The 2-level", "B) The 3-level", "C) The 4-level", "D) The 5-level"],
+          "correctAnswer": "B",
+          "explanation": "9 trumps = 3-level according to the Law. You'd bid 3♥ if they bid 2♠, but since they're already at 3♠, passing is often right — you're at the Law's limit for your trump count.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l9-cp-2",
+          "question": "Favorable vulnerability (you NV, they vul). They bid 4♠ (worth +620). If you sacrifice and go down 3 doubled, is it profitable?",
+          "options": ["A) Yes — down 3 doubled NV is -500, saving 120 vs their 620", "B) No — -500 is always bad", "C) Only at matchpoints", "D) Only if partner agrees"],
+          "correctAnswer": "A",
+          "explanation": "Down 3 doubled not vulnerable = -500. Their 4♠ vulnerable = +620. You save 120 points! At favorable vulnerability, even down 3 can be a good sacrifice.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l9-cp-3",
+          "question": "The auction goes 1♦ - Pass - Pass to you. You hold ♠KT83 ♥QJ5 ♦83 ♣KJ74. What should you do?",
+          "options": ["A) Pass — only 10 HCP", "B) Double (balancing) — partner likely has values", "C) 1NT — balanced hand", "D) 2♣ — your longest suit"],
+          "correctAnswer": "B",
+          "explanation": "In the balancing seat, you can 'borrow' a King from partner. With 10 HCP, support for all unbid suits, and shortish diamonds, a balancing double is textbook. Partner couldn't act directly but likely has something.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "l9-cp-4",
+          "question": "Both vulnerable. Your side bid 1♠ - 4♠. RHO bids 5♦. You hold ♠KQ74 ♥A83 ♦K5 ♣QJ93. Bid 5♠ or double?",
+          "options": ["A) 5♠ — bid one more with a fit", "B) Double — strong defensive values (♦K behind their diamonds, ♥A, ♣QJ)", "C) Pass (forcing) — let partner decide", "D) 5NT — asking partner"],
+          "correctAnswer": "B",
+          "explanation": "Bid with shape, double with defense. Your hand is balanced (4-3-2-4) with excellent defensive values: ♦K sitting over their diamond suit, ♥A, ♣QJ. This hand takes tricks on defense. Double and collect.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "l9-cp-5",
+          "question": "You're vulnerable, they're not. They bid 4♥. You have good trumps in spades and a distributional hand with a spade void in the opponents' hearts. Should you sacrifice in 4♠?",
+          "options": ["A) Yes — distributional hands play well in sacrifice", "B) No — unfavorable vulnerability makes sacrificing very risky", "C) Only if partner has raised", "D) Double 4♥ instead"],
+          "correctAnswer": "B",
+          "explanation": "At unfavorable vulnerability (you vul, they NV), down 2 doubled = -500 vs their +420. You'd lose 80 points even with a 'good' sacrifice. Unfavorable vulnerability means almost never sacrifice.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "l9-cp-6",
+          "question": "The auction: 1♥ - Pass - 2♥ - Pass - Pass to you. You hold ♠AJ85 ♥74 ♦KQ93 ♣T84. Should you balance?",
+          "options": ["A) No — the opponents have a fit, don't disturb them", "B) Yes — they stopped at 2♥ with a fit, so your side has roughly half the points. Double (balancing).", "C) Yes — bid 3♦", "D) No — you only have 10 HCP"],
+          "correctAnswer": "B",
+          "explanation": "Classic balancing situation! Opponents found a heart fit and stopped at 2♥ — they have limited values. Your side has roughly half the points. With support for the unbid suits, a balancing double is the right call. Don't let them play a cheap 2♥.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Full Competitive Decision",
+      "solution": "Neither vulnerable. You are South.\n\n| West | North | East | South |\n|------|-------|------|-------|\n| — | 1♣ | 1♠ | Dbl (neg) |\n| 3♠ | 4♣ | 4♠ | ? |\n\nYou hold: ♠84 ♥KQ73 ♦A954 ♣J62\n\nYou made a negative double (showing hearts). Partner bid 4♣ (a lot of clubs, competitive). East bid 4♠.\n\n**Should you bid 5♣?**\n\nLet's think through it:\n\n1. **Trump count:** Partner opened 1♣ and freely bid 4♣ — probably 6+ clubs. You have 3 clubs. That's 9+ trumps. The Law says 9 trumps = 3-level. But we're already at the 4-level!\n\n2. **Vulnerability:** Neither vulnerable. Down 2 doubled = -300. If they make 4♠ = +420. So 5♣ down 2 is still profitable.\n\n3. **Can they make 4♠?** East-West have been bidding aggressively (1♠, 3♠, 4♠). They probably have 9+ spades between them. With that fit, 4♠ is likely making.\n\n4. **Your offensive values:** ♦A is a sure trick. ♥KQ might produce a trick. ♣J62 is modest support but gives partner a 9+ card fit.\n\n**Verdict:** Bid **5♣.** The vulnerability is right (neither vul), they're probably making 4♠ with their big spade fit, and you have 9+ clubs. This is a reasonable sacrifice — or partner might even make 5♣ with a big club suit and your outside values."
+    }
+  ]
+}

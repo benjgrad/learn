@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "Slam Bidding Tools",
+    "description": "RKCB and control-showing cue bids",
+    "level": "level-8",
+    "slug": "slam-bidding-tools",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Limits of Standard Blackwood\n\nYou learned Blackwood earlier in this level — bid 4NT, ask for aces, bid slam if you have enough. Simple and effective.\n\nBut Blackwood has a flaw: it treats all aces equally and ignores the King of trumps. Yet the King of trumps is nearly as important as an ace for slam purposes. If your trump suit is headed by AQxxx and partner has the King, that's a solid suit. If partner doesn't have the trump King, you might lose a trump trick.\n\nThe bridge world's solution: **Roman Key Card Blackwood (RKCB)** — an upgrade that treats the King of trumps as a fifth \"ace.\"\n\n## Roman Key Card Blackwood (RKCB)\n\nIn RKCB, there are **5 key cards**: the four aces plus the King of the agreed trump suit.\n\nThe 4NT bid still asks for key cards, but the responses are different:\n\n| Response | Meaning (\"1430\" version) |\n|----------|-------------------------|\n| 5♣ | 1 or 4 key cards |\n| 5♦ | 0 or 3 key cards |\n| 5♥ | 2 key cards WITHOUT the trump Queen |\n| 5♠ | 2 key cards WITH the trump Queen |\n\nThis is the \"1430\" version (the numbers 1-4-3-0 correspond to the 5♣-5♦-5♥-5♠ responses). Some partnerships play \"3014\" instead (swapping the 5♣ and 5♦ meanings). Either works — just agree with partner.\n\n### Why the Trump Queen Matters\n\nNotice that with 2 key cards, the response distinguishes whether you hold the Queen of trumps. This is huge for slam. Consider:\n\n- **AKQxx opposite xxxx**: solid trump suit — no trump losers\n- **AKxxx opposite xxxx**: missing the Queen — might lose a trump trick\n\nStandard Blackwood can't tell you about the Queen. RKCB can.\n\n### Example\n\nYou hold: ♠AQJ85 ♥AK3 ♦KQ5 ♣A4. Partner raised spades.\n\nYou bid 4NT (RKCB, spades agreed as trumps). Partner responds 5♥ — 2 key cards without the trump Queen.\n\nPartner has 2 key cards (from the remaining 4: ♠K, ♥A, ♦A, ♣A — wait, you have ♥A and ♣A, so partner's 2 must be the ♠K + ♦A). But partner doesn't have the ♠Q. Your trump suit is AQJ85 opposite partner's K-and-small. That's fine — the Queen is with the opponents but AKJ85 can finesse for it. Bid **6♠**.\n\n## Asking for the Trump Queen\n\nAfter a 5♣ or 5♦ response (which doesn't reveal the Queen), you can bid the next available non-trump suit to ask: \"Do you have the Queen of trumps?\"\n\nPartner responds:\n- **Sign off in 5 of trumps** = No, I don't have the Queen\n- **Bid a side-suit King** = Yes, I have the Queen (and here's a King I hold)\n- **Bid 6 of trumps** = Yes, Queen but no side Kings to show\n\n## Control-Showing Cue Bids\n\nSometimes you need more precision than even RKCB offers. **Cue bids** let you exchange detailed information about specific suits.\n\nA **control-showing cue bid** is a bid of a side suit (after trumps are agreed) that shows **first-round control** — the Ace or a void — in that suit.\n\n### How Cue Bidding Works\n\n1. Trumps are agreed (usually after a raise)\n2. Instead of jumping to Blackwood, one partner bids a new suit below game\n3. This shows the Ace or void in that suit\n4. Partner cue-bids a suit where THEY have first-round control\n5. You bid controls **up the line** — if you skip a suit, you deny control there\n\n### Example\n\nThe auction:\n- You: 1♠\n- Partner: 3♠ (limit raise)\n- You: 4♣ ← cue bid! Shows the ♣A (or void)\n- Partner: 4♦ ← cue bid! Shows the ♦A (or void)\n\nNow you know: partner has the ♦A. Partner skipped hearts (bidding 4♦ instead of 4♥), which means partner does NOT have the ♥A. This is information Blackwood can't give you — you know WHICH aces partner holds.\n\nYou hold: ♠AKJ85 ♥AQ3 ♦74 ♣AK8\n\nPartner has shown the ♦A. You have the ♥A, ♣A, and ♠A. All four aces accounted for — bid **6♠** (or use RKCB to check for the ♠K and ♠Q).\n\n### When to Use Cue Bids vs RKCB\n\n| Use Cue Bids When | Use RKCB When |\n|-------------------|---------------|\n| You have a void | You need a simple count of key cards |\n| You need to know WHICH controls partner has | All you care about is the total |\n| You want to explore slam below game level | Trump fit is solid and you just need to check |\n| You want to give partner a chance to sign off | You're committed to slam if the count is right |\n\n## When to Try for Slam\n\nThe rough guideline for slam exploration:\n\n- **Small slam (6-level)**: combined strength of 33+ points, or excellent fit with controls in every suit\n- **Grand slam (7-level)**: combined strength of 37+ points, or a fit with all key cards and a source of tricks\n\nBut points aren't everything. What really matters for slam:\n1. **Controls** — can the opponents cash two quick tricks?\n2. **Trump quality** — is the trump suit solid or nearly so?\n3. **A source of tricks** — a long suit to pitch losers on\n\nA hand with 30 combined HCP but controls in every suit and a 10-card trump fit is a better slam than a hand with 34 HCP but a shaky trump suit and an unguarded side suit."
+    },
+    {
+      "type": "practiceSet",
+      "title": "RKCB and Cue Bid Problems",
+      "problems": [
+        {
+          "id": "sb-1",
+          "question": "Hearts are trumps. You bid 4NT (RKCB). Partner responds 5♠. What does partner hold?",
+          "options": ["A) 3 key cards", "B) 2 key cards with the ♥Q", "C) 2 key cards without the ♥Q", "D) 0 key cards"],
+          "correctAnswer": "B",
+          "explanation": "In 1430 RKCB: 5♣ = 1/4, 5♦ = 0/3, 5♥ = 2 without the trump Q, 5♠ = 2 WITH the trump Q. Partner has 2 key cards and the ♥Q.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "sb-2",
+          "question": "Spades are trumps. You hold ♠AKQ84 ♥A93 ♦KQJ ♣A5. You bid 4NT (RKCB). Partner responds 5♦ (0 or 3). Which is it, and what do you bid?",
+          "options": ["A) 0 key cards — sign off at 5♠", "B) 3 key cards — bid 6♠ or 5NT for kings", "C) Could be either — you can't tell", "D) 3 key cards — bid 7♠"],
+          "correctAnswer": "B",
+          "explanation": "You hold 4 key cards yourself (♠A, ♠K counts as the trump King which IS a key card, ♥A, ♣A). If partner had 0, you'd have all 5 — that makes the 5♦ response unambiguous: partner has 3 key cards. The remaining key card is the ♦A. Bid at least 6♠.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "sb-3",
+          "question": "The auction: You 1♠ - Partner 3♠ - You 4♣ (cue bid) - Partner 4♠. What happened?",
+          "options": ["A) Partner has a club fit", "B) Partner has no control to cue-bid — signing off at 4♠", "C) Partner wants to play 4♠ as a sacrifice", "D) Partner is showing the ♠A"],
+          "correctAnswer": "B",
+          "explanation": "You cue-bid 4♣ (showing ♣A or void), inviting partner to cue-bid back. Partner bid 4♠ (trump suit = sign-off), meaning they have no first-round control to show in diamonds or hearts. Slam is unlikely — pass 4♠.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "sb-4",
+          "question": "Why might you prefer cue bids over RKCB when you have a void?",
+          "options": ["A) Cue bids are faster", "B) RKCB counts your void as a key card, which is confusing", "C) Cue bids show WHERE your controls are, so you can identify if partner's ace is in your void suit (useless) or elsewhere (useful)", "D) You can't use RKCB with a void"],
+          "correctAnswer": "C",
+          "explanation": "With a void, an ace in that suit is worthless to you — you can already ruff there. RKCB tells you how many key cards, not which ones. Cue bids reveal the specific suits where partner has controls, letting you evaluate whether they're useful.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "sb-5",
+          "question": "The auction: You 1♥ - Partner 3♥ - You 4♣ (cue) - Partner 4♦ (cue). What do you know about partner's hand?",
+          "options": ["A) Partner has ♦A (or void) but NOT ♣A", "B) Partner has both ♣A and ♦A", "C) Partner has ♦A (or void) — we don't know about clubs since you already showed that", "D) Partner has a two-suited hand"],
+          "correctAnswer": "C",
+          "explanation": "Partner cue-bid 4♦, showing the ♦A or diamond void. Since you already showed the ♣A with your 4♣ cue bid, partner skipping clubs doesn't tell us anything — they didn't need to confirm your club control. The key: partner DID skip spades by not bidding 4♠ (wait — actually 4♠ would go past game). Below game, partner bid their cheapest control.",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why RKCB is more useful than standard Blackwood for slam bidding. Use a specific example where the trump King or Queen makes the difference between a good slam and a bad one."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "In RKCB, how many 'key cards' are there?",
+      "options": ["4 (the four aces)", "5 (four aces plus the King of trumps)", "6 (four aces plus the King and Queen of trumps)"],
+      "correctIndex": 1,
+      "explanation": "RKCB has 5 key cards: the four aces plus the King of the agreed trump suit. The Queen of trumps is tracked separately in the response.",
+      "encourageCorrect": "That's it! The trump King is promoted to key-card status because it's so critical for slam.",
+      "encourageIncorrect": "RKCB has 5 key cards: the 4 aces plus the trump King. The trump Queen is shown separately (with 2 key cards, the response distinguishes Q or no Q)."
+    },
+    {
+      "question": "What does a control-showing cue bid in a side suit show?",
+      "options": ["A long suit you want to play in", "First-round control (Ace or void) in that suit", "A stopper for notrump"],
+      "correctIndex": 1,
+      "explanation": "After trumps are agreed, bidding a side suit as a cue bid shows the Ace or a void — first-round control — in that suit.",
+      "encourageCorrect": "Exactly! Cue bids tell partner WHERE your controls are, which is more precise than just counting them.",
+      "encourageIncorrect": "A cue bid after trump agreement shows first-round control — the Ace or a void. It's how you tell partner specifically which suits are covered."
+    }
+  ]
+}

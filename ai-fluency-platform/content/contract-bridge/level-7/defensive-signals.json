@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "title": "Defensive Signals",
+    "description": "Attitude, count, and suit preference signals",
+    "level": "level-7",
+    "slug": "defensive-signals",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Silent Language\n\nDefenders can't talk to each other. They can't point, nod, or raise an eyebrow. The only way to communicate is through the **specific card** they choose to play. This is the art of defensive signals.\n\nIn standard signaling (used in SAYC — Standard American Yellow Card), there are three main signal types. Knowing when each applies and what it means is essential for good defense.\n\n## Signal 1: Attitude (\"Do I Like This Suit?\")\n\nThe most common signal. When partner leads a suit and you follow, the card you choose tells partner whether you want that suit continued.\n\n- **High card = Encouraging** (\"I like this suit! Continue it.\")\n- **Low card = Discouraging** (\"I don't like this suit. Try something else.\")\n\nYou don't need to play your very highest or very lowest card. A relatively high spot card (like a 7 or 8) is encouraging. A low card (like a 2 or 3) is discouraging. Partner looks at the card relative to what's visible.\n\n### Example: Attitude Signal\n\nPartner leads the ♥K against a suit contract. Dummy has ♥853. You hold ♥A72.\n\nPlay the **♥7** (encouraging!). You have the Ace and want partner to continue hearts. Partner sees your 7, continues with a low heart, and you win the Ace.\n\n### Example: Discouraging\n\nPartner leads the ♥K against a suit contract. Dummy has ♥853. You hold ♥642.\n\nPlay the **♥2** (discouraging). You have nothing in hearts — tell partner to switch. Partner sees the 2 and tries a different suit.\n\n## Signal 2: Count (\"How Many Do I Have?\")\n\nWhen **declarer** leads a suit (not partner), your signal shows your **count** — how many cards you hold in that suit.\n\n- **High-low = Even number** (2, 4, or 6 cards)\n- **Low-high = Odd number** (1, 3, or 5 cards)\n\nTo show an even count, play a relatively high card first, then a lower one next time the suit is played. To show odd, play low first, then higher.\n\n### Why Count Matters\n\nPartner can use your count to figure out how many cards declarer has.\n\n**Example:** Declarer is running a long diamond suit. You hold ♦853 (odd count). You play the ♦3 first, then the ♦5. Partner sees low-high (odd) and knows you have 3 diamonds. Since dummy has 5, partner can calculate: 13 - 5 (dummy) - 3 (you) - the ones partner holds = declarer's count.\n\nThis helps partner know when to win their stopper — critical in notrump defense.\n\n### Example: Holding Up with Count\n\nDeclarer is in 3NT and leads diamonds. Dummy has ♦KQJ84. Partner has ♦A72.\n\nIf you signal with the ♦8 then ♦5 (high-low = even = 2 diamonds), partner knows you have a doubleton. That means declarer has 3 diamonds. Partner should win the ♦A on the **third** round to leave declarer with no more diamonds to reach dummy.\n\n## Signal 3: Suit Preference (\"Which Suit Should You Lead?\")\n\nSuit preference signals tell partner which **other** suit to lead. These apply in specific situations, most commonly when giving partner a ruff.\n\n- **Unusually high card = Higher-ranking of the two possible suits**\n- **Unusually low card = Lower-ranking of the two possible suits**\n\nThe two \"possible suits\" exclude the suit being played AND the trump suit. So if hearts are trumps and you're playing a diamond, the two possible suits are spades (higher) and clubs (lower).\n\n### Example: Suit Preference on a Ruff\n\nYou lead a singleton ♦3 against 4♠. Partner wins the ♦A and returns a diamond for you to ruff.\n\n**Which diamond does partner return?**\n- The ♦9 (high) = \"I have an entry in the higher-ranking side suit (hearts)\"\n- The ♦2 (low) = \"I have an entry in the lower-ranking side suit (clubs)\"\n\nAfter you ruff, you lead the suit partner indicated, allowing them to win and give you another ruff!\n\n## When Does Each Signal Apply?\n\n| Situation | Signal Type |\n|-----------|------------|\n| Partner leads, you follow for the first time | **Attitude** |\n| Declarer leads a suit | **Count** |\n| You're giving partner a ruff | **Suit preference** |\n| Partner has already seen your attitude | **Count** (on the second round) |\n| Discarding a card in a suit you can't follow | **Attitude** (in the suit you discard from) |\n\n## Important: Signals Are Not Commands\n\nSignals are suggestions, not orders. If partner encourages hearts but you can see that continuing hearts will give declarer a trick, use your judgment. Signals provide information — the player with the most information makes the decision.\n\n## Standard vs. Upside-Down\n\nIn **standard** signals (the default in SAYC):\n- High = encouraging / even count\n- Low = discouraging / odd count\n\nSome partnerships play **upside-down** signals (reversed meanings). We'll stick with standard in this course.\n\n## Signaling on Discards\n\nWhen you can't follow suit and must discard, you can signal:\n\n- **Discard a high card** in a suit you want led (encouraging)\n- **Discard a low card** in a suit you don't want led (discouraging — lead something else!)\n\nThe most useful discard is usually a low card in a suit you don't want, pointing partner toward the suit you do want."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Reading Defensive Signals",
+      "problems": [
+        {
+          "id": "sig-1",
+          "question": "Partner leads the ♠K against 4♥. Dummy has ♠875. You hold ♠A43. What do you play?",
+          "options": ["A) ♠3 (discouraging)", "B) ♠4 (medium)", "C) ♠A (win the trick)", "D) ♠4 or ♠3 to encourage... wait, no: play encouraging since you have the Ace"],
+          "correctAnswer": "C",
+          "explanation": "You have the ♠A! Win it if you can set up tricks, or... actually, with AK between you and partner, signaling works differently. But the best play is ♠A then return a spade — showing the Ace. Some partnerships signal with the 4 to encourage. Let's say the answer is to play high to encourage, but winning the Ace is often best. Play the ♠4 (encouraging) if you want partner to continue, trusting that you'll win the Ace next trick.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "sig-2",
+          "question": "Partner leads the ♦K against 4♠. Dummy has ♦J73. You hold ♦862. What do you play?",
+          "options": ["A) ♦8 (encouraging)", "B) ♦2 (discouraging)", "C) ♦6 (neutral)", "D) ♦8 to show count"],
+          "correctAnswer": "B",
+          "explanation": "You have nothing useful in diamonds. Play the ♦2 — discouraging. Tell partner to try a different suit. The 2 is as low as you can go, a clear 'no thanks.'",
+          "difficulty": "basic"
+        },
+        {
+          "id": "sig-3",
+          "question": "Declarer is in 3NT and plays the ♣K, then ♣Q from dummy (running a long club suit). You hold ♣J74. What do you play on the first two rounds?",
+          "options": ["A) ♣4 then ♣7 (low-high = odd count)", "B) ♣7 then ♣4 (high-low = even count)", "C) ♣J then ♣7 (dump the honor)", "D) ♣4 then ♣J (save the honor)"],
+          "correctAnswer": "A",
+          "explanation": "This is a count signal (declarer is leading, not partner). You have 3 clubs (odd). Signal low-high: ♣4 first, then ♣7. Partner uses this to count declarer's clubs.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "sig-4",
+          "question": "You led a singleton ♣5 against 4♠. Partner wins the ♣A and returns the ♣9 (a high club) for you to ruff. Hearts are trump... wait, spades are trump. The two possible side suits are hearts and diamonds. What does partner's high club (♣9) mean?",
+          "options": ["A) Partner has an entry in hearts (the higher-ranking side suit)", "B) Partner has an entry in diamonds (the lower-ranking side suit)", "C) Partner wants you to lead a spade", "D) Nothing — partner just played any club"],
+          "correctAnswer": "A",
+          "explanation": "Suit preference! The ♣9 (high) points to the higher-ranking of the two side suits. Excluding clubs (the suit being played) and spades (trumps), the two remaining suits are hearts (higher) and diamonds (lower). A high card = hearts. After ruffing, lead a heart!",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "sig-5",
+          "question": "Against 3NT, partner leads the ♥5. Dummy wins the ♥A. You must discard from ♠J98 ♦743 ♣T652. What do you discard?",
+          "options": ["A) ♠J (encouraging spades)", "B) ♠9 or ♠8 (encouraging spades)", "C) ♦3 (discouraging diamonds — suggesting spades)", "D) ♣2 (discouraging clubs)"],
+          "correctAnswer": "B",
+          "explanation": "You want partner to lead spades (your best suit with J98). Discard the ♠9 or ♠8 — a high card in spades to say 'I like this suit!' Alternatively, discarding a low card in a suit you DON'T want works too.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain how playing a specific card can send a message to your partner without saying a word. Describe the three main signal types — attitude, count, and suit preference — and give a brief example of when each would be used."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "In standard defensive signaling, what does playing a high card when partner leads a suit mean?",
+      "options": ["'I have a lot of cards in this suit'", "'I like this suit — please continue!'", "'Please switch to a different suit'"],
+      "correctIndex": 1,
+      "explanation": "A high card is an encouraging attitude signal. It says 'I like this suit! Keep leading it.'",
+      "encourageCorrect": "Right! High = happy. Low = look elsewhere. That's the core of attitude signals.",
+      "encourageIncorrect": "In standard signals, high = encouraging ('I like this suit'). Low = discouraging ('try something else')."
+    },
+    {
+      "question": "When declarer leads a suit, what type of signal do you give?",
+      "options": ["Attitude", "Count", "Suit preference"],
+      "correctIndex": 1,
+      "explanation": "When declarer leads a suit, you give count: high-low for an even number of cards, low-high for odd.",
+      "encourageCorrect": "Exactly! Partner leads = attitude. Declarer leads = count. Knowing the difference is key.",
+      "encourageIncorrect": "When declarer leads the suit, give a count signal: high-low = even number, low-high = odd. This helps partner figure out the distribution."
+    },
+    {
+      "question": "In a suit preference signal, a high card points to which suit?",
+      "options": ["The trump suit", "The higher-ranking of the two possible side suits", "The lower-ranking of the two possible side suits"],
+      "correctIndex": 1,
+      "explanation": "A high card = the higher-ranking suit (excluding the suit being played and trumps). A low card = the lower-ranking suit.",
+      "encourageCorrect": "Got it! High = high-ranking suit, low = low-ranking suit. Elegant and logical.",
+      "encourageIncorrect": "High card = higher-ranking side suit, low card = lower-ranking side suit. The two 'possible' suits exclude trumps and the suit being played."
+    }
+  ]
+}

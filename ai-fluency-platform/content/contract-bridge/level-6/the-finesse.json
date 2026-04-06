@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "The Finesse",
+    "description": "Leading toward an honor, hoping for the right placement",
+    "level": "level-6",
+    "slug": "the-finesse",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Most Common Technique in Bridge\n\nThe finesse is an attempt to win a trick with a card that is not the highest outstanding card, by taking advantage of the favorable position of an opponent's higher card. It's the single most frequently used declarer technique.\n\nThe core idea: **lead toward the card you want to win, hoping the defender with the higher card is sitting in front of it** (so they must play before you decide).\n\n## The Simple Finesse\n\nThe most basic finesse position:\n\n```\n         ♠ A Q\n\n         ♠ 5 3\n```\n\nYou need two spade tricks but the ♠K is out there somewhere. If you lead the ♠A, then the ♠Q, you'll only win one trick when the King falls on the Ace.\n\nInstead: **Lead the ♠3 from your hand toward dummy's ♠AQ.**\n\n- If **West** has the ♠K, West must play before dummy. If West plays the King, you play the Ace and the Queen is a later winner. If West plays low, you play the ♠Q — it wins! Then the ♠A wins too. **Two tricks.**\n- If **East** has the ♠K, you play the Queen... and East wins with the King. You still have the Ace for one trick. **One trick.**\n\nThe finesse succeeds **50% of the time** — whenever the missing honor sits where you need it (in this case, with West).\n\n## Lead TOWARD the Card\n\nThis is the fundamental rule of finessing:\n\n> **Always lead from the hand OPPOSITE the card you're finessing.** You must lead *toward* the honor, not *away* from it.\n\nWhy? Because the defender sitting in front of the honor must play before you decide what to play. If the key defender has the missing high card, they're caught — they must either play it (and you save your honor for later) or play low (and your honor wins).\n\n## Common Finesse Positions\n\n### The AQ Finesse (50%)\n```\n         ♠ A Q 5\n\n         ♠ 7 4 2\n```\nLead low toward the AQ. If West has the King, play the Queen — it wins.\n\n### The King Finesse (50%)\n```\n         ♠ K 5 3\n\n         ♠ 7 4 2\n```\nLead low toward the King. If West has the Ace, your King wins when West plays low. (If East has the Ace, your King loses.)\n\n### The AJT Finesse — Repeating Finesse (75%)\n```\n         ♠ A J T\n\n         ♠ 5 4 3\n```\nLead low toward dummy. If West plays low, play the ♠T (or ♠J). If it wins, go back to your hand and lead low again — finesse the ♠J (or ♠T). If West has BOTH the King and Queen, both finesses win and you take all three tricks.\n\nThe chance that West has at least one of the two missing honors is **75%**. You'll get at least 2 tricks most of the time.\n\n### The Two-Way Finesse\n```\n         ♠ A J 5\n\n         ♠ K T 3\n```\nThe Queen is missing. You can finesse either way:\n- Lead low from hand toward the ♠AJ (finessing West for the Queen)\n- Lead low from dummy toward the ♠KT (finessing East for the Queen)\n\nYou choose which way to finesse based on clues from the bidding and play. This is a luxury — usually you're locked into finessing one direction.\n\n## When NOT to Finesse\n\nDon't finesse automatically! Ask yourself:\n\n**1. Do I have enough tricks without it?**\nIf you can count 9 tricks in 3NT without the finesse, just take them. A finesse risks losing the lead unnecessarily.\n\n**2. Is there a safer line of play?**\nSometimes establishing a long suit gives you the tricks you need with more certainty than a 50% finesse.\n\n**3. Can losing the finesse be catastrophic?**\nIf losing the finesse lets the opponents cash enough tricks to set you, consider whether an alternative line is available.\n\n## A Complete Finesse Deal\n\nYou're South in 3NT. West leads the ♥Q.\n\n```\n         ♠ 8 5 4\n         ♥ A 7 3\n         ♦ K Q 5\n         ♣ A Q 6 3\n\n         ♠ A K 3\n         ♥ K 5 4\n         ♦ A 8 7 3\n         ♣ 8 5 2\n```\n\n**Count top tricks:** ♠AK = 2, ♥AK = 2, ♦AKQ = 3, ♣A = 1. Total: 8. Need 9.\n\nWhere's the 9th trick? The club finesse! Lead a low club from your hand toward dummy's ♣AQ. If West has the ♣K, the ♣Q wins and you have your 9th trick.\n\n**Plan:** Win the ♥A. Cash ♦AKQ (3 tricks). Cash ♠AK (2 tricks). Now lead a club toward dummy's ♣AQ. If the finesse works, you have 9 tricks. If it fails, you tried the best available line — 50% is the best you could do."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Finesse or Not?",
+      "problems": [
+        {
+          "id": "fin-1",
+          "question": "Dummy has ♠AQ5 and you hold ♠843. You need one spade trick beyond the Ace. How should you play this suit?",
+          "options": ["A) Cash the ♠A, then lead toward the ♠Q", "B) Lead low from your hand toward dummy's ♠AQ — finesse the Queen", "C) Lead the ♠Q from dummy", "D) Lead the ♠A from dummy, then the ♠Q"],
+          "correctAnswer": "B",
+          "explanation": "Lead low from your hand toward the AQ. If West has the King, play the Queen — it wins. This is the basic simple finesse with a 50% chance of success.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "fin-2",
+          "question": "Dummy has ♥AJT and you hold ♥543. You need two heart tricks beyond the Ace. What's your best play?",
+          "options": ["A) Cash the ♥A and hope the KQ drop", "B) Lead low toward the ♥J — if it wins, return to hand and lead low toward the ♥T", "C) Lead the ♥J from dummy", "D) Lead low toward the ♥A only"],
+          "correctAnswer": "B",
+          "explanation": "This is a repeating finesse. Lead toward the AJT twice. If West has either the K or Q (75% chance), you'll win at least 2 tricks. If West has both, you win all 3.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "fin-3",
+          "question": "You're in 3NT with 9 top tricks already counted. Dummy has ♣AQ5 opposite your ♣842. Should you finesse the club Queen for an overtrick?",
+          "options": ["A) Yes — a finesse is always worth trying", "B) No — you have 9 tricks, just cash them safely", "C) Only if you need the overtrick for scoring", "D) Lead the ♣A first to see what falls"],
+          "correctAnswer": "B",
+          "explanation": "You have 9 tricks — enough for your contract. The finesse risks losing the lead and potentially your contract if the opponents can run a suit. Cash your 9 winners and chalk up the game.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "fin-4",
+          "question": "You hold ♦K53 in hand and ♦742 in dummy. You need a diamond trick. Where do you lead from?",
+          "options": ["A) Lead the ♦K from your hand", "B) Lead low from dummy toward the ♦K in hand", "C) Lead low from your hand", "D) It doesn't matter which hand you lead from"],
+          "correctAnswer": "B",
+          "explanation": "Lead toward the King! Play low from dummy toward your ♦K. If East has the Ace and plays low, your King wins. You must always lead from the opposite hand — toward the card you hope will win.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "fin-5",
+          "question": "Dummy has ♠AJ5 and you hold ♠KT3. The Queen is missing. Against which defender should you finesse?",
+          "options": ["A) Always finesse West", "B) Always finesse East", "C) Either way — you have a two-way finesse and can choose based on clues", "D) You can't finesse at all"],
+          "correctAnswer": "C",
+          "explanation": "This is a two-way finesse. You can lead toward the AJ (finessing West for the Queen) or lead toward the KT (finessing East). Use clues from the auction and play to decide which defender is more likely to hold the Queen.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Plan the Finesse",
+      "solution": "You're in 3NT. Dummy has ♠AQ5 opposite your ♠764. You need one spade trick beyond the Ace. Describe how you would play this combination and what your chance of success is.\n\nAnswer: Lead a low spade (the 4, 6, or 7) from your hand toward dummy's ♠AQ. When West plays, if West plays low, put up the Queen. If it wins (West had the King), you've just made two spade tricks. If West plays the King, win the Ace and the Queen is good for later. Your chance of success is 50% — the probability that West (the player who plays before dummy) holds the ♠K."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The finesse is bridge's most common technique: lead toward the card you hope will win. A simple finesse succeeds 50% of the time. A repeating finesse (like AJT) works 75% of the time. But always ask first: do I even need to finesse, or do I have enough tricks without it?"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "When finessing, which direction should you lead?",
+      "options": ["Away from the honor you want to win", "Toward the honor you want to win", "It doesn't matter"],
+      "correctIndex": 1,
+      "explanation": "Always lead toward the card you're finessing. The defender sitting before your honor must play first, so they're caught if they hold the missing high card.",
+      "encourageCorrect": "That's the golden rule of finessing! Lead toward your honor so the key defender has to commit first.",
+      "encourageIncorrect": "Always lead toward the honor. If you lead away from it, the wrong defender gets to see your card before playing."
+    },
+    {
+      "question": "What is the success rate of a simple finesse (e.g., AQ opposite xx, finessing for the King)?",
+      "options": ["25%", "50%", "75%"],
+      "correctIndex": 1,
+      "explanation": "A simple finesse for one missing card succeeds 50% of the time — the target card is equally likely to be with either defender.",
+      "encourageCorrect": "Right! Fifty-fifty. The King is either onside or offside. Simple as a coin flip.",
+      "encourageIncorrect": "A simple finesse is a 50-50 proposition. The missing honor is equally likely to be with either defender."
+    }
+  ]
+}

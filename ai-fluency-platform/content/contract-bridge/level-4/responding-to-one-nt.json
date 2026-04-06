@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "Responding to 1NT",
+    "description": "Stayman, Jacoby transfers, quantitative raises",
+    "level": "level-4",
+    "slug": "responding-to-one-nt",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Most Systematic Area of Bidding\n\nResponding to 1NT is the most structured and formulaic part of bridge bidding. Because the 1NT opening is so precise (15-17 HCP, balanced), responder can calculate the combined strength and shape with remarkable accuracy. Over decades, players have developed a toolkit of conventional responses that make this the most efficient area of the bidding system.\n\nThe three main tools are **Stayman**, **Jacoby Transfers**, and **quantitative raises**.\n\n## Stayman Convention (2♣)\n\nThe **Stayman** convention is one of the most widely used conventions in all of bridge. When you bid 2♣ over partner's 1NT, it's **artificial** — it says nothing about clubs. Instead, it asks:\n\n> \"Partner, do you have a 4-card major?\"\n\nOpener responds:\n- **2♥**: \"Yes, I have 4+ hearts\" (may also have 4 spades)\n- **2♠**: \"Yes, I have 4+ spades\" (denies 4 hearts)\n- **2♦**: \"No, I don't have a 4-card major\" (also artificial)\n\n### When to Use Stayman\nUse Stayman when you have:\n- **8+ points** (enough to invite or force game)\n- **At least one 4-card major**\n\nYou're looking for a 4-4 major fit. If partner opens 1NT with ♠KQ84 and you have ♠AJ73, that's an 8-card spade fit — and you found it through Stayman!\n\n**Example:** Partner opens 1NT. You hold ♠AJ73 ♥K952 ♦84 ♣Q63.\n- 10 HCP, both 4-card majors. Bid **2♣** (Stayman).\n- If partner bids 2♥ or 2♠: you've found a fit! Raise to 3♥/3♠ (invitational with 10) or 4♥/4♠ (with more).\n- If partner bids 2♦ (no major): bid 2NT (invitational).\n\n## Jacoby Transfers\n\nJacoby Transfers are the other essential convention over 1NT. They work like this:\n\n- Bid **2♦** = \"I have 5+ hearts. Please bid 2♥.\"\n- Bid **2♥** = \"I have 5+ spades. Please bid 2♠.\"\n\nThe key insight: **you bid the suit BELOW your actual suit**, and partner mechanically bids the next suit up. This is called a \"transfer\" because you're transferring the play to partner's hand.\n\n### Why Transfers?\n1. **The strong hand stays hidden.** The 1NT opener (with 15-17 HCP) becomes declarer, so their hand remains concealed. The weaker hand becomes dummy.\n2. **Responder controls the auction.** After the transfer, responder can pass (weak), invite (medium), or bid game (strong).\n\n### After the Transfer Completes\nOnce partner bids your major:\n- **Pass**: Weak hand (0-7 points). You just wanted to play in 2♥ or 2♠ instead of 1NT.\n- **Raise to 3M**: Invitational (8-9 points, 5-card suit). Partner passes with minimum or bids game with maximum.\n- **Bid 4M**: Game (10+ points, 5-card suit).\n- **Bid 3NT**: Game values with exactly 5 cards in the major. Gives partner a choice between 3NT and 4M.\n\n**Example:** Partner opens 1NT. You hold ♠3 ♥QJ8742 ♦T95 ♣843.\n- Only 4 HCP but 6 hearts. Bid **2♦** (transfer to hearts).\n- Partner bids 2♥. Now **pass**. Playing 2♥ will be much better than 1NT with this hand.\n\n**Example:** Partner opens 1NT. You hold ♠KQ853 ♥A4 ♦873 ♣J95.\n- 10 HCP, 5 spades. Bid **2♥** (transfer to spades).\n- Partner bids 2♠. Now bid **4♠** — you have game values.\n\n## Quantitative Raises (No 4-Card Major, No 5-Card Major)\n\nWhen you don't have a 4+ card major (so Stayman and transfers don't apply), use point-count arithmetic:\n\n| Your HCP | Combined Total (approx) | Your Bid | Meaning |\n|----------|------------------------|----------|--------|\n| 0-7 | 15-24 | **Pass** | Game unlikely |\n| 8-9 | 23-26 | **2NT** | Invitational (partner bids 3NT with 16-17) |\n| 10-15 | 25-32 | **3NT** | Game |\n| 16-17 | 31-34 | **4NT** | Invitational to 6NT (slam invite) |\n| 18+ | 33+ | **6NT** | Small slam |\n\nThe 4NT bid here is **quantitative** (not Blackwood). It says: \"We're close to slam. Bid 6NT with a maximum; pass with a minimum.\"\n\n**Example:** Partner opens 1NT. You hold ♠J84 ♥K95 ♦QT73 ♣A42.\n- 10 HCP, balanced, no 4-card major, no 5-card major. Bid **3NT**.\n\n**Example:** Partner opens 1NT. You hold ♠Q83 ♥J74 ♦K95 ♣8643.\n- 7 HCP, balanced. **Pass**. Combined maximum is 24 — not enough for game.\n\n## The Complete Decision Tree for Responding to 1NT\n\n```\nPartner opens 1NT\n├── 5+ card major? → Jacoby Transfer (2♦ for hearts, 2♥ for spades)\n├── 4-card major + 8+ points? → Stayman (2♣)\n├── 0-7 points, balanced? → Pass\n├── 8-9 points, balanced? → 2NT (invitational)\n├── 10-15 points, balanced? → 3NT\n├── 16-17 balanced? → 4NT (slam invite)\n└── 18+ balanced? → 6NT\n```\n\nNote: With a 5+ card major AND a 4-card major, you might use a transfer first, then bid the second major. With a 4-card major and 5+ of the other major, transfer to the 5-card suit. The details can get complex, but the basic framework above covers the vast majority of hands."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Responding to 1NT",
+      "problems": [
+        {
+          "id": "rnt-1",
+          "question": "Partner opens 1NT. You hold ♠KJ85 ♥QT73 ♦94 ♣A82. (11 HCP, both 4-card majors) What do you bid?",
+          "options": ["A) 2♣ (Stayman)", "B) 2♦ (transfer)", "C) 3NT", "D) 2NT"],
+          "correctAnswer": "A",
+          "explanation": "You have 11 HCP and two 4-card majors -- a perfect Stayman hand. Bid 2♣ to ask partner about their majors. If they show one, raise to game. If they bid 2♦, bid 3NT.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rnt-2",
+          "question": "Partner opens 1NT. You hold ♠4 ♥KJ9753 ♦Q84 ♣T63. (7 HCP, 6 hearts) What do you bid?",
+          "options": ["A) Pass", "B) 2♣ (Stayman)", "C) 2♦ (transfer to hearts)", "D) 2♥"],
+          "correctAnswer": "C",
+          "explanation": "With 6 hearts, use a Jacoby Transfer: bid 2♦. Partner will bid 2♥. Then pass -- you want to play in 2♥, not 1NT. Transfers work with any strength.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rnt-3",
+          "question": "Partner opens 1NT. You hold ♠Q83 ♥A4 ♦KJ95 ♣T874. (10 HCP, no 4+ card major) What do you bid?",
+          "options": ["A) 2NT", "B) 3NT", "C) 2♣ (Stayman)", "D) Pass"],
+          "correctAnswer": "B",
+          "explanation": "10 HCP, balanced, no 4-card major. Combined points: 25-27. That's enough for 3NT. Bid it directly.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rnt-4",
+          "question": "Partner opens 1NT. You hold ♠AQT84 ♥K7 ♦J83 ♣Q95. (12 HCP, 5 spades) What do you bid?",
+          "options": ["A) 2♣ (Stayman)", "B) 2♥ (transfer to spades)", "C) 3♠", "D) 3NT"],
+          "correctAnswer": "B",
+          "explanation": "With 5 spades, use a Jacoby Transfer: bid 2♥ (which tells partner to bid 2♠). After the transfer, bid 4♠ with your game-forcing values, or 3NT to give partner a choice.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "rnt-5",
+          "question": "Partner opens 1NT. You hold ♠J53 ♥984 ♦T73 ♣Q864. (4 HCP, no feature) What do you bid?",
+          "options": ["A) 2♣ (Stayman)", "B) 2NT", "C) Pass", "D) 1NT"],
+          "correctAnswer": "C",
+          "explanation": "With only 4 HCP, the combined total is at most 21. Game is out of reach. Pass and let partner play 1NT.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "1NT Response Drill",
+      "generator": "respond-nt",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "You bid 2♣ (Stayman) over partner's 1NT. Partner bids 2♦. What does 2♦ mean?",
+      "options": ["Partner has 4+ diamonds", "Partner has no 4-card major", "Partner wants to play in diamonds"],
+      "correctIndex": 1,
+      "explanation": "In Stayman, opener's 2♦ response is artificial -- it simply means 'I don't have a 4-card major.'",
+      "encourageCorrect": "That's right! 2♦ is the 'no' answer in Stayman -- no 4-card major.",
+      "encourageIncorrect": "The 2♦ response to Stayman is artificial. It just means opener doesn't have a 4-card major. It says nothing about diamonds."
+    },
+    {
+      "question": "What does bidding 2♦ over partner's 1NT mean as a Jacoby Transfer?",
+      "options": ["I have 5+ diamonds", "I have 5+ hearts -- please bid 2♥", "I have a weak hand"],
+      "correctIndex": 1,
+      "explanation": "A Jacoby Transfer of 2♦ asks partner to bid 2♥. You're showing 5+ hearts, and your strength can be anything.",
+      "encourageCorrect": "Exactly! 2♦ transfers to hearts. You bid the suit BELOW your real suit.",
+      "encourageIncorrect": "In a Jacoby Transfer, 2♦ means 'I have 5+ hearts, please bid 2♥.' You bid one step below your actual suit."
+    }
+  ]
+}

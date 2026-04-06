@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "title": "Competitive Judgment",
+    "description": "Full competitive auction scenarios",
+    "level": "level-9",
+    "slug": "competitive-judgment",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Putting It All Together\n\nCompetitive bidding isn't about applying one rule — it's about integrating everything you've learned: the Law of Total Tricks, sacrifice math, balancing logic, forcing passes, vulnerability awareness, and hand evaluation.\n\nIn this lesson, you'll work through three complete competitive scenarios from both sides' perspectives. There are no drill sets or formula answers here — just the messy, judgment-heavy decisions that make competitive bridge so fascinating.\n\nFor each scenario, try to form your own opinion before reading the analysis."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Scenario 1: The Competitive Partscore Battle",
+      "solution": "**Neither side vulnerable. You are South.**\n\n| West | North | East | South |\n|------|-------|------|-------|\n| — | 1♦ | 1♠ | ? |\n\nYou hold: ♠83 ♥AJ74 ♦KT85 ♣Q93\n\n**Your decision:** You have 10 HCP, 4 hearts, and 4-card diamond support. You can't bid 2♥ naturally (that would show 10+ points and a 5-card suit over the overcall). The right call is a **negative double** — showing 4+ hearts and enough to compete.\n\nThe auction continues:\n\n| West | North | East | South |\n|------|-------|------|-------|\n| 2♠ | 3♦ | 3♠ | ? |\n\nNow what? Partner bid 3♦, confirming a diamond fit. The opponents are at 3♠. Should you bid 4♦?\n\n**Law of Total Tricks:** You have 9+ diamonds between you (partner opened 1♦ with 4+, you have 4). Their spade fit is probably 8-9 cards. Total trumps ≈ 17-18. The Law says your 9 trumps justify the 3-level — and you're already there.\n\n**Should you bid 4♦?** Probably not. The Law says 3-level with 9 trumps. Going to 4♦ with only 10 HCP and a flat hand is pushing too far. Your ♠83 means you have no ruffing value. **Pass** and let them play 3♠. You've competed appropriately.\n\nIf you had ♠3 ♥AJ74 ♦KT854 ♣Q93 (singleton spade, 5 diamonds = 10 trumps), then 4♦ would be right — 10 trumps = 4-level."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Scenario 2: The Sacrifice Decision",
+      "solution": "**You are vulnerable, they are not vulnerable. You are South.**\n\n| West | North | East | South |\n|------|-------|------|-------|\n| 1♠ | 2♥ | 3♠ | 4♥ |\n| 4♠ | ? | | |\n\nPartner (North) holds: ♠85 ♥KQ9742 ♦A7 ♣J84\n\nPartner overcalled 2♥ with a decent hand (12 HCP, good 6-card suit). You raised to 4♥ freely. Now West bids 4♠. Should partner bid 5♥?\n\n**The math check:** You're vulnerable, they're not. This is unfavorable vulnerability!\n- Their 4♠ non-vul = +420\n- Your 5♥ doubled, down 1 vul = -200 (OK)\n- Your 5♥ doubled, down 2 vul = -500 (BAD — worse than their 420)\n\nAt unfavorable vulnerability, you can only afford down 1. That's a very thin margin.\n\n**Defensive analysis:** Partner has ♦A (one trick) and ♥KQ (likely one heart trick if declarer needs to play hearts). That's 2 defensive tricks. Plus whatever South has.\n\n**The verdict:** Partner should **pass.** At unfavorable vulnerability, the sacrifice math barely works even if 4♠ is making. And with ♦A and ♥KQ, 4♠ might not make. Bidding 5♥ at unfavorable vulnerability risks a phantom sacrifice. Trust the defense.\n\nIf the vulnerability were reversed (favorable), 5♥ would be automatic — down 2 doubled NV is only -300 vs their vul +620."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Scenario 3: The Forcing Pass Gauntlet",
+      "solution": "**Both vulnerable. You are South.**\n\n| West | North | East | South |\n|------|-------|------|-------|\n| — | 1♠ | 2♥ | 4♠ |\n| 5♥ | Pass | Pass | ? |\n\nYou hold: ♠KJ84 ♥73 ♦AQ95 ♣K82\n\nYour side bid game (1♠ - 4♠). West bid 5♥. Partner passed — a **forcing pass**. Partner is saying: 'I'm not sure whether to bid 5♠ or double. You decide.'\n\n**Analyze your hand for offense vs defense:**\n\n*Offensive value:*\n- ♠KJ84 — good trump support, but only 4 cards\n- ♦AQ95 — a good side suit\n- 13 HCP — you had a maximum raise to 4♠\n- But no extreme shape — 4-2-4-3 is balanced\n\n*Defensive value:*\n- ♥73 — no heart tricks (bad for defense)\n- ♦AQ — the ♦A is a sure trick, ♦Q might be\n- ♣K — likely a trick on defense\n- 2-3 defensive tricks\n\n**The decision:** Your hand is balanced (4-2-4-3) with scattered defensive values. You're NOT the offensive powerhouse that bids 5♠ (that would be something like ♠KJ843 ♥— ♦AQ954 ♣K8 — void in their suit, 5-5 shape).\n\n**Double.** Your ♦A and ♣K are defensive tricks. Your balanced shape means 5♠ is risky (you'd need 11 tricks with no extra shape). Let partner's good trumps take care of offense on defense — partner passed (forcing) rather than doubling, which suggests partner's hand is more offensive than defensive. Between your defense and partner's offense, 5♥ doubled should go down.\n\nThis is the beauty of forcing passes: the partnership shares the decision based on each hand's character."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does competitive bidding change the way you think about hand evaluation compared to uncontested auctions? Consider how factors like shape, vulnerability, and defensive values take on new importance.",
+        "Think about a decision-making framework you use in another area of life. Does it parallel the 'bid with shape, double with defense' principle? How?"
+      ]
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "In competitive auctions, what matters more than HCP alone?",
+      "options": ["Having the most points at the table", "Shape, fit, vulnerability, and the balance between offense and defense", "Following a strict point-count system"],
+      "correctIndex": 1,
+      "explanation": "Competitive bidding is about the whole picture: distribution, trump fit, vulnerability, and whether your hand takes tricks on offense or defense.",
+      "encourageCorrect": "That's the competitive mindset! Points are just one input — shape, fit, and vulnerability often matter more.",
+      "encourageIncorrect": "In competition, shape and fit can be more important than raw points. A 10-card fit with 20 HCP often outperforms a flat hand with 25."
+    },
+    {
+      "question": "When the Law of Total Tricks says compete to the 3-level (9 trumps), should you always bid to the 4-level?",
+      "options": ["Yes — one more is always safe with a fit", "No — the Law recommends 3-level for 9 trumps; going higher needs extra shape or trumps", "Only if you have 15+ HCP"],
+      "correctIndex": 1,
+      "explanation": "The Law is a guide: 9 trumps = 3-level. Going to the 4-level with only 9 trumps exceeds the recommendation and is usually wrong without extra distribution.",
+      "encourageCorrect": "Right! Respect the Law's limits. Going one beyond what it recommends is where most competitive disasters happen.",
+      "encourageIncorrect": "Nine trumps = 3-level, not 4-level. Exceeding the Law's recommendation without extra shape or trumps usually leads to bad results."
+    }
+  ]
+}

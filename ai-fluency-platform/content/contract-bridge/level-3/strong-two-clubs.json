@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Opening 2C (Strong)",
+    "description": "22+ points or 9+ tricks -- the forcing opening",
+    "level": "level-3",
+    "slug": "strong-two-clubs",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## When Your Hand Is Too Good for One\n\nEvery now and then, you pick up a hand so powerful that a 1-level opening just won't do. Imagine holding:\n\n> ♠AKQ ♥AKJ85 ♦AQ4 ♣K3\n\nThat's 26 HCP — enough for game all by yourself. If you open 1♥, partner might pass with 5 or 6 points, and you'd miss a game or even a slam. You need a way to force partner to keep bidding.\n\nThat's what **2♣** is for.\n\n## The 2♣ Opening: What It Means\n\nThe 2♣ opening is:\n\n- **Artificial**: It says absolutely nothing about your club holding. You might have zero clubs.\n- **Forcing**: Partner cannot pass (with very rare exceptions). The auction must continue.\n- **Strong**: It shows one of the most powerful hand types in bridge.\n\nThis is the **only forcing opening** in SAYC. No other opening bid requires partner to respond.\n\n## When to Open 2♣\n\nOpen 2♣ with either:\n\n### 1. Big Balanced Hands: 22+ HCP\nWith a balanced hand and 22 or more HCP, open 2♣. You plan to rebid notrump:\n- 22-24 HCP: Open 2♣, rebid 2NT\n- 25-27 HCP: Open 2♣, rebid 3NT\n\n**Example:**\n> ♠AK8 ♥KQJ ♦AKJ5 ♣Q93\n\n24 HCP, balanced. Open 2♣, then rebid 2NT to show 22-24 balanced.\n\n### 2. Big Unbalanced Hands: 9+ Playing Tricks\nSome hands have enormous playing strength without necessarily having 22 HCP. If your hand can reasonably produce 9 or more tricks with your long suit as trump, open 2♣.\n\n**Example:**\n> ♠AKQJ985 ♥A ♦AK3 ♣84\n\n\"Only\" 21 HCP, but this hand will take 9-10 tricks all by itself in spades. Open 2♣ and rebid spades.\n\n**Example:**\n> ♠A ♥AKQ8743 ♦AK5 ♣Q6\n\n22 HCP with a powerful 7-card heart suit. Open 2♣ and rebid hearts.\n\n## Why Not Just Open at the 1-Level?\n\nThe problem is simple: **partner can pass a 1-level opening with fewer than 6 points**. If you open 1♥ with 24 HCP and partner passes with 3 HCP, your partnership has 27 combined points — more than enough for game — but you're stuck in a partscore.\n\nThe 2♣ bid solves this by requiring partner to respond. Even if partner has a terrible hand, the auction continues until the partnership reaches at least 2NT or agrees on a trump suit at a reasonable level.\n\n## How Common Is 2♣?\n\nNot very! You'll pick up a 2♣ opening roughly once every 50-100 hands. It's rare, but when it happens, you want to handle it correctly. Mishandling a huge hand can mean the difference between bidding a slam and playing in a partscore.\n\n## Quick Reference\n\n| Hand Type | HCP | Action |\n|-----------|-----|--------|\n| Balanced, 22-24 | 22-24 | Open 2♣, rebid 2NT |\n| Balanced, 25-27 | 25-27 | Open 2♣, rebid 3NT |\n| Unbalanced, 9+ tricks | ~20+ | Open 2♣, rebid your suit |\n| Strong but < 22 balanced | 18-21 | Open 1 of a suit (not 2♣) |"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Is This a 2♣ Opening?",
+      "problems": [
+        {
+          "id": "2c-1",
+          "question": "♠AKQ ♥AQJ4 ♦KQ8 ♣A93 — You have 25 HCP, balanced. What do you open?",
+          "options": ["A) 1♥", "B) 1NT", "C) 2♣", "D) 2NT"],
+          "correctAnswer": "C",
+          "explanation": "With 25 HCP balanced, open 2♣ and plan to rebid 3NT (showing 25-27). Way too strong for any other opening.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "2c-2",
+          "question": "♠AKQJT73 ♥A ♦AK4 ♣83 — You have 21 HCP and a 7-card spade suit. What do you open?",
+          "options": ["A) 1♠", "B) 2♣", "C) 4♠", "D) 2♠"],
+          "correctAnswer": "B",
+          "explanation": "This hand has 10 probable tricks in spades — well above the 9-trick threshold for 2♣. Don't risk partner passing 1♠.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "2c-3",
+          "question": "♠AK85 ♥KQ7 ♦AJ4 ♣K83 — You have 20 HCP, balanced. What do you open?",
+          "options": ["A) 2♣", "B) 1NT", "C) 1♠", "D) 2NT"],
+          "correctAnswer": "C",
+          "explanation": "20 HCP is strong but not enough for 2♣ (need 22+ balanced). Too strong for 1NT (15-17). Open 1♠ and plan a strong rebid.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "2c-4",
+          "question": "♠A ♥AKQ9852 ♦AQ3 ♣K4 — You have 23 HCP and a powerful heart suit. What do you open?",
+          "options": ["A) 1♥", "B) 2♣", "C) 2♥", "D) 4♥"],
+          "correctAnswer": "B",
+          "explanation": "With 23 HCP and a self-sufficient heart suit, this is a clear 2♣ opening. You'll rebid hearts to show your suit.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "In your own words, explain why we need a special artificial bid like 2♣ for very strong hands, instead of simply opening at the 1-level. What problem does it solve?"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What does a 2♣ opening tell partner about your club suit?",
+      "options": ["You have 5+ clubs", "You have a strong club suit", "Nothing -- it's artificial"],
+      "correctIndex": 2,
+      "explanation": "The 2♣ opening is artificial and says nothing about clubs. It only promises a very strong hand.",
+      "encourageCorrect": "Exactly! 2♣ is purely artificial -- it's about hand strength, not clubs.",
+      "encourageIncorrect": "The 2♣ opening is artificial, meaning it says nothing about your clubs. You might have zero clubs! It just announces a very strong hand."
+    },
+    {
+      "question": "What is the minimum HCP for a 2♣ opening with a balanced hand?",
+      "options": ["20 HCP", "22 HCP", "25 HCP"],
+      "correctIndex": 1,
+      "explanation": "With a balanced hand, you need 22+ HCP to open 2♣. With 20-21 balanced, open one of a suit instead.",
+      "encourageCorrect": "Right! 22 is the magic number for balanced 2♣ openings.",
+      "encourageIncorrect": "For a balanced 2♣ opening, you need 22+ HCP. Hands with 20-21 are opened at the 1-level with a plan for a strong rebid."
+    }
+  ]
+}

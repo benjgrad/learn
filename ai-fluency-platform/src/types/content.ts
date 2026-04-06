@@ -35,7 +35,13 @@ export interface DrillProblem {
     hand1?: string[];
     hand2?: string[];
     board?: string[];
-    displayAs?: "hand" | "board" | "both" | "versus";
+    // Bridge-specific fields
+    north?: string[];
+    south?: string[];
+    east?: string[];
+    west?: string[];
+    auction?: string[];
+    displayAs?: "hand" | "board" | "both" | "versus" | "bridge-single" | "bridge-dummy" | "bridge-full" | "bridge-bidding";
   };
 }
 

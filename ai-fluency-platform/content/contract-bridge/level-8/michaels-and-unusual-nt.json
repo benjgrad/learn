@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "title": "Michaels and Unusual 2NT",
+    "description": "Showing two-suited hands in competition",
+    "level": "level-8",
+    "slug": "michaels-and-unusual-nt",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Two-Suited Hand Problem\n\nYou pick up a wild hand: ♠KQT84 ♥AJ975 ♦3 ♣82. Ten cards in two suits! RHO opens 1♦. You could overcall 1♠, but then partner would never know about your hearts. You could double, but you don't have support for clubs.\n\nWhat you need is a way to say: \"I have two long suits!\" That's exactly what **Michaels Cue Bid** and the **Unusual 2NT** do.\n\n## Michaels Cue Bid\n\nA **Michaels Cue Bid** is a direct bid of the opponent's suit, one level higher. It shows a two-suited hand (at least 5-5).\n\nThe specific suits depend on what the opponents opened:\n\n### Over a Minor Opening\n\n| They Open | You Bid | Shows |\n|-----------|---------|-------|\n| 1♣ | 2♣ | Both majors (5+♠ and 5+♥) |\n| 1♦ | 2♦ | Both majors (5+♠ and 5+♥) |\n\nThis is the most common use. Over a minor, Michaels always shows both majors.\n\n### Over a Major Opening\n\n| They Open | You Bid | Shows |\n|-----------|---------|-------|\n| 1♥ | 2♥ | Spades + an unspecified minor (5+♠ and 5+ in a minor) |\n| 1♠ | 2♠ | Hearts + an unspecified minor (5+♥ and 5+ in a minor) |\n\nOver a major, Michaels shows the other major plus a minor. Partner can bid 2NT to ask which minor if they want to know.\n\n### Examples\n\nRHO opens 1♦. You hold ♠KQJ85 ♥AT974 ♦6 ♣83. Bid **2♦** (Michaels) — showing both majors.\n\nRHO opens 1♠. You hold ♠4 ♥KJT85 ♦83 ♣AQT74. Bid **2♠** (Michaels) — showing hearts + a minor (clubs).\n\n## Unusual 2NT\n\nA **jump to 2NT** directly over the opponent's opening (when it can't be natural) shows the **two lowest unbid suits**, each with 5+ cards.\n\n| They Open | 2NT Shows |\n|-----------|-----------|\n| 1♥ | Diamonds + clubs (the two lowest unbid suits) |\n| 1♠ | Diamonds + clubs (the two lowest unbid suits) |\n| 1♣ | Diamonds + hearts (rare — the two lowest unbid) |\n| 1♦ | Clubs + hearts (rare — the two lowest unbid) |\n\nThe most common case: over a major opening, 2NT shows both minors.\n\n### Example\n\nRHO opens 1♠. You hold ♠7 ♥83 ♦KQJ84 ♣AJT73. Bid **2NT** (Unusual) — showing both minors.\n\n## Strength for Michaels/Unusual 2NT\n\nThese conventions follow an **either-or** approach to strength:\n\n- **Weak** (roughly 6-10 HCP): preemptive intent, trying to obstruct the opponents\n- **Very strong** (roughly 16+): too good for a simple overcall, planning to bid again\n- **NOT medium** (11-15): with a medium hand and two suits, overcall one of them normally\n\nWhy skip the middle? With a medium hand, you can bid one suit and then bid the other. With a weak hand, you won't get a second chance — so you need a convention that shows both suits at once. With a very strong hand, you want to force the auction higher.\n\n## Responding to Michaels\n\nWhen partner bids Michaels:\n- **Bid your longer/better major** (over a minor) — partner has 5+ in each\n- **Bid 2NT** to ask for the minor (over a major Michaels)\n- **Jump-raise** with a great fit and competitive values\n- **Pass** only with a completely misfit hand and no desire to compete\n\n### Example\n\nPartner bids 2♦ (Michaels, showing both majors) over RHO's 1♦. You hold ♠Q73 ♥J8542 ♦A95 ♣K8.\n\nYou have 5 hearts to partner's 5+ — bid **3♥** (or even 4♥ if the vulnerability is right). You've found a great fit!\n\n## Responding to Unusual 2NT\n\nWhen partner bids Unusual 2NT (showing both minors):\n- **Bid your longer/better minor** at the 3-level\n- **Jump to game** with a great fit and enough values\n- **Bid a major** only to suggest playing there (very rare)\n\n## Michaels/Unusual vs Other Bids\n\n| Hand Type | Action |\n|-----------|--------|\n| 5-5+ two suits, weak or very strong | Michaels or Unusual 2NT |\n| Good 5-card suit, 8-16 HCP | Simple overcall |\n| Support for all unbid suits, 12+ | Takeout double |\n| Balanced, 15-18, stopper | 1NT overcall |\n\nThe key question: **are you distributional (two long suits) or balanced (support for everything)?** Distributional hands use Michaels/Unusual. Balanced hands use doubles or 1NT."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Two-Suited Conventions",
+      "problems": [
+        {
+          "id": "mu-1",
+          "question": "RHO opens 1♣. You hold ♠AJT85 ♥KQ974 ♦83 ♣5. What do you bid?",
+          "options": ["A) 1♠ — overcall your longer major", "B) 2♣ — Michaels cue bid, showing both majors", "C) Double — takeout", "D) 1♥ — overcall your better major"],
+          "correctAnswer": "B",
+          "explanation": "Over a minor, Michaels (cue bidding their suit) shows both majors with 5+/5+. With 5-5 in the majors and 10 HCP (weak range), 2♣ Michaels perfectly describes your hand in one bid.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "mu-2",
+          "question": "RHO opens 1♠. You hold ♠5 ♥83 ♦AQJ74 ♣KJ985. What do you bid?",
+          "options": ["A) 2♦ — overcall your better suit", "B) 2♠ — Michaels (hearts + a minor)", "C) 2NT — Unusual, showing the two lowest unbid suits (both minors)", "D) Double — takeout"],
+          "correctAnswer": "C",
+          "explanation": "Over 1♠, the two lowest unbid suits are diamonds and clubs. With 5-5 in the minors, bid 2NT (Unusual). This shows both minors in one bid.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "mu-3",
+          "question": "RHO opens 1♥. You hold ♠KQJ74 ♥3 ♦8 ♣AQT852. What do you bid?",
+          "options": ["A) 1♠ — overcall", "B) 2♥ — Michaels (spades + a minor)", "C) 2NT — Unusual", "D) Double — takeout"],
+          "correctAnswer": "B",
+          "explanation": "Over 1♥, Michaels (2♥) shows spades + an unspecified minor. With 5 spades and 6 clubs, plus 14 HCP (arguably on the strong side for Michaels), this accurately describes your two-suited hand.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "mu-4",
+          "question": "Partner bids 2♦ (Michaels — both majors) over RHO's 1♦ opening. You hold ♠KJ3 ♥Q9742 ♦A85 ♣63. What do you bid?",
+          "options": ["A) 2♠ — pick the stronger major", "B) 3♥ — raise hearts with your 5-card support", "C) 2♥ — pick hearts (your longer major)", "D) Pass — you don't have enough"],
+          "correctAnswer": "B",
+          "explanation": "Partner has 5+ hearts. You have 5 hearts — that's a 10+ card fit! With 10 HCP and a magnificent fit, jump to 3♥. This is both competitive (making it harder for opponents) and invitational.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "mu-5",
+          "question": "RHO opens 1♦. You hold ♠KJ74 ♥AQ83 ♦95 ♣K72. Should you bid 2♦ (Michaels)?",
+          "options": ["A) Yes — you have both majors", "B) No — you need 5+ cards in each major for Michaels", "C) No — you should double instead", "D) Yes — 4-4 in the majors is enough"],
+          "correctAnswer": "B",
+          "explanation": "Michaels requires 5+ cards in each suit. With only 4-4 in the majors, use a takeout double instead — that's exactly what it's designed for. Double shows support for the unbid suits without promising 5-5.",
+          "difficulty": "intermediate"
+        }
+      ]
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What does 2♦ (Michaels) show over an opponent's 1♦ opening?",
+      "options": ["A strong diamond hand", "Both majors (5+ spades and 5+ hearts)", "Diamonds and a major"],
+      "correctIndex": 1,
+      "explanation": "Over a minor opening, Michaels (cue bidding their suit) shows both majors with at least 5 cards in each.",
+      "encourageCorrect": "That's right! Over a minor, Michaels always shows both majors. Simple and powerful.",
+      "encourageIncorrect": "Over a minor, Michaels shows both majors (5+/5+). It's a conventional bid — the cue bid has nothing to do with their suit."
+    },
+    {
+      "question": "Over a 1♠ opening, what does a jump to 2NT (Unusual) show?",
+      "options": ["A strong balanced hand (20-21 HCP)", "Both minors (5+ diamonds and 5+ clubs)", "Hearts and a minor"],
+      "correctIndex": 1,
+      "explanation": "Unusual 2NT shows the two lowest unbid suits. Over 1♠, those are diamonds and clubs — both minors.",
+      "encourageCorrect": "Exactly! Unusual 2NT = two lowest unbid suits. Over a major, that's always both minors.",
+      "encourageIncorrect": "Unusual 2NT shows the two lowest unbid suits. Over 1♠, that means diamonds and clubs — both minors."
+    }
+  ]
+}

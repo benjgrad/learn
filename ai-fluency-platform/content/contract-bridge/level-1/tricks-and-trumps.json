@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "Tricks and Trumps",
+    "description": "How tricks work, following suit, the trump suit",
+    "level": "level-1",
+    "slug": "tricks-and-trumps",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Trick: Bridge's Fundamental Unit\n\nEvery card game has a basic unit of action. In poker, it's the hand. In blackjack, it's the round. In bridge, it's the **trick**.\n\nA trick is beautifully simple: four cards, one from each player, played clockwise. One player wins the trick, and that's it. Thirteen tricks per deal, four cards per trick — that accounts for all 52 cards.\n\nBut the rules governing which card you can play, and which card wins, create all the strategy.\n\n## How a Trick Works\n\nHere's the step-by-step:\n\n1. **The lead**: One player plays a card face-up on the table. The suit of this card is the **suit led**.\n2. **Following suit**: Each subsequent player, going clockwise, **must play a card of the same suit** if they have one. This is not optional — it's a rule.\n3. **Can't follow suit?** If you have no cards in the suit led, you may play any card from any other suit.\n4. **Winning the trick**: The highest card of the **suit led** wins the trick — unless a trump card was played (more on this shortly).\n5. **Leading next**: The winner of the trick leads to the next trick.\n\n## Card Ranking\n\nWithin each suit, cards rank from highest to lowest:\n\n> A K Q J 10 9 8 7 6 5 4 3 2\n\nThe Ace is always the highest card. The 2 is always the lowest. There are no wild cards and no special combinations — individual card rank is all that matters.\n\n## Following Suit: The Iron Rule\n\nThe requirement to follow suit is the most important rule in bridge. Let's make sure it's crystal clear:\n\n- If hearts are led and you have hearts in your hand, you **must** play a heart. You can choose *which* heart, but it must be a heart.\n- If hearts are led and you have **zero** hearts, you're \"void\" in hearts and can play anything.\n- You never have to play a high card just because you can. If spades are led and you have ♠A ♠K ♠3, you can play the ♠3 if you want.\n\nFailing to follow suit when you could have is called a **revoke** (or \"renege\"). It's one of the few rule violations in bridge and carries a penalty.\n\n## A Trick in Notrump\n\nLet's trace through a trick where there's **no trump suit** (a notrump contract):\n\n> **West leads ♦K** — Diamonds are the suit led  \n> **North plays ♦5** — Must follow suit (has diamonds)  \n> **East plays ♦A** — Must follow suit (and plays the ace!)  \n> **South plays ♦2** — Must follow suit  \n\n**Who wins?** East, with the ♦A. The ace is the highest diamond played.\n\nEast now leads to the next trick.\n\n## Another Example: Someone Can't Follow Suit\n\n> **North leads ♥Q** — Hearts are the suit led  \n> **East plays ♥7** — Following suit  \n> **South plays ♥K** — Following suit  \n> **West plays ♣9** — Has no hearts! Plays a club instead  \n\n**Who wins?** South, with the ♥K. West's ♣9 doesn't count because clubs weren't the suit led. In notrump, a card from a different suit can never win the trick.\n\nThis is a key insight: **in notrump, only cards of the suit led can win**. Cards from other suits are just discards — they're thrown away without effect.\n\n## Enter the Trump Suit\n\nNow things get interesting. When the contract specifies a trump suit (say, spades), that suit has **special power**: a trump card beats any card from any other suit, no matter how high.\n\nThe rules for following suit don't change — you still must follow the suit led if you can. But when you **can't** follow suit, you have a choice:\n\n1. **Trump** (also called **ruff**): Play a card from the trump suit. This beats all non-trump cards.\n2. **Discard**: Play a card from a non-trump, non-led suit. This card cannot win the trick.\n\n## A Trick With Trumps\n\nLet's say the contract is **4♠** (spades are trumps):\n\n> **West leads ♥A** — Hearts are the suit led  \n> **North plays ♥3** — Following suit  \n> **East plays ♥8** — Following suit  \n> **South plays ♠2** — Has no hearts! Trumps with the ♠2  \n\n**Who wins?** South! Even though West played the ♥A (highest heart), South's lowly ♠2 wins because **a trump card beats any non-trump card**, regardless of rank.\n\nThis is the magic of trumps. A tiny trump card can beat an ace of another suit.\n\n## When Multiple Players Trump\n\nIf two players both play trump cards on the same trick, the **higher trump** wins:\n\n> **North leads ♦J** — Diamonds are the suit led  \n> **East plays ♠5** — No diamonds, trumps with ♠5  \n> **South plays ♦4** — Following suit  \n> **West plays ♠K** — No diamonds, overtrumps with ♠K  \n\n**Who wins?** West, with the ♠K. Both East and West trumped, but ♠K beats ♠5.\n\n## The Hierarchy of Power\n\nTo summarize which card wins a trick:\n\n| Situation | Winner |\n|-----------|--------|\n| No trumps played | Highest card of the suit led |\n| One trump played | The trump card |\n| Multiple trumps played | The highest trump card |\n\nCards from non-led, non-trump suits **never win**. They're pure discards.\n\n## Notrump vs. Suit Contracts\n\nThe contract determines whether there's a trump suit:\n\n- **Suit contract** (e.g., 4♠, 3♥, 5♦, 2♣): The named suit is trump. Cards of that suit have the power to beat any other suit.\n- **Notrump contract** (e.g., 1NT, 3NT): There is no trump suit. The highest card of the suit led always wins.\n\nNotrump contracts play very differently from suit contracts. In notrump, the side with long, established suits has a big advantage because there's no way for the opponents to trump in and steal tricks. In suit contracts, even a player with only small cards can win tricks by trumping.\n\nThis difference is fundamental and shapes everything from bidding strategy to card play technique."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Trace through this trick. Spades are trumps. North leads the ♥K. East plays ♥3. South plays ♥A. West plays ♠7. Who wins this trick?",
+      "solution": "West wins with the ♠7. Even though South played the ♥A (the highest heart), West trumped with ♠7. A trump card beats any non-trump card, regardless of rank. So West's little ♠7 beats South's ♥A."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "A trick is four cards, one from each player. You must follow the suit led if you can. In notrump, the highest card of the suit led wins. In a suit contract, a trump card beats any non-trump card — and if multiple trumps are played, the highest trump wins."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What must you do if you hold cards in the suit that was led?",
+      "options": ["Play your highest card in that suit", "Play any card from that suit", "Play any card you want"],
+      "correctIndex": 1,
+      "explanation": "You must follow suit (play a card from the suit led), but you can choose which card of that suit to play.",
+      "encourageCorrect": "Exactly! You must follow suit, but you pick which card. No obligation to play high.",
+      "encourageIncorrect": "You must play a card from the suit led -- that's the iron rule. But you choose which one. You don't have to play your highest."
+    },
+    {
+      "question": "In a notrump contract, can a card from a different suit ever win the trick?",
+      "options": ["Yes, if it's an ace", "Yes, if it's the highest card played", "No, never"],
+      "correctIndex": 2,
+      "explanation": "In notrump, only cards of the suit led can win. Cards from other suits are discards with no trick-winning power.",
+      "encourageCorrect": "Right! In notrump, only the suit led matters. Everything else is a throwaway.",
+      "encourageIncorrect": "In notrump, only cards of the suit that was led can win the trick. A card from any other suit is just a discard, even if it's an ace."
+    }
+  ]
+}

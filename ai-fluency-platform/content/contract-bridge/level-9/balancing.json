@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "Balancing",
+    "description": "Bidding in the passout seat",
+    "level": "level-9",
+    "slug": "balancing",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Passout Seat\n\nThe auction goes:\n\n| West | North | East | South |\n|------|-------|------|-------|\n| 1♠ | Pass | Pass | ? |\n\nYou're South. If you pass, 1♠ becomes the contract. Should you let the opponents play at the 1-level when they might have only a minimum?\n\nProbably not — and this is where **balancing** comes in.\n\n## The Logic of Balancing\n\nWhen the auction goes 1♠ - Pass - Pass to you, consider what the bidding tells you:\n\n1. **Opener has a minimum** — otherwise responder would have bid\n2. **Responder is weak** — they passed with less than 6 points (or nothing good to say)\n3. **Partner has something** — partner couldn't act directly (maybe no good suit or wrong shape), but with opener minimum and responder weak, the remaining points must be somewhere. They're in partner's hand.\n\nThe math: opener has ~13 points, responder has ~0-5. That's 13-18 between them. Your side has 22-27 points. You shouldn't let them play 1♠ when you have half the deck or more!\n\n## Borrowing Points from Partner\n\nThe key concept in balancing is **borrowing a king from partner.** Since partner couldn't bid directly but likely has values, you can act with about 2-3 fewer points than you'd normally need.\n\n| Direct Action | Balancing Equivalent |\n|--------------|---------------------|\n| Overcall: 8-16 HCP | Balancing overcall: 6-14 HCP |\n| Takeout double: 12+ support pts | Balancing double: 9+ support pts |\n| 1NT overcall: 15-18 HCP | Balancing 1NT: 11-14 HCP |\n\nYou're not pretending to have more than you do — you're accounting for the points that must be sitting in partner's hand.\n\n### Example\n\nThe auction: 1♦ - Pass - Pass - ?\n\nYou hold: ♠QJ74 ♥K83 ♦94 ♣QT85\n\nOnly 9 HCP — normally not enough for a takeout double. But in the balancing seat, you can \"borrow\" a King from partner. Double! Partner knows you might be light and will bid accordingly.\n\n## Partner Knows You're Balancing\n\nThis is critical: when you balance, partner must **not get excited.** They know you may have borrowed points. If you balance with a double on 9 HCP and partner jumps to game with 13, you've overbid as a partnership.\n\nPartner should subtract about a King from their hand when responding to a balancing action. If partner has 13 HCP after your balancing double, they should respond as if they have about 10.\n\n## When to Balance\n\nBalance when:\n- **The auction has died at a low level** (1-level or 2-level)\n- **The opponents have found a fit** and stopped low — they have a fit but limited values\n- **You have some shape** — don't balance with a completely flat hand\n- **Your side has approximately half the points** — the bidding suggests it\n\n## When NOT to Balance\n\nDon't balance when:\n- **You have length and strength in their suit** — if you have ♠KQJ8 and they opened 1♠, pass! You're going to take tricks on defense. A \"trap pass\" is the correct action.\n- **The auction suggests they have a misfit** — if it went 1♥ - 1♠ - Pass - Pass, the opponents may have limited values but no fit. You might not have a fit either.\n- **Partner had a chance to bid and passed over real bidding** — if it went 1♠ - Pass - 2♠ - Pass - Pass to you, partner passed over 2♠ and likely has nothing.\n\n## Balancing After Their Fit\n\nThe most common balancing situation:\n\n| West | North | East | South |\n|------|-------|------|-------|\n| 1♥ | Pass | 2♥ | ? |\n\nThe opponents found a heart fit and stopped at the 2-level. They have about 18-22 combined points. Your side has 18-22 points too. You should compete!\n\nWith any excuse to bid — a 5-card suit, support for the unbid suits, some shape — act in the balancing seat here. Don't sell out to 2♥ when your side has nearly half the points.\n\n## Types of Balancing Actions\n\n### Balancing Overcall\nSame as a regular overcall but 2-3 points lighter.\n\n1♠ - Pass - Pass - **2♣**: Shows a club suit, maybe 6-14 HCP.\n\n### Balancing Double\nTakeout-oriented, lighter than a direct double.\n\n1♠ - Pass - Pass - **Double**: Shows support for unbid suits, maybe 9+ points.\n\n### Balancing 1NT\n1♠ - Pass - Pass - **1NT**: Shows 11-14 HCP, balanced, with a spade stopper. (Not 15-17 like a direct 1NT overcall!)"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Balancing Decision",
+      "solution": "The auction goes 1♦ - Pass - Pass to you. You hold ♠Q873 ♥KJ5 ♦74 ♣Q963.\n\nShould you pass or bid? Let's analyze:\n\n**What the auction tells us:**\n- Opener has a minimum (responder passed)\n- Partner couldn't bid directly — no good suit or wrong shape\n- But partner likely has some values (maybe 10-14 HCP)\n\n**Your hand:** 9 HCP, four spades, four clubs, shortish diamonds (2 cards). You have support for the unbid suits.\n\n**Action:** Double (balancing). You have only 9 support points, but in the balancing seat you can borrow a King from partner. Your double says 'I have some values and support for the unbid suits.' Partner will bid their best suit at the cheapest level, knowing you might be light.\n\nIf you pass, the opponents play 1♦ — possibly making with an overtrick — when your side had a playable contract available. Balancing is the winning action here."
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of 'borrowing' points from partner in the balancing seat. Why can you act with fewer points than normal, and what does partner need to know about your action?"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What does a balancing 1NT show (after 1♠ - Pass - Pass - 1NT)?",
+      "options": ["15-17 HCP balanced (same as a direct 1NT overcall)", "11-14 HCP balanced with a spade stopper", "18-19 HCP balanced"],
+      "correctIndex": 1,
+      "explanation": "In the balancing seat, a 1NT bid shows 11-14 HCP — about a King less than the direct 15-18 range, because you're 'borrowing' from partner.",
+      "encourageCorrect": "Right! Balancing bids are lighter than direct bids by about a King. Partner will compensate.",
+      "encourageIncorrect": "Balancing 1NT = 11-14, not 15-17. You're lighter because partner must have some values (they just couldn't bid directly)."
+    },
+    {
+      "question": "When the auction goes 1♥ - Pass - 2♥ - Pass - Pass to you, why should you usually compete?",
+      "options": ["Because you always bid when you can", "Because the opponents stopped at 2♥, suggesting limited values — your side likely has nearly half the points", "Because your hand must be strong if they stopped low"],
+      "correctIndex": 1,
+      "explanation": "When the opponents find a fit and stop at the 2-level, they have limited combined strength. Your side has roughly half the points — don't let them play a cheap contract.",
+      "encourageCorrect": "Exactly! Limited opponents = hidden values in your partnership. Compete!",
+      "encourageIncorrect": "The opponents' limited auction tells you they have about 18-22 points. That leaves 18-22 for your side. Don't sell out cheaply."
+    }
+  ]
+}

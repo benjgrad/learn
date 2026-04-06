@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "Opening Leads Against Notrump",
+    "description": "Fourth from longest and strongest",
+    "level": "level-7",
+    "slug": "opening-leads-nt",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Most Important Card You Play\n\nThe opening lead is the only card played without seeing dummy. It sets the entire direction of the defense. A good opening lead can defeat a contract before declarer plays a card. A bad one can hand declarer an extra trick they didn't deserve.\n\nAgainst notrump, your strategy is fundamentally about **establishing your long suit**. Sound familiar? It's the same thing declarer tries to do — but now you're doing it from the other side.\n\n## The Default: Fourth from Longest and Strongest\n\nAgainst notrump, the standard opening lead is the **fourth-highest card** from your **longest suit**.\n\nWhy fourth? Two reasons:\n1. **It tells partner your length.** Partner can use the Rule of 11 (subtract the card led from 11 to find how many higher cards are in the other three hands) to figure out the layout.\n2. **It preserves your high cards** for later. You want to establish the small cards in your long suit as winners while keeping the honors to regain the lead.\n\n### Examples\n\n| Your Suit | Lead |\n|-----------|------|\n| ♥ K J 8 5 2 | ♥5 (fourth from the top) |\n| ♠ Q T 7 4 3 | ♠4 (fourth from the top) |\n| ♦ A J 9 6 2 | ♦6 (fourth from the top) |\n| ♣ K 9 7 3 | ♣3 (fourth from the top) |\n\n## When You Have a Sequence\n\nIf your long suit is headed by three or more touching honors (a **sequence**), lead the **top of the sequence** instead of fourth best.\n\n| Your Suit | Lead | Why |\n|-----------|------|-----|\n| ♥ K Q J 5 2 | ♥K | Top of the KQJ sequence |\n| ♠ Q J T 7 3 | ♠Q | Top of the QJT sequence |\n| ♦ J T 9 4 2 | ♦J | Top of the JT9 sequence |\n| ♣ A K Q 8 3 | ♣K* | See note below |\n\n*Against notrump, from AKQ lead the King (standard agreement). The sequence lead tells partner you have the honors below it.\n\nAn **interior sequence** works similarly: with ♠KJT93, you lead the ♠J (top of the interior JT9 sequence, with a higher honor behind it).\n\n## Choosing Which Suit to Lead\n\nIf you have two long suits, prefer:\n\n1. **Your longest suit** — length is king in notrump defense\n2. **The stronger suit** if both are the same length\n3. **A major suit** over a minor if both are equal (slightly easier to establish)\n\n### Consider the Auction\n\nThe bidding gives clues:\n- **If partner bid a suit** — lead partner's suit! This is almost mandatory. Partner is telling you where to attack.\n- **If the opponents bid a suit** — avoid leading that suit (they're strong there)\n- **If the opponents used Stayman or transfers** — you know about their major suit holdings; attack elsewhere\n\n## What NOT to Lead\n\n- **Short suits** (doubleton, singleton) — terrible against NT. You want length, not shortness.\n- **The opponents' bid suits** — they have the honors there.\n- **Unsupported aces** — leading from Axx often gives declarer a trick with the King. Save your Ace to capture their honor later.\n- **A suit headed by just one honor** — leading from Kxxx is okay (fourth best), but leading from Qxx or Jxx is risky.\n\n## The Rule of 11\n\nWhen partner leads fourth best, you can use the **Rule of 11**:\n\n> Subtract the card led from 11. The result is the number of cards higher than the led card in the other three hands (declarer, dummy, and you).\n\n**Example:** Partner leads the ♥7 against 3NT. 11 - 7 = 4. There are 4 cards higher than the 7 in your hand, dummy, and declarer's hand combined. If you can see 3 of them between your hand and dummy, declarer has only 1.\n\nThis is incredibly useful for third-hand play (next lesson).\n\n## Putting It Together\n\nYour hand: ♠J4 ♥KT853 ♦Q97 ♣J63\n\nThe auction: 1NT - 3NT (opponents bid 1NT - 3NT, nothing else).\n\n**What do you lead?** Your longest suit is hearts (5 cards). No sequence, so lead fourth best: **♥5**.\n\nYour hand: ♠QJT72 ♥853 ♦K94 ♣J7\n\nThe auction: 1NT - 3NT.\n\n**What do you lead?** Spades are your longest suit. You have a QJT sequence — lead the **♠Q** (top of sequence)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "What Do You Lead Against Notrump?",
+      "problems": [
+        {
+          "id": "olnt-1",
+          "question": "The auction: 1NT - 3NT (nothing else). Your hand: ♠K9742 ♥J83 ♦QT5 ♣64. What do you lead?",
+          "options": ["A) ♠4 (fourth from longest)", "B) ♠K (highest spade)", "C) ♥J (top of a suit)", "D) ♦Q (honor lead)"],
+          "correctAnswer": "A",
+          "explanation": "Spades are your longest suit (5 cards). No sequence, so lead fourth best: the ♠4. Leading the King from Kxxxx wastes a potential trick.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "olnt-2",
+          "question": "The auction: 1NT - 3NT. Your hand: ♠J5 ♥QJT63 ♦K84 ♣952. What do you lead?",
+          "options": ["A) ♥3 (fourth best)", "B) ♥Q (top of QJT sequence)", "C) ♦K (honor lead)", "D) ♠J (short suit honor)"],
+          "correctAnswer": "B",
+          "explanation": "Hearts are your longest suit with a QJT sequence. Lead the ♥Q — top of the sequence. This is clearer for partner than fourth best.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "olnt-3",
+          "question": "The auction: 1♥ (by partner) - 1NT - 3NT. Your hand: ♠QT853 ♥74 ♦K93 ♣J85. What do you lead?",
+          "options": ["A) ♠5 (fourth from your longest suit)", "B) ♥7 (partner's suit)", "C) ♦K (your honor)", "D) ♣J (top of nothing)"],
+          "correctAnswer": "B",
+          "explanation": "Partner bid hearts — lead partner's suit! The ♥7 (higher of a doubleton) supports partner's suit. Partner bid it for a reason.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "olnt-4",
+          "question": "The auction: 1NT - 2♣ (Stayman) - 2♠ - 3NT. Your hand: ♠J853 ♥KT742 ♦Q6 ♣93. What do you lead?",
+          "options": ["A) ♠3 (fourth best spade)", "B) ♥4 (fourth best heart)", "C) ♦Q (top of doubleton honor)", "D) ♣9 (top of doubleton)"],
+          "correctAnswer": "B",
+          "explanation": "The Stayman auction revealed that opener has 4 spades. Don't lead into their spade strength! Lead your other long suit: ♥4 (fourth best).",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "olnt-5",
+          "question": "The auction: 1NT - 3NT. Your hand: ♠A73 ♥8642 ♦J8653 ♣5. What do you lead?",
+          "options": ["A) ♠A (cash your sure trick)", "B) ♦5 (fourth from longest)", "C) ♥2 (fourth from hearts)", "D) ♣5 (singleton)"],
+          "correctAnswer": "B",
+          "explanation": "Diamonds are your longest suit (5 cards). Lead fourth best: ♦5. Don't lead the ♠A (it wastes your entry), and don't lead a singleton against NT (you want length).",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Opening Lead vs NT Drill",
+      "generator": "opening-lead-nt",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 90
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Against notrump, what is the standard opening lead from a suit like ♥KJ852?",
+      "options": ["♥K (highest honor)", "♥5 (fourth from the top)", "♥2 (lowest)"],
+      "correctIndex": 1,
+      "explanation": "Without a sequence (KJ is not touching), lead fourth best from your longest suit: the ♥5.",
+      "encourageCorrect": "Perfect! Fourth from longest and strongest is the default against notrump. Save those honors for later.",
+      "encourageIncorrect": "Without three touching honors, lead fourth best. From KJ852, that's the 5. The K stays in reserve."
+    },
+    {
+      "question": "Your partner bid hearts during the auction. The opponents end up in 3NT. What suit should you lead?",
+      "options": ["Your own longest suit", "Partner's suit (hearts)", "A short suit for a potential ruff"],
+      "correctIndex": 1,
+      "explanation": "When partner bid a suit, lead it! Partner is telling you where to attack. This is nearly always the right choice.",
+      "encourageCorrect": "Exactly! Partner bid the suit for a reason — trust them and support the plan.",
+      "encourageIncorrect": "Lead partner's suit! When partner bids a suit, it's a strong signal about where the defense should attack."
+    },
+    {
+      "question": "From ♠QJT73, what do you lead against notrump?",
+      "options": ["♠3 (fourth best)", "♠Q (top of sequence)", "♠7 (middle card)"],
+      "correctIndex": 1,
+      "explanation": "You have a QJT sequence — lead the top card: ♠Q. Sequence leads take priority over fourth-best leads.",
+      "encourageCorrect": "Right! With three touching honors (QJT), lead the top one. Partner immediately knows you hold the J and T behind it.",
+      "encourageIncorrect": "When you have a sequence of three touching honors (QJT), lead the top card. The ♠Q tells partner you have the J and T."
+    }
+  ]
+}

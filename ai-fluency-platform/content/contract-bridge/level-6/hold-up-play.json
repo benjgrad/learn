@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "title": "Hold-Up Play",
+    "description": "Cutting defenders' communications and the Rule of 7",
+    "level": "level-6",
+    "slug": "hold-up-play",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Cutting the Defenders' Lifeline\n\nIn notrump contracts, your biggest danger is often a long suit held by the opponents. If West leads from a 5-card suit and you lose the lead, West will cash the rest of that suit and set your contract.\n\nThe **hold-up play** is your primary defense against this threat. The idea: **decline to win a trick immediately, even though you can**, in order to exhaust one defender's cards in that suit.\n\n## How It Works\n\nWest leads the ♠5 against your 3NT contract. You hold ♠A73 and dummy has ♠862.\n\nIf you win the ♠A immediately, what happens? Suppose West started with ♠KQJ95 and East has ♠T4. Both defenders still have spades. When you later lose the lead (say, while establishing your diamond suit), West wins and cashes four more spade tricks. Down you go.\n\nBut what if you **duck** — play low from both hands on trick one? West's ♠K wins. West continues with the ♠Q. You duck again! East plays the ♠T (their last spade). West plays the ♠J. Now you win the ♠A.\n\nWhat happened? **East has no more spades.** If East wins a later trick, East cannot lead a spade to West. West's remaining ♠9 and ♠5 are stranded. You've cut the defenders' communication.\n\n## The Rule of 7\n\nA handy guideline for how many times to hold up:\n\n> **Add your cards and dummy's cards in the suit led. Subtract from 7. That's how many times to duck.**\n\n| Your Cards | Duck |\n|-----------|------|\n| You + dummy = 4 | 7 - 4 = 3 (but you may only have 1 stopper — duck as many times as you can) |\n| You + dummy = 5 | 7 - 5 = 2 |\n| You + dummy = 6 | 7 - 6 = 1 |\n| You + dummy = 7 | 7 - 7 = 0 (win immediately) |\n\nWith 5 cards between your hands, duck twice and win the third round. This usually exhausts one defender.\n\n**Why 7?** The math works out because the opponents typically have a 5-3 or 4-4 split. Holding up the right number of times exhausts the shorter hand.\n\n## A Complete Hold-Up Deal\n\nYou're South in 3NT. West leads the ♥5.\n\n```\n         ♠ K 8 5\n         ♥ 7 4\n         ♦ A K 8 5 3\n         ♣ Q 7 3\n\n         ♠ A Q 4\n         ♥ A 8 3\n         ♦ 7 6 4\n         ♣ A K 6 2\n```\n\n**Top tricks:** ♠AKQ = 3, ♥A = 1, ♦AK = 2, ♣AKQ = 3. Wait — you have ♣Q in dummy and ♣AK in hand, that's 3. Total: 9? Let's recount. ♠AK = 2 (Q might win too), ♥A = 1, ♦AK = 2, ♣AK = 2, ♣Q = 1 if you can get there. Actually ♠AKQ = 3 (A and Q in hand, K in dummy — sorry, dummy has K and hand has AQ, so AKQ = 3), ♥A = 1, ♦AK = 2, ♣AK + Q = 3. Total: 9.\n\nBut wait — you need to get to the diamond suit. What if diamonds don't run? Let's say you need to lose a diamond trick to establish the suit. That means losing the lead.\n\n**Rule of 7:** You have 3 hearts between you (♥A83 + ♥74 = 5 total). 7 - 5 = 2. **Duck twice.**\n\n**Plan:** Duck the ♥5 at trick one (East plays the ♥J, you play low). West continues with the ♥K — duck again. West plays the ♥Q — win the ♥A.\n\nNow East has no hearts left (assuming West had 5). When you work on diamonds and East wins a trick, East can't return a heart. Your contract is safe.\n\n## When NOT to Hold Up\n\n### 1. When the Other Defender Is Dangerous\n\nIf the defender you're trying to exhaust is the one who will never gain the lead, don't waste tricks holding up against the wrong defender.\n\n**Example:** West leads hearts, but you know from the auction that only East can gain the lead (because East has the ♦K you need to finesse through). Holding up against East's hearts is pointless — you need to worry about West's hearts. Since West will never gain the lead, just win the Ace and take your finesse through East.\n\n### 2. When You Have Enough Tricks\n\nIf you have 9 top tricks in 3NT, just win and cash them. Holding up risks letting the opponents switch to a more dangerous suit.\n\n### 3. When They Can Switch to Something Worse\n\nIf holding up in hearts lets the opponents switch to spades where you're more vulnerable, it might be better to win immediately.\n\n### 4. When You Have a Double Stopper\n\nWith AK in the suit led, you can afford to win early — you have a second stopper as insurance. Hold-up is most critical with a **single stopper** (just the Ace).\n\n## Hold-Up in Practice\n\nYou're South in 3NT. West leads the ♠6.\n\n```\n         ♠ 8 5 3\n         ♥ A K 5\n         ♦ Q J T 9 3\n         ♣ 8 4\n\n         ♠ A 7 2\n         ♥ 8 7 4\n         ♦ K 7 5\n         ♣ A K 6 3\n```\n\n**Top tricks:** ♠A = 1, ♥AK = 2, ♣AK = 2. Total: 5. Need 9.\n\nDiamonds will provide the extra tricks — ♦KQJT9 between the hands = 4-5 potential tricks after forcing out the ♦A. But you must lose the lead to the ♦A.\n\n**Rule of 7:** 5 spades between you. 7 - 5 = 2. Duck twice.\n\nEast plays the ♠J at trick one — duck. West continues the ♠K — duck. West plays the ♠Q — win the ♠A.\n\nNow play the ♦K (or lead toward dummy's ♦QJT). If West has the ♦A, they win but can cash spades — you're in trouble. But if **East** has the ♦A (the more likely danger hand, since you held up), East wins and has no spade to return. Your hold-up worked!"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Hold-Up Decisions",
+      "problems": [
+        {
+          "id": "hu-1",
+          "question": "You're in 3NT. West leads the ♥6. You hold ♥A83 and dummy has ♥72 (5 hearts total). Using the Rule of 7, how many times should you duck?",
+          "options": ["A) 0 — win immediately", "B) 1 time", "C) 2 times", "D) 3 times"],
+          "correctAnswer": "C",
+          "explanation": "Rule of 7: 7 - 5 (your combined hearts) = 2. Duck twice, then win the third round with the Ace.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "hu-2",
+          "question": "You're in 3NT with 9 top tricks. West leads the ♠Q. You hold ♠A74 and dummy has ♠863. Should you hold up?",
+          "options": ["A) Yes — always hold up in notrump", "B) No — you have 9 tricks, just win and cash them", "C) Duck once, then win", "D) Duck twice"],
+          "correctAnswer": "B",
+          "explanation": "With 9 top tricks, win the Ace and cash your winners. Holding up risks letting the opponents find a switch that hurts you more.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "hu-3",
+          "question": "You're in 3NT. West leads the ♥5. You hold ♥AK3 and dummy has ♥84 (5 hearts total). You need to lose a trick to the ♦A to establish your diamond suit. Should you hold up?",
+          "options": ["A) Yes — duck twice as usual", "B) No — you have a double stopper (AK), so win and play diamonds", "C) Duck once only", "D) It depends on who has the ♦A"],
+          "correctAnswer": "B",
+          "explanation": "With AK, you have two heart stoppers. Win the King, play diamonds. If they continue hearts when they win the ♦A, you still have the Ace as a second stopper. No hold-up needed.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "hu-4",
+          "question": "West leads the ♠7 against 3NT. You hold ♠A52 and dummy has ♠963 (6 spades total). How many times should you duck?",
+          "options": ["A) 0 times", "B) 1 time", "C) 2 times", "D) 3 times"],
+          "correctAnswer": "B",
+          "explanation": "Rule of 7: 7 - 6 = 1. Duck once, then win the second round. With 6 cards between you, the opponents have only 7 — a 4-3 split is most likely, so one duck usually exhausts the shorter hand.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the purpose of hold-up play and why it works. Imagine you're teaching a friend who just asked: 'Why would you ever NOT win a trick when you can?'"
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The hold-up play means declining to win a trick immediately in order to exhaust one defender's cards in that suit. Use the Rule of 7: subtract your combined cards from 7 to find how many times to duck. But don't hold up when you have enough tricks, a double stopper, or when the dangerous defender can't gain the lead."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is the Rule of 7 in hold-up play?",
+      "options": ["Win the 7th trick in the suit", "Subtract your combined cards in the led suit from 7 to find how many times to duck", "Hold up if the opponents have 7+ cards in the suit"],
+      "correctIndex": 1,
+      "explanation": "The Rule of 7: add your cards and dummy's in the suit, subtract from 7. The result tells you how many rounds to duck before winning.",
+      "encourageCorrect": "That's it! A simple formula that guides one of the most important notrump techniques.",
+      "encourageIncorrect": "The Rule of 7 is simple: count your cards + dummy's cards in the suit they led, subtract from 7, and duck that many times."
+    },
+    {
+      "question": "You and dummy hold 5 cards in the suit the opponents led. How many times should you hold up?",
+      "options": ["1 time", "2 times", "3 times"],
+      "correctIndex": 1,
+      "explanation": "7 - 5 = 2. Duck twice, then win the third round. This usually exhausts the defender with fewer cards in the suit.",
+      "encourageCorrect": "Right! 7 minus 5 equals 2 ducks. This is the most common hold-up situation.",
+      "encourageIncorrect": "Apply the Rule of 7: 7 - 5 = 2. Duck twice, win the third round."
+    }
+  ]
+}

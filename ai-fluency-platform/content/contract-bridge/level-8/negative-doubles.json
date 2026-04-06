@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "Negative Doubles",
+    "description": "Showing values when the opponents interfere",
+    "level": "level-8",
+    "slug": "negative-doubles",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## When the Opponents Get in the Way\n\nYou've been practicing tidy, uncontested auctions: partner opens, you respond, everyone takes turns politely. But in real bridge, the opponents often stick their noses into your auction. When they do, you need new tools.\n\nHere's a common problem. Partner opens **1♦**. Your right-hand opponent (RHO) overcalls **1♠**. You hold:\n\n♠74 ♥KJ85 ♦Q93 ♣T742\n\nYou have 7 HCP and 4 hearts — enough to respond, and hearts is the suit you'd love to bid. But you can't bid 2♥! A new suit at the 2-level requires 10+ points. You're stuck.\n\nOr are you?\n\n## The Negative Double\n\nWhen partner opens one of a suit and your RHO overcalls, a **double** by you is not for penalties. It's a **negative double** — a conventional bid that says:\n\n> \"I have enough points to compete and I have length in the unbid suits, especially an unbid major.\"\n\nIn our example, after 1♦ - (1♠), your double says: \"I have 4+ hearts and at least 6 points. I couldn't bid 2♥ naturally, but I want to compete.\"\n\nThis is one of the most important conventions in modern bridge. Without it, the overcaller would silence you with almost no effort.\n\n## What a Negative Double Shows\n\nThe specific meaning depends on which suits are unbid, but the pattern is consistent:\n\n| Auction | Your Double Shows |\n|---------|------------------|\n| 1♣ - (1♦) - Dbl | Both majors (4-4 or better), 6+ points |\n| 1♣ - (1♥) - Dbl | 4+ spades, 6+ points |\n| 1♣ - (1♠) - Dbl | 4+ hearts, 6+ points |\n| 1♦ - (1♥) - Dbl | 4+ spades, 6+ points |\n| 1♦ - (1♠) - Dbl | 4+ hearts, 6+ points |\n| 1♥ - (1♠) - Dbl | Usually 4 cards in each minor, or a hand too weak to bid 2-of-a-minor freely |\n\nThe key principle: **a negative double emphasizes the unbid major(s).** Finding a major-suit fit is the priority.\n\n## Point Requirements\n\nThe minimum points depend on the level you're forcing partner to bid:\n\n- If partner can respond at the 1-level: **6+ points**\n- If partner must respond at the 2-level: **8+ points**\n- At higher levels: more points needed (roughly the same as a free bid at that level)\n\n## How High Do Negative Doubles Apply?\n\nIn SAYC, negative doubles apply through **2♠**. If the opponents overcall at the 3-level or higher, your double is for **penalty** (the old-fashioned kind).\n\nSome partnerships extend negative doubles higher, but through 2♠ is standard.\n\n## What Opener Does After a Negative Double\n\nWhen partner makes a negative double, you (opener) bid naturally:\n\n- **With a minimum (13-15)**: bid your cheapest 3+ card suit at the lowest level, or rebid your own suit\n- **With extras (16-18)**: jump in a suit or bid NT with a stopper\n- **With support for partner's implied suit**: raise that suit at the appropriate level\n- **With a maximum and their suit stopped**: bid notrump\n\nRemember, partner's double showed the unbid suits. If they doubled 1♠ after your 1♦ opening, they have 4+ hearts. Bid hearts if you have support!\n\n### Example\n\nYou opened 1♦. LHO bids 1♠. Partner doubles (negative). RHO passes.\n\nYou hold: ♠K83 ♥AJ72 ♦KQT85 ♣6\n\nPartner has shown 4+ hearts and 6+ points. You have 4 hearts and 14 points. Bid **2♥** — you've found your fit!\n\n## Negative Double vs Penalty Double\n\nHow does partner know which kind of double you mean? **Context.**\n\n- **Negative double**: Partner opened, an opponent overcalled, you doubled. (Low level, competitive context.)\n- **Penalty double**: The opponents bid and raised their own suit, or the auction is at a high level.\n\nThe rule is simple: when partner opens and the next hand overcalls, your double is negative (through 2♠ in SAYC). In most other situations, doubles are for penalty.\n\nThis distinction is so important that partnerships sometimes get mixed up — one partner thinks \"penalty\" while the other thinks \"negative.\" Clear agreements prevent disasters.\n\n## When You DO Want to Penalize Their Overcall\n\nSometimes RHO overcalls and you have a stack of their suit. You'd love to double for penalty, but you can't — your double would be negative!\n\nThe solution: **pass and wait.** If you pass with length and strength in their suit, partner will often reopen with a double (a \"balancing double\"). Now you can pass that double for penalties. This is called a **trap pass.**\n\nExample: Partner opens 1♦. RHO overcalls 1♠. You hold ♠QJT95 ♥A7 ♦84 ♣K963.\n\nYou'd love to penalize 1♠, but you can't double (it would be negative, showing hearts). Instead, **pass**. If it comes back to partner, they may reopen with a double, and you'll happily pass it for penalties."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Negative Double Scenarios",
+      "problems": [
+        {
+          "id": "nd-1",
+          "question": "Auction: Partner opens 1♦, RHO overcalls 1♠. You hold ♠83 ♥KQ74 ♦J85 ♣T963. What do you bid?",
+          "options": ["A) Pass — not enough to bid", "B) 2♥ — show your hearts", "C) Double (negative) — show 4+ hearts with 6+ points", "D) 1NT — balanced hand"],
+          "correctAnswer": "C",
+          "explanation": "You have 4 hearts and 7 HCP — perfect for a negative double. You can't bid 2♥ (needs 10+ points) and you shouldn't pass with this much. Double shows hearts cheaply.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "nd-2",
+          "question": "Auction: Partner opens 1♣, RHO overcalls 1♦. You hold ♠KJ85 ♥QT73 ♦64 ♣J92. What do you bid?",
+          "options": ["A) 1♥ — bid your major", "B) Double (negative) — shows both majors", "C) 1♠ — bid the higher suit", "D) Pass — not enough points"],
+          "correctAnswer": "B",
+          "explanation": "After 1♣ - (1♦), a negative double shows both majors (4-4 or better). With 4-4 in the majors and 8 points, double is the perfect call. It lets opener pick the major where you have a fit.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "nd-3",
+          "question": "Auction: Partner opens 1♦, RHO overcalls 1♠. You hold ♠QJT84 ♥A7 ♦93 ♣K852. What do you bid?",
+          "options": ["A) Double (negative) — competitive bid", "B) 2♠ — cue bid their suit", "C) Pass — trap pass, hoping to penalize", "D) 2♣ — new suit"],
+          "correctAnswer": "C",
+          "explanation": "You have 5 strong spades and would love to penalize 1♠, but double would be negative (showing hearts!). Pass is the trap: if partner reopens with a double, you'll convert it to penalties by passing again.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "nd-4",
+          "question": "You opened 1♥. LHO overcalls 2♣. Partner doubles (negative). RHO passes. You hold ♠A963 ♥AKJ82 ♦K5 ♣74. What do you bid?",
+          "options": ["A) 2♥ — rebid your hearts", "B) 2♠ — partner showed spades", "C) 2♦ — cheapest unbid suit", "D) Pass — convert the double to penalties"],
+          "correctAnswer": "B",
+          "explanation": "After 1♥ - (2♣) - Dbl, partner's double shows 4+ spades with 8+ points (2-level). You have 4 spades and 16 points — bid 2♠. You've found a fit!",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "nd-5",
+          "question": "Auction: Partner opens 1♣, RHO overcalls 2♠. You hold ♠74 ♥AK85 ♦QJ93 ♣T82. What does your double mean here?",
+          "options": ["A) Negative — showing hearts and diamonds", "B) Penalty — they've gone too high", "C) Negative — negative doubles apply through 2♠ in SAYC", "D) Takeout — asking partner to pick a suit"],
+          "correctAnswer": "C",
+          "explanation": "In SAYC, negative doubles apply through 2♠. So your double of 2♠ is still negative — showing the unbid suits (hearts and diamonds) with enough points to compete at this level (roughly 10+).",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between a penalty double and a negative double, and how partner knows which one you mean. Include an example of each."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "After 1♦ - (1♠), what does your double show?",
+      "options": ["Penalty — you want to defend 1♠ doubled", "4+ hearts and 6+ points (negative double)", "A balanced hand with 15-17 HCP"],
+      "correctIndex": 1,
+      "explanation": "When partner opens and the next hand overcalls, your double is negative — showing the unbid suits, especially an unbid major.",
+      "encourageCorrect": "That's it! The negative double is how you show hearts here when a natural 2♥ bid would promise too many points.",
+      "encourageIncorrect": "When partner opens and RHO overcalls, your double is negative (not penalty). It shows 4+ hearts and at least 6 points."
+    },
+    {
+      "question": "Through what level do negative doubles apply in SAYC?",
+      "options": ["Through 1♠ only", "Through 2♠", "Through 4♠"],
+      "correctIndex": 1,
+      "explanation": "In SAYC, negative doubles apply through 2♠. Doubles of overcalls at the 3-level or higher are penalty.",
+      "encourageCorrect": "Right — through 2♠ is the SAYC standard. Higher doubles revert to penalty.",
+      "encourageIncorrect": "The SAYC standard is through 2♠. Below that, your double is negative; above that, it's penalty."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "title": "Quick Tricks",
+    "description": "A secondary evaluation tool for slam exploration",
+    "level": "level-2",
+    "slug": "quick-tricks",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## A Different Kind of Strength\n\nHCP and total points tell you about your hand's *overall* value. But sometimes you need to know something more specific: **how many tricks can you win immediately, without giving up the lead?**\n\nThis is what **quick tricks** measure. They count only the tricks you can take right now — no finessing, no establishing long suits, no hoping for favorable card placement. Just raw, guaranteed firepower.\n\n## The Quick Trick Table\n\nQuick tricks are counted by individual suit holding:\n\n| Holding | Quick Tricks | Why |\n|---------|-------------|-----|\n| **AK** in a suit | 2 | Both win immediately |\n| **AQ** in a suit | 1.5 | Ace wins for sure; queen wins if led toward (finesse) |\n| **A** alone (or Ax, Axx, etc.) | 1 | The ace wins one trick guaranteed |\n| **KQ** in a suit | 1 | If the ace is played, your king wins next |\n| **Kx** (King + at least one card) | 0.5 | King wins about half the time |\n| **Singleton K** | 0 | Likely to be captured by the ace — unreliable |\n| Anything else | 0 | No guaranteed quick winners |\n\nA few important notes:\n\n- **Maximum per suit is 2.** Even AKQ in a suit is only 2 quick tricks (the third trick requires playing more rounds).\n- **The 'x' in Kx means at least one other card.** A singleton king has 0 quick tricks because it's too easily captured.\n- **AQ counts as 1.5** because the queen will usually win via a finesse, but it's not 100% guaranteed.\n\n## Counting Quick Tricks: Examples\n\n### Example 1\n> ♠ A K 7 4 &nbsp;&nbsp; ♥ A Q 3 &nbsp;&nbsp; ♦ K 5 2 &nbsp;&nbsp; ♣ 8 6 3\n\n- ♠ AK: **2** quick tricks\n- ♥ AQ: **1.5** quick tricks\n- ♦ Kx: **0.5** quick tricks\n- ♣: **0** quick tricks\n\n**Total: 4 quick tricks.** This hand has excellent defensive strength and is a strong candidate for slam exploration.\n\n### Example 2\n> ♠ Q J 10 9 8 &nbsp;&nbsp; ♥ K Q 7 &nbsp;&nbsp; ♦ Q J 4 &nbsp;&nbsp; ♣ K 3\n\nThis hand has 13 HCP, but let's see the quick tricks:\n\n- ♠: **0** (QJ is not a quick trick — needs too much work)\n- ♥ KQ: **1** quick trick\n- ♦: **0** (QJ, no guaranteed trick)\n- ♣ Kx: **0.5** quick trick\n\n**Total: 1.5 quick tricks.** Despite having 13 HCP, this hand has very few guaranteed winners. It's full of \"slow\" values (queens and jacks) that need development.\n\n### Example 3\n> ♠ A 8 5 &nbsp;&nbsp; ♥ A K 9 &nbsp;&nbsp; ♦ A 6 3 &nbsp;&nbsp; ♣ A 10 7 4\n\n- ♠ A: **1** quick trick\n- ♥ AK: **2** quick tricks\n- ♦ A: **1** quick trick\n- ♣ A: **1** quick trick\n\n**Total: 5 quick tricks.** Maximum firepower! This hand can take 5 tricks without any development.\n\n## The Contrast: Aces vs. Queens\n\nQuick tricks highlight an important truth about bridge: **aces and kings are fundamentally different from queens and jacks**.\n\nCompare these two 12-HCP hands:\n\n| Hand | HCP | Quick Tricks | Quality |\n|------|-----|-------------|----------|\n| ♠ A K 5 &nbsp; ♥ A 8 4 &nbsp; ♦ 7 5 3 &nbsp; ♣ 9 6 4 2 | 10 | 3 | Controls-rich |\n| ♠ Q J 5 &nbsp; ♥ Q J 4 &nbsp; ♦ Q J 3 &nbsp; ♣ Q J 4 2 | 12 | 0 | Controls-poor |\n\nHand B has more HCP, but Hand A has 3 quick tricks while Hand B has *zero*. In a competitive auction or slam situation, Hand A is far more valuable.\n\n## When Quick Tricks Matter\n\nQuick tricks are most important in these situations:\n\n### 1. Slam Evaluation\nTo make a slam (12+ tricks), you need to control the opponents' suits — they can't cash two quick tricks against you. As a rough guide:\n\n- **Small slam (6-level)**: Partnership should have at least **3-4 quick tricks**\n- **Grand slam (7-level)**: Partnership should have at least **4-5 quick tricks**\n\nIf your side has lots of total points but few quick tricks, slam is risky because the opponents may cash their aces before you can develop your tricks.\n\n### 2. Defensive Decisions\nWhen deciding whether to compete or defend, quick tricks tell you how many tricks your side can win on defense. A hand with 3 quick tricks is a good defending hand, even if the total points are modest.\n\n### 3. Opening Bid Quality Check\nSome players use a quick trick requirement for opening the bidding: many experts want at least **2 quick tricks** to open at the 1-level, even with 13+ total points.\n\n## Quick Tricks vs. HCP: Complementary Tools\n\n| Tool | Measures | Best For |\n|------|----------|----------|\n| HCP | Overall hand strength | Most bidding decisions |\n| Total Points | HCP + shape value | Opening and responding |\n| Quick Tricks | Guaranteed immediate winners | Slam evaluation, defense |"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Quick Trick Counting Practice",
+      "problems": [
+        {
+          "id": "qt-count-1",
+          "question": "How many quick tricks does this suit holding have: AQ?",
+          "options": ["A) 1 quick trick", "B) 1.5 quick tricks", "C) 2 quick tricks", "D) 0.5 quick tricks"],
+          "correctAnswer": "B",
+          "explanation": "AQ = 1.5 quick tricks. The ace is guaranteed (1), and the queen will usually win via a finesse (0.5 more).",
+          "difficulty": "basic"
+        },
+        {
+          "id": "qt-count-2",
+          "question": "You hold: ♠ AK3 ♥ A84 ♦ KQ72 ♣ 965. How many quick tricks?",
+          "options": ["A) 3 quick tricks", "B) 3.5 quick tricks", "C) 4 quick tricks", "D) 4.5 quick tricks"],
+          "correctAnswer": "C",
+          "explanation": "♠ AK = 2, ♥ A = 1, ♦ KQ = 1, ♣ = 0. Total: 4 quick tricks.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "qt-count-3",
+          "question": "A singleton King (K with no other cards in the suit) counts as how many quick tricks?",
+          "options": ["A) 1 quick trick", "B) 0.5 quick tricks", "C) 0 quick tricks", "D) It depends on the suit"],
+          "correctAnswer": "C",
+          "explanation": "A singleton King has 0 quick tricks. With no other cards in the suit, the king is likely to be captured by the ace on the first round. Kx (king with at least one other card) counts as 0.5.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "qt-count-4",
+          "question": "You hold: ♠ QJ1098 ♥ QJ7 ♦ QJ4 ♣ K3. How many quick tricks?",
+          "options": ["A) 0.5 quick tricks", "B) 1.5 quick tricks", "C) 2 quick tricks", "D) 3 quick tricks"],
+          "correctAnswer": "A",
+          "explanation": "♠ QJ = 0, ♥ QJ = 0, ♦ QJ = 0, ♣ Kx = 0.5. Total: only 0.5 quick tricks despite 13 HCP! This is a 'slow' hand full of queens and jacks.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Quick Tricks Drill",
+      "generator": "quick-tricks",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 90
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "How many quick tricks does AK in a suit provide?",
+      "options": ["1 quick trick", "1.5 quick tricks", "2 quick tricks"],
+      "correctIndex": 2,
+      "explanation": "AK in a suit = 2 quick tricks, the maximum for any suit holding. Both the ace and king win tricks immediately.",
+      "encourageCorrect": "Right! AK is the gold standard -- 2 guaranteed winners in one suit.",
+      "encourageIncorrect": "AK gives you 2 quick tricks, the maximum per suit. The ace wins, then the king wins. No work needed."
+    },
+    {
+      "question": "Quick tricks are most important when evaluating what?",
+      "options": ["Whether to open the bidding", "Slam potential", "Whether to play in notrump or a suit"],
+      "correctIndex": 1,
+      "explanation": "Quick tricks are primarily used to evaluate slam contracts, where you need to control the opponents' suits to prevent them from cashing tricks against you.",
+      "encourageCorrect": "Exactly! For slams, you need controls (aces and kings) to prevent the opponents from taking quick tricks of their own.",
+      "encourageIncorrect": "Quick tricks matter most for slam evaluation. At the slam level, the opponents might cash their aces before you can develop your tricks."
+    }
+  ]
+}

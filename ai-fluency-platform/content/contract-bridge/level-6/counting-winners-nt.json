@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Counting Winners in Notrump",
+    "description": "Top tricks and how many more you need",
+    "level": "level-6",
+    "slug": "counting-winners-nt",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The First Step: Count Your Top Tricks\n\nYou're in a notrump contract. The opening lead is on the table, dummy is face up, and you can see 26 cards. Before you touch a card, you need to answer one question:\n\n**How many tricks can I win right now, without losing the lead?**\n\nThese are your **top tricks** — cards that will win immediately. An Ace is always a top trick. A King is a top trick if your side also holds the Ace in that suit (or if the opening lead has given you a trick with it). The AKQ of a suit are three top tricks.\n\n## The Three-Step Process\n\n### Step 1: Count Your Top Tricks\n\nGo suit by suit and count the tricks you can take without giving up the lead:\n\n| Holding | Top Tricks |\n|---------|------------|\n| AK opposite xx | 2 |\n| AKQ opposite xx | 3 |\n| AQ opposite Kx | 3 |\n| A opposite K | 2 |\n| KQ opposite Ax | 3 |\n| AJ opposite KQ | 3 |\n| Axx opposite Kxx | 2 |\n| Qxx opposite Jxx | 0 |\n\n### Step 2: Compare to What You Need\n\nYour contract level + 6 = the number of tricks you need.\n\n- **1NT** = 7 tricks needed\n- **2NT** = 8 tricks needed  \n- **3NT** = 9 tricks needed\n\n### Step 3: If You Have Enough, Take Them. If Not, Find More.\n\nIf your top tricks equal or exceed your target — terrific! Just cash them (carefully — we'll talk about entries later).\n\nIf you're short, you need a **plan to develop** the extra tricks. This is where the real work begins.\n\n## Example 1: Plenty of Tricks\n\nYou're South, declaring 3NT. West leads the ♥Q.\n\n```\n         ♠ K Q 5\n         ♥ A 7 3\n         ♦ 8 6 4 2\n         ♣ K Q 3\n\n         ♠ A J 4\n         ♥ K 5 2\n         ♦ A K 7 3\n         ♣ A 6 4\n```\n\n**Step 1 — Count top tricks:**\n- ♠: A, K, Q = **3 tricks** (the J is also good, so actually 4, but let's count conservatively: AKQ = 3 sure tricks, and the J will be a 4th)\n- ♥: A, K = **2 tricks**\n- ♦: A, K = **2 tricks**\n- ♣: A, K, Q = **3 tricks**\n\n**Total: 10 top tricks** (at minimum)\n\n**Step 2 — Need 9 tricks for 3NT.**\n\n**Step 3 — You have 10! Just cash your winners.** Win the ♥A, and take your tricks. The only concern is cashing them in the right order (we'll cover that in the entries lesson).\n\n## Example 2: Need to Develop Tricks\n\nYou're South, declaring 3NT. West leads the ♠Q.\n\n```\n         ♠ 8 5 3\n         ♥ A Q 4\n         ♦ K 7 6 3\n         ♣ A 8 5\n\n         ♠ A K 4\n         ♥ K 7 3\n         ♦ A 8 5 2\n         ♣ K 6 3\n```\n\n**Step 1 — Count top tricks:**\n- ♠: A, K = **2 tricks**\n- ♥: A, K, Q = **3 tricks**\n- ♦: A, K = **2 tricks**\n- ♣: A, K = **2 tricks**\n\n**Total: 9 top tricks**\n\n**Step 2 — Need 9 for 3NT.**\n\n**Step 3 — Exactly 9! Cash your winners.** Win the ♠A, and carefully take all nine tricks. You don't need to develop anything — just be careful about the order.\n\n## Example 3: Short of Tricks\n\nYou're South, declaring 3NT. West leads the ♠5.\n\n```\n         ♠ 8 7 3\n         ♥ K 5\n         ♦ A 9 7 4 2\n         ♣ A 6 3\n\n         ♠ A K 4\n         ♥ A 8 4\n         ♦ K 6 3\n         ♣ K 8 5 2\n```\n\n**Step 1 — Count top tricks:**\n- ♠: A, K = **2 tricks**\n- ♥: A, K = **2 tricks**\n- ♦: A, K = **2 tricks**\n- ♣: A, K = **2 tricks**\n\n**Total: 8 top tricks**\n\n**Step 2 — Need 9 for 3NT. We're one short.**\n\n**Step 3 — Where does the 9th trick come from?** Look at your longest combined suit: diamonds (5 cards in dummy + 3 in hand = 8 total). The opponents have only 5 diamonds. If they split 3-2 (the most common split), you can establish a long diamond as your 9th trick by playing diamonds three times. After the A, K, and a third round, dummy's remaining two diamonds are winners.\n\nThis is the critical moment — identifying where extra tricks will come from. In the next lesson, we'll dive deep into establishing long suits."
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "You're in 3NT and dummy has just come down. Before playing a card, what's the very first thing you should do?"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Count the Top Tricks",
+      "solution": "You're South, declaring 3NT. West leads the ♥J.\n\n```\n         ♠ Q J 9\n         ♥ A 5 3\n         ♦ K Q 8 4\n         ♣ 7 6 3\n\n         ♠ A K 5\n         ♥ K 7 4\n         ♦ A 7 5 2\n         ♣ A 8 4\n```\n\nHow many top tricks do you have? How many do you need? Where might extra tricks come from?\n\nAnswer: Top tricks: Spades AKQ(J) = 3-4, Hearts AK = 2, Diamonds AKQ = 3, Clubs A = 1. That's 9-10 top tricks. You need 9 for 3NT. You have enough! Just cash your winners carefully, being sure to play the spade honors from the short side (your hand) first."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "In notrump, always count your top tricks before playing. Compare them to what you need (contract + 6). If you have enough, cash them in the right order. If not, identify the best source of extra tricks before you play card one."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "How many tricks do you need to make a 3NT contract?",
+      "options": ["3 tricks", "9 tricks", "13 tricks"],
+      "correctIndex": 1,
+      "explanation": "Contract level (3) + 6 = 9 tricks needed for 3NT.",
+      "encourageCorrect": "That's right! The formula is simple: contract level + 6. It becomes second nature quickly.",
+      "encourageIncorrect": "Remember the formula: tricks needed = contract level + 6. So 3NT needs 3 + 6 = 9 tricks."
+    },
+    {
+      "question": "What is a 'top trick' in notrump?",
+      "options": ["Any trick you might win eventually", "A trick that wins immediately without losing the lead", "The first trick of the deal"],
+      "correctIndex": 1,
+      "explanation": "A top trick is one you can win right now without giving up the lead — like an Ace, or a KQ when you also hold the Ace.",
+      "encourageCorrect": "Exactly! Top tricks are your guaranteed, immediate winners. Counting them is step one in every NT contract.",
+      "encourageIncorrect": "A top trick wins immediately — you don't have to lose the lead first. Think Aces, and KQ combinations where you hold all the high cards."
+    },
+    {
+      "question": "You hold AK opposite xxx in a suit. How many top tricks is that?",
+      "options": ["1", "2", "3"],
+      "correctIndex": 1,
+      "explanation": "AK = 2 top tricks. The remaining small cards in the suit won't win anything on their own.",
+      "encourageCorrect": "Right — the Ace and King are both winners you can cash immediately. The small cards don't add tricks here.",
+      "encourageIncorrect": "The Ace wins one trick and the King wins another — that's 2 top tricks. The small cards opposite them don't contribute additional winners."
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "The Auction",
+    "description": "How bidding works: levels, suit ranking, the contract",
+    "level": "level-1",
+    "slug": "the-auction",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Auction: Bridge's Conversation\n\nThe auction is what makes bridge unique among card games. Before a single card is played, the four players engage in a structured conversation — using bids instead of words — to determine the contract. It's part negotiation, part information exchange, and part strategic battle.\n\nThink of the auction as a promise. When your partnership wins the auction, you've promised to win a certain number of tricks. If you deliver on that promise, you score. If you don't, the other side scores. The auction determines those stakes.\n\n## Bidding Basics\n\nThe dealer starts the auction, and it proceeds **clockwise**. On each turn, a player can:\n\n- **Bid**: State a level (1 through 7) and a strain (♣, ♦, ♥, ♠, or NT)\n- **Pass**: \"I have nothing to say right now\"\n- **Double**: \"I don't think you can make that\" (only after an opponent's bid)\n- **Redouble**: \"Oh yes we can!\" (only after an opponent's double)\n\n## Understanding a Bid\n\nEvery bid has two parts:\n\n1. **The level** (1-7): How many tricks beyond the book of six\n2. **The strain** (♣, ♦, ♥, ♠, or NT): What the trump suit will be, or notrump\n\nSo a bid of **\"2♥\"** means: *\"My partnership will try to win at least 8 tricks (2+6) with hearts as the trump suit.\"*\n\nHere's what each level commits you to:\n\n| Bid Level | Tricks Promised | Book + Level |\n|-----------|----------------|--------------|\n| 1         | 7              | 6 + 1        |\n| 2         | 8              | 6 + 2        |\n| 3         | 9              | 6 + 3        |\n| 4         | 10             | 6 + 4        |\n| 5         | 11             | 6 + 5        |\n| 6         | 12             | 6 + 6        |\n| 7         | 13             | 6 + 7        |\n\n## The Five Strains\n\nThe \"strain\" is what determines the trump suit (or lack thereof). There are exactly five strains, ranked from lowest to highest:\n\n| Rank | Strain | Name | Also Called |\n|------|--------|------|-------------|\n| 1 (lowest) | ♣ | Clubs | Minor |\n| 2 | ♦ | Diamonds | Minor |\n| 3 | ♥ | Hearts | Major |\n| 4 | ♠ | Spades | Major |\n| 5 (highest) | NT | Notrump | — |\n\nThe major suits (♥ and ♠) and notrump are ranked higher than the minor suits (♣ and ♦). As we'll see when we learn about scoring, this ranking reflects the fact that major-suit and notrump contracts are more valuable.\n\n## Each Bid Must Be Higher\n\nHere's the critical rule: **each new bid must be higher than the last one**. A bid is higher if:\n\n- It's at a **higher level** (2-anything beats 1-anything), OR\n- It's at the **same level** but a **higher-ranking strain**\n\nSo after a bid of 1♥, the legal bids are:\n- **1♠** or **1NT** (same level, higher strain)\n- **2♣** or **2♦** or **2♥** or **2♠** or **2NT** (higher level, any strain)\n- And everything above that\n\nAfter a bid of 1♥, you **cannot** bid 1♣ or 1♦ — those are lower strains at the same level.\n\nThis creates a natural ordering of all 35 possible bids, from lowest (1♣) to highest (7NT):\n\n> 1♣ → 1♦ → 1♥ → 1♠ → 1NT → 2♣ → 2♦ → 2♥ → ... → 7♠ → 7NT"
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "Which bid is higher: 2♥ or 1♠? Think about the two ways a bid can be higher than another."
+    },
+    {
+      "type": "markdown",
+      "content": "**2♥ is higher than 1♠.** Even though spades outrank hearts, the level matters first. Any 2-level bid is higher than any 1-level bid.\n\nHere are a few more comparisons to build your intuition:\n\n| Bid A | Bid B | Which is higher? | Why? |\n|-------|-------|-----------------|------|\n| 1♣ | 1♦ | 1♦ | Same level, ♦ outranks ♣ |\n| 1♠ | 1NT | 1NT | Same level, NT outranks ♠ |\n| 1NT | 2♣ | 2♣ | Higher level always wins |\n| 3♦ | 3♣ | 3♦ | Same level, ♦ outranks ♣ |\n| 2NT | 3♣ | 3♣ | Higher level always wins |\n| 4♠ | 4NT | 4NT | Same level, NT outranks ♠ |\n\n## How the Auction Ends\n\nThe auction continues clockwise until **three consecutive players pass**. The last bid before those three passes becomes the **contract**.\n\nHere's a simple auction example:\n\n| South | West | North | East |\n|-------|------|-------|------|\n| 1♥ | Pass | 2♥ | Pass |\n| 4♥ | Pass | Pass | Pass |\n\nSouth opens 1♥. West passes. North raises to 2♥ (supporting hearts). East passes. South bids 4♥ (going for game). Then three passes in a row — the auction is over. The contract is **4♥**.\n\nWhat if nobody wants to bid at all?\n\n| South | West | North | East |\n|-------|------|-------|------|\n| Pass | Pass | Pass | Pass |\n\nFour passes means no one wanted to bid. The deal is **passed out** — no contract is made, no cards are played, and the deal moves to the next hand.\n\n## Double and Redouble\n\nTwo special calls add drama to the auction:\n\n**Double**: After an opponent bids, you can say \"Double.\" This doesn't change the contract — it increases the stakes. If the declaring side makes the contract, they score more. If they go down, the penalties are steeper.\n\nA double is often used when you believe the opponents have bid too high. The common phrase is \"I don't think you can make that!\"\n\n**Redouble**: After an opponent doubles your side's bid, you can say \"Redouble.\" This says \"We're confident — raise the stakes even more!\" It further increases both the rewards and penalties.\n\nImportant: Double and Redouble are **not bids** — they don't raise the level. After a double, someone can still bid normally at a higher level, which cancels the double.\n\n## The Contract\n\nThe final bid in the auction becomes the contract. It specifies:\n\n1. **The level**: How many tricks the declaring side must win (level + 6)\n2. **The strain**: The trump suit, or notrump\n3. **Doubled or redoubled?**: Whether the stakes have been raised\n\nFor example:\n- **3NT** = Win 9+ tricks, notrump\n- **4♠ Doubled** = Win 10+ tricks, spades are trumps, penalties and bonuses doubled\n- **2♦ Redoubled** = Win 8+ tricks, diamonds are trumps, stakes quadrupled from base\n\n## Why the Auction Matters\n\nThe auction isn't just a formality — it's half the game. Here's why:\n\n- **Finding the right contract** means finding the right trump suit (or notrump) AND the right level. Bid too low and you miss bonus points. Bid too high and you go down.\n- **Communication with partner**: Through your bids, you tell your partner about your hand's strength and shape. Your partner does the same. Together, you piece together a picture of your combined 26 cards.\n- **Information for the defense**: The bidding also gives the defenders clues about where the cards are. Every bid reveals something.\n\nBridge bidding systems — the agreed-upon meanings behind each bid — are one of the deepest aspects of the game. We'll start learning these in Level 3."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Bid Comparison Practice",
+      "problems": [
+        {
+          "id": "auction-bid-compare-1",
+          "question": "Which bid is higher: 1♠ or 2♣?",
+          "options": ["A) 1♠", "B) 2♣", "C) They're equal", "D) It depends on the situation"],
+          "correctAnswer": "B",
+          "explanation": "2♣ is higher because it's at a higher level. Any 2-level bid outranks any 1-level bid, regardless of the strain.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "auction-bid-compare-2",
+          "question": "After a bid of 2♦, which of these is the LOWEST legal bid?",
+          "options": ["A) 2♣", "B) 2♥", "C) 2♦", "D) 3♣"],
+          "correctAnswer": "B",
+          "explanation": "2♥ is the lowest legal bid after 2♦. It's the same level but a higher-ranking strain (♥ outranks ♦). 2♣ is lower, 2♦ is equal (you can't rebid the same bid), and 3♣ is legal but not the lowest option.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "auction-bid-compare-3",
+          "question": "If the bidding goes 1♣ - 1♠ - 2♦ - ?, which of these can East legally bid?",
+          "options": ["A) 2♣", "B) 1NT", "C) 2♥", "D) 2♦"],
+          "correctAnswer": "C",
+          "explanation": "The last bid was 2♦, so East needs something higher. 2♥ (same level, higher strain) is the lowest legal bid. 2♣ and 1NT are too low, and 2♦ is the same as the last bid.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "auction-bid-compare-4",
+          "question": "How many tricks must the declaring side win if the contract is 5♦?",
+          "options": ["A) 5 tricks", "B) 10 tricks", "C) 11 tricks", "D) 12 tricks"],
+          "correctAnswer": "C",
+          "explanation": "The contract level plus the book: 5 + 6 = 11 tricks. The declaring side must win at least 11 of the 13 tricks.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "auction-bid-compare-5",
+          "question": "In the strain ranking, which suit is ranked immediately above diamonds?",
+          "options": ["A) Clubs ♣", "B) Hearts ♥", "C) Spades ♠", "D) Notrump"],
+          "correctAnswer": "B",
+          "explanation": "The strain ranking from low to high is: ♣ < ♦ < ♥ < ♠ < NT. Hearts (♥) is the next strain above diamonds (♦).",
+          "difficulty": "basic"
+        }
+      ]
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "In the strain ranking, which is the highest?",
+      "options": ["Spades (♠)", "Notrump (NT)", "Hearts (♥)"],
+      "correctIndex": 1,
+      "explanation": "Notrump ranks above all four suits. The order is ♣ < ♦ < ♥ < ♠ < NT.",
+      "encourageCorrect": "You got it! NT sits at the top of the strain ranking.",
+      "encourageIncorrect": "Close! Spades is the highest-ranking suit, but notrump (NT) ranks above even spades."
+    },
+    {
+      "question": "A bid of 3♣ promises to win how many tricks?",
+      "options": ["3 tricks", "9 tricks", "6 tricks"],
+      "correctIndex": 1,
+      "explanation": "The bid level (3) plus the book (6) equals 9 tricks that the declaring side must win.",
+      "encourageCorrect": "That's it! Always add 6 to the bid level to get the number of tricks needed.",
+      "encourageIncorrect": "Remember the book of 6: you always add 6 to the bid level. So 3 + 6 = 9 tricks."
+    },
+    {
+      "question": "What happens when four players pass at the start of the auction?",
+      "options": ["The hand is redealt", "The deal is passed out with no play", "The lowest possible contract (1♣) is used"],
+      "correctIndex": 1,
+      "explanation": "If all four players pass, the deal is passed out -- no contract is established, no cards are played, and the hand is over.",
+      "encourageCorrect": "Right! No bids means no contract, so the hand is simply passed out.",
+      "encourageIncorrect": "When nobody bids, the deal is passed out. No contract is made, no cards are played, and the game moves to the next hand."
+    }
+  ]
+}

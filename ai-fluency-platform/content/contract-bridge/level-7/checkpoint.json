@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Level 7 Checkpoint",
+    "description": "Defensive decisions across lead, signal, and play",
+    "level": "level-7",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Describe the three main defensive signals — attitude, count, and suit preference — and explain when each is used. Give a concrete example for each: describe the situation, the card you would play, and what message it sends to partner."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Mixed Defensive Problems",
+      "problems": [
+        {
+          "id": "def-cp-1",
+          "question": "Auction: 1NT - 3NT. Your hand: ♠KJT83 ♥J74 ♦Q52 ♣96. What do you lead?",
+          "options": ["A) ♠K (top of honor sequence)", "B) ♠8 (fourth best from longest suit)", "C) ♥J (top of a sequence)", "D) ♦5 (fourth best)"],
+          "correctAnswer": "B",
+          "explanation": "Against notrump, lead fourth from your longest suit. Spades are longest (5 cards). KJT is not a true three-card sequence (the Queen is missing), so lead fourth best: ♠8. The J and T aren't touching the K.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "def-cp-2",
+          "question": "Auction: 1♠ - 4♠. Your hand: ♠74 ♥QJT5 ♦8 ♦A9743. What do you lead?",
+          "options": ["A) ♥Q (top of sequence)", "B) ♦8 (singleton for a ruff)", "C) ♣A (cash your trick)", "D) ♠7 (trump lead)"],
+          "correctAnswer": "A",
+          "explanation": "You have a QJT sequence in hearts — a perfect lead against a suit contract. Top of sequence (♥Q) is safe and can quickly establish tricks. The singleton diamond is tempting but you have no sure way to get back to ruff.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "def-cp-3",
+          "question": "Partner leads the ♦6 against 3NT. Dummy has ♦843. You hold ♦KJ2. What do you play?",
+          "options": ["A) ♦K (third hand high)", "B) ♦J (lower of touching honors... but KJ aren't touching)", "C) ♦2 (low)", "D) ♦K (highest card)"],
+          "correctAnswer": "A",
+          "explanation": "Third hand high — play the ♦K. KJ are not touching honors (the Queen is between them), so play your highest card. If you played the Jack and it lost to the Queen, partner wouldn't know you have the King.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "def-cp-4",
+          "question": "You're defending 4♥. Partner leads the ♣K. Dummy has ♣873. You hold ♣AT4. What do you play?",
+          "options": ["A) ♣4 (discouraging)", "B) ♣T (encouraging — you have the Ace!)", "C) ♣A (overtake to cash your trick)", "D) ♣4 (let partner figure it out)"],
+          "correctAnswer": "B",
+          "explanation": "You have the ♣A — encourage! Play the ♣T (high = encouraging attitude signal). Partner continues clubs, and you win the ♣A. If you play the 4, partner might switch, thinking you have nothing.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "def-cp-5",
+          "question": "Declarer is in 4♠. Dummy has ♣KQJ94 — a powerful long suit for discards. You're on lead after winning a trick. Your hand: ♠- ♥KT85 ♦A743 ♣T86. What type of defense should you choose?",
+          "options": ["A) Passive — let declarer come to you", "B) Active — attack before declarer discards on those clubs", "C) Lead a trump", "D) It doesn't matter"],
+          "correctAnswer": "B",
+          "explanation": "Active defense! Dummy's ♣KQJ94 will provide multiple discards once the ♣A is gone. You must establish and cash your tricks before declarer uses those clubs. Lead the ♦A (cash it!) or attack hearts — don't let those discards happen.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Full Defensive Planning",
+      "solution": "You're West defending 3NT. Your hand: ♠QJ974 ♥K83 ♦J54 ♣T6.\n\nYou lead the ♠Q. Dummy comes down:\n\n```\n         ♠ K 5 3\n         ♥ J T 4\n         ♦ A Q T 8 3\n         ♣ A 7\n```\n\nDummy plays the ♠3, partner plays the ♠2 (discouraging), declarer wins the ♠A.\n\nDeclarer leads the ♦2. What are you thinking? What's your plan?\n\nAnswer: Declarer is attacking diamonds — trying to establish ♦AQT83 in dummy. If they succeed, that's 4-5 tricks plus ♠A + ♣A = enough for 3NT. You need to keep your spade suit going. Partner's ♠2 was discouraging... but partner might have been showing count (only 2 spades), not attitude. When you regain the lead (perhaps partner has the ♦K), continue spades to establish your suit. The key: if partner has the ♦K and wins the diamond finesse, partner must return a spade to let you run your established spade tricks. Count: you led the Q from QJ974, declarer won the Ace, dummy has K53, partner has 2 (♠T862 perhaps). After ♠A is gone, your ♠J974 are established once the ♠K is driven out. The defense needs partner to gain the lead and return spades."
+    }
+  ]
+}

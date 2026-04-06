@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 5 Checkpoint",
+    "description": "Complete uncontested auctions from both sides",
+    "level": "level-5",
+    "slug": "checkpoint",
+    "order": 6,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Describe the three-bid framework -- open, respond, rebid -- and explain how each bid narrows the picture for the partnership. Use a concrete example: imagine you open 1♥ with 16 HCP and a 6-card heart suit. Partner responds 1♠ with 11 HCP and 5 spades. Walk through what each player knows after each bid, and what the opener's rebid should be."
+    },
+    {
+      "type": "drillSet",
+      "title": "Complete Auction Mastery",
+      "generator": "full-uncontested-auction",
+      "problemCount": 10,
+      "passThreshold": 0.75,
+      "timeLimitSeconds": 180
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "Opening Leads Against Suit Contracts",
+    "description": "Top of sequence, singleton, trump leads",
+    "level": "level-7",
+    "slug": "opening-leads-suits",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## A Different Game\n\nLeading against a suit contract is fundamentally different from leading against notrump. In NT, your goal is to establish a long suit — a patient, long-term strategy. Against a suit contract, declarer has trumps and will use them to stop your long suit from running.\n\nThe mindset shifts: you often need to establish and cash tricks **quickly**, before declarer draws trumps and discards losers.\n\n## Priority 1: Top of a Sequence\n\nThe safest and most common good lead against a suit contract is the **top of a sequence** — two or more touching honors.\n\n| Holding | Lead | Why |\n|---------|------|-----|\n| ♥ K Q 5 3 | ♥K | Top of KQ (hoping partner has the J or you can establish the Q) |\n| ♠ Q J 7 4 | ♠Q | Top of QJ |\n| ♦ J T 9 2 | ♦J | Top of JT9 |\n| ♣ A K 8 5 | ♣A* | See note |\n\n*Against suit contracts, from AK lead the **Ace** (not the King). This is the opposite of notrump! The reason: against suits, you might need to see dummy before committing the King. Some partnerships lead King from AK — discuss this with partner.\n\nSequence leads are wonderful because they **can't cost a trick**. Leading the King from KQ means you're playing an honor backed by another honor — no risk.\n\n## Priority 2: Partner's Suit\n\nIf partner bid a suit during the auction, lead it. Just like in notrump, partner's bid is a strong suggestion.\n\nFrom three small cards in partner's suit (e.g., 8-5-3), lead the **top card** (the 8). This tells partner you don't have an honor.\n\nFrom an honor in partner's suit (e.g., K-7-3), lead **low** (the 3). This tells partner you have something useful.\n\n## Priority 3: Singleton\n\nA singleton lead is powerful against suit contracts — it's terrible against NT, but against suits, it has a specific goal: **get a ruff.**\n\nThe plan:\n1. Lead your singleton (say, the ♦4 — your only diamond)\n2. Partner wins the trick (hopefully with the Ace or King)\n3. Partner returns a diamond\n4. You trump it! A free trick.\n\nSingleton leads work best when:\n- You have a likely entry to get your partner to give you the ruff (like a trump trick)\n- Partner is likely to have a high card in the singleton suit\n- You have small trumps that wouldn't win tricks otherwise\n\nSingleton leads work poorly when:\n- You have natural trump tricks (Qxx of trumps, for instance) — ruffing doesn't gain\n- Partner is unlikely to hold an honor in the suit\n\n## Priority 4: Trump Leads\n\nSometimes the best defense is to lead a trump. This is called a **passive trump lead** and it's appropriate when:\n\n- The auction suggests declarer will try to ruff losers in dummy (e.g., dummy bid two suits but supported declarer's suit)\n- You have no good attacking lead\n- Leading any side suit risks giving declarer a trick\n\nThe purpose: **remove dummy's trumps** before declarer can use them for ruffing. Each trump you lead is one fewer ruff for declarer.\n\n## What to Avoid\n\n### Leading Away from Unsupported Honors\nLeading from Kxx or Qxx (without partner bidding the suit) often gives declarer a free trick. Declarer holds AJx and you lead low — declarer plays low from dummy, and your honor is trapped.\n\n### Leading Away from an Ace\nAgainst suit contracts, **never** underlead an Ace. Unlike NT where it might be okay, against suits the declarer or dummy might have a singleton King — your lead lets them score it.\n\n| Holding | Against Suits |\n|---------|---------------|\n| ♥ A 7 4 3 | DON'T lead this suit (unless partner bid it) |\n| ♠ K 8 5 3 | Risky — only lead if nothing better |\n| ♦ Q J 7 4 | GOOD — top of sequence (♦Q) |\n| ♣ 8 6 4 2 | Safe but passive |\n\n## The Decision Checklist\n\n1. Do I have a sequence? **Lead it.**\n2. Did partner bid? **Lead partner's suit.**\n3. Do I have a singleton (and expect to get a ruff)? **Lead it.**\n4. Does the auction suggest a trump lead? **Lead a trump.**\n5. None of the above? **Lead the safest option** — a suit where you have nothing to lose (three or four small cards).\n\n## Examples\n\n**Your hand:** ♠QJT3 ♥854 ♦K93 ♣J72. Auction: 1♠ - 2♠ - 4♠.\n\n**Lead:** ♠... no, they bid spades! Lead the ♦K? No — that's from Kxx, risky. Lead a heart (three small — safe and passive)? Or the ♠Q... no, that's trump.\n\nActually: Do you have a sequence? No. Partner bid? No. Singleton? No. Trump lead appropriate? Possibly — the auction was a simple raise, so dummy might ruff. But the safest lead is the ♥8 (top of three small — nothing to lose).\n\nWait — look again. You have ♣J72... risky. ♦K93... risky. ♥854... safe. **Lead ♥8** — a passive, safe lead.\n\n**Your hand:** ♠5 ♥Q843 ♦KJT7 ♣A952. Auction: 1♠ - 2♣ - 2♠ - 4♠.\n\n**Lead:** You have a singleton spade... no, that's the trump suit. You have ♦KJT — that's almost a sequence (KJT with J and T touching). Actually KJT is an interior sequence — lead the ♦J. Alternatively, the ♠5 is a singleton of their trump suit — not useful for a ruff. **Lead ♦J** (top of the interior sequence)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "What Do You Lead Against a Suit Contract?",
+      "problems": [
+        {
+          "id": "ols-1",
+          "question": "Auction: 1♥ - 2♥ - 4♥. Your hand: ♠KQ84 ♥73 ♦J952 ♣T84. What do you lead?",
+          "options": ["A) ♠K (top of KQ sequence)", "B) ♦5 (fourth best from longest suit)", "C) ♣T (top of nothing)", "D) ♥7 (trump lead)"],
+          "correctAnswer": "A",
+          "explanation": "You have a KQ sequence in spades — lead the ♠K! Sequence leads are safe and can establish tricks quickly. This is a textbook opening lead.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "ols-2",
+          "question": "Auction: 1♠ - 4♠. Your hand: ♠85 ♥4 ♦KJ972 ♣QT53. What do you lead?",
+          "options": ["A) ♦7 (fourth best diamond)", "B) ♥4 (singleton!)", "C) ♣Q (honor lead)", "D) ♠8 (trump)"],
+          "correctAnswer": "B",
+          "explanation": "You have a singleton heart — lead it! If partner has the ♥A or ♥K, they can win and return a heart for you to ruff. Singleton leads are powerful against suit contracts.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "ols-3",
+          "question": "Auction: 1♥ (partner) - 1♠ - 2♠ - 4♠. Your hand: ♠J74 ♥853 ♦A94 ♣T762. What do you lead?",
+          "options": ["A) ♠J (trump)", "B) ♥8 (top of partner's suit with no honor)", "C) ♦A (cash your Ace)", "D) ♣T (top of nothing)"],
+          "correctAnswer": "B",
+          "explanation": "Partner bid hearts — lead partner's suit! From three small (853), lead the top card: ♥8. This tells partner you have no honor in the suit.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "ols-4",
+          "question": "Auction: 1♦ - 1♠ - 2♠ - 4♠. The auction suggests dummy has diamond support and might ruff hearts. Your hand: ♠863 ♥KJ4 ♦QT5 ♣A974. What do you lead?",
+          "options": ["A) ♠8 (trump lead to remove dummy's ruffs)", "B) ♥K (honor lead)", "C) ♦Q (top of sequence)", "D) ♣A (cash your trick)"],
+          "correctAnswer": "A",
+          "explanation": "When the auction suggests declarer will try to ruff in dummy, a trump lead removes dummy's ruffing ability. Lead the ♠8 to start drawing dummy's trumps for declarer!",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "ols-5",
+          "question": "Auction: 1♠ - 3♠ - 4♠. Your hand: ♠52 ♥A743 ♦A85 ♣J943. What do you lead?",
+          "options": ["A) ♥A (never underlead an Ace against suits)", "B) ♥3 (fourth from longest)", "C) ♦A (cash your trick)", "D) ♣J (top of interior)"],
+          "correctAnswer": "A",
+          "explanation": "Against a suit contract, don't underlead an Ace. Leading the ♥A is safe — you see dummy and then decide what to do next. You might switch to diamonds after seeing dummy, or continue hearts if partner encourages.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Opening Lead vs Suits Drill",
+      "generator": "opening-lead-suit",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 90
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Against a suit contract, should you ever underlead an Ace (lead low from A-x-x)?",
+      "options": ["Yes, always lead fourth best", "No — never underlead an Ace against suit contracts", "Only if partner bid the suit"],
+      "correctIndex": 1,
+      "explanation": "Never underlead an Ace against a suit contract. Declarer or dummy might have a singleton King and your lead gives them a free trick. Lead the Ace itself or choose a different suit.",
+      "encourageCorrect": "Right! This is one of the cardinal rules of defensive leads. Against notrump it can be okay, but against suits — never.",
+      "encourageIncorrect": "Against suit contracts, leading low from an Ace is dangerous — declarer might have a singleton King. Lead the Ace or pick a different suit."
+    },
+    {
+      "question": "Why are singleton leads effective against suit contracts but not against notrump?",
+      "options": ["Singletons are always bad leads", "Against suits you can get a ruff; against NT you have no trumps to ruff with", "Singletons are equally good against both"],
+      "correctIndex": 1,
+      "explanation": "A singleton lead against a suit contract aims to get a ruff — partner wins and returns the suit, and you trump it. Against NT, you have no trumps, so a singleton just helps declarer.",
+      "encourageCorrect": "Exactly! The whole point is the ruff. No trumps = no ruff = no point in leading a singleton.",
+      "encourageIncorrect": "The power of a singleton lead is getting a ruff. Against NT, you can't ruff anything, so a singleton lead just helps declarer."
+    }
+  ]
+}

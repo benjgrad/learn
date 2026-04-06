@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Level 6 Checkpoint",
+    "description": "Declarer play planning and technique identification",
+    "level": "level-6",
+    "slug": "checkpoint",
+    "order": 10,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Describe the difference between planning in notrump and planning in a suit contract. In notrump, what do you count and what do you look for? In a suit contract, what changes and why? Use a concrete example for each: imagine you're in 3NT with 7 top tricks, and separately imagine you're in 4♠ with 4 losers."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Full Deal Planning — Notrump",
+      "solution": "You're South in 3NT. West leads the ♥Q.\n\n```\n         ♠ 9 7 5\n         ♥ A 6\n         ♦ K Q J T 4\n         ♣ 8 5 3\n\n         ♠ A K 3\n         ♥ K 8 5\n         ♦ 7 6 3\n         ♣ A K Q 4\n```\n\nForm a complete plan. Count top tricks, identify the danger, plan entries, and describe your line of play.\n\nAnswer: Top tricks: ♠AK = 2, ♥AK = 2, ♦0 (no Ace), ♣AKQ = 3. Total: 7. Need 9 — 2 short. Source: Diamonds. ♦KQJT4 in dummy will produce 4 tricks once the ♦A is knocked out. Danger: Hearts — they led the Queen (top of sequence). You have 4 hearts total. Rule of 7: 7 - 4 = 3 ducks... but you have 2 stoppers (AK). So hold up once — duck the ♥Q, win the heart continuation with the ♥K. Now lead a diamond toward dummy. Opponents win the ♦A and cash hearts, but that's only 3 heart tricks + 1 diamond = 4 tricks for them. You have 2 spades + 1 heart + 4 diamonds + 3 clubs = 10 tricks. Contract made."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Full Deal Planning — Suit Contract",
+      "solution": "You're South in 4♥. West leads the ♠K.\n\n```\n         ♠ 8 5 3\n         ♥ K 9 6 4\n         ♦ 7\n         ♣ A Q 8 5 3\n\n         ♠ A 7 4\n         ♥ A Q J T 3\n         ♦ A 8 5\n         ♣ K 4\n```\n\nCount losers, decide on a plan, and describe the complete line of play.\n\nAnswer: Losers in South's hand: ♠ two (7 and 4), ♥ zero (AQ + dummy's K), ♦ two (8 and 5), ♣ zero (K + dummy's A). Total: 4 losers. Can afford 3. Must eliminate one. Option 1: Dummy has a singleton diamond! Win ♠A, cash ♦A, then lead a diamond and ruff it in dummy. That eliminates one diamond loser, reducing to 3 losers total. After the ruff, draw trumps with ♥A, ♥K, ♥Q (checking for a 2-1 or 3-0 split). Cash club winners. Lose 2 spades and 1 diamond. Contract made. The key: don't draw trumps before ruffing the diamond — you need dummy's trumps!"
+    }
+  ]
+}

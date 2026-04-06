@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "Hand Reading",
+    "description": "Inferring unseen hands from auction and play",
+    "level": "level-10",
+    "slug": "hand-reading",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Seeing the Invisible\n\nEvery bid tells a story. Every pass tells a story. Every card played tells a story. The expert bridge player listens to all these stories simultaneously and constructs a picture of the hands they cannot see.\n\n**Hand reading** is the art of deducing unseen hands from available information — the auction, the opening lead, the cards played, and even the cards NOT played. It's the single most important skill that separates intermediate players from experts.\n\n## Information from the Auction\n\nEvery call in the auction — including pass — carries information:\n\n### What Bids Tell You\n\n- **1NT opening**: 15-17 HCP, balanced (no singleton, no void, no 6-card suit)\n- **1♠ opening**: 5+ spades (usually), 13-21 points\n- **A raise (1♥ - 2♥)**: 3+ hearts, 6-10 points\n- **A new suit at the 2-level**: 10+ points, 4+ cards\n- **A preempt (3♦)**: long diamond suit (7+), weak hand (roughly 6-10)\n\n### What Pass Tells You\n\nThis is often more valuable than what bids tell you:\n\n- **Responder passes an opening bid**: less than 6 HCP (or no fit and no suit)\n- **Opener passes partner's response**: minimum opening (13-15), nothing more to say\n- **An opponent passes when they could have overcalled**: either not enough points, or no good suit. If they have opening values and didn't act, they likely have the wrong shape.\n\n### The Power of Negative Inference\n\nThe most powerful hand reading comes from what people **didn't** do:\n\n> \"If East had the ♠K, they would have opened the bidding. East passed — so West has the ♠K.\"\n\n> \"If South had 4 hearts, they would have responded 1♥ to partner's 1♣ opening. South bid 1NT instead — so South has at most 3 hearts.\"\n\n> \"West didn't overcall 1♠ after our 1♦ opening. West either doesn't have 5 spades or doesn't have the values. Given West's later bidding shows some values, West probably doesn't have 5 spades.\"\n\nThese inferences are often certain, not guesses.\n\n## Information from the Play\n\n### Counting Suits\n\nAs the play progresses, you can count how many cards each player has in each suit. When someone shows out (fails to follow suit), you know their exact length in that suit.\n\n**Example:** You play three rounds of hearts. West follows to all three. East ruffs the third round. Now you know: East started with exactly 2 hearts. If the deal has 13 hearts among the defenders (it always has 13 minus your combined holdings), and East had 2, West had the rest.\n\n### Counting HCP\n\nKeep a running total of the high cards each defender plays.\n\n**Example:** West opened 1NT (15-17). During the play, West shows up with the ♠K (3), ♥A (4), ♦QJ (3), ♣K (3) = 13 HCP so far. West has at most 4 more HCP to find. If you need to locate the ♣Q, West can still have it — but not both the ♣Q and another missing honor.\n\n### Reading the Opening Lead\n\nThe opening lead is rich with information:\n- A fourth-best lead of the ♥6 tells you about the heart suit (Rule of 11)\n- A top-of-sequence ♠Q tells you the leader has the ♠J (and probably the ♠T) but NOT the ♠K\n- A small card in a suit contract might be from length or a singleton — the card chosen gives clues\n\n## Building the Picture: A Complete Example\n\nYou're declaring 3NT. The auction was:\n\n| West | North | East | South |\n|------|-------|------|-------|\n| Pass | 1♦ | Pass | 1NT |\n| Pass | 3NT | Pass | Pass |\n\nWest leads the ♥5. Dummy comes down with:\n```\n         ♠ K 7 4\n         ♥ A 8 3\n         ♦ A Q J 7 4\n         ♣ K 6\n```\n\nYour hand: ♠ A J 6 ♥ K 7 2 ♦ T 8 3 ♣ Q J 9 5\n\nBefore playing a card, what do you know?\n\n1. **West passed** — fewer than 13 HCP (couldn't open)\n2. **East passed** — also fewer than 13 HCP\n3. **West led the ♥5** — fourth best from a heart suit. Applying the Rule of 11: 11 - 5 = 6 cards higher than the 5 between North, East, and South. You can see ♥A83 in dummy and ♥K72 in hand = 4 cards higher. East has 2 cards higher than the 5.\n4. **West's heart suit**: The ♥5 as fourth best means West has exactly 3 hearts above the 5. If those are ♥QJ9, West's suit is QJ95(x). You can duck and let West's ♥Q or ♥J win, then win the next heart — now West's remaining heart is the 9, and the suit is dead.\n\nThis kind of reasoning — before you play a single card — is what separates experts from the rest."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Hand Reading from the Auction",
+      "solution": "You're defending. The auction was:\n\n| South | West | North | East |\n|-------|------|-------|------|\n| 1♠ | Pass | 2♣ | Pass |\n| 2♠ | Pass | 4♠ | Pass |\n\nYou (West) hold: ♠J85 ♥KT73 ♦Q964 ♣J8\n\nWhat can you deduce about the other hands?\n\n**South (declarer):** Opened 1♠ (5+ spades, 13-21). Rebid 2♠ (minimum, 13-15 HCP, 6 spades usually, or 5 spades with nothing else to say). So South has roughly 13-15 HCP and 5-6 spades.\n\n**North (dummy):** Responded 2♣ (10+ points, 4+ clubs). Raised to 4♠ — game values, so 13+ combined with the initial response. North has roughly 12-14 HCP with club length and spade support (probably 3 spades for the raise).\n\n**East (your partner):** Passed throughout. Both opponents have ~13-15 HCP (total ~26-29). You have 7 HCP. The deck has 40 total. East has roughly 40 - 28 - 7 = about 5-7 HCP. Partner has some scattered values but nothing major.\n\n**Key inference:** You know partner has about 5-7 HCP. If you need to find a specific honor in partner's hand for the defense to work, check if partner could plausibly hold it given their point count."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Hand Reading from the Play",
+      "solution": "You're declaring 4♠. West leads the ♦K.\n\nDummy:\n```\n         ♠ Q 7 5 3\n         ♥ K 8 4\n         ♦ 8 5 2\n         ♣ A Q 3\n```\n\nYour hand: ♠ A K J 9 4 ♥ A 6 3 ♦ 7 4 ♣ K 8 5\n\nWest plays ♦K, then ♦A, then ♦Q. East follows to the first two diamonds but discards a small heart on the third.\n\nWhat have you learned?\n\n1. **West has 5+ diamonds** (played KAQ and still had a fourth to lead). Since East had only 2 diamonds, and dummy has 3 + your 2 = 5 between you, West has the remaining 6 diamonds: something like KAQJxx.\n\n2. **West has fewer cards in other suits.** With 6 diamonds, West has only 7 cards in the other three suits. If West has 2 spades, that leaves 5 cards in hearts + clubs.\n\n3. **East has short diamonds but long in other suits.** East's 2 diamonds means 11 cards in spades/hearts/clubs.\n\n4. **East discarded a heart.** This suggests East has hearts to spare — probably 4+.\n\nNow you can plan the play around these deductions. If you need to take a finesse in clubs, you know West has at most 3-4 clubs (because of 6 diamonds). The club finesse (if you need to guess who has the ♣J) is more likely to succeed through East, who has more space for clubs."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about a time you solved a problem by noticing what was missing rather than what was present. How does this relate to negative inference in bridge?",
+        "How might you practice hand reading skills away from the table?"
+      ]
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is a 'negative inference' in hand reading?",
+      "options": ["Deducing information from bad results", "Deducing what a player holds based on what they DIDN'T do (e.g., didn't open, didn't overcall)", "A pessimistic view of partner's hand"],
+      "correctIndex": 1,
+      "explanation": "Negative inferences come from actions not taken: if someone didn't open, they have fewer than 13 HCP. If they didn't overcall, they lack a good suit or enough values.",
+      "encourageCorrect": "Exactly! What people DON'T do is often more revealing than what they do. Master this and you'll see hands you can't see.",
+      "encourageIncorrect": "A negative inference is deducing facts from what someone didn't do. 'East passed, so East doesn't have opening values' is a negative inference."
+    },
+    {
+      "question": "When an opponent shows out of a suit (fails to follow), what do you know?",
+      "options": ["They have a void in that suit — you know their exact count", "They don't like that suit", "They're signaling to partner"],
+      "correctIndex": 0,
+      "explanation": "When a player shows out, you know they had zero cards remaining in that suit. Combined with how many they already played, you know their exact original length.",
+      "encourageCorrect": "Right! Showing out is the most definitive count information in bridge. It gives you exact numbers.",
+      "encourageIncorrect": "When someone shows out, you know their exact length in that suit (the cards they followed with before showing out). This is key data for hand reading."
+    }
+  ]
+}

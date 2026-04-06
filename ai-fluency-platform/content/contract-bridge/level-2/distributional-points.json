@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Distributional Points",
+    "description": "Length points and shortness points",
+    "level": "level-2",
+    "slug": "distributional-points",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Beyond High Cards\n\nHCP tells you about the power of your honor cards, but it misses something crucial: **hand shape generates tricks too**.\n\nConsider these two hands, both with 12 HCP:\n\n> **Hand A:** ♠ A Q 5 3 &nbsp;&nbsp; ♥ K J 4 &nbsp;&nbsp; ♦ Q 8 7 &nbsp;&nbsp; ♣ J 6 2  \n> **Hand B:** ♠ A Q 9 7 5 3 &nbsp;&nbsp; ♥ K J 4 &nbsp;&nbsp; ♦ — &nbsp;&nbsp; ♣ J 6 5 2\n\nBoth hands have exactly 12 HCP. But Hand B is dramatically more powerful:\n\n- It has a **6-card spade suit** that can generate extra tricks through length\n- It has a **void** (zero cards) in diamonds — if spades are trumps, you can trump any diamond your opponents lead\n\nTo capture this extra value, we count **distributional points**.\n\n## Length Points: Counting Long Suits\n\nLength points give credit for long suits — suits with more than four cards. The logic is simple: in a suit contract, your fifth, sixth, and seventh cards in a long suit will often become winners after the opponents run out of that suit.\n\n| Suit Length | Length Points |\n|-------------|---------------|\n| 4 cards or fewer | 0 |\n| 5 cards | 1 |\n| 6 cards | 2 |\n| 7 cards | 3 |\n| 8 cards | 4 |\n\nThe rule: **1 point for each card beyond four** in any suit.\n\n### Example: Counting Length Points\n\n> ♠ K Q 8 7 5 &nbsp;&nbsp; ♥ A J 9 4 3 &nbsp;&nbsp; ♦ 7 &nbsp;&nbsp; ♣ K 2\n\n- ♠: 5 cards → **1 length point**\n- ♥: 5 cards → **1 length point**\n- ♦: 1 card → 0\n- ♣: 2 cards → 0\n\n**Length points: 2**\n\nThis hand has 14 HCP + 2 length points = **16 total points**. The two five-card suits make it significantly stronger than a flat 14-count.\n\n## Shortness Points: Counting Short Suits\n\nShortness points are used in a different situation: when you've found a **trump fit** with partner (typically 8+ cards in a suit between you). When you have a trump fit, short suits are valuable because you can **trump** (ruff) the opponents' cards in that suit.\n\n| Suit Length | Shortness Points |\n|-------------|------------------|\n| Void (0 cards) | 3 |\n| Singleton (1 card) | 2 |\n| Doubleton (2 cards) | 1 |\n| 3+ cards | 0 |\n\n### Example: Counting Shortness Points\n\nYour partner opened 1♠ and you hold:\n\n> ♠ K 10 7 4 &nbsp;&nbsp; ♥ 8 &nbsp;&nbsp; ♦ A 9 6 5 3 &nbsp;&nbsp; ♣ Q 7 2\n\nYou have a spade fit with partner! Now count shortness:\n\n- ♥: singleton → **2 shortness points**\n\nHCP: K(3) + A(4) + Q(2) = 9 HCP  \nShortness: 2  \n**Total: 11 points** when raising partner's spades.\n\nThat singleton heart is worth 2 extra points because with spades as trumps, you can ruff hearts in your hand after the first round.\n\n## Length Points vs. Shortness Points: When to Use Which\n\nThis is a common source of confusion, so let's be clear:\n\n| Situation | Use |\n|-----------|-----|\n| **Opening the bidding** | Length points |\n| **Responding with no fit** | Length points |\n| **Raising partner's suit** (fit found) | Shortness points |\n| **Rebidding your own long suit** | Length points |\n\nThe general principle:\n\n- **Length points** reflect the trick-generating power of long suits — useful anytime.\n- **Shortness points** reflect the ruffing potential of short suits — only valuable when you have a trump fit.\n\n**Important: Never count both length AND shortness points for the same hand.** Use one or the other, depending on the situation.\n\n## Worked Examples\n\n### Example 1: Opening the Bidding\n\n> ♠ A 8 &nbsp;&nbsp; ♥ K Q 9 7 5 2 &nbsp;&nbsp; ♦ J 4 &nbsp;&nbsp; ♣ K 8 3\n\nHCP: A(4) + K(3) + Q(2) + J(1) + K(3) = **13 HCP**  \nLength: 6-card heart suit → **2 length points**  \n**Total: 15 points** — A solid opening hand with extra value from the long hearts.\n\n### Example 2: Raising Partner's Hearts\n\nPartner opened 1♥ and you hold:\n\n> ♠ 7 5 3 &nbsp;&nbsp; ♥ Q 10 8 4 &nbsp;&nbsp; ♦ — &nbsp;&nbsp; ♣ A K 9 8 5 2\n\nYou have a heart fit (4 hearts to support partner). Use shortness points:\n\nHCP: Q(2) + A(4) + K(3) = **9 HCP**  \nShortness: Diamond void → **3 shortness points**  \n**Total: 12 points** when raising hearts. That void is enormously valuable — you can ruff diamonds immediately.\n\n### Example 3: No Fit Found\n\nPartner opened 1♠ and you hold:\n\n> ♠ 5 3 &nbsp;&nbsp; ♥ A K 8 6 4 &nbsp;&nbsp; ♦ Q 7 &nbsp;&nbsp; ♣ J 10 5 2\n\nYou only have 2 spades — no fit. Don't use shortness points. Use length points:\n\nHCP: A(4) + K(3) + Q(2) + J(1) = **10 HCP**  \nLength: 5-card heart suit → **1 length point**  \n**Total: 11 points** — Enough to respond with a new suit.\n\n## Why Distribution Matters So Much\n\nConsider the extreme: you hold all 13 spades. Your HCP might be only 10 (A, K, Q, J of spades), but in a spade contract you would win ALL 13 tricks — a grand slam! HCP alone would never tell you that.\n\nDistributional points bridge this gap. They're not perfect (no simple system can capture all the nuance), but they dramatically improve hand evaluation by accounting for the trick-generating power of shape."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If you have a hand with 11 HCP and a 6-card spade suit, what is your total point count using length points?",
+      "answer": "13 total points. The 6-card suit adds 2 length points (one for each card beyond four): 11 HCP + 2 length = 13 total points. This makes the hand opening strength despite having only 11 HCP."
+    },
+    {
+      "type": "drillSet",
+      "title": "Distribution Counting Drill",
+      "generator": "distribution-count",
+      "problemCount": 10,
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 90
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "How many length points does a 5-card suit add?",
+      "options": ["0 points", "1 point", "2 points"],
+      "correctIndex": 1,
+      "explanation": "You earn 1 length point for each card beyond four in a suit. A 5-card suit = 1 point; 6-card = 2; 7-card = 3.",
+      "encourageCorrect": "That's right! One point per card beyond four. Simple and effective.",
+      "encourageIncorrect": "A 5-card suit adds 1 length point (one card beyond four). A 6-card suit would add 2, and so on."
+    },
+    {
+      "question": "When should you use shortness points instead of length points?",
+      "options": ["Always when opening the bidding", "When you have found a trump fit with partner", "When you have a balanced hand"],
+      "correctIndex": 1,
+      "explanation": "Shortness points (void=3, singleton=2, doubleton=1) reflect ruffing potential, which only matters when you have a trump fit.",
+      "encourageCorrect": "Exactly! Short suits are valuable for ruffing, which only works when you have a trump fit.",
+      "encourageIncorrect": "Shortness points are used when raising partner's suit (meaning you've found a fit). Without a fit, short suits don't help you ruff, so use length points instead."
+    },
+    {
+      "question": "How many shortness points is a void (zero cards in a suit) worth?",
+      "options": ["1 point", "2 points", "3 points"],
+      "correctIndex": 2,
+      "explanation": "A void is worth 3 shortness points -- the maximum. A singleton is 2, and a doubleton is 1.",
+      "encourageCorrect": "Right! A void is the most valuable short holding -- 3 points of ruffing potential.",
+      "encourageIncorrect": "A void is worth 3 shortness points. It's the most valuable because you can start ruffing that suit immediately."
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "title": "Level 8 Checkpoint",
+    "description": "Convention identification and application",
+    "level": "level-8",
+    "slug": "checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Choose three conventions from this level and explain what specific bidding problem each one solves and when you would use it. For each convention, give a brief example hand or auction."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Mixed Convention Problems",
+      "problems": [
+        {
+          "id": "l8-cp-1",
+          "question": "RHO opens 1♥. You hold ♠KJ94 ♥3 ♦AQ85 ♣KT72. What do you bid?",
+          "options": ["A) 1♠ — overcall your best suit", "B) Double (takeout) — support for all unbid suits with shortness in hearts", "C) 1NT — balanced with a stopper", "D) 2♥ — Michaels"],
+          "correctAnswer": "B",
+          "explanation": "Classic takeout double: 14 HCP, singleton heart, 4-card support for every unbid suit. Double and let partner pick. You don't have a 5-card suit for an overcall.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l8-cp-2",
+          "question": "Partner opens 1♦. RHO overcalls 1♠. You hold ♠74 ♥AQ93 ♦J85 ♣T742. What do you bid?",
+          "options": ["A) 2♥ — new suit at the 2-level", "B) Pass — not enough to bid", "C) Double (negative) — shows 4+ hearts", "D) 1NT — balanced minimum"],
+          "correctAnswer": "C",
+          "explanation": "You have 4 hearts and 8 HCP. A natural 2♥ would require 10+ points. The negative double shows 4+ hearts with enough to compete — perfect here.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l8-cp-3",
+          "question": "Partner opens 1NT (15-17). You hold ♠AKJ94 ♥QT83 ♦K5 ♣86. You bid 2♣ (Stayman). Partner responds 2♦ (no major). What now?",
+          "options": ["A) 3♠ — show your 5-card suit", "B) 3♥ — Smolen, showing 5 spades and 4 hearts", "C) 3NT — give up on the major fit", "D) 2♠ — show your spades naturally"],
+          "correctAnswer": "B",
+          "explanation": "Smolen! With 5 spades and 4 hearts, jump in the 4-card suit (3♥). Partner will bid spades, declaring the contract. This keeps the strong hand hidden.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "l8-cp-4",
+          "question": "RHO opens 1♣. You hold ♠AQJ85 ♥KJT74 ♦6 ♣83. What do you bid?",
+          "options": ["A) 1♠ — overcall your best suit", "B) Double — takeout", "C) 2♣ — Michaels, showing both majors", "D) 1♥ — overcall hearts"],
+          "correctAnswer": "C",
+          "explanation": "With 5-5 in the majors over a minor opening, Michaels (cue bid their suit) is the perfect tool. 2♣ shows both majors in one bid.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "l8-cp-5",
+          "question": "Spades are trumps. You bid 4NT (RKCB). Partner responds 5♥. In '1430' responses, what does partner have?",
+          "options": ["A) 2 key cards without the ♠Q", "B) 2 key cards with the ♠Q", "C) 1 key card", "D) 0 or 3 key cards"],
+          "correctAnswer": "A",
+          "explanation": "In 1430 RKCB: 5♣=1/4, 5♦=0/3, 5♥=2 without trump Q, 5♠=2 with trump Q. Partner has 2 of the 5 key cards but not the Queen of spades.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "l8-cp-6",
+          "question": "RHO opens 1♠. You hold ♠73 ♥85 ♦AQJ84 ♣KQT9. What do you bid?",
+          "options": ["A) 2♦ — overcall your better minor", "B) 2♠ — Michaels (hearts + a minor)", "C) 2NT — Unusual, showing both minors", "D) Double — takeout"],
+          "correctAnswer": "C",
+          "explanation": "Over 1♠, Unusual 2NT shows the two lowest unbid suits — both minors. With 5-4 in the minors (and strong suits), 2NT shows both suits in one bid. You don't have hearts for Michaels, and a double would promise heart support.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Convention Identification Drill",
+      "generator": "convention-id",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 4 Checkpoint",
+    "description": "Mixed response scenarios across all opening types",
+    "level": "level-4",
+    "slug": "checkpoint",
+    "order": 7,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Partner opens 1♠. Describe how you would choose your response with these three different hands:\n\n1. You hold ♠Q74 ♥J83 ♦KT52 ♣964 (3 spades, 8 points)\n2. You hold ♠5 ♥AKJ84 ♦AQ73 ♣J62 (0 spades, 14 points)\n3. You hold ♠KJ873 ♥Q4 ♦A83 ♣952 (5 spades, 12 points)\n\nFor each hand, explain what your priorities are and what bid you'd choose."
+    },
+    {
+      "type": "drillSet",
+      "title": "Response Mastery",
+      "generator": "response-mixed",
+      "problemCount": 15,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 180
+    }
+  ]
+}

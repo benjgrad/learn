@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Responder's Second Bid",
+    "description": "Preference, fourth suit forcing, and more",
+    "level": "level-5",
+    "slug": "responders-rebid",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Responder Gets a Second Turn Too\n\nSo far in this level, we've focused on opener's rebid. But the responder also makes rebids — and these are just as important for reaching the right contract.\n\nAfter the auction goes (for example) 1♦ - 1♠ - 2♣, it's responder's turn again. Opener has shown two suits (diamonds and clubs) and a minimum hand. Now responder must make a decision: where should we play?\n\n## Preference: Choosing Between Opener's Two Suits\n\nWhen opener has shown two suits, responder often needs to express a **preference** — choosing which of opener's suits to play in.\n\nThe key principle:\n> **With equal length in opener's two suits, go back to the FIRST suit.**\n\nWhy? Because opener's first suit is usually longer (they bid it first). If opener bid 1♦ then 2♣, they typically have 5+ diamonds and 4+ clubs. So with 2 cards in each suit, you prefer diamonds — the likely longer fit.\n\n**Example:** Auction: 1♦ - 1♠ - 2♣. You hold ♠KQ874 ♥J83 ♦T5 ♣Q94.\n- 2 diamonds, 3 clubs. You could bid 2♦ (preference, showing 2+ diamonds) or pass 2♣ (keeping the clubs). With 3 clubs vs 2 diamonds, **passing 2♣** is fine here — you have more clubs.\n\n**Example:** Auction: 1♥ - 1♠ - 2♦. You hold ♠AJ953 ♥Q4 ♦873 ♣K85.\n- 2 hearts, 3 diamonds. But go back to **2♥** (preference). Opener likely has 5+ hearts and 4 diamonds, so the heart fit is probably 5-2 — better than diamonds at 4-3.\n\nPreference is usually a weak action — it says \"I'm choosing between your suits, not promising extra strength.\"\n\n## Sign-Off: Ending the Auction\n\nSometimes responder knows the right contract and wants to stop bidding:\n\n- **Pass**: If opener's rebid is acceptable\n- **Return to 2M** (your own suit): With 6+ cards and minimum values\n- **Preference** at the 2-level: As discussed above\n\nAll of these are weak actions — opener should usually pass.\n\n## Invitational Actions (10-12 Points)\n\nWith more than minimum values, responder can invite game:\n\n- **2NT**: Shows about 10-12 HCP, balanced, with stoppers in unbid suits\n- **Raise opener's second suit to the 3-level**: Shows support and invitational values\n- **Jump preference**: Bidding opener's first suit at the 3-level (e.g., 1♦ - 1♠ - 2♣ - 3♦) shows 10-12 with preference for diamonds\n\n## Game-Forcing Actions (13+ Points)\n\nWith a good hand, responder needs to create a force — ensuring the auction reaches game.\n\n### Fourth Suit Forcing (FSF)\n\nThis is one of the most important conventions in constructive bidding. When responder bids the **fourth unbid suit**, it's **artificial and forcing**.\n\n**Example:** Auction: 1♦ - 1♠ - 2♣ - **2♥**\n\nThree suits have been bid naturally (diamonds, spades, clubs). The fourth suit is hearts. Bidding 2♥ here does NOT necessarily show hearts — it says:\n\n> \"I have a good hand (usually 13+) and I need more information. I'm not sure where to play yet.\"\n\nFourth Suit Forcing is a catch-all for hands that are too good to sign off but don't have a clear direction. Opener must describe their hand further — perhaps bidding notrump with a heart stopper, raising spades with 3-card support, or rebidding a suit.\n\n**Example:** Auction: 1♦ - 1♠ - 2♣. You hold ♠AQJ84 ♥K73 ♦Q5 ♣A84.\n- 16 HCP. Game-forcing strength. But where? You can't raise diamonds or clubs (no great fit). Bid **2♥** (Fourth Suit Forcing). This asks opener to describe their hand — do they have 3 spades? A heart stopper for notrump?\n\n### Jumping to Game\nWith a clear picture, responder can jump directly:\n- **3NT**: 13+ points, balanced, stoppers\n- **4M**: 13+ points with 6+ cards in a major\n- **Raise opener's suit to game**: When the fit is clear\n\n## Responder's Rebid Decision Tree\n\n| Your Strength | Options |\n|--------------|---------|\n| Minimum (6-9) | Pass, preference, return to your suit |\n| Invitational (10-12) | 2NT, raise to 3-level, jump preference |\n| Game-forcing (13+) | Fourth Suit Forcing, jump to game, 3NT |"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Responder's Second Bid",
+      "problems": [
+        {
+          "id": "rr-1",
+          "question": "Auction: 1♥ - 1♠ - 2♦. You hold ♠KJ953 ♥Q4 ♦873 ♣Q85 (9 HCP). What do you bid?",
+          "options": ["A) Pass", "B) 2♥ (preference)", "C) 2NT", "D) 2♠"],
+          "correctAnswer": "B",
+          "explanation": "Minimum hand. Opener has shown hearts (5+) and diamonds (4+). With 2 hearts and 3 diamonds, give preference to 2♥ -- opener's first (longer) suit. The 5-2 heart fit is likely better than the 4-3 diamond fit.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "rr-2",
+          "question": "Auction: 1♦ - 1♠ - 2♣. You hold ♠AQJ74 ♥KJ5 ♦Q4 ♣A83 (17 HCP). What do you bid?",
+          "options": ["A) 2♦ (preference)", "B) 3NT", "C) 2♥ (Fourth Suit Forcing)", "D) 2NT"],
+          "correctAnswer": "C",
+          "explanation": "17 HCP -- game-forcing. But where? You need more info. Bid 2♥ (Fourth Suit Forcing) to ask opener to describe their hand further. Maybe they have 3 spades, or a heart stopper for 3NT.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "rr-3",
+          "question": "Auction: 1♣ - 1♥ - 1♠. You hold ♠84 ♥AQT73 ♦K95 ♣J84 (11 HCP, 5 hearts). What do you bid?",
+          "options": ["A) 2♥", "B) 2♣ (preference)", "C) 1NT", "D) 2NT"],
+          "correctAnswer": "A",
+          "explanation": "11 HCP with a 5-card heart suit. Rebid 2♥ -- this shows 5+ hearts (you wouldn't rebid with only 4) and is mildly invitational. It's not forcing; opener can pass.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rr-4",
+          "question": "Auction: 1♦ - 1♠ - 2♦. You hold ♠KQ984 ♥J73 ♦85 ♣Q64 (9 HCP). What do you bid?",
+          "options": ["A) Pass", "B) 2♠", "C) 2NT", "D) 3♦"],
+          "correctAnswer": "A",
+          "explanation": "Opener rebid 2♦ showing a minimum with 6+ diamonds. You have only 9 HCP and a misfit (2 diamonds, but opener has shown length there). Pass -- 2♦ is an acceptable partscore.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain why a responder might bid a suit they don't actually have any cards in, and what this convention is called. When would you use it, and what does it ask partner to do?"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Opener bid two suits: 1♦ then 2♣. You have 2 cards in each suit. Which do you prefer?",
+      "options": ["Clubs (the most recent suit)", "Diamonds (opener's first and likely longer suit)", "It doesn't matter"],
+      "correctIndex": 1,
+      "explanation": "With equal length, go back to opener's first suit -- it's usually longer. Opener typically has 5+ diamonds and 4+ clubs.",
+      "encourageCorrect": "That's the rule! First suit is usually longer, so prefer it with equal holdings.",
+      "encourageIncorrect": "Go back to opener's first suit -- it's typically longer (5+ cards vs 4+ for the second suit). With equal length in both, the longer fit is better."
+    },
+    {
+      "question": "What does Fourth Suit Forcing mean?",
+      "options": ["Bidding the 4th unbid suit naturally to show that suit", "An artificial, forcing bid in the 4th unbid suit asking for more information", "Forcing partner to bid the 4th suit"],
+      "correctIndex": 1,
+      "explanation": "Fourth Suit Forcing is artificial -- it doesn't promise cards in that suit. It's a forcing bid (13+) asking opener to describe their hand further.",
+      "encourageCorrect": "Exactly! It's a powerful tool for hands that are strong but unclear about the right contract.",
+      "encourageIncorrect": "Fourth Suit Forcing is an artificial forcing bid. You bid the 4th suit not because you have it, but because you need more information from opener."
+    }
+  ]
+}

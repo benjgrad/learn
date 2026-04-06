@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "Second-Hand Play",
+    "description": "Second hand low, cover an honor with an honor",
+    "level": "level-7",
+    "slug": "second-hand-play",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## When Declarer Leads Toward Dummy\n\nIn third-hand play, your partner led and you responded. In **second-hand play**, declarer (or dummy) leads, and you're the next to play — before seeing what the other defender or declarer will do.\n\nThe general rule:\n\n> **Second hand low.**\n\nWhen declarer leads toward dummy (or dummy leads toward declarer), play low smoothly. Don't commit your high cards early.\n\n## Why Play Low?\n\nPlaying low forces declarer to make a decision before seeing your partner's card. If you rush to play high, you might be doing declarer's work for them.\n\n### Example: Second Hand Low Wins\n\n```\n         ♠ K J 3 (dummy)\n   ♠ A 7 4 (you)          ♠ T 8 5 (partner)\n         ♠ Q 9 6 2 (declarer)\n```\n\nDeclarer leads the ♠2 toward dummy. If you play the **♠A**, dummy plays low, and declarer later finesses through your partner to win both the ♠K and ♠J — three spade tricks.\n\nBut if you play **low** (♠4), declarer must guess. If declarer plays the ♠J, partner's hand doesn't matter — the Jack wins. But declarer gets only 2 tricks. If declarer plays the ♠K, your Ace captures it later — again, only 2 tricks for declarer instead of 3.\n\nBy playing low, you force declarer into a guess and save your Ace to capture an honor.\n\n### Another Example\n\n```\n         ♦ Q 5 3 (dummy)\n   ♦ K 8 4 (you)          ♦ J 9 6 (partner)\n         ♦ A T 7 2 (declarer)\n```\n\nDeclarer leads the ♦2 toward dummy's ♦Q. If you play the **♦K**, declarer's Ace wins later and the Queen is free — three tricks for declarer.\n\nIf you play **low**, declarer plays the ♦Q, which wins. But now declarer leads back toward the Ace — and your ♦K captures a small card on the next round. Declarer gets only 2 tricks instead of 3.\n\n## The Exception: Cover an Honor with an Honor\n\nWhen declarer leads **an honor** (J, Q, K) and you have a higher honor, the rule changes:\n\n> **Cover an honor with an honor.**\n\nThe purpose: by playing your honor on declarer's honor, you force declarer to use **two** high cards to win **one** trick. This promotes your partner's intermediate cards.\n\n### Example: Covering Promotes Partner's Cards\n\n```\n         ♠ A T 5 (dummy)\n   ♠ Q 7 3 (you)          ♠ 9 8 6 4 (partner)\n         ♠ K J 2 (declarer)\n```\n\nDeclarer leads the ♠J from hand. Should you cover with the Queen?\n\n**Yes!** Play the ♠Q. Dummy wins the ♠A, but now declarer's remaining ♠K faces your absent Queen and partner's ♠9864. The 9 and 8 are now promoted after the A, K, Q, and J are all gone.\n\nIf you don't cover, declarer plays low from dummy, the Jack wins, and then the ♠K and ♠A take the next two tricks — three tricks for declarer.\n\n### Another Example\n\n```\n         ♣ A 8 5 3 (dummy)\n   ♣ K 7 4 (you)          ♣ J 9 2 (partner)\n         ♣ Q T 6 (declarer)\n```\n\nDeclarer leads the ♣Q. Cover with the **♣K**. Dummy's Ace wins, but now partner's ♣J9 are promoted. Without covering, declarer plays the Queen, you play low, dummy plays low, Queen wins. Then declarer leads the Ten toward dummy's Ace — three tricks.\n\n## When NOT to Cover\n\nCovering isn't always right. The key question is: **can covering promote anything for your side?**\n\n### Don't Cover When Nothing Gets Promoted\n\n```\n         ♣ A K Q 3 (dummy)\n   ♣ J 7 4 (you)          ♣ 9 8 2 (partner)\n         ♣ T 6 5 (declarer)\n```\n\nDeclarer leads the ♣T from hand. Should you cover with the Jack? **No!** Dummy has AKQ — even if you cover, declarer has four tricks anyway. Your cover gains nothing because there's nothing to promote for your side.\n\n### Don't Cover the First of Touching Honors\n\nIf dummy has ♣QJT and leads the Queen, don't cover. Wait for the **last** of the touching honors.\n\n```\n         ♣ Q J T 3 (dummy)\n   ♣ K 7 4 (you)          ♣ 9 8 6 (partner)\n         ♣ A 5 2 (declarer)\n```\n\nDummy leads the ♣Q. You can see ♣QJT — three touching honors. **Don't cover the Queen.** If you do, declarer plays the Ace, and the JT are both winners — three tricks.\n\nInstead, play low on the Queen. Play low on the Jack. Cover the **Ten** (the last honor in sequence). Now declarer's Ace wins, but partner's ♣9 is promoted. Declarer gets only 3 tricks instead of 4.\n\nThe rule: **cover the last of the touching honors.**\n\n## Summary\n\n| Situation | Action |\n|-----------|--------|\n| Declarer leads a small card toward dummy | Play LOW |\n| Declarer leads an honor you can cover | COVER (if it promotes partner's cards) |\n| Declarer leads an honor but covering promotes nothing | Play LOW |\n| Dummy leads the first of touching honors (QJT, JT9) | Wait — cover the LAST one |"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Second-Hand Play Scenarios",
+      "problems": [
+        {
+          "id": "shp-1",
+          "question": "Declarer leads a low spade toward dummy's ♠KJ5. You hold ♠A83 as second hand. What do you play?",
+          "options": ["A) ♠A (grab your trick)", "B) ♠8 (second hand low)", "C) ♠3 (lowest card)", "D) It depends on what's in dummy"],
+          "correctAnswer": "C",
+          "explanation": "Second hand low! Play the ♠3 smoothly. Let declarer guess whether to play the King or Jack from dummy. Your Ace will capture whichever honor declarer plays later.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "shp-2",
+          "question": "Declarer leads the ♥J from hand. You hold ♥Q84 as second hand. Dummy has ♥A73. Should you cover?",
+          "options": ["A) Yes — cover an honor with an honor (play the Queen)", "B) No — second hand low always", "C) Only if partner has signaled", "D) Play the ♥8 to signal"],
+          "correctAnswer": "A",
+          "explanation": "Cover the Jack with the Queen! Dummy's Ace wins, but now partner's intermediate hearts (like the T or 9) may be promoted. Covering forces two honors for one trick.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "shp-3",
+          "question": "Dummy leads the ♣Q from ♣QJT5. You hold ♣K72. Should you cover the Queen?",
+          "options": ["A) Yes — always cover an honor", "B) No — wait and cover the Ten (the last of the touching honors)", "C) No — never cover", "D) Cover only if you can see partner has something to promote"],
+          "correctAnswer": "B",
+          "explanation": "Don't cover the first of touching honors. Dummy has QJT — let the Q and J go by, then cover the T (the last honor in sequence). This maximizes the chance of promoting something for your side.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "shp-4",
+          "question": "Declarer leads a low diamond toward dummy's ♦Q53. You hold ♦K84. What do you play?",
+          "options": ["A) ♦K (grab the trick before the Queen wins)", "B) ♦4 (second hand low)", "C) ♦8 (middle card)", "D) ♦K only if declarer is likely to play the Queen"],
+          "correctAnswer": "B",
+          "explanation": "Second hand low. If you play the King, declarer plays low from dummy and wins the Queen later — you've used your King to capture air. Play low and let declarer decide. If declarer finesses the Queen, your King captures it next time. If declarer plays low from dummy, partner might win.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "shp-5",
+          "question": "Declarer leads the ♠T from hand. Dummy has ♠AKQ3. You hold ♠J74. Should you cover?",
+          "options": ["A) Yes — cover an honor with an honor", "B) No — dummy's AKQ means covering promotes nothing", "C) Yes — always cover the Ten", "D) It depends on how many spades partner has"],
+          "correctAnswer": "B",
+          "explanation": "Dummy has AKQ — covering with your Jack can't promote anything. Declarer will take four tricks regardless. Save your Jack; don't waste it when covering gains nothing.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Second hand low is the default — don't commit your high cards before you need to. The exception: cover an honor with an honor when it will promote partner's intermediate cards. But don't cover when nothing can be promoted, and don't cover the first of touching honors — wait for the last."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Why do you 'cover an honor with an honor'?",
+      "options": ["To win the trick immediately", "To force declarer to use two high cards for one trick, promoting partner's intermediates", "Because you should always play your highest card"],
+      "correctIndex": 1,
+      "explanation": "Covering forces declarer to spend two honors to win one trick, which promotes your partner's intermediate cards (like 9s and 10s) into winners.",
+      "encourageCorrect": "Perfect! The goal is promotion — making partner's smaller cards good. That's the whole point of covering.",
+      "encourageIncorrect": "Covering is about promotion: by putting your honor on declarer's honor, you force two high cards to die on one trick, making partner's smaller cards into winners."
+    },
+    {
+      "question": "Dummy leads the ♣Q from QJT8. You hold ♣K53. Should you cover the Queen?",
+      "options": ["Yes — always cover an honor", "No — wait and cover the last touching honor (the 10)", "No — never cover dummy's leads"],
+      "correctIndex": 1,
+      "explanation": "When dummy has touching honors (QJT), don't cover the first one. Wait and cover the last — the Ten. This maximizes your defensive potential.",
+      "encourageCorrect": "Exactly! Cover the LAST of the touching honors. Covering too early wastes your King.",
+      "encourageIncorrect": "When dummy has QJT, don't cover the Q. Let Q and J go by, then cover the T. Covering the last touching honor gives your side the best chance."
+    }
+  ]
+}

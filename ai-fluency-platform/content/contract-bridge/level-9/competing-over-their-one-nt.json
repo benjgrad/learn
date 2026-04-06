@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "title": "Competing Over Their 1NT",
+    "description": "Disrupting strong NT openings",
+    "level": "level-9",
+    "slug": "competing-over-their-one-nt",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Opponents' Best Auction\n\nWhen the opponents open 1NT, they've described a very precise hand: 15-17 HCP, balanced. Responder can use Stayman, transfers, and other tools to find the perfect contract. It's their most efficient auction.\n\nWhich is exactly why you want to disrupt it.\n\nCompeting over 1NT is risky — the opener has a known strong hand, so you're bidding into strength. But the potential gains are significant: you might find your own contract, direct a good lead, or simply make their auction harder.\n\n## Natural Overcalls\n\nThe simplest approach: just bid your suit.\n\n- **2♣, 2♦, 2♥, or 2♠** = a good suit, roughly 10+ HCP, competing\n\nThis works, but it only shows one suit. You might have a two-suited hand that natural bidding can't describe. That's where conventional defenses come in.\n\n## DONT (Disturb Opponents' No Trump)\n\n**DONT** is a popular conventional defense against 1NT. Each bid shows a specific hand type:\n\n| Bid | Shows |\n|-----|-------|\n| Double | A single-suited hand (any suit). Partner bids 2♣, and you pass or correct to your suit. |\n| 2♣ | Clubs + a higher suit (5+♣ and 4+ in a higher suit) |\n| 2♦ | Diamonds + a major (5+♦ and 4+ in ♥ or ♠) |\n| 2♥ | Both majors (5+♥ and 4+♠, or 4+♥ and 5+♠) |\n| 2♠ | Spades (natural, single-suited) |\n\nThe advantage: DONT lets you show two-suited hands efficiently, which is common when competing.\n\n## Cappelletti (Hamilton)\n\nAnother popular defense, sometimes called **Hamilton**:\n\n| Bid | Shows |\n|-----|-------|\n| Double | Penalty (15+ HCP, wanting to defend) |\n| 2♣ | Single-suited hand (any suit). Partner bids 2♦, and you pass or bid your suit. |\n| 2♦ | Both majors (5+♥ and 5+♠) |\n| 2♥ | Hearts + a minor (5+♥ and 5+ in a minor) |\n| 2♠ | Spades + a minor (5+♠ and 5+ in a minor) |\n| 2NT | Both minors (5+♦ and 5+♣) |\n\nCappelletti is more structured than DONT and handles all two-suited combinations.\n\n## When to Compete Over 1NT\n\nThis is a risk-reward calculation. Consider:\n\n### Factors Favoring Action\n- **Good suit quality** — strong intermediates and honors\n- **Distribution** — 5-5 or 6-4 hands play well\n- **Favorable vulnerability** — you're not vulnerable, they are\n- **Position** — direct seat (immediately over 1NT) is better than balancing seat for interference\n\n### Factors Favoring Passing\n- **Vulnerability** — you're vulnerable, they're not. Going down doubled is very expensive.\n- **Balanced hand** — flat hands don't compete well\n- **Poor suit quality** — if your suit is weak, you might get doubled and crushed\n- **Moderate strength** — with 12-14 balanced HCP, you're sitting behind strength. Don't poke the bear.\n\n## The Risk\n\nHere's the uncomfortable truth: when you compete over 1NT, the opener has 15-17 HCP. If responder has a decent hand too, they have the majority of the points. Your overcall is vulnerable to a penalty double.\n\n### The Nightmare Scenario\n\nYou overcall 2♥ on ♥KJT84 and 9 HCP. Responder has ♥AQ73 and passes. Opener reopens with a double. Now you're playing 2♥ doubled with a 4-1 trump break, down 3 vulnerable. That's -800, and they might not even have had game their way.\n\nTo avoid this: respect vulnerability, have good suits, and don't compete with marginal hands when vulnerable.\n\n## Choosing Your Convention\n\nBoth DONT and Cappelletti work well. The best one is the one your partnership remembers and practices. Most tournament players play one of these or a similar defense. The key isn't which convention — it's having an agreement and using it wisely.\n\nFor most improving players, natural overcalls (just bidding your suit with a good hand) work fine. Add a conventional defense when you're ready for the extra memory load."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Competing Over Their 1NT",
+      "problems": [
+        {
+          "id": "cnt-1",
+          "question": "RHO opens 1NT (15-17). You hold ♠AQJ85 ♥K74 ♦J93 ♣82. Not vulnerable vs vulnerable. Do you act?",
+          "options": ["A) Yes — bid 2♠ (natural overcall), good suit at favorable vulnerability", "B) No — they have the points, don't risk it", "C) Double for penalty", "D) 2♣ (some convention)"],
+          "correctAnswer": "A",
+          "explanation": "At favorable vulnerability (not vul vs vul), with a strong 5-card spade suit and 10 HCP, a 2♠ overcall is reasonable. You direct a spade lead and might find a fit. The vulnerability protects you from expensive penalties.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "cnt-2",
+          "question": "RHO opens 1NT. You hold ♠J7432 ♥Q84 ♦K73 ♣95. Vulnerable vs not vulnerable. Do you act?",
+          "options": ["A) Yes — bid 2♠, you have 5 spades", "B) No — bad suit, bad vulnerability, moderate values. Pass.", "C) Double — penalty", "D) Yes — always compete over 1NT"],
+          "correctAnswer": "B",
+          "explanation": "Terrible combination: vulnerable vs not, weak suit (J7432), and only 7 HCP. If you bid 2♠ and get doubled, you could go down 2 or 3 vulnerable for a huge penalty. Pass is the disciplined call.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "cnt-3",
+          "question": "Playing DONT, RHO opens 1NT. You hold ♠3 ♥AKJ85 ♦74 ♣QJT93. What do you bid?",
+          "options": ["A) Double (single-suited)", "B) 2♣ (clubs + a higher suit)", "C) 2♥ (both majors)", "D) 2♦ (diamonds + a major)"],
+          "correctAnswer": "B",
+          "explanation": "In DONT, 2♣ shows clubs + a higher suit. You have clubs (5) + hearts (5) — that's clubs + a higher suit. Bid 2♣. Partner will bid 2♦ to ask for your major, or pass with long clubs.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "cnt-4",
+          "question": "Playing Cappelletti, RHO opens 1NT. You hold ♠KQT85 ♥AJ974 ♦6 ♣83. What do you bid?",
+          "options": ["A) 2♣ (single-suited hand)", "B) 2♦ (both majors)", "C) 2♥ (hearts + a minor)", "D) 2♠ (spades + a minor)"],
+          "correctAnswer": "B",
+          "explanation": "In Cappelletti, 2♦ shows both majors (5+/5+). With 5 spades and 5 hearts, bid 2♦. Partner chooses the major they prefer.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "cnt-5",
+          "question": "RHO opens 1NT. You hold ♠AK4 ♥QJ8 ♦KT73 ♣J95. You have 15 HCP. Should you act?",
+          "options": ["A) Double for penalty — you have as many points as opener", "B) Pass — your hand is balanced and sitting behind strength", "C) 1NT overcall — show your strength", "D) Bid your longest suit"],
+          "correctAnswer": "A",
+          "explanation": "With 15 HCP balanced, sitting directly over the 1NT opener, a penalty double is attractive. You have nearly as many points as opener, and your cards are positioned behind their strength. Responder may have a weak hand, and you could collect a juicy penalty.",
+          "difficulty": "intermediate"
+        }
+      ]
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is the biggest risk when competing over an opponent's 1NT opening?",
+      "options": ["Finding no fit with partner", "Getting doubled and going down heavily — the opener has a known strong hand", "Revealing information about your hand"],
+      "correctIndex": 1,
+      "explanation": "The opener has 15-17 HCP. If responder also has values, they can double you for a big penalty. Vulnerability and suit quality are critical.",
+      "encourageCorrect": "Right! Bidding into a known strong hand is risky — especially if you're vulnerable with a weak suit.",
+      "encourageIncorrect": "The big danger is the penalty double. With 15-17 HCP behind you, the opponents can punish a poorly timed overcall."
+    },
+    {
+      "question": "What are the most important factors when deciding whether to compete over 1NT?",
+      "options": ["Your point count and balanced shape", "Suit quality and vulnerability", "The number of conventions you play"],
+      "correctIndex": 1,
+      "explanation": "A strong suit protects you from disaster, and favorable vulnerability means the penalties are affordable. Points alone don't make an overcall safe.",
+      "encourageCorrect": "That's the key! Good suits and the right vulnerability make competing worthwhile. Without both, pass.",
+      "encourageIncorrect": "Suit quality (can you withstand a bad trump break?) and vulnerability (how expensive is going down?) are the critical factors."
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "Counting on Defense",
+    "description": "Counting declarer's points, shape, and tricks",
+    "level": "level-7",
+    "slug": "counting-on-defense",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Expert's Edge\n\nIf you watch expert defenders, you'll notice something remarkable: they seem to know what everyone holds. They don't — but they **count**, and counting narrows the possibilities until only one layout makes sense.\n\nThere are three things to count on defense:\n\n1. **High card points** — how many HCP does declarer have?\n2. **Distribution** — how many cards does declarer have in each suit?\n3. **Tricks** — how many tricks can declarer take?\n\n## Counting HCP\n\nThe total HCP in the deck is 40. You can see your hand (13 cards) and dummy (13 cards). The remaining 26 cards are split between declarer and your partner.\n\nIf declarer opened 1NT (showing 15-17 HCP), that's a huge clue. As play progresses and declarer shows up with specific cards (an Ace here, a King there), you can track exactly how many HCP declarer has shown and how many remain.\n\n### Example: The HCP Trail\n\nDeclarer opened 1NT (15-17 HCP). During play, declarer has shown:\n- ♠A (4 HCP)\n- ♥KQ (5 HCP)\n- ♦A (4 HCP)\n- ♣K (3 HCP)\n\nThat's 16 HCP shown. Declarer opened 15-17, so declarer has 0-1 HCP left unaccounted for. That means:\n- Declarer does NOT have the ♣Q (2 HCP would make 18 — too many)\n- Declarer might have a Jack (1 HCP)\n\nThis tells you: **partner has the ♣Q!** You can plan your defense accordingly.\n\n## Counting Distribution\n\nAs play progresses, you learn declarer's shape — suit by suit.\n\n### Clues from the Auction\n\n| Declarer's Bid | What It Tells You |\n|---------------|-------------------|\n| 1NT opening | Balanced (4-3-3-3, 4-4-3-2, or 5-3-3-2) |\n| Opened 1♥, rebid 2♥ | 6+ hearts |\n| Bid two suits (1♠ then 2♦) | 5+ spades, 4+ diamonds |\n| Opened 1♣, raised partner's hearts | 4 hearts, probably 3+ clubs |\n\n### Clues from the Play\n\nAs declarer plays each suit, count how many they follow with. If declarer follows to three rounds of clubs and then shows out (can't follow), declarer started with exactly 3 clubs.\n\nOnce you know declarer's length in three suits, you know the fourth: it's 13 minus the other three.\n\n**Example:** Declarer follows to 3 spades, 5 hearts (declarer's trump suit), and 2 diamonds. That's 3 + 5 + 2 = 10. Declarer has 13 - 10 = **3 clubs**.\n\n## Counting Tricks\n\nAs a defender, ask: **How many tricks can declarer take?** If you can count enough tricks to set the contract, you can be patient. If declarer has enough tricks to make it, you must act fast.\n\n### Example\n\nDeclarer is in 3NT (needs 9 tricks). You can count declarer's visible potential tricks:\n- 3 spades (AKQ are visible between hand and dummy)\n- 2 hearts (AK)\n- 4 diamonds (after establishing the suit)\n\nThat's 9 tricks — enough! If you don't cash your defensive tricks NOW, declarer will make it. Time for active defense (more on this in the next lesson).\n\n## Putting Counting Together\n\nYou're East defending 3NT. Declarer (South) opened 1NT (15-17).\n\n```\n         ♠ K 7 5\n         ♥ Q 8 4\n         ♦ Q J T 8 3\n         ♣ 9 5\n\n                     ♠ J 8 3 (you)\n                     ♥ K T 7 3\n                     ♦ A 6 4\n                     ♣ J 7 3\n```\n\nPartner leads the ♣4. Dummy plays ♣5, you play ♣J, declarer wins ♣Q.\n\nDeclarer plays ♦9 from hand. What do you know?\n\n**HCP count:** Declarer showed the ♣Q (2 HCP). 1NT = 15-17. Declarer has 13-15 more HCP somewhere.\n\n**Distribution:** Declarer is attacking diamonds, trying to establish dummy's ♦QJT83. You have ♦A64 — you can stop this suit.\n\n**Key question:** When should you win the ♦A? If partner signals count (say, partner plays ♦2 = odd = 3 diamonds), then declarer has 2 diamonds. Win the ♦A on the **second** round — this leaves declarer with no diamonds, stranding dummy's established cards.\n\nThis is counting in action: you knew partner's length, deduced declarer's length, and timed your play perfectly."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Count Declarer's Remaining HCP",
+      "solution": "Declarer opened 1NT (15-17 HCP). During play, declarer has shown the ♠A, ♥KQ, and ♦A. That's 4 + 3 + 2 + 4 = 13 HCP. How many HCP does declarer have left? What can you infer?\n\nAnswer: Declarer has shown 13 HCP and opened 15-17. So declarer has 2-4 HCP remaining. That could be a Queen (2 HCP), a King (3 HCP), or a Queen and a Jack (3 HCP), or a King and a Jack (4 HCP). You can narrow this down by looking at which honors are still unaccounted for and which suits declarer hasn't played yet. If the ♣KQ are the only missing honors and declarer needs 2-4 more HCP, declarer could have one or both."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Why is counting HCP more useful against a 1NT opening than against a 1♥ opening? (Hint: think about the range of HCP shown by each bid.)",
+        "Can you think of a defensive situation where knowing declarer's exact shape (e.g., 5-3-3-2) would help you choose the right play?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Counting is the expert's secret weapon. Track declarer's HCP (using the auction as a starting point), count their distribution (13 cards must add up), and count their potential tricks to know whether to be active or passive. The auction is your greatest source of information — use it."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Declarer opened 1NT (15-17 HCP) and has shown 15 HCP during play. How many HCP does declarer have left?",
+      "options": ["Exactly 0", "0 to 2", "At least 5"],
+      "correctIndex": 1,
+      "explanation": "Declarer opened 15-17 and has shown 15. Declarer has 0-2 HCP remaining. You can narrow down exactly which missing honors declarer might hold.",
+      "encourageCorrect": "Nice counting! Knowing declarer's leftover HCP lets you place the remaining honors with confidence.",
+      "encourageIncorrect": "Declarer showed 15 from a 15-17 range, so 0-2 HCP remain. This means declarer has at most a Queen or a couple of Jacks left."
+    },
+    {
+      "question": "Declarer followed to 4 spades, 3 hearts, and 2 diamonds. How many clubs does declarer have?",
+      "options": ["3 clubs", "4 clubs", "5 clubs"],
+      "correctIndex": 1,
+      "explanation": "Every hand has 13 cards. 4 + 3 + 2 = 9 cards accounted for. 13 - 9 = 4 clubs.",
+      "encourageCorrect": "Perfect! 13 minus what you've seen equals what's left. Simple subtraction, powerful results.",
+      "encourageIncorrect": "A hand has 13 cards total. 4 spades + 3 hearts + 2 diamonds = 9. So 13 - 9 = 4 clubs."
+    }
+  ]
+}

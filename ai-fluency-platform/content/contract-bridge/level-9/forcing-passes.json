@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "Forcing Passes and Penalty Doubles",
+    "description": "High-level competitive decisions",
+    "level": "level-9",
+    "slug": "forcing-passes",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## When Pass Doesn't Mean \"I'm Done\"\n\nIn most auctions, passing means \"I have nothing more to say.\" But in high-level competitive auctions — where your side has shown game-going values and the opponents compete — your pass takes on a new meaning. It becomes **forcing.**\n\nA **forcing pass** says: \"I'm not sure whether to bid higher or double them. I'm passing the decision to you, partner. But you MUST act — you cannot pass.\"\n\n## When Does a Forcing Pass Apply?\n\nA pass is forcing when:\n1. **Your side has bid (or clearly can make) game** — you've established game-going values\n2. **The opponents compete above your game level** — or at a level where you have a decision\n3. **Your pass would let them play an undoubled contract** — which your side \"owns\"\n\n### Classic Example\n\n| West | North | East | South |\n|------|-------|------|-------|\n| 1♠ | 2♥ | 4♠ | ? |\n\nYour side opened 1♠ and East jumped to 4♠. You (North) overcalled 2♥ with a good hand. South has a decision:\n\nActually, let's use a cleaner example:\n\n| West | North | East | South |\n|------|-------|------|-------|\n| — | 1♥ | Pass | 3♥ |\n| 4♠ | ? | | |\n\nYour side bid 1♥ - 3♥ (invitational). West bids 4♠. Now you (North, the opener) must decide. If you have a strong hand, this is a forcing-pass situation — you've shown game interest, and the opponents have competed to 4♠.\n\nWait — let's be more precise. Forcing passes most clearly apply when your side has **bid game or made a game-forcing auction.** Let's look at the clearest case:\n\n| North | East | South | West |\n|-------|------|-------|------|\n| 1♥ | Pass | 4♥ | 4♠ |\n| ? | | | |\n\nYour side bid game (4♥). West competes with 4♠. Your pass here is **forcing** — partner must either bid 5♥ or double 4♠. Passing 4♠ out is not an option because your side \"owns\" the 4-level.\n\n## Partner's Options After a Forcing Pass\n\nWhen you make a forcing pass, partner must choose between:\n\n1. **Bid higher** (e.g., 5♥) — \"I think we can make this\"\n2. **Double** — \"I think we can beat them\"\n\nPartner should never pass (that would sell out to an undoubled contract when you've shown game values).\n\n## How to Decide: Bid or Double?\n\nThe guiding principle:\n\n> **Bid with shape, double with defense.**\n\n### Bid 5♥ When:\n- You have extreme distribution (void in their suit, extra trump length)\n- Your hand is offensively oriented — lots of tricks in your own suits\n- You have little defense against their contract\n\n### Double 4♠ When:\n- You have defensive values (honors in their suit, balanced hand)\n- You're not sure 5♥ makes\n- Your high cards will take tricks on defense\n\n### Example\n\nAuction: 1♥ - 4♥ - 4♠ to you.\n\n**Hand A:** ♠— ♥KQJ874 ♦AKJ5 ♣95\nBid **5♥**! You have a spade void (no defensive tricks there) and great playing strength. Your hand is all offense.\n\n**Hand B:** ♠KQ7 ♥AJ953 ♦K84 ♣Q3\n**Double.** Your ♠KQ will take tricks behind their spade suit. You have defensive values everywhere. 5♥ might go down, but 4♠ doubled is probably going down too.\n\n## The Five-Level Decision\n\nThe forcing pass often leads to the hardest decision in competitive bridge: **\"Do I bid 5♥ or double their 4♠?\"**\n\nRemember the old saying: **\"The five-level belongs to the opponents.\"** This doesn't mean you should never bid at the 5-level — it means that bidding there is inherently risky, and you should have a clear reason.\n\nAt the 5-level:\n- **Bidding 5-of-a-major** means you need 11 tricks — one more than game\n- **Doubling** means you believe their contract is going down — and you collect the penalty\n- **The wrong choice** can be very costly: bidding 5♥ down 1 when 4♠ was going down 2 is a huge swing\n\n## Forcing Pass Situations to Recognize\n\n| Auction | Forcing? |\n|---------|----------|\n| 1♠ - 4♠ - 5♦ | Yes — your side bid game |\n| 1♥ - 2♥ - 3♠ | No — your side hasn't shown game values |\n| 2♣ - 2♦ - 2♠ - 5♦ | Yes — 2♣ is game-forcing, your side owns the auction |\n| 1♦ - 3♦ (invit.) - 4♠ | Borderline — depends on whether opener would have bid game |\n\nThe key test: **has your side committed to game?** If yes, your pass at a high level is forcing."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Bid or Double?",
+      "problems": [
+        {
+          "id": "fp-1",
+          "question": "Auction: You 1♥ - Partner 4♥ - RHO 4♠. You hold ♠A5 ♥AKJ83 ♦Q74 ♣K85. What do you do?",
+          "options": ["A) 5♥ — bid one more", "B) Double — your defensive values are strong", "C) Pass — let partner decide", "D) Pass (forcing) — give partner the choice"],
+          "correctAnswer": "B",
+          "explanation": "You have strong defensive values: ♠A (one spade trick for sure), ♥AK (entries), ♦Q, ♣K. Your hand takes tricks on defense. Double and collect the penalty rather than risking 5♥.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "fp-2",
+          "question": "Auction: You 1♥ - Partner 4♥ - RHO 4♠. You hold ♠— ♥AQT974 ♦KQJ83 ♣95. What do you do?",
+          "options": ["A) Double — they can't make 4♠ against your good hand", "B) 5♥ — your hand is all offense with great distribution", "C) Pass (forcing)", "D) 5♦ — show your second suit"],
+          "correctAnswer": "B",
+          "explanation": "With a spade void, 6-5 shape, and a hand that's pure offense, bid 5♥. You have no defense against 4♠ (you'll never take a spade trick!), but you might well make 5♥ with this distributional hand.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "fp-3",
+          "question": "Auction: Partner 1♠ - You 4♠ - LHO 5♦. Partner passes (forcing). You hold ♠KJ84 ♥A83 ♦74 ♣Q952. What do you do?",
+          "options": ["A) 5♠ — bid one more", "B) Double — partner passed, suggesting defense, and you have some defensive values", "C) Pass — maybe they'll make it", "D) 6♠ — go for slam"],
+          "correctAnswer": "B",
+          "explanation": "Partner's forcing pass says 'you decide.' Your hand has defensive values (♥A, ♣Q) and only 4 trumps. Your 2 small diamonds mean their suit isn't running freely. Double — bid with shape, double with defense.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "fp-4",
+          "question": "Auction: 1♥ by you - 2♥ by partner - 3♠ by RHO. Is your pass forcing?",
+          "options": ["A) Yes — you opened and partner raised", "B) No — your side hasn't committed to game (2♥ is only a single raise)", "C) Yes — you always have a forcing pass after opening", "D) It depends on your hand"],
+          "correctAnswer": "B",
+          "explanation": "Forcing passes apply when your side has committed to game. A 1♥ - 2♥ auction shows about 18-22 combined points — NOT game-going. Your pass of 3♠ is just a regular pass.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "fp-5",
+          "question": "What does 'bid with shape, double with defense' mean in a forcing-pass situation?",
+          "options": ["A) Bid if your hand is strong, double if it's weak", "B) Bid if you have extreme distribution and offensive tricks; double if you have balanced values that take tricks on defense", "C) Bid if you have a long suit, double if you have a short suit", "D) Always double — it's safer"],
+          "correctAnswer": "B",
+          "explanation": "Shape = distributional hands (voids, long suits) that generate tricks on offense but not defense. Defense = balanced hands with honors that take tricks against their contract. Let your hand's character guide the decision.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "The Five-Level Decision",
+      "solution": "Both vulnerable. The auction:\n\n| You | LHO | Partner | RHO |\n|-----|-----|---------|-----|\n| 1♠ | 2♥ | 4♠ | 5♥ |\n| ? | | | |\n\nYou hold: ♠AKJ95 ♥Q3 ♦K74 ♣A83\n\nThis is a forcing pass situation — your side bid game (4♠). RHO competed to 5♥. What do you do?\n\n**Analyze your hand:**\n- Offensive: 5 good spades, 17 HCP. 5♠ needs 11 tricks.\n- Defensive: ♥Q (could take a trick in their suit), ♦K, ♣A — genuine defensive values.\n- Shape: relatively balanced (5-2-3-3). Not extreme distribution.\n\n**The verdict:** This hand screams DEFENSE. Your ♥Q is sitting over the heart bidder (RHO). Your ♦K and ♣A will take tricks on defense. You're balanced — not the offensive powerhouse that wants to bid 5♠.\n\n**Double.** You expect to beat 5♥ by at least 1 trick (likely 2). Collecting +200 or +500 is better than risking 5♠ which might go down.\n\nIf your hand were ♠AKJ953 ♥— ♦KJ74 ♣A8 instead (heart void, 6-4 shape), you'd bid 5♠ — that hand has no defense but great offense."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "When is a pass 'forcing' in a competitive auction?",
+      "options": ["Whenever you have a good hand", "When your side has shown game-going values and the opponents compete", "After any double"],
+      "correctIndex": 1,
+      "explanation": "A forcing pass applies when your side has committed to game. Your pass tells partner: 'You must bid or double — we can't let them play this undoubled.'",
+      "encourageCorrect": "That's it! Forcing passes only apply when your side has established game-going strength.",
+      "encourageIncorrect": "A pass is forcing only when your side has shown game-going values. It means partner must act — bid or double."
+    },
+    {
+      "question": "In a forcing-pass situation, how do you decide between bidding higher and doubling?",
+      "options": ["Bid with more points, double with fewer", "Bid with shape (distributional offense), double with defense (balanced values)", "Always double — it's safer"],
+      "correctIndex": 1,
+      "explanation": "Bid with shape (voids, extra length, offensive tricks). Double with defense (honors in their suit, balanced hand). Let your hand's character guide the decision.",
+      "encourageCorrect": "Right! Offensive hands bid, defensive hands double. It's one of bridge's most elegant principles.",
+      "encourageIncorrect": "The key is offense vs defense. Distributional hands bid (they generate tricks); balanced hands double (they take tricks on defense)."
+    }
+  ]
+}

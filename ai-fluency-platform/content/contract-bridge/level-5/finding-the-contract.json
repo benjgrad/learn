@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "Finding the Contract",
+    "description": "Full uncontested auctions from opening to final contract",
+    "level": "level-5",
+    "slug": "finding-the-contract",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Tracing Complete Auctions\n\nYou've learned every piece of the uncontested bidding puzzle: opening bids, responses, opener's rebid, and responder's rebid. Now let's put it all together by tracing complete auctions from start to finish. In each example, we'll see both hands and follow the partnership's reasoning at every step.\n\n## Example 1: Finding a Major-Suit Game\n\n**North:** ♠AK873 ♥Q4 ♦KJ3 ♣A95 (17 HCP)\n**South:** ♠Q62 ♥J873 ♦A84 ♣K76 (11 HCP)\n\n| North | South | Meaning |\n|-------|-------|---------|\n| 1♠ | | 13-21 points, 5+ spades |\n| | 2♠ | 6-10 points, 3+ spades (actually 11, on the high side) |\n| 4♠ | | I have extras (17 points). With your 6-10, we should have game. |\n\n**Analysis:** North has 17 HCP — medium-to-maximum range. After South's single raise (which could be 6-10), North decides to bid game directly. Even opposite a minimum raise of 6 points, the combined total could be 23 — worth a shot at game. And opposite South's actual 11 points, 4♠ is an excellent contract.\n\nCombined: ♠AK873/Q62 = 8-card fit. 28 combined points. 4♠ is the right spot.\n\n## Example 2: Stopping in Partscore\n\n**North:** ♠J5 ♥KQ874 ♦A93 ♣Q84 (13 HCP)\n**South:** ♠KT83 ♥J5 ♦QT74 ♣J93 (7 HCP)\n\n| North | South | Meaning |\n|-------|-------|---------|\n| 1♥ | | 13-21 points, 5+ hearts |\n| | 1♠ | 6+ points, 4+ spades |\n| 1NT | | Minimum (12-14 balanced), no spade support, no second suit |\n| | Pass | I only have 7 points. 1NT is fine. |\n\n**Analysis:** North opens 1♥ (5 hearts, 13 points). South doesn't have heart support but has 4 spades, so bids 1♠. North has only 2 spades and a balanced minimum — rebids 1NT. South, with just 7 HCP and no reason to bid further, passes. The partnership stops at 1NT — a good partscore.\n\nCombined: 20 points. No 8-card fit anywhere. 1NT is the right level.\n\n## Example 3: The Notrump Route After a Minor Opening\n\n**North:** ♠K95 ♥AJ4 ♦AQT73 ♣Q8 (17 HCP)\n**South:** ♠AQ3 ♥KT85 ♦J4 ♣J974 (11 HCP)\n\n| North | South | Meaning |\n|-------|-------|---------|\n| 1♦ | | 13-21 points, 4+ diamonds |\n| | 1♥ | 6+ points, 4+ hearts (showing my major first) |\n| 2NT | | 18-19 HCP, balanced, no 4-card heart support |\n| | 3NT | I have 11 points. Combined with your 18-19, we have 29-30. Game! |\n\n**Analysis:** North opens 1♦ with 17 HCP and 5 diamonds. South bids 1♥ to show the 4-card major. North doesn't have 4 hearts but has 18-19 balanced (well, 17 — let's say North upgrades slightly with the good diamond suit and tens) — rebids 2NT. South, with 11 points, knows the combined total is 28-30 and bids 3NT.\n\nCombined: 28 points, balanced. 3NT is the ideal contract.\n\n## Example 4: Navigating a Two-Suited Hand\n\n**North:** ♠AQJ85 ♥3 ♦KJ974 ♣A8 (15 HCP)\n**South:** ♠K4 ♥AJ874 ♦Q83 ♣T65 (10 HCP)\n\n| North | South | Meaning |\n|-------|-------|---------|\n| 1♠ | | 13-21 points, 5+ spades |\n| | 2♥ | 10+ points, 5+ hearts (new suit at 2-level, forcing) |\n| 3♦ | | I have a second suit (diamonds). Not minimum. |\n| | 3♠ | I have 2 spades — preference back to your first suit |\n| | | (also showing some extra values by bidding at the 3-level) |\n| 4♠ | | I'll take a shot at game with my 15 points and 5-card suit. |\n\n**Analysis:** This auction shows the beauty of the bidding conversation. North shows spades, South shows hearts, North shows diamonds, and South gives preference back to spades. Even with only a 5-2 spade fit, the combined values (25 points) and North's distributional strength make 4♠ reasonable.\n\n## The Pattern\n\nEvery uncontested auction follows the same framework:\n\n1. **Opener describes** their hand (opening bid)\n2. **Responder describes** their hand (response)\n3. **Opener refines** the picture (rebid)\n4. **Responder makes the final decision** (or both agree)\n\nAt each step, the partnership's picture gets sharper. The opening bid is a broad brush stroke. The response adds color. The rebid fills in the details. And by the end, both players know enough to place the contract."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Trace an Auction",
+      "solution": "Here's how the auction should go:\n\n**North:** ♠AK873 ♥Q4 ♦KJ3 ♣A95 (17 HCP)\n**South:** ♠Q62 ♥J873 ♦A84 ♣K76 (11 HCP)\n\n1. North opens **1♠** (5+ spades, 13-21 points).\n2. South responds **2♠** (3+ spades, 6-10 points -- South is actually on the high side with 11, but a single raise is the standard bid with 3-card support and this point count).\n3. North has 17 points -- medium range. After a single raise, this is a game try. North could bid 3♦ (game try) or jump to 4♠. With 17 good points and a strong 5-card suit, North bids **4♠** directly.\n\nFinal contract: 4♠. Combined: 28 points, 8-card spade fit. An excellent game contract."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think about the four auction examples above. In which example did the partnership learn the most from a single bid? Why was that bid so informative?",
+        "When two partners have a fit in a minor but enough combined points for game, they often end up in 3NT instead of 5♣/5♦. Can you explain why in your own words?"
+      ]
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "In an uncontested auction, how many bids does it typically take for the partnership to place the final contract?",
+      "options": ["2 bids (opening and response)", "3-4 bids (opening, response, and rebid(s))", "6+ bids"],
+      "correctIndex": 1,
+      "explanation": "Most uncontested auctions are resolved in 3-4 bids: opening bid, response, opener's rebid, and sometimes responder's rebid.",
+      "encourageCorrect": "Exactly! The open-respond-rebid framework usually completes the picture in just 3-4 bids.",
+      "encourageIncorrect": "Most auctions need 3-4 bids: the opening, the response, and one or two rebids to narrow down the right contract."
+    },
+    {
+      "question": "North opens 1♠, South raises to 2♠, and North has 17 points. What should North do?",
+      "options": ["Pass -- 2♠ is enough", "Make a game try or bid 4♠", "Bid 3NT instead"],
+      "correctIndex": 1,
+      "explanation": "With 17 points (medium range) after a single raise, North should try for game -- either through a game try (new suit) or by bidding 4♠ directly.",
+      "encourageCorrect": "Right! 17 points after a raise means game is in the picture. You either invite or go straight there.",
+      "encourageIncorrect": "With 17 points after a raise, game is possible. North should either make a game try (bid a new suit) or jump to 4♠ with good shape."
+    }
+  ]
+}

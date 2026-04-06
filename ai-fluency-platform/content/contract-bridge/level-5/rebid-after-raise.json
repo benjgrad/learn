@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Rebid After Partner Raises",
+    "description": "Game try, sign off, slam interest",
+    "level": "level-5",
+    "slug": "rebid-after-raise",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## You've Found a Fit -- Now How High?\n\nOne of the happiest moments in bridge is when partner raises your suit. The auction goes 1♠ - 2♠ or 1♥ - 3♥, and you know you've found an 8+ card trump fit. The question is no longer *where* to play — it's *how high*.\n\nYour rebid depends on partner's raise and your strength.\n\n## After a Single Raise (e.g., 1♠ - 2♠)\n\nPartner has shown **6-10 points with 3+ card support**. Combined with your hand, the possible ranges are:\n\n| Your Points | Combined Range | Action |\n|-------------|---------------|--------|\n| 13-15 (minimum) | 19-25 | **Pass** — game is unlikely |\n| 16-18 (medium) | 22-28 | **Game try** — game is possible |\n| 19-21 (maximum) | 25-31 | **Bid game** — enough for 4M |\n\n### Passing with Minimum\nWith 13-15 points, the combined total is likely 19-25 — not enough for game (which typically needs 25-26). Pass and play 2M.\n\n**Example:** You opened 1♥ with ♠K83 ♥AJ742 ♦Q95 ♣K4 (13 HCP).\nPartner raises to 2♥. **Pass**. You're minimum; game is too far away.\n\n### Game Try with Medium\nWith 16-18 points, game is possible if partner is near the top of their range (9-10). You make a **game try** by bidding a new suit — this asks partner to evaluate their hand in that suit specifically.\n\n> 1♠ - 2♠ - **3♦**: \"I'm interested in game. How are your diamonds? If you have help there (an honor, shortness, or length), bid 4♠. If not, go back to 3♠.\"\n\n**Example:** You opened 1♠ with ♠AKJ74 ♥K3 ♦Q964 ♣A5 (18 HCP).\nPartner raises to 2♠. Bid **3♦** — a game try. If partner has the ♦K or a diamond shortage, 4♠ is likely good.\n\nPartner's response to a game try:\n- **Bid 4M** (accept): \"Yes, I can help. I'm near the top of my range or I have good holdings in your try suit.\"\n- **Bid 3M** (decline): \"Sorry, I'm minimum with nothing useful in that suit.\"\n\n### Bidding Game with Maximum\nWith 19-21 points, bid game directly. Even if partner has a minimum (6 points), the combined total of 25+ is enough.\n\n**Example:** You opened 1♥ with ♠A3 ♥AKQ85 ♦KJ4 ♣Q93 (20 HCP).\nPartner raises to 2♥. Bid **4♥** directly.\n\n## After a Limit Raise (e.g., 1♠ - 3♠)\n\nPartner has shown **10-12 points with 3+ card support** (an invitational raise). This simplifies things enormously:\n\n| Your Points | Combined Range | Action |\n|-------------|---------------|--------|\n| 13-14 (bare minimum) | 23-26 | **Pass** — decline the invitation |\n| 15+ | 25+ | **Bid 4M** — accept the invitation |\n\nThe decision is almost always binary: pass or bid game.\n\n**Example:** You opened 1♠ with ♠AQ873 ♥K4 ♦J93 ♣Q85 (13 HCP).\nPartner bids 3♠ (limit raise). With a dead minimum, **pass**.\n\n**Example:** You opened 1♠ with ♠AQ873 ♥AJ ♦K93 ♣J85 (15 HCP).\nPartner bids 3♠ (limit raise). With 15 points, **bid 4♠** — accept the invitation.\n\n## When Slam Is Possible\n\nOccasionally, partner's raise combines with a very strong opener to suggest slam (12 tricks). The signs:\n\n- Combined points of 33+ suggest a small slam (6-level)\n- Combined points of 37+ suggest a grand slam (7-level)\n\nWith slam interest, you can:\n- **Use Blackwood (4NT)**: Asks partner how many aces they hold (covered in Level 8)\n- **Make a control bid**: Bid a new suit at the 4-level to show an ace in that suit\n\nFor now, just know that slam exploration is possible after a raise — we'll cover the tools in detail in Level 8.\n\n## Summary\n\n| Auction | Your Hand | Rebid |\n|---------|-----------|-------|\n| 1M - 2M | Minimum (13-15) | Pass |\n| 1M - 2M | Medium (16-18) | Game try (new suit) |\n| 1M - 2M | Maximum (19-21) | 4M |\n| 1M - 3M | Minimum (13-14) | Pass |\n| 1M - 3M | 15+ | 4M |"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Rebid After Partner Raises",
+      "problems": [
+        {
+          "id": "rebr-1",
+          "question": "You opened 1♠ with ♠AKJ74 ♥Q83 ♦J95 ♣K4 (14 HCP). Partner raises to 2♠. What do you rebid?",
+          "options": ["A) Pass", "B) 3♦ (game try)", "C) 3♠", "D) 4♠"],
+          "correctAnswer": "A",
+          "explanation": "14 points is minimum. Combined with partner's 6-10, you have at most 24 -- not enough for game. Pass.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rebr-2",
+          "question": "You opened 1♥ with ♠A3 ♥AKJ85 ♦Q974 ♣K8 (18 HCP). Partner raises to 2♥. What do you rebid?",
+          "options": ["A) Pass", "B) 3♦ (game try)", "C) 4♥", "D) 3♥"],
+          "correctAnswer": "B",
+          "explanation": "18 points -- medium range. Game is possible if partner has extras. Bid 3♦ (game try in your weakest side suit) to ask partner to evaluate.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "rebr-3",
+          "question": "You opened 1♠ with ♠AQ873 ♥KJ ♦AK4 ♣Q93 (19 HCP). Partner bids 3♠ (limit raise, 10-12). What do you rebid?",
+          "options": ["A) Pass", "B) 4♠", "C) 3NT", "D) 4NT (Blackwood)"],
+          "correctAnswer": "B",
+          "explanation": "Partner's limit raise shows 10-12. Your 19 points give a combined 29-31 -- easily enough for game. Bid 4♠. (Slam is possible but we'd need 33+.)",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rebr-4",
+          "question": "You opened 1♥ with ♠Q84 ♥AQT74 ♦K83 ♣J5 (13 HCP). Partner bids 3♥ (limit raise). What do you rebid?",
+          "options": ["A) Pass", "B) 4♥", "C) 3♠", "D) 3NT"],
+          "correctAnswer": "A",
+          "explanation": "Dead minimum at 13 HCP. Partner's 10-12 gives a combined 23-25. On the low end, game might fail. Decline the invitation and pass.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Game Try Decision",
+      "solution": "With ♠K3 ♥AKJ74 ♦Q96 ♣A85 (17 HCP), you're in the medium range after partner raises to 2♥. Game is possible but not certain. Make a game try by bidding 3♦ -- your weakest side suit. You're asking partner: 'Do you have help in diamonds? An honor there, or shortness?' If partner has the ♦K or ♦A, those combined with your ♦Q96 will likely produce enough tricks. If partner bids 4♥ (accepting), you play game. If partner bids 3♥ (declining), you pass -- they're minimum without diamond help."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Partner raises your 1♠ opening to 2♠. You have 17 points. What should you do?",
+      "options": ["Pass -- 2♠ is enough", "Make a game try by bidding a new suit", "Jump to 4♠"],
+      "correctIndex": 1,
+      "explanation": "With 17 points (medium range), game is possible but not guaranteed. A game try asks partner to evaluate -- they'll bid 4♠ with a maximum or 3♠ with a minimum.",
+      "encourageCorrect": "Well done! The game try is a beautiful tool -- it lets partner help make the decision.",
+      "encourageIncorrect": "17 points after a single raise means game is possible but uncertain. A game try (bidding a new suit) invites partner to help decide."
+    },
+    {
+      "question": "Partner makes a limit raise (1♥ - 3♥). You have 15 points. What do you bid?",
+      "options": ["Pass (decline)", "4♥ (accept)", "Make a game try"],
+      "correctIndex": 1,
+      "explanation": "A limit raise shows 10-12 points. With your 15, the combined total is 25-27 -- enough for game. Accept by bidding 4♥.",
+      "encourageCorrect": "That's right! 15 points opposite a limit raise is a clear acceptance.",
+      "encourageIncorrect": "Partner's limit raise shows 10-12. With 15, your combined 25-27 is enough for game. Bid 4♥ to accept."
+    }
+  ]
+}

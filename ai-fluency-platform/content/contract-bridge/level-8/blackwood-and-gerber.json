@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "Blackwood and Gerber",
+    "description": "Asking for aces and kings",
+    "level": "level-8",
+    "slug": "blackwood-and-gerber",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Slam Problem\n\nYou and partner have found a great trump fit. You have 33+ combined points. You're thinking slam. But there's a terrifying possibility: what if the opponents can cash two aces right away? All those points won't matter if they take the first two tricks.\n\nThis is the problem **Blackwood** solves. It's the most widely played convention in bridge, invented by Easley Blackwood in 1933, and it answers one simple question: **\"How many aces do you have, partner?\"**\n\n## Blackwood: 4NT Asks for Aces\n\nAfter a trump fit has been established and you're interested in slam, bidding **4NT** is Blackwood — an artificial bid asking partner to reveal how many aces they hold.\n\nPartner responds on steps:\n\n| Response | Meaning |\n|----------|--------|\n| 5♣ | 0 or 4 aces |\n| 5♦ | 1 ace |\n| 5♥ | 2 aces |\n| 5♠ | 3 aces |\n\nWhy \"0 or 4\"? Because if partner has 4 aces and you're asking, you clearly have 0 — and vice versa. The context always makes it obvious which one it is.\n\n### Example\n\nYou hold: ♠KQJ85 ♥AQ73 ♦K4 ♣A8\n\nThe auction so far:\n- You: 1♠\n- Partner: 3♠ (limit raise, ~11-12 points, 4+ spades)\n\nYou have 19 HCP plus partner's ~11-12. That's 30-31 — close to slam. But you need to check for aces. You bid **4NT**.\n\nPartner responds **5♦** — showing 1 ace. Between your 2 aces and partner's 1, you have 3 of 4. The opponents have one ace, which is fine — you bid **6♠**.\n\nIf partner had responded **5♣** (0 aces), you'd stop at 5♠. Two missing aces is too many.\n\n## Asking for Kings: 5NT\n\nAfter learning about aces, if you have all four and want to explore a grand slam (7-level), bidding **5NT** asks for kings using the same step structure:\n\n| Response | Meaning |\n|----------|--------|\n| 6♣ | 0 or 4 kings |\n| 6♦ | 1 king |\n| 6♥ | 2 kings |\n| 6♠ | 3 kings |\n\n**Important**: Bidding 5NT promises your side holds all four aces. Never ask for kings when an ace is missing.\n\n## When to Use Blackwood\n\nBlackwood is appropriate when:\n- A trump fit has been established\n- You have enough combined strength for slam (roughly 33+ points)\n- Your only concern is \"Do we have enough aces?\"\n- You can handle any response partner gives (you won't be stuck at an awkward level)\n\n## When NOT to Use Blackwood\n\nBlackwood is a blunt instrument. It tells you **how many** aces, not **which** aces. This matters in several situations:\n\n### 1. You Have a Void\nIf you're void in diamonds, you don't care about the ♦A — it's useless to you. But Blackwood can't distinguish between the ♦A (worthless) and the ♠A (critical). With a void, use cue bids instead (covered later in this level).\n\n### 2. No Trump Fit Established\nDon't bid Blackwood without a trump fit. If partner thinks you're just raising NT, the meaning is different.\n\n### 3. You Have Two Quick Losers in a Side Suit\nIf you're missing both the Ace and King of a side suit, knowing you have \"enough aces\" doesn't help — they might cash AK in that suit before you can do anything.\n\n## Gerber: 4♣ After Notrump\n\nHere's a problem: your partner opens 1NT and you want to ask for aces. But if you bid 4NT, that's a **quantitative raise** (\"I have 15-16 points, do you want to bid 6NT?\"), not Blackwood.\n\nThe solution is **Gerber**. After a 1NT or 2NT opening (or response), **4♣** is the ace-asking bid:\n\n| Response | Meaning |\n|----------|--------|\n| 4♦ | 0 or 4 aces |\n| 4♥ | 1 ace |\n| 4♠ | 2 aces |\n| 4NT | 3 aces |\n\n### Example\n\nPartner opens 1NT (15-17). You hold: ♠AKJ ♥KQJ8 ♦KQ5 ♣T74\n\nYou have 18 HCP. Partner has at least 15. Combined minimum: 33 — slam territory! Bid **4♣** (Gerber) to ask for aces.\n\nPartner responds **4♠** — 2 aces. You have 2 aces + partner's 2 = all four. Bid **6NT**.\n\n## The Key Insight\n\nBlackwood answers \"How many?\" not \"Which ones?\" This is both its strength (simple, easy to remember) and its weakness (sometimes you need to know *which* aces partner holds). For more surgical slam exploration, you'll learn cue bids and RKCB later in this level."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Ace-Asking Decisions",
+      "problems": [
+        {
+          "id": "bw-1",
+          "question": "The auction: You 1♠ — Partner 3♠. You hold ♠AKT84 ♥KQ3 ♦AJ5 ♣K7. You bid 4NT (Blackwood). Partner responds 5♥. How many aces does partner have, and what do you bid?",
+          "options": ["A) 2 aces — bid 6♠", "B) 2 aces — bid 5NT to ask for kings", "C) 1 ace — bid 5♠", "D) 2 aces — bid 7♠"],
+          "correctAnswer": "A",
+          "explanation": "5♥ shows 2 aces. You have 2 + partner's 2 = all four. You have enough for small slam. Bid 6♠. You don't need to ask for kings unless you're considering a grand slam (7♠), and with ~31-32 combined points, 6♠ is sufficient.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "bw-2",
+          "question": "The auction: You 1♥ — Partner 4♥. You hold ♠8 ♥AKQJ73 ♦— ♣AKQ84. Should you bid 4NT (Blackwood)?",
+          "options": ["A) Yes — you want to know about aces for slam", "B) No — you have a void, so Blackwood won't tell you what you need", "C) No — partner's 4♥ is a sign-off", "D) Yes — always use Blackwood with a strong hand"],
+          "correctAnswer": "B",
+          "explanation": "You have a diamond void. If partner's ace is the ♦A, it's worthless to you. Blackwood tells you how MANY aces, not WHICH ones. With a void, use cue bids instead.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "bw-3",
+          "question": "Partner opens 1NT (15-17). You hold ♠KQJ5 ♥AK ♦QJT9 ♣A84. You want to explore slam. What do you bid?",
+          "options": ["A) 4NT (Blackwood)", "B) 4♣ (Gerber)", "C) 6NT (just bid it)", "D) 3NT (settle for game)"],
+          "correctAnswer": "B",
+          "explanation": "After a 1NT opening, 4NT would be a quantitative raise ('do you want to bid slam?'), not Blackwood. Use 4♣ (Gerber) to ask for aces after a NT opening.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "bw-4",
+          "question": "You bid 4NT (Blackwood). Partner responds 5♦ (1 ace). You hold 2 aces yourself. What does this mean?",
+          "options": ["A) You're missing 1 ace — safe to bid 6", "B) You're missing 2 aces — sign off at 5", "C) You have all 4 aces — bid 5NT for kings", "D) You need more information"],
+          "correctAnswer": "A",
+          "explanation": "You have 2 aces + partner has 1 = 3 total. You're missing only 1 ace, which is fine for a small slam. Bid your slam confidently.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "bw-5",
+          "question": "You bid 4♣ (Gerber) over partner's 1NT. Partner responds 4♠ (2 aces). You hold 2 aces. Can you bid 5♣ to ask for kings?",
+          "options": ["A) Yes — 5♣ asks for kings after Gerber", "B) No — after Gerber, 5NT asks for kings", "C) No — 5♣ is a natural club bid", "D) Yes — but only if you want to play 7NT"],
+          "correctAnswer": "A",
+          "explanation": "After Gerber, the next step up (5♣) asks for kings, following the same pattern: 5♦ = 0 or 4, 5♥ = 1, 5♠ = 2, 5NT = 3. With all 4 aces accounted for, you can explore grand slam.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Ace-Asking Drill",
+      "generator": "ace-asking",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 90
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What does a 5♥ response to Blackwood (4NT) show?",
+      "options": ["1 ace", "2 aces", "3 aces"],
+      "correctIndex": 1,
+      "explanation": "The Blackwood responses go: 5♣ = 0 or 4, 5♦ = 1, 5♥ = 2, 5♠ = 3.",
+      "encourageCorrect": "You've got the steps down! 5♥ = 2 aces is one of the most common responses you'll hear.",
+      "encourageIncorrect": "The steps go 5♣ (0/4), 5♦ (1), 5♥ (2), 5♠ (3). Think of it as counting up from clubs."
+    },
+    {
+      "question": "Why would you use Gerber (4♣) instead of Blackwood (4NT) to ask for aces?",
+      "options": ["When you have a stronger hand", "After a notrump opening, because 4NT would be quantitative", "When you want to ask for kings too"],
+      "correctIndex": 1,
+      "explanation": "After 1NT or 2NT, bidding 4NT is a quantitative raise, not ace-asking. 4♣ (Gerber) fills the ace-asking role in notrump auctions.",
+      "encourageCorrect": "Exactly right! The 4NT/quantitative overlap is why Gerber exists — it keeps the ace-asking tool available.",
+      "encourageIncorrect": "After a NT opening, 4NT means 'I have enough for slam if you're maximum.' Gerber (4♣) is needed as the ace-asking bid."
+    },
+    {
+      "question": "When should you avoid using Blackwood?",
+      "options": ["When you have a balanced hand", "When you have a void in a side suit", "When you have exactly 2 aces"],
+      "correctIndex": 1,
+      "explanation": "With a void, Blackwood's weakness shows: it tells you how many aces, not which ones. The ace in your void suit is useless to you.",
+      "encourageCorrect": "Sharp thinking! Blackwood can't distinguish a useful ace from a useless one when you have a void.",
+      "encourageIncorrect": "A void makes Blackwood unreliable — if partner's ace is in your void suit, it doesn't help. Use cue bids instead."
+    }
+  ]
+}

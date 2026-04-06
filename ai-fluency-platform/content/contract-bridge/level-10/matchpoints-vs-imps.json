@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "Matchpoints vs IMPs",
+    "description": "How scoring format changes every decision",
+    "level": "level-10",
+    "slug": "matchpoints-vs-imps",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Same Hand, Two Different Answers\n\nYou're declaring 3NT. You have 9 tricks if a finesse works, or 8 sure tricks if you play safe. The finesse is a 50-50 shot.\n\nAt **matchpoints**, you take the finesse. At **IMPs**, you cash your 8 tricks.\n\nSame hand, same contract, opposite decisions. The scoring format changes everything.\n\n## Matchpoints: Every Trick Counts\n\nAt matchpoints (the most common format in duplicate bridge), your score on each deal is compared to every other pair who played the same deal. You get 1 matchpoint for each pair you beat and 0.5 for each pair you tie.\n\nThis means **overtricks are enormously important.** Consider:\n\n| Your score | Typical result | Matchpoints |\n|-----------|---------------|-------------|\n| 3NT making 4 (+430) | Better than most pairs | Top |\n| 3NT making 3 (+400) | Average | Average |\n| 3NT down 1 (-100) | Worse than most | Bottom |\n\nThe difference between +430 and +400 is only 30 points — but it's the difference between a top and an average. At matchpoints, that 30 points matters as much as the 500 between making and going down.\n\n### Matchpoint Strategy\n\n1. **Take finesses for overtricks** — the upside (top board) is worth the risk (bottom board)\n2. **Bid aggressively for game** — making a close game gets a great score; going down is only slightly worse than stopping in a partscore everyone else bid\n3. **Play in the \"normal\" contract** — if everyone else is in 4♠, you want to be in 4♠ too (but make one more trick)\n4. **Avoid unusual contracts** — playing 5♣ when everyone else is in 3NT risks a bottom even if you make it\n5. **Compete vigorously** — letting them play 2♠ making 3 when you could have gone down 1 in 3♥ is a disaster (everyone else in 3♥ down 1 gets the same score; everyone in 2♠ making gives them a top)\n\n## IMPs: Make Your Contract\n\nAt IMPs (International Match Points), used in team games and knockout events, the raw point difference between your score and the other table's score is converted to IMPs using a compression scale:\n\n| Point Difference | IMPs |\n|-----------------|------|\n| 20-40 | 1 |\n| 50-80 | 2 |\n| 90-120 | 3 |\n| 130-160 | 4 |\n| 170-210 | 5 |\n| 220-260 | 6 |\n| 750-890 | 12 |\n| 1500-1740 | 17 |\n\nNotice the compression: the difference between +400 and +430 is only 1 IMP. But the difference between +400 and -100 is **11 IMPs.** Going down costs far more than overtricks gain.\n\n### IMP Strategy\n\n1. **Make your contract** — overtricks barely matter; going down is devastating\n2. **Use safety plays** — give up a possible overtrick to guarantee the contract\n3. **Bid conservatively for marginal games** — being in 3NT down 1 instead of 2NT making 3 is a huge loss\n4. **Bid aggressively for slam** — making a slam is a massive IMP swing; missing one is costly\n5. **Avoid disasters** — going down 3 doubled is catastrophic; a cautious play that risks an overtrick is almost always right\n\n## Side-by-Side Comparison\n\n### Decision: Take a Finesse for an Overtrick?\n\nYou're in 4♠ with 10 certain tricks. A heart finesse could give you 11 tricks (overtrick) but risks losing the contract if it fails and the defense runs hearts.\n\n**Matchpoints:** Take the finesse. The overtrick is the difference between an average and a top. If everyone else is also in 4♠, +450 beats +420 every time.\n\n**IMPs:** Don't take the finesse. The overtrick gains 1 IMP. Going down costs 10+ IMPs. The risk-reward is terrible.\n\n### Decision: Bid a Marginal Game?\n\nYou have 25 combined HCP. Game needs roughly 26. 3NT has about a 40% chance of making.\n\n**Matchpoints:** Bid game. If most other pairs bid game, you need to bid it too. And if it makes, +400 vs +120 is a huge matchpoint difference.\n\n**IMPs:** Pass and play a safe partscore. A 40% game risks 10 IMPs for 6 IMPs when it works. The math doesn't add up.\n\n### Decision: Which Game to Play?\n\n4♠ is safe. 3NT makes an overtrick if the club suit runs (60% chance).\n\n**Matchpoints:** Try 3NT. If clubs run, +430 beats the +420 everyone else gets in 4♠. At matchpoints, +10 is everything.\n\n**IMPs:** Play 4♠. The guaranteed game is worth far more than the gamble. 3NT might go down if clubs don't run — and that IMP loss dwarfs any overtrick gain.\n\n## The Mindset Shift\n\nThe hardest part of switching between matchpoints and IMPs is the mindset:\n\n- At matchpoints, you think: \"How do I beat the field?\"\n- At IMPs, you think: \"How do I avoid a disaster?\"\n\nMatchpoints rewards optimists — people who take calculated risks for extra tricks. IMPs rewards realists — people who secure what they have and avoid catastrophe.\n\nMost social and club bridge is scored at matchpoints. Most serious team events are scored at IMPs. Learning to shift between them is a mark of an advancing player."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Matchpoints vs IMPs Decisions",
+      "problems": [
+        {
+          "id": "mi-1",
+          "question": "You're in 3NT with 9 certain tricks. A finesse could give you 10, but if it fails you go down. At IMPs, what do you do?",
+          "options": ["A) Take the finesse — overtricks always matter", "B) Cash your 9 tricks — the overtrick is worth 1 IMP but going down costs 10+", "C) It depends on the vulnerability", "D) Take the finesse — 50% odds are good enough"],
+          "correctAnswer": "B",
+          "explanation": "At IMPs, making your contract is what matters. The overtrick gains ~1 IMP. Going down costs ~10 IMPs. The risk-reward is 10:1 against. Cash your 9 tricks.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "mi-2",
+          "question": "Same situation: 3NT with 9 certain tricks, finesse for 10. At matchpoints, what do you do?",
+          "options": ["A) Cash 9 tricks — safety first", "B) Take the finesse — at matchpoints, +430 vs +400 is a big difference", "C) It doesn't matter", "D) Play for 11 tricks instead"],
+          "correctAnswer": "B",
+          "explanation": "At matchpoints, the overtrick is the difference between a top and an average board. +430 beats every +400 in the room. Take the finesse — the upside is worth the risk.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "mi-3",
+          "question": "You can choose between 4♠ (safe) or 3NT (scores +430 if a suit runs, but might go down). At IMPs, which do you choose?",
+          "options": ["A) 3NT — the higher score when it works", "B) 4♠ — the guaranteed game", "C) Whichever partner prefers", "D) 3NT — always prefer notrump"],
+          "correctAnswer": "B",
+          "explanation": "At IMPs, the guaranteed game (4♠) is clearly better. The extra 10 points from 3NT making 4 is worth ~0 IMPs. Going down in 3NT when 4♠ makes is worth -10 IMPs. Avoid unnecessary risk.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "mi-4",
+          "question": "At matchpoints, both you and the opponents can make partscore contracts. The auction is competitive. Should you push to the 3-level with a fit, even if you might go down 1?",
+          "options": ["A) No — going down is always bad", "B) Yes — at matchpoints, letting them play and make scores poorly for you. Going down 1 might be better than letting them score +110.", "C) Only if not vulnerable", "D) Only with 10+ trumps"],
+          "correctAnswer": "B",
+          "explanation": "At matchpoints, -50 (down 1 undoubled) might score better than letting them make +110. If most pairs your direction are going minus anyway, going minus by less is a good result. Compete!",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "mi-5",
+          "question": "You have a choice: bid a 50% slam (6♠) or stop at a safe game (4♠). At IMPs, should you bid it?",
+          "options": ["A) No — 50% is too risky", "B) Yes — making a slam at IMPs is a huge swing, and 50% odds are worth it", "C) Only if vulnerable", "D) Never bid close slams"],
+          "correctAnswer": "B",
+          "explanation": "At IMPs, bidding and making a vulnerable slam gains about 13 IMPs vs stopping in game. Missing it (going down) costs about 13 IMPs. At 50%, it's break-even — but slams that make gain slightly more than slams that fail lose. Bid it.",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "At matchpoints, you're in 4♠. You can guarantee 10 tricks, or try a line that gives 11 tricks 70% of the time but only 9 tricks 30% of the time. What should you do?",
+      "answer": "At matchpoints, go for 11 tricks. The overtrick (+450 vs +420) gains you matchpoints against everyone who makes only 10 tricks — which is likely most of the field. The 30% risk of going down costs a lot, but the 70% chance of a top board is worth it. At IMPs, you'd never take this risk — the overtrick is negligible, while going down is very costly. This is the core matchpoint-vs-IMP difference: matchpoints rewards aggression for small edges, IMPs punishes it."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "At IMPs, how much is an overtrick worth compared to making your contract?",
+      "options": ["About the same — every trick matters", "Almost nothing — making the contract is what matters", "More — overtricks are bonus points"],
+      "correctIndex": 1,
+      "explanation": "At IMPs, an overtrick is worth about 1 IMP. Going down costs 10+. The ratio is overwhelmingly in favor of securing your contract.",
+      "encourageCorrect": "Exactly! At IMPs, the contract is everything. Overtricks are rounding errors.",
+      "encourageIncorrect": "At IMPs, overtricks gain maybe 1 IMP. Going down loses 10+. Always prioritize making the contract."
+    },
+    {
+      "question": "Why are overtricks so important at matchpoints?",
+      "options": ["They're worth bonus points", "Your score is compared to every other pair — +430 beats all the +420s", "The tournament director gives extra credit"],
+      "correctIndex": 1,
+      "explanation": "At matchpoints, your score is ranked against every other pair playing the same deal. Even a 10-point difference determines whether you get a top or an average.",
+      "encourageCorrect": "That's the matchpoint reality! When everyone's in the same contract, the overtrick is the whole battle.",
+      "encourageIncorrect": "At matchpoints, you're ranked against every other pair. +430 beats +420 — and that difference is a big matchpoint swing."
+    }
+  ]
+}

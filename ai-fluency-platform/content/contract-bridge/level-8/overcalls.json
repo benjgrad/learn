@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "Overcalls",
+    "description": "Entering the auction after the opponents open",
+    "level": "level-8",
+    "slug": "overcalls",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Getting Into the Auction\n\nThe opponents have opened the bidding. You weren't dealt the first blow — but that doesn't mean you should sit quietly. An **overcall** lets you enter the auction by bidding your own suit, competing for the contract and giving partner information about your hand.\n\nOvercalling serves three purposes:\n1. **Competing** for the contract — you might have a partscore or even game your way\n2. **Directing the lead** — if partner is on opening lead, you've told them what to lead\n3. **Consuming bidding space** — your bid makes the opponents' auction harder\n\n## The Simple Overcall\n\nA **simple overcall** is a new suit bid at the cheapest level available. It shows:\n\n- **A good 5+ card suit** — suit quality matters more than in opening bids\n- **Roughly 8-16 HCP** — wide range, but the suit must be decent\n- **A suit you'd be happy to have partner lead**\n\n### Suit Quality Matters\n\nWhen you open the bidding, partner expects you to have your bid. When you overcall, you're sticking your neck out — the opponents already have the upper hand. If partner leads your suit and it's ♠75432, that could be a disaster.\n\nGood overcalling suits contain honors: ♠KQJ84, ♠AJT95, ♠KT974. These hands direct the lead to a productive place.\n\nWeak suits should generally not be overcalled: ♠86432 is not worth mentioning. Pass and wait.\n\n### Examples\n\nRHO opens 1♣.\n\n♠AQJ85 ♥K73 ♦J84 ♣95 — **Overcall 1♠.** Great suit, 11 HCP. Classic overcall.\n\n♠74 ♥AKJ93 ♦Q85 ♣T64 — **Overcall 1♥.** Strong 5-card heart suit, 11 HCP.\n\n♠86432 ♥AK7 ♦QJ5 ♣K8 — **Pass.** You have 14 HCP but your spade suit is terrible. Don't send partner on a wild goose chase.\n\n## Jump Overcalls\n\nA **jump overcall** — bidding one level higher than necessary — is **weak (preemptive)** in SAYC.\n\nRHO opens 1♦. Bidding 2♠ (a jump) shows: a 6-card spade suit, roughly 6-10 HCP. It's the overcalling equivalent of a weak two-bid.\n\n♠KQT974 ♥83 ♦J5 ♣T62 — Over 1♦, bid **2♠** (jump overcall). You're preempting with a good 6-card suit.\n\n## The 1NT Overcall\n\nBidding **1NT** directly over the opponent's opening shows:\n- **15-18 HCP** (slightly wider than a 1NT opening)\n- **Balanced hand**\n- **At least one stopper in the opponent's suit**\n\nThis is narrower than a 1NT opening because you need a stopper in their suit — they've told you they have length there, and you need to be able to stop them from running it.\n\nRHO opens 1♥. You hold ♠KJ5 ♥AQ8 ♦KT74 ♣Q93 — **Overcall 1NT.** 16 HCP, balanced, heart stopper (AQ).\n\n## Overcall vs Takeout Double\n\nThis is a decision you'll face constantly:\n\n| Overcall | Takeout Double |\n|----------|---------------|\n| Good 5+ card suit | Support for all unbid suits |\n| Shows a specific suit | Asks partner to choose |\n| 8-16 HCP | 12+ support points |\n| Directs the lead | Doesn't specify a lead |\n\n**Rule of thumb:** With a clear 5+ card suit, overcall. With support for the unbid suits and no single dominant suit, double.\n\n## When to Overcall vs Pass\n\nNot every hand with points should overcall. Consider:\n\n1. **Suit quality** — would you want partner to lead this suit? If not, don't bid it.\n2. **Vulnerability** — if you're vulnerable and they're not, be cautious. Going down doubled and vulnerable is expensive.\n3. **Level** — overcalling at the 1-level is cheap. The 2-level requires a better hand.\n4. **Partner's position** — if partner has already passed, you need a better hand (they can't have much).\n\n### The 2-Level Threshold\n\nOvercalling at the 2-level (e.g., 2♣ over their 1♠) requires:\n- **A good suit** — even more important than at the 1-level\n- **10+ HCP** — you're committing to taking 8 tricks\n- **Reasonable expectation of safety** — if doubled, you won't go down too many\n\n## Responding to Partner's Overcall\n\nWhen partner overcalls:\n- **Raise with 3+ card support** — partner has shown 5+, so 3 cards gives you an 8-card fit\n- **A new suit is not forcing** (unlike responses to openings) — it's constructive but partner can pass\n- **Cue-bid the opponent's suit** to show a strong raise (11+ support points)\n- **Bid NT with a stopper** in the opponent's suit and no fit"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Overcall, Double, or Pass?",
+      "problems": [
+        {
+          "id": "oc-1",
+          "question": "RHO opens 1♦. You hold ♠KJ974 ♥A83 ♦95 ♣Q74. What do you bid?",
+          "options": ["A) 1♠ — overcall with your 5-card major", "B) Double — you have support for the unbid suits", "C) Pass — not enough points", "D) 1NT — balanced hand"],
+          "correctAnswer": "A",
+          "explanation": "You have a good 5-card spade suit and 11 HCP — a classic simple overcall. Overcalling 1♠ directs the lead and competes for the contract.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "oc-2",
+          "question": "RHO opens 1♥. You hold ♠AQ3 ♥KJ8 ♦KQ74 ♣J95. What do you bid?",
+          "options": ["A) 1♠ — bid your 3-card major", "B) Double — takeout", "C) 1NT — 15-18 balanced with a heart stopper", "D) Pass — too many hearts to act"],
+          "correctAnswer": "C",
+          "explanation": "With 16 HCP, balanced shape, and the ♥KJ as a stopper, this is a textbook 1NT overcall. You don't have a 5-card suit to overcall, and your heart length makes a takeout double misleading.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "oc-3",
+          "question": "RHO opens 1♣. You hold ♠75432 ♥AK ♦KJ8 ♣Q93. What do you bid?",
+          "options": ["A) 1♠ — show your 5-card suit", "B) Double — takeout", "C) Pass — your spade suit is too weak to overcall", "D) 1NT — balanced"],
+          "correctAnswer": "C",
+          "explanation": "Despite having 15 HCP and 5 spades, your spade suit (75432) is terrible. Overcalling would direct partner to lead a suit that can't produce tricks. Pass is the disciplined call. You don't have the shape for a double or the club stopper for 1NT.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "oc-4",
+          "question": "RHO opens 1♦. You hold ♠KQJ984 ♥73 ♦J5 ♣T84. What do you bid?",
+          "options": ["A) 1♠ — simple overcall", "B) 2♠ — jump overcall (weak/preemptive)", "C) Pass — only 7 HCP", "D) Double — takeout"],
+          "correctAnswer": "B",
+          "explanation": "With a good 6-card spade suit and only 7 HCP, this is a textbook jump overcall (preemptive in SAYC). You're describing a weak two-type hand while competing and consuming their bidding space.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "oc-5",
+          "question": "RHO opens 1♠. You hold ♠8 ♥AQJ85 ♦K73 ♣J942. What do you bid?",
+          "options": ["A) 2♥ — overcall at the 2-level", "B) Double — takeout", "C) Pass — 2-level overcalls need more", "D) 1NT — you have values"],
+          "correctAnswer": "A",
+          "explanation": "You have a strong 5-card heart suit (AQJ85) and 12 HCP. Despite being at the 2-level, your suit quality is excellent and your hand has enough strength. Overcall 2♥.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Overcall Planning",
+      "solution": "RHO opens 1♥. Both sides are vulnerable. You hold:\n\n♠A4 ♥J83 ♦KQT95 ♣K72\n\nShould you overcall 2♦? Let's think through it:\n\n**For overcalling:**\n- You have 13 HCP — more than enough\n- Your diamond suit is strong (KQT95) — you'd be happy with a diamond lead\n- You might have a diamond partscore or even game if partner has a fit\n\n**Against overcalling:**\n- You're at the 2-level, vulnerable\n- You have 3 hearts (their suit) — not ideal for competing\n- If doubled, down 2 vulnerable is -500\n\n**Verdict:** Overcall 2♦. Your suit quality is excellent and your hand is on the strong side. The vulnerability makes you cautious, but KQT95 is too good a suit to suppress. If partner has a few diamonds and some scattered values, you might make 2♦ or even 3♦. And if partner is on lead against a heart contract, the ♦K lead could be devastating."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What's the most important feature of an overcalling hand?",
+      "options": ["Having 13+ HCP", "A good 5+ card suit that you'd want led", "Having support for all unbid suits"],
+      "correctIndex": 1,
+      "explanation": "Suit quality is the key to a good overcall. You're directing partner's lead and competing with your suit — it needs to be worth showing.",
+      "encourageCorrect": "Exactly! A good suit is the heart of an overcall. Points alone aren't enough if your suit is garbage.",
+      "encourageIncorrect": "Suit quality comes first for overcalls. You're telling partner 'lead this suit!' — so it better be a good one."
+    },
+    {
+      "question": "In SAYC, a jump overcall (like 2♠ over their 1♦) shows what kind of hand?",
+      "options": ["A strong hand (17+ HCP)", "A weak hand with a good 6-card suit (preemptive)", "A balanced hand with a stopper"],
+      "correctIndex": 1,
+      "explanation": "In SAYC, jump overcalls are weak/preemptive — showing a good 6-card suit with about 6-10 HCP, similar to a weak two-bid.",
+      "encourageCorrect": "Right! In SAYC, jump overcalls are preemptive. It's the overcalling version of a weak two.",
+      "encourageIncorrect": "In SAYC, jump overcalls are weak — a good 6-card suit with about 6-10 points. Think of it as a weak two that also competes."
+    }
+  ]
+}

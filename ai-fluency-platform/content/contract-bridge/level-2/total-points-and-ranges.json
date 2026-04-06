@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "Total Points and Ranges",
+    "description": "Combining HCP and distribution into key ranges",
+    "level": "level-2",
+    "slug": "total-points-and-ranges",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Putting It Together: Total Points\n\nNow that you can count both HCP and distributional points, it's time to combine them into a single number: **total points**.\n\n> **Total Points = HCP + Length Points** (when opening or bidding a new suit)  \n> **Total Points = HCP + Shortness Points** (when raising partner's suit)\n\nThis combined count is what drives your bidding decisions. When a bridge book says \"open with 13 points,\" it means 13 total points — HCP plus distribution.\n\n## The Point Ranges\n\nEvery hand falls into a range that tells you approximately what to do. These ranges are the backbone of bidding:\n\n| Total Points | Range Name | What to Do |\n|-------------|------------|------------|\n| 0-5 | Weak | Pass. Almost nothing here. |\n| 6-9 | Minimum response | Too weak to open, but can respond to partner's opening |\n| 10-12 | Invitational | Worth a strong response; invites game but doesn't force it |\n| 13-15 | Minimum opening | Open the bidding; minimum range opener |\n| 16-18 | Medium opening | Open with extras; may include 1NT (15-17 HCP balanced) |\n| 19-21 | Strong opening | Open and plan to make a strong rebid |\n| 22+ | Very strong | Special opening (2♣ in standard systems) |\n\nThese ranges aren't rigid boundaries — they're guidelines. A \"good\" 12-count with aces and a nice suit might play like a 13-count, while a \"bad\" 13-count with scattered queens and jacks might play like a 12.\n\n## Why Ranges Matter\n\nThe point ranges serve two purposes:\n\n1. **Your own decisions**: Should I open? Should I bid game? Should I try for slam?\n2. **Communication with partner**: When you make a bid, it tells partner your approximate range. Partner's bid tells you theirs. Together, you figure out where you belong.\n\n## Partnership Totals: The Targets\n\nSince both you and partner are evaluating your hands, the combined total is what determines how high to bid:\n\n| Combined Total | Target |\n|---------------|--------|\n| Less than 20 | Partscore — stop low |\n| 20-24 | Partscore — might compete but don't force game |\n| 25-26 | **Game** — bid 3NT, 4♥, 4♠, or 5♣/5♦ |\n| 27-32 | Game is certain; slam possible with good controls |\n| 33-36 | **Small slam** — bid to the 6-level |\n| 37+ | **Grand slam** — bid to the 7-level |\n\nThe single most important number: **25 combined points for game**. This is the target you're working toward in the vast majority of auctions.\n\n### Why 25?\n\nWith 40 total HCP in the deck, if your side has 25, the opponents have only 15. With nearly two-thirds of the deck's strength, you can usually win 9-10 tricks — enough for game. It's not a guarantee, but it works out more often than not.\n\n## Counting to 25: A Bidding Conversation\n\nHere's how it works in practice. Imagine this auction:\n\n| You | Partner |\n|-----|--------|\n| 1♠ | 3♠ |\n| ? | |\n\nYou opened 1♠, showing roughly 13-21 total points. Partner raised to 3♠ (an invitational raise), showing about 10-12 points with spade support.\n\nNow you do the math:\n- If you have 13 points + partner has 10-12 → combined 23-25. Borderline.\n- If you have 15 points + partner has 10-12 → combined 25-27. Game!\n\nWith 13, you might pass (settle for 3♠). With 15, you bid 4♠ (game). The ranges let you make this decision quickly and accurately.\n\n## Upgrading and Downgrading\n\nNot all points are equal. Good players adjust their evaluation based on hand quality:\n\n### Reasons to Upgrade (count your hand as 1-2 points more)\n- **Aces and kings**: Hands rich in aces and kings (\"controls\") outperform their point count\n- **Honors in your long suits**: The ♠KQJ in a 5-card spade suit is much better than scattered honors in short suits\n- **Intermediate cards**: Tens and nines are valuable support cards (10s especially in notrump)\n- **Good suit quality**: AKJxx is much better than Axxxx despite the same length points\n\n### Reasons to Downgrade (count your hand as 1-2 points less)\n- **Quacks** (Queens and Jacks) without support: Qx or singleton J are often worthless\n- **4-3-3-3 shape**: The flattest possible hand underperforms its point count\n- **Honors in short suits**: A singleton K or doubleton QJ may not pull their weight\n- **No aces**: A hand with lots of queens and jacks but no aces is slow and vulnerable\n\n### Example: Upgrading\n\n> ♠ A K J 9 5 &nbsp;&nbsp; ♥ A 10 3 &nbsp;&nbsp; ♦ 8 7 &nbsp;&nbsp; ♣ K 5 2\n\nHCP: 16. Length: 1 (5-card spade suit). Total: 17.\n\nBut this hand is better than 17:\n- Three aces! Aces are the most reliable cards.\n- The ♠ suit is excellent: AKJ95 will often produce 4-5 tricks on its own.\n- The ♥10 adds hidden value.\n\nCount this as a good 18.\n\n### Example: Downgrading\n\n> ♠ Q J 4 3 &nbsp;&nbsp; ♥ Q J 3 &nbsp;&nbsp; ♦ Q J 2 &nbsp;&nbsp; ♣ Q J 3\n\nHCP: 12. Length: 0. Total: 12.\n\nBut this hand is worse than 12:\n- No aces, no kings — all \"soft\" values (queens and jacks).\n- Perfectly flat 4-3-3-3 shape.\n- No suit is better than QJxx.\n\nCount this as a poor 10-11. Most experienced players would pass with this hand despite its 12 HCP.\n\n## Quick Reference: The Essential Numbers\n\n| Number | What It Means |\n|--------|---------------|\n| 40 | Total HCP in the deck |\n| 10 | Average HCP per hand |\n| 13 | Typical minimum to open the bidding |\n| 25 | Combined points needed for game |\n| 33 | Combined points needed for small slam |\n| 37 | Combined points needed for grand slam |"
+    },
+    {
+      "type": "drillSet",
+      "title": "Total Points Drill",
+      "generator": "total-points",
+      "problemCount": 10,
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 90
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Total points = HCP + distributional points. The critical partnership targets are 25 for game, 33 for small slam, and 37 for grand slam. But not all points are equal — upgrade hands with aces and good suit quality, downgrade hands with scattered queens and jacks."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "How many combined points do you and your partner typically need for game?",
+      "options": ["20 points", "25 points", "33 points"],
+      "correctIndex": 1,
+      "explanation": "25 combined total points is the standard threshold for bidding to game. This is the most important target number in bridge bidding.",
+      "encourageCorrect": "That's the magic number! 25 for game is the target that drives most auctions.",
+      "encourageIncorrect": "The key number is 25 -- that's the combined total you need for game. 33 is for slam."
+    },
+    {
+      "question": "What is the approximate minimum total points to open the bidding?",
+      "options": ["10 points", "13 points", "16 points"],
+      "correctIndex": 1,
+      "explanation": "Most standard bidding systems require about 13 total points (HCP + distribution) to open the bidding.",
+      "encourageCorrect": "Right! 13 total points is the standard opening threshold.",
+      "encourageIncorrect": "The standard minimum for opening the bidding is about 13 total points. Below that, you typically pass."
+    },
+    {
+      "question": "Which hand should be downgraded from its raw point count?",
+      "options": ["A hand with two aces and a king", "A hand with no aces and all queens and jacks", "A hand with a 6-card suit headed by AKQ"],
+      "correctIndex": 1,
+      "explanation": "Hands with lots of queens and jacks but no aces are 'soft' and underperform. They should be downgraded by 1-2 points.",
+      "encourageCorrect": "Exactly! Queens and jacks without aces are unreliable. Always be skeptical of 'quack-heavy' hands.",
+      "encourageIncorrect": "A hand full of queens and jacks but no aces should be downgraded -- those 'soft' values often don't pull their weight."
+    }
+  ]
+}

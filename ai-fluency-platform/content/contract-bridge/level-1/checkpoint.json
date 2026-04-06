@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "title": "Level 1 Checkpoint",
+    "description": "Test your understanding of bridge fundamentals",
+    "level": "level-1",
+    "slug": "checkpoint",
+    "order": 6,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Explain the complete flow of a bridge deal from shuffling to scoring. Cover all five phases: the deal, the auction, the opening lead, the play, and the score. Include who does what and why each phase matters."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Level 1 Comprehensive Review",
+      "problems": [
+        {
+          "id": "l1-check-tricks",
+          "question": "In a contract of 4♠ (spades are trumps), North leads the ♦A. East has no diamonds and plays the ♠3. South plays ♦7. West plays ♦2. Who wins this trick?",
+          "options": ["A) North (played the ♦A, the highest diamond)", "B) East (trumped with ♠3)", "C) South (played a higher diamond than West)", "D) West (played a diamond)"],
+          "correctAnswer": "B",
+          "explanation": "East wins! Even though North played the ♦A, East trumped with the ♠3. A trump card beats any non-trump card, regardless of rank.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l1-check-auction",
+          "question": "After a bid of 2♠, which of these is a legal next bid?",
+          "options": ["A) 2♥", "B) 2♦", "C) 2NT", "D) 1NT"],
+          "correctAnswer": "C",
+          "explanation": "2NT is the lowest legal bid after 2♠ — it's the same level but a higher strain (NT outranks ♠). The other options are all lower than 2♠.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l1-check-roles",
+          "question": "The auction ends in 3NT. South first bid notrump during the auction. Who is declarer?",
+          "options": ["A) The player who bid 3NT last", "B) South, who first named notrump", "C) North, as South's partner", "D) Whichever defender is to declarer's left"],
+          "correctAnswer": "B",
+          "explanation": "The declarer is always the player from the winning partnership who FIRST named the contract's strain. Since South first bid notrump, South is declarer.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l1-check-scoring",
+          "question": "Which of these is NOT a game contract?",
+          "options": ["A) 3NT", "B) 4♥", "C) 3♠", "D) 5♦"],
+          "correctAnswer": "C",
+          "explanation": "3♠ gives only 3 × 30 = 90 trick points, which is below the 100-point game threshold. You need 4♠ (120 points) for game in spades.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l1-check-follow-suit",
+          "question": "Hearts are led and you hold ♠A ♥3 ♦K ♣Q. What are you allowed to play?",
+          "options": ["A) Any of your four cards", "B) Only the ♥3", "C) The ♥3 or the ♠A (if spades are trumps)", "D) Your highest card in any suit"],
+          "correctAnswer": "B",
+          "explanation": "You must follow suit if you can. Since hearts are led and you have the ♥3, you must play it. You only get to play another suit when you have no cards in the suit led.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "l1-check-book",
+          "question": "A contract of 6♦ requires winning how many tricks?",
+          "options": ["A) 6 tricks", "B) 10 tricks", "C) 12 tricks", "D) 13 tricks"],
+          "correctAnswer": "C",
+          "explanation": "The book (6) plus the bid level (6) equals 12 tricks. A 6-level contract is a small slam — you must win 12 of the 13 tricks!",
+          "difficulty": "basic"
+        }
+      ]
+    }
+  ]
+}

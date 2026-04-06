@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "The Law of Total Tricks",
+    "description": "Total trick count as a guide for competitive decisions",
+    "level": "level-9",
+    "slug": "the-law-of-total-tricks",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## A Compass for Competitive Auctions\n\nYou're in a competitive auction. Both sides have a trump fit. The opponents bid 3♠. Should you bid 4♥ or defend? You have a decent hand, but is it enough?\n\nFor decades, bridge players relied on pure judgment for these decisions — and many got them wrong. Then, in 1969, Jean-René Vernes published his research on competitive bidding and formalized a principle that changed the game: **The Law of Total Tricks.**\n\n## The Law\n\nThe Law of Total Tricks states:\n\n> **The total number of tricks available on a deal is approximately equal to the total number of trump cards held by both sides.**\n\nIn other words, add up the length of each side's best trump fit. That number roughly equals the number of tricks that both sides combined can take.\n\n### Example\n\n- Your side has a 9-card heart fit (5+4)\n- Their side has an 8-card spade fit (5+3)\n- Total trumps: 9 + 8 = 17\n- The Law predicts 17 total tricks\n\nIf they can take 9 tricks in spades (making 3♠), then your side can take about 8 tricks in hearts (making 2♥). The 17 tricks are split between you.\n\nBut if your side can take 9 tricks in hearts (making 3♥), then they can only take about 8 tricks in spades (going down in 3♠).\n\n## The Practical Application\n\nThe Law gives you a simple rule of thumb:\n\n> **With a fit, compete to the level equal to your combined trump length.**\n\n| Your Trump Length | Compete To |\n|-------------------|------------|\n| 8 trumps (e.g., 5+3) | 2-level |\n| 9 trumps (e.g., 5+4) | 3-level |\n| 10 trumps (e.g., 5+5) | 4-level |\n| 11 trumps (e.g., 6+5) | 5-level |\n\n### Why This Works\n\nIf your side has 9 trumps, the Law says total tricks ≈ total trumps. If total tricks are 17 (your 9 + their 8), then at the 3-level:\n\n- If you make 3♥ (9 tricks), they were going down in 3♠ — so bidding 3♥ gains\n- If you go down 1 in 3♥ (8 tricks), they were making 3♠ (9 tricks) — so going down 1 is cheaper than letting them make their contract\n\nEither way, bidding at the 3-level with 9 trumps works out.\n\n## The \"When In Doubt\" Rule\n\nFrom the Law comes this practical guideline:\n\n> **When in doubt in a competitive auction, bid one more if you have a fit.**\n\nWith a fit and uncertainty, the Law says competing is usually right. Without a fit, defending is usually right.\n\nThis is especially true at equal or favorable vulnerability (when going down isn't too expensive).\n\n## Counting Your Trumps\n\nTo use the Law, you need to know your trump length. Here's how:\n\n- Partner opens 1♥ and you have 4 hearts → **at least 9 trumps** (partner has 5+)\n- Partner raises your 1♠ to 2♠ and you have 5 → **at least 8 trumps** (partner has 3+)\n- You raised partner's suit and they competed higher → trust the count from your combined bidding\n\n## Limitations of the Law\n\nThe Law is a guideline, not a commandment. It's less reliable when:\n\n1. **Honors are poorly placed** — if your high cards are in the wrong suits, you'll take fewer tricks than expected\n2. **One side has extreme distribution** — voids and 7-card suits can distort the count\n3. **Trump quality is poor** — QJxxx of trumps is worth less than AKxxx\n4. **The total trump count is uncertain** — if you're guessing at partner's length, you might be wrong\n\nDespite these limitations, the Law is right far more often than it's wrong. It's the single best tool for competitive decisions.\n\n## The Law in Action\n\nBoth sides vulnerable. The auction:\n\n| West | North | East | South |\n|------|-------|------|-------|\n| 1♠ | 2♥ | 2♠ | ? |\n\nYou (South) hold: ♠83 ♥QJ74 ♦K953 ♣J85\n\nPartner overcalled 2♥, showing 5+ hearts. You have 4 hearts — that's a 9-card fit. The opponents have at least an 8-card spade fit (opener + raiser).\n\n**Total trumps: at least 17.** The Law says you should compete to the 3-level with 9 trumps.\n\nBid **3♥**. You might make it, or you might push them to 3♠ where they go down. Either way, the Law is on your side."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Law of Total Tricks Decisions",
+      "problems": [
+        {
+          "id": "ltt-1",
+          "question": "Both sides have found a fit. You have a 9-card heart fit. The opponents bid 2♠. According to the Law, should you bid 3♥?",
+          "options": ["A) Yes — 9 trumps says compete to the 3-level", "B) No — let them play 2♠", "C) Only if you have extra points", "D) Only if not vulnerable"],
+          "correctAnswer": "A",
+          "explanation": "With 9 trumps, the Law says compete to the 3-level. Whether you make 3♥ or push them to 3♠ (where they might go down), it's usually right.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "ltt-2",
+          "question": "You have an 8-card spade fit (5+3). Opponents bid 3♦. Should you bid 3♠?",
+          "options": ["A) Yes — always compete over them", "B) No — 8 trumps means the 2-level is your limit according to the Law", "C) Yes — 3♠ is only one higher", "D) Only at favorable vulnerability"],
+          "correctAnswer": "B",
+          "explanation": "With only 8 trumps, the Law recommends competing to the 2-level. Bidding 3♠ with 8 trumps means you're going one level too high — you're likely to go minus.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "ltt-3",
+          "question": "Partner opens 1♥, RHO bids 2♣, you bid 2♥. LHO bids 3♣. Partner passes. You hold ♠K83 ♥QT853 ♦J74 ♣95. Should you bid 3♥?",
+          "options": ["A) Yes — you have 5 hearts, so at least 10 trumps with partner", "B) No — partner passed, showing minimum values", "C) Yes — you have 5 hearts, so at least 9 trumps. 9 trumps = 3-level", "D) No — you only have 7 HCP"],
+          "correctAnswer": "C",
+          "explanation": "Partner opened 1♥ (5+ hearts). You have 5 hearts — that's at least 10 trumps. But wait, even with 9 guaranteed (partner might have exactly 5), the Law says the 3-level is right. Bid 3♥.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "ltt-4",
+          "question": "Your side has a 10-card club fit. The opponents bid 4♠. Should you bid 5♣?",
+          "options": ["A) Yes — 10 trumps means the 4-level, so 5♣ goes one beyond", "B) No — the 5-level belongs to the opponents", "C) Yes — 10 trumps means the 4-level is safe, and 5♣ might push them to 5♠", "D) It depends heavily on vulnerability and hand specifics"],
+          "correctAnswer": "D",
+          "explanation": "The Law says 10 trumps = 4-level. Going to the 5-level exceeds the Law's recommendation. Whether 5♣ is right depends on vulnerability (is going down affordable?), whether they're actually making 4♠, and your offensive vs defensive values. This is where judgment takes over.",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "ltt-5",
+          "question": "Both sides have found a heart fit. You have 9 hearts between you. The opponents bid 3♠. Your hand has good defensive values (♠KQ, ♦AJ). Should you bid 4♥?",
+          "options": ["A) Yes — 9 trumps and they bid 3♠, so we should bid to the 3-level... wait, 4♥ is the 4-level", "B) No — with strong defensive values, defending 3♠ may be better", "C) Yes — always bid one more with a fit", "D) Double for penalties"],
+          "correctAnswer": "B",
+          "explanation": "The Law says compete to the 3-level with 9 trumps — but 4♥ is the 4-level, one too high. Plus, your defensive values (♠KQ sitting over their spade suit, ♦AJ) mean you might defeat 3♠. The Law is a guide — with good defense, let them play.",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Both sides have found a heart fit. You have 9 hearts between you. The opponents bid 3♠. Should you bid 4♥?",
+      "answer": "Generally no. The Law of Total Tricks says 9 trumps = compete to the 3-level. 4♥ is the 4-level — one higher than the Law recommends. However, with 10 trumps (checking if partner might have 6), favorable vulnerability, or very distributional hands, 4♥ could be right. The key insight: the 'when in doubt, bid one more' rule applies at the level the Law recommends, not beyond it."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "According to the Law of Total Tricks, how high should you compete with a 9-card trump fit?",
+      "options": ["The 2-level", "The 3-level", "The 4-level"],
+      "correctIndex": 1,
+      "explanation": "9 trumps = compete to the 3-level. The Law says your combined trump length equals the level you should compete to.",
+      "encourageCorrect": "That's the key number! 9 trumps → 3-level. It's the most common competitive situation in bridge.",
+      "encourageIncorrect": "The rule: your trump length equals your safe level. 8 trumps = 2-level, 9 trumps = 3-level, 10 trumps = 4-level."
+    },
+    {
+      "question": "What does the Law of Total Tricks actually state?",
+      "options": ["The side with more points always makes their contract", "Total tricks available roughly equals total trumps held by both sides", "You should always bid one more with a trump fit"],
+      "correctIndex": 1,
+      "explanation": "The Law: total tricks on a deal approximately equals the total number of trump cards both sides hold in their best fits.",
+      "encourageCorrect": "Exactly! It's about total trumps equaling total tricks — a beautifully simple guideline for competitive decisions.",
+      "encourageIncorrect": "The Law says total tricks ≈ total trumps. If your side has 9 trumps and theirs has 8, expect about 17 total tricks on the deal."
+    }
+  ]
+}

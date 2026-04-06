@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Anatomy of a Deal",
+    "description": "The complete flow from deal to score",
+    "level": "level-1",
+    "slug": "anatomy-of-a-deal",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## One Deal, Start to Finish\n\nEvery hand of bridge follows the same five-phase structure. Once you understand this flow, everything else in the game makes sense. Let's walk through a complete deal together.\n\n## Phase 1: The Deal\n\nA standard 52-card deck is shuffled and dealt out completely. Each of the four players — traditionally called **North**, **East**, **South**, and **West** — receives exactly **13 cards**.\n\nThere are no community cards, no draw piles, no discards. Every card in the deck is in someone's hand. This is important: it means that information is complete but hidden. Between you and your partner, you hold 26 of the 52 cards. The other 26 are split between your opponents.\n\nPlayers pick up their cards and sort them by suit. A typical hand might look like:\n\n> ♠ A K 7 4 &nbsp;&nbsp; ♥ Q 9 3 &nbsp;&nbsp; ♦ J 8 5 &nbsp;&nbsp; ♣ K 6 2\n\nThat's 13 cards: four spades, three hearts, three diamonds, and three clubs.\n\n## Phase 2: The Auction\n\nBefore any cards are played, the four players participate in an **auction** (also called the bidding). The goal of the auction is to determine two things:\n\n1. **Which partnership will try to fulfill a contract** (the declaring side)\n2. **What that contract is** — how many tricks they promise to win, and whether there's a trump suit\n\nThe auction proceeds clockwise, starting with the dealer. Each player can:\n- **Bid** — name a number (1-7) and a suit or notrump\n- **Pass** — decline to bid\n- **Double** — challenge the opponents' bid (increases stakes)\n- **Redouble** — counter a double (increases stakes further)\n\nEach new bid must be higher than the previous one. The auction ends when three players in a row pass. The last bid becomes the **contract**.\n\nFor example, if the bidding goes:\n\n| West | North | East | South |\n|------|-------|------|-------|\n| 1♠ | Pass | 2♠ | Pass |\n| 4♠ | Pass | Pass | Pass |\n\nThe contract is **4♠** — the East-West partnership has promised to take at least 10 tricks (4 + 6 = 10) with spades as the trump suit.\n\nDon't worry about understanding the bidding system yet — we'll cover that in detail soon. For now, just understand that the auction produces a contract.\n\n## Phase 3: The Opening Lead\n\nOnce the auction determines the contract, it's time to play. But there's one crucial step first: the **opening lead**.\n\nThe defender to the **left of declarer** plays the first card face-up on the table. This is called the opening lead, and it happens *before* dummy's hand is revealed.\n\nWhy does this matter? The opening lead is the one moment when a defender must make a decision without seeing dummy's cards. It's one of the most important — and most difficult — decisions in the game."
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "What do you think happens after the opening lead is made? Remember, there are four players but only the declarer can see their own hand at this point. What happens to declarer's partner's (dummy's) hand?"
+    },
+    {
+      "type": "markdown",
+      "content": "## Phase 4: The Play\n\nAfter the opening lead, **dummy's entire hand is placed face-up on the table** for everyone to see. The declarer now plays both their own hand and dummy's hand, while the two defenders play their own cards independently.\n\nPlay proceeds in **tricks**. Each trick works like this:\n\n1. One player leads (plays the first card to the trick)\n2. Play continues **clockwise** — each player contributes one card\n3. The player who played the **highest card** wins the trick\n4. The winner of each trick **leads to the next one**\n\nSince each player has 13 cards, there are exactly **13 tricks** in every deal.\n\nThere are rules about which cards you can play (you must follow the suit that was led, if you can), and there's the concept of a **trump suit** that can beat other suits. We'll cover these rules in the next lesson.\n\n## Phase 5: The Score\n\nAfter all 13 tricks have been played, both sides count their tricks. The declaring side's result is compared to their contract:\n\n- **Made it**: If they won at least as many tricks as their contract required, they score points. Win extra tricks? Those are called **overtricks** and earn bonus points.\n- **Went down**: If they fell short, the defending side scores points. These are called **undertrick penalties**, and they can be significant — especially if the contract was doubled.\n\nThe scoring system rewards ambitious but achievable contracts. Bid too low, and you miss out on bonuses. Bid too high, and you risk going down. This tension between ambition and safety is at the heart of bridge strategy.\n\n## The Complete Flow\n\nLet's put it all together:\n\n```\n1. DEAL      →  52 cards dealt, 13 to each player\n2. AUCTION   →  Players bid to determine the contract\n3. LEAD      →  Defender to declarer's left leads a card\n4. PLAY      →  Dummy is revealed; 13 tricks are played\n5. SCORE     →  Compare tricks won to the contract\n```\n\nThis cycle repeats for every deal. In a typical session, you might play 20-30 deals. Each one is a fresh puzzle with new cards and new decisions.\n\n## A Key Concept: The Book\n\nYou'll hear the term **\"book\"** in bridge. The book is the first **six tricks**. When someone bids \"1♠\", they're promising to win 1 + 6 = 7 tricks. When they bid \"4♠\", they're promising 4 + 6 = 10 tricks.\n\nWhy six? Because with 13 tricks total, winning seven is the bare minimum to win more than half. The bidding level tells you how many tricks *beyond* that minimum the partnership is promising.\n\n| Bid Level | Tricks Needed |\n|-----------|---------------|\n| 1         | 7 (6+1)       |\n| 2         | 8 (6+2)       |\n| 3         | 9 (6+3)       |\n| 4         | 10 (6+4)      |\n| 5         | 11 (6+5)      |\n| 6         | 12 (6+6)      |\n| 7         | 13 (6+7)      |\n\nA contract at the 7-level — promising to win all 13 tricks — is called a **grand slam**. It's the Mount Everest of bridge: thrilling when you make it, devastating when you don't.\n\n## Why This Structure Matters\n\nThe five-phase structure creates a game with two distinct halves:\n\n- **The auction** is about communication and judgment. You and your partner exchange information through bids to find the best contract.\n- **The play** is about execution and deduction. Can the declarer fulfill the contract? Can the defenders stop them?\n\nGreat bridge players excel at both. And the beautiful thing is that the two halves influence each other: what happens in the auction gives you clues for the play, and your experience with play makes you a better bidder.\n\nIn the next lesson, we'll zoom in on how tricks actually work — the fundamental unit of bridge."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "If the contract is 3♥, how many tricks does the declaring side need to win?",
+      "answer": "9 tricks. The contract level (3) plus the book (6) equals 9."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "How many cards does each player receive in a bridge deal?",
+      "options": ["10", "13", "7"],
+      "correctIndex": 1,
+      "explanation": "A standard 52-card deck is dealt equally to four players, giving each player 13 cards.",
+      "encourageCorrect": "That's right! 52 divided by 4 is 13 -- everyone gets an equal share.",
+      "encourageIncorrect": "Not quite. With 52 cards and 4 players, each player gets 52 / 4 = 13 cards."
+    },
+    {
+      "question": "When does the auction end?",
+      "options": ["After everyone has bid once", "After three consecutive passes", "After someone bids 7NT"],
+      "correctIndex": 1,
+      "explanation": "The auction ends when three players in a row pass, making the last bid the final contract.",
+      "encourageCorrect": "Exactly! Three passes in a row close the auction.",
+      "encourageIncorrect": "The auction ends after three consecutive passes. This ensures everyone has had a chance to respond to the last bid."
+    },
+    {
+      "question": "Who makes the opening lead?",
+      "options": ["The declarer", "The dummy", "The defender to declarer's left"],
+      "correctIndex": 2,
+      "explanation": "The defender to declarer's left makes the opening lead, before dummy's hand is revealed.",
+      "encourageCorrect": "Perfect! The defender on declarer's left kicks things off.",
+      "encourageIncorrect": "It's the defender to declarer's left. This is important because they must lead before seeing dummy's cards."
+    }
+  ]
+}

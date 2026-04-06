@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "Sacrifice Bidding",
+    "description": "When going down is cheaper than letting them make it",
+    "level": "level-9",
+    "slug": "sacrifice-bidding",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Arithmetic of Losing\n\nSometimes the best result available is a loss — but a smaller loss than the alternative. This is the logic behind **sacrifice bidding**: deliberately bidding a contract you expect to go down in, because the penalty is less than the score the opponents would earn by making their contract.\n\n## The Basic Math\n\nLet's look at the numbers. If the opponents can make 4♠:\n\n| Vulnerability | Their score for 4♠ making |\n|---------------|---------------------------|\n| Not vulnerable | +420 |\n| Vulnerable | +620 |\n\nNow compare what happens if you sacrifice and get doubled:\n\n| Your result (doubled) | Not vul penalty | Vul penalty |\n|----------------------|----------------|-------------|\n| Down 1 | -100 | -200 |\n| Down 2 | -300 | -500 |\n| Down 3 | -500 | -800 |\n| Down 4 | -800 | -1100 |\n\n### Favorable Vulnerability (You NV, They Vul)\n\nThey make 4♠ vulnerable: +620\n\nYou sacrifice, doubled, not vulnerable:\n- Down 2: -300 → **You save 320 points!**\n- Down 3: -500 → **You still save 120 points!**\n- Down 4: -800 → Bad sacrifice, you lost 180 extra\n\nAt favorable vulnerability, you can afford to go down 3 and still come out ahead.\n\n### Unfavorable Vulnerability (You Vul, They NV)\n\nThey make 4♠ not vulnerable: +420\n\nYou sacrifice, doubled, vulnerable:\n- Down 1: -200 → **You save 220 points**\n- Down 2: -500 → **Bad sacrifice, you lost 80 extra**\n\nAt unfavorable vulnerability, you can barely afford to go down 1. Down 2 is already a loss.\n\n## The Golden Rule of Sacrifice\n\n> **Save at favorable vulnerability. Be very cautious at equal vulnerability. Almost never sacrifice at unfavorable vulnerability.**\n\nVulnerability is the single biggest factor in sacrifice decisions. Get this wrong and you'll turn small losses into disasters.\n\n## The Phantom Sacrifice\n\nThe worst thing that can happen when sacrificing: **the opponents' contract wasn't making.**\n\nIf you bid 5♥ doubled, going down 2 for -300, thinking they were making 4♠... but they were actually going down in 4♠ themselves... you just turned a plus score into -300. This is a **phantom sacrifice** — a sacrifice against a contract that wasn't there.\n\n### How to Avoid Phantoms\n\n1. **Be fairly certain they're making their contract.** If there's real doubt, defend.\n2. **Trust the vulnerability and bidding.** If they bid game voluntarily and confidently, they probably can make it.\n3. **Look at your defensive values.** If you have ♠KQ sitting over their spade suit, they might not make it. Don't sacrifice with good defense.\n\n## When to Sacrifice\n\nA good sacrifice requires:\n\n1. **Confidence they're making their contract** — based on the auction, vulnerability, and your defensive prospects\n2. **Knowledge of your trick count** — you need to know approximately how many tricks you'll take\n3. **The right vulnerability** — favorable is ideal, equal is borderline, unfavorable is almost never right\n4. **A good trump fit** — distribution means you'll take more tricks, reducing the penalty\n\n## Sacrifice Decisions in Practice\n\n### Scenario 1: Classic Favorable Save\n\nNeither side vulnerable. They bid 4♠. You hold ♠3 ♥QJ8742 ♦KJ95 ♣84.\n\nPartner raised hearts. You have a 9+ card heart fit. They have a spade fit and game values. At favorable vulnerability... wait, both sides are not vulnerable, so vulnerability is equal. Down 2 doubled would be -300 vs their +420. That's a save if they're making 4♠.\n\nBid **5♥** — a reasonable sacrifice with your distributional hand and big fit.\n\n### Scenario 2: The Trap\n\nYou're vulnerable, they're not. They bid 4♥. You hold ♠AKQ85 ♥4 ♦T9753 ♣J6.\n\nTempting to bid 4♠, but the math is ugly: if you go down 2 doubled vulnerable, that's -500. They're only making +420 for their non-vul game. You'd lose 80 points by sacrificing! And if they weren't making 4♥ (your ♠AKQ are strong defensive cards), it's even worse.\n\n**Pass** and defend. Unfavorable vulnerability + good defensive values = no sacrifice.\n\n## The Five-Level Belongs to the Opponents\n\nThere's a famous bridge saying: **\"The five-level belongs to the opponents.\"** What does it mean?\n\nWhen both sides are competing, someone may have to decide whether to bid 5♥ or let the opponents play 4♠. The 5-level is dangerous territory:\n\n- If you bid 5♥ and go down, they get a plus\n- If they could have been defeated at 4♠, you just gave away a good result\n- If they bid 5♠ over your 5♥, you've pushed them to a makeable contract they wouldn't have bid\n\nThe 5-level is where most phantom sacrifices and bad decisions happen. When in doubt at the 5-level, **defend.**"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Sacrifice Math and Decisions",
+      "problems": [
+        {
+          "id": "sac-1",
+          "question": "You're not vulnerable, they're vulnerable. They bid 4♠ (worth +620). You bid 5♥ doubled and go down 2. What's the result?",
+          "options": ["A) -300 — a good sacrifice (saved 320)", "B) -500 — a bad sacrifice", "C) -100 — barely anything", "D) -300 — a bad sacrifice"],
+          "correctAnswer": "A",
+          "explanation": "Down 2 doubled not vulnerable = -300. Their 4♠ vulnerable = +620. You saved 320 points by sacrificing! This is a classic favorable-vulnerability save.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "sac-2",
+          "question": "You're vulnerable, they're not vulnerable. They bid 4♥ (worth +420). You bid 5♣ doubled and go down 2. Good sacrifice?",
+          "options": ["A) Yes — down 2 doubled is only -300", "B) No — down 2 doubled vulnerable is -500, which is worse than their +420", "C) Yes — any sacrifice is better than letting them make game", "D) Depends on the trump fit"],
+          "correctAnswer": "B",
+          "explanation": "Down 2 doubled VULNERABLE = -500. Their non-vul game = +420. You lost 80 extra points. At unfavorable vulnerability, even down 2 is too much.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "sac-3",
+          "question": "Both vulnerable. They bid 4♠ (+620). You sacrifice in 5♦ doubled, down 3. Was it worth it?",
+          "options": ["A) Yes — saved points", "B) No — down 3 doubled vulnerable is -800, much worse than their 620", "C) Borderline — about equal", "D) Depends on matchpoints vs IMPs"],
+          "correctAnswer": "B",
+          "explanation": "Down 3 doubled vulnerable = -800. Their 4♠ = +620. You lost an extra 180 by sacrificing. At equal vulnerability, you can only afford down 2 (= -500, saving 120).",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "sac-4",
+          "question": "They bid 4♥. You hold ♠KQ5 ♥AJ7 ♦T963 ♣J84. Should you sacrifice?",
+          "options": ["A) Yes — they bid game, it must be making", "B) No — you have strong defensive values (♥AJ behind their hearts, ♠KQ). They might not make it.", "C) Only at favorable vulnerability", "D) Double for penalty"],
+          "correctAnswer": "B",
+          "explanation": "Look at your defensive values! The ♥AJ is sitting over their heart suit — you'll likely take a heart trick. The ♠KQ are probably worth two tricks. You have great defense. Don't sacrifice when you might beat their contract — that's a phantom sacrifice.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "sac-5",
+          "question": "Favorable vulnerability (you NV, they vul). They bid 4♠. You have a 10-card heart fit with partner. What's the maximum number of tricks you can afford to go down (doubled) and still have a profitable sacrifice?",
+          "options": ["A) Down 2 (-300 vs their 620)", "B) Down 3 (-500 vs their 620)", "C) Down 4 (-800 vs their 620)", "D) Down 5 (-1100 vs their 620)"],
+          "correctAnswer": "B",
+          "explanation": "Their vul game = +620. Not vul doubled: down 1 = -100, down 2 = -300, down 3 = -500. All profitable! Down 4 = -800, which loses 180. So you can afford to go down 3. Favorable vulnerability is incredibly forgiving for sacrifices.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Sacrifice Decision Drill",
+      "generator": "sacrifice-decision",
+      "problemCount": 10,
+      "passThreshold": 0.75,
+      "timeLimitSeconds": 120
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "At which vulnerability is sacrificing most attractive?",
+      "options": ["Equal vulnerability", "Favorable (you not vulnerable, they vulnerable)", "Unfavorable (you vulnerable, they not)"],
+      "correctIndex": 1,
+      "explanation": "At favorable vulnerability, your penalties are cheaper (not vul) while their game is more valuable (vul). You can afford to go down 3 and still save points.",
+      "encourageCorrect": "Exactly! Favorable vulnerability is the sweet spot — cheap penalties vs their expensive game.",
+      "encourageIncorrect": "Favorable vulnerability (you NV, they vul) is ideal: your down-tricks are cheap, their game is worth a lot."
+    },
+    {
+      "question": "What is a 'phantom sacrifice'?",
+      "options": ["A sacrifice when the opponents were bluffing", "Sacrificing against a contract the opponents couldn't have made", "A sacrifice that costs exactly zero"],
+      "correctIndex": 1,
+      "explanation": "A phantom sacrifice is bidding a contract you go down in when the opponents' contract wasn't making either. It turns a potential plus into a definite minus.",
+      "encourageCorrect": "Right! The phantom sacrifice is every competitor's nightmare — paying a penalty for nothing.",
+      "encourageIncorrect": "A phantom sacrifice means you went minus when you could have gone plus by defending. Always ask: 'Are they really making it?'"
+    }
+  ]
+}

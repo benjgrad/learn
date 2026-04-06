@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Counting Losers in Trump Contracts",
+    "description": "The losers method for suit contracts",
+    "level": "level-6",
+    "slug": "counting-losers-trump",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## A Different Way of Thinking\n\nIn notrump, you count winners — tricks you can take. In a suit contract, the approach flips. You count **losers** — tricks you might lose — and then figure out how to get rid of them.\n\nWhy the switch? Because in a suit contract, you have a powerful weapon: the trump suit. Trumps give you control. You can ruff losers, draw opponents' trumps, and manage timing. The question isn't \"How do I build up enough winners?\" It's \"How do I eliminate enough losers?\"\n\n## How to Count Losers\n\nCount losers only in **declarer's hand** (the long trump hand, usually South). Look at each suit and count how many cards in the first three might lose:\n\n### The Rules\n\n1. **Count only the first three cards** in each suit (you can never have more than 3 losers in a suit)\n2. **An Ace covers the first card** — it's not a loser\n3. **A King covers the second card** (if you have one) — it's not a loser if the Ace is in either hand\n4. **A Queen covers the third card** — it's not a loser if AK are accounted for between both hands\n\n### Quick Loser Count Reference\n\n| Your Holding | Dummy's Holding | Losers |\n|-------------|-----------------|--------|\n| AKQ | any | 0 |\n| AKx | any | 1 |\n| Axx | Kxx | 1 |\n| Axx | xxx | 2 |\n| Kxx | Axx | 1 |\n| Kxx | xxx | 2 |\n| Qxx | Axx | 1 |\n| Qxx | xxx | 3 |\n| xxx | AKx | 1 |\n| xxx | xxx | 3 |\n| x | xxx | 0 (only 1 card = can ruff after that) |\n| — (void) | any | 0 |\n\n**Important:** A singleton (x) or void means fewer losers because you have fewer cards to lose. A singleton opposite Axx = 0 losers (the Ace covers your one card, and your short suit means you can ruff in the future).\n\n## How Many Losers Can You Afford?\n\n13 minus the number of tricks you need = losers you can afford.\n\n| Contract | Tricks Needed | Losers Affordable |\n|----------|--------------|-------------------|\n| 2♠ | 8 | 5 |\n| 3♥ | 9 | 4 |\n| 4♠ | 10 | 3 |\n| 5♦ | 11 | 2 |\n| 6♥ | 12 | 1 |\n| 7♠ | 13 | 0 |\n\n## A Complete Example\n\nYou're South in 4♠. West leads the ♥K.\n\n```\n         ♠ K 8 5 3\n         ♥ 7 5 3\n         ♦ A Q 4\n         ♣ K 8 5\n\n         ♠ A Q J T 4\n         ♥ A 6 2\n         ♦ K 5\n         ♣ A 7 3\n```\n\n**Count losers in South's hand:**\n- ♠: AQJTx — you hold AQ, dummy has K. **0 losers** (you have AKQ between the two hands)\n- ♥: A62 — the Ace covers one, but 6 and 2 are losers. **2 losers**\n- ♦: K5 — K covers one, dummy has the Ace. **0 losers**\n- ♣: A73 — Ace covers one, dummy has the King. **1 loser** (the 3 is a loser)\n\n**Total losers: 3.** For 4♠ you can afford exactly 3. So you can just draw trumps and concede the losers.\n\n**Plan:** Win ♥A. Draw trumps (♠A, then ♠Q — if both opponents follow, trumps are drawn). Cash your winners. Lose 2 hearts and 1 club. Making 4♠.\n\n## Another Example: Too Many Losers\n\nYou're South in 4♥. West leads the ♠K.\n\n```\n         ♠ 8 5 3\n         ♥ K 9 7 4\n         ♦ A 5\n         ♣ Q 8 5 3\n\n         ♠ A 7 4\n         ♥ A Q J T 3\n         ♦ K 8 4\n         ♣ A 6\n```\n\n**Count losers in South's hand:**\n- ♠: A74 — Ace covers one. **2 losers** (7 and 4)\n- ♥: AQJT3 — AQ plus dummy's K. **0 losers**\n- ♦: K84 — K covers one, dummy's A covers another. **1 loser** (the 4)\n- ♣: A6 — Ace covers one. **1 loser** (the 6)\n\n**Total: 4 losers.** You can afford only 3 for 4♥. You must eliminate one loser.\n\n**How?** Look at your options:\n- **Ruff a spade in dummy:** After winning ♠A and losing two spades, your fourth spade could be ruffed in dummy — but wait, you only have 3 spades. No extra to ruff.\n- **Discard a loser on a winner:** Can you set up a winner in dummy to discard on? Dummy's clubs: Q853 opposite your A6. No help there.\n- **Finesse:** The diamond suit is already handled.\n\nActually, look again at clubs: you have ♣A6 and dummy has ♣Q853. If the ♣K is onside (with West), you can finesse: lead toward dummy's ♣Q. If it wins, the ♣Q becomes a winner and you can discard your diamond loser on it later.\n\nThat's your plan: win ♠A, draw trumps, then lead a club toward the ♣Q. If the finesse works, you eliminate one loser and make 4♥.\n\n## Ways to Eliminate Losers\n\nOnce you've counted losers and found too many, you have several tools:\n\n1. **Trump them in dummy** (ruff losers in the short hand)\n2. **Discard on extra winners** (cash a winner in dummy and throw away a loser from your hand)\n3. **Finesse** (hope a missing honor is favorably placed)\n4. **Establish a suit** (set up winners for discards)\n\nWe'll explore each of these in the coming lessons."
+    },
+    {
+      "type": "predictPrompt",
+      "prompt": "In a trump contract, do you think it's more useful to count your winners or your losers? Why might the answer be different from notrump?"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Count the Losers",
+      "solution": "You're South in 4♠. West leads the ♦K.\n\n```\n         ♠ Q 7 5 3\n         ♥ K 5\n         ♦ A 7 4\n         ♣ J 8 6 3\n\n         ♠ A K J T 8\n         ♥ A 8 3\n         ♦ 6 5\n         ♣ A 7 4\n```\n\nCount your losers. How many can you afford? Do you have a problem?\n\nAnswer: Spades: AKJT8, dummy has Q — 0 losers. Hearts: A83, dummy has K — 1 loser (the 3). Diamonds: 65, dummy has A — 1 loser (you have only 2 diamonds, Ace covers one). Clubs: A74, dummy has J863 — 2 losers (7 and 4). Total: 4 losers. You can afford 3. You need to eliminate one loser — perhaps by ruffing the third club in dummy, or by discarding a club on dummy's ♦A after using it."
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "In suit contracts, count losers in declarer's hand (first 3 cards per suit only). Compare to what you can afford (13 minus tricks needed). If you have too many losers, plan to eliminate them by ruffing in dummy, discarding on winners, or finessing."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "In a 4♠ contract, how many losers can you afford?",
+      "options": ["2 losers", "3 losers", "4 losers"],
+      "correctIndex": 1,
+      "explanation": "4♠ requires 10 tricks. 13 - 10 = 3 losers you can afford.",
+      "encourageCorrect": "Perfect! 13 minus your trick target gives the losers you can afford. For game contracts: 4-level = 3, 5-level = 2, 6-level = 1.",
+      "encourageIncorrect": "For 4♠ you need 10 tricks, so you can lose 13 - 10 = 3 tricks. That's 3 affordable losers."
+    },
+    {
+      "question": "When counting losers, how many cards do you examine in each suit?",
+      "options": ["All of them", "The first 3 only", "Only cards below the 10"],
+      "correctIndex": 1,
+      "explanation": "Count only the first 3 cards in each suit. You can never have more than 3 losers per suit, since the 4th card onward can be ruffed or discarded.",
+      "encourageCorrect": "Right! Maximum 3 losers per suit. The 4th, 5th, etc. cards can be handled with trumps.",
+      "encourageIncorrect": "Only the first 3 cards per suit matter for loser counting. Beyond that, you can always ruff or discard extra cards."
+    },
+    {
+      "question": "You hold Axx in your hand and Kxx in dummy. How many losers in this suit?",
+      "options": ["0 losers", "1 loser", "2 losers"],
+      "correctIndex": 1,
+      "explanation": "The Ace covers the first card, the King covers the second, but the third card (x) is a loser. Total: 1 loser.",
+      "encourageCorrect": "Exactly! AK handle two cards, the third is on its own. One loser.",
+      "encourageIncorrect": "The Ace and King cover two of the three cards, but the third small card is a loser. That's 1 loser in this suit."
+    }
+  ]
+}

@@ -15,9 +15,11 @@ import {
   Target,
 } from "lucide-react";
 import { CardDisplay } from "@/components/poker/CardDisplay";
+import { BridgeHandDisplay } from "@/components/bridge/BridgeHandDisplay";
 import type { DrillProblem } from "@/types/content";
 import type { DrillAttempt } from "@/types/progress";
 import { generateProblems, type GeneratorType } from "@/lib/poker/generators";
+import { generateBridgeProblems, type BridgeGeneratorType } from "@/lib/bridge/generators";
 import {
   getTestResultMessage,
   getSpeedFeedback,
@@ -109,6 +111,17 @@ export function DrillSet({
 
   const getProblems = useCallback((): DrillProblem[] => {
     if (generator) {
+      const bridgeTypes: string[] = [
+        "hcp-count", "distribution-count", "total-points", "hand-shape",
+        "quick-tricks", "mixed-evaluation", "opening-bid", "one-nt-decision",
+        "opening-bid-mixed", "respond-major", "respond-minor", "respond-nt",
+        "response-mixed", "opener-rebid", "full-uncontested-auction",
+        "opening-lead-nt", "opening-lead-suit", "ace-asking", "takeout-double",
+        "convention-id", "sacrifice-decision",
+      ];
+      if (bridgeTypes.includes(generator)) {
+        return generateBridgeProblems(generator as BridgeGeneratorType, problemCount);
+      }
       return generateProblems(generator as GeneratorType, problemCount);
     }
     return shuffleArray(staticProblems || []);
@@ -329,14 +342,26 @@ export function DrillSet({
         </div>
 
         {problem.cards && (
-          <CardDisplay
-            hand={problem.cards.hand}
-            hand1={problem.cards.hand1}
-            hand2={problem.cards.hand2}
-            board={problem.cards.board}
-            displayAs={problem.cards.displayAs}
-            size="sm"
-          />
+          problem.cards.displayAs?.startsWith("bridge") ? (
+            <BridgeHandDisplay
+              north={problem.cards.north}
+              south={problem.cards.south}
+              east={problem.cards.east}
+              west={problem.cards.west}
+              auction={problem.cards.auction}
+              displayAs={problem.cards.displayAs as "bridge-single" | "bridge-dummy" | "bridge-full" | "bridge-bidding"}
+              size="sm"
+            />
+          ) : (
+            <CardDisplay
+              hand={problem.cards.hand}
+              hand1={problem.cards.hand1}
+              hand2={problem.cards.hand2}
+              board={problem.cards.board}
+              displayAs={problem.cards.displayAs as "hand" | "board" | "both" | "versus"}
+              size="sm"
+            />
+          )
         )}
 
         {/* Options */}
@@ -470,14 +495,26 @@ export function DrillSet({
         </div>
 
         {problem.cards && (
-          <CardDisplay
-            hand={problem.cards.hand}
-            hand1={problem.cards.hand1}
-            hand2={problem.cards.hand2}
-            board={problem.cards.board}
-            displayAs={problem.cards.displayAs}
-            size="sm"
-          />
+          problem.cards.displayAs?.startsWith("bridge") ? (
+            <BridgeHandDisplay
+              north={problem.cards.north}
+              south={problem.cards.south}
+              east={problem.cards.east}
+              west={problem.cards.west}
+              auction={problem.cards.auction}
+              displayAs={problem.cards.displayAs as "bridge-single" | "bridge-dummy" | "bridge-full" | "bridge-bidding"}
+              size="sm"
+            />
+          ) : (
+            <CardDisplay
+              hand={problem.cards.hand}
+              hand1={problem.cards.hand1}
+              hand2={problem.cards.hand2}
+              board={problem.cards.board}
+              displayAs={problem.cards.displayAs as "hand" | "board" | "both" | "versus"}
+              size="sm"
+            />
+          )
         )}
 
         <div className="space-y-2 mb-4">
@@ -550,14 +587,26 @@ export function DrillSet({
         </div>
 
         {problem.cards && (
-          <CardDisplay
-            hand={problem.cards.hand}
-            hand1={problem.cards.hand1}
-            hand2={problem.cards.hand2}
-            board={problem.cards.board}
-            displayAs={problem.cards.displayAs}
-            size="sm"
-          />
+          problem.cards.displayAs?.startsWith("bridge") ? (
+            <BridgeHandDisplay
+              north={problem.cards.north}
+              south={problem.cards.south}
+              east={problem.cards.east}
+              west={problem.cards.west}
+              auction={problem.cards.auction}
+              displayAs={problem.cards.displayAs as "bridge-single" | "bridge-dummy" | "bridge-full" | "bridge-bidding"}
+              size="sm"
+            />
+          ) : (
+            <CardDisplay
+              hand={problem.cards.hand}
+              hand1={problem.cards.hand1}
+              hand2={problem.cards.hand2}
+              board={problem.cards.board}
+              displayAs={problem.cards.displayAs as "hand" | "board" | "both" | "versus"}
+              size="sm"
+            />
+          )
         )}
 
         <div className="space-y-2 mb-4">

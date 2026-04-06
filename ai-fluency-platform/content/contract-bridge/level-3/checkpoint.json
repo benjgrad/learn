@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Level 3 Checkpoint",
+    "description": "Opening bid decisions from evaluation through bid selection",
+    "level": "level-3",
+    "slug": "checkpoint",
+    "order": 7,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "explainBack",
+      "prompt": "Walk through the opening bid decision tree: given any hand, what questions do you ask and in what order? Start from the moment you pick up your 13 cards and end with your chosen bid (or pass). Include all the major opening bid types we've covered."
+    },
+    {
+      "type": "drillSet",
+      "title": "Opening Bid Mastery",
+      "generator": "opening-bid-mixed",
+      "problemCount": 15,
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 120
+    }
+  ]
+}

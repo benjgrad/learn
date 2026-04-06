@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "title": "Safety Plays",
+    "description": "Giving up maximum tricks to guarantee the contract",
+    "level": "level-10",
+    "slug": "safety-plays",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Art of Giving Up\n\nA **safety play** deliberately sacrifices the maximum possible number of tricks in a suit to guarantee enough tricks against bad breaks. It's insurance — you pay a small premium (a potential overtrick) to protect against a large loss (going down).\n\nSafety plays are the hallmark of expert declarer play. They require you to think about what can go wrong before it does — and to give up a little to secure a lot.\n\n## The Classic Position\n\n```\nDummy:  x x x\nYou:    A K x x x\n```\n\nYou need 4 tricks from this suit. The opponents have 5 cards.\n\n### If the suit splits 3-2 (68% of the time):\nPlay the Ace, then the King. Both opponents follow. You've taken 5 tricks — the maximum.\n\n### If the suit splits 4-1 (28% of the time):\nIf you play the Ace and King, one opponent shows out on the second round. Now the other opponent has 2 winners in the suit. You've lost control.\n\n### The Safety Play:\nPlay the **Ace first** (both follow). Then play a **small card** toward dummy. If both opponents follow, you've already set up the suit. If one opponent shows out, the other has 3 remaining — but you still have the King and can manage the suit to take your 4 tricks.\n\nBy playing Ace, then small (instead of Ace-King), you guarantee 4 tricks against any 4-1 break, at the cost of sometimes winning only 4 tricks when you could have won 5.\n\n## When You Need All the Tricks\n\nSafety plays only make sense when you can afford to lose a trick. If you need **all 5 tricks** from AKxxx opposite xxx, there's no safety play — you must play for the 3-2 break and hope.\n\nThis is why safety plays are context-dependent: they depend on how many tricks you need from the suit, not just the holding.\n\n## More Safety Play Positions\n\n### Position 2: AKT9x opposite xxx\n\nYou need 4 tricks. Missing QJxxx.\n\nIf the suit is 3-2 with Q-J split: Ace-King catches both honors. Maximum tricks.\n\nBut if one opponent has QJxx: Ace-King only catches one honor. You lose 2 tricks.\n\n**Safety play:** Cash the **Ace** (both follow with small cards). Then lead small toward the **T9**. If West plays the Q or J, win the King and finesse the T against the remaining honor. If West plays small, insert the **T** (or **9**). This guarantees 4 tricks against any 3-2 or 4-1 break where West has length.\n\n### Position 3: AQxxx opposite Kxx\n\nYou need 5 tricks. Missing J-10-9-x-x.\n\n**Normal play:** Cash AK, hoping the Jack drops in 2 rounds. Works when the suit is 3-2 with the J onside.\n\n**Safety play for 4 tricks:** Cash the **King** first (from the short side). Then lead toward the **AQxxx**. If West shows out, you can finesse East's J through the AQ. If East shows out, West has Jxxx — but you've already cashed the King and can play Ace and concede one trick.\n\nCashing the honor from the short side first is a common safety play technique.\n\n### Position 4: AJ9xx opposite Kxx\n\nYou need 4 tricks. Missing Q-10-x-x-x.\n\n**Safety play:** Cash the **King** first. Then lead toward the AJ9. If West plays the Queen, win the Ace — the remaining cards are good. If West plays small, finesse the **9** (or **J**). This handles Q with West in any distribution. If East has Qxxx, you need the finesse — and starting with the King from the short side preserves your options.\n\n## The Golden Rule of Safety Plays\n\n> **Cash the honor in the shorter hand first, then lead toward the longer hand.**\n\nThis keeps your options open. If someone shows out, you can still finesse through the remaining honors.\n\n## When to Use Safety Plays\n\n### At IMPs: Almost Always\n\nAt IMPs, making your contract is paramount. An overtrick is worth 1 IMP. Going down costs 10+. Safety plays are automatic.\n\n### At Matchpoints: Only When the Contract is Unusual or the Risk is High\n\nAt matchpoints, overtricks matter. If everyone is in 4♠, making 5 (with an overtrick) beats making 4. So at matchpoints, you might skip a safety play when:\n- The contract is normal (everyone else is here too)\n- The risk of a bad break is small\n- The overtrick would be a big matchpoint gain\n\nBut even at matchpoints, use a safety play when:\n- You're in a unusual contract (yours to make or go down)\n- You're vulnerable (the cost of going down is higher)\n- You're in slam (going down in slam is a disaster at any scoring)\n\n## Thinking About Safety Plays\n\nBefore playing the first card of a suit, ask yourself:\n\n1. **How many tricks do I need from this suit?**\n2. **What's the worst break that could happen?**\n3. **Is there a way to play the suit that handles that worst break?**\n4. **What does the safety play cost me?** (Usually just an overtrick.)\n\nIf the cost is small and the protection is large, use the safety play."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Safety Play at IMPs",
+      "solution": "You're in 6♠ at IMPs. Trumps are:\n\n```\nDummy:  ♠ A K 7 5 3\nYou:    ♠ Q 9 8 6 2\n```\n\nYou have 10 trumps between you. The opponents have ♠JT4. You need to lose zero trump tricks. How do you play?\n\n**The danger:** If spades are 3-0 (one opponent has JT4), playing AK might leave that opponent with a winner.\n\n**The safety play:** Cash the ♠A first. If both follow — great, play the King next. If **West shows out** (East has JT4), lead toward your Q98 and finesse East's JT through your honors. If **East shows out** (West has JT4), lead from dummy toward your Q9 — you can finesse West.\n\nBy cashing just the Ace first (not AK), you discover the 3-0 break before it's too late. The cost? None, really — you're going to play the suit the same way if it's 2-1. You're just getting information before committing.\n\nIn slam at IMPs, this care is essential. Going down in 6♠ because of a careless trump play is a disaster — 13+ IMPs lost."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Choosing Between Maximum and Safety",
+      "solution": "You're declaring 4♥ at matchpoints. Your heart suit:\n\n```\nDummy:  ♥ A K 6 3 2\nYou:    ♥ 8 7 5\n```\n\nYou need 4 heart tricks to make your contract. The opponents have ♥QJT9. How do you play?\n\n**For maximum tricks:** Play AK and hope the suit is 2-2 (40%) or someone has a singleton Q/J/T/9 that drops. If it's 3-1 with QJT onside, you lose 2 tricks.\n\n**Safety play for 4 tricks:** Play the **Ace** (both follow). Then play a **small heart** from dummy, conceding a trick. The opponents win, but now — regardless of how the remaining cards split — you can come back and play the King, setting up the 5th card as a winner. You lose exactly 1 heart trick, guaranteeing 4.\n\n**At matchpoints:** If most pairs are in 4♥, playing for the maximum (AK, hoping for 2-2 or a lucky drop) might be right — overtricks matter. If the suit is 2-2, you take 5 tricks and beat the field.\n\n**At IMPs:** Play safe! Cash the Ace, then duck. You guarantee your contract. The overtrick is irrelevant.\n\nThis is the matchpoint vs IMP tension in its purest form."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is a safety play?",
+      "options": ["Playing your highest card first", "Deliberately giving up maximum tricks to guarantee enough tricks against bad breaks", "A defensive technique"],
+      "correctIndex": 1,
+      "explanation": "A safety play sacrifices potential overtricks to protect against bad suit splits, ensuring you make your required number of tricks.",
+      "encourageCorrect": "That's right! Safety plays are insurance — giving up a little to protect against a lot.",
+      "encourageIncorrect": "A safety play gives up the chance for maximum tricks to guarantee enough tricks against bad breaks. It's declarer insurance."
+    },
+    {
+      "question": "When should you almost always use a safety play?",
+      "options": ["At matchpoints when you need overtricks", "At IMPs when making the contract is paramount", "Only in slam contracts"],
+      "correctIndex": 1,
+      "explanation": "At IMPs, the contract matters far more than overtricks. Safety plays gain little (1 IMP lost) but protect enormously (10+ IMPs saved).",
+      "encourageCorrect": "Exactly! At IMPs, the math overwhelmingly favors safety. Overtricks are spare change.",
+      "encourageIncorrect": "At IMPs, making your contract is everything. An overtrick gains ~1 IMP; going down costs 10+. Safety plays are automatic at IMPs."
+    }
+  ]
+}

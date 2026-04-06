@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "Takeout Doubles",
+    "description": "Support for unbid suits with opening strength",
+    "level": "level-8",
+    "slug": "takeout-doubles",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Entering the Auction\n\nThe opponents open the bidding. You look at your hand and see opening-strength values with support for the unbid suits. You'd love to bid, but which suit? You have three good suits and no clear favorite.\n\nThis is the problem the **takeout double** solves. Instead of guessing which suit to bid, you double and let partner choose.\n\n## What a Takeout Double Says\n\nWhen an opponent opens and you double (at your first opportunity, at a low level), your double says:\n\n> \"I have opening strength (roughly 12+ support points) and at least 3-card support for each unbid suit. Pick your best suit, partner.\"\n\nThe classic shape for a takeout double is shortness in the opponent's suit and support everywhere else.\n\n### The Ideal Takeout Double\n\nRHO opens 1♥. You hold: ♠KJ85 ♥3 ♦AQ74 ♣KT63\n\nThis is a textbook takeout double:\n- 14 HCP + 2 for the singleton = 16 support points\n- 4 spades, 4 diamonds, 4 clubs — support for every unbid suit\n- Shortness in their suit (hearts)\n\n**Double!** Partner will pick their best suit, and you'll have at least 3-card support.\n\n## Requirements\n\n1. **Roughly 12+ support points** (HCP plus distributional points, evaluated for support)\n2. **At least 3 cards in each unbid suit** — ideally 4-4-4-1 or 4-4-3 shape\n3. **Shortness in the opponent's suit** — ideally a singleton or void\n\nThe more shape you have (shortness in their suit, length elsewhere), the less in HCP you need. A 4-4-4-1 hand with 11 HCP is a better double than a 3-3-3-4 hand with 14.\n\n## Partner MUST Bid\n\nThis is crucial: **a takeout double is forcing.** Partner cannot pass (except in rare cases with a stack of the opponent's suit and a desire to defend).\n\nEven with zero points, partner must bid. This is the deal you make when you double for takeout — you're asking, and partner must answer.\n\n## Advancing (Responding to) a Takeout Double\n\nYour partner doubles RHO's 1♥ opening. What do you bid?\n\n### With 0-8 Points: Bid Your Best Suit at the Cheapest Level\nYou're forced to bid, so just pick your longest unbid suit and bid it. Don't worry if you have nothing — partner knows you might have zero.\n\n♠J743 ♥852 ♦T96 ♣743 — Bid **1♠**. It's ugly, but you must bid. Partner asked; you answer.\n\n### With 9-11 Points: Jump in Your Best Suit\nA jump shows real values — this is invitational, not forced.\n\n♠KQ85 ♥74 ♦J953 ♣K82 — Bid **2♠** (a jump). Partner knows you have 9-11 points and 4+ spades.\n\n### With 12+ Points: Cue-bid the Opponent's Suit\nThis shows a good hand and is forcing to game. You and partner will sort out the best contract.\n\n♠AJ74 ♥K85 ♦KQ93 ♣J4 — Bid **2♥** (cue bid). This says \"I have a great hand — let's find game.\"\n\n### With a Balanced Hand and Their Suit Stopped: Bid Notrump\n- 1NT = 6-10 HCP with a stopper\n- 2NT = 11-12 HCP with a stopper\n- 3NT = 13+ HCP with a stopper\n\n## The Super-Strong Takeout Double\n\nWith 18+ points, you're too strong for a simple overcall. **Double first, then bid again.** This sequence shows a hand too good to overcall directly.\n\nRHO opens 1♦. You hold: ♠AKQ85 ♥AJ7 ♦3 ♣KQ84\n\nDouble first. If partner bids 1♥, bid 1♠ (or 2♠). The double-then-bid sequence shows 18+ — much stronger than a simple 1♠ overcall.\n\n## Takeout Double vs Overcall\n\nWhen the opponents open, you have two main options for entering the auction:\n\n| | Takeout Double | Simple Overcall |\n|--|---------------|----------------|\n| **Shape** | Support for all unbid suits | One good 5+ card suit |\n| **Strength** | 12+ support points | 8-16 HCP |\n| **Message** | \"Pick a suit, partner\" | \"I have THIS suit\" |\n| **When** | Short in their suit, length elsewhere | Good suit you want to show |\n\nWith ♠KJ853 ♥74 ♦AQ9 ♣K83 over a 1♥ opening: **overcall 1♠** (you have a clear 5-card suit to show).\n\nWith ♠KJ85 ♥3 ♦AQ94 ♣K832 over a 1♥ opening: **double** (support for all three unbid suits, shortness in hearts)."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Takeout Double Decisions",
+      "problems": [
+        {
+          "id": "td-1",
+          "question": "RHO opens 1♠. You hold ♠4 ♥KQ83 ♦AJ74 ♣K952. What do you bid?",
+          "options": ["A) Pass — not enough points", "B) Double (takeout)", "C) 2♥ — overcall", "D) 1NT — balanced"],
+          "correctAnswer": "B",
+          "explanation": "Classic takeout double: 14 HCP, singleton in their suit, 4-4-4 in the unbid suits. Double and let partner pick.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "td-2",
+          "question": "Partner doubles RHO's 1♥ opening. You hold ♠8643 ♥J95 ♦T72 ♣743. What do you bid?",
+          "options": ["A) Pass — you have nothing", "B) 1♠ — bid your longest suit", "C) 1NT — balanced", "D) 2♣ — cheapest bid"],
+          "correctAnswer": "B",
+          "explanation": "You must bid — partner's takeout double is forcing! With 4 spades (an unbid major), bid 1♠. It doesn't matter that you have 1 HCP. Partner knows you might have nothing.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "td-3",
+          "question": "Partner doubles RHO's 1♦ opening. You hold ♠AQ85 ♥KJ74 ♦83 ♣K95. What do you bid?",
+          "options": ["A) 1♠ — bid your major", "B) 2♠ — jump to show values", "C) 2♦ — cue bid to show 12+ points", "D) 2♥ — bid your other major"],
+          "correctAnswer": "C",
+          "explanation": "With 14 HCP and great shape, you're too strong for a jump (9-11 points). Cue-bid 2♦ (the opponent's suit) to show 12+ points. This is forcing — you and partner will reach game.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "td-4",
+          "question": "RHO opens 1♥. You hold ♠AKJ95 ♥83 ♦KQ7 ♣A84. What do you bid?",
+          "options": ["A) Double (takeout)", "B) 1♠ — overcall", "C) 2♠ — jump overcall", "D) Double, then bid spades on the next round"],
+          "correctAnswer": "D",
+          "explanation": "With 19 HCP and a great 5-card spade suit, you're too strong for a simple 1♠ overcall (8-16). Double first, then bid spades — this shows 18+ points. Partner won't pass your second bid.",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "td-5",
+          "question": "RHO opens 1♦. You hold ♠KQ84 ♥Q73 ♦KJ85 ♣A9. Should you double?",
+          "options": ["A) Yes — you have 15 points and support for the unbid suits", "B) No — you have 4 cards in their suit (diamonds), not shortness", "C) Yes — any hand with 12+ points should double", "D) No — bid 1NT instead"],
+          "correctAnswer": "B",
+          "explanation": "A takeout double promises shortness in the opponent's suit and length in the unbid suits. You have 4 diamonds — that's the opposite of what a double shows. With a balanced 15 HCP and their suit stopped, consider 1NT overcall instead.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Takeout Double Drill",
+      "generator": "takeout-double",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 90
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What shape does a classic takeout double promise?",
+      "options": ["A long suit (5+ cards)", "Shortness in the opponent's suit with support for all unbid suits", "A balanced hand with 15-17 HCP"],
+      "correctIndex": 1,
+      "explanation": "A takeout double shows shortness in the opponent's suit and at least 3-card support for each unbid suit — typically 4-4-4-1 or similar.",
+      "encourageCorrect": "Perfect! The takeout double is all about shape — short in their suit, long everywhere else.",
+      "encourageIncorrect": "A takeout double is a shape bid: short in their suit with support for all the unbid suits. Think 4-4-4-1."
+    },
+    {
+      "question": "Partner makes a takeout double and you have 0 points. What do you do?",
+      "options": ["Pass — you have nothing", "Bid your longest unbid suit — the double is forcing", "Redouble to warn partner"],
+      "correctIndex": 1,
+      "explanation": "A takeout double is forcing — partner must bid even with nothing. Pick your longest unbid suit and bid it at the cheapest level.",
+      "encourageCorrect": "Right — you have to bid! Partner knows you might have nothing. Just pick your best suit and go.",
+      "encourageIncorrect": "You can't pass a takeout double (except in rare cases). Even with zero points, bid your longest unbid suit."
+    }
+  ]
+}

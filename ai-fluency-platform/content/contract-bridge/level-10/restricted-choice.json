@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Restricted Choice and Probability",
+    "description": "Bayesian reasoning at the bridge table",
+    "level": "level-10",
+    "slug": "restricted-choice",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## When Intuition Fails\n\nBridge is a game of probabilities. Most of the time, your intuition about odds is pretty good — you know a finesse is 50%, you know 3-2 breaks are more common than 4-1 breaks. But there's one situation where almost every player's intuition leads them astray.\n\nIt's called the **Principle of Restricted Choice**, and it's one of the most elegant applications of Bayesian reasoning outside of a statistics textbook.\n\n## The Classic Problem\n\nYou're declarer. Your trump suit is:\n\n```\nDummy:  A T 9 4 2\nYou:    K 8 7 6 5\n```\n\nYou're missing the Queen and Jack. You play the King from your hand. West follows with the **3**. East plays the **Queen.**\n\nNow you lead a small card toward dummy. West plays the **5.** Do you finesse (play the T from dummy, hoping East started with Qx) or play the Ace (hoping East started with QJ doubleton)?\n\n### The Wrong Answer (Intuition)\n\nMany players think: \"East played the Queen. The remaining honors are the Jack (with East, if East started with QJ) or with West. That's 50-50. I'll play the Ace.\"\n\n### The Right Answer (Restricted Choice)\n\nThe correct play is to **finesse** — play the Ten from dummy. The odds are approximately **2:1 in favor of the finesse.**\n\nHow can this be?\n\n## The Principle Explained\n\nHere are the two possible holdings for East when East played the Queen:\n\n**Case A: East started with Q alone (singleton)**\nEast HAD to play the Queen — it was the only card available. East was *forced* to play the Q. Probability of East playing the Q from this holding: **100%**\n\n**Case B: East started with QJ doubleton**\nEast could have played the Queen or the Jack — both are equivalent. East *chose* to play the Q from two options. Probability of East playing the Q from this holding: **50%**\n\nBefore the card was played, both holdings were roughly equally likely. But once we see the Queen, Case A (singleton Q) is *twice as likely* as Case B (QJ, chose the Q), because:\n\n- In Case A, East always plays the Q (100% of the time)\n- In Case B, East plays the Q only half the time (50%) — the other half, East would play the J\n\nUsing Bayes' theorem: the odds of Case A vs Case B, given we saw the Queen, are 100:50, which is **2:1 in favor of the singleton.**\n\nSo finesse! East likely had the singleton Queen, and West has the Jack.\n\n## A Simpler Way to Think About It\n\nImagine playing this deal 100 times:\n\n- **50 times** East has Qx (singleton Queen). East always plays the Queen. → 50 Queeen appearances\n- **25 times** East has QJ and chooses the Queen. → 25 Queen appearances  \n- **25 times** East has QJ and chooses the Jack. → 25 Jack appearances\n\nWhen you see the Queen, you're in one of 75 possible worlds (50 + 25). In 50 of them, East had the singleton. In 25, East had QJ. That's 50:25 = **2:1 in favor of finessing.**\n\n## Other Applications\n\n### Missing KJ\n\nYou play a suit. An opponent plays the King. On the next round, should you finesse for the Jack or play for KJ doubleton?\n\n**Finesse.** Same logic: if they had KJ, they might have played either card. If they had K alone, they had to play the K. Restricted choice says finesse: 2:1 odds.\n\n### Missing QT\n\nYou lead toward AJ9. An opponent plays the Queen. Later, should you finesse the 9, or play the Ace for the drop of the Ten?\n\n**Finesse the 9.** If they had QT, they might have played either. If they had Q alone, they had to play the Q.\n\n### The General Rule\n\n> **When an opponent plays one of two equivalent cards, assume they were forced to play it (had only that one), rather than that they chose it from a pair.**\n\nThis applies whenever two cards are interchangeable from the opponent's perspective.\n\n## When Restricted Choice Doesn't Apply\n\nRestricted choice only applies when the cards are **equivalent** — the opponent would be equally likely to play either one.\n\nIf one card is clearly better to play than the other (e.g., the Queen is a mandatory cover but the Jack isn't), then the cards aren't equivalent and restricted choice doesn't apply.\n\n## Why This Matters\n\nRestricted choice comes up more often than you'd think. Every time you're missing two touching honors and one appears, the principle tells you to finesse on the next round rather than play for the drop. Over a lifetime of bridge, following this principle wins many extra tricks.\n\nIt's also a beautiful example of how probability works in everyday reasoning: the fact that someone *could have* done something else but *didn't* is itself evidence."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Restricted Choice Scenarios",
+      "problems": [
+        {
+          "id": "rc-1",
+          "question": "You're missing the QJ of trumps. You play the Ace and East drops the Jack. On the next round, should you finesse (play the T) or play for the drop of the Queen?",
+          "options": ["A) Play for the drop — East might have had QJ", "B) Finesse — restricted choice says the Jack was likely a singleton (2:1 odds)", "C) It's 50-50 — flip a coin", "D) Play for the drop — the Jack falling is a good sign"],
+          "correctAnswer": "B",
+          "explanation": "Restricted choice: if East had QJ, they might have played either card (50% chance of the Jack). If East had J alone, they had to play it (100%). The Jack appearing is twice as likely to be a singleton. Finesse.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rc-2",
+          "question": "You play a suit and West drops the King under your Ace. On the next round, do you finesse for the Jack or play for the drop (KJ doubleton)?",
+          "options": ["A) Play for the drop — the King is a big card, West probably had KJ", "B) Finesse for the Jack — restricted choice says the King was likely singleton", "C) It depends on the suit", "D) 50-50 either way"],
+          "correctAnswer": "B",
+          "explanation": "Same principle: if West had KJ, the King might have been played or the Jack. If West had K alone, the King was forced. Restricted choice: 2:1 in favor of singleton King. Finesse.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rc-3",
+          "question": "Why is restricted choice approximately 2:1 and not some other ratio?",
+          "options": ["A) Because there are 2 missing honors", "B) Because with a singleton, the player always plays it (100%), but with both honors, they play the specific one only half the time (50%). 100:50 = 2:1.", "C) Because it's a rule of thumb, not exact math", "D) Because bridge always uses 2:1 odds"],
+          "correctAnswer": "B",
+          "explanation": "The 2:1 comes from the probability of seeing that specific card: 100% if forced (singleton) vs 50% if chosen (from a pair). The ratio of these probabilities — 100:50 — gives 2:1.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "rc-4",
+          "question": "You lead toward dummy's AJ9. West plays the Queen. If you later need to decide: does West also have the Ten? What does restricted choice suggest?",
+          "options": ["A) West probably has QT — the Queen is a big card", "B) West probably has Q alone — if West had QT, West might have played the Ten instead", "C) 50-50 — can't tell from one card", "D) Restricted choice doesn't apply here"],
+          "correctAnswer": "B",
+          "explanation": "If West had QT, West could have played either the Q or the T (equivalent cards in this context — both lose to the Ace). Playing the Q specifically was 50% likely. If West had Q alone, playing the Q was 100% likely. Restricted choice says Q alone is twice as likely.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the principle of restricted choice in your own words, using an example with two missing honors. Why does seeing one honor make it more likely to be a singleton rather than from a doubleton holding?"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "You're missing the QJ. An opponent plays the Queen. What does restricted choice tell you about the next round?",
+      "options": ["Play for the drop of the Jack (QJ doubleton)", "Finesse — the Queen was likely a singleton (2:1 odds)", "It's 50-50"],
+      "correctIndex": 1,
+      "explanation": "If they had QJ, they'd play the Q only 50% of the time. If they had Q alone, they'd play it 100% of the time. Seeing the Q is twice as likely from a singleton. Finesse.",
+      "encourageCorrect": "You've got it! This is one of bridge's most counterintuitive results, and you nailed it.",
+      "encourageIncorrect": "The key: from QJ, the Q appears 50% of the time. From Q alone, it appears 100%. So seeing the Q means singleton is 2x more likely."
+    },
+    {
+      "question": "When does restricted choice apply?",
+      "options": ["Whenever an opponent plays a high card", "When an opponent plays one of two equivalent (interchangeable) cards", "Only in trump suits"],
+      "correctIndex": 1,
+      "explanation": "Restricted choice applies when two cards are interchangeable — the opponent would be equally likely to play either. If one card is clearly better than the other, the principle doesn't apply.",
+      "encourageCorrect": "Exactly! The cards must be equivalent — otherwise the 'choice' isn't truly free.",
+      "encourageIncorrect": "Restricted choice only works when the two cards are equivalent — the opponent had no reason to prefer one over the other."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "title": "Putting It Together",
+    "description": "Mixed scenarios covering all opening bid types",
+    "level": "level-3",
+    "slug": "choosing-your-opening",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Complete Decision Tree\n\nYou've now learned every type of opening bid in SAYC. Let's consolidate everything into one clear decision process. When you pick up a hand, run through these questions in order:\n\n### Step 1: Do I have enough to open?\n- Fewer than 6 HCP → **Pass** (always)\n- 6-10 HCP with a good 6-card suit → Consider a **weak two-bid**\n- 6-10 HCP with a 7+ card suit → Consider a **preempt**\n- 13+ total points → You have an opening bid. Continue to Step 2.\n\n### Step 2: Is this hand HUGE?\n- 22+ HCP balanced, or 9+ playing tricks → Open **2♣**\n- No → Continue to Step 3.\n\n### Step 3: Is this hand right for 1NT?\n- 15-17 HCP AND balanced (no singleton, no void, no two doubletons) AND no 5-card major → Open **1NT**\n- No → Continue to Step 4.\n\n### Step 4: Choose your suit.\n- 5+ card major → Open **1♥ or 1♠** (longer major; if equal, higher-ranking)\n- No 5-card major → Open **1♦ or 1♣** (longer minor; if 4-4, open 1♦; if 3-3, open 1♣)\n\nThat's it. Four steps cover every possible hand.\n\n## Quick Reference Card\n\n| Hand Type | Points | Opening |\n|-----------|--------|---------|\n| Monster balanced | 22+ HCP | 2♣ |\n| Monster unbalanced | 9+ tricks | 2♣ |\n| Balanced, in range | 15-17 HCP | 1NT |\n| 5+ card major | 13-21 | 1♥ / 1♠ |\n| No 5-card major | 13-21 | 1♦ / 1♣ |\n| Good 6-card suit, weak | 6-10 HCP | 2♦ / 2♥ / 2♠ |\n| 7+ card suit, weak | < 13 | 3-level+ |\n| Nothing fits | < 13 | Pass |\n\nNow let's drill through a variety of hands. The mixed drill below will give you hands of all types — strong, weak, balanced, unbalanced — and ask you to choose the right opening bid."
+    },
+    {
+      "type": "drillSet",
+      "title": "Mixed Opening Bid Decisions",
+      "generator": "opening-bid-mixed",
+      "problemCount": 12,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 150
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "When choosing an opening bid, what should you check FIRST?",
+      "options": ["Whether you have a 5-card major", "Whether your hand qualifies for 2♣ (strong)", "Whether your hand qualifies for 1NT"],
+      "correctIndex": 1,
+      "explanation": "Check for the strongest bids first. A 2♣ opening (22+ HCP or 9+ tricks) takes priority over everything else.",
+      "encourageCorrect": "That's the right order! Always check from strongest to weakest: 2♣, then 1NT, then 1 of a suit.",
+      "encourageIncorrect": "Start with the strongest option. Check for 2♣ first (22+ HCP), then 1NT (15-17 balanced), then 1 of a suit."
+    },
+    {
+      "question": "You have 15 HCP, a balanced 4-3-3-3 hand, and no 5-card major. What do you open?",
+      "options": ["1 of your longest minor", "1NT", "Pass and wait for a better hand"],
+      "correctIndex": 1,
+      "explanation": "15 HCP, balanced, no 5-card major -- this is a textbook 1NT opening.",
+      "encourageCorrect": "Perfect! This hand is the poster child for a 1NT opening.",
+      "encourageIncorrect": "With 15 HCP and a balanced hand (no 5-card major), 1NT is the correct opening. It's the most descriptive bid available."
+    }
+  ]
+}

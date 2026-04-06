@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "Entries and Transportation",
+    "description": "Getting to the right hand at the right time",
+    "level": "level-6",
+    "slug": "entries-and-transportation",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Bridge Player's Traffic Problem\n\nYou've established four beautiful diamond winners in dummy. There's just one problem: you're in your hand, and you can't get to dummy to cash them. Those winners are stranded — as useless as money in a bank you can't reach.\n\nThis is the **entry problem**, and it's one of the most common reasons contracts fail. An entry is simply a card that lets you reach a particular hand. Managing your entries — knowing which high cards to preserve, which to spend, and in what order — is the hallmark of good declarer play.\n\n## What Counts as an Entry?\n\nAn entry is any winning card in the hand you need to reach. Common entries include:\n\n- **Aces and Kings** in side suits\n- **High cards in the trump suit** (in suit contracts)\n- **Established small cards** after you've run a suit\n\nThe key: you must **plan** which entries you'll need before you start playing.\n\n## Preserving Entries\n\nThe most common entry mistake is spending high cards carelessly early in the play.\n\n### Example: Wasting an Entry\n\n```\n         ♠ 8 5 3\n         ♥ A 4\n         ♦ K Q J T 3\n         ♣ 7 6 5\n\n         ♠ A K Q\n         ♥ K 8 7\n         ♦ A 7 2\n         ♣ A K 4 3\n```\n\nYou're in 3NT. West leads the ♠J. You have ♠AKQ = 3, ♥AK = 2, ♦A = 1, ♣AK = 2. Total: 8 top tricks. You need 9.\n\nThe diamond suit will provide extra tricks — ♦AKQJT is five tricks if you can cash them all. But look at dummy's entries: only the ♥A and the ♦ honors themselves.\n\nIf you win the spade lead and cash ♦A from your hand, then play ♦7 to dummy's ♦K, cash ♦Q, ♦J, ♦T — that works! But what if you need to use the ♥A for something else first?\n\n**The lesson:** Identify dummy's entries early. Don't squander them on the first trick when you might need them later.\n\n## Unblocking: High from the Short Side First\n\nThis is one of the most important principles in declarer play:\n\n> **Play high cards from the short hand first.**\n\nThe \"short hand\" is the hand with fewer cards in a suit. If you don't play the high cards from the short side first, you'll block the suit.\n\n### Example: Blocking Disaster\n\n```\n         ♣ A K Q 7 3\n\n         ♣ J 4\n```\n\nYou want to take five club tricks. If you start by playing ♣A, ♣K, ♣Q from dummy, you can play the ♣J and ♣4 from your hand under them. After three rounds, dummy has ♣73 and you have... nothing. You're in dummy. You can cash ♣7 and ♣3. All five tricks!\n\nBut what if you start by playing the ♣J from your hand? It wins (both opponents follow low). Now you play the ♣4 to dummy's ♣A. Cash ♣K, ♣Q... fine so far. But after three rounds, dummy has ♣73 and you have no clubs. You need to be in dummy to cash them, and you are — this works too.\n\nThe problem comes with this layout:\n\n```\n         ♣ A K Q\n\n         ♣ J 4\n```\n\nThree tricks available. If you play ♣A from dummy first, then ♣K, you've played ♣J and ♣4 under them. Now dummy plays ♣Q... but you have no club to play! You're stuck in dummy after the Queen and can't get back to your hand if you need to.\n\nBetter: **Play ♣J from your hand first** (unblocking the short side). Then cross to dummy and cash ♣AKQ. No blockage.\n\n### The Classic Unblocking Position\n\n```\n         ♦ A K 5 4 3\n\n         ♦ Q 2\n```\n\n**Play the ♦Q first** (high from the short side), then the ♦2 to dummy's ♦A, then cash ♦K and the rest. If you play ♦A first, then ♦K, your ♦Q blocks the suit — you win the third trick with the Queen in your hand and can't get back to dummy's ♦54.\n\n## Combining Entry Planning with Suit Establishment\n\nThe best declarers think about entries during the planning phase, not after they've run out of them.\n\n### A Full Example\n\nYou're South in 3NT. West leads the ♥Q.\n\n```\n         ♠ 7 5 3\n         ♥ A 5\n         ♦ 8 7 4\n         ♣ A K 8 6 2\n\n         ♠ A K 8\n         ♥ K 8 4\n         ♦ A K 6 3\n         ♣ 9 5 3\n```\n\n**Top tricks:** ♠AK = 2, ♥AK = 2, ♦AK = 2, ♣AK = 2. Total: 8. Need 9.\n\nThe clubs! You have 8 clubs between the hands. If they split 3-2, you can establish two extra club tricks. But dummy's only non-club entry is the ♥A.\n\n**Plan:** Win the ♥K in hand (preserving the ♥A as an entry to dummy). Play a club to the Ace, then a club to the King, then a third club — duck it (lose it). The opponents win. When you regain the lead, cross to dummy with the ♥A and cash the two established clubs. Nine tricks!\n\nNotice: if you had won the ♥A at trick one, you'd have no way back to dummy after establishing clubs. Entry planning at trick one made the contract."
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Unblocking Exercise",
+      "solution": "You have ♣AKQ in dummy and ♣J4 in your hand. The ♦A in dummy is your only outside entry to dummy. How do you take all three club tricks?\n\nAnswer: Play the ♣J from your hand first (unblocking the short side). Then play the ♣4 to dummy's ♣A. Cash ♣K, then ♣Q. All three tricks taken. If you had started with the ♣A from dummy, you'd play the ♣J under it, then ♣K (play the 4), then ♣Q... actually this works too since you have only 2 cards. The key scenario where unblocking matters is when you have a suit like AK5 opposite Q2 — play Q first, then 2 to the AK. The ♦A entry is preserved for if you need to reach dummy for other reasons."
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Think of a deal you've seen (or can imagine) where established winners were stranded in dummy. What entry could have been preserved to avoid the problem?",
+        "Why is it so important to think about entries at trick one, before you start playing?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Entries are the lifeblood of declarer play. Before playing to trick one, identify your entries to each hand and plan which to preserve. Play high cards from the short side first to avoid blocking suits. The most common declarer error is using an entry too early."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What does 'unblocking' mean in declarer play?",
+      "options": ["Removing opponents' stoppers", "Playing high cards from the short hand first to avoid blocking a suit", "Drawing trumps early"],
+      "correctIndex": 1,
+      "explanation": "Unblocking means playing high cards from the hand with fewer cards in a suit first, so the long hand's remaining cards can all be cashed.",
+      "encourageCorrect": "Exactly! High from the short side first is one of those simple rules that prevents a lot of grief.",
+      "encourageIncorrect": "Unblocking means playing your high cards from the short hand first. Otherwise your high card can get stuck, preventing you from cashing winners in the long hand."
+    },
+    {
+      "question": "You have AK5 in dummy and Q2 in your hand. Which card should you play first?",
+      "options": ["The Ace from dummy", "The Queen from your hand", "It doesn't matter"],
+      "correctIndex": 1,
+      "explanation": "Play the Queen first (high from the short side), then the 2 to dummy's AK. This prevents the Queen from blocking the suit.",
+      "encourageCorrect": "Right! Play the Queen first, then cross to the AK. Short hand first is the mantra.",
+      "encourageIncorrect": "Play the Queen from your hand first (high from the short side). Then you can cross to dummy's Ace and King without the Queen blocking the way."
+    }
+  ]
+}

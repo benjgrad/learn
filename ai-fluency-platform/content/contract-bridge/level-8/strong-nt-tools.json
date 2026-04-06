@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "More NT Tools",
+    "description": "Texas transfers, Smolen, Puppet Stayman",
+    "level": "level-8",
+    "slug": "strong-nt-tools",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Beyond Stayman and Jacoby\n\nIn Level 4, you learned the two most important tools after a 1NT opening: **Stayman** (2♣ asks for a 4-card major) and **Jacoby Transfers** (2♦ transfers to hearts, 2♥ transfers to spades). These handle most common situations.\n\nBut some hands fall through the cracks. What if you have a game-forcing hand with a 6-card major and want to explore slam? What if you have 5-4 in the majors and Stayman didn't find a fit? This lesson introduces more sophisticated tools for these situations.\n\n## Texas Transfers\n\n**Texas Transfers** are jump transfers to a major at the 4-level:\n\n| Bid | Transfer to |\n|-----|------------|\n| 4♦ | 4♥ (opener bids 4♥) |\n| 4♥ | 4♠ (opener bids 4♠) |\n\nWait — why not just use a Jacoby Transfer and then bid game? Because Texas Transfers serve a different purpose: they distinguish between two types of hands.\n\n### Jacoby Transfer Then Game = Mild Slam Interest\n\nWhen you transfer via 2♦ → 2♥, then bid 4♥, you're showing a hand that might have slam interest. Opener can accept (pass 4♥) or explore (cue-bid, bid 4NT).\n\n### Texas Transfer = Sign-Off, No Slam Interest\n\nWhen you bid 4♦ → 4♥ (Texas), you're saying: \"I want to play 4♥. Period. No slam interest.\" Opener always passes.\n\n### Example\n\nPartner opens 1NT. You hold:\n\n**Hand A:** ♠5 ♥AKJ854 ♦K73 ♣Q84 — Use Jacoby (2♦ → 2♥), then bid 4♥. You have 14 HCP + a good 6-card suit — slam is possible if partner is maximum.\n\n**Hand B:** ♠85 ♥QT8743 ♦K5 ♣J94 — Use Texas (4♦ → 4♥). You want to play 4♥ and nothing more. Your hand is worth game but not slam.\n\n## Smolen\n\n**Smolen** solves a specific problem: you have 5-4 in the majors, you use Stayman, and opener bids 2♦ (no 4-card major). Now what?\n\nIf you just bid your 5-card major, you become declarer — and the strong balanced hand (1NT opener) goes down in dummy, exposed for all to see. Bridge is better when the strong hand is hidden.\n\n**Smolen** works like this: after Stayman gets a 2♦ response, responder's **jump** in a major shows 5-4 — but the jump is in the **4-card** major, not the 5-card one.\n\n### Why the Shorter Major?\n\nBecause opener will then bid the **other** major (your 5-card suit) as the trump suit, and opener declares. The 1NT hand stays hidden.\n\n### Example\n\nYou hold: ♠AQ853 ♥KJ74 ♦Q5 ♣83\n\nPartner opens 1NT. You bid 2♣ (Stayman). Partner responds 2♦ (no 4-card major).\n\nUsing Smolen, you bid **3♥** — a jump in your 4-card heart suit. This tells opener you have 5 spades and 4 hearts (game-forcing). Opener bids **3♠** (or 4♠), placing the contract in the right hand.\n\nWithout Smolen, you'd bid 3♠ (your 5-card suit), and YOU would be declarer. With Smolen, opener declares — keeping the strong hand concealed.\n\n### Smolen Summary\n\nAfter 1NT - 2♣ - 2♦:\n- **3♥** = 5 spades, 4 hearts (game-forcing)\n- **3♠** = 5 hearts, 4 spades (game-forcing)\n\nYes, it's backwards — you bid the suit you have fewer of. That's the whole point.\n\n## Puppet Stayman (Brief Overview)\n\nAfter a **2NT opening** (20-21 HCP), some partnerships use **Puppet Stayman** instead of regular Stayman. The key difference: it can find both 5-3 and 4-4 major fits.\n\nThe 3♣ response to 2NT asks: \"Do you have a 5-card major, a 4-card major, or neither?\"\n\n- 3♦ = \"I have a 4-card major (or both)\" — then responder bids the major they DON'T have, and opener declares\n- 3♥ = \"I have 5 hearts\"\n- 3♠ = \"I have 5 spades\"\n- 3NT = \"No 4-card or 5-card major\"\n\nPuppet Stayman is more complex than regular Stayman and is primarily used at the 2NT level where finding any major fit (including 5-3) is critical. It's worth knowing it exists, but master the other tools first.\n\n## When to Use Each Tool\n\n| Situation | Tool |\n|-----------|------|\n| Want to play in a major, game values, possible slam | Jacoby Transfer then raise |\n| Want to play in a major, game values, NO slam interest | Texas Transfer |\n| 4-4 in the majors, game values | Stayman |\n| 5-4 in the majors, game values, Stayman got 2♦ | Smolen |\n| After 2NT, looking for any major fit | Puppet Stayman |\n\nAll of these tools share a common goal: **getting the 1NT opener to declare**, keeping the strong hand hidden and getting the opening lead into (rather than through) the big hand."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Advanced NT Tools",
+      "problems": [
+        {
+          "id": "nt-1",
+          "question": "Partner opens 1NT. You hold ♠84 ♥KJT975 ♦Q3 ♣852. You want to play 4♥ with no slam interest. What do you bid?",
+          "options": ["A) 2♦ (Jacoby transfer to hearts)", "B) 4♦ (Texas transfer to hearts)", "C) 4♥ — just bid game", "D) 2♣ (Stayman)"],
+          "correctAnswer": "B",
+          "explanation": "With a 6-card heart suit and game values but no slam interest, use Texas Transfer: bid 4♦, and partner bids 4♥. This tells partner 'play here, end of discussion.'",
+          "difficulty": "basic"
+        },
+        {
+          "id": "nt-2",
+          "question": "Partner opens 1NT. You hold ♠AQJ84 ♥KT73 ♦Q5 ♣86. You bid 2♣ (Stayman). Partner responds 2♦ (no major). Using Smolen, what do you bid?",
+          "options": ["A) 3♠ — your 5-card suit", "B) 3♥ — your 4-card suit (Smolen)", "C) 3NT — give up on the major", "D) 2♠ — show your spades naturally"],
+          "correctAnswer": "B",
+          "explanation": "Smolen: after 1NT - 2♣ - 2♦, jump in your SHORTER major. You have 5 spades and 4 hearts, so bid 3♥ (the 4-card suit). Opener will then bid 3♠ or 4♠, declaring with the strong hand hidden.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "nt-3",
+          "question": "Partner opens 1NT. You hold ♠3 ♥AKQ854 ♦KQ7 ♣J93. What's your plan?",
+          "options": ["A) Texas Transfer (4♦ → 4♥) — sign off in game", "B) Jacoby Transfer (2♦ → 2♥), then bid 4♥ — showing slam interest", "C) Bid 4♥ directly", "D) Stayman first"],
+          "correctAnswer": "B",
+          "explanation": "You have 16 HCP and a great 6-card heart suit — slam is very possible opposite a 15-17 NT. Use Jacoby Transfer (2♦ → 2♥), then bid 4♥. This sequence shows slam interest, letting opener cue-bid or use Blackwood.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "nt-4",
+          "question": "Why does Smolen have you bid the 4-card major instead of the 5-card major?",
+          "options": ["A) To keep the bidding low", "B) So the 1NT opener declares in the 5-card major fit, keeping the strong hand hidden", "C) Because the 4-card major might be the better fit", "D) It's just a convention — there's no particular reason"],
+          "correctAnswer": "B",
+          "explanation": "The whole point of Smolen is declarer placement. By bidding your shorter major, opener knows your 5-card suit and can declare there — keeping the 1NT hand concealed from the defense.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "nt-5",
+          "question": "Partner opens 1NT. You hold ♠KJ843 ♥Q973 ♦8 ♣T52. What do you bid?",
+          "options": ["A) 2♣ (Stayman) — you have 4-4 in the majors", "B) 2♥ (Jacoby transfer to spades)", "C) 2♣ (Stayman) — you have a 4-card major and enough for game", "D) Pass — not enough points for game"],
+          "correctAnswer": "D",
+          "explanation": "You have only 7 HCP. Even opposite partner's 15-17, you're short of game values (you need about 8-9 for game). Stayman and transfers require enough to handle the response. Pass and play 1NT.",
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does having more NT tools help the partnership while keeping the information advantage of having the NT opener as declarer?",
+        "Can you think of a hand type that still doesn't have a perfect tool after partner opens 1NT?"
+      ]
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is the difference between a Jacoby Transfer to 4♥ and a Texas Transfer to 4♥?",
+      "options": ["Jacoby is forcing, Texas is not", "Jacoby (2♦ then 4♥) suggests slam interest; Texas (4♦) is a pure sign-off", "There is no difference"],
+      "correctIndex": 1,
+      "explanation": "Using Jacoby then raising to game hints at slam interest. Texas Transfer goes directly to game with no interest in bidding higher.",
+      "encourageCorrect": "Exactly! Two roads to the same contract, but with different messages about slam potential.",
+      "encourageIncorrect": "The routes differ in meaning: Jacoby then raise = maybe slam; Texas = definitely just game."
+    },
+    {
+      "question": "In Smolen, after 1NT - 2♣ - 2♦, which major do you jump in?",
+      "options": ["Your 5-card major", "Your 4-card major (the shorter one)", "Whichever is stronger"],
+      "correctIndex": 1,
+      "explanation": "Smolen has you jump in the 4-card major so opener can declare in the 5-card major, keeping the strong hand hidden.",
+      "encourageCorrect": "Right! Bid the shorter suit so opener can place the contract in the longer one. It's all about declarer placement.",
+      "encourageIncorrect": "Smolen is backwards on purpose: bid the 4-card major so opener declares in the 5-card fit."
+    }
+  ]
+}

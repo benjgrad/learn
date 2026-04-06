@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "title": "Opening 1NT",
+    "description": "15-17 HCP balanced -- the most descriptive opening",
+    "level": "level-3",
+    "slug": "one-notrump",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## The Most Powerful Single Bid in Bridge\n\nOf all the opening bids in bridge, 1NT communicates the most information in a single call. When you open 1NT, your partner instantly knows two things about your hand:\n\n1. **Your point range**: Exactly 15-17 HCP\n2. **Your shape**: Balanced\n\nNo other opening bid pins down both strength and shape so precisely. This is why experienced players love 1NT openings — they make the rest of the auction much easier for the partnership.\n\n## The Requirements\n\nTo open 1NT, you need **all three** of the following:\n\n### 1. Exactly 15-17 HCP\nNote that we count only **high card points** for 1NT — not distributional points. This makes sense because 1NT describes a balanced hand, where long suits and short suits aren't as relevant.\n\n- 14 HCP? Too weak — open one of a suit instead.\n- 18 HCP? Too strong — open one of a suit and rebid notrump later.\n- 15, 16, or 17 HCP? Perfect for 1NT.\n\n### 2. Balanced Shape\nA balanced hand is one of these three patterns:\n\n| Pattern | Example |\n|---------|--------|\n| **4-3-3-3** | ♠AK74 ♥Q85 ♦KJ3 ♣Q92 |\n| **4-4-3-2** | ♠KQ84 ♥AJ73 ♦K5 ♣Q86 |\n| **5-3-3-2** | ♠A9 ♥KQ7 ♦AJ853 ♣Q74 |\n\nNotice what balanced hands do NOT have:\n- No void (a suit with 0 cards)\n- No singleton (a suit with 1 card)\n- No two doubletons (that would make the hand unbalanced)\n\n### 3. No Disqualifying Features\nEven with 15-17 HCP and balanced shape, consider:\n- **A 5-card major**: Most players open 1♥ or 1♠ instead of 1NT, because finding a major-suit fit is so important. However, some modern players will open 1NT with a weak 5-card major — this is a partnership agreement.\n- **A 5-card minor**: This is generally fine for 1NT. Opening 1NT with five clubs or five diamonds is standard practice.\n\n## Why 1NT Is So Powerful\n\nConsider what happens after different openings:\n\n- After **1♥**: Partner knows you have 13-21 points and 5+ hearts. That's a range of 9 points — a huge spread.\n- After **1NT**: Partner knows you have 15-17 HCP and balanced shape. That's a range of only 3 points.\n\nBecause 1NT is so precise, your partner can often make the final decision about where to play immediately. They can calculate the combined point total within a narrow range and know whether game is possible, certain, or out of reach.\n\n## Examples\n\n**Hand 1:** ♠AQ8 ♥KJ73 ♦K95 ♣Q84\n- 15 HCP, 4-3-3-3 shape. Textbook 1NT opening.\n\n**Hand 2:** ♠KT5 ♥AQ ♦KJ874 ♣Q93\n- 16 HCP, 5-3-2-3 shape (balanced with a 5-card minor). Open **1NT**.\n\n**Hand 3:** ♠AKJ74 ♥Q83 ♦K95 ♣Q8\n- 16 HCP, 5-3-3-2, but with a 5-card **major**. Most players open **1♠** rather than 1NT, because finding a spade fit is too important to bypass. This is a judgment call.\n\n**Hand 4:** ♠A93 ♥KQ4 ♦AJ87 ♣K52\n- 17 HCP, 4-3-3-3. Open **1NT**. Right at the top of the range but still qualifies.\n\n**Hand 5:** ♠AK8 ♥AQ7 ♦KJ95 ♣J83\n- 18 HCP. Too strong for 1NT! Open 1♦ and plan to rebid notrump to show 18-19 balanced.\n\n**Hand 6:** ♠K7 ♥AQ953 ♦K84 ♣QJ6\n- 15 HCP, 5-3-3-2, with a 5-card major (hearts). This is the debatable case. Opening 1♥ is standard, but some partnerships agree to open 1NT with a \"soft\" 5-card major. For this course, we'll follow the traditional approach: **open 1♥**.\n\n## The 1NT Range as a Foundation\n\nBecause 1NT is so descriptive, bridge has developed an entire system of responses specifically designed for it — including Stayman and Jacoby Transfers, which you'll learn in Level 4. These tools let the partnership find the right contract with remarkable accuracy.\n\nFor now, just remember: when you pick up a balanced hand with 15-17 HCP, you've found the easiest opening bid in bridge. Bid 1NT and let partner take it from there."
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You hold 16 HCP and a 5-3-3-2 hand with five spades: ♠AKJ85 ♥Q74 ♦K93 ♣Q8. What would you open -- 1NT or 1♠?",
+      "answer": "Most SAYC players would open 1♠. With a 5-card major — especially a strong one like AKJ85 — the standard approach is to open the major rather than 1NT. Finding a spade fit is too valuable to risk missing. Some modern partnerships would allow 1NT here, but the traditional and recommended choice is 1♠."
+    },
+    {
+      "type": "drillSet",
+      "title": "1NT or Not?",
+      "generator": "one-nt-decision",
+      "problemCount": 10,
+      "passThreshold": 0.85,
+      "timeLimitSeconds": 90
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What HCP range does a 1NT opening show in SAYC?",
+      "options": ["12-14 HCP", "15-17 HCP", "16-18 HCP"],
+      "correctIndex": 1,
+      "explanation": "In SAYC, a 1NT opening promises exactly 15-17 HCP with a balanced hand.",
+      "encourageCorrect": "Spot on! 15-17 is the SAYC notrump range -- one of the first numbers to memorize.",
+      "encourageIncorrect": "The SAYC 1NT range is 15-17 HCP. Some other systems use different ranges, but for SAYC it's always 15-17."
+    },
+    {
+      "question": "Which hand shape is NOT considered balanced for a 1NT opening?",
+      "options": ["4-4-3-2", "5-4-3-1", "5-3-3-2"],
+      "correctIndex": 1,
+      "explanation": "5-4-3-1 has a singleton, which makes it unbalanced. Balanced shapes are 4-3-3-3, 4-4-3-2, and 5-3-3-2.",
+      "encourageCorrect": "That's right! A singleton disqualifies a hand from being balanced.",
+      "encourageIncorrect": "A 5-4-3-1 hand has a singleton, so it's not balanced. For 1NT you need 4-3-3-3, 4-4-3-2, or 5-3-3-2."
+    }
+  ]
+}

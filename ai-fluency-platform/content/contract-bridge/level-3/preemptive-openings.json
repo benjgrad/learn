@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Preemptive Openings",
+    "description": "7+ card suits at the 3-level and higher",
+    "level": "level-3",
+    "slug": "preemptive-openings",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Maximum Disruption\n\nIf a weak two-bid (opening at the 2-level with a 6-card suit) is annoying for the opponents, imagine what opening at the **3-level** or **4-level** does to them. They've lost even more bidding space, and their chances of finding the right contract drop dramatically.\n\nThat's the idea behind **preemptive openings** at the 3-level and higher.\n\n## The Requirements\n\nA preemptive opening shows:\n\n- **A weak hand** — typically less than opening strength (fewer than 13 total points)\n- **A long suit** — 7+ cards\n- **Limited values outside the long suit**\n\nThe longer your suit, the higher you can preempt:\n\n| Suit Length | Opening Level | Example |\n|-------------|--------------|--------|\n| 7 cards | 3-level (3♣, 3♦, 3♥, 3♠) | ♠4 ♥83 ♦QJT8753 ♣K94 → 3♦ |\n| 8 cards | 4-level (4♣, 4♦, 4♥, 4♠) | ♠KQJ97543 ♥8 ♦J4 ♣73 → 4♠ |\n\nOpening at the 4-level in a major (4♥ or 4♠) is particularly effective because you've bid directly to game — the opponents must decide at the 4-level or higher whether to compete.\n\n## The Rule of 500\n\nHow high should you preempt? There's a practical guideline called the **Rule of 500** (sometimes called the Rule of 2 and 3):\n\n> **Don't preempt so high that the penalty for going down exceeds the value of the opponents' likely game.**\n\nThe logic: if the opponents can make a game worth 400-600 points, you don't mind going down 500 points (set two or three tricks) because you've broken even or come out ahead. But going down 800 or more is a disaster.\n\nIn practice, this means:\n\n- **Not vulnerable**: You can afford to go down **3 tricks** (3 x 100 = 300, or 3 x 150 if doubled undoubled... typically the \"2-3-4\" trick guideline is used)\n- **Vulnerable**: Be more conservative — you can only afford to go down **2 tricks** (2 x 200 = 400 doubled vulnerable)\n\nA simpler way to think about it:\n\n| Vulnerability | Tricks Your Hand Can Take | Safe Preempt Level |\n|---------------|--------------------------|--------------------|\n| Not vulnerable | Within 3 tricks of your bid | More aggressive |\n| Vulnerable | Within 2 tricks of your bid | More conservative |\n\n## Vulnerability and Preempts\n\nVulnerability (which we covered in Level 1) has a huge impact on preemptive decisions:\n\n- **Favorable vulnerability** (you're not vulnerable, they are): Be **aggressive**. You're risking small penalties while they stand to gain a large vulnerable game bonus.\n- **Equal vulnerability**: Standard preempts.\n- **Unfavorable vulnerability** (you're vulnerable, they're not): Be **cautious**. Going down vulnerable doubled is expensive (200 per trick), and the opponents' non-vulnerable game isn't worth as much.\n\n## Examples\n\n**Hand 1:** ♠4 ♥83 ♦QJT8753 ♣K94\n- 6 HCP, 7-card diamond suit with decent intermediates\n- Open **3♦**. Classic 3-level preempt.\n\n**Hand 2:** ♠KQJ97543 ♥8 ♦J4 ♣73\n- 8 HCP concentrated in an 8-card spade suit\n- Open **4♠**. You've bid directly to game and consumed the entire auction below 4♠.\n\n**Hand 3:** ♠7 ♥QJT9863 ♦K5 ♣842\n- 7 HCP, 7-card heart suit\n- Open **3♥**. The suit quality is good (QJT9), and the hand has little defense.\n\n**Hand 4:** ♠AK3 ♥5 ♦QJ87643 ♣94\n- 11 HCP with a 7-card diamond suit. But wait — ♠AK is significant defensive strength outside diamonds.\n- This hand might be too strong to preempt. With useful defense against any contract the opponents play, consider passing or opening 1♦ if you have 13 total points.\n\n**Hand 5:** ♠3 ♥KJT87542 ♦93 ♣Q7\n- 7 HCP, 8-card heart suit — open **4♥** even with modest suit quality. Eight cards is eight cards.\n\n## What About Opening at the 5-Level?\n\nOpening 5♣ or 5♦ is rare and extreme — you typically need a very long minor suit (8-9 cards) in a competitive situation where you expect the opponents to bid a major-suit game. It's more of a competitive tactic than a standard opening.\n\nOpening 5♥ or 5♠ is essentially never done as a preempt — at that level, you're committing to 11 tricks.\n\n## The Preemptor's Mindset\n\nWhen you preempt, you're making a bet:\n\n- **\"I probably can't make this contract\"** — but you might, especially if partner has a fitting honor or two\n- **\"The opponents probably have a better contract\"** — and now they have to find it at a high level\n- **\"I've told partner my story in one bid\"** — a long suit, a weak hand, and nothing else\n\nAfter you preempt, your job is usually done. Let partner decide whether to bid on, pass, or sacrifice. You've given them a complete picture of your hand."
+    },
+    {
+      "type": "practiceSet",
+      "title": "Preempt or Pass?",
+      "problems": [
+        {
+          "id": "pre-1",
+          "question": "♠83 ♥5 ♦KQT9742 ♣J84 — Not vulnerable. What do you open?",
+          "options": ["A) Pass", "B) 1♦", "C) 3♦", "D) 2♦"],
+          "correctAnswer": "C",
+          "explanation": "7 HCP, excellent 7-card diamond suit, weak hand with no defense outside diamonds. Textbook 3♦ preempt.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "pre-2",
+          "question": "♠KQJT8743 ♥6 ♦95 ♣84 — Not vulnerable. What do you open?",
+          "options": ["A) 1♠", "B) 2♠", "C) 3♠", "D) 4♠"],
+          "correctAnswer": "D",
+          "explanation": "An 8-card spade suit with great honors calls for a 4♠ preempt. This hand will take 7-8 tricks in spades but has zero defense in other suits.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "pre-3",
+          "question": "♠AQ4 ♥8 ♦QJT7653 ♣K8 — Vulnerable. What do you open?",
+          "options": ["A) 3♦", "B) 1♦", "C) Pass", "D) 2♦"],
+          "correctAnswer": "B",
+          "explanation": "This hand has 13 total points (11 HCP + 2 for the 7-card suit). That's opening strength! Open 1♦, not a preempt. Also, ♠AQ and ♣K provide significant defense.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "pre-4",
+          "question": "♠9 ♥J876432 ♦Q3 ♣T85 — Not vulnerable. What do you open?",
+          "options": ["A) 3♥", "B) Pass", "C) 2♥", "D) 4♥"],
+          "correctAnswer": "B",
+          "explanation": "Seven hearts, but the suit (J876432) has terrible quality — no real trick-taking power. Pass. Don't preempt with a junk suit; it misleads partner.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Preemptive openings will be an important topic again in Level 9 when we study competitive bidding. You'll learn both how to use them more aggressively and how to defend against opponents who preempt against you. For now, focus on recognizing when your hand qualifies for a preempt and at what level."
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "How many cards in your suit do you typically need to open at the 3-level?",
+      "options": ["5 cards", "6 cards", "7 cards"],
+      "correctIndex": 2,
+      "explanation": "A 3-level preempt typically shows a 7-card suit. With 6 cards, you'd use a weak two-bid instead.",
+      "encourageCorrect": "Right! 7-card suit for the 3-level, 6-card for the 2-level.",
+      "encourageIncorrect": "A 3-level preempt shows a 7-card suit. Remember the pattern: 6 cards = 2-level, 7 cards = 3-level, 8 cards = 4-level."
+    },
+    {
+      "question": "Why should you be more cautious with preempts when vulnerable?",
+      "options": ["Your partner might not understand", "Undertrick penalties are higher when vulnerable", "Preempts aren't allowed when vulnerable"],
+      "correctIndex": 1,
+      "explanation": "When vulnerable, undertrick penalties are doubled (200 per trick when doubled). Going down too many tricks can be very expensive.",
+      "encourageCorrect": "Exactly! Vulnerable penalties are steep, so you need a better hand to preempt.",
+      "encourageIncorrect": "It's about the math -- vulnerable undertrick penalties are much higher (200 vs 100 per trick when doubled), so you can't afford to go down as many tricks."
+    }
+  ]
+}

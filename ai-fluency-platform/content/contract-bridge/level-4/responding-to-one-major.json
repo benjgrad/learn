@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "Responding to 1H/1S",
+    "description": "Raise, bid 1NT, new suit, or jump raise",
+    "level": "level-4",
+    "slug": "responding-to-one-major",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Partner Opens 1♥ or 1♠ -- Now What?\n\nWhen partner opens 1♥ or 1♠, you already know something wonderful: they have at least 5 cards in that major (remember, SAYC uses 5-card majors). Your first question is always:\n\n> **Do I have 3+ cards in partner's major?**\n\nIf yes, you've found a **fit** — at least 8 cards in the suit between you. That's exciting! If no, you'll need to describe your hand another way.\n\n## With Support (3+ Cards in Partner's Major)\n\nWhen you have a fit, your priority is to **raise partner's suit**. How high you raise depends on your strength:\n\n### Single Raise: 6-10 Points\n> Partner opens 1♠ → You bid **2♠**\n\nThis says: \"I have 3+ spades and about 6-10 total points.\" It's a limited bid — partner now knows your approximate range.\n\n**Example:** Partner opens 1♠. You hold ♠Q74 ♥J83 ♦KT52 ♣964\n- 7 HCP, 3 spades. Bid **2♠**.\n\n### Limit Raise: 10-12 Points (Invitational)\n> Partner opens 1♠ → You bid **3♠**\n\nThis says: \"I have 3+ spades and 10-12 points. I'm inviting you to bid game — go to 4♠ if you're near the top of your range.\"\n\n**Example:** Partner opens 1♥. You hold ♠K8 ♥QJ74 ♦A953 ♣872\n- 10 HCP, 4 hearts. Bid **3♥**.\n\n### Game-Forcing Raise: 13+ Points\nWith 13+ points and support, you want to reach at least game (4♥ or 4♠). But you don't just jump to 4M right away — instead, you **bid a new suit first** to show your strength, and support partner's major later. This approach (called a \"forcing bid\") gives the partnership room to explore slam if opener also has extras.\n\n**Example:** Partner opens 1♠. You hold ♠KJ5 ♥AQ83 ♦K74 ♣J62\n- 14 HCP, 3 spades. Bid **2♥** first (a new suit, forcing), then support spades later.\n\n### Direct Jump to Game: Weak with Great Support\nSomewhat paradoxically, jumping directly to 4♥ or 4♠ often shows a **weak hand with excellent trump support** (5+ cards) — it's a preemptive raise designed to shut the opponents out.\n\n**Example:** Partner opens 1♥. You hold ♠8 ♥KJ8743 ♦Q964 ♣53\n- Only 7 HCP but 6-card heart support. Bid **4♥** as a preemptive raise.\n\n## Without Support (0-2 Cards in Partner's Major)\n\nWhen you don't have a fit, you need to explore other options:\n\n### Bid a New Suit at the 1-Level: 6+ Points\nIf you have a 4+ card suit that you can bid at the 1-level (meaning it ranks higher than partner's suit), do so. This is forcing — partner must bid again.\n\n**Example:** Partner opens 1♥. You hold ♠KQ85 ♥72 ♦A943 ♣J84\n- 10 HCP, 4 spades. Bid **1♠**. (You can bid a new suit at the 1-level.)\n\n### Bid a New Suit at the 2-Level: 10+ Points\nBidding a new suit at the 2-level requires more points because you're committing the partnership to a higher level. You generally need 10+ points and a good 4+ card suit.\n\n**Example:** Partner opens 1♠. You hold ♠5 ♥K83 ♦AQ874 ♣J962\n- 11 HCP, no spade support, a good 5-card diamond suit. Bid **2♦**.\n\n### Bid 1NT: 6-10 Points, No Better Bid\nWhen you have 6-10 points but can't raise partner's suit and can't bid a new suit at the 1-level, bid 1NT. In standard SAYC, this 1NT response is **not forcing** — partner may pass.\n\n**Example:** Partner opens 1♠. You hold ♠83 ♥KJ7 ♦Q963 ♣T852\n- 7 HCP, only 2 spades, no suit to bid at the 1-level. Bid **1NT**.\n\n## Response Summary Table\n\n| Your Hand | Points | Your Bid |\n|-----------|--------|----------|\n| 3+ card support | 6-10 | Raise to 2M |\n| 3+ card support | 10-12 | Raise to 3M (invitational) |\n| 3+ card support | 13+ | New suit first, then support |\n| 5+ card support, weak | 6-10 | Jump to 4M (preemptive) |\n| New suit available at 1-level | 6+ | Bid the new suit |\n| New suit at 2-level | 10+ | Bid the new suit |\n| Nothing else fits | 6-10 | 1NT |\n| 0-5 points | Any | Pass |"
+    },
+    {
+      "type": "practiceSet",
+      "title": "Responding to Partner's Major-Suit Opening",
+      "problems": [
+        {
+          "id": "rm-1",
+          "question": "Partner opens 1♠. You hold ♠K83 ♥Q74 ♦J952 ♣T63. (7 HCP, 3 spades) What do you bid?",
+          "options": ["A) Pass", "B) 1NT", "C) 2♠", "D) 3♠"],
+          "correctAnswer": "C",
+          "explanation": "You have 3-card spade support and 7 points -- a clear single raise to 2♠.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rm-2",
+          "question": "Partner opens 1♥. You hold ♠AJ85 ♥6 ♦KQ73 ♣T84. (11 HCP, 1 heart) What do you bid?",
+          "options": ["A) 1♠", "B) 2♦", "C) 1NT", "D) 2♥"],
+          "correctAnswer": "A",
+          "explanation": "No heart support, but you have a 4-card spade suit you can bid at the 1-level. Bid 1♠ -- it's forcing and keeps the bidding low.",
+          "difficulty": "basic"
+        },
+        {
+          "id": "rm-3",
+          "question": "Partner opens 1♠. You hold ♠Q9742 ♥84 ♦J73 ♣Q85. (6 HCP, 5 spades) What do you bid?",
+          "options": ["A) 2♠", "B) 3♠", "C) 4♠", "D) Pass"],
+          "correctAnswer": "A",
+          "explanation": "5-card support is great, but with only 6 HCP, a simple raise to 2♠ is right. You don't have the weakness-plus-length profile (typically needs even less HCP or more trumps) for a preemptive jump to 4♠.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "rm-4",
+          "question": "Partner opens 1♥. You hold ♠KJ3 ♥A85 ♦QT74 ♣K92. (13 HCP, 3 hearts) What do you bid?",
+          "options": ["A) 3♥", "B) 4♥", "C) 2♦", "D) 1NT"],
+          "correctAnswer": "C",
+          "explanation": "With 13 points and heart support, you want to reach game. But don't jump to 3♥ (that's only 10-12) or 4♥ (preemptive). Bid a new suit first (2♦ is forcing), then show heart support later.",
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "rm-5",
+          "question": "Partner opens 1♠. You hold ♠7 ♥Q84 ♦KJ5 ♣J97632. (8 HCP, 1 spade) What do you bid?",
+          "options": ["A) 2♣", "B) 1NT", "C) Pass", "D) 2♠"],
+          "correctAnswer": "B",
+          "explanation": "Only 1 spade (no fit), 8 HCP, and your club suit isn't good enough for a 2-level response (which needs 10+ points). Bid 1NT.",
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    {
+      "type": "drillSet",
+      "title": "Major-Suit Response Drill",
+      "generator": "respond-major",
+      "problemCount": 10,
+      "passThreshold": 0.8,
+      "timeLimitSeconds": 120
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Partner opens 1♠. You have 3 spades and 8 points. What do you bid?",
+      "options": ["1NT", "2♠", "3♠"],
+      "correctIndex": 1,
+      "explanation": "With 3+ card support and 6-10 points, raise to 2♠ (a single raise).",
+      "encourageCorrect": "Well done! A simple raise with support and minimum values -- the bread and butter of responding.",
+      "encourageIncorrect": "With 3-card support and 8 points, you raise to 2♠. That's the single raise, showing 6-10 points with a fit."
+    },
+    {
+      "question": "Partner opens 1♥. You have 11 HCP and 4 spades but only 1 heart. What do you bid?",
+      "options": ["1♠", "2♥", "1NT"],
+      "correctIndex": 0,
+      "explanation": "With no heart support but a 4-card spade suit, bid 1♠ at the 1-level. It's forcing and shows your suit.",
+      "encourageCorrect": "Exactly! Show your 4-card major at the 1-level -- it's cheap and forcing.",
+      "encourageIncorrect": "Without heart support, show your own suit. Bid 1♠ -- it's forcing and lets partner know about your spades."
+    },
+    {
+      "question": "Why would you bid a new suit with 13+ points and support for partner's major, instead of raising directly to game?",
+      "options": ["A direct raise to game would be too strong", "A direct raise to 4M is preemptive (weak), so you bid a new suit first to show strength", "You need to find a better trump suit"],
+      "correctIndex": 1,
+      "explanation": "A direct jump to 4♥/4♠ is preemptive in SAYC. With a strong hand, bid a new suit first (forcing), then show support -- this leaves room to explore slam.",
+      "encourageCorrect": "Great understanding! The jump to game is paradoxically weak, so strong hands take a detour through a new suit.",
+      "encourageIncorrect": "In SAYC, jumping directly to 4♥/4♠ is preemptive (weak with lots of trumps). Strong hands bid a new suit first to keep options open."
+    }
+  ]
+}
