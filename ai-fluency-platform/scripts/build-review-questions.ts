@@ -30,6 +30,7 @@ const COURSES = [
   "web-fundamentals",
   "react-literacy",
   "texas-holdem",
+  "contract-bridge",
 ];
 
 function findLessonFiles(courseDir: string): string[] {
