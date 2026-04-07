@@ -1,7 +1,5 @@
-const GATED_EMAILS = ["ben@grady.cloud"];
-
-export function isSparkGatingEnabled(email: string | null | undefined): boolean {
-  return !!email && GATED_EMAILS.includes(email);
+export function isSparkGatingEnabled(_email: string | null | undefined): boolean {
+  return true;
 }
 
 export const LESSON_SKIP_COST = 10;
