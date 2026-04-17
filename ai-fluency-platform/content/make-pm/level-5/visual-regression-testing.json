@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "5.3 Visual Regression Testing",
+    "description": "Visual regression testing is one of the most underinvested areas in AI code generation product infrastructure — and one of the areas where Make has a structural advantage over competitors. Because Mak",
+    "level": "level-5",
+    "slug": "visual-regression-testing",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "The agent generated a landing page. It builds and runs. But does it look right? The heading is off-center, the hero image is cropped, and the button color doesn't match the Figma design. How do you catch this automatically?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Visual regression testing is one of the most underinvested areas in AI code generation product infrastructure — and one of the areas where Make has a structural advantage over competitors. Because Make starts from a Figma design, there is a ground truth reference image. This section covers both the general techniques and Make's specific opportunity.\n\n**Screenshot comparison: the general approach**\n\nScreenshot comparison works by capturing a pixel-level image of a rendered UI and comparing it against a reference image. Any pixels that differ between the two images are flagged as visual regressions.\n\nThe workflow:\n\n1. Render the generated app in a headless browser (consistent viewport size, no animations)\n2. Capture a full-page screenshot\n3. Compare pixel-by-pixel against the reference image\n4. Generate a diff image highlighting changed regions\n5. Flag as regression if the difference exceeds a threshold (e.g., more than 1% of pixels changed)\n\nTools for this: Percy (Browserstack's visual testing product), Chromatic (Storybook's visual testing), BackstopJS (open source), or custom Playwright screenshot comparison.\n\n**The reference image problem**\n\nFor traditional software with stable designs, the reference image is the \"last known good\" screenshot — the app as it looked before the change being tested. Any deviation is a regression.\n\nFor AI-generated apps, this approach breaks down. There is no \"last known good\" screenshot because the app was just generated for the first time. You cannot compare against a previous version if there is no previous version.\n\nMake's unique advantage: the Figma frame is the reference. The design that the user imported into Make — or the design that the AI generated — is a Figma document with defined frames. Figma's REST API (`/v1/images`) can render any frame as a PNG at arbitrary resolution. This rendered Figma frame is the ground truth for what the app should look like.\n\nComparing the generated app's screenshot against the Figma frame export gives a design fidelity score that no competitor with a blank-canvas approach can replicate.\n\n**Design fidelity metrics**\n\nPixel-level diff is crude — a 2px misalignment in a heading looks minor in the diff percentage but is visually jarring. Better metrics:\n\n- **Layout accuracy**: Are elements in the correct bounding boxes? (Measurable via DOM inspection + coordinate comparison)\n- **Color accuracy**: Are background colors, text colors, and border colors within a perceptual distance threshold? (Compare against design tokens)\n- **Typography matching**: Is the font family, size, weight, and line height correct?\n- **Spacing consistency**: Are margins and padding consistent with the design system?\n- **Component integrity**: Are all expected components present and visible?\n\nThese metrics require more than pixel comparison — they require structured analysis of the rendered DOM alongside visual inspection.\n\n**LLM-as-visual-judge**\n\nMultimodal language models (Claude, GPT-4o, Gemini) can assess visual fidelity by looking at two images and evaluating the difference:\n\n```\nSystem: You are a design QA evaluator. \nUser: Here is the original Figma design [image] and the generated app [image].\nRate the visual fidelity from 0-10, where 10 means pixel-perfect.\nReport specific discrepancies: layout, color, typography, spacing.\n```\n\nLLM visual judges are good at: identifying obvious layout breaks, color mismatches, missing elements, and overall gestalt quality. They can describe problems in natural language, which is useful for failure analysis.\n\nLLM visual judges are unreliable for: precise pixel-level measurements, detecting subtle spacing differences (2px vs 4px), catching differences that require domain knowledge (e.g., whether a specific Figma component was correctly implemented).\n\nThe practical approach: combine pixel-diff for structural regression detection with LLM-as-judge for qualitative assessment. Run pixel-diff first (cheap, fast); route high-difference cases to the LLM judge for human-readable failure analysis.\n\n**The challenge of intentional differences**\n\nNot every visual difference between the Figma design and the generated app is a regression. Some differences are intentional improvements that static designs cannot capture:\n\n- **Hover states**: A button that changes color on hover does not appear in a static Figma export\n- **Animations**: Framer Motion entrance animations are absent from a static screenshot but are correct behavior\n- **Responsive behavior**: The design shows a desktop layout; the app correctly reflows for mobile\n- **Interactive states**: A dropdown in its closed state matches the design; in its open state, it shows a menu the design did not include\n\nEval systems must account for these differences rather than flagging them as failures. One approach: capture screenshots in multiple states (default, hovered, mobile viewport) and compare against reference images that represent each state.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An eval run flags 40% of landing page evals as visual regressions. You investigate and find that most of the differences are in the hero section's background image. The Figma design used a specific stock photo; the agent replaced it with a placeholder image. Is this a regression? How should the eval system handle this case?",
+      "answer": "*This is a nuanced eval failure. The placeholder vs. stock image difference is expected behavior — the agent cannot replicate a licensed stock image and correctly uses a placeholder. The eval system should not flag placeholder images as regressions if the layout is otherwise correct. This requires the eval rubric to distinguish between content differences (acceptable) and layout/design-system differences (not acceptable). One approach: when computing the visual diff, mask out regions identified as image placeholders (detected by solid color fill or alt text pattern) before running the comparison.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Use the Figma REST API (`GET /v1/images/{fileKey}?ids=frameId&format=png`) to export a Figma frame as a PNG. Then take a screenshot of any web page using Playwright (`page.screenshot()`). Load both images and compute a pixel-level diff using the `pixelmatch` npm library. This is the foundational technical operation for Make's visual regression evaluation.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A product designer argues: \"Visual regression testing will flag every UI improvement as a failure. We'll be constantly overriding the baseline.\" How do you design the eval workflow to distinguish genuine regressions from intentional improvements?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How should the eval system handle these cases, and does this affect your platform investment in visual eval?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Visual regression testing for AI code generation combines pixel-diff screenshot comparison, structured design fidelity metrics, and LLM-as-visual-judge — and Make's unique advantage is using the Figma frame export as a ground truth reference that competitors without a design system cannot replicate.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Visual regression tells you if the current output looks right. But your platform evolves: new agent versions ship continuously. How do you ensure that a new agent version that improves React generation does not silently break Vue generation? That's regression detection across releases — next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is Make's structural advantage in visual regression testing that most competitors cannot replicate?",
+      "options": [
+        "Make starts from a Figma design, so the Figma frame export serves as a ground-truth reference image — giving a design fidelity score that blank-canvas competitors cannot produce",
+        "Make can use Percy and Chromatic simultaneously, while competitors are limited to one visual testing tool",
+        "Make generates screenshots at 2x pixel density by default, providing more accurate diff comparisons"
+      ],
+      "correctIndex": 0,
+      "explanation": "Because Make imports from Figma, the original design frame can be rendered via Figma's REST API as a PNG at any resolution. This serves as a ground truth reference: the generated app screenshot is compared against the Figma frame export, producing a design fidelity score. Competitors that start from a blank canvas have no canonical reference image to compare against.",
+      "encourageCorrect": "Right — the Figma-as-ground-truth insight is the core competitive advantage. The reference image problem that defeats most visual regression systems doesn't apply to Make.",
+      "encourageIncorrect": "Tool selection and resolution settings are implementation details that any competitor could replicate. The fundamental advantage is having a canonical reference image in the form of the original Figma design — something that only exists because Make's workflow starts there."
+    },
+    {
+      "question": "An eval run flags 40% of landing page evals as visual regressions because the agent used placeholder images instead of the stock photos in the Figma design. How should the eval system treat this?",
+      "options": [
+        "Flag these as regressions because the output does not match the reference image, and require the agent to incorporate the original images",
+        "Not flag these as regressions — the eval rubric should distinguish content differences (placeholder images are expected) from layout and design-system differences (not acceptable)",
+        "Reduce the diff sensitivity threshold globally to avoid flagging image regions as regressions"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module distinguishes between content differences (acceptable — the agent cannot replicate licensed stock photos and correctly substitutes placeholders) and structural differences (not acceptable — layout breakage, wrong colors, incorrect typography). Flagging placeholder images as regressions would create noise that masks real layout failures. The solution is to mask image placeholder regions during diff computation or adjust rubric criteria.",
+      "encourageCorrect": "Correct — a well-designed eval rubric separates content fidelity from layout fidelity. Not all visual differences are regressions.",
+      "encourageIncorrect": "Reducing global diff sensitivity would suppress real regressions along with the false positives. The right approach is targeted: mask or exclude image placeholder regions specifically while remaining sensitive to layout, color, and typography differences."
+    },
+    {
+      "question": "Why is pixel-level diff alone insufficient for comprehensive visual regression evaluation, and what additional techniques does the module recommend?",
+      "options": [
+        "Pixel diff is computationally too expensive at scale; LLM-as-judge is cheaper and should replace it entirely",
+        "Pixel diff cannot detect missing UI elements because it only compares present pixels, not expected ones",
+        "Pixel diff is crude — a 2px alignment error may look minor in percentage terms but be visually jarring — so structured metrics (layout accuracy, color accuracy, typography) and LLM-as-visual-judge are layered on top for qualitative assessment"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly states that pixel diff is 'crude' — a small percentage difference can represent a visually jarring misalignment. Better coverage requires structured metrics that analyze DOM coordinates, color token compliance, and typography matching, combined with LLM-as-visual-judge for qualitative evaluation of overall fidelity. The practical approach is to run pixel diff first for cost efficiency, then route high-difference cases to LLM judging for human-readable failure analysis.",
+      "encourageCorrect": "Exactly — the layered approach uses pixel diff as a fast first filter and LLM judging for qualitative assessment, because each captures different failure types.",
+      "encourageIncorrect": "LLM judging is recommended as a complement, not a replacement for pixel diff. The module specifically recommends combining both. Missing element detection is also a valid limitation of pixel diff, but the primary reason for layering additional techniques is that percentage-based diff fails to capture perceptual importance."
+    }
+  ]
+}

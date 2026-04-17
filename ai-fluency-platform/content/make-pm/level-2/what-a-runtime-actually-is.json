@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "2.1 What a Runtime Actually Is",
+    "description": "You write `const x = 2 + 2`. Something has to actually do that addition. That something is the **runtime**.",
+    "level": "level-2",
+    "slug": "what-a-runtime-actually-is",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When we say \"code is running,\" what does that actually mean? What is the thing that executes JavaScript, and where does it live? Write down your current answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "You write `const x = 2 + 2`. Something has to actually do that addition. That something is the **runtime**.\n\nThe word \"runtime\" is used loosely, but it has three distinct layers worth separating:\n\n**The Engine** is the lowest layer \u2014 the thing that parses JavaScript syntax and executes it. Google's V8 engine (used in Chrome and Node.js) uses just-in-time compilation: it interprets your code, profiles hot paths, then compiles them to optimized machine code on the fly. Mozilla's SpiderMonkey (Firefox) does similar work. Apple's JavaScriptCore (Safari, Bun) is a third variant. These engines share the language spec (ECMAScript), but they have different performance profiles, different garbage collection strategies, and subtle behavioral differences at the edges.\n\n**The Standard Library** is the set of built-in modules the engine ships with. These are things like `Array.prototype.map`, `JSON.parse`, `Promise` \u2014 pure language constructs that don't touch the operating system. Every compliant JavaScript engine provides these identically.\n\n**The Runtime APIs** are where runtimes diverge. These are the capabilities the runtime adds on top of the engine: `setTimeout` and `fetch` in the browser; `fs`, `http`, `path`, `child_process` in Node.js. These aren't part of the JavaScript language spec \u2014 they're provided by the runtime environment and they determine what your code can actually do.\n\nThis distinction matters enormously. A function that calls `fetch()` works in a browser, in Node.js 18+, in Deno, and in Cloudflare Workers \u2014 but a function that calls `require('fs').readFileSync()` only works in Node.js. Same language, different runtime, different capabilities.\n\n**Node.js vs. Deno vs. Bun** are all JavaScript runtimes targeting server-side execution, but they make different choices:\n\n- **Node.js** (2009): CommonJS modules by default, npm ecosystem, `require()` syntax, massive package ecosystem built over 15 years. The V8 engine. Designed before modern security thinking \u2014 it trusts everything by default.\n- **Deno** (2018): ES Modules by default, TypeScript natively, explicit permission flags (`--allow-read`, `--allow-net`), and a standard library that doesn't depend on npm. Security-first. Imports via URL, not package names.\n- **Bun** (2022): Drop-in Node.js compatibility goal, JavaScriptCore engine (faster startup), built-in bundler and test runner. Fastest cold starts in benchmarks. Still maturing.\n\n**Browser runtime vs. server runtime** is the other key axis. A browser runtime is sandboxed by design \u2014 it cannot access your filesystem, make arbitrary network requests (CORS blocks this), or spawn child processes. The browser gives you APIs for DOM manipulation, `localStorage`, `IndexedDB`, `ServiceWorker`, `WebAssembly`, and `Canvas`. A server runtime like Node.js has none of the DOM APIs but can read and write files, open TCP connections, spawn processes, and access environment variables.\n\n**Why \"which runtime\" is a platform-defining decision for Make.** Figma Make generates code that has to run somewhere \u2014 and that somewhere shapes everything downstream. The runtime determines:\n\n- Which npm packages work. Native modules (compiled C++ binaries like `bcrypt` or `sharp`) only work in Node.js environments, not in browser-sandboxed runtimes.\n- Which framework features are available. Next.js Server Actions assume Node.js APIs. Remix's streaming requires a runtime that supports `ReadableStream`.\n- What system calls are permitted. Can the generated code write files? Open ports? Fork processes?\n- What the cold start time is. Node.js with a full dependency tree: 500ms-2s. A V8 isolate: near-zero.\n- What the cost model is. Each running Node.js process consumes memory. Each V8 isolate is ~10KB overhead.\n\nA PM who understands runtimes can evaluate infrastructure proposals, challenge engineering assumptions, and understand why \"just use npm package X\" might be impossible in the chosen execution environment.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A developer says: \"I need to use `sharp` for image processing in Make.\" Your engineering lead says: \"That won't work in WebContainers.\" Why not \u2014 and what does this tell you about where WebContainers can and can't be deployed in your infrastructure?",
+      "answer": "`sharp` is a native module \u2014 it includes compiled C++ code (libvips) that must run as a binary on the host OS. WebContainers execute JavaScript via WebAssembly in the browser, which cannot load native binaries. This tells you that any feature requiring native npm packages (image processing, password hashing with bcrypt, database drivers that use binary protocols) cannot run in a browser-based execution environment. You'd need a server-side runtime for those capabilities.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open three browser tabs:\n1. **Node.js REPL on Replit** \u2014 run `process.versions` and `require('fs').readdirSync('.')`\n2. **A browser DevTools console** \u2014 try `process` (undefined) and `window.location` (works)\n3. **StackBlitz** \u2014 create a blank Node.js project, try `import { readFileSync } from 'fs'`\n\nNote what succeeds and fails in each environment. The failures are more informative than the successes.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Without using the words \"runtime\" or \"environment,\" explain to a designer why the code that Make generates for \"generate an image thumbnail\" might work in the preview but fail when deployed. What is actually different between those two places?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "If Make chose Deno as its server-side runtime instead of Node.js, what would be the biggest product consequence?"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "A runtime is not just \"where code runs\" \u2014 it's the specific combination of engine, standard library, and APIs that determines which code can run at all; choosing the wrong runtime for a feature is an architectural error that cannot be patched later without migration.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now know what a runtime is and that different runtimes have different capabilities and costs. The most common server-side runtime deployment unit is a Docker container. But containers have properties that make them problematic for interactive preview environments. What do you predict those problems are?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A generated app calls `require('fs').readFileSync('./data.json')`. In which execution environment will this work, and why does it fail in the others?",
+      "options": [
+        "It works only in Deno because Deno's security model grants filesystem access by default, whereas Node.js requires explicit permission flags",
+        "It works in all modern JavaScript environments because file reading is part of the ECMAScript standard",
+        "It works in Node.js because fs is a Node.js runtime API, but fails in browser environments (which have no filesystem API) and in V8 Isolate-based runtimes like Cloudflare Workers (which deliberately restrict filesystem access)"
+      ],
+      "correctIndex": 2,
+      "explanation": "The `fs` module is a Node.js runtime API — it is not part of the ECMAScript language spec, it is not available in browsers, and it is not available in V8 Isolate runtimes like Cloudflare Workers (by design, to maintain the restricted API surface that enables sub-millisecond cold starts). Deno is the opposite: it has filesystem access but requires explicit `--allow-read` flags. The point the module makes is that same language, different runtime APIs, different capabilities.",
+      "encourageCorrect": "Correct — this is the core runtime API distinction the module builds on, and it's why 'which runtime' is an architectural decision with product consequences.",
+      "encourageIncorrect": "fs is not part of the ECMAScript standard — it's a Node.js-specific runtime API. Deno actually requires explicit permission flags to read files (--allow-read), making it more restrictive, not less. The key insight is that JavaScript the language is portable; the runtime APIs (fs, http, child_process) are environment-specific and determine what code can actually do."
+    },
+    {
+      "question": "Deno's design is described as 'security-first' compared to Node.js. What is the specific mechanism that makes this true, and what is the product cost of adopting Deno as Make's server-side runtime?",
+      "options": [
+        "Deno requires explicit permission flags (--allow-read, --allow-net) for any system access; no access is granted by default — the product cost is that the vast majority of npm packages were built for Node.js and may behave differently or incompatibly in Deno's environment",
+        "Deno encrypts all file I/O by default, whereas Node.js stores files in plaintext — the product cost is a performance overhead on disk operations",
+        "Deno uses V8 isolates for every function call, providing stronger isolation than Node.js processes — the product cost is that V8 isolates have a 50ms CPU time limit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Deno's security model is opt-in rather than opt-out: code runs with no system access by default, and you must explicitly grant permissions for file reads, network access, environment variables, etc. The product consequence for Make is the npm ecosystem: 15 years of npm packages were built assuming Node.js APIs and CommonJS modules. While Deno has improved Node.js compatibility, edge cases and incompatibilities with the existing package ecosystem create a significant platform adoption risk for a tool generating code from the npm ecosystem.",
+      "encourageCorrect": "Right — the ecosystem compatibility issue is the practical cost that makes Deno's security advantage a harder sell for a platform generating npm-based applications.",
+      "encourageIncorrect": "Deno doesn't encrypt disk I/O or use V8 isolates per function — those are different technologies. Deno's security model is explicit permissions: nothing is allowed by default. The product cost is npm ecosystem compatibility, not encryption overhead or CPU time limits. A platform generating npm-based code faces real friction adopting a runtime where many packages weren't designed to run."
+    },
+    {
+      "question": "The module argues that 'choosing the wrong runtime is an architectural error that cannot be patched later without migration.' What does this mean in practice for Make's infrastructure decisions?",
+      "options": [
+        "Runtime selection only matters for performance, not functionality — apps can always be migrated between runtimes if performance is insufficient",
+        "The runtime determines which npm packages work, which framework features are available, what system calls are permitted, and what the cost model is — changing runtimes after apps are deployed means migrating those applications, which may require rewriting code that depends on runtime-specific APIs",
+        "Migration between runtimes is straightforward because JavaScript is runtime-agnostic — the same JavaScript code runs identically in Node.js, Deno, and the browser"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module lists runtime as determinative for: npm package compatibility (native modules only work in Node.js), framework features (Next.js Server Actions assume Node.js), permitted system calls (fs, child_process, network), and cost models (per-container-hour vs. per-request). If Make generates apps with Node.js-specific APIs and then wants to migrate to a V8 Isolate runtime, every app using fs, child_process, or native modules breaks. Runtime lock-in is real and migration is non-trivial.",
+      "encourageCorrect": "Exactly — runtime choice is a long-term commitment, and understanding its downstream consequences is what makes it a platform architecture decision rather than an engineering implementation detail.",
+      "encourageIncorrect": "JavaScript is not runtime-agnostic — the runtime APIs (fs, fetch, DOM, etc.) differ significantly between Node.js, Deno, browsers, and Cloudflare Workers. The same code that runs in Node.js may fail entirely in a V8 Isolate environment. Runtime migration means auditing and potentially rewriting every place where runtime-specific APIs are used — which for generated apps, could be pervasive."
+    }
+  ]
+}

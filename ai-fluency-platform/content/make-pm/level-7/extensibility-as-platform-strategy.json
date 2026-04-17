@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "7.1 Extensibility as Platform Strategy",
+    "description": "Extensibility is not a feature. It is a strategic posture \u2014 a decision about who gets to build value on your platform and on what terms. The platforms that become durable competitive moats are almost ",
+    "level": "level-7",
+    "slug": "extensibility-as-platform-strategy",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Every successful platform eventually opens up to third parties \u2014 iOS App Store, Shopify Apps, Figma Plugins. When should Make open up, and what's the risk of doing it too early or too late?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Extensibility is not a feature. It is a strategic posture \u2014 a decision about who gets to build value on your platform and on what terms. The platforms that become durable competitive moats are almost always extensible platforms. iOS without the App Store is a phone. Shopify without apps is a shopping cart. Figma without plugins is a design tool. The ecosystems built on top of the core platform multiply its value in ways no single team could produce internally.\n\nMake needs a plan for extensibility. Not necessarily now, but now is the right time to design the architecture that enables it later without a full rewrite.\n\n---\n\n**The Extensibility Flywheel**\n\nThe mechanism is well understood: more extensibility enables more use cases. More use cases attract more users. More users attract more third-party builders who want to reach those users. More builders create more extensions, which enable more use cases. The cycle is self-reinforcing, and once it reaches escape velocity, it becomes a defensive moat.\n\nFigma's plugin ecosystem demonstrates this at scale. Figma has thousands of community-built plugins \u2014 accessibility checkers, icon libraries, design-to-code generators, content populators. Figma's core team could never have built all of these. Each plugin represents a use case that would have gone unserved, a user who would have found Figma slightly less indispensable.\n\nFor Make, the extensibility flywheel has a specific shape:\n- Custom component libraries (design agencies bring their own components)\n- Bring-your-own design system (enterprises with existing component libraries)\n- Custom deployment targets (deploy to AWS, GCP, Azure, not just Figma's CDN)\n- Agent plugins (third-party tools the agent can call \u2014 analytics, CRM integration, payment processing)\n- A marketplace where Make users discover and install extensions\n\nNone of these exist yet. When they do, Make becomes stickier and more valuable \u2014 because the ecosystem, not just the product, is part of what users get.\n\n---\n\n**The Cost of Too Early**\n\nOpening up too early is a real risk, not a hypothetical one.\n\nWhen you open a platform, you make implicit promises: these APIs will be stable, these capabilities will be available, this behavior won't change without warning. Breaking those promises after third-party builders have invested in your platform is enormously damaging. Early adopters become public critics.\n\nThe specific risks at Make's current stage:\n- **API instability:** Make's core data model, file format, and agent interface are still evolving. Exposing these as public APIs today means every architectural improvement requires a version migration that breaks existing integrations.\n- **Support burden:** Every external developer who hits a bug in your public API is a support ticket. At an early stage where your engineering team is already stretched, the support burden from an immature ecosystem can consume disproportionate capacity.\n- **Security surface area:** Every integration point is a potential attack vector. An immature plugin system with insufficient sandboxing can expose user data or allow malicious code execution. This risk needs to be designed out before going public.\n\n---\n\n**The Cost of Too Late**\n\nOpening up too late has an equally clear failure mode: competitors build the ecosystem first.\n\nv0, Lovable, and Bolt are all moving toward extensibility. If Bolt launches a component marketplace before Make, design agencies start building Bolt-first. Those agencies recommend Bolt to their clients. Client projects accumulate in Bolt. The switching cost compounds. Make's window to be the platform that design agencies build on top of is not infinite.\n\nThere's also an internal cost to closing off extensibility for too long. Teams working around platform limitations build brittle workarounds \u2014 hardcoded integrations, custom scripts, workarounds that work until the underlying platform changes. If FigJam builds a custom solution for interactive widgets because Make's APIs aren't extensible, that technical debt accumulates inside Figma itself.\n\n---\n\n**The Three-Phase Model**\n\nThe practical answer to \"when to open up\" is a phased model that matches extensibility to platform maturity:\n\n**Phase 1 \u2014 Internal platform (now through GA):** Make's Platform team serves Make Product, Figma Design, and FigJam. The API surface is internal-only, accessible to Figma's teams. APIs can change rapidly because all consumers are internal and can coordinate on migrations.\n\n**Phase 2 \u2014 Partner extensibility (6-12 months post-GA):** Select design agencies, component library vendors, and strategic integration partners (Supabase, Auth0, Stripe) get early access to stable extensions of the API. This is a managed, high-touch program \u2014 partners are supported, feedback is incorporated before GA, and the API surface is deliberately limited to what's stable.\n\n**Phase 3 \u2014 Open ecosystem (12-18 months post-GA):** Public plugin/app marketplace. Documented public APIs with versioning guarantees. Developer documentation. Review process for marketplace submissions. Self-serve onboarding for external developers.\n\nThe phasing matters because it lets you learn from each stage before expanding the commitment. Partner feedback in Phase 2 reveals what the ecosystem actually wants, so you don't build the wrong public API surface in Phase 3.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A design agency reaches out wanting to integrate their proprietary component library with Make's agent. They can export their components as React code with documentation. They want the Make agent to know about their components and use them when generating code. What phase does this capability belong to, and what technical architecture would it require?",
+      "answer": "*This is a Phase 2 partner extensibility use case. Technical requirements: a component documentation ingestion API, an agent context injection mechanism (so the agent's context window includes the component library's interface), and likely a retrieval mechanism for large component libraries (too large for context window).*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Install two Figma plugins from the Figma Community. Look at how they're listed (categories, screenshots, installation count). Now look at the Figma Plugin API documentation. Notice the sandboxing model (plugins run in a sandboxed iframe, communicate via postMessage). Consider: how would you adapt this model for Make? What's the same? What's different?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the extensibility flywheel to a product designer who is skeptical that third-party plugins are worth the investment. They think Make's core team can build everything users need. Where does that assumption break down?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you worked on or studied a platform that has external consumers \u2014 other teams, third-party developers, or external systems?",
+        "How did the API design decisions made early affect what was possible or impossible later?",
+        "What would you have done differently at the outset?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Extensibility is a strategic flywheel that multiplies platform value through third-party builders \u2014 but opening up too early risks API instability and trust damage, while opening up too late cedes ecosystem leadership to competitors, making a phased approach the practical answer.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Knowing *when* to extend is one question. Knowing *how* \u2014 which technical mechanisms to build \u2014 is the next. REST APIs, SDKs, and plugin systems each have different tradeoffs, and the choice shapes everything that follows.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A startup builds a plugin ecosystem 8 months after launch. A competitor waits until 24 months. Which risk does the early mover face that the late mover avoids?",
+      "options": [
+        "Losing ecosystem leadership to competitors who build first",
+        "Breaking third-party integrations when the core data model is still evolving",
+        "Missing the revenue opportunity from marketplace transaction fees"
+      ],
+      "correctIndex": 1,
+      "explanation": "Opening up too early means making API stability promises on a product that is still changing architecturally. Every improvement to the core data model or agent interface requires a version migration that breaks existing third-party integrations, damaging trust with the early adopters you most need. The late-mover risk is ceding ecosystem leadership, not the early-mover risk.",
+      "encourageCorrect": "Exactly — API promises made before the platform is stable become expensive anchors on every future architectural decision.",
+      "encourageIncorrect": "The competitor timing risk cuts the other direction — opening too late risks losing ecosystem leadership, not gaining it. The early-mover faces the opposite problem: breaking integrations by evolving too fast after making stability promises."
+    },
+    {
+      "question": "Figma's plugin ecosystem has thousands of community-built accessibility checkers, icon libraries, and design-to-code generators. What does this primarily demonstrate about the strategic value of extensibility?",
+      "options": [
+        "Plugins generate significant direct revenue through marketplace transaction fees",
+        "Third-party builders serve use cases the core team could never have produced internally at scale",
+        "Plugin ecosystems are the most effective way to reduce engineering headcount"
+      ],
+      "correctIndex": 1,
+      "explanation": "The extensibility flywheel's value is that it multiplies platform coverage through third-party investment — each plugin represents a use case that would otherwise go unserved, making the platform incrementally more indispensable. The module explicitly frames this as why Figma's core team 'could never have built all of these.' Revenue and headcount are secondary effects, not the primary strategic mechanism.",
+      "encourageCorrect": "Right — the flywheel works because third-party builders collectively solve more problems than any internal team could, making the ecosystem, not just the product, part of what users get.",
+      "encourageIncorrect": "Revenue and cost effects are downstream consequences, not the primary mechanism. The core insight is coverage multiplication — third parties collectively expand the platform's utility far beyond what an internal team can produce."
+    },
+    {
+      "question": "Make plans to open a public plugin marketplace. According to the three-phase model, what must happen before Phase 3 (open ecosystem) can begin?",
+      "options": [
+        "A partner extensibility program with select agencies and vendors to validate the API surface before going public",
+        "A full security audit of all potential plugin submission categories",
+        "Onboarding at least 1,000 independent developers to the waitlist"
+      ],
+      "correctIndex": 0,
+      "explanation": "Phase 2 is a managed, high-touch partner program — 6-12 months post-GA — that surfaces what the ecosystem actually wants to build before the public API surface is finalized. Without this feedback loop, Phase 3 risks building the wrong public API, which is very hard to change once external developers have built on it. Security audits are part of hardening, not a prerequisite gate for Phase 2.",
+      "encourageCorrect": "Correct — the partner program exists specifically so you don't finalize the public API surface based on speculation rather than real partner behavior.",
+      "encourageIncorrect": "The phasing logic is about learning before committing at scale. A partner program in Phase 2 provides the real-world feedback that shapes Phase 3's API design — skipping it means designing the public API surface without evidence of what partners actually need."
+    }
+  ]
+}

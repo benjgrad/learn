@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "3.6 Custom Domains, SSL, and the Edge",
+    "description": "Custom domain support is a capability that signals \"this is a real product\" to users. It is also a moderate engineering investment with significant customer retention implications — users who deploy t",
+    "level": "level-3",
+    "slug": "custom-domains-ssl-and-the-edge",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A user deploys their Make app and wants it on their own domain: mycompany.com. What does Make's platform need to support this?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Custom domain support is a capability that signals \"this is a real product\" to users. It is also a moderate engineering investment with significant customer retention implications — users who deploy to their own domain are deeply invested in the platform.\n\n**Default domains**\n\nEvery deployed Make app gets a default URL: `myapp.figma.site` (or similar). This works via:\n\n1. **Wildcard DNS**: Figma configures `*.figma.site` to point to Make's edge infrastructure. Any subdomain automatically resolves to the right IP addresses.\n2. **Wildcard SSL certificate**: A single TLS certificate covers all subdomains (`*.figma.site`). Provisioned via a certificate authority (DigiCert, Let's Encrypt), renewed automatically before expiration.\n3. **Edge routing**: When a request arrives at Make's edge for `myapp.figma.site`, the edge router looks up which deployment corresponds to that subdomain and proxies the request to the right static assets or server.\n\nDefault domains are zero-configuration for the user and near-zero marginal cost for the platform.\n\n**Custom domain flow**\n\nSupporting `mycompany.com` requires several additional steps:\n\n1. **User registers their domain**: The user adds their custom domain in Make's dashboard.\n2. **DNS verification**: Make provides a CNAME record (e.g., `CNAME @ myapp.figma.site`) or an A record pointing to Make's edge IPs. The user sets this in their DNS registrar.\n3. **DNS propagation**: DNS changes propagate globally over 0-48 hours (typically minutes for most resolvers with modern TTLs).\n4. **SSL certificate provisioning**: Make must provision a TLS certificate for `mycompany.com`. This cannot use the wildcard `*.figma.site` cert. Make uses Let's Encrypt's ACME protocol to issue a domain-validated certificate — proving domain ownership by serving a specific file at `/.well-known/acme-challenge/...`. This is fully automated but requires the domain to be resolving to Make's edge first.\n5. **SSL renewal**: Let's Encrypt certificates expire every 90 days. The platform must automatically renew, typically at 60 days.\n6. **DNS health monitoring**: If the user misconfigures their DNS or removes the CNAME record, requests to their custom domain will fail. The platform should detect this and surface a warning.\n\n**Edge deployment**\n\nWhether using default or custom domains, serving a deployed app with low latency worldwide requires edge infrastructure — distributing static assets to CDN nodes in major regions so that users in Frankfurt get assets from a Frankfurt datacenter, not from a US origin server.\n\n**Time to First Byte (TTFB)** is the key latency metric: how long from request to first byte of response. From a CDN edge node, typical TTFB is 5-50ms. From an origin server in a single region, TTFB for a user across the world may be 200-500ms.\n\nOptions:\n\n- **Build on top of a managed CDN** (Cloudflare, AWS CloudFront, Fastly): Integrate with the CDN's API to push assets to edge nodes at deploy time. The CDN handles edge routing, caching, and SSL. Faster to build, less control.\n- **Build your own edge**: Use a global infrastructure provider (AWS, Google Cloud) and deploy to multiple regions manually. Full control, significant operational complexity.\n\nFor most products at Make's stage, managed CDN is the correct choice. The operational cost of maintaining custom edge infrastructure is not justified until traffic scale creates meaningful cost differences.\n\n**Why custom domains matter for Make specifically**\n\nMake's positioning is \"build real apps, not just prototypes.\" A user with a `figma.site` subdomain is clearly in prototype territory. A user with their own domain, SSL, and global CDN distribution has shipped a real product. This distinction matters for user retention, for the type of users Make attracts, and for positioning against competitors (v0, Replit Deployments, Bolt).\n\nThe Platform PM should treat custom domain support not as an infrastructure feature but as a product milestone: the moment Make's apps are indistinguishable from hand-built deployments.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user sets up their custom domain `mycompany.com` and points it at Make's edge, but the browser shows an SSL error. What are the two most likely causes, and how does the platform diagnose each?",
+      "answer": "*Cause 1: DNS has not yet propagated — the domain resolves to the user's old hosting provider, not Make's edge. Let's Encrypt cannot validate domain ownership, so no certificate was issued. Diagnosis: check DNS resolution for the domain from multiple resolvers; if it doesn't return Make's IP, this is the cause. Cause 2: DNS is resolving correctly but SSL cert provisioning failed (Let's Encrypt rate limits, ACME challenge file not served correctly). Diagnosis: check the platform's certificate issuance logs for the domain.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Visit Vercel's documentation on custom domains. Trace the exact steps from \"add custom domain\" to \"HTTPS working.\" Identify the places where the process can fail and what error state is surfaced to the user. Then do the same for Netlify. Where do the two products diverge in their UX for this flow?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Your engineering team says custom domain support requires 3 months of work. A PM from partnerships says a key enterprise customer needs it to close a $2M deal in 6 weeks. How do you evaluate whether a faster, more constrained implementation is possible, and what corners could you cut safely?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What pricing and positioning signals does this choice send to users, and is it the right line to draw?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Custom domain support requires wildcard DNS, automated SSL certificate provisioning via Let's Encrypt's ACME protocol, edge distribution via CDN, and ongoing DNS health monitoring — and for Make, shipping it is a product statement that Make apps are real deployments, not just sandboxed prototypes.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A user points mycompany.com at Make's edge via a CNAME record but their browser shows an SSL error immediately. What is the most likely technical cause?",
+      "options": [
+        "DNS has not yet propagated — Let's Encrypt's ACME challenge cannot complete because the domain doesn't resolve to Make's edge yet, so no certificate was issued",
+        "The user's DNS registrar does not support CNAME records for apex domains, so the configuration is incompatible",
+        "Make's wildcard certificate for *.figma.site automatically covers custom domains once the CNAME is set, but activation takes 24 hours"
+      ],
+      "correctIndex": 0,
+      "explanation": "SSL certificate provisioning via Let's Encrypt's ACME protocol requires that the domain resolve to Make's servers before the challenge can be completed. If DNS hasn't propagated globally, ACME validation fails and no certificate is issued. The wildcard *.figma.site certificate cannot cover custom domains like mycompany.com — a separate certificate must be provisioned for each custom domain.",
+      "encourageCorrect": "Correct — DNS propagation must complete before ACME validation can succeed, and a missing certificate is the direct cause of the SSL error.",
+      "encourageIncorrect": "The wildcard *.figma.site certificate does not cover custom domains — a separate certificate must be issued for each custom domain via the ACME protocol. ACME validation requires the domain to already resolve to Make's servers. If DNS hasn't propagated, the challenge fails and no certificate is issued, causing the SSL error."
+    },
+    {
+      "question": "Why is Time to First Byte (TTFB) the key metric for evaluating edge deployment quality, and what range does a CDN edge node typically achieve?",
+      "options": [
+        "TTFB measures total page load time; CDN edge nodes achieve 500–1000ms for global users",
+        "TTFB measures how long from request to first byte of response; CDN edge nodes typically achieve 5–50ms by serving from a nearby data center instead of a distant origin",
+        "TTFB measures how quickly the server processes the request after receiving it; CDN edge nodes achieve 5–50ms because they use more powerful hardware than origin servers"
+      ],
+      "correctIndex": 1,
+      "explanation": "TTFB captures end-to-end network latency from the user's request to the first byte returned. Without edge distribution, a user in Frankfurt fetching assets from a US origin server experiences 200–500ms TTFB due to physical distance. CDN edge nodes in Frankfurt serve the same assets in 5–50ms by eliminating the transatlantic round-trip.",
+      "encourageCorrect": "Right — TTFB is the metric that captures the latency benefit of geographic edge distribution, and the 5–50ms range is achievable because assets serve from a nearby node.",
+      "encourageIncorrect": "TTFB is not total page load time, and the CDN speed advantage comes from geographic proximity, not hardware. CDN edge nodes reduce TTFB to 5–50ms by serving assets from a data center close to the user, eliminating the 200–500ms round-trip to a single origin server."
+    },
+    {
+      "question": "For most products at Make's stage, the module recommends building on a managed CDN rather than custom edge infrastructure. What is the primary strategic reason?",
+      "options": [
+        "Managed CDNs provide automatic SSL renewal, which is technically impossible to implement correctly in a custom edge setup",
+        "Managed CDNs offer faster global propagation times, which reduces rollback latency for deployment safety",
+        "The operational cost of maintaining custom edge infrastructure — security patches, regional provisioning, health monitoring — is not justified until traffic scale creates meaningful cost differences relative to managed CDN pricing"
+      ],
+      "correctIndex": 2,
+      "explanation": "Custom edge infrastructure requires ongoing operational investment: managing physical or virtual infrastructure across multiple regions, applying security patches, monitoring health, and handling traffic spikes. A managed CDN handles all of this. The cost-control argument for custom edge only becomes compelling at traffic scales where CDN pricing creates meaningful savings compared to that operational burden.",
+      "encourageCorrect": "Exactly — the operational burden of custom edge isn't justified until you're at a scale where the cost differential makes the investment worthwhile.",
+      "encourageIncorrect": "SSL renewal is automatable with managed tooling regardless of CDN choice. Propagation times matter for deployment safety but aren't the primary strategic driver. The core reason to use a managed CDN is that custom edge infrastructure carries ongoing operational cost — security, provisioning, monitoring — that is not justified until traffic scale makes the economics compelling."
+    }
+  ]
+}

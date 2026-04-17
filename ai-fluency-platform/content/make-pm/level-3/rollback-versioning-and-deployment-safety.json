@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "3.7 Rollback, Versioning, and Deployment Safety",
+    "description": "Deployment safety is the area where platforms earn or lose trust. Users will tolerate a broken deploy \u2014 what they will not tolerate is being unable to recover. Rollback is an insurance policy, and lik",
+    "level": "level-3",
+    "slug": "rollback-versioning-and-deployment-safety",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A user deploys v2 of their app. It breaks in production. They want to go back to v1 immediately. What does your platform need to make this possible in under 30 seconds?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Deployment safety is the area where platforms earn or lose trust. Users will tolerate a broken deploy \u2014 what they will not tolerate is being unable to recover. Rollback is an insurance policy, and like all good insurance, users only notice it when they need it.\n\n**Immutable deployments**\n\nThe foundation of rollback is immutability. Every deployment creates a new, static artifact stored indefinitely (or until explicitly deleted). The old artifacts are never overwritten. This means:\n\n- v1 artifacts: `s3://make-deployments/user-123/deploy-v1/` \u2014 permanent\n- v2 artifacts: `s3://make-deployments/user-123/deploy-v2/` \u2014 permanent\n\nGoing \"live\" means updating a pointer \u2014 a routing rule, a DNS record, or a CDN origin configuration \u2014 that says \"for this app's domain, serve from this deployment.\" Rollback means updating the pointer to point back to the previous deployment. No rebuild required. No network download required. A pointer update propagates globally in seconds.\n\n**Instant rollback mechanics**\n\nWith immutable deployments, rollback is an API call that updates the routing layer:\n\n1. User clicks \"Rollback to v1\" in Make's dashboard\n2. Make's deployment service updates the CDN routing rule: \"this domain \u2192 serve from deploy-v1\"\n3. CDN propagates the routing change to edge nodes globally\n4. Within 5-30 seconds, all users see v1\n\nThe routing change is the critical path. With a properly configured CDN, global propagation takes 10-30 seconds. This is why Vercel's rollback is near-instant: Vercel's edge network propagates routing changes extremely fast.\n\n**Deployment versioning**\n\nEach deployment is a named snapshot with metadata:\n\n```\ndeploy-v2:\n  timestamp: 2026-04-15T09:23:14Z\n  agent-session-id: session-abc123\n  triggered-by: user@example.com\n  framework: React + Vite\n  build-time: 28 seconds\n  status: Live\n  url: https://myapp.figma.site/deployments/v2\n```\n\nUsers can see a deployment history in the dashboard, compare versions, and understand what changed between deploys.\n\n**Blue-green deployments**\n\nBlue-green is a deployment pattern that reduces risk by running the new version alongside the old before switching traffic:\n\n- **Blue** = current live version\n- **Green** = new version, deployed and running but not receiving production traffic\n- **Smoke test** = automated checks against the green environment (is it healthy? is the API responding? does the homepage load?)\n- **Traffic switch** = if smoke tests pass, route 100% of traffic to green\n- **Instant rollback** = if issues emerge, route 100% back to blue (which is still running)\n\nThe operational cost: you need 2x the compute running during the switchover window. For a platform like Make, where most apps are small and stateless, this is a manageable cost.\n\n**Make-specific challenge: AI-generated regressions**\n\nTraditional software has tests that catch regressions before deploy. AI-generated code may not have tests (though Make could generate them \u2014 a strategic direction). AI-generated code can have subtle functional regressions that don't show up as build failures or runtime errors:\n\n- The login form validates correctly but the submit button is 2px off-center\n- The data table renders but sorts incorrectly on some edge case\n- The navigation works but an animation is missing\n\nThese regressions are invisible to automated health checks. They require either visual regression testing (covered in Level 5) or user-triggered rollback after discovery.\n\nThis is why deployment previews (every deploy gets a preview URL before going live) are critical for Make: users should confirm the new version looks and works correctly before promoting it to production.\n\n**Audit trail**\n\nFor enterprise users, an audit trail matters for compliance:\n\n- Who deployed, when, from which agent session\n- What changed between versions (file diff, if retained)\n- Who triggered rollback, and when\n\nThis is a feature often overlooked in v1 and painfully retrofit later. The Platform PM should advocate for audit trail as a v1 primitive even if the UI surface is minimal initially.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user's v3 deploy breaks in production, but v2 also had an issue (they never noticed). They want to roll back to v1. What does the rollback UI need to show them to make this decision confidently, and what is the platform requirement that makes this possible?",
+      "answer": "*The UI needs: (1) a deployment history list showing all prior versions with timestamps and status, (2) preview URLs for each version so the user can verify v1 is what they want before committing, and (3) a clear \"Set as Live\" or \"Rollback to this version\" action. The platform requirement: immutable deployment artifacts \u2014 both v1 and v2 artifacts must still exist in storage, unconditionally, until the user explicitly deletes them.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Deploy a simple static site to Vercel. Make a visible change and deploy v2. Use Vercel's deployment history to instantly rollback to v1. Note the time from \"rollback\" click to live. Then read Vercel's documentation on their edge network and understand why the rollback is so fast. What is the platform primitive that enables it?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A user asks: \"What happens to my data if I rollback my app? Does my database rollback too?\" How do you explain the difference between rolling back the application code and the state of the database?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the arguments for and against making this automatic rather than user-triggered?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Rollback is made possible by immutable deployments \u2014 storing every version's artifacts permanently and treating \"going live\" as a pointer update rather than a file overwrite \u2014 which means rolling back is a 10-30 second routing change, not a rebuild.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Instant rollback in platforms like Vercel is possible because of a specific infrastructure primitive. What is it?",
+      "options": [
+        "Vercel stores compressed diffs between deployments, allowing it to reconstruct any previous version quickly by applying diffs in reverse",
+        "Immutable deployments — every version's artifacts are stored permanently and 'going live' is a pointer update (CDN routing rule), so rollback is just pointing back to the previous deployment's artifacts",
+        "Vercel maintains a hot standby of the previous deployment in memory, allowing instant traffic switching without any CDN propagation delay"
+      ],
+      "correctIndex": 1,
+      "explanation": "Immutable deployments mean every deployed version's artifacts live in storage permanently. 'Going live' is updating a routing rule that says 'serve this domain from this deployment.' Rollback updates that pointer back — no rebuild, no download. CDN propagation of the routing change takes 10–30 seconds, which is why rollback is near-instant.",
+      "encourageCorrect": "Correct — immutable deployments plus a pointer-update routing model is the exact primitive that makes instant rollback possible.",
+      "encourageIncorrect": "Rollback doesn't work by reversing diffs or maintaining hot standbys. The key insight is immutability: every version's artifacts are stored permanently, and 'live' is just a pointer to whichever version should be served. Rolling back means updating that pointer — no rebuild required, and CDN propagation takes only 10–30 seconds."
+    },
+    {
+      "question": "A user asks: 'If I roll back my app, does my database roll back too?' What is the technically correct answer?",
+      "options": [
+        "Yes — deployment rollback restores the entire application state including database contents, because Make snapshots the database at each deployment",
+        "Only if the rollback includes a database migration reversal — the platform automatically handles this when rolling back to a version with a different schema",
+        "No — rollback reverts the application code (the pointer to old artifacts) but the database state is independent and continues to reflect all operations that happened since the rolled-back version was deployed"
+      ],
+      "correctIndex": 2,
+      "explanation": "Deployment rollback updates a routing pointer to serve old code artifacts — it has no mechanism to reverse database operations that occurred while the newer version was live. Database state and application code are managed independently. This distinction is critical for users to understand: rolling back code to v1 does not undo data written by v2.",
+      "encourageCorrect": "Right — application code rollback and database state are completely independent systems, and conflating them is a common and costly misunderstanding.",
+      "encourageIncorrect": "Deployment rollback only reverts the routing pointer to serve old code artifacts. It has no ability to reverse database writes that occurred while the newer version was live. Database state is independent of application deployment state — any data written by v2 remains in the database after a code rollback to v1."
+    },
+    {
+      "question": "Make's AI-generated apps present a specific rollback challenge that traditional software does not. What is it?",
+      "options": [
+        "AI-generated apps are larger on average, so storing immutable deployment artifacts consumes significantly more storage than traditional deployments",
+        "AI-generated code may have subtle functional regressions — like incorrect sorting or missing animations — that pass build and health checks but are only discoverable by looking at the rendered output",
+        "AI-generated apps change more frequently than traditional code, making it harder to maintain a meaningful deployment history in the dashboard"
+      ],
+      "correctIndex": 1,
+      "explanation": "Traditional software has tests that catch functional regressions before they reach production. AI-generated code often doesn't have tests, and the regressions it introduces can be visually or behaviorally subtle — a form that validates correctly but has a button 2px off-center, or a data table that renders but sorts wrong on edge cases. These don't trigger build failures or automated health checks, making pre-production visual review (deployment previews) especially important.",
+      "encourageCorrect": "Exactly — the absence of tests in AI-generated code makes subtle functional regressions invisible to automated checks, which is why deployment previews before going live are critical.",
+      "encourageIncorrect": "Storage cost and change frequency aren't the specific challenge introduced by AI-generated code. The core issue is that AI-generated code often lacks tests, so subtle behavioral regressions — a sorting error, a missing animation — pass all automated checks and are only discoverable by visual review of the rendered output."
+    }
+  ]
+}

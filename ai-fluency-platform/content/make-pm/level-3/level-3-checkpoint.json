@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "3.8 Level 3 Checkpoint",
+    "description": "Interview Scenario",
+    "level": "level-3",
+    "slug": "level-3-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "### Interview Scenario\n\nYou are reviewing an architecture proposal for Make's deployment pipeline. The proposal is to deploy all Make apps as static sites to a CDN. The Supabase team pushes back: \"What about server-side rendering for SEO? What about API routes?\" How do you navigate this technical decision?\n\n---\n\n### Model Answer\n\nThis is a classic platform scope decision disguised as a technical architecture question. The right answer is not to pick a side but to structure the tradeoff clearly and drive toward a decision that reflects Make's actual user base and strategic priorities.\n\n**Frame the technical tradeoff first**\n\nStatic-only deployment is not technically wrong — it is a deliberate constraint with real benefits. Static sites deploy faster (no server to provision), cost less to host (CDN distribution is cheaper than compute), are infinitely scalable (CDN handles any traffic spike without operational intervention), and are simpler to operate (no server health monitoring, no restart logic).\n\nThe cost of this constraint is equally real. Static sites cannot do server-side rendering, which affects SEO for content-heavy apps (though this is partially mitigated by Next.js's static generation capabilities, which produce static HTML that is pre-rendered). More significantly, static sites cannot have API routes — backend logic that runs on the server. Users who want to call a database, send an email, or process a webhook need server-side compute.\n\n**Clarify what users actually need**\n\nBefore accepting the Supabase team's framing, examine what the agent actually generates. If the agent generates React SPA apps that use Supabase's client-side SDK for database access (the most common pattern for AI-generated CRUD apps), then static hosting is sufficient — the database calls happen client-side via Supabase's REST API, not server-side. The \"we need API routes\" concern may be overstated for the current agent's output.\n\nIf the agent generates Next.js apps with `getServerSideProps` or API routes, static-only deployment immediately breaks the output. In that case, the deployment model and the agent's code generation patterns are coupled — and the right answer is to align them.\n\n**SEO is a real concern but is solvable within static**\n\nServer-side rendering is one path to SEO, but not the only one. Frameworks like Astro and SvelteKit support static generation of pre-rendered HTML, which gives crawlers the full page content without requiring a running server. If Make's agent generates Astro or Next.js apps with static generation (not server rendering), the SEO concern is addressed without server infrastructure.\n\n**Proposed resolution**\n\nShip static-only as v1 with a clear product commitment: Make's agent will generate code patterns compatible with static deployment. Evaluate full-stack deployment as a v2 based on two signals — what percentage of agent-generated apps actually require server-side logic, and what is the conversion impact (do users churn because they can't deploy dynamic apps?). This gives engineering a focused scope, gives users a real deployment capability on day one, and preserves the option to expand.\n\n---\n\n### Evaluation Criteria\n\n- Does the candidate frame this as a product decision rather than purely a technical one?\n- Do they distinguish between static generation (which solves SEO) and static hosting limitations (which don't support API routes)?\n- Do they identify the coupling between the agent's code generation patterns and the deployment infrastructure?\n- Do they propose a phased approach with clear validation signals rather than trying to decide everything upfront?\n\n### Common Pitfalls\n\n- Immediately agreeing with the Supabase team without examining whether the agent actually generates code that needs server-side rendering\n- Treating this as a binary choice (static vs. full-stack) rather than asking what v1 needs to accomplish\n- Proposing to \"support everything\" without acknowledging the operational cost and timeline implications\n- Ignoring the coupling between agent code generation behavior and deployment model\n\n---\n\n---\n\n# Level 5: Eval Systems & Quality Gates\n\n## \"How to know if the AI got better or worse before your users find out\"\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The Supabase team argues that static-only deployment doesn't support server-side rendering for SEO. What is the strongest counter-argument a Platform PM should make before accepting this framing?",
+      "options": [
+        "Static generation with frameworks like Next.js or Astro produces pre-rendered HTML that satisfies crawlers without requiring a running server — so static-only deployment can address SEO without server infrastructure",
+        "SEO doesn't matter for developer tools, so the Supabase team's concern is outside the product's target use case",
+        "CDN-served static assets load faster than server-rendered pages, so static deployment actually improves SEO through better Core Web Vitals"
+      ],
+      "correctIndex": 0,
+      "explanation": "Server-side rendering and static generation are different techniques. SSR renders on every request (requires a server). Static generation pre-renders HTML at build time (no server required). If Make's agent generates apps using Next.js static generation or Astro, the SEO concern is addressed within static deployment. The Supabase team's framing conflates these two techniques.",
+      "encourageCorrect": "Right — distinguishing static generation from server-side rendering is the key insight that prevents accepting a false binary between 'static-only' and 'full server.'",
+      "encourageIncorrect": "SEO does matter, and Core Web Vitals are one signal among many. The key counter-argument is that 'static-only' doesn't mean 'no pre-rendered HTML' — frameworks like Next.js and Astro support static generation, which produces fully pre-rendered HTML at build time without requiring a running server. This addresses the SEO concern within a static deployment model."
+    },
+    {
+      "question": "The checkpoint model answer recommends shipping static-only as v1 with 'a clear product commitment.' What does that commitment specifically require?",
+      "options": [
+        "A public roadmap that promises full-stack deployment within 6 months, so enterprise customers can plan their migration",
+        "Aligning the agent's code generation patterns to produce only static-compatible output — API calls via client-side SDK, no server-rendered routes — so the deployment model and agent output are consistent",
+        "Committing to auto-migrate any user's app from static to full-stack deployment at no cost when the full-stack option ships"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module identifies a key coupling: the agent's code generation behavior and the deployment model must be aligned. A static-only deployment only works if the agent generates patterns compatible with static hosting. The commitment is to constrain the agent's output to static-compatible patterns — not just to build static infrastructure, but to ensure the agent doesn't generate code that breaks under it.",
+      "encourageCorrect": "Exactly — the commitment is internal, not a public roadmap. It means constraining the agent's code generation to static-compatible patterns.",
+      "encourageIncorrect": "The commitment isn't a public roadmap or a migration promise — it's a product decision about what the agent generates. If the agent produces Next.js server routes or SSR patterns, static hosting immediately breaks those outputs. The commitment is to align the agent's code generation to patterns that work within the static deployment model."
+    },
+    {
+      "question": "A candidate immediately agrees with the Supabase team's push for full-stack deployment without asking any clarifying questions. According to the checkpoint's 'Common Pitfalls,' what critical step did they skip?",
+      "options": [
+        "They should have consulted the engineering team about implementation timelines before taking a position",
+        "They agreed too quickly, which signals weak negotiating posture with the Supabase team in future platform discussions",
+        "They treated the decision as binary (static vs. full-stack) without examining what the agent actually generates and whether it requires server-side capabilities"
+      ],
+      "correctIndex": 2,
+      "explanation": "The checkpoint identifies this as a key pitfall: accepting the Supabase team's framing without examining whether the agent actually generates code that requires server-side rendering. If the agent generates React SPAs with client-side Supabase SDK calls, static deployment is sufficient — the 'we need full-stack' argument may be overstated for the current agent's output.",
+      "encourageCorrect": "Correct — the first move is always to examine what the agent actually generates before accepting the premise that full-stack deployment is required.",
+      "encourageIncorrect": "The problem isn't about timelines or negotiating posture. The critical skipped step is examining what the agent actually generates. Many AI-generated apps use client-side SDK calls (like Supabase's client SDK) that work fine with static hosting — the push for server-side rendering may be based on an assumption about what the agent produces that isn't true."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "5.6 Eval Infrastructure as a Product",
+    "description": "The eval system is infrastructure — and like all infrastructure, it has users with different needs. Treating the eval system as a product, with its own roadmap and user requirements, is the difference",
+    "level": "level-5",
+    "slug": "eval-infrastructure-as-a-product",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Who uses the eval system? Just the agent team — or does it have broader users? What does each user need from it?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The eval system is infrastructure — and like all infrastructure, it has users with different needs. Treating the eval system as a product, with its own roadmap and user requirements, is the difference between an eval system that gets used and one that gets ignored.\n\n**Internal users and their needs**\n\n**Agent team** (primary users): Uses eval results to gate releases, identify specific failure modes, and prioritize model improvement efforts. Needs: fast feedback (results within hours, not days), granular failure analysis (which specific prompts failed, what the failure looked like), trend lines (is quality improving sprint over sprint?), and integration with the deployment pipeline (results block merges automatically).\n\n**Platform team** (secondary users): Uses eval results to identify when platform infrastructure is contributing to failures. A sudden drop in \"build success\" evals may indicate a Vite version update broke something, not an agent regression. Needs: ability to filter eval failures by failure stage (parse, build, run, render, function) to distinguish agent failures from infrastructure failures.\n\n**Product team** (tertiary users): Uses eval results to validate that new features (new framework support, new integration) meet quality thresholds before launch. Needs: the ability to create a new eval category and run it in isolation before it is merged into the main eval suite.\n\n**Leadership** (dashboard users): Uses aggregated eval results to understand overall quality trajectory. Needs: a simple quality dashboard showing overall pass rate, trend, and any active regressions — not granular failure analysis.\n\n**The eval pipeline**\n\n```\nTrigger (PR merge / nightly cron / manual)\n↓\nProvision evaluation environments (N concurrent)\n↓\nFor each eval prompt:\n  - Run agent to generate code\n  - Inject code into environment\n  - Run execution ladder (parse → build → run → render → function)\n  - Run LLM judge on successful executions\n  - Capture screenshots for visual regression\n↓\nAggregate results by category\n↓\nCompare against previous version (regression detection)\n↓\nApply go/no-go gates\n↓\nPublish results to dashboard\n↓\nIf gates fail: block release, alert on-call\n```\n\n**Integration with CI/CD**\n\nThe eval system integrates with the development pipeline via status checks. When a PR to the agent's repository is opened, a CI job triggers the smoke eval suite (50 representative prompts). If the smoke suite passes, the PR can be merged. The full eval suite runs nightly against the main branch and blocks the release pipeline if it fails.\n\nThis creates a feedback loop that catches regressions close to the commit that caused them — not days later when a full release fails.\n\n**The eval dataset as a versioned product**\n\nThe eval prompt set must be versioned alongside the product:\n\n- Every change to the eval set (adding prompts, retiring prompts, changing rubrics) is a code change committed to version control\n- Eval results are stored with metadata: eval suite version, agent version, infrastructure version, timestamp\n- When an eval result changes, you can determine whether the change is due to the agent (agent version changed), the infrastructure (infrastructure version changed), or the rubric (eval suite version changed)\n\nWithout versioning, you cannot distinguish \"the agent regressed\" from \"we added harder prompts to the eval suite.\"\n\n**The data flywheel**\n\nProduction failures (user sessions that ended with an error, retries, or explicit negative feedback) are the highest-signal source of new eval cases:\n\n1. Monitor production for sessions with high retry rates or explicit feedback\n2. Sample failed sessions and extract the prompts that triggered failures\n3. Reproduce the failure in the eval environment\n4. Add the prompt to the eval suite in the appropriate category\n5. The new eval case is now part of the regression detection net for future releases\n\nThis data flywheel means the eval suite continuously improves by incorporating real failure patterns rather than hypothetical ones. It also means the eval suite's coverage grows proportionally with production usage — areas where users spend more time generate more failure data, which generates more eval cases, which provides more evaluation coverage.\n\n**Dashboard requirements**\n\nThe eval dashboard must surface:\n\n- Current overall pass rate and trend (30-day chart)\n- Pass rate by category with trend\n- Active regressions (categories that are below threshold or declining)\n- Specific failing cases (sample of failures per category with failure stage and LLM judge commentary)\n- Release status (is the current main branch release-ready?)\n- Eval suite health (when was the suite last updated? are there stale prompts?)\n\nThe dashboard is a decision-making tool, not a metrics trophy case. Every metric should drive a specific action.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The eval dashboard shows that \"Vue + create new app + simple complexity\" has dropped from 88% to 71% over the past 3 weeks, spanning 4 agent releases. The agent team says they haven't touched Vue code in that period. What are the possible root causes, and how do you investigate?",
+      "answer": "*Root cause hypotheses: (1) an infrastructure change — a Vite version update or Node.js version change may have broken Vue compilation; (2) an eval prompt change — new Vue prompts were added that are harder, inflating the failure rate; (3) an indirect agent effect — a change that was intended for React code generation inadvertently affected the agent's Vue output through shared prompting infrastructure; (4) an npm dependency change — a Vue-related package had a breaking update that breaks installs. Investigation steps: check the infrastructure changelog for the same 3-week window; check the eval suite commit log for Vue prompt changes; look at the raw failure stage breakdown (are failures at \"build\" stage, suggesting infrastructure, or at \"function\" stage, suggesting agent quality)?*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a 5-page eval dashboard on paper (or in Figma): overview, category breakdown, regression detail, specific failure analysis, and eval suite health. For each page, define: who is the primary user, what decision does this page enable, and what are the 3 most important data elements? This exercise surfaces whether you understand eval data as a decision-making tool.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A new engineer on the agent team asks: \"Why do we need a separate eval dataset in version control? Can't we just regenerate eval prompts on demand?\" Explain the importance of eval dataset stability and versioning for regression detection.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Is this a good property?",
+        "Are there failure modes you want to test that real users would never trigger?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The eval system is infrastructure with multiple internal user personas — agent team, platform team, product team, leadership — each requiring different views, and treating it as a versioned product with a data flywheel that ingests production failures makes the eval suite continuously more representative of real usage.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Your eval data tells you not just whether the system is working — it tells you where to invest next. A 30% failure rate on \"modify existing app\" prompts is not just a quality metric; it is a strategic signal about what the platform needs to build. How does eval data drive platform investment decisions? That's next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The eval dashboard shows 'Vue + create new app + simple complexity' dropped from 88% to 71% over 3 weeks spanning 4 agent releases, but the agent team says they haven't touched Vue code. What is the first hypothesis to investigate?",
+      "options": [
+        "An infrastructure change (Vite version update, Node.js version change) or eval prompt change may explain the degradation, independent of agent code changes — filter failures by failure stage to distinguish infrastructure from agent causes",
+        "The agent model must have been silently updated by the upstream provider, causing Vue-specific regressions",
+        "User prompts for Vue have become more complex over the 3-week period, making the existing prompts outdated"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module's calibration check for exactly this scenario lists four hypotheses: infrastructure change, eval prompt change, indirect agent effect through shared infrastructure, and npm dependency change. The diagnostic approach is to check the infrastructure changelog and eval suite commit log for the same period, then look at the raw failure stage breakdown — build-stage failures suggest infrastructure, function-stage failures suggest agent quality.",
+      "encourageCorrect": "Correct — the fact that the agent team didn't change Vue code rules out direct agent changes but not indirect effects or infrastructure changes. Stage-level breakdown is the right diagnostic tool.",
+      "encourageIncorrect": "A silent model provider update is plausible but is one of several hypotheses — not the first to investigate. The module prioritizes checking what you can observe directly: the infrastructure changelog, eval suite commit log, and failure stage distribution."
+    },
+    {
+      "question": "Why must the eval prompt dataset be versioned in version control alongside agent and infrastructure versions?",
+      "options": [
+        "Version control is required for compliance audits of AI systems in enterprise deployments",
+        "Without versioning, you cannot distinguish whether an eval result changed because the agent improved, the infrastructure changed, or harder prompts were added to the eval suite",
+        "Version control enables the eval suite to be run on any historical agent version for retrospective analysis"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module explicitly states that eval results must be stored with metadata including eval suite version, agent version, and infrastructure version. Without this, an apparent regression might actually be caused by adding harder prompts (the eval got more demanding, not the agent worse), or an apparent improvement might reflect retiring difficult prompts. Versioning disambiguates what changed.",
+      "encourageCorrect": "Right — the versioning requirement is fundamentally about attribution: which change in which dimension caused the score to move.",
+      "encourageIncorrect": "Retrospective analysis is a useful side benefit, but it's not the primary reason. The core purpose is distinguishing the source of eval result changes — agent changes, infrastructure changes, or eval suite changes — so regressions can be correctly attributed."
+    },
+    {
+      "question": "How does the 'data flywheel' described in this module strengthen the eval suite over time?",
+      "options": [
+        "The data flywheel automatically generates new eval prompts using an LLM trained on past eval results",
+        "The data flywheel reweights existing eval prompts based on usage frequency, giving common task types higher influence on the overall pass rate",
+        "Production failures — sessions with high retry rates or explicit negative feedback — are sampled, reproduced in the eval environment, and added to the eval suite, making coverage grow proportionally with real usage patterns"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module describes the data flywheel as a pipeline from production failure detection → prompt extraction from failed sessions → reproduction in eval → addition to the eval suite. This means the eval suite continuously incorporates real failure patterns rather than hypothetical ones, and its coverage grows proportionally with production usage — areas where users spend more time generate more signal.",
+      "encourageCorrect": "Exactly — the flywheel converts production failures into eval cases, so the suite gets harder and more representative as the product gets used.",
+      "encourageIncorrect": "The flywheel doesn't generate synthetic prompts or reweight existing ones. It's grounded in real failure data: actual user sessions that went wrong become the source material for new eval cases."
+    }
+  ]
+}

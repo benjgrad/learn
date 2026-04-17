@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "7.2 APIs, SDKs, and Plugin Systems",
+    "description": "Extensibility is a category, not a single thing. \"Make is extensible\" can mean many different things, and the implementation decisions have large downstream consequences for developer experience, main",
+    "level": "level-7",
+    "slug": "apis-sdks-and-plugin-systems",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Make needs to be extensible. You could build REST APIs, a JavaScript SDK, a plugin system with a marketplace, or all three. How do you decide what to build first?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Extensibility is a category, not a single thing. \"Make is extensible\" can mean many different things, and the implementation decisions have large downstream consequences for developer experience, maintenance burden, and what kinds of integrations become possible. A Platform PM needs to understand the tradeoffs well enough to guide the architecture conversation, even without writing the code.\n\n---\n\n**REST APIs**\n\nA REST API is the most fundamental extensibility primitive. It exposes Make's capabilities as HTTP endpoints that any programming language can call.\n\nWhat a Make REST API might expose:\n- `GET /projects/{id}` \u2014 read a project's files and metadata\n- `POST /projects/{id}/agent` \u2014 send a message to the agent for a specific project\n- `POST /projects/{id}/builds` \u2014 trigger a build\n- `GET /projects/{id}/deployments` \u2014 list deployment history\n- `POST /deployments/{id}/promote` \u2014 promote a deployment to production\n\n**Strengths:** Language-agnostic (call from Python, Ruby, Go, curl). Familiar to any developer. Simple to document and test. Stable over long periods if versioned well.\n\n**Weaknesses:** Low-level. A developer who wants to build a custom component library integration has to call multiple endpoints, handle pagination, manage authentication, and write all the orchestration themselves. The developer experience requires significant effort for anything complex.\n\n**When REST is the right answer:** For server-to-server integrations (CI/CD pipelines, project management tools, deployment automations) where the consumer is a technical developer with engineering resources.\n\n---\n\n**JavaScript SDK**\n\nA JavaScript SDK wraps the REST API with higher-level abstractions, type safety, and better developer experience.\n\n```typescript\n// REST API \u2014 raw\nconst response = await fetch('/api/projects/proj_123/agent', {\n  method: 'POST',\n  headers: { 'Authorization': 'Bearer ...' },\n  body: JSON.stringify({ message: 'Add a dark mode toggle' })\n});\nconst result = await response.json();\n\n// SDK \u2014 abstracted\nconst result = await make.agent.send('proj_123', 'Add a dark mode toggle');\n```\n\n**Strengths:** Better DX. Type checking catches errors before runtime. Abstractions reduce boilerplate. SDK can handle authentication, retries, and error handling consistently.\n\n**Weaknesses:** Language-specific (a JavaScript SDK doesn't help Python developers). Versioning complexity \u2014 the SDK version and the API version can drift. Every API change requires an SDK update, a new version publish, and documentation updates. The SDK becomes a maintenance dependency.\n\n**When SDK is the right answer:** When your primary developer audience is JavaScript/TypeScript developers building in the same ecosystem as Make, and when DX investment is justified by the scale of the developer community.\n\n---\n\n**Plugin System**\n\nA plugin system is qualitatively different from APIs and SDKs. Instead of external developers calling Make's APIs from their own infrastructure, plugins run *inside* Make's environment \u2014 sandboxed code that extends Make's UI and behavior.\n\nWhat Figma's plugin model looks like (and what Make's could adapt):\n- Plugins are JavaScript bundles submitted to and reviewed by Figma\n- Plugins run in a sandboxed iframe, isolated from the host application\n- Communication between plugin and host application happens via `postMessage` \u2014 a defined message-passing protocol\n- Plugins can read and write design data through a curated API that Figma controls\n- Users discover and install plugins from the community marketplace\n\nFor Make, a plugin system enables:\n- **Custom component providers:** a design agency's plugin teaches Make's agent about their proprietary component library\n- **Custom deployment targets:** a plugin that deploys to AWS instead of Figma's CDN\n- **Custom agent tools:** a plugin that gives the agent access to the user's analytics platform, CRM, or content management system\n- **Custom preview environments:** a plugin that runs the preview inside a specific environment (e.g., a specific version of React Native for mobile preview)\n\n**Strengths:** Most powerful extensibility model. Enables use cases that APIs alone can't serve. Creates a marketplace and ecosystem. Deepest integration with the product experience.\n\n**Weaknesses:** Hardest to build. Requires sandbox infrastructure, security review processes, marketplace operations, and ongoing support for third-party developers. The API surface exposed to plugins must be extremely carefully designed \u2014 it's very hard to remove capabilities once they're public.\n\n---\n\n**The Decision Framework**\n\nDeciding what to build first requires answering three questions:\n\n**Who is the target developer?** A CI/CD integration builder needs a REST API. A design agency building a component integration needs an SDK or a plugin. An enterprise customer wanting to self-host needs different APIs than a startup using the cloud version.\n\n**What do they want to build?** Map the top 5 integration requests you've heard. Do they require server-to-server access (REST API), programmatic control from JavaScript (SDK), or in-product UI extension (plugin system)?\n\n**How much can they invest?** A large enterprise with a dedicated engineering team can work with a low-level REST API. A solo designer who happens to know some code needs a high-level SDK or a no-code integration via Zapier/Make.com.\n\n**A reasonable sequencing for Make:**\n\n1. **Internal REST API first** \u2014 already exists for Figma's own product integration. Stabilize and document it for internal use.\n2. **Partner REST API** \u2014 expose a stable, versioned subset to Phase 2 partners. Learn what they actually need.\n3. **JavaScript SDK** \u2014 once you know the most common partner integration patterns, abstract them into an SDK. Don't abstract before you have evidence.\n4. **Plugin system** \u2014 build after GA, with lessons from partner feedback informing the plugin API surface. This is an 18-24 month investment.\n\n---\n\n**API Surface Design**\n\nWhat you choose to expose is as important as how you expose it. The principle: expose outcomes, not implementation details.\n\n**Expose:** The ability to trigger a build, deploy a project, send an agent message, read project file structure. These are stable business operations.\n\n**Don't expose:** Internal runtime details (how preview environments are provisioned), model prompt structure (your system prompt is IP and a source of competitive advantage), internal agent orchestration (your tool-calling graph is an implementation detail that will change).\n\nOnce you expose an API endpoint, you've made a promise. The Hyrum's Law problem: given enough users, every observable behavior of your system will be depended upon by someone. Design the API surface as if you can never change it.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Stripe, a company with decades of API design experience, has a public API that deprecates endpoints years in advance and maintains backward compatibility across major versions. Make is 18 months old. What does Make need to do before it can make the same promises Stripe makes?",
+      "answer": "*Look for: stable underlying data model, versioning infrastructure, API changelog processes, dedicated developer relations capacity, deprecation policy defined and published. These are organizational and process commitments, not just technical ones.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Read Figma's Plugin API documentation (figma.com/plugin-docs). Focus on the security model section: how does Figma sandbox plugins? What can a plugin access? What is explicitly prohibited? Now consider: what would you prohibit in a Make plugin API, and why?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a product designer why a plugin system is harder to build than a REST API, but potentially more valuable. Use the analogy of a building: a REST API is a door; a plugin system is a built-in expansion joint.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you worked with a platform that offered an API or SDK?",
+        "What frustrated you about the developer experience?",
+        "What worked well?",
+        "How would those lessons inform your API design decisions for Make?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "REST APIs, SDKs, and plugin systems serve different developers with different integration depths \u2014 and the right sequencing is to start with stable REST APIs for server-to-server use cases, abstract to an SDK once patterns emerge, and invest in a plugin system only after the platform is stable enough to make API promises you can keep.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You know what to build for extensibility. But someone inside Figma is going to ask: who does Platform serve first \u2014 Make Product, or all of Figma? That's the platform-product boundary question.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A design agency wants to integrate their proprietary component library with Make. They have a dedicated engineering team comfortable with HTTP. Which extensibility primitive is the correct starting point?",
+      "options": [
+        "A JavaScript SDK, because it reduces the boilerplate they'd otherwise write",
+        "A REST API, because server-to-server integrations from technical teams with engineering resources match the REST use case",
+        "A plugin system, because component library integration is an in-product extension, not an external call"
+      ],
+      "correctIndex": 1,
+      "explanation": "The decision framework asks who the target developer is and what they want to build. A design agency with a dedicated engineering team doing a component library integration is exactly the server-to-server, technically resourced use case for which REST APIs are the right answer. A plugin system is the right eventual answer for in-product extensibility, but it's an 18-24 month investment that shouldn't precede a stable REST API.",
+      "encourageCorrect": "Right — REST APIs match the technically resourced, server-to-server integration case. Escalate to SDK or plugins only when you have evidence of patterns that justify the added investment.",
+      "encourageIncorrect": "The sequencing principle is: REST API for server-to-server technical integrations, SDK when patterns emerge from those integrations, plugin system after GA with lessons from partner feedback. A solo designer needs a high-level SDK; an engineering team needs a REST API."
+    },
+    {
+      "question": "Make ships a public REST API endpoint: `POST /projects/{id}/builds`. Six months later, the engineering team wants to rename it to `POST /projects/{id}/compilations` for naming consistency. What principle governs why this is harder than it sounds?",
+      "options": [
+        "Hyrum's Law — given enough users, every observable behavior of your system will be depended upon by someone, so a published endpoint is effectively a permanent promise",
+        "Semantic versioning requires a major version bump, which is an acceptable migration path",
+        "The rename would break backward compatibility only for users who hard-coded the URL rather than using the SDK"
+      ],
+      "correctIndex": 0,
+      "explanation": "Hyrum's Law is the module's explicit framing: once you expose an API endpoint, you've made a promise that compounds with every additional user. 'Design the API surface as if you can never change it.' Semantic versioning and SDK abstraction mitigate but don't eliminate the cost — migrations still break integrations, require support, and damage trust with the developers who built on your API.",
+      "encourageCorrect": "Exactly — Hyrum's Law is why API surface design decisions are among the highest-leverage and hardest-to-reverse choices a Platform PM makes.",
+      "encourageIncorrect": "Versioning provides a migration path but doesn't remove the cost. The deeper point is that every published endpoint creates dependents who will resist any change, making the API surface effectively permanent in practice. This is why the module emphasizes designing the API surface before exposing it, not after."
+    },
+    {
+      "question": "A product manager proposes building a JavaScript SDK before the REST API, arguing it will provide a better developer experience from day one. What is the strongest counterargument?",
+      "options": [
+        "SDKs are more expensive to build than REST APIs and should only be built for large developer communities",
+        "Abstracting into an SDK before you know the common integration patterns risks building the wrong abstractions — which then become harder to change than the underlying API",
+        "SDKs only serve JavaScript developers, so building one first excludes the majority of potential API consumers"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's recommended sequencing is explicit: build a stable REST API, learn from partner integrations what the actual patterns are, then abstract those patterns into an SDK. Building the SDK first means abstracting before you have evidence — the abstractions may not match real usage, and wrong SDK abstractions create drift and versioning complexity that's harder to fix than a raw API would have been.",
+      "encourageCorrect": "Correct — the sequencing principle is 'don't abstract before you have evidence.' The SDK should encode patterns that emerged from real REST API usage, not anticipated usage.",
+      "encourageIncorrect": "Language exclusion is a real cost, but it's not the strongest argument. The deeper problem is that SDKs encode assumptions about usage patterns. Building those assumptions before you've seen real integration behavior means you're likely abstracting the wrong things — and wrong abstractions are harder to fix than missing abstractions."
+    }
+  ]
+}

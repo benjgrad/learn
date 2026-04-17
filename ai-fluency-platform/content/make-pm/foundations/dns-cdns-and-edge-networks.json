@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "F.5 DNS, CDNs, and Edge Networks",
+    "description": "Deployment is the moment Make's output becomes real. Before deployment, it's a preview \u2014 isolated, ephemeral, forgiving. After deployment, it's a product with a URL, with users, with latency expectati",
+    "level": "foundations",
+    "slug": "dns-cdns-and-edge-networks",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> A user deploys their Make app and gets a URL: myapp.figma.site. Another user in Tokyo types that URL. What happens between their keystroke and the app loading?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Deployment is the moment Make's output becomes real. Before deployment, it's a preview \u2014 isolated, ephemeral, forgiving. After deployment, it's a product with a URL, with users, with latency expectations. The infrastructure between \"deploy clicked\" and \"URL works globally\" is the edge network stack \u2014 and a Platform PM who can't articulate it cannot make credible decisions about Make's deployment architecture.\n\n**DNS Resolution: The Phone Book Problem**\n\nDNS (Domain Name System) is a globally distributed database that maps human-readable names (`myapp.figma.site`) to IP addresses (`104.21.47.83`). The resolution chain:\n\n1. **Browser cache:** The browser checks if it has recently resolved this domain. If yes, it uses the cached IP. DNS records have a TTL (time to live) that controls cache duration.\n\n2. **OS resolver cache:** The operating system maintains its own DNS cache. If the browser doesn't have it, the OS checks here.\n\n3. **Recursive resolver:** If no cache hit, the OS queries a recursive resolver \u2014 typically your ISP's DNS server or a public resolver (8.8.8.8 for Google, 1.1.1.1 for Cloudflare). The recursive resolver does the work of finding the answer.\n\n4. **Root nameservers:** The recursive resolver asks a root nameserver: \"who is authoritative for `.site`?\" The root server responds with the TLD nameserver.\n\n5. **TLD nameserver:** The `.site` TLD nameserver says: \"figma.site is managed by these nameservers.\"\n\n6. **Authoritative nameserver:** Figma's authoritative nameserver has the actual DNS record for `myapp.figma.site` and returns the IP address.\n\nThis full chain takes 50\u2013200ms for a cold lookup. With caching, it's microseconds. Figma's DNS infrastructure must be globally distributed and highly available \u2014 DNS failure means every deployed Make app becomes unreachable.\n\n**CNAME and Wildcard DNS**\n\n`myapp.figma.site` is a subdomain. Figma uses a wildcard DNS record: `*.figma.site \u2192 origin-ip-address`. Any subdomain of `figma.site` resolves to the same origin (or CDN). The platform then inspects the `Host` header in the incoming request to route to the correct user's app. This is virtual hosting \u2014 one IP serving millions of different apps.\n\n**CDN Edge Caching**\n\nA Content Delivery Network maintains servers (points of presence, or PoPs) in dozens of cities globally. Cloudflare has 300+ PoPs; Fastly has 60+; Vercel's edge network has 100+. When a user in Tokyo requests `myapp.figma.site`, the DNS resolves to the nearest Cloudflare PoP \u2014 not Figma's origin servers in Virginia.\n\nThe CDN checks its cache. If it has a fresh copy of the requested content, it returns it directly \u2014 no request ever reaches Figma's origin. The response time is the user's latency to the nearest PoP, typically 5\u201330ms. Without a CDN, the user in Tokyo would wait for a round-trip to Virginia: 150\u2013200ms per request.\n\nCache behavior is controlled by HTTP headers: `Cache-Control: public, max-age=31536000, immutable` means \"cache this forever, it will never change.\" Static assets (JS bundles, images) with content-hashed filenames can be cached indefinitely. HTML files should not be cached long (they reference new asset versions).\n\n**Edge Compute**\n\nEdge compute goes beyond static caching \u2014 it runs code at the PoP. Cloudflare Workers, Vercel Edge Functions, and Fastly Compute@Edge allow you to run JavaScript (or Wasm) at the network edge. A request from Tokyo runs edge code in Tokyo \u2014 authentication, personalization, A/B testing, geolocation-based routing \u2014 before the request ever reaches the origin.\n\nFor Make, edge compute enables:\n- **Custom domain routing:** Map `myapp.custom-domain.com` to `myapp.figma.site` at the edge\n- **Auth middleware:** Protect deployed apps with authentication before serving any content\n- **Preview vs. production routing:** Different behavior for preview URLs vs. deployed URLs\n- **Rate limiting:** Prevent abuse of deployed apps at the edge, before it reaches servers\n\n**SSL/TLS Termination**\n\nEvery HTTPS request involves a TLS handshake \u2014 negotiating encryption keys before any application data is exchanged. This adds 1\u20133 round trips of latency on the first connection (TLS 1.2) or 1 round trip (TLS 1.3). The CDN terminates TLS at the edge \u2014 the user's browser negotiates TLS with the nearby PoP, not with Figma's origin servers. The connection from the edge to the origin may use a persistent, pre-warmed connection.\n\nFor `myapp.figma.site`, Figma automatically provisions a wildcard TLS certificate for `*.figma.site`. For custom domains (`myapp.custom-domain.com`), Figma must provision a certificate for that specific domain \u2014 using Let's Encrypt's automated ACME protocol or a Certificate Authority. This provisioning takes 30\u201360 seconds for a new domain and must be triggered at deploy time.\n\n**Why Edge Infrastructure Matters for Make**\n\n**Deploy latency:** When a user clicks \"Deploy,\" how long until the URL works globally? Without a CDN, Figma must propagate content to every origin server. With a CDN, content is pushed to the origin, and the CDN fetches it on-demand from PoPs as users request it. The URL goes live in seconds; PoP caches populate lazily.\n\n**Global performance:** A Make app used by a Tokyo team must load fast in Tokyo. Without edge infrastructure, all traffic routes to Figma's US data centers. With Cloudflare or Fastly, static assets are cached at the PoP \u2014 most page loads require no round-trip to the US.\n\n**Custom domains:** Users who want `myapp.company.com` require DNS delegation (pointing their DNS at Figma's nameservers) and automated certificate provisioning. This is an ops-heavy feature with real latency for first-time setup. The Platform PM must understand this to set expectations in the product.\n\n**Cost structure:** CDN egress pricing is complex. Cloudflare charges per-request and per-GB-transferred for some configurations. A popular Make app generating millions of requests per day has non-trivial CDN costs. The platform must decide whether those costs are absorbed (free tier), metered (pay-as-you-go), or tiered (included in paid plans).\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user deploys a Make app and it works. Then they add a custom domain. They update their DNS to point at Figma, but the HTTPS certificate takes 45 minutes to provision. The user is frustrated. What is actually happening, and what can Make's platform team do to reduce this latency?",
+      "answer": "Certificate provisioning requires a domain validation challenge \u2014 the CA (Let's Encrypt) verifies that you control the domain by checking a specific DNS record or HTTP path. This round-trip takes time, and TTL on existing DNS records means changes propagate slowly. Platform mitigations: pre-provision wildcard certificates for known patterns, use Let's Encrypt's DNS-01 challenge (faster for subdomains), cache provisioned certificates, and offer a progress indicator rather than a blank \"pending\" state. Vercel reduced custom domain setup to under 60 seconds with aggressive engineering here.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Deploy a static site to Vercel or Cloudflare Pages. In DevTools \u2192 Network, look at the response headers for a JS bundle: find `Cache-Control`, `cf-cache-status` (Cloudflare) or `x-vercel-cache`. Understand the difference between `HIT` (served from edge cache) and `MISS` (fetched from origin). Reload the page and watch the cache status change.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a user who asked \"why does my app load slower in Japan?\" why edge infrastructure matters \u2014 in terms they can act on (e.g., what to tell Figma, what they can configure themselves).\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the implications for Make's deployment infrastructure: build it, buy it (Cloudflare Enterprise, Fastly), or partner for it (Vercel)?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Deployment is not a checkbox after code generation \u2014 it is an infrastructure product with DNS resolution, TLS provisioning, CDN caching, and edge compute as distinct engineering investments, each of which directly affects the latency and reliability users experience after they click \"Deploy.\"\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> The foundations are in place. You understand the runtime, the framework, the build system, the isolation model, and the delivery network. Now: who are the players building in this space, and how do their architectural choices define their competitive position?\n\n---\n\n---\n\n## Level 1: The AI Code-Generation Landscape\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A Make app deployed to myapp.figma.site serves millions of different users' apps from the same IP address. What mechanism makes this possible, and what determines which user's app is served for each request?",
+      "options": [
+        "Each user's app is assigned a unique IP address at deploy time, and DNS wildcard records map subdomains to those unique IPs",
+        "Figma uses a wildcard DNS record (*.figma.site) pointing all subdomains to a shared IP or CDN, then inspects the Host header in each incoming request to route to the correct user's app",
+        "The CDN caches each app at the edge using the full URL as the cache key, so requests automatically reach the right app without any routing logic"
+      ],
+      "correctIndex": 1,
+      "explanation": "A wildcard DNS record (*.figma.site) resolves every subdomain to the same set of IP addresses (or CDN endpoints). When a request arrives, the platform inspects the HTTP Host header — which contains the specific subdomain like myapp.figma.site — and routes to the correct user's application. This is called virtual hosting, and it's how one server infrastructure can serve millions of different apps. Assigning unique IPs would be impractical at scale.",
+      "encourageCorrect": "Exactly right — virtual hosting via Host header inspection is the mechanism that makes subdomain-per-app deployment economically viable.",
+      "encourageIncorrect": "Unique IPs per app would exhaust available IPv4 space quickly and isn't how this works. CDN cache keys alone don't route traffic — they determine whether to serve from cache, not where to route. The actual mechanism is a wildcard DNS record mapping all subdomains to shared infrastructure, with the Host header doing the per-app routing."
+    },
+    {
+      "question": "When a user deploys a Make app and adds a custom domain (myapp.company.com), the HTTPS certificate takes 30-60 seconds to provision. What is actually happening during that time, and what can Make's platform team do to reduce this latency?",
+      "options": [
+        "The delay is caused by DNS propagation — the CDN must wait for the user's new DNS record to propagate globally before the certificate can be issued",
+        "A Certificate Authority must verify the user controls the domain (via a DNS challenge or HTTP validation), and existing DNS TTLs slow how quickly the validation check can complete — mitigations include using DNS-01 challenges and pre-provisioning infrastructure",
+        "The delay is unavoidable because TLS certificate signing is computationally expensive and must be done by a Hardware Security Module"
+      ],
+      "correctIndex": 1,
+      "explanation": "Certificate provisioning via Let's Encrypt requires a domain validation challenge — the CA verifies domain ownership by checking a specific DNS record (DNS-01) or HTTP path (HTTP-01). DNS TTLs on existing records mean changes propagate slowly, adding latency to the DNS-01 challenge. Platform mitigations include pre-positioning certificate infrastructure, using faster DNS-01 challenge automation, and showing a meaningful progress indicator. Vercel reduced this to under 60 seconds through aggressive engineering on exactly this problem.",
+      "encourageCorrect": "Good — understanding certificate provisioning mechanics is what lets a Platform PM set accurate user expectations and push for specific engineering investments.",
+      "encourageIncorrect": "TLS signing is not computationally bottlenecked — modern HSMs process it in milliseconds. The bottleneck is domain validation: the CA must confirm you own the domain before signing, and existing DNS TTLs slow how quickly validation challenges resolve. The platform team can attack this with smarter challenge strategies and infrastructure pre-provisioning."
+    },
+    {
+      "question": "A CDN returns a Cache-Control: public, max-age=31536000, immutable header for a JS bundle. What is the correct interpretation, and why do HTML files warrant a different caching strategy?",
+      "options": [
+        "This means the CDN will serve the file for up to a year without checking the origin — this is safe for content-hashed JS bundles because the filename changes with every deployment, but HTML files must be served fresh because they reference the latest asset filenames",
+        "This header means the file can be cached locally for a year, but CDN PoPs must still validate with the origin on every request to ensure freshness",
+        "Setting max-age=31536000 on JS bundles is a mistake that causes old code to persist on users' machines after deployments, which is why Make should use shorter cache TTLs for all assets"
+      ],
+      "correctIndex": 0,
+      "explanation": "Content-hashed JS bundles (e.g., app.a1b2c3.js) are safe to cache forever — if the content changes, the filename changes, forcing browsers and CDNs to fetch a fresh copy. The immutable directive tells caches not to revalidate even near expiry. HTML files are different: they reference the latest asset filenames, so if they're cached aggressively, users get old HTML pointing to new assets or vice versa. HTML should have short or no-store cache policies.",
+      "encourageCorrect": "Exactly — the content-hash + long TTL strategy is a key CDN optimization, and understanding why HTML is excluded is the nuance that shows real comprehension.",
+      "encourageIncorrect": "The immutable directive explicitly tells caches NOT to revalidate — it's safe to do this precisely because content-hashed filenames change with every deployment. Short cache TTLs across all assets would eliminate the CDN's latency benefit. The strategy is aggressive caching for hashed assets (filename changes on update) and short/no caching for HTML (which must always reference current asset versions)."
+    }
+  ]
+}

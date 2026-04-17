@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "6.4 Platform-Level Monitoring",
+    "description": "Platform-level monitoring is the view from altitude: not \"what happened to user u_8842's session\" but \"how did the platform perform across all 50,000 sessions this weekend.\" This is the PM's primary i",
+    "level": "level-6",
+    "slug": "platform-level-monitoring",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "It's Monday morning. You open your platform health dashboard before standup. What 5 charts tell you whether Make had a good weekend?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Platform-level monitoring is the view from altitude: not \"what happened to user u_8842's session\" but \"how did the platform perform across all 50,000 sessions this weekend.\" This is the PM's primary interface with platform health — not because PMs should debug incidents, but because platform health metrics inform roadmap priorities, GA readiness decisions, and conversations with leadership.\n\n---\n\n**The Golden Signals for Make**\n\nGoogle's Site Reliability Engineering book defines four \"golden signals\" for any service: latency, traffic, errors, and saturation. For Make, these translate into a platform-specific set:\n\n**1. Preview Success Rate**\nOf all preview loads attempted, what percentage succeeded (loaded fully, without errors, within the SLO threshold)?\n\nThis is your headline health metric. A drop here is the most user-visible failure. Target: 99.5%.\n\n**2. Mean Time to Preview (MTTP)**\nHow long does it take from \"user clicks Preview\" to \"preview is interactive in the browser\"? Track p50, p95, and p99.\n\nThis is your primary user experience metric. Every 500ms added to MTTP is user patience consumed. Target: p95 under 3 seconds.\n\n**3. Agent Session Completion Rate**\nOf sessions where a user engages the agent with a goal, what percentage result in a deployed or exported output?\n\nThis is your efficacy metric — not just whether the platform ran, but whether it helped users accomplish something. Target: track and trend; baseline before optimizing.\n\n**4. Build Pass Rate (First Attempt)**\nOf build attempts, what percentage succeed without the user needing to request a fix?\n\nThis is your code quality proxy. A declining build pass rate often precedes user satisfaction decline because users experience failed builds as the platform \"not working.\"\n\n**5. Deployment Success Rate**\nOf deployment attempts, what percentage result in a live, accessible URL?\n\nThis is the end-of-funnel metric. It captures failures in the CDN layer, DNS propagation, and deployment pipeline that preview success rate doesn't.\n\n---\n\n**SLOs and Error Budgets**\n\nService Level Objectives (SLOs) are internal reliability targets. They're not marketing claims — they're engineering contracts that determine when platform work takes priority over feature work.\n\nExample SLOs for Make:\n- Preview success rate: 99.5% over any 30-day window\n- p95 preview load time: under 3 seconds\n- Agent session completion rate: above 68% (hypothetical baseline)\n- Deployment success rate: 99.0%\n\nAn **error budget** is the inverse of your SLO. If your preview success rate SLO is 99.5%, you have a 0.5% error budget — you can afford to fail 0.5% of preview attempts per month without violating your commitment.\n\nError budgets make reliability tradeoffs concrete. If you've consumed 80% of your preview error budget on the 20th of the month, you stop shipping changes to the preview stack for the rest of the month. If your budget is healthy, you can ship faster. This is how reliability and velocity get reconciled without politics — the math decides.\n\n---\n\n**Alerting Tiers**\n\nNot every anomaly warrants waking someone at 2am. Alerting tiers prevent alert fatigue:\n\n| Tier | Trigger | Response |\n|---|---|---|\n| Page (PagerDuty) | Preview success rate drops below 97%, sustained 5 minutes | On-call engineer woken immediately |\n| Slack alert | Build pass rate drops more than 5% from 24h baseline | Team notified during business hours |\n| Dashboard ticket | p95 preview load time trending up for 3 consecutive days | Added to Monday review, prioritized for next sprint |\n\nThe threshold for paging is deliberately conservative. Broad alerts on minor anomalies destroy on-call morale and cause engineers to start ignoring pages — the opposite of what you want.\n\n---\n\n**Dashboards by Audience**\n\nBuild separate dashboards for separate audiences, or you'll build one dashboard that serves no one well:\n\n**Engineering on-call dashboard:** Infrastructure metrics, active incidents, service error rates, deployment pipeline status. Refreshes every 30 seconds.\n\n**Product team dashboard:** Feature adoption funnels, session completion rates, agent success rates by template type, build failure reasons. Refreshes every hour. This is the PM's primary tool.\n\n**Leadership dashboard:** Weekly trend lines for key quality metrics, cost per session, user growth vs. infrastructure cost, SLO compliance over the quarter. Refreshes daily.\n\n---\n\n**Anomaly Detection**\n\nThreshold-based alerts catch acute spikes. Anomaly detection catches gradual regressions that never cross a single threshold.\n\nTwo patterns worth building into Make's monitoring:\n\n**Sudden anomaly:** Build failure rate jumps from 8% to 22% within 30 minutes. Almost certainly an external dependency (npm registry outage, a popular package publishing a broken version). Detected by rate-of-change alerting.\n\n**Gradual regression:** p95 preview load time increases from 2.1s to 2.8s over three weeks. No single day's change is significant enough to trigger an alert. Detected by trend analysis with a linear regression against a 14-day baseline.\n\nGradual regressions are the more dangerous failure mode because they're invisible to threshold alerting. Building trend-based anomaly detection is a platform investment that pays off disproportionately.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your Monday dashboard shows: preview success rate 99.6% (green), p95 MTTP 3.8 seconds (red, SLO is 3s), build pass rate 91% (green), deployment success rate 99.2% (green). What do you do first?",
+      "answer": "Investigate the p95 MTTP violation. It's the only SLO breach. Pull traces from the slowest previews in the last 72 hours to identify the bottleneck. Check if the trend is worsening or stable. This is your standup talking point and your first engineering ask.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Look up the Figma status page (status.figma.com). Observe the structure: which services are listed, how incidents are categorized, how communication is structured. Now imagine Make's status page. What services would you list? What's your incident communication template for a preview outage?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the concept of an error budget to a product manager who has no engineering background. Use an analogy outside of software. Explain why \"we've consumed 80% of our error budget\" means \"stop shipping new features to this service.\"\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the equivalent of \"golden signals\" for an AI execution environment — something richer than traditional SRE signals?",
+        "In AI platforms you've studied or worked with, do those signals exist as dashboards, or do teams typically have to query them manually?",
+        "What's the gap?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Platform health for Make centers on five golden signals — preview success rate, mean time to preview, agent session completion rate, build pass rate, and deployment success rate — and error budgets make the tradeoff between reliability and velocity a math problem instead of a political one.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've covered what to monitor and how to alert on it. But infrastructure costs $2M/month and leadership wants to know where the money goes. Next: cost observability.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Your Monday dashboard shows: preview success rate 99.6% (green), p95 MTTP 3.8 seconds (red, SLO is 3s), build pass rate 91% (green), deployment success rate 99.2% (green). What is the correct first action?",
+      "options": [
+        "Convene a cross-team incident review, since multiple metrics need context before prioritizing",
+        "Investigate the p95 MTTP violation — it is the only active SLO breach. Pull traces from the slowest previews in the last 72 hours to identify the bottleneck, and assess whether the trend is worsening or stable",
+        "Monitor the build pass rate trend over the next 48 hours — at 91% it is close to the threshold and may breach by mid-week"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's calibration answer is explicit: investigate the p95 MTTP violation first because it is the only SLO breach. Pull traces from the slowest previews to find the bottleneck. The build pass rate at 91% is green — it hasn't breached any threshold — so it does not require immediate action. Dashboards are decision-making tools; the SLO breach is the clear decision signal.",
+      "encourageCorrect": "Right — the SLO breach is unambiguous: it's the only red metric and has a clear next step (trace analysis).",
+      "encourageIncorrect": "Build pass rate at 91% is within normal range (green) — there's no signal requiring action yet. The only breach is p95 MTTP, and that has a clear investigation path. Convening a cross-team review before pulling traces inverts the process: diagnose first, then involve others if the investigation reveals cross-team causes."
+    },
+    {
+      "question": "What is an error budget, and how does it make reliability vs. velocity tradeoffs less political?",
+      "options": [
+        "An error budget is the inverse of the SLO — if preview success rate SLO is 99.5%, you have a 0.5% error budget. When 80% of that budget is consumed, the math dictates pausing changes to the preview stack rather than requiring a subjective leadership decision",
+        "An error budget is the monthly budget allocated to incident response and on-call costs; when it's exhausted, the team must request additional headcount",
+        "An error budget is a maximum number of user-visible errors permitted per week, set by product leadership to balance quality against shipping pace"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module defines error budgets as the mechanism that turns reliability/velocity tradeoffs into math rather than politics. If the SLO is 99.5% and the budget is 80% consumed by the 20th of the month, stopping changes to that service is an objective consequence, not a leadership preference. This removes the political dynamics of 'should we slow down?' — the math decides.",
+      "encourageCorrect": "Correct — the error budget makes the tradeoff decision automatic and depoliticized. The math dictates when to stop shipping, not a conversation.",
+      "encourageIncorrect": "Error budgets are not about incident response headcount or leadership-set weekly error counts. They are derived from the SLO — the inverse of your reliability target — and they make the velocity/reliability tradeoff a calculation rather than a negotiation."
+    },
+    {
+      "question": "Why does the module recommend building separate dashboards for engineering on-call, the product team, and leadership, rather than a single unified dashboard?",
+      "options": [
+        "A single dashboard would require role-based access controls that are difficult to implement in standard monitoring tools like Datadog",
+        "Separate dashboards reduce the risk of a single dashboard outage affecting all stakeholders simultaneously during an incident",
+        "Each audience has different decision cadences and data needs — on-call engineers need 30-second refresh on service error rates; PMs need hourly feature adoption and agent success metrics; leadership needs daily trend lines and SLO compliance. A single dashboard serves no one well"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly states: 'Build separate dashboards for separate audiences, or you'll build one dashboard that serves no one well.' On-call engineers need real-time infrastructure state (30-second refresh). PMs need feature-level quality signals at hourly cadence. Leadership needs weekly trend lines. Forcing all three to use the same surface requires either too much detail for leadership or too little for on-call engineers.",
+      "encourageCorrect": "Exactly — the refresh cadence and data granularity requirements are incompatible across audiences. Different dashboards are a product decision, not a technical limitation.",
+      "encourageIncorrect": "Access controls and outage resilience are valid engineering concerns but are not the module's reason for separate dashboards. The reason is purely about serving each audience's decision-making needs: the data, granularity, and refresh rate that helps an on-call engineer debug an incident at 2am is not what helps a VP understand quarterly quality trajectory."
+    }
+  ]
+}

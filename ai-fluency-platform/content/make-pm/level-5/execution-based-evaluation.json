@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "5.2 Execution-Based Evaluation",
+    "description": "Execution-based evaluation is the only reliable way to determine if AI-generated code actually functions. Static analysis catches some problems (syntax errors, type errors), but a surprising amount of",
+    "level": "level-5",
+    "slug": "execution-based-evaluation",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You have 500 eval prompts (\"build a todo app,\" \"add a login page,\" etc.). For each one, the agent generates code. How do you automatically determine if the code \"works\"?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Execution-based evaluation is the only reliable way to determine if AI-generated code actually functions. Static analysis catches some problems (syntax errors, type errors), but a surprising amount of code that looks syntactically correct produces broken apps at runtime. The Platform PM needs to understand the full execution eval pipeline to resource it appropriately and make build-vs-buy decisions about evaluation infrastructure.\n\n**The five-step execution evaluation ladder**\n\nEach step in this ladder catches a different class of failure. Stopping at any step leaves a category of failure undetected.\n\n**Step 1: Does it parse?**\n\nThe most basic check: does the code parse into a valid Abstract Syntax Tree (AST)? An AST parser reads the code's structure without executing it. Syntax errors — unclosed brackets, invalid JavaScript expressions, malformed JSX — fail at this step.\n\nTools: `acorn`, `@babel/parser`, TypeScript compiler in `--noEmit` mode. This step runs in milliseconds and can catch a large fraction of catastrophic failures (the kind where the agent generated obviously broken code).\n\n**Step 2: Does it build?**\n\nA TypeScript or bundler check goes further than AST parsing. TypeScript's type checker verifies that all types are consistent, all imports resolve, and all referenced variables exist. Vite's build step verifies that the module graph is valid and all assets can be resolved.\n\nThis catches: type mismatches that would cause runtime failures, missing imports, circular dependencies that cause build failures, incorrect configuration files (vite.config.ts, tsconfig.json).\n\nBuild checks require the actual build tooling to run against the generated code — not just parsing. This is a more expensive operation (5-30 seconds per eval case) but necessary.\n\n**Step 3: Does it run?**\n\nStarting the dev server and checking for runtime errors is the first execution check. The platform provisions a preview environment, injects the generated code, runs `npm install`, starts Vite, and monitors the process for immediate crashes.\n\nThis catches: runtime errors that are not detectable at build time (dynamic imports that fail, missing environment variables, runtime type errors in JavaScript), infinite loops that crash the process, out-of-memory errors in large apps.\n\n**Step 4: Does it render?**\n\nA headless browser (Playwright, Puppeteer) loads the app's URL and checks whether the page renders without errors. Checks include:\n\n- HTTP status code is 200 (not 404 or 500)\n- No JavaScript exceptions in the browser console\n- No error boundaries triggered (React's error fallback UI)\n- The page body contains visible content (not a blank white screen)\n- Critical UI elements are visible (headings, navigation, main content area)\n\nThis catches: React render errors that don't crash the server but produce a white screen, incorrect routing configuration, missing assets (fonts, images) that cause layout failures.\n\n**Step 5: Does it do the right thing?**\n\nTask-specific automated tests verify the app's actual functionality. For a \"todo app\" prompt:\n\n- Navigate to the app\n- Type text into the input field\n- Click the \"Add\" button\n- Assert that a new list item appears containing the typed text\n- Click the \"Delete\" button on the item\n- Assert that the item is removed from the list\n\nThese are Playwright end-to-end tests, written against the eval task specification. Each eval prompt must have a corresponding test script. This is the most expensive component of the eval system to build and maintain.\n\n**Infrastructure coupling**\n\nRunning steps 3-5 requires real environments: sandboxed compute (to run the app), a real browser (to render and interact with it), and network connectivity. This is the same infrastructure as the production preview environment.\n\nThe implication: the eval system is not a standalone testing tool. It is a scaled-up version of the preview infrastructure, running in batch mode against a corpus of eval prompts. The Platform PM must account for this when planning eval infrastructure capacity — running 500 evals simultaneously requires 500 preview environments.\n\n**Time and cost**\n\nA rough estimate for a single eval case:\n\n| Step | Time | Cost |\n|---|---|---|\n| Provision environment | 2-5s | Low |\n| Inject code + install deps | 10-30s | Low-moderate |\n| Build check | 5-30s | Low |\n| Start dev server | 3-10s | Low |\n| Headless browser render check | 5-15s | Moderate |\n| Playwright functional tests | 10-60s | Moderate |\n| **Total** | **35-150s** | |\n\nFor 500 eval cases run sequentially: 5-21 hours. Parallelized across 500 concurrent environments: 35-150 seconds total, but with the cost of provisioning 500 environments simultaneously.\n\nThis is a meaningful infrastructure cost. It shapes decisions about how often to run the full eval suite (not on every commit — perhaps nightly or pre-release) and whether to invest in faster execution (lighter sandboxes, cached dependency layers).\n\n**Flaky evals**\n\nNon-determinism is a serious problem for eval infrastructure. Sources of flakiness:\n\n- **Model non-determinism**: The agent generates slightly different code on each run, so the same eval prompt may pass one run and fail the next\n- **Infrastructure flakiness**: Network timeouts during npm install, container provisioning failures, browser crashes\n- **Test flakiness**: Playwright tests that depend on timing (animations, async data loading) and fail non-deterministically\n\nDistinguishing a real regression (the model got worse) from infrastructure flakiness (something in the environment failed) requires running each eval multiple times and using statistical thresholds rather than binary pass/fail.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An eval run shows that 15% of \"todo app\" evals failed at step 4 (headless browser render check). Before concluding the agent regressed, what alternative explanations must be investigated?",
+      "answer": "*Alternative explanations: (1) infrastructure flakiness — container provisioning failed for some environments, causing blank screen non-deterministically; (2) npm install failures — a dependency had a breaking change on npm and installs failed; (3) Playwright/headless browser issues — a browser binary update changed behavior; (4) eval test flakiness — the render check timeout is too aggressive for the current environment speed. Before concluding the agent regressed, rerun the 15% that failed. If the re-run passes, this is infrastructure flakiness, not a regression. If the failures are consistent, investigate the agent's output for the failing cases specifically.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Write a simple Playwright test for a counter app (button increments a counter, button decrements, display shows current count). Run it against a locally built Vite app. Then deliberately introduce a bug (remove the onClick handler) and verify the test catches it. This is the pattern step 5 uses at scale.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "The agent team proposes adding a new eval prompt category: \"integrate Stripe payments.\" Why does this category require significantly more infrastructure than a \"build a todo app\" eval, and what additional components does the platform need to support it?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What are the risks of this approach, and what signals would make you prioritize investing in faster eval infrastructure so the full suite can run more frequently?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Execution-based evaluation runs generated code through a five-step ladder — parse, build, run, render, function — each catching a different class of failure, and requires real preview environment infrastructure, making eval cost proportional to production infrastructure scale.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You can verify the app works. But does it look right? A functionally correct app with a broken layout, off-center heading, or clipped image is still a bad user experience. Catching visual failures requires a different evaluation approach — screenshot comparison and visual regression. That's next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A developer proposes running the eval suite sequentially to save infrastructure costs. The suite has 500 prompts, each taking roughly 60-150 seconds. What is the practical consequence of this decision?",
+      "options": [
+        "Sequential execution is fine for nightly runs but cannot be used for pre-release gates",
+        "Sequential execution would take 5-21 hours per run, making it impractical to run frequently enough to catch regressions close to the commit that caused them",
+        "Sequential execution reduces flakiness because environments don't compete for shared resources"
+      ],
+      "correctIndex": 1,
+      "explanation": "At 60-150 seconds per eval case, 500 sequential cases takes 5-21 hours. This means the suite could only realistically run once per day or less — far too slow to catch regressions close to the commit. Parallelizing across 500 concurrent environments reduces total time to 35-150 seconds, at the cost of provisioning 500 simultaneous environments.",
+      "encourageCorrect": "Right — the time math is the core constraint. An eval suite that takes 12 hours to run can't serve as a meaningful release gate for a team shipping multiple times per day.",
+      "encourageIncorrect": "While sequential execution does avoid resource contention, the bigger issue is time: a 5-21 hour eval run is too slow to function as a useful regression gate. The module explicitly states parallelization is necessary, accepting the infrastructure cost of simultaneous environments."
+    },
+    {
+      "question": "15% of 'todo app' evals failed at the headless browser render check (Step 4). Before concluding the agent regressed, what is the most important diagnostic step?",
+      "options": [
+        "Compare the generated code from failing cases against the passing cases to identify agent output differences",
+        "Reduce the render check timeout threshold so marginal failures are excluded from the count",
+        "Re-run the failing 15% — if failures are inconsistent on re-run, this is infrastructure flakiness rather than a genuine regression"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module emphasizes that flakiness is a serious problem in eval infrastructure — container provisioning failures, npm install timeouts, and browser crashes can cause non-deterministic failures that look like regressions. The first diagnostic is to re-run the failing cases. Consistent failures across re-runs indicate a real regression; failures that pass on re-run indicate infrastructure flakiness.",
+      "encourageCorrect": "Correct — distinguishing a real regression from infrastructure flakiness requires re-running. If the failures were random, they won't reproduce consistently.",
+      "encourageIncorrect": "Code comparison is a useful later step, but only after confirming the failures are real rather than infrastructure noise. Reducing the timeout threshold hides failures rather than diagnosing them."
+    },
+    {
+      "question": "Why does execution-based evaluation require eval infrastructure that is tightly coupled to production infrastructure, rather than being a standalone test environment?",
+      "options": [
+        "Running generated code at Steps 3-5 requires real sandboxed compute, real browser rendering, and real network access — the same infrastructure the production preview environment uses",
+        "Standalone test environments would not have access to the eval prompt corpus stored in production databases",
+        "Production infrastructure is required to access the model API for generating code during eval runs"
+      ],
+      "correctIndex": 0,
+      "explanation": "Steps 3 (run), 4 (render), and 5 (function) require actual preview environments, a real browser, and network connectivity — the same components the production preview stack uses. Evals are essentially the production preview infrastructure running in batch mode. This is why 500 concurrent eval cases require 500 concurrent preview environments, making eval capacity planning inseparable from production capacity planning.",
+      "encourageCorrect": "Exactly — the eval system is not a lightweight test harness. It is the production preview system run at scale against a curated prompt corpus.",
+      "encourageIncorrect": "The prompt corpus and model API access are managed separately from the infrastructure. The core coupling comes from Step 3-5: you cannot determine whether generated code runs, renders, or functions correctly without an actual runtime environment and browser."
+    }
+  ]
+}

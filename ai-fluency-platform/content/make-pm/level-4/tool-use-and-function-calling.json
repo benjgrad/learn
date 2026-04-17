@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "4.2 Tool Use and Function Calling",
+    "description": "Tool use is the mechanism by which a language model crosses the boundary from text to action. Understanding it at the protocol level is not optional for a Platform PM — because every product decision ",
+    "level": "level-4",
+    "slug": "tool-use-and-function-calling",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> An agent needs to \"edit a file.\" That sounds simple. What could go wrong — and what does the platform need to provide to make file editing reliable?\n\nWrite your answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Tool use is the mechanism by which a language model crosses the boundary from text to action. Understanding it at the protocol level is not optional for a Platform PM — because every product decision about what the agent can and cannot do is a tool design decision.\n\n**How tool use works at the protocol level:**\n\nThe model does not execute code. It outputs structured JSON describing an action it wants to take. The platform intercepts that JSON, validates it, executes the action, and returns the result.\n\nA typical file-write tool call looks like this in the model's output:\n\n```json\n{\n  \"tool\": \"write_file\",\n  \"parameters\": {\n    \"path\": \"src/components/LoginForm.tsx\",\n    \"content\": \"import React from 'react';\\n...\"\n  }\n}\n```\n\nThe platform receives this, checks whether `src/components/LoginForm.tsx` is a writable path, writes the file to disk (or to the sandboxed filesystem), and returns `{\"success\": true, \"bytes_written\": 1842}`. The model sees that result in its next turn and decides what to do next.\n\nThis is not magic. It is a structured RPC call with the model as the caller.\n\n**The tool catalog for a coding agent:**\n\nA production coding agent needs at minimum:\n\n- **File read** — Read a file at a given path. Returns contents. Needs to handle binary files gracefully.\n- **File write** — Write content to a path. Must handle: path doesn't exist (create directories), file is too large, encoding issues.\n- **File search / glob** — Find files matching a pattern. `src/**/*.tsx`, `**/package.json`.\n- **Grep / content search** — Find all occurrences of a string or regex across the codebase.\n- **Shell execute** — Run a command in the sandbox. Returns stdout, stderr, exit code. This is the most dangerous and most powerful tool.\n- **Browser preview** — Render the current build and return a screenshot or accessibility tree.\n- **Git operations** — Stage changes, diff, commit (with approval gates).\n\nEach tool is a product decision. Adding a tool expands what the agent can do; it also expands the attack surface and the error surface.\n\n**Permission boundaries:**\n\nNot all tool calls should be allowed. The platform must define — and enforce — what the agent is permitted to do.\n\nClaude Code's permission model is a useful reference: read operations are always permitted, write operations within the project directory are permitted, shell execution is permitted with a human-approval gate for dangerous commands (anything touching `/etc`, anything with `rm`, anything that pipes to `curl`). Git pushes require explicit approval.\n\nThe principle is least privilege + human-in-the-loop for irreversible actions. For Make, this means: the agent can freely read and write to the user's project sandbox, cannot access other users' projects, cannot make network calls to arbitrary external services, and cannot push to the user's GitHub without explicit approval.\n\n**The sandboxing challenge:**\n\nThe agent needs real filesystem access to write real code. But unrestricted access is dangerous. The tension:\n\n- Too restrictive: the agent cannot install a new npm package, cannot run the test suite, cannot call the build tool — and therefore cannot verify its own work.\n- Too permissive: the agent could exfiltrate project data, destroy files, or compromise the host system.\n\nThe resolution is an isolated execution environment — a container or VM per session — with a whitelist of permitted operations. The agent gets a full Linux environment that looks real but is completely isolated. This is infrastructure cost, not a product cost. But it is the Platform PM's cost to own.\n\n**Tool reliability:**\n\nWhen `npm install` hangs for 90 seconds, what happens? Tool calls need timeouts. When a shell command returns 5,000 lines of compiler errors, what does the model receive? Tool results need truncation with a signal that truncation occurred. When a file write fails because the disk is full, the model needs a structured error, not a Python traceback.\n\nThese are boring infrastructure problems that have enormous product consequences. An agent that gets stuck on a hanging tool call, or that receives garbled tool output, will make bad decisions — and the user will blame the AI, not the infra.\n\n**The Make-specific surface:**\n\nMake's tool catalog extends beyond the generic coding agent. The agent needs Figma-aware tools:\n\n- **Read frame** — Given a frame ID, return its component tree, layout properties, and applied styles\n- **Query design tokens** — \"What is the primary brand color in this file's variable library?\"\n- **Export asset** — Export an icon or image from a Figma frame as a file the code can import\n- **Map component** — \"Does the Figma design system have a component that matches this UI pattern?\"\n\nThese tools are Make's moat. They give the agent context that no terminal-based coding agent has. The Platform PM who defines this tool registry is defining the boundary of what Make can do.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You are reviewing the Make agent's tool design. A junior engineer proposes adding a `fetch_url` tool that lets the agent make arbitrary HTTP GET requests to look up documentation. What is the primary risk — and what is the correct mitigation if you decide to ship the tool anyway?\nA. The agent might access slow APIs, causing latency — mitigation: add a timeout\nB. The agent might access user data from other Figma files — mitigation: scope to authenticated user\nC. The agent might be prompted to exfiltrate data or access internal services — mitigation: allowlist permitted domains only\nD. The agent might call APIs that charge money — mitigation: require user approval before each call",
+      "answer": "C.** An arbitrary `fetch_url` tool is an SSRF (server-side request forgery) vector. The agent could be prompted — intentionally or via prompt injection — to call `http://169.254.169.254/` (AWS metadata service) or internal Figma services. Domain allowlisting (docs.figma.com, npmjs.com, MDN) is the correct mitigation if the tool ships at all.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open the Claude Code source or read the tool definitions in the Anthropic Claude Code documentation. List every tool in the catalog. For each tool, write one sentence on what makes it dangerous if permissions are wrong. Then: which tool would you be most hesitant to give Make's agent, and why?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain function calling to a non-technical PM colleague. Your analogy should not use the word \"API.\" Then explain why the platform — not the model — being responsible for execution matters for safety.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "> Consider the tool approval flow in Claude Code — the modal that asks \"Allow this shell command?\" Think about when clicking \"Allow\" without reading carefully could go wrong, and when the approval gate is genuinely valuable.",
+        "What does that design decision tell you about where to put the human-in-the-loop gate in Make's agent — before every tool call, only for destructive operations, or only when confidence is low?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Tool use is structured JSON from model to platform — the model proposes, the platform executes, and every tool design decision is simultaneously a capability decision and a safety boundary decision.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> The agent makes 40 tool calls in a session. Many of them return file contents. By step 30, the model's context window contains 40 tool results plus the conversation history plus the system prompt. What happens when that exceeds 200K tokens?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "At the protocol level, how does a coding agent actually execute a tool call like writing a file?",
+      "options": [
+        "The model outputs structured JSON describing the action it wants to take; the platform intercepts, validates, executes the action, and returns the result to the model",
+        "The model generates executable code that runs directly in the sandbox environment without platform involvement",
+        "The model sends a natural language description of the action to the platform, which uses a separate AI classifier to determine the correct tool to invoke"
+      ],
+      "correctIndex": 0,
+      "explanation": "Tool use is a structured RPC pattern: the model outputs a JSON blob describing the desired action (tool name + parameters), the platform intercepts that JSON, validates it against the tool's schema, executes the action in the sandbox, and returns the result. The model never directly executes code — it proposes actions and receives results.",
+      "encourageCorrect": "Correct — the model proposes via JSON and the platform executes. This separation is what makes permission enforcement and sandboxing possible.",
+      "encourageIncorrect": "The model does not execute code directly, and it communicates in structured JSON, not natural language, for tool calls. The pattern is: model outputs JSON describing the action → platform validates and executes → platform returns the result. This separation is intentional — it's what allows the platform to enforce permissions and sandbox execution."
+    },
+    {
+      "question": "A junior engineer proposes adding a fetch_url tool that allows the agent to make arbitrary HTTP GET requests for documentation lookup. What is the primary security risk?",
+      "options": [
+        "Slow external APIs would increase agent session latency, degrading the user experience",
+        "The tool creates an SSRF vector — the agent could be prompted to call internal services or cloud metadata endpoints like the AWS instance metadata URL",
+        "External documentation may be outdated or incorrect, causing the agent to generate code based on wrong API references"
+      ],
+      "correctIndex": 1,
+      "explanation": "An unrestricted fetch_url tool is a Server-Side Request Forgery (SSRF) vulnerability. An attacker — or a prompt injection — could instruct the agent to call cloud metadata services (e.g., http://169.254.169.254/ on AWS), internal Figma services, or other infrastructure not intended to be publicly accessible. The correct mitigation is allowlisting only specific approved domains.",
+      "encourageCorrect": "Right — SSRF is the primary risk, and domain allowlisting is the correct mitigation if the tool ships at all.",
+      "encourageIncorrect": "Latency and documentation accuracy are real concerns but are secondary. The primary risk is SSRF: an unrestricted URL fetch lets the agent (or a prompt injection attack) reach internal network services, cloud metadata endpoints, or other infrastructure that shouldn't be publicly accessible from the sandbox."
+    },
+    {
+      "question": "The module states that tool design is simultaneously a capability decision and a safety boundary decision. What does this mean for a Platform PM defining Make's tool catalog?",
+      "options": [
+        "Every tool added must go through a 6-month security review before being available to any user, regardless of the tool's risk profile",
+        "Safety review is engineering's responsibility; the PM's job is to maximize the tool catalog to enable the broadest possible agent capabilities",
+        "Adding a tool expands what the agent can accomplish but also expands the attack surface and error surface — each tool must be evaluated on both dimensions before shipping"
+      ],
+      "correctIndex": 2,
+      "explanation": "Every tool in the catalog is a product decision with two sides: capability (what new things can the agent do?) and safety/error surface (what new ways can things go wrong?). A PM who only evaluates the capability side will ship tools that introduce permission violations, error cascades, or security vulnerabilities. Both dimensions must be evaluated together.",
+      "encourageCorrect": "Exactly — every tool is a double-sided decision, and the PM must own both the capability and the risk dimensions.",
+      "encourageIncorrect": "The PM is not separate from the safety decision, and a blanket 6-month review would prevent the platform from shipping. The correct frame is that every tool decision has two sides: expanding capability and expanding the attack/error surface. Both must be weighed before shipping any tool, and the PM is accountable for that evaluation."
+    }
+  ]
+}

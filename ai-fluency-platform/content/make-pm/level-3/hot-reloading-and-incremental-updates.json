@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "3.3 Hot Reloading and Incremental Updates",
+    "description": "Hot reloading is the mechanism that makes AI-assisted development feel interactive rather than batch. Without it, every agent edit triggers an 8-second wait — and in a world where agents make dozens o",
+    "level": "level-3",
+    "slug": "hot-reloading-and-incremental-updates",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "The agent edits 3 files in your React app. Full rebuild takes 8 seconds. The user expects to see changes in less than 1 second. How?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Hot reloading is the mechanism that makes AI-assisted development feel interactive rather than batch. Without it, every agent edit triggers an 8-second wait — and in a world where agents make dozens of edits per session, that latency compounds into a broken product experience.\n\n**Full rebuild vs. incremental update**\n\nA full rebuild recompiles everything from scratch: reads all source files, resolves the full module graph, bundles all code, generates output assets, and serves the result. For a medium-sized React app, this takes 5-30 seconds with webpack and 1-5 seconds with Vite.\n\nAn incremental update detects which files changed, determines which parts of the module graph those files affect, recompiles only the affected modules, and sends only the changed modules to the browser. The browser patches the running application without a full page reload.\n\n**Hot Module Replacement (HMR)**\n\nHMR is the protocol that enables incremental updates. Here is how it works at a technical level:\n\n1. The dev server (Vite, Webpack Dev Server) watches the filesystem for changes\n2. When a file changes, the dev server computes a module dependency graph to determine which other modules depend on the changed file\n3. The dev server generates an HMR update: a small JavaScript payload containing only the changed module(s)\n4. The dev server sends this payload to the browser via WebSocket\n5. The browser's HMR runtime receives the payload and applies it: removes the old module from the module registry, evaluates the new module, and calls the module's HMR accept handler to re-render affected components\n\nThe key insight: the browser is not reloaded. The JavaScript runtime continues executing, and only the changed modules are swapped in.\n\n**React Fast Refresh**\n\nStandard HMR replaces modules but loses component state. If you have a form with user input, an HMR update wipes the input. React Fast Refresh extends HMR to preserve React component state across updates. It works by:\n\n- Identifying which React components changed\n- Re-rendering only those components\n- Preserving state for components that did not change\n- Resetting state only when the component's hook signature changes (a breaking change that cannot safely be preserved)\n\nFast Refresh is the standard for React development and is built into Vite's React plugin by default.\n\n**Why Vite is the dominant standard**\n\nTraditional bundlers (Webpack) process all modules through a bundling step at dev server start, creating a single (or chunked) bundle. This startup cost can be 10-60 seconds for large apps. File changes require rebundling the affected chunks.\n\nVite eliminates the dev bundling step entirely by leveraging native ES modules (ESM). Modern browsers can import JavaScript files directly — no bundling required. Vite's dev server serves source files as-is (with light transformation), and the browser's native module system handles the dependency graph. When a file changes, only that file is re-served. There is no bundle to recompute.\n\nThis makes Vite's HMR dramatically faster: the server does minimal work per file change, and only the single changed module is sent to the browser.\n\n**The agent integration**\n\nWhen the Make agent writes a file to the preview environment's filesystem, the following must happen:\n\n1. The agent calls a file-write API (or directly writes to the virtual filesystem)\n2. The filesystem change triggers a file-system watch event (inotify on Linux, kqueue on macOS)\n3. The dev server's file watcher receives the event and identifies the changed file\n4. The dev server computes the HMR update and sends it to the browser via WebSocket\n5. The browser applies the update\n\nThe Platform PM's concern here: is the file-write API in the same process as the dev server, or does it cross a network boundary? If the agent writes files via a remote API call, the latency budget includes a network round-trip before the file system event is even triggered.\n\n**What breaks HMR**\n\nHMR is not magic — it has failure modes that trigger a full page reload:\n\n- **New imports**: If a changed file adds a new `import` statement, the module graph changes. Vite can handle some cases, but complex graph changes may require a full reload.\n- **Syntax errors**: A syntax error in the changed file prevents the module from being parsed. The HMR update fails, and the browser shows an error overlay.\n- **Non-component module changes**: HMR works best with React components. Changes to utility functions, constants, or configuration files may not have accept handlers, causing a full reload.\n- **Entry point changes**: Changes to the main entry point (main.tsx) typically require a full reload.\n\n**Latency breakdown**\n\nFor a typical Vite + React Fast Refresh setup, the update pipeline looks like:\n\n| Step | Latency |\n|---|---|\n| Agent writes file | 1ms |\n| Filesystem event delivered to dev server | 5-15ms |\n| Vite processes change, computes HMR update | 20-80ms |\n| HMR payload sent to browser via WebSocket | 2-10ms |\n| Browser receives and applies Fast Refresh | 30-80ms |\n| **Total** | **~60-185ms** |\n\nThis is well within the 500ms threshold for feeling instantaneous. The Platform PM's job is to ensure the infrastructure does not add latency to this pipeline — specifically, that the file-write API → filesystem event path is low-latency.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user is building a React app with Make. The agent modifies `utils/formatDate.ts`, which is imported by 12 different components. Will HMR successfully update the app without a full page reload? What determines the answer?",
+      "answer": "*It depends on whether the module has an HMR accept handler and whether its exports changed in a way that breaks the module graph. If `formatDate.ts` is a pure utility module with no HMR accept handler, Vite will propagate the update up the dependency graph until it finds a component that does have an accept handler (which React Fast Refresh provides). As long as the components importing `formatDate.ts` are React components with Fast Refresh, the update should propagate cleanly. If a component does not have a Fast Refresh boundary, Vite falls back to a full page reload.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Create a new Vite + React project (`npm create vite@latest`). Open a component file. Open DevTools Network tab, filter by WebSocket. Save the component file and observe the WebSocket message containing the HMR update. Try adding a new import — does the HMR update succeed or trigger a full reload?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a PM from the agent team why it matters whether the agent writes files directly to the preview filesystem versus writing them via an API call. What is the practical user-experience consequence of the architectural difference?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Should these edits be applied atomically (all at once) or sequentially (one file at a time)?",
+        "What does each approach mean for the user's HMR experience?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Hot Module Replacement — particularly Vite's native-ESM approach with React Fast Refresh — enables sub-200ms preview updates by recompiling and sending only changed modules to the browser, making AI agent edits feel instantaneous rather than batch.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "HMR handles updates to existing dependencies. But what happens when the agent adds a brand new npm package? Before the preview can use it, it has to be installed — and `npm install` is famously slow. How do you make package installation fast in an ephemeral environment? That's next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is the key architectural reason Vite's HMR is faster than webpack's for a typical agent-edit workflow?",
+      "options": [
+        "Vite skips the bundling step entirely in dev mode by serving native ES modules directly, so only the changed file needs to be re-served",
+        "Vite uses a more efficient bundling algorithm that compresses modules more aggressively before sending them to the browser",
+        "Vite pre-compiles all modules at install time, so file changes require only a cache lookup rather than any recompilation"
+      ],
+      "correctIndex": 0,
+      "explanation": "Vite leverages the browser's native ES module support to serve source files directly without a bundling step. When a file changes, only that file is re-served — there is no bundle to recompute. Webpack must rebundle the affected chunks on every change, which is significantly slower for large apps.",
+      "encourageCorrect": "Exactly — native ESM means no bundle to recompute, which is what makes Vite's HMR dramatically faster.",
+      "encourageIncorrect": "Vite does not use faster compression or pre-compilation. The key insight is that Vite eliminates bundling in dev mode entirely by using the browser's native ES module system, so a file change only requires re-serving that one file — no bundle recomputation needed."
+    },
+    {
+      "question": "React Fast Refresh extends standard HMR by preserving component state across updates. When does Fast Refresh intentionally reset state rather than preserve it?",
+      "options": [
+        "Whenever the component's file changes — any edit triggers a full state reset to avoid inconsistencies",
+        "When the component's hook signature changes, because that represents a breaking structural change that cannot be safely preserved",
+        "When the component is more than 100 lines long, as larger components have more complex state that is harder to preserve reliably"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fast Refresh is designed to preserve state for components that haven't changed and re-render only what has. The exception is when a component's hook signature changes — adding, removing, or reordering hooks — because this represents a structural change where the old state shape may be incompatible with the new component.",
+      "encourageCorrect": "Correct — hook signature changes are the specific trigger for state reset, because the old state structure can't safely map to the new component.",
+      "encourageIncorrect": "Fast Refresh doesn't reset state on every file edit or based on component size. It specifically resets state when a component's hook signature changes — adding or removing a useState, for example — because the old state shape can't be safely carried into the structurally different component."
+    },
+    {
+      "question": "The Make agent writes files via a remote API call rather than directly to the preview filesystem. What is the product consequence of this architectural choice?",
+      "options": [
+        "The agent can edit more files simultaneously, which increases throughput for multi-file changes",
+        "The preview becomes more reliable because API calls are retried automatically on failure, unlike direct filesystem writes",
+        "A network round-trip is added to the path between the agent's file write and the filesystem-watch event that triggers HMR, increasing update latency"
+      ],
+      "correctIndex": 2,
+      "explanation": "The HMR pipeline depends on a filesystem-watch event to detect changes. If the agent writes via a remote API, a network round-trip must complete before that event fires. This adds latency to the observe-act cycle for the user — what could be a <200ms HMR update becomes a >200ms update plus API round-trip time.",
+      "encourageCorrect": "Yes — the network round-trip before the filesystem event fires is exactly the latency concern the Platform PM must account for in this architecture.",
+      "encourageIncorrect": "Remote API writes don't improve concurrency or reliability in a meaningful way for this use case. The key issue is latency: the network round-trip from agent to filesystem adds time before the dev server's file watcher even fires, which delays the HMR update the user sees."
+    }
+  ]
+}

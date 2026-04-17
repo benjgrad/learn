@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "4.5 Error Recovery and Graceful Degradation",
+    "description": "Error recovery is where the difference between a demo and a production system becomes visible. Every agent demo shows the happy path. Production systems fail at step 7 of 12, and the quality of recove",
+    "level": "level-4",
+    "slug": "error-recovery-and-graceful-degradation",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> The agent is on step 7 of a 12-step plan. Step 7 fails: `npm install bcrypt` fails because bcrypt requires native compilation and the sandbox doesn't support it. What should happen?\n\nWrite your answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Error recovery is where the difference between a demo and a production system becomes visible. Every agent demo shows the happy path. Production systems fail at step 7 of 12, and the quality of recovery determines whether users trust the product.\n\n**The error cascade problem:**\n\nFailures in agent workflows do not stay isolated. A failed step typically invalidates subsequent steps that depended on it.\n\nIf `npm install bcrypt` fails:\n- Step 8 (write the password hashing utility that imports bcrypt) will produce code that cannot import bcrypt\n- Step 9 (write the API route that uses the password hashing utility) will produce code that calls a broken function\n- Steps 10-12 will continue building on broken foundations\n\nBy step 12, the codebase may be syntactically valid but semantically broken in ways that are hard to diagnose. The agent has spent tokens, the user has spent time, and the output is worse than if the agent had stopped at step 7.\n\nThe platform must detect failure before cascade.\n\n**Recovery strategies, in order of invasiveness:**\n\n**Strategy 1: Retry with fix.** The simplest recovery. The agent examines the error, identifies a solution, and tries again.\n\nFor the bcrypt failure: the agent knows that `bcryptjs` is a pure-JavaScript alternative that does not require native compilation. It replaces `bcrypt` with `bcryptjs`, updates the import, and proceeds. The user does not need to know this happened.\n\nThis is correct when: the fix is unambiguous, the fix does not change the interface (bcryptjs and bcrypt have compatible APIs), and the fix does not have downstream implications.\n\n**Strategy 2: Rollback and re-plan.** When the fix is not straightforward or changes the plan's assumptions, the agent rolls back to the last verified checkpoint and generates a new plan that avoids the failed approach from the start.\n\nFor bcrypt: if the agent wanted to use bcrypt's specific scrypt implementation and bcryptjs does not support it, the agent rolls back to step 6, reconsiders the authentication strategy, and re-plans with a different cryptography approach throughout.\n\nThis is correct when: the failure reveals a false assumption that affects multiple later steps.\n\n**Strategy 3: Skip and continue.** Some steps are non-blocking. If the failure does not prevent subsequent steps from completing, the agent can mark the step as failed, skip it, and continue. The final output notes the skipped step.\n\nThis is rarely appropriate for code — a missing dependency almost always blocks compilation. It is more appropriate for: optional telemetry setup, non-critical documentation generation, optional test suite configuration.\n\n**Strategy 4: Escalate to user.** When the agent cannot self-recover without making a decision that has product implications, it stops and asks.\n\n\"I can't install bcrypt in this environment because it requires native compilation. I can use bcryptjs instead — it has the same API but is 30% slower. Want me to proceed with bcryptjs, or should I use a different authentication approach entirely?\"\n\nThis is correct when: the fix changes the product's behavior in a way the user should know about, or when the agent has two plausible recovery paths and no basis to choose.\n\n**Checkpoint/restore:**\n\nFor strategies 2 and beyond, the platform must have saved the codebase state at each verified step. Without checkpoints, rollback means undoing changes manually — which is error-prone and may be impossible if the agent made interleaved changes across many files.\n\nCheckpoint/restore is a platform infrastructure feature. It costs storage (one snapshot per step per session) and complexity (snapshot format, restore logic). The Platform PM's job is to decide: checkpoint every step (expensive, safe) vs. checkpoint at major milestones (cheaper, riskier).\n\n**The human-in-the-loop decision:**\n\nWhen should the agent ask for help vs. self-recover?\n\nThe decision hinges on two dimensions:\n- *Reversibility:* Can the recovery action be undone? Replacing one npm package is reversible. Deleting a database table is not.\n- *Ambiguity:* Does the agent have a clear best path? If yes, take it. If two paths are equally plausible with different tradeoffs, ask.\n\nA useful heuristic: if a senior engineer would make this call without consulting anyone, the agent should too. If a senior engineer would send a Slack message first, the agent should ask.\n\n**Failure budget:**\n\nAn agent that retries indefinitely burns tokens without converging. The platform should implement a failure budget: after N consecutive failures on the same step, stop retrying and escalate. Typically N=2 or N=3.\n\nAfter the failure budget is exhausted, the platform presents the user with: what was attempted, what failed each time, and what options exist. The agent does not guess at a fourth recovery strategy.\n\n**Graceful degradation:**\n\nIn Make's context, graceful degradation has a specific meaning: the preview should show partial progress, not a blank screen.\n\nIf the agent has successfully completed steps 1-6 (authentication backend) but step 7 (login page UI) failed, the app should still render with a placeholder login page — not crash entirely. The agent's error recovery strategy should include: after any failure, ensure the codebase is in a compilable state, even if it is incomplete.\n\nThis requires the agent to write defensive stubs: placeholder components that compile and render, even if they do not implement the full feature. The user sees progress and can make informed decisions about whether to retry, adjust scope, or accept the partial result.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The agent is on step 9 of 15. It has hit its failure budget (3 consecutive failures) trying to configure a WebSocket connection. The user's goal was to add real-time collaboration. Which escalation message is best?\nA. \"I've failed 3 times. I give up. Please fix this yourself.\"\nB. \"I've tried 3 approaches to configure the WebSocket server and all failed due to port conflicts in the sandbox. I can either: (1) switch to long-polling as a real-time alternative — similar UX, simpler infra; or (2) scaffold the WebSocket code but leave it unconnected, so you can wire it up in your own deployment environment. Which would you prefer?\"\nC. \"I'll skip the real-time feature and finish the rest of the app.\"\nD. \"Let me try a fourth approach before asking.\"",
+      "answer": "B.** The user is owed an explanation of what failed and why, plus specific options with their tradeoffs. B does this. A is unhelpfully defeatist. C unilaterally changes scope without asking. D violates the failure budget — the agent already has enough data to know that further retries are unlikely to succeed without new information.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In Claude Code, deliberately introduce an error: ask it to install a package that does not exist on npm, or to import from a file that does not exist. Watch what recovery strategy it chooses. Did it retry with a fix? Did it ask you? Did it cascade into subsequent steps? What would you change about its recovery behavior if you were the Platform PM?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the difference between rollback and graceful degradation to a PM colleague who uses these terms interchangeably. Give a concrete Make scenario where rollback is the right choice and a different Make scenario where graceful degradation is the right choice.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How should that class of failure be handled?",
+        "What is the equivalent \"eval contamination\" problem in agent code generation, and does the same mitigation apply?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Error recovery is a product decision, not just an engineering one: the platform must choose, for each failure type, whether to retry with fix, rollback and re-plan, skip, or escalate — and the choice determines whether users trust the agent with complex tasks.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> The agent has a recovery strategy. The platform has checkpoints. But there is still a foundational question: who built the agent infrastructure in the first place? Figma could have built it from scratch, integrated Claude Code's API, or forked an open-source project. How should a Platform PM think about that decision?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The module describes an error cascade problem. What makes cascading failures specifically dangerous in a multi-step agent workflow?",
+      "options": [
+        "A failure at step 7 invalidates subsequent steps that depend on it — the agent may continue building on broken foundations, producing a codebase that is syntactically valid but semantically broken in ways that are hard to diagnose",
+        "Cascading failures cause the agent to exceed its context window faster, since each failed step generates more error output than a successful step",
+        "Cascading failures trigger automatic session termination, which means the user loses all progress from steps 1–6 even if they were successful"
+      ],
+      "correctIndex": 0,
+      "explanation": "The cascade problem is semantic, not syntactic. If bcrypt fails to install at step 7, and the agent continues writing code that imports bcrypt at step 8, 9, and 10, those files will compile in isolation but the app will fail at runtime. By step 12, the bug is distributed across multiple files and hard to trace. The platform must detect failure before cascade.",
+      "encourageCorrect": "Exactly — the danger is silent propagation: the agent builds on broken foundations and the error distributes across many files, making it hard to diagnose.",
+      "encourageIncorrect": "Context window size and session termination aren't the core problem. The danger is semantic corruption: the agent continues generating code that depends on a failed step, producing files that individually look valid but collectively fail at runtime. By step 12, the root cause is buried under layers of code that assumed step 7 succeeded."
+    },
+    {
+      "question": "The module defines a failure budget of N=2 or N=3 consecutive retries. When the failure budget is exhausted, what should the platform present to the user?",
+      "options": [
+        "A simple error message saying the task failed, so the user can start a new session with a clearer instruction",
+        "What was attempted, what failed each time with the specific errors, and what options are available — not a fourth recovery strategy",
+        "A prompt asking the user to paste the error output into the chat so the agent can attempt a different approach"
+      ],
+      "correctIndex": 1,
+      "explanation": "After the failure budget is exhausted, the agent has enough diagnostic information to explain the failure clearly and present options with tradeoffs. The user deserves a structured explanation of what was tried, what failed, and what paths forward exist — not a vague error message or an open-ended prompt to provide more input.",
+      "encourageCorrect": "Right — a structured explanation with specific options is what distinguishes a production system from a demo when failures occur.",
+      "encourageIncorrect": "A vague 'task failed' message leaves the user with no actionable information. Asking the user to paste errors manually creates unnecessary friction. After exhausting the failure budget, the agent should present a structured summary: what was attempted, what failed each time, and what concrete options exist — giving the user a real decision to make."
+    },
+    {
+      "question": "Graceful degradation in Make has a specific meaning distinct from rollback. Which scenario best illustrates graceful degradation in a Make context?",
+      "options": [
+        "A user's v3 deploy breaks in production and the platform automatically routes traffic back to v2 within 30 seconds",
+        "The agent detects that a package requires native compilation and automatically switches to a pure-JavaScript alternative without informing the user",
+        "The agent has completed steps 1–6 (authentication backend) but step 7 (login page UI) fails — the agent ensures the app remains in a compilable state with a placeholder login page rather than crashing the preview entirely"
+      ],
+      "correctIndex": 2,
+      "explanation": "Graceful degradation means the preview shows partial, functional progress rather than a blank screen or crash. After a failure, the agent should ensure the codebase is in a compilable state — using placeholder stubs where needed — so the user can see what was accomplished and make informed decisions about next steps. Routing traffic back to v2 is rollback, not degradation.",
+      "encourageCorrect": "Correct — graceful degradation keeps the user informed through visible partial progress, which is distinct from rollback (which reverts to a prior state).",
+      "encourageIncorrect": "Automatic traffic routing to v2 is rollback, not graceful degradation. Silently switching packages without informing the user is a 'retry with fix' strategy. Graceful degradation specifically means: after a failure, the codebase is left in a compilable, partially-functional state with placeholder stubs, so the user sees progress and can make a decision — rather than seeing a blank screen or crash."
+    }
+  ]
+}

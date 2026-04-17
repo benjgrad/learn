@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "4.10 Agent Memory & Persistent State",
+    "description": "Memory Is Not Context",
+    "level": "level-4",
+    "slug": "agent-memory-persistent-state",
+    "order": 10,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A user closes their Make session, then opens it the next morning. The agent has no memory of yesterday's work — it doesn't know what it built, what decisions it made, or what the user preferred. What should the agent remember, and what should it forget?\n\nWrite your answer before reading. There is no right answer yet — the goal is to surface your current mental model.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "#### Memory Is Not Context\n\nModule 4.3 covered context management — how an agent maintains coherence within a single session by managing what fits inside its active context window. Memory is a different problem entirely. Context is what the agent knows *right now*, in this conversation. Memory is what the agent knows *because it has worked with this user before*.\n\nThe distinction matters because the engineering solutions are different, the failure modes are different, and the PM tradeoffs are different.\n\nWithin a session, context is active and in-flight — the agent reads it, reasons over it, and it shapes every token generated. Across sessions, memory is dormant — it sits in a store, gets retrieved when needed, and competes for the limited context window at the start of a new session. You cannot carry everything forward. You must choose.\n\n#### What to Persist\n\nFour categories of information are worth carrying across sessions:\n\n**Project architecture decisions.** If a user decided on Tuesday to use Zustand for global state management instead of Redux, the agent should not suggest Redux on Wednesday. These decisions are high-signal and rarely change. Key/value format: `state_management: zustand`, `rationale: \"simpler for this component count\"`, `decided_at: session_4`.\n\n**User preferences.** Framework, naming conventions, comment style, test verbosity. These are the \"house style\" of this user's codebase. A user who writes terse, functional TypeScript does not want an agent that generates verbose class-based components with JSDoc on every method. Learning this from the first session and carrying it forward is the difference between an agent that feels adaptive and one that feels generic.\n\n**Previous error patterns and their resolutions.** If the agent tried to use a specific Figma plugin API three times across two sessions and it kept failing for the same reason, that failure pattern should be in memory. The agent should not re-attempt the same broken approach. Episodic error memory turns repeated failure into learned avoidance.\n\n**Codebase structural understanding.** Where the routing layer lives, what the component hierarchy looks like, what the design system's token naming conventions are. This is expensive to re-derive from scratch every session via file scanning. A compressed structural summary is far cheaper to retrieve and inject.\n\n#### What NOT to Persist\n\nRaw conversation transcripts. A 40-turn session that worked through a debugging problem contains thousands of tokens, most of which is noise — false starts, reformulations, intermediate reasoning. Storing the raw transcript and injecting it later is technically possible and almost always wrong. The signal-to-noise ratio makes retrieval expensive and context injection wasteful.\n\nEphemeral debugging state. The specific error message from Tuesday's broken import, the intermediate variable values from a failed function — these are moment-specific. They will never be useful again in the same form.\n\nOutdated codebase snapshots. If a user significantly refactors their component structure, any memorized understanding of the old structure is not just useless — it is actively harmful. The agent will make confident, wrong recommendations based on stale knowledge.\n\n#### Memory Architecture: Three Layers\n\n**Structured memory** is the most retrievable. Key-value facts about the project: framework choices, configuration decisions, package versions, component naming conventions. This is what you query first when starting a session, and it can be injected into context in a few hundred tokens. Think of it as the agent's project configuration file.\n\n**Episodic memory** is a compressed log of what happened in past sessions. Not the raw transcript — a summarized record: \"Session 6: User implemented authentication flow. Tried JWT in localStorage first, switched to httpOnly cookies after security discussion. Preferred pattern is now: refresh token in cookie, access token in memory.\" This gives the agent narrative context without the token cost of the full transcript.\n\n**Semantic memory** is the hardest to build and the most valuable: learned patterns specific to this user's codebase. Not just what decisions were made, but what patterns recur. \"This user prefers early returns over nested conditionals.\" \"This user's Figma files always separate mobile and desktop variants as separate frames rather than using responsive constraints.\" Semantic memory requires inference over episodic records — it is not stored raw, it is derived.\n\n#### Memory Eviction and Summarization\n\nMemory systems have a capacity problem. You cannot grow unbounded. The practical pattern is a pipeline: raw session transcripts → structured issue state via summarization → eviction of raw transcripts after summarization is confirmed.\n\nThis is dialogue state tracking applied to cross-session memory. Instead of tracking conversation state within a session, you're tracking project state across sessions. The session transcript is the input; the updated structured + episodic memory is the output. The raw transcript is then evicted — its signal has been extracted.\n\nWhat triggers summarization? Session end is the natural moment. The agent, before closing out, runs a summarization pass: what decisions were made? What preferences were revealed? What errors were hit and how were they resolved? These get written to the memory store.\n\n#### The Cold Start Problem\n\nThe first session has no memory. The agent knows nothing about this project, this user's style, or this codebase. This is the cold start problem, and it degrades the first-session experience significantly.\n\nSeveral mitigations exist. First, explicit project initialization: ask the user a structured set of questions at session start (\"What framework? What's the component library? Are there existing naming conventions?\"). This is user-hostile if overdone, but a lightweight version creates the first memory entries directly.\n\nSecond, codebase inference: scan the repository structure and existing files to derive conventions from evidence. If every existing component uses a particular naming pattern, that pattern is the convention. This is expensive but front-loads the cost at session start rather than spreading inference errors throughout the session.\n\nThird, Figma file analysis: for Make specifically, the Figma file is a structured artifact that carries implicit information — design token names, component organization, frame naming conventions. The design file can bootstrap memory before the user types a single message.\n\n#### Make-Specific Memory: What the Platform Owns\n\nFor Figma Make, persistent memory includes: design system token usage preferences, component library choices (which Figma component maps to which React component), the Figma file's structural conventions, deployment configuration (target environment, build tool, CI integration), and the mapping between Figma frame names and route names in the generated app.\n\nThis is proprietary signal. It lives in Make's infrastructure, tied to the user's project. It is also the basis for personalization that competitors without deep design-tool integration cannot replicate.\n\n#### Privacy Implications\n\nEvery piece of user data in persistent memory is a privacy surface. What is retained? For how long? Can users view it? Can they delete it? Can they export it?\n\nThese are not abstract compliance questions. Memory that includes design decisions and codebase structure may constitute proprietary IP. A user who leaves an organization may need to ensure their personal preferences and history are not retained in a shared workspace memory. Deletion rights under GDPR and similar frameworks apply to agent memory the same as any other stored user data.\n\nThe PM decision is not whether to have a privacy model — you must — but how granular the memory controls are. Per-project memory isolation (your preferences in Project A don't bleed into Project B), user-level vs. workspace-level memory ownership, and explicit memory inspection and deletion UI are all features, not afterthoughts.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user built a React app last week using Tailwind for styling. This week they start a new Make session. The agent suggests inline styles for a new component. What memory failure caused this?",
+      "answer": "The agent either failed to persist the styling preference (Tailwind) to structured memory after the previous session, or failed to retrieve and inject it at the start of the new session. This is a structured memory failure — a high-signal, low-volume preference (styling approach) that should survive session boundaries. The symptom is the agent behaving as if it has never met this user before.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open a coding project you've worked on across multiple sessions — with Make, Cursor, or any AI coding assistant that has some memory capability. Start a new session and ask the agent: \"What do you know about this project's conventions and previous decisions?\"\n\nObserve what it surfaces. Then ask: \"What should you know that you don't?\" The gap between those two answers is the memory system's current failure surface.\n\nIf you're using Make: close a session mid-project, re-open it, and test whether the agent's first suggestion is consistent with decisions made in the previous session.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Without looking at the module, explain in your own words: why can't the agent just save the full conversation transcript and load it next session? What problem does that approach fail to solve?\n\nNow explain the difference between structured memory and episodic memory, using a concrete example from a project you've worked on.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Who should define the schema for what gets extracted — the engineering team that built the agent, or PMs who understand what \"matters\" to users?",
+        "If it did remember preferences — prose style, tone, target audience — would the editing workflow change meaningfully?",
+        "What would you want it to remember, and what would you actively not want it to carry forward?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Agent memory is a product decision before it is an engineering decision — what to persist, how to compress it, who owns it, and how to delete it are choices that define what kind of partner the agent becomes across time.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now have an agent with persistent memory. Multiple sessions of context are being preserved and retrieved. The next natural scaling question is: what happens when the agent's tasks are complex enough that a single agent — even a well-informed one — isn't enough? What does it mean to split the work across specialized agents, and what breaks when you do?\n\nThat's Module 4.11.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The module distinguishes 'context' from 'memory.' A user closes a Make session and opens a new one the next day. Which of these is a memory failure, not a context failure?",
+      "options": [
+        "The agent suggests inline styles for a new component even though the user established a Tailwind styling convention in a previous session",
+        "The agent forgets the file it was editing mid-session when the context window fills up",
+        "The agent loses track of a multi-step plan when too many tool results fill the context window"
+      ],
+      "correctIndex": 0,
+      "explanation": "Context is what the agent knows right now, in this conversation. Memory is what it knows because it has worked with this user before. Forgetting mid-session (context window filling) and losing a plan (context overflow) are context management failures. Forgetting a styling preference established in a previous session is a memory failure — the platform failed to persist or retrieve a high-signal structured preference across session boundaries.",
+      "encourageCorrect": "Correct — cross-session preference persistence is specifically a memory problem, not a context window problem.",
+      "encourageIncorrect": "Forgetting a file mid-session or losing a plan due to context overflow are context failures — the working memory of the current session. Forgetting that the user always uses Tailwind is a memory failure: the preference should have been stored in structured memory after the previous session and retrieved at the start of the new one."
+    },
+    {
+      "question": "The module recommends against storing raw conversation transcripts as cross-session memory. What is the specific technical reason?",
+      "options": [
+        "Raw transcripts are too large to store in the memory database efficiently, exceeding typical storage quotas for individual users",
+        "Raw transcripts have a poor signal-to-noise ratio — injecting a 40-turn debugging session into the context of a new session wastes tokens on false starts and intermediate reasoning that no longer carries useful information",
+        "Raw transcripts contain user PII that cannot be stored under GDPR without explicit consent, making them legally problematic to retain"
+      ],
+      "correctIndex": 1,
+      "explanation": "A 40-turn debugging session contains thousands of tokens of false starts, reformulations, and intermediate reasoning. Injecting this into a new session's context window is expensive and counterproductive — the noise drowns out the signal. The correct approach is summarization: extract decisions, preferences, and error patterns into structured or episodic memory, then discard the raw transcript.",
+      "encourageCorrect": "Right — the signal-to-noise problem is the core technical reason raw transcripts are the wrong unit to store and retrieve.",
+      "encourageIncorrect": "Storage cost and GDPR are real considerations but aren't the primary technical reason. The problem is that raw transcripts contain mostly noise — false starts, reformulations, intermediate steps — and injecting all of it into a new session's context wastes the limited context window on low-value content. Structured and episodic memory extract the signal and discard the noise."
+    },
+    {
+      "question": "For Figma Make specifically, which of these would belong in the static structured memory layer rather than in episodic or semantic memory?",
+      "options": [
+        "A narrative record of how the user debugged a Supabase connection error in session 4, including the specific error messages and the resolution approach",
+        "A learned pattern that this user prefers early returns over nested conditionals, inferred from reviewing their code style across 10 sessions",
+        "The user's choice of React component library (Radix UI), their preferred Tailwind configuration, and the mapping between their Figma component names and their React component names"
+      ],
+      "correctIndex": 2,
+      "explanation": "Structured memory holds high-signal, low-volume key-value facts: framework choices, configuration decisions, component mappings. The debugging narrative is episodic memory (a compressed record of what happened in a session). The coding style preference is semantic memory (a pattern inferred over time). Component library choice and Figma-to-React mappings are exactly the kind of discrete, queryable facts that belong in structured memory.",
+      "encourageCorrect": "Exactly — structured memory is for discrete, queryable facts like library choices and component mappings, not narratives or inferred patterns.",
+      "encourageIncorrect": "The debugging narrative belongs in episodic memory (a compressed session record). The coding style preference is semantic memory (a pattern inferred from behavior over time). Structured memory is for discrete, queryable facts — framework choice, component library selection, Figma-to-React mappings — that can be retrieved and injected as key-value pairs at session start."
+    }
+  ]
+}

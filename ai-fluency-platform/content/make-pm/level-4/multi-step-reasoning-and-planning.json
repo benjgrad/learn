@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "4.4 Multi-Step Reasoning and Planning",
+    "description": "Planning is the capability that separates a coding agent from a code-writing assistant. The assistant writes the code you ask for. The agent figures out what code to write, in what order, and verifies",
+    "level": "level-4",
+    "slug": "multi-step-reasoning-and-planning",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> A user says \"add user authentication to my app.\" This requires: a login page, a signup page, a database table, API routes, session management, protected routes, and a logout button. How does an agent turn this into a coherent plan?\n\nWrite your answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Planning is the capability that separates a coding agent from a code-writing assistant. The assistant writes the code you ask for. The agent figures out what code to write, in what order, and verifies that each piece works before proceeding to the next. This is architecturally and cognitively different.\n\n**Single-shot vs. planned execution:**\n\nThe naive approach to \"add authentication\" is to generate all the code at once — a 2,000-line diff that creates every file simultaneously. This fails for several reasons:\n\nFirst, the model's output length is limited. Generating 2,000 lines reliably in a single completion is at the edge of what current models do well.\n\nSecond, and more importantly: later files depend on earlier files. The API route that handles login must import the session library. The session library must be configured with the database connection string. The database connection string must match the schema the migration creates. Writing all of this simultaneously requires the model to hold perfect internal consistency across every file — a task that degrades with complexity.\n\nThird: there is no verification. If a single file has a bug, the entire system fails and the debugging task is enormous.\n\n**The plan-execute-verify loop:**\n\nProduction coding agents use a different pattern. Before writing code, the agent produces a plan: an ordered list of steps, each with a clear success criterion.\n\n```\nStep 1: Install dependencies (bcryptjs, jsonwebtoken, express-session)\n  Verify: package.json updated, npm install succeeds\nStep 2: Create database schema for users table\n  Verify: migration file created, migration runs without error\nStep 3: Create auth utility (hash password, verify password, sign JWT)\n  Verify: unit tests pass\n...\n```\n\nThe agent executes step 1, checks the success criterion, and only proceeds to step 2 if step 1 verified. This is not how language models naturally work — it is an emergent behavior coaxed out through careful prompting and tool design.\n\nAfter executing a step, the agent re-evaluates: does the plan still make sense given what I just learned? If `npm install bcryptjs` revealed that the project uses Yarn, not npm, the agent replans steps 2 onward to use `yarn add` syntax throughout.\n\n**File dependency ordering:**\n\nThe order of execution matters and is not trivial to determine. The correct order is topological — create the things that others depend on before the things that depend on them.\n\n- Database schema → migration → ORM model → repository layer → service layer → API route → UI component → routing configuration\n\nGetting this wrong means writing an API route that imports a module that does not exist yet. The build fails. The agent must diagnose the failure, realize the ordering was wrong, and reorder. This is recoverable — but it burns tokens and adds latency.\n\nA well-designed platform provides the agent with the dependency graph so it can order operations correctly from the start.\n\n**Coherence across files:**\n\nThe single hardest planning problem for coding agents is maintaining coherence across files that must agree on shared contracts. The login form must post to the same endpoint the API route listens on. The API route must return a token in the same shape the client expects. The protected route middleware must validate tokens using the same secret the auth utility signs them with.\n\nThese are not bugs the compiler catches. They are semantic inconsistencies that only surface at runtime. The agent maintains coherence by keeping an internal model of the \"interface contracts\" it has established — and checking each new file against those contracts before writing.\n\nThis is why context management (Module 4.3) is a prerequisite for planning. The agent can only maintain coherence across files that are in its context.\n\n**Why planning is hard for LLMs:**\n\nLanguage models are trained to predict the next token given all previous tokens. Planning requires reasoning about a future state that does not yet exist. This is not a natural next-token prediction task.\n\nThe planning capability we observe in modern models emerges from:\n\n1. Chain-of-thought prompting — asking the model to \"think step by step\" before acting activates reasoning patterns trained into the weights\n2. Tool results as grounding — the model's plan is continuously updated by what it actually observes, not just what it predicted\n3. Large training sets of planning traces — models trained on software engineering workflows have seen millions of examples of correct step ordering\n\nNone of this makes planning reliable. It makes planning possible. The Platform PM's job is to design scaffolding that catches planning failures before they cascade.\n\n**The platform's role:**\n\nThe platform provides:\n\n- **Step tracking:** A structured representation of the plan, with status (not started / in progress / verified / failed) for each step. The agent writes the plan as structured output; the platform stores and surfaces it.\n- **Checkpoint/rollback:** At each verified step, the platform snapshots the codebase state. If step N fails irreversibly, the platform can restore the state from step N-1.\n- **Dependency graph:** Pre-computed import relationships that the agent can query to determine correct ordering.\n- **Verification harness:** After each step, run the build. Run relevant tests. Return pass/fail to the agent. The agent should not have to decide whether to verify — verification should be automatic.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The agent is implementing authentication. It writes the users database schema (step 2) and the migration runs successfully. It then writes the Prisma ORM model (step 3). The ORM model imports from `@prisma/client`, but `npx prisma generate` has not been run yet — so `@prisma/client` does not have the Users type. The TypeScript compiler throws an error. What is the correct platform behavior?\nA. Surface the error to the user and ask them to run `npx prisma generate`\nB. The agent automatically recognizes this as a dependency ordering issue, runs `npx prisma generate`, and continues\nC. The agent rolls back to step 2 and re-plans\nD. The platform should have run `npx prisma generate` automatically after step 2 succeeded",
+      "answer": "D — ideally, with B as a fallback.** The platform's verification harness should know that after any Prisma migration succeeds, `npx prisma generate` is a required follow-up. This is a platform-level rule, not an agent-level recovery task. If the platform does not implement this, B is the correct agent recovery behavior. A is incorrect — the user should not be pulled in for a deterministic, automatable fix. C is too aggressive — rollback is warranted for irrecoverable failures, not for automatable fixes.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Pick a feature in a codebase you know well — one that spans 4+ files. Write the execution plan you would give a junior engineer: ordered steps, each with a success criterion. Then ask: which steps could be parallelized? Which must be strictly sequential? What is the minimum number of sequential steps — the critical path — for this feature?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a skeptical engineer why an agent that plans outperforms an agent that writes all the code at once, even if both use the same underlying model. Be specific about the mechanism, not just the outcome.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How does dependency management in eval pipelines compare to dependency management in agent planning?",
+        "Where does the analogy break down?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "An agent that plans executes steps in dependency order, verifies each step before proceeding, and re-plans based on what it observes — and the platform's job is to provide the scaffolding that makes this loop reliable, not to hope the model does it spontaneously.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> The agent has a plan. Step 7 fails. Not because the plan was wrong — because the sandbox environment does not support a dependency the agent needed. What now?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Why does generating all files for a complex feature simultaneously (single-shot) fail compared to a plan-execute-verify loop?",
+      "options": [
+        "Single-shot generation requires the model to maintain perfect internal consistency across all files simultaneously, and there is no verification step — so a bug in one file can make the entire system fail with no clear diagnosis",
+        "Single-shot generation is slower because the model must hold all files in memory at once, while the plan-execute loop processes one file at a time and is faster",
+        "Single-shot generation produces more tokens overall, which increases the API cost per task compared to a plan-execute loop that generates only what is needed at each step"
+      ],
+      "correctIndex": 0,
+      "explanation": "The two failure modes of single-shot generation are: (1) the internal consistency problem — later files must agree on contracts established in earlier files, and generating all simultaneously degrades accuracy with complexity; and (2) the absence of verification — there is no checkpoint where a bug can be caught before it cascades into 10 more files built on broken foundations.",
+      "encourageCorrect": "Exactly — lack of verification and the internal consistency problem are the two structural failures of single-shot generation.",
+      "encourageIncorrect": "Single-shot isn't necessarily slower, and cost isn't the primary concern. The two structural problems are: first, the model must hold internal consistency across all files simultaneously, which degrades with complexity; and second, there's no verification step, so a bug in file 3 gets silently inherited by files 4 through 20."
+    },
+    {
+      "question": "The plan-execute-verify loop requires the agent to generate steps in topological order. Why does getting this order wrong cause problems even if every individual file is correctly written?",
+      "options": [
+        "Topological misordering causes the agent to use too many context tokens, since it must re-read files it already wrote to check for consistency",
+        "If an API route is written before the module it imports exists, the build fails with an unresolved import — a dependency ordering error, not a code quality error, that requires diagnosis and reordering",
+        "Topological misordering confuses the version control system, making it harder to trace which files changed in which order"
+      ],
+      "correctIndex": 1,
+      "explanation": "Code has a natural dependency graph: database schema before ORM model, ORM model before service layer, service layer before API route. Writing an API route that imports from a module that doesn't exist yet causes a build failure at that step. The code may be correct — the order is the bug. The platform should provide the dependency graph to the agent to prevent this.",
+      "encourageCorrect": "Right — import failures from wrong ordering are a dependency problem, not a code quality problem, and they're preventable with a dependency graph.",
+      "encourageIncorrect": "Context token usage and version control aren't the issue. The problem is that code has import relationships: file B depends on file A being written first. If you write B before A, the build fails because B imports from something that doesn't exist yet. The code in B may be correct — the execution order is the bug."
+    },
+    {
+      "question": "After a plan step succeeds, the agent re-evaluates whether the plan still makes sense. What is the value of this re-evaluation step?",
+      "options": [
+        "It allows the agent to request user approval before proceeding to the next step, ensuring human oversight at every decision point",
+        "It allows the platform to optimize the remaining steps by parallelizing independent tasks based on the verified state",
+        "Executing a step reveals real-world information the plan was written before knowing — for example, discovering the project uses Yarn not npm — and the plan must be updated to reflect that reality before proceeding"
+      ],
+      "correctIndex": 2,
+      "explanation": "Plans are written based on assumptions about the environment. Executing steps tests those assumptions against reality. If step 1 reveals the project uses Yarn, not npm, then steps 2–30 that assumed npm syntax must be updated before the error propagates through every subsequent step. Re-evaluation turns each verified step into new grounding information.",
+      "encourageCorrect": "Correct — re-evaluation grounds the remaining plan in what was actually discovered, not what was assumed before execution began.",
+      "encourageIncorrect": "Re-evaluation isn't primarily about human approval gates or parallelization. Its core purpose is updating the plan based on what was actually learned during execution. Plans are written with assumptions; executing steps tests those assumptions. When reality differs from assumption — like finding Yarn instead of npm — the plan must be updated before that difference cascades into every remaining step."
+    }
+  ]
+}

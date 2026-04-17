@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "6.7 Level 6 Checkpoint",
+    "description": "---",
+    "level": "level-6",
+    "slug": "level-6-checkpoint",
+    "order": 7,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "---\n\n**Interview Scenario**\n\nThe CTO asks you: \"We're spending $2M/month on Make infrastructure and I can't tell whether that's efficient or wasteful. What would you build to answer that question?\"\n\nOutline your plan.\n\n---\n\n**Model Answer**\n\nI'd build a cost observability system in three layers, designed to answer the question at increasing levels of precision.\n\n**Layer 1: Attribution (Weeks 1-3)**\n\nThe first problem is that our current cloud bill is a single number. We can't tell whether the $2M is preview compute, AI inference, storage, or network without tagging. My first step is to mandate resource tagging across all infrastructure: every container, every build job, every API call tagged with `feature`, `user_tier`, `region`, and `template_type`. This is a cross-team effort requiring coordination with every engineering team — I'd treat it as a mandatory platform standard, not optional.\n\nSimultaneously, I'd instrument every model API call to log input tokens, output tokens, model tier, and feature context. This gives us the ability to attribute AI costs by feature and user segment.\n\nBy end of Week 3, we should be able to answer: \"How much does preview cost per day, vs. builds, vs. agent sessions?\"\n\n**Layer 2: Unit Economics (Weeks 4-6)**\n\nOnce we have attribution, I'd build the unit economics dashboard:\n\n- Cost per preview load\n- Cost per agent session (broken down by model tier, session length, template type)\n- Cost per deployment\n\nThese numbers should be tracked as time-series metrics, so we can see trends. A cost per session that's increasing 3% week-over-week is actionable signal — it tells us something is growing faster than sessions (likely context window growth or model tier drift).\n\nI'd also build user cost profiles: what does the average Free user cost vs. the average Pro user vs. the top-10% power user? This directly informs whether our pricing tiers are sustainable.\n\n**Layer 3: Showback + Optimization (Weeks 7-10)**\n\nWith unit economics established, I'd build showback dashboards for each feature team — the preview team sees preview costs, the agent team sees inference costs. Not to charge them, but to change behavior. Engineers who can see that adding a new prompt section costs $40K/month in aggregate make different decisions than engineers who can't see that number at all.\n\nThe first optimization I'd pursue is model routing — routing simple, well-defined tasks to Claude Haiku instead of Sonnet. Based on my analysis of session data, I'd estimate 40-50% of our agent turns are simple operations (color changes, text updates, layout adjustments) that don't require the highest model tier. Back-of-envelope: if AI inference is 35% of our $2M spend ($700K/month), and we route 45% of turns to Haiku at 10% the cost of Sonnet, that's approximately $280K/month in savings.\n\n**What I'd present to the CTO at 90 days:**\n\nA dashboard showing: where the $2M goes (by feature, by infrastructure type), our unit economics (cost per session trending down/flat/up), our top 3 optimization opportunities with projected savings, and a recommendation on whether our current cost per session supports our pricing model at scale.\n\nThe answer to \"is it efficient or wasteful\" requires the data. The data requires attribution. Attribution requires tagging. That's where we start.\n\n---\n\n**Evaluation Criteria**\n\n| Criterion | What to Look For |\n|---|---|\n| Structured thinking | Does the answer have a clear sequence that builds from foundation to insight? |\n| Technical grounding | Does the candidate know what tagging is, how token logging works, what model routing means? |\n| Business connection | Does the candidate connect cost to pricing strategy and unit economics? |\n| Ownership | Does the candidate identify themselves as the driver of cross-team standards, not just a reporter? |\n| Quantification | Does the candidate do back-of-envelope math, even with rough assumptions? |\n\n---\n\n**Common Pitfalls**\n\n**Pitfall 1: Jumping to optimization before attribution.** Recommending model routing before you've confirmed that AI inference is actually where the money is going. Cost observability precedes cost optimization.\n\n**Pitfall 2: Treating this as a finance problem instead of a platform problem.** The right answer involves instrumentation and tagging, not just asking the finance team to break down the cloud invoice. The PM owns the instrumentation strategy.\n\n**Pitfall 3: Stopping at dashboards.** A dashboard that shows $2M by category is step one, not the answer. The answer is unit economics and trend analysis that tell you whether $2M is appropriate for the current scale.\n\n**Pitfall 4: Ignoring cross-team coordination.** Tagging requires every team to comply. The candidate should name this as an organizational challenge, not assume it happens automatically.\n\n---\n\n---\n\n# Level 7: Extensibility & Platform Strategy"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The Level 6 checkpoint asks you to answer 'Is $2M/month efficient or wasteful?' What does the model answer identify as the required first step before any optimization recommendation?",
+      "options": [
+        "Mandate resource tagging across all infrastructure — every container, build job, and API call tagged with feature, user tier, region, and template type — because without attribution, the $2M is a single number and optimization is guesswork",
+        "Benchmark Make's infrastructure costs against industry averages for similar AI platforms to establish whether $2M is in the normal range",
+        "Conduct user interviews to understand which features users value most, then reallocate infrastructure investment toward high-value features"
+      ],
+      "correctIndex": 0,
+      "explanation": "The model answer begins with attribution: the cloud bill is a single number, and cost observability requires tagging every resource so costs can be broken down by feature, user segment, and template type. Without this foundation, any optimization recommendation is speculation about where the money goes. The model answer explicitly sequences this as Weeks 1-3, before any unit economics analysis or optimization.",
+      "encourageCorrect": "Correct — the model answer frames tagging as the prerequisite for everything else. You cannot optimize what you cannot see.",
+      "encourageIncorrect": "Industry benchmarking and user interviews are both useful, but neither answers the CTO's question about whether the current $2M is efficiently allocated. Attribution comes first — once you know where the money goes by feature and user segment, you can compare against benchmarks and map to user value."
+    },
+    {
+      "question": "According to the model answer, what makes unit economics the right level of analysis — rather than total monthly cost — for answering the efficiency question?",
+      "options": [
+        "Unit economics are required for investor reporting and are therefore the format leadership expects cost analysis to take",
+        "Unit economics enable direct comparison with competitor pricing, revealing whether Make's cost structure supports competitive pricing",
+        "Total monthly cost scales with user volume and cannot be evaluated in isolation — cost per preview, cost per agent session, and cost per deployment, tracked as time-series trends, reveal whether the platform is getting more or less efficient as it scales"
+      ],
+      "correctIndex": 2,
+      "explanation": "The model answer explains this: a cost per session that drops as volume grows indicates healthy economies of scale; one that rises suggests architectural issues or prompt bloat. Total monthly cost growing is expected as the user base grows — what matters is whether the cost per unit of value delivered is improving. Unit economics as time-series trends (not snapshots) answer the efficiency question the total bill cannot.",
+      "encourageCorrect": "Right — the efficiency question is about trends in per-unit cost, not absolute total cost. A rising total with falling unit cost is healthy; a rising total with rising unit cost is not.",
+      "encourageIncorrect": "Investor reporting formats and competitor pricing are secondary applications of unit economics. The primary reason unit economics answer the CTO's question is that they normalize for volume: you can't know if $2M is wasteful without knowing what you're getting per dollar, and whether that's improving or degrading as scale increases."
+    },
+    {
+      "question": "The Level 6 checkpoint identifies a common pitfall where candidates 'jump to optimization before attribution.' Why is this a structural error in the approach?",
+      "options": [
+        "Optimization recommendations made before attribution look unprofessional in executive presentations because they lack supporting data",
+        "Without attribution, you don't know where the money actually goes, so optimization recommendations are guesses — you might optimize model routing (AI inference) when the dominant cost is actually compute, leaving the real problem untouched",
+        "Premature optimization violates the engineering principle of profiling before optimizing, which is a best practice the CTO will recognize as a red flag"
+      ],
+      "correctIndex": 1,
+      "explanation": "The checkpoint's pitfall description is direct: 'Recommending model routing before you've confirmed that AI inference is actually where the money is going.' If AI inference is 20% of spend and compute is 60%, optimizing model routing achieves 10-15% of the available savings while the dominant cost continues unchecked. Attribution is the prerequisite because it establishes which cost category warrants optimization investment.",
+      "encourageCorrect": "Exactly — optimization without attribution is directionally correct only by luck. Attribution tells you which lever matters most.",
+      "encourageIncorrect": "Presentation optics and engineering principles are secondary. The structural error is practical: if you optimize the wrong category, you spend engineering effort to achieve a fraction of the available improvement. The checkpoint's point is that attribution is not a formality — it determines where to focus."
+    }
+  ]
+}

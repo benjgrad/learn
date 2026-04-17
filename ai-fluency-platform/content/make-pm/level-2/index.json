@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Code Execution & Runtimes",
+    "description": "The runtime is the foundational platform decision. Master the tradeoffs between server-side containers, browser-based execution, serverless and edge runtimes, and sandboxing mechanisms.",
+    "level": "level-2",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Code Execution & Runtimes\n\n*The hardest invisible problem in the stack*\n\nThe runtime is the foundational platform decision. Master the tradeoffs between server-side containers, browser-based execution, serverless and edge runtimes, and sandboxing mechanisms.\n\n## Modules in This Level\n\n### 2.1 What a Runtime Actually Is\n\nYou write `const x = 2 + 2`. Something has to actually do that addition. That something is the **runtime**.\n\n### 2.2 Server-Side Containers (Docker)\n\nDocker became the default because it solved a real, persistent problem: \"it works on my machine.\" Before containers, deploying software meant managing operating system dependencies, runtime versions, \n\n### 2.3 Browser-Based Execution (WebContainers)\n\nStackBlitz's WebContainers technology is one of the more impressive pieces of systems engineering in the modern web tooling ecosystem. Understanding how it works is essential for any PM evaluating pre\n\n### 2.4 Serverless Functions & Edge Runtimes\n\nThe term \"serverless\" is a marketing euphemism that obscures a genuinely important architectural shift. The server exists. What's different is who manages it, how it's billed, and \u2014 most importantly f\n\n### 2.5 Sandboxing and Isolation\n\nWhen you run a platform that executes AI-generated code, you are operating on a threat model equivalent to public code execution infrastructure. The code is untrusted. Not because your users are malic\n\n### 2.6 Cold Starts, Warm Pools, and Latency Budgets\n\nLatency is not a single number. It's a pipeline, and each stage has a budget. The PM's job is to understand that pipeline well enough to know where investment buys the most user-visible improvement \u2014 \n\n### 2.7 Framework Support as a Platform Decision\n\n\"Should we support this framework?\" feels like a product question \u2014 survey your users, see what they use, add support if there's demand. It's actually a runtime and infrastructure question with produc\n\n### 2.8 Level 2 Checkpoint\n\nScenario: The WebContainers Migration Proposal"
+    }
+  ]
+}

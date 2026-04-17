@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "1.2 Competitive Architecture Map",
+    "description": "The surface similarity of these products obscures completely different bets on runtime architecture, isolation model, deployment target, and agent design. A Platform PM who cannot articulate these dif",
+    "level": "level-1",
+    "slug": "competitive-architecture-map",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> v0, Lovable, Bolt, and Replit Agent all do \"prompt to app.\" If the output looks similar, what's actually different under the hood?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The surface similarity of these products obscures completely different bets on runtime architecture, isolation model, deployment target, and agent design. A Platform PM who cannot articulate these differences cannot argue Make's investment priorities \u2014 because every infrastructure investment is implicitly a bet that Make's architecture is correct and competitors' are constrained.\n\n**v0 (Vercel): Framework Coupling as Competitive Moat**\n\nv0 generates Next.js. Not React \u2014 Next.js. Specifically, it generates Next.js App Router with TypeScript, Tailwind CSS, and shadcn/ui components. Every output is a Vercel-deployable Next.js project.\n\nThe architecture is tight by design. v0 is Vercel's customer acquisition tool \u2014 generate an app, deploy it to Vercel in one click. The framework coupling creates a deployment funnel. There is no \"deploy to AWS\" button. v0 is a top-of-funnel motion for Vercel's hosting business.\n\nAgent model: v0 does not run code locally. It generates code and sends it to a preview environment (a Vercel deployment or a sandboxed iframe). The agent does not have a terminal, cannot install packages on-demand, and cannot react to runtime errors by modifying code. It is a code generator, not a coding agent.\n\nDeveloper profile: v0 targets experienced developers who want to accelerate component scaffolding. The generated Next.js code is production-quality enough to commit directly. v0 is not trying to serve non-technical users \u2014 the output requires developer review.\n\n**Lovable: Non-Technical Builder Focus**\n\nLovable (formerly GPT Engineer) targets non-technical builders and designers. Its core experience: describe an app in plain language, see it run, iterate with natural language.\n\nRuntime: Lovable runs code in a browser-based sandbox. Generated code executes in the browser \u2014 no Node.js server required for preview.\n\nBackend: Lovable has a deep Supabase integration. Users who need a database get Supabase provisioned automatically, with generated SQL migrations and Supabase SDK calls in the frontend code. This is the most complete \"full-stack-for-non-developers\" story in the category.\n\nAgent model: Lovable's agent can iterate on errors. When the generated code throws an error, Lovable reads the error message and attempts to fix it automatically. This loop continues until the code runs or the agent gives up. This is genuinely agentic behavior.\n\nWeakness: When Lovable's agent fails, non-technical users have no recovery path. The error messages that bubble up are developer-oriented, and the user has no ability to manually fix code. The agent's judgment is the product's ceiling.\n\n**Bolt (StackBlitz): The In-Browser Runtime Bet**\n\nBolt is built on WebContainers \u2014 StackBlitz's technology for running Node.js inside the browser tab (via WebAssembly). This is a fundamental architectural difference from every other player.\n\nIn Bolt, when you click \"Preview,\" no request goes to a server. The preview runs in your browser. Node.js runs in your browser. npm install runs in your browser. This has two consequences:\n\n1. **Near-zero compute cost for Bolt:** User's CPU runs the code. Bolt's servers send assets; users' machines do the execution work. At scale, this is a profound cost advantage.\n2. **Constrained package support:** Packages with native Node.js bindings (binary .node files compiled from C++) cannot run in WebAssembly. Bolt's compatibility matrix is a subset of npm.\n\nAgent model: Bolt can read terminal output from the in-browser Node.js runtime and react to errors. Because the full Node.js environment runs locally, the agent has access to the same tools a developer would use.\n\nDeployment: Bolt deploys to Netlify and StackBlitz's own hosting. The in-browser development environment doesn't commit Make to a deployment target.\n\n**Replit Agent: The Full Cloud Workspace**\n\nReplit is the most mature environment in this space. The core product is a cloud IDE \u2014 a full development environment hosted in the browser, connected to a persistent cloud VM. Replit's VM runs a real Ubuntu environment. You have a terminal. You can install anything. You can run databases locally.\n\nReplit Agent operates in this full environment. The agent has access to the filesystem, the terminal, the package manager, and the browser (via Playwright or similar). When you give Replit Agent a goal, it can write code, run it, read the output, fix errors, and iterate \u2014 all in the real environment, not a simulation of it.\n\nThis is the most capable agent in the category. It is also the most expensive to operate. A persistent cloud VM per user is fundamentally different economics from an ephemeral preview sandbox.\n\nReplit targets developers and technical builders. The environment is intentionally developer-grade \u2014 you see the terminal, the files, the logs. Non-technical users are not the primary persona.\n\n**Cursor: Local-First, Editor-Native**\n\nCursor is not a web app \u2014 it is a desktop IDE (a VS Code fork). It does not generate complete applications from prompts. It augments local development with deep codebase understanding: the model reads your entire codebase, understands your patterns and conventions, and suggests changes that fit.\n\nCursor targets professional developers who want an AI that knows their specific codebase \u2014 not a fresh scaffold. This is a fundamentally different job-to-be-done from Make.\n\n**Architecture Comparison Table**\n\n| Tool | Runtime | Isolation | Framework | Deployment Target | Agent Model |\n|---|---|---|---|---|---|\n| v0 | Server/iframe | Light sandbox | Next.js (fixed) | Vercel | Generator only |\n| Lovable | Browser sandbox | Browser | React + Vite | Lovable hosting | Iterative (error-reactive) |\n| Bolt | WebContainers (browser) | Browser + Wasm | Any (JS/TS) | Netlify / StackBlitz | Terminal-reactive |\n| Replit Agent | Cloud VM | VM per user | Any | Replit hosting | Full agentic (tool use) |\n| Cursor | Local machine | OS processes | Any | Developer's target | Inline suggestions |\n| Make | TBD | TBD | TBD | Figma Sites? | TBD |\n\n**Where Make Sits: Canvas-Native, Design-Aware, Later Entrant**\n\nMake has advantages no competitor has:\n- Design system context: the AI knows your Figma components, your color tokens, your typography scale\n- Canvas-native: output can become editable Figma designs (\"Code to Canvas,\" Anthropic partnership)\n- Distribution: Figma has 4M+ paying customers who already trust the platform\n\nMake has gaps every competitor has already addressed:\n- Runtime maturity: competitors have invested 2\u20133 years in their preview and deployment infrastructure\n- Developer trust: developers do not yet trust Make's output quality in the way they trust Next.js + Vercel\n- Agent sophistication: Make's agent (as of early 2026) is less capable than Replit's for complex, multi-step tasks\n\nThe Platform PM's job: close the infrastructure gaps while defending the canvas-native advantages before competitors build design-awareness into their own tools.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Bolt's WebContainers approach eliminates server compute costs for preview execution. If this technology matures to support all npm packages, does that make Bolt a better choice than Make's server-based runtime for most use cases? What does Make have that Bolt cannot replicate with better WebAssembly support?",
+      "answer": "Better Wasm support would neutralize Bolt's current limitation but would not replicate Make's design-system awareness, canvas integration, or Figma distribution. The WebContainers model is an execution model \u2014 it solves the runtime problem. It does not give Bolt access to a user's component library, design tokens, or Figma file structure. Make's moat is not the runtime architecture \u2014 it is the design-to-code context that only Figma can provide. Bolt running better npm packages is a runtime improvement; Make has a data advantage that no runtime improvement can replicate.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open Bolt and open Replit Agent side by side. Give both the same prompt: \"Build a notes app with a sidebar for note titles and a main area to edit the selected note. Use local storage to persist notes.\" Watch both agents work. Notice: does the agent show you its reasoning steps? Does it react to errors? How many iterations does it take? Which result is more production-ready?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A Figma engineering director asks you to compare Make's planned architecture to Bolt's in-browser approach. Explain in 2 minutes why the two approaches involve fundamentally different cost structures and capability tradeoffs \u2014 and where Make's architecture should learn from Bolt's.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What should Make be tightly coupled to?",
+        "And what would it mean for Make to be deliberately \"loosely coupled\" to deployment targets \u2014 is that a feature or a weakness?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The architectural differences between v0, Lovable, Bolt, and Replit are not implementation details \u2014 they are explicit bets on which user segment to serve, which infrastructure cost to absorb, and which lock-in mechanism to build \u2014 and Make must make the same bets explicitly rather than by default.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> The demo looks great. The architecture makes sense. But there's a gap between what works in a sandbox and what works when a user's boss says \"ship it.\" That gap is next.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "v0 generates Next.js specifically — not React, not Vue, but Next.js App Router. What does this architectural coupling reveal about v0's actual business model?",
+      "options": [
+        "Next.js is simply the best framework for AI-generated code, so v0 chose it for quality reasons",
+        "v0 is Vercel's customer acquisition tool — generating Next.js creates a deployment funnel to Vercel hosting, making framework coupling a distribution strategy, not a technical preference",
+        "v0 is locked into Next.js because it was built before other frameworks were mature enough to support AI generation"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module states this explicitly: v0 is not primarily a code generation product — it's a top-of-funnel motion for Vercel's hosting business. The Next.js coupling creates a 'generate here, deploy to Vercel' funnel. There's no 'deploy to AWS' button because Vercel's revenue comes from hosting. Understanding this reveals that v0's framework opinion is a business architecture decision, not a quality judgment. This is the kind of structural analysis a Platform PM must apply to competitive moves.",
+      "encourageCorrect": "Exactly — seeing the business model behind the technical choice is the Platform PM's job. v0's Next.js coupling is a deployment funnel, not a framework preference.",
+      "encourageIncorrect": "Next.js isn't objectively the best framework for AI generation — React + Vite would be simpler and still excellent. v0 generates Next.js because Vercel built Next.js and profits from deploying it. The framework choice is a business strategy. Framing it as a quality decision misses the competitive intelligence the module is teaching."
+    },
+    {
+      "question": "Bolt's WebContainers approach means that preview execution happens in the user's browser, not on Bolt's servers. Beyond cost savings, what is the product capability consequence of this architectural choice?",
+      "options": [
+        "Bolt's agent can read terminal output from the in-browser Node.js runtime and react to runtime errors, giving it access to the same debugging feedback a developer would have",
+        "Browser-based execution means Bolt previews are more secure than server-based previews, since the code never reaches Bolt's servers",
+        "WebContainers allows Bolt to support any programming language, since the browser can execute compiled WebAssembly for all languages"
+      ],
+      "correctIndex": 0,
+      "explanation": "Because the full Node.js environment runs in the user's browser tab, Bolt's agent has access to that environment's output — terminal logs, error messages, server-side console output — and can react to it. This enables genuinely agentic behavior: generate code, run it, read the error, fix the code, iterate. This capability comes directly from the WebContainers architecture. The security and language-support claims in the other options misrepresent how WebContainers works.",
+      "encourageCorrect": "Right — the agent's ability to close the feedback loop by reading terminal output is a direct product capability enabled by the WebContainers architecture.",
+      "encourageIncorrect": "Browser execution doesn't make Bolt more secure for all threat models — Bolt's servers still send the generated code, and the user's browser now runs it. WebAssembly also doesn't enable all programming languages — WebContainers specifically runs Node.js/JavaScript. The key capability unlocked is the agent reading terminal output from the in-browser runtime, enabling error-reactive iteration."
+    },
+    {
+      "question": "Replit Agent uses a persistent cloud VM (a full Ubuntu environment with a terminal, filesystem, and package manager). This gives it the most capable agent in the category. What is the structural cost that prevents this model from being Make's default preview architecture?",
+      "options": [
+        "Cloud VMs require users to be technically proficient — the terminal-visible environment is not usable by non-technical builders",
+        "A persistent cloud VM per user has fundamentally different economics from an ephemeral preview sandbox — cold start is 30-90 seconds and per-user memory cost is orders of magnitude higher than containers or WebContainers",
+        "Cloud VMs cannot run the JavaScript frameworks that Make generates, since they require a browser environment to execute React"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module explicitly distinguishes Replit's model: 'This is the most capable agent in the category. It is also the most expensive to operate.' A persistent cloud VM per user requires maintaining full Ubuntu environments with 256MB+ RAM overhead each, and warm-up costs are measured in seconds to minutes. This makes Replit's approach appropriate for long-running development sessions where startup cost is amortized — not for ephemeral interactive previews where sub-2-second feedback is the product promise.",
+      "encourageCorrect": "Correct — the capability/cost tradeoff is the key. Replit's VM model is architecturally incompatible with Make's interactive preview requirements, not just expensive.",
+      "encourageIncorrect": "Cloud VMs can certainly run React — they're full Linux environments running Node.js. And while the UX is developer-oriented, the blocking constraint is economics and latency: a VM that takes 30-90 seconds to start and costs significantly more per session than containers cannot serve as Make's preview infrastructure for interactive use."
+    }
+  ]
+}

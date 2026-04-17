@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "7.6 GA Readiness \u2014 From Beta to Production",
+    "description": "Going Generally Available is a product milestone with a very specific meaning: you are making a public, binding commitment to reliability, support, and backward compatibility. GA is not \"this works mo",
+    "level": "level-7",
+    "slug": "ga-readiness-from-beta-to-production",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Make has been in beta for 6 months. Leadership wants to go GA (Generally Available). What criteria determine whether the platform is ready?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Going Generally Available is a product milestone with a very specific meaning: you are making a public, binding commitment to reliability, support, and backward compatibility. GA is not \"this works most of the time.\" GA is \"we're promising this to paying customers and we'll be held accountable for it.\"\n\nThis distinction matters because the consequences of premature GA are severe: enterprise customers sign contracts against GA commitments. If you fail to meet them, you're in breach. Your reputation for reliability, which takes years to build and days to destroy, is on the line. The SLAs you publish at GA become the floor you have to exceed, not the ceiling you're allowed to reach.\n\n---\n\n**The GA Readiness Checklist**\n\n**Reliability: SLOs defined and met**\n\nBefore GA, you must have:\n- SLOs explicitly defined (preview success rate: 99.5%, p95 MTTP: 3s, deployment success: 99.0%)\n- 30+ consecutive days of meeting those SLOs under real beta traffic\n- An error budget framework in place\n- On-call rotation established with documented runbooks for all critical failure modes\n\nThirty consecutive days matters. Not \"we met SLOs most of the time\" but \"we have thirty data points that form a trend, and the trend is stable.\" One good week is not sufficient evidence.\n\n**Scalability: Load tested to 3x**\n\nGA may bring a traffic spike. Press coverage, word of mouth, Product Hunt launches, and influencer posts can 3-5x your normal traffic in 48 hours. Your infrastructure must not collapse under that load.\n\nLoad testing requirements:\n- Synthetic load test to 3x current peak traffic, with no P0 failures\n- Graceful degradation behavior confirmed at 4x (the system slows but doesn't crash)\n- Auto-scaling validated (new capacity provisions within 90 seconds of a load spike)\n\n**Security: Penetration tested and compliant**\n\nFor a platform that runs user-generated code and stores user project data:\n- Third-party penetration test completed within the last 6 months\n- SOC 2 Type II audit in progress (Type I minimum for initial GA, Type II within 12 months)\n- Data isolation verified \u2014 one user's code execution environment cannot access another user's data\n- Dependency vulnerability scan clean (no critical CVEs in the dependency tree)\n\n**Observability: Alerting and runbooks in place**\n\nEvery critical path must be instrumented:\n- Alerts for all SLO breach scenarios, tested and validated\n- Dashboards for all key health metrics, reviewed by on-call during beta\n- Runbooks for all known failure modes, authored and reviewed by at least two engineers\n\nThe test: if your most experienced on-call engineer were sick, could someone else diagnose and resolve a P0 preview outage in under 30 minutes using only the runbook?\n\n**Support: Documentation and escalation paths**\n\nGA means users who aren't beta participants \u2014 users who don't have a direct line to your team. You need:\n- Public documentation covering all user-facing features\n- In-product error messages that are actionable (not raw stack traces)\n- Support ticket system with defined SLAs (response within 4 hours for P1)\n- Escalation path from support to engineering for novel failures\n\n**Migration: Beta users can upgrade**\n\nIf you change the data model, the file format, or the API surface between beta and GA, existing beta users' projects must survive the migration without data loss. Migration scripts should be:\n- Written and tested against a sample of production beta projects\n- Run in dry-run mode to validate before executing\n- Reversible (can you roll back the migration if it produces unexpected results?)\n\n**Rollback: Any deployment reverts in under 5 minutes**\n\nGA means zero-downtime deployments are expected, and rollback capability is a hard requirement. The infrastructure must support:\n- Blue-green or canary deployments that can be reverted without user impact\n- Rollback of any deployment within 5 minutes\n- Feature flag disable for any feature that behaves unexpectedly post-GA\n\n---\n\n**The GA Tax**\n\nWhen you go GA, you take on commitments you didn't have in beta:\n\n- **SLAs:** If you promise 99.5% uptime, a violation may trigger credits or contract penalties\n- **Backward compatibility:** Features and APIs you ship at GA are expected to work indefinitely, or with long deprecation cycles\n- **Support SLOs:** Enterprise customers expect response time commitments\n- **Data compliance:** Regulated industry customers (healthcare, finance) require specific compliance postures\n\nThe \"GA tax\" means that post-GA velocity slows. Changes that were trivial in beta (rename an API endpoint, change a file format) become breaking change processes with migration guides and deprecation timelines. Building your team's muscle for this before GA makes the transition smoother.\n\n---\n\n**Soft Launch vs. Hard Launch**\n\nThe staged launch model reduces risk:\n\n**Private beta:** Invite-only, no public announcement. Used for core loop validation. SLOs aspirational, not committed.\n\n**Public beta:** Open access, public announcement, explicit \"this is beta\" labeling. Users have reduced expectations. SLOs targeted but not contractually committed.\n\n**GA \u2014 soft launch:** Remove the \"beta\" label, publish SLAs, but don't do a major marketing push. Let existing beta users convert to paid. Validate SLO compliance under early GA conditions.\n\n**GA \u2014 hard launch:** Press moment, Product Hunt, outbound sales. Only after soft launch has validated stability for 2-4 weeks.\n\nThe gap between soft and hard launch is your last chance to catch GA-breaking issues before they affect a large audience.\n\n---\n\n**Enterprise Readiness as a Separate Gate**\n\nEnterprise customers require capabilities beyond standard GA:\n- **SSO:** SAML/OIDC integration for corporate identity providers\n- **Audit logs:** Every user action logged and queryable by the enterprise admin\n- **Role-based access control:** Team-level permissions, not just user-level\n- **Data residency:** European customers often require data to remain in EU regions\n- **Custom contracts:** Negotiated SLAs, DPAs, security questionnaires\n\nEnterprise readiness often gates enterprise sales. If Make's GA launches without SAML SSO, every enterprise deal stalls at procurement. Plan the enterprise readiness work as a parallel workstream to core GA, with its own timeline and stakeholder.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Three weeks before planned GA, your load test at 3x traffic shows: preview success rate 99.1% (SLO: 99.5%), p95 MTTP 4.2 seconds (SLO: 3 seconds), deployment success rate 99.3% (SLO: 99.0%). What do you do?",
+      "answer": "*Preview and MTTP are both failing SLOs under load. GA cannot proceed on the current timeline with these results. Options: (a) delay GA and invest 3 weeks in performance work, (b) reduce the load test projection (if the 3x estimate was conservative, 2x may be realistic), (c) revise the SLOs (only if there's business justification \u2014 not just because you can't hit the original targets). The PM's job is to surface this clearly to leadership with the options and tradeoffs, not to hide the result.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Read Anthropic's usage policies and API terms of service. Identify three commitments Anthropic makes to API users that constrain how quickly they can change the product. Now consider: what equivalent commitments would Make make at GA? Which of those would be hardest to keep?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the \"GA tax\" to an engineer who is eager to ship GA because they're tired of \"this is beta\" disclaimers. What changes after GA that affects their day-to-day work?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you launched a product or feature to GA (or equivalent)?",
+        "What was the most significant gap between your beta readiness assumptions and what GA actually required?",
+        "What would you add to your GA checklist based on that experience?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "GA is a binding commitment to reliability, support, and backward compatibility \u2014 requiring 30 days of SLO compliance, 3x load test validation, security audit completion, and full observability coverage before the label is earned, not simply assigned.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "GA is a milestone, not an endpoint. Once you're GA, you're sequencing a multi-quarter roadmap that includes runtime improvements, eval systems, extensibility APIs, and a plugin ecosystem. How do you sequence all of that?\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Three weeks before planned GA, load testing at 3x traffic shows preview success rate at 99.1% (SLO: 99.5%) and p95 MTTP at 4.2s (SLO: 3s). What is the correct course of action?",
+      "options": [
+        "Proceed with GA on schedule — 99.1% is close to target and will improve as the team optimizes post-launch",
+        "Surface the SLO failures to leadership with explicit options and tradeoffs — GA cannot proceed on this timeline without accepting breach of stated reliability commitments",
+        "Quietly revise the SLOs to match the observed performance so GA can proceed on schedule"
+      ],
+      "correctIndex": 1,
+      "explanation": "Both preview success rate and MTTP are failing their SLOs under load — these are hard failures, not near-misses. The module is explicit: GA means binding commitments to reliability, and 'GA is not this works most of the time.' The PM's job is to surface this clearly to leadership with options (delay GA, narrow SLOs with business justification, reduce load projection) — not to absorb the result silently or revise targets to match observed performance without justification.",
+      "encourageCorrect": "Exactly right — the PM's job is transparent escalation with options, not hiding the result or declaring success on a technicality.",
+      "encourageIncorrect": "99.1% may sound close to 99.5%, but under load at GA scale that gap represents real user failures. Proceeding without addressing SLO breaches turns GA into a promise you can't keep. Revising SLOs downward to match observed performance, without business justification, is what the module calls out as an unacceptable option."
+    },
+    {
+      "question": "What is the primary distinction between a 'soft GA launch' and a 'hard GA launch,' and why does the sequence matter?",
+      "options": [
+        "Soft launch is invite-only with no SLA publication; hard launch removes the beta label and publishes SLAs publicly",
+        "Soft launch is invite-only; hard launch is open access — the distinction is about user volume",
+        "Soft launch validates SLO compliance at early GA conditions before the hard launch press moment drives a large traffic spike"
+      ],
+      "correctIndex": 2,
+      "explanation": "The soft launch (removing the beta label, publishing SLAs, but no major marketing push) is a validation gate before the hard launch press moment. It gives 2-4 weeks to catch GA-breaking issues that only appear at non-beta scale — before a Product Hunt launch or press coverage drives 3-5x traffic. Skipping the soft launch means discovering GA-breaking issues in front of the largest possible audience.",
+      "encourageCorrect": "Right — the soft-to-hard launch gap is specifically designed as a last-chance validation window before the traffic spike that makes failures maximally visible.",
+      "encourageIncorrect": "Both soft and hard launches involve SLA publication and open access — the distinction isn't commitment level or user gates. The sequencing purpose is to validate stability under early GA conditions before deliberately attracting a large audience through press coverage."
+    },
+    {
+      "question": "An engineer argues: 'We should go GA now — the beta label is holding back sales and I'm tired of disclaimers.' What does the 'GA tax' argument add that the engineer's framing misses?",
+      "options": [
+        "GA creates binding commitments — SLAs, backward compatibility, support SLOs — that make post-GA velocity slower and every change a formal breaking-change process",
+        "GA requires additional engineering headcount that must be hired before the label can be removed",
+        "GA has no engineering implications; it is a marketing decision that the PM and CPO should make without engineering input"
+      ],
+      "correctIndex": 0,
+      "explanation": "The 'GA tax' is the set of commitments that GA creates and that the engineer hasn't accounted for: SLAs that may trigger financial penalties if violated, backward compatibility obligations that turn trivial endpoint renames into multi-month deprecation processes, and support SLOs that constrain how the team operates. GA isn't just removing a label — it's accepting organizational constraints on every future decision.",
+      "encourageCorrect": "Correct — the GA tax is real and permanent. The engineer sees the upside (no more disclaimers) but not the downstream constraints on team velocity and change management.",
+      "encourageIncorrect": "GA is not purely a marketing decision — it has direct engineering implications. Every API endpoint, file format, and data structure shipped at GA becomes subject to backward compatibility obligations. The module's 'GA tax' section exists precisely to give PMs the framing to explain these consequences to engineers who are eager to ship the label."
+    }
+  ]
+}

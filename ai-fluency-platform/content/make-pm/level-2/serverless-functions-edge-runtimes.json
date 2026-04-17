@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "2.4 Serverless Functions & Edge Runtimes",
+    "description": "The term \"serverless\" is a marketing euphemism that obscures a genuinely important architectural shift. The server exists. What's different is who manages it, how it's billed, and \u2014 most importantly f",
+    "level": "level-2",
+    "slug": "serverless-functions-edge-runtimes",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Serverless means \"no server to manage.\" But there's obviously a server somewhere. What's actually different about serverless, and why would Make care? Write your current understanding before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The term \"serverless\" is a marketing euphemism that obscures a genuinely important architectural shift. The server exists. What's different is who manages it, how it's billed, and \u2014 most importantly for our purposes \u2014 what the isolation and execution model looks like.\n\n**The serverless model:**\n\nIn traditional server deployments, you provision a machine (or a container), your code runs continuously on it, and you're billed for uptime regardless of whether requests are coming in. Your Express app starts, listens on port 3000, and stays resident in memory for weeks.\n\nIn serverless, you deploy a function. The platform receives a request, provisions an execution environment, runs your function to completion, returns the response, and de-provisions (or freezes) the environment. You're billed for execution time measured in milliseconds, not for uptime. At zero traffic, cost is zero.\n\n**The three major serverless models and their isolation mechanisms:**\n\n**AWS Lambda** runs your code in a microVM (using Firecracker, Amazon's open-source microVM technology). Each Lambda execution gets a dedicated microVM with its own kernel, memory space, and network interface. This provides strong isolation \u2014 one tenant's code genuinely cannot interfere with another's. Cold start is 100ms-1s for a warmed environment, up to 3s for a true cold start with a large deployment package. Warm Lambda instances are reused across invocations (within ~15 minutes of last use), which is why Lambda code can maintain module-level state between invocations \u2014 a common source of bugs for developers who don't understand this.\n\n**Vercel Functions** are Lambda under the hood for Node.js, with a framework-aware layer on top. Vercel understands Next.js API routes, Remix route handlers, and SvelteKit endpoints \u2014 it handles the build and deployment plumbing so you don't write Lambdas directly. From a PM perspective, Vercel Functions are the deployment target when Make generates a Next.js app.\n\n**Cloudflare Workers** use a fundamentally different isolation model: **V8 isolates**. Rather than spinning up a VM or container, Cloudflare runs your JavaScript code directly in a V8 isolate \u2014 the same isolation mechanism that browsers use to keep different browser tabs from accessing each other's memory. A V8 isolate is dramatically lighter than a VM: ~10KB of overhead versus tens of megabytes for a container. Cold start is essentially zero \u2014 sub-millisecond. The cost: V8 isolates enforce strict limits on what runtime APIs are available. No `fs`, limited `fetch` patterns, no long-running connections, execution time caps at 50ms (CPU) by default.\n\n**Edge runtimes** are serverless functions deployed to a globally distributed network of Points of Presence (PoPs). Cloudflare has 300+ PoPs worldwide. Vercel has edge functions running in ~50 regions. The implication: a user in Tokyo gets a response from a node that might be 5-10ms away, not 150ms away from a US-based data center. For latency-sensitive operations \u2014 auth token validation, A/B test routing, personalization \u2014 this matters enormously.\n\n**Why serverless matters for Make's generated apps:**\n\nThe apps Make generates are not static websites. They typically include API routes (for form submissions, data fetching, auth callbacks), server-side rendering (for SEO and performance), and potentially server actions (for database mutations). These server-side behaviors need somewhere to run.\n\nWhen Make deploys a user's app, the question \"where do the server-side parts run\" has architectural consequences:\n\n- **Next.js App Router** is built assuming serverless deployment. Server Components, Server Actions, and API routes all assume they'll run in short-lived function invocations. State persists in a database, not in memory.\n- **Remix** is more flexible \u2014 it has adapters for Node.js long-running servers, Cloudflare Workers, and Vercel. But the code you write differs by adapter.\n- **SvelteKit** is adapter-based by design \u2014 you choose your deployment target and the adapter generates the appropriate output.\n\n**The framework coupling problem:**\n\nThis is the part that's often invisible until you're locked in. When Make chooses a default framework, it implicitly chooses a serverless deployment target. Next.js \u2192 Vercel is the canonical pairing. Remix \u2192 Cloudflare Workers is increasingly common. These aren't just deployment preferences \u2014 the framework's server-side primitives are designed around the capabilities of the target runtime.\n\nIf Make defaults to Next.js and generates Server Actions, those Server Actions assume they can run for up to 60 seconds (Vercel's function timeout). Port that app to Cloudflare Workers and the 50ms CPU limit makes those Server Actions non-starters.\n\n**The cold start problem in comparative perspective:**\n\n| Platform | Isolation | Cold Start | Cost Model |\n|---|---|---|---|\n| Cloudflare Workers | V8 isolate | ~0ms | Per request |\n| Vercel Edge Functions | V8 isolate | ~0ms | Per request |\n| Vercel Node.js Functions | Lambda (Firecracker) | 100ms-1s | Per GB-second |\n| AWS Lambda | Firecracker microVM | 100ms-3s | Per GB-second |\n| Docker container | Linux namespaces | 2-10s | Per container-hour |\n\nFor Make's preview infrastructure, the cold start column is critical. For Make's production deployment infrastructure, the cost model column matters more (since production containers are long-lived).\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user generates a Next.js app with Server Actions that write to a SQLite file on disk. The app works perfectly in the Make preview. When they deploy, the Server Actions stop persisting data between requests. Why?",
+      "answer": "SQLite writing to disk assumes a persistent filesystem \u2014 the same process always has access to the same file. Serverless functions run in ephemeral execution environments; the \"disk\" between invocations is not the same disk. A Lambda or Vercel Function may run your code in any of dozens of containers, none of which share a filesystem. Data written to disk in one invocation is invisible to the next. The fix is to use a real database (PostgreSQL, PlanetScale, Turso) that persists externally. This is a case where the preview environment (which might use a persistent WebContainer filesystem) is misleading about production behavior.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Deploy the same \"hello world\" function to three platforms and measure cold start:\n\n1. **Cloudflare Workers** (free tier) \u2014 note the sub-millisecond response even on first hit\n2. **Vercel Functions** \u2014 create a Next.js API route, deploy, then wait 15 minutes of inactivity and hit it again\n3. **AWS Lambda** \u2014 deploy via the console with a simple Node.js handler\n\nRecord the first-request latency after a cold period for each. These are real numbers you'll reference in engineering discussions.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Your engineering lead says: \"We should use Cloudflare Workers for all server-side execution in Make because cold starts are zero.\" In two paragraphs, explain why this is compelling but not straightforwardly correct.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "As Platform PM, what is the business risk of coupling Make's deployment model tightly to either one of these platforms?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Serverless functions and edge runtimes solve the cost and cold-start problems of containers for stateless workloads, but their runtime API restrictions and execution time limits mean the framework you choose to generate determines which serverless targets are actually viable \u2014 and that coupling is invisible until you try to move.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The preview environment and the serverless deployment target both involve running untrusted or AI-generated code. But neither WebContainers nor serverless functions were designed primarily as security boundaries. What happens when the AI generates code that tries to do something harmful \u2014 and what platform-level mechanisms exist to stop it?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Cloudflare Workers use V8 Isolates for isolation while Vercel Node.js Functions use Firecracker microVMs. Both are described as 'serverless.' What is the key product consequence of this architectural difference?",
+      "options": [
+        "Cloudflare Workers have sub-millisecond cold starts and are billed per-request, but the V8 Isolate model enforces strict runtime API restrictions (no fs, limited fetch, 50ms CPU cap) that make them incompatible with code using Node.js APIs; Vercel Functions use microVMs with full Node.js support but have 100ms-1s cold starts",
+        "Cloudflare Workers are more expensive because V8 Isolates require more memory per function than microVMs",
+        "The difference is only in deployment geography — Cloudflare runs in more regions, while Vercel runs closer to the user's browser"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module's key point is that these two serverless models have completely different capability profiles despite the same 'serverless' label. V8 Isolates enable near-zero cold starts but restrict runtime APIs — no fs, no arbitrary TCP, 50ms CPU cap, no long-running connections. Firecracker microVMs support full Node.js APIs but have meaningful cold start latency. The implication for Make is that if generated code uses Node.js APIs (as Next.js Server Actions do), Cloudflare Workers cannot run it regardless of their cold start advantage.",
+      "encourageCorrect": "Correct — 'serverless' is a billing and management model, not a capability model. The runtime API restrictions of V8 Isolates are the product-level consequence that changes which frameworks can deploy there.",
+      "encourageIncorrect": "Cost per invocation is actually lower for V8 Isolates, not higher. Geography affects latency but isn't the core architectural distinction. The key difference is runtime API access: V8 Isolates restrict what code can do (no fs, limited network, CPU caps), while Firecracker microVMs support full Node.js. This determines which generated apps can run on which platform."
+    },
+    {
+      "question": "A user generates a Next.js app with Server Actions that write to a local SQLite file. The app works perfectly in Make's preview environment. After deploying to Vercel Functions, data stops persisting between requests. Why?",
+      "options": [
+        "Vercel doesn't support SQLite — users must use a cloud database like PlanetScale or Turso",
+        "The preview environment and Vercel use different versions of Node.js, causing SQLite to serialize data in incompatible formats",
+        "Serverless function instances are ephemeral — disk writes in one invocation may not be visible to subsequent invocations that run on different container instances with separate ephemeral filesystems, unlike the preview environment which may use a persistent filesystem"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly uses this as a calibration check example. Serverless functions run in ephemeral execution environments — each invocation may be served by a different container instance, each with its own filesystem that disappears when the instance terminates. Data written to 'disk' in one invocation is not accessible to the next. The preview environment (especially a persistent WebContainer or dev server session) creates the illusion of a durable filesystem. The fix is an external persistent store (database, object storage), not a configuration change.",
+      "encourageCorrect": "Right — this is the canonical preview/production parity failure for serverless, and it's important for Make's Platform PM to understand why it happens and how to prevent it upstream.",
+      "encourageIncorrect": "Vercel can technically run SQLite, but the data loss isn't about Vercel support or Node.js version compatibility — it's about ephemeral function instances. Each invocation may run on a different compute instance with a fresh filesystem. Data written to a local file in one invocation is simply not there for the next one. The solution is always an external persistent database."
+    },
+    {
+      "question": "The module describes framework-deployment coupling as 'invisible until you're locked in.' What does this mean, and what is the most important question a Platform PM must ask before committing to a framework-deployment pairing?",
+      "options": [
+        "Framework-deployment coupling means each framework requires a specific cloud provider — React requires AWS, Next.js requires Vercel, and Svelte requires Cloudflare",
+        "A framework's server-side primitives are designed around the capabilities of its target runtime — Next.js Server Actions assume 60-second function timeouts, which is incompatible with Cloudflare Workers' 50ms CPU limit. The PM must ask: if we need to change deployment targets later, which framework features would break?",
+        "Framework coupling is only a concern for enterprise customers with custom deployment requirements — consumer apps can always be redeployed to any platform"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module uses this exact example: Next.js Server Actions assume Vercel's function timeout model. If you later want to deploy to Cloudflare Workers (50ms CPU limit), those Server Actions are non-starters. The coupling is invisible because it's not in a config file — it's in the assumptions baked into the framework's server primitives. The PM question before committing is about future migration cost: which features of this framework depend on capabilities specific to this deployment target, and what's the migration cost if we need to change?",
+      "encourageCorrect": "Exactly — the invisible nature of this coupling is what makes it a Platform PM concern rather than an engineering concern. By the time it's visible, the platform is already committed.",
+      "encourageIncorrect": "Frameworks don't map one-to-one to cloud providers — Next.js runs on AWS Lambda, Cloudflare Pages, and other platforms. The coupling is more subtle: it's about which framework features make assumptions about the runtime's capabilities (timeout limits, filesystem access, long-running connections). These assumptions are invisible until you try to migrate. Consumer vs. enterprise is not the relevant axis."
+    }
+  ]
+}

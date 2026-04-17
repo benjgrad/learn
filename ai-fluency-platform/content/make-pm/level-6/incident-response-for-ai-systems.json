@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "6.6 Incident Response for AI Systems",
+    "description": "Incident response for AI platforms differs from traditional incident response in three important ways: failures are often gradual rather than binary, the root cause is frequently external and opaque, ",
+    "level": "level-6",
+    "slug": "incident-response-for-ai-systems",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "At 2pm on Tuesday, your monitoring shows the agent's build success rate dropped from 92% to 71% in the last hour. Users haven't complained yet. What do you do in the next 30 minutes?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Incident response for AI platforms differs from traditional incident response in three important ways: failures are often gradual rather than binary, the root cause is frequently external and opaque, and the rollback options are different. Traditional runbooks assume something is either up or down. AI systems introduce a third state: degraded but running.\n\n---\n\n**Detection: The Earlier, the Better**\n\nIn the scenario above, your monitoring caught a 21-point drop in build success rate before users complained. This is the ideal detection scenario. The alternative — users filing support tickets before your monitoring fires — means you've already delivered a degraded experience to thousands of users before investigation begins.\n\nThe detection infrastructure that makes early catching possible:\n- Threshold alerts on rate metrics with short evaluation windows (5-minute burn rates, not hourly aggregates)\n- Anomaly detection on metrics that vary by time of day (a 71% build success rate at 2pm Tuesday is alarming; the same rate at 3am Sunday might be normal low-traffic behavior)\n- Synthetic monitoring: automated test sessions that run every 5 minutes, build a known-good project, and alert if the build fails. These are your canaries.\n\n---\n\n**Triage Framework: Scope, Severity, Surface**\n\nWhen an incident fires, the first 10 minutes are about triage, not fixing. Three questions structure triage:\n\n**Scope: Who is affected?**\n- All users globally, or a subset (specific region, specific plan tier, specific template type)?\n- Filter your slow/failed traces by region, user segment, and project type. If 100% of failures are in us-east-1 and other regions are healthy, you've isolated the scope.\n\n**Severity: How broken is it?**\n- Degraded (71% build success, down from 92%) vs. broken (0% build success)?\n- What's the user-facing impact? Can users still preview? Can they still deploy?\n- Is the degradation worsening, stable, or recovering?\n\n**Surface: Where is the cause likely to live?**\n\nFor AI-specific incidents, the causal surface is different from traditional services. Primary suspects:\n\n| Surface | Signal |\n|---|---|\n| Upstream model regression | Started after Anthropic deployed a new model version |\n| npm/package registry issue | Build failures concentrated in projects with many dependencies |\n| Runtime configuration drift | Started after a platform deployment |\n| Memory leak | Slow degradation correlating with instance uptime |\n| External API outage | Failures in projects that call specific external services |\n\n---\n\n**Common AI Incident Patterns**\n\n**Pattern 1: Upstream model regression.** Anthropic (or any model provider) ships a new model version that behaves differently from the previous one. Generated code may have subtle differences — different library preferences, different naming conventions — that cause build failures in projects with strict TypeScript configs. Your evals should catch this (see Level 5), but if they miss it, it shows up here.\n\nDiagnosis: check if the degradation timestamp correlates with an Anthropic model update. Check your eval suite results for the new model version.\n\nRollback: model providers typically offer version pinning. Pin to the previous model version while investigating.\n\n**Pattern 2: External dependency outage.** npm's registry experiences partial outages multiple times per year. If Make's build pipeline doesn't cache dependencies aggressively, an npm outage translates directly to build failures for any project that needs to install packages.\n\nDiagnosis: look for the specific npm error in logs. Check npm's status page.\n\nMitigation: pre-warm a dependency cache for the 500 most common packages. Implement fallback to cached versions when the registry is unreachable.\n\n**Pattern 3: Runtime configuration drift.** A platform deployment changed a configuration value — container memory limits, network policies, timeout thresholds — in a way that breaks a subset of use cases.\n\nDiagnosis: correlate the incident start time with your deployment history. A 15-minute correlation is a strong signal.\n\nRollback: revert the deployment using your deployment pipeline.\n\n**Pattern 4: Prompt regression.** A change to the agent's system prompt or few-shot examples caused it to generate different code patterns that break more frequently. This is the subtlest failure mode because the model is technically working — it's just making different choices.\n\nDiagnosis: compare the distribution of generated code patterns before and after the incident. If the agent is now consistently choosing a deprecated API or a package that conflicts with your default dependencies, that's a prompt regression.\n\nRollback: revert the prompt change. This requires version-controlling your system prompts — a practice that should be non-negotiable.\n\n---\n\n**Rollback Options**\n\nEvery mitigation action should be pre-planned and tested before you need it:\n\n| Issue | Rollback |\n|---|---|\n| Model regression | Pin to previous model version via API parameter |\n| Prompt regression | Revert prompt to previous version (version-controlled in git) |\n| Feature-specific failure | Disable feature behind feature flag |\n| Infrastructure issue | Revert deployment via pipeline |\n| External dependency | Activate cached fallback |\n\nThe ability to execute a rollback in under 5 minutes, without coordination overhead, is a platform maturity milestone worth tracking.\n\n---\n\n**Communication During Incidents**\n\nTwo audiences, two communication channels:\n\n**Users:** Status page update within 10 minutes of incident declaration. Plain language. \"Some users are experiencing longer build times. We're investigating and will update in 30 minutes.\" Update every 30 minutes until resolved.\n\n**Internal teams:** Slack war room channel (#make-incident-2026-04-15). Technical details, active hypotheses, who is working what. This is where the investigation happens in real time.\n\nThe worst incident communication failure is silence — users noticing something is wrong and finding nothing on your status page. It erodes trust faster than the incident itself.\n\n---\n\n**Post-Incident: The Blameless Review**\n\nWithin 48 hours of incident resolution, run a blameless post-incident review. \"Blameless\" means the goal is to improve the system, not to assign fault to individuals.\n\nThe review should produce:\n1. **Timeline:** What happened, when, detected how, resolved how\n2. **Root cause:** What actually caused the failure\n3. **Contributing factors:** What made detection slower or recovery harder\n4. **Action items:** Specific, owned improvements — a new eval case for the failure mode, a new alert threshold, a runbook update, a dependency caching improvement\n\nThe new eval case is the most important output. Every production failure should become a permanent test case so that failure mode can never silently recur.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A post-incident review for a prompt regression reveals: the system prompt was stored in a database record, not version-controlled in git. A developer updated it directly in production. What process controls do you implement?",
+      "answer": "*Look for: system prompt version control in git with required code review, deployment pipeline for prompt changes (treat like code), A/B testing gate before full rollout, rollback procedure tested and documented.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Check the Anthropic API documentation for model versioning. How does Anthropic handle model deprecation? What notice period do they provide? How would you design Make's model pinning strategy around their deprecation policy?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a new on-call engineer why AI incidents require a different triage framework than traditional service incidents. What are the three additional failure surfaces that don't exist in a deterministic service?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "At which step did things go wrong — detection, triage, rollback, or communication?",
+        "What would you build differently in Make's incident response process based on that case?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "AI incident response requires triage across a unique set of failure surfaces — model regressions, prompt regressions, and external dependency outages — and every production incident should become a permanent eval test case so that failure mode can never silently recur.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "That's Level 6. You now know how to see what's happening and respond when it breaks. The Level 6 Checkpoint tests whether you can synthesize the full observability stack into a coherent plan for leadership.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "During incident triage, you determine build failure rate dropped from 92% to 71% and the degradation started at 2pm. What is the first question to ask to distinguish an upstream model regression from a platform configuration change?",
+      "options": [
+        "Whether users in all regions are affected or only a subset, to determine whether the failure is infrastructure-localized",
+        "Whether the degradation timestamp correlates with a recent platform deployment or an Anthropic model update, since each has a different rollback path",
+        "Whether the failures are concentrated in projects with more than 20 npm dependencies, indicating a package registry issue"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's triage framework identifies the 'surface' question as critical: where is the cause likely to live? The timestamp correlation — does the degradation align with a platform deployment or with an Anthropic model update? — determines which rollback option is available. Platform deployment → revert the deployment. Model regression → pin to the previous model version. These are different actions requiring different ownership and different speed of execution.",
+      "encourageCorrect": "Right — timestamp correlation to deployment vs. model update is the first branching point in AI incident triage.",
+      "encourageIncorrect": "Regional scoping and dependency count analysis are both valid triage questions, but they come after establishing the likely causal surface. The timestamp correlation to a deployment or model update tells you immediately which incident pattern you're dealing with and which rollback to prepare."
+    },
+    {
+      "question": "A post-incident review reveals the system prompt was stored in a database record rather than version-controlled in git, and a developer updated it directly in production. What process controls does the module recommend implementing?",
+      "options": [
+        "Move the system prompt to an environment variable that can only be updated through the CI/CD pipeline deployment process",
+        "Implement database-level audit logging so all system prompt changes are logged with the author's identity and timestamp",
+        "Require system prompts to be version-controlled in git with required code review, treat prompt changes like code deployments with a pipeline, test with A/B gating before full rollout, and document a rollback procedure"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module's calibration answer lists the required controls: version control in git with code review, a deployment pipeline for prompt changes (treat like code), an A/B testing gate before full rollout, and a documented rollback procedure. Audit logging is useful but doesn't prevent the problem — it only helps you understand it after the fact. Environment variables without git history don't enable code review or easy rollback.",
+      "encourageCorrect": "Correct — all four controls are required. Version control enables rollback, code review catches regressions before production, the pipeline enforces process, and documented rollback enables fast recovery.",
+      "encourageIncorrect": "Audit logging alone addresses accountability but doesn't prevent direct production changes or make rollback easier. The module's controls are process-enforcing: git + review + pipeline make it structurally harder to bypass the process, and a tested rollback procedure makes recovery fast when something still gets through."
+    },
+    {
+      "question": "What is the most important output of a blameless post-incident review, according to the module?",
+      "options": [
+        "New eval test cases created from the failure mode — every production incident should become a permanent regression test so that failure mode can never silently recur",
+        "A timeline and root cause document shared with leadership to demonstrate the team's investigative rigor",
+        "An updated runbook with specific diagnostic steps tailored to the incident's failure pattern"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module explicitly states: 'The new eval case is the most important output' of the post-incident review. Every production failure that reaches users represents a gap in the eval suite — the failure mode wasn't covered. Adding it as a permanent test case closes that gap and prevents silent recurrence. Timelines and runbook updates are valuable outputs but secondary to closing the eval coverage gap.",
+      "encourageCorrect": "Exactly — the eval case converts the incident into a permanent quality protection. Without it, the same failure mode can recur.",
+      "encourageIncorrect": "Runbook updates and leadership communication are valuable, but the module prioritizes the eval case above them. The reason is systemic: a runbook helps you respond faster next time, but an eval case prevents the problem from reaching users in the first place. Prevention over response."
+    }
+  ]
+}

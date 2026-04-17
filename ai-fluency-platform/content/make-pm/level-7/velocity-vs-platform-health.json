@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "7.5 Velocity vs. Platform Health",
+    "description": "The velocity-versus-platform-health tension is the most common and most consequential tradeoff in platform product management. Every engineering organization eventually faces this: the platform that w",
+    "level": "level-7",
+    "slug": "velocity-vs-platform-health",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Make needs to ship 3 zero-to-one features this quarter to hit GA milestones. Your platform engineer says the runtime needs a rewrite or it won't support the load at GA. You can't do both. How do you decide?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The velocity-versus-platform-health tension is the most common and most consequential tradeoff in platform product management. Every engineering organization eventually faces this: the platform that worked at 1,000 users struggles at 10,000, and the team that kept shipping features while deferring the rewrite now faces an emergency rewrite under pressure with GA six weeks away.\n\nUnderstanding this tradeoff well \u2014 which means being able to quantify the risk, not just assert that \"technical debt is bad\" \u2014 is what separates a Platform PM who can partner effectively with engineering from one who is either a rubber stamp or a permanent roadblock.\n\n---\n\n**Quantifying the Risk of Not Rewriting**\n\nThe first step is replacing \"the runtime needs a rewrite\" with concrete risk analysis. An engineer who says \"it won't support the load at GA\" has an implicit model in their head. Your job is to make that model explicit.\n\nQuestions to ask:\n\n**At what load does the runtime fail?** \"We've load tested to 5,000 concurrent preview sessions. Above that, memory pressure causes crashes. Our GA projection is 15,000 concurrent sessions at peak.\"\n\n**What does failure look like?** \"Memory limit breaches cause the container to crash and restart. During the 30-45 seconds of restart, all active preview sessions fail. Users see a blank screen. We'd expect 2-3 restarts per hour at GA load.\"\n\n**What's the probability we reach that load?** \"Based on the beta growth curve, we project hitting 15,000 concurrent sessions in the third week post-GA, assuming the GA launch includes a press moment.\"\n\n**What does the rewrite get us?** \"The rewrite moves from a single-process model to a multi-process architecture that can handle 50,000 concurrent sessions with graceful degradation instead of crashes. It also eliminates a memory leak that currently requires a weekly restart.\"\n\nWith this information, you can make a risk-adjusted decision instead of an opinion-based one. The question becomes: \"Is the risk of 2-3 preview crashes per hour in Week 3 post-GA acceptable, given the cost of the 3-month rewrite?\"\n\n---\n\n**Decision Frameworks**\n\n**Option 1: Feature freeze for platform hardening.** Dedicate Q3 entirely to platform work: the runtime rewrite plus observability and GA hardening. Ship zero new features. Launch features in Q4 post-rewrite.\n\nThis requires leadership buy-in and a credible story for why GA is delayed. The story: \"We can GA on schedule with the current runtime and expect significant reliability problems at scale, or we can GA 3 months later with a runtime that handles 3x our GA projections.\" If leadership understands the risk clearly, the delay is often the right choice.\n\n**Option 2: Parallel track.** Split the engineering team: some engineers on GA milestone features, some on the runtime rewrite. Both tracks run simultaneously.\n\nThe cost: you're slower on both. The feature track is at 60% capacity; the platform track is at 40% capacity. The feature ships later and the rewrite ships later. But you don't stop entirely on either.\n\nThe risk: engineers in parallel tracks create integration points that conflict. The feature team builds against the current runtime; the platform team rewrites the runtime. Integration requires careful interface design to prevent coupling.\n\n**Option 3: Incremental improvement.** Instead of a full rewrite, decompose the rewrite into pieces that can ship incrementally alongside features.\n\nThe \"strangler fig\" pattern: build the new system alongside the old one, route increasing percentages of traffic to the new system, retire components of the old system as they're replaced. This avoids the \"big bang\" rewrite risk (the rewrite takes longer than expected and is never finished) and keeps the platform shipping incrementally.\n\nThis requires the rewrite to be architecturally decomposable \u2014 which it often is, but sometimes isn't.\n\n---\n\n**SLO-Based Decision Making**\n\nThe cleanest way to avoid this as an opinion debate is to have SLOs defined before the situation arises. If you've agreed that \"preview success rate must be 99.5%,\" and your current runtime projects to deliver 97.8% at GA load, the math has already made the decision. Platform work isn't optional \u2014 it's required to meet the stated reliability commitment.\n\nThis is why defining SLOs early (before the reliability crisis) is a Platform PM priority. SLOs convert the \"features vs. reliability\" debate from a judgment call into a measurement question.\n\n---\n\n**How to Frame for Leadership**\n\nThe wrong framing: \"We need to pause features to do a rewrite.\"\n\nLeadership hears: \"Engineering wants to stop building the product to do internal work that users won't see.\"\n\nThe right framing: \"Here is our current reliability projection at GA scale. Here is the user impact of that reliability level \u2014 2-3 preview crashes per hour, each lasting 30-45 seconds. Here is the probability of that scenario. Here is the cost to fix it now versus after a GA reliability incident. What reliability level are we committing to at GA?\"\n\nThis framing presents the tradeoff as a business decision (what reliability level does the company want to commit to?) rather than a technical preference. Leadership can make that decision. What they can't make is a technical decision about memory management architectures.\n\n---\n\n**When to Override Engineering's Risk Assessment**\n\nSometimes engineers overstate the risk because they want to do the \"right\" technical thing, not because the risk is actually critical. The signal: the risk analysis is vague (\"it won't scale\"), the failure mode is unspecified, and the rewrite scope keeps expanding.\n\nThe test: can the engineer articulate a specific, measurable failure scenario with a probability estimate? If not, work together to build the risk model before deciding. A 3-month rewrite based on a vague \"it won't scale\" is not a justified tradeoff.\n\nConversely, engineers who have been right about platform risk in the past deserve significant credibility weight. Track record matters.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your runtime engineer says: \"If we don't fix the memory leak before GA, we'll need to restart the preview service every week. The restart takes 45 seconds and all active preview sessions fail.\" There are currently 200 active sessions during the weekly restart window. At GA, they project 3,000 active sessions during the restart. How do you use this information to make a tradeoff decision?",
+      "answer": "*Quantify: 3,000 failed sessions per restart, once per week = 3,000 degraded user experiences weekly. Is that acceptable? Alternatives: can the restart be done during low-traffic hours (2am Sunday)? Can you implement rolling restarts that minimize session loss? Can you fix just the memory leak (a smaller fix) without the full rewrite? Always look for the option that's not \"full rewrite or do nothing.\"*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Find a case study of a well-known platform rewrite: Twitter's \"fail whale\" era and the move to the JVM, Shopify's storefront rendering rewrite, or Slack's message server rewrite. What triggered the decision to rewrite? What was the cost of having deferred it? What was the migration strategy?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the SLO-based decision-making approach to an engineer who says \"leadership never prioritizes platform work.\" How do SLOs change that dynamic by making platform work a contractual requirement rather than an engineering preference?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you faced a version of this tradeoff \u2014 a foundational system that needed significant work while there were also features to ship?",
+        "How would you approach that prioritization?",
+        "What would you do differently with the benefit of hindsight?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The velocity-versus-platform-health tradeoff becomes a math problem when you quantify the specific failure scenario, its probability, and its user impact \u2014 and SLOs convert the tradeoff from an opinion debate into a reliability commitment the whole team has already agreed to.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Rewrites and feature tradeoffs are in-quarter decisions. But GA itself is a milestone that requires a different kind of readiness \u2014 you're making a promise to the market. What does it actually mean to be ready for GA?\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "An engineer says 'the runtime won't scale at GA.' A PM proposes deferring the rewrite to ship three GA milestone features. What does the module say must happen before this becomes a real decision?",
+      "options": [
+        "Leadership must approve the rewrite budget before the PM can evaluate it",
+        "The vague risk must be quantified: specific failure load, what failure looks like, probability of reaching that load, and what the rewrite buys",
+        "The PM should defer to the engineer's judgment since platform reliability is a technical, not a product, decision"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's first step is replacing 'it won't scale' with a concrete risk model: at what load does it fail, what does failure look like, what is the probability of reaching that load, and what does the rewrite actually deliver? Without this, the tradeoff is an opinion debate. With it, the question becomes risk-adjusted: is 2-3 crashes per hour in Week 3 post-GA an acceptable tradeoff against a 3-month delay?",
+      "encourageCorrect": "Exactly — quantifying the failure scenario is what converts a vague engineering preference into a business decision leadership can actually make.",
+      "encourageIncorrect": "Deferring to engineering without a quantified risk model is the failure mode the module explicitly warns against. 'Technical debt is bad' is not a business argument. The PM's job is to make the risk explicit — specific failure scenario, probability, user impact — so the tradeoff is a math problem, not a judgment call."
+    },
+    {
+      "question": "Make has defined an SLO of 99.5% preview success rate. Load testing projects 97.8% at GA scale. Which of the following best describes how SLOs change the decision-making dynamic?",
+      "options": [
+        "SLOs give the PM authority to override engineering's feature priority without leadership approval",
+        "SLOs are aspirational targets that can be revised downward if the rewrite timeline is too long",
+        "SLOs convert the features-vs-reliability debate from a judgment call into a measurement question — platform work is required to meet a commitment the team already agreed to"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module's explicit argument for defining SLOs early is that they shift the conversation from 'engineering wants to do internal work' to 'we've already committed to a reliability level and the current trajectory doesn't reach it.' The reliability investment stops being a preference and becomes a prerequisite. Revising SLOs downward is possible but requires business justification — not just because the team can't hit the original target.",
+      "encourageCorrect": "Right — SLOs are a pre-commitment mechanism that makes platform health a contractual requirement rather than an engineering preference competing with feature work.",
+      "encourageIncorrect": "SLOs don't grant unilateral authority, but they do change who has to make the case. Without SLOs, engineers have to convince PMs that reliability matters. With SLOs, PMs have to explain why the team isn't meeting its own stated commitments. That asymmetry is the point."
+    },
+    {
+      "question": "The platform engineer's risk analysis is vague: 'it won't scale.' The rewrite scope keeps expanding in planning conversations. What does the module identify as the right response?",
+      "options": [
+        "Approve a smaller, scoped version of the rewrite to demonstrate good faith while protecting feature velocity",
+        "Treat the vagueness as evidence the rewrite is not necessary and deprioritize it in favor of GA milestone features",
+        "Build the risk model collaboratively with the engineer — what specific load, what specific failure mode, what probability — before making any sequencing decision"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly distinguishes between engineers who overstate risk because they want to do the technically correct thing and engineers with a legitimate case. The diagnostic is whether they can articulate a specific, measurable failure scenario with a probability estimate. If not, the right response is to build that model together — not to approve or dismiss the rewrite based on the vague claim.",
+      "encourageCorrect": "Correct — the collaborative risk model is how you distinguish legitimate platform risk from an engineering preference dressed up as a technical concern.",
+      "encourageIncorrect": "Vagueness is a signal to investigate further, not to approve or dismiss. A PM who either rubber-stamps the rewrite or rejects it based on a vague claim has failed to do the analytical work the module describes. Build the risk model first."
+    }
+  ]
+}

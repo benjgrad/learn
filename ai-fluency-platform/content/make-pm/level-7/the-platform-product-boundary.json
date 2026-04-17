@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "7.3 The Platform-Product Boundary",
+    "description": "The tension between product teams who want features fast and platform teams who want abstractions that scale is one of the defining organizational dynamics of any platform company. It's not a dysfunct",
+    "level": "level-7",
+    "slug": "the-platform-product-boundary",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "The Make Product team wants a feature: \"one-click Supabase integration.\" They ask Platform to build a generic \"database integration layer\" that supports Supabase, Firebase, PlanetScale, and Neon. Platform says that's a 3-month project. Product says Supabase-only takes 2 weeks. Who's right?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The tension between product teams who want features fast and platform teams who want abstractions that scale is one of the defining organizational dynamics of any platform company. It's not a dysfunction \u2014 it's inherent to the different mandates. Understanding how to navigate this tension is a core competency for a Platform PM, because the wrong answer in either direction has significant costs.\n\n---\n\n**The Case for the Abstraction**\n\nThe platform team's instinct to build a \"database integration layer\" instead of a Supabase-specific integration is architecturally sound reasoning. If you build Supabase-specific today, and Firebase demand materializes in three months, you build Firebase-specific. Then PlanetScale. By integration number four, you have four separate implementations with no shared infrastructure, divergent error handling, inconsistent authentication patterns, and four times the maintenance burden. The abstraction you avoided building in Week 1 is now a refactor that costs more than the original abstraction would have.\n\nThe abstraction argument is strongest when:\n- The problem domain has well-understood variation (databases are all roughly similar \u2014 connection, query, auth)\n- You have confident evidence that multiple instances of the variation will be needed\n- The abstraction unlocks third-party extensibility (a generic database integration layer is something partners can extend with their own providers)\n- You're early enough that the abstraction doesn't require rewriting existing implementations\n\n---\n\n**The Case Against the Abstraction**\n\nProduct's instinct to build Supabase-specific is also sound reasoning. Abstractions are not free. Every abstraction layer adds:\n\n- **Complexity:** The abstraction has to accommodate all current and future database providers. This means negotiating the lowest-common denominator of their capabilities, or building escape hatches for provider-specific features. Both options add complexity.\n- **Latency:** More layers means more function calls, more configuration resolution, more interface translation. Not always significant, but real.\n- **Maintenance:** The abstraction itself is a codebase that has to be maintained, documented, and updated when a provider's API changes.\n- **Risk:** If the abstraction is wrong (you designed for the wrong variation axes), you have to refactor the abstraction *and* all implementations. A wrong abstraction is worse than no abstraction.\n\nThe abstraction argument is weakest when:\n- You're speculating about future providers without concrete evidence\n- The problem domain has more variation than it appears (databases seem similar until you deal with Firebase's document model vs. Postgres's relational model vs. PlanetScale's branching model)\n- The platform team is already capacity-constrained and a 3-month abstraction project delays other work that's more impactful\n- Supabase is a strategic partnership with Figma and the others are genuinely speculative\n\n---\n\n**The Rule of Three**\n\nThe practical heuristic: build it specific the first time. Refactor when the *third* use case arrives.\n\nFirst use case: Supabase. Build Supabase-specific. Ship in 2 weeks.\n\nSecond use case: Firebase. Evaluate whether the Supabase implementation can be extended with moderate effort. If yes, extend it. If not, build Firebase-specific alongside it and note the pattern.\n\nThird use case: PlanetScale. You now have concrete evidence of variation from two real implementations. You know what's common and what's different. Build the abstraction informed by actual use cases, not imagined ones. The abstraction will be better because it's grounded in reality.\n\nThis heuristic has a name in software engineering: the \"rule of three\" \u2014 the first time you write something, just write it. The second time, note the duplication. The third time, refactor into an abstraction.\n\n---\n\n**How to Say No Constructively**\n\nPlatform PMs often need to decline platform abstraction requests that are premature. The failure mode is refusing without offering a path forward. The constructive version:\n\n\"We'll build Supabase-specific now, with a clean interface that we can extract into an abstraction later if the demand materializes. I'll make sure the Supabase implementation doesn't hardcode assumptions that would make extraction painful. If Firebase demand materializes and we hit the third provider, I'll bring a proposal to prioritize the abstraction \u2014 at that point we'll have real evidence to justify the investment.\"\n\nThis answer gives Product what they need (Supabase in 2 weeks), keeps the future optionality open (clean interface, extractable later), and sets a clear trigger for when Platform will revisit the abstraction investment (third provider).\n\n---\n\n**The Platform Tax**\n\nEvery abstraction has a \"platform tax\" \u2014 the cost in complexity, latency, and developer overhead that users of the abstraction pay compared to a direct implementation. When the platform tax is low and the abstraction saves significant redundant work across multiple teams, it's worth paying. When the platform tax is high and the abstraction solves a problem only one team has, it's not.\n\nThe Platform PM's job is to be honest about the platform tax. When a product team is asking for a 3-month abstraction, the Platform PM should be able to articulate: \"Here's the platform tax of this abstraction \u2014 the added latency, the API surface complexity for each new provider, the documentation burden. Here's the savings if we hit 4 providers. Here's the break-even. We're not at break-even yet.\"\n\n---\n\n**Real-World Parallels**\n\n**AWS:** S3 was built as a specific internal need at Amazon \u2014 a storage service for Amazon.com's product catalog. The abstraction (generic object storage) came from solving the specific problem well. The abstraction was valid because the demand signal was clear.\n\n**Stripe:** Built card payment processing first. Extended to bank transfers, international payments, and eventually a generic payment methods abstraction \u2014 after seeing the variation across markets.\n\n**Figma:** Figma's plugin API is an abstraction over Figma's internal data model. It took years of internal stability before Figma could expose it externally with confidence. The plugin API launched in 2019, four years after Figma's founding.\n\nThe pattern: specific before abstract, with the abstraction informed by real variation.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "The Make agent currently supports three \"tool calls\": write file, read file, and run terminal command. The agent team wants to add support for 15 more tools: web search, screenshot, browser automation, API calls, database queries, etc. Should Platform build a generic \"tool framework\" or implement each tool specifically?",
+      "answer": "*This is a rule-of-three scenario. At 3 tools, specific implementations make sense. At 15, you've crossed the threshold where a generic tool framework (like Anthropic's tool_use spec) is justified. The PM's answer: build the tool framework alongside the first 3-4 new tools, so you have concrete cases to design against.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Find a product you use that has a public API or integration marketplace. Look at the integrations it offers. Pick three integrations in the same category (e.g., three CRM integrations, three analytics integrations). Do they look like they were built on a shared abstraction, or do they look like three separate implementations? What tells you which?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the \"rule of three\" to a product manager who keeps asking Platform to build abstractions for every new feature. Why isn't the second use case enough evidence to justify the abstraction? What does the third use case reveal that the second doesn't?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you been in a situation where you either built an abstraction too early (and it turned out to be the wrong one) or too late (and paid the integration debt)?",
+        "What was the cost of that timing error, and what signal would have told you to go the other direction?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Platform abstractions should be built when three concrete use cases provide enough variation evidence to design the right abstraction \u2014 not speculatively \u2014 and the Platform PM's job is to offer a specific implementation with a clean interface now, with a credible trigger for when abstraction investment is justified.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've handled the Make-specific boundary. But Make Platform could serve more than Make \u2014 it could be Figma's shared runtime for interactive experiences across Design, FigJam, and Sites. Should it? That's the cross-product leverage question.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Make Product wants a Supabase integration in 2 weeks. Platform proposes a generic database integration layer that would take 3 months. Under the rule of three, which is the correct call?",
+      "options": [
+        "Build the generic abstraction now — it's better architecture and will save time when Firebase and PlanetScale are requested",
+        "Build Supabase-specific now with a clean interface, and revisit abstraction only when a third database provider is concretely needed",
+        "Defer both until there is confirmed demand from at least three enterprise customers for multiple database providers"
+      ],
+      "correctIndex": 1,
+      "explanation": "The rule of three says: build it specific the first time, note duplication the second time, build the abstraction the third time when you have concrete variation evidence. At one provider (Supabase), the abstraction is speculative — you don't yet know what variation axes matter. The right answer is Supabase-specific with a clean, extractable interface, not a 3-month abstraction built on imagined future demand.",
+      "encourageCorrect": "Exactly right — the abstraction should be informed by real variation across multiple implementations, not designed speculatively before you've seen what varies.",
+      "encourageIncorrect": "The rule of three's logic is that wrong abstractions are more expensive than no abstraction. At one use case, you can't know which variation axes will matter — Firebase's document model differs fundamentally from Postgres's relational model. Build specific, keep the interface clean, and abstract when you have real evidence."
+    },
+    {
+      "question": "Which of the following is the clearest signal that a Platform team has crossed the platform-product boundary incorrectly?",
+      "options": [
+        "The platform team owns agent orchestration logic because it's easier than coordinating with the product team",
+        "The platform team declines to build a generic abstraction and ships a specific implementation instead",
+        "The platform team has SLAs with internal product teams for shared infrastructure like the code execution sandbox"
+      ],
+      "correctIndex": 0,
+      "explanation": "Agent orchestration — the multi-step tool-calling loop — is Make-specific product logic that should stay in the product team, not the platform team. The module explicitly lists it as something that 'should stay in Make' because it embeds product differentiation. When platform teams absorb product-specific logic 'for convenience,' the platform's cognitive load and complexity explode. SLAs for shared infrastructure and declining premature abstractions are both healthy platform behaviors.",
+      "encourageCorrect": "Right — when platform teams absorb product-specific logic for convenience, they've blurred the boundary in a way that increases platform complexity without adding leverage.",
+      "encourageIncorrect": "SLAs for shared infrastructure are a healthy governance pattern. Declining premature abstractions is the correct rule-of-three call. The violation is owning product-specific logic — agent orchestration embeds Make's core product differentiation, which should never be delegated to a platform team."
+    },
+    {
+      "question": "A product manager argues that building a platform abstraction is justified because 'we'll definitely need this for three other teams in the future.' What is the module's core challenge to this reasoning?",
+      "options": [
+        "Future demand predictions are usually accurate for internal platform teams because roadmaps are coordinated across teams",
+        "Abstractions built on imagined variation often encode the wrong design axes — and a wrong abstraction is worse than no abstraction",
+        "The platform tax of an abstraction is never worth paying unless all three teams are already fully committed to using it"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's explicit warning is that the abstraction argument is weakest when you're 'speculating about future providers without concrete evidence' and that the problem domain often has more variation than it appears. A wrong abstraction — one designed for imagined variation that doesn't match reality — requires refactoring both the abstraction and all implementations, which is more expensive than the original specific implementations would have been.",
+      "encourageCorrect": "Correct — the rule of three exists because real variation, surfaced by multiple concrete use cases, is what makes it possible to design the right abstraction.",
+      "encourageIncorrect": "Internal roadmap coordination doesn't make future demand predictions reliable — product priorities shift, and the third use case often arrives with different characteristics than anticipated. The module's point is that seeing real variation across two concrete implementations is what tells you how to design the abstraction correctly."
+    }
+  ]
+}

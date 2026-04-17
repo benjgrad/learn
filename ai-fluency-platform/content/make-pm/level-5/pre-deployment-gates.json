@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "5.10 Pre-Deployment Gates",
+    "description": "The Gap Between \"Eval Passed\" and \"Production Ready\"",
+    "level": "level-5",
+    "slug": "pre-deployment-gates",
+    "order": 10,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Your eval suite says the new agent version is 3% better overall. Your CI is green. Engineering wants to ship. But consider a scenario common in production AI platforms: a significant percentage of model candidates pass standard evals but require weeks of remediation once deployed to production, because the evals didn't catch what actually mattered. What gates are missing between \"eval passed\" and \"safe to ship\"?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "#### The Gap Between \"Eval Passed\" and \"Production Ready\"\n\nAn eval suite is a model of production. Like all models, it is wrong in useful ways: it simplifies, samples, and approximates. The question is never whether your eval suite is perfect — it isn't — but whether the ways it's wrong will get you into trouble.\n\nThe gap between \"eval passed\" and \"production ready\" has a specific shape: **evals test expected scenarios; production includes unexpected ones.** Your eval suite represents the distribution of prompts you anticipated when you wrote it. Production represents the distribution of prompts your users actually send. The larger the gap between those distributions, and the more your optimization process has chased eval scores specifically, the more risk accumulates in that gap.\n\nIn production AI platform deployments, this gap produces a consistent failure pattern: models or agents optimized aggressively for published benchmarks create eval performance that doesn't generalize — particularly in safety-relevant or qualitative properties that weren't explicitly benchmarked. A substantial fraction of model candidates may pass standard evals but require weeks of remediation before production readiness. The lesson isn't that evals are useless; it's that eval passage is necessary but not sufficient.\n\nPre-deployment gates are the structured checks that live between eval passage and production exposure. Each gate probes a different dimension of the gap.\n\n#### Gate 1: Canary Benchmarks\n\nCanary benchmarks are distinct from your main eval suite. They are a small set — 20 to 50 items — of deliberately tricky, hand-crafted test cases that probe specific known failure modes. They are not sampled from your eval distribution; they are designed by humans who understand where the model is most likely to fail or degrade.\n\nFor Make, canary benchmarks might include: a prompt that has historically caused the agent to abandon design tokens in favor of hardcoded values; a request for a complex nested form that previously produced deeply coupled components; a prompt with deliberately ambiguous layout requirements that tests whether the agent asks for clarification or hallucinates a reasonable-sounding wrong answer.\n\nCanary benchmarks are owned by the team that understands failure modes, not generated automatically. They are updated when new failure modes are discovered. They are not in the main eval suite because if they were, they'd be optimized for — and the adversarial insight they encode would be lost.\n\n**Pass criterion:** All canary benchmarks must pass, with no threshold — not \"90% of canary benchmarks.\" A failure in a canary benchmark is a blocking issue by design.\n\n#### Gate 2: Contamination Detection\n\nContamination is the eval validity threat that doesn't look like a threat. If the model was trained or fine-tuned on data that includes your eval prompts or close paraphrases, your eval scores are inflated relative to actual out-of-sample performance. A model that has memorized your eval cases may score a 9.2 while performing at a 7.8 on novel prompts.\n\nContamination detection uses held-out prompts — prompts the model provably hasn't seen during training — to produce an uncontaminated performance estimate. The gap between eval score and held-out score is the contamination signal. A large gap (more than roughly 10-15 relative percentage points) is a red flag that warrants investigation before shipping.\n\nFor Make, contamination is less about model memorization (since you're typically prompting a foundation model rather than fine-tuning) and more about prompt engineering overfitting: if you've tuned your system prompt by iterating against your eval suite, your prompts may have memorized your evals without the model having done so. The held-out probe still catches this.\n\n#### Gate 3: OOD Adversarial Probes\n\nOut-of-distribution adversarial probes test how the agent handles things it wasn't optimized for. These are prompts deliberately outside the normal distribution: unusual frameworks (a user who wants Svelte output from a React-optimized agent), edge-case requirements (a component that needs to render correctly with zero data, partial data, and malformed data), contradictory instructions (\"make it minimal but include all optional fields\"), ambiguous design constraints.\n\nThe goal is not to find prompts the agent can't answer — it's to characterize graceful degradation. Does the agent fail loudly (surfaces an error or asks for clarification)? Or does it fail silently (generates confident, plausible, wrong code)? Silent failures in OOD conditions are more dangerous than errors, because they reach users without any signal that something went wrong.\n\nFor Make, OOD probes include: prompts that mix Figma-native components with a third-party library the agent hasn't been optimized for; prompts that request deprecated React patterns explicitly; prompts where the user's Figma component naming conventions directly conflict with the agent's defaults. How the agent handles these probes tells you more about production risk than your in-distribution eval suite does.\n\n#### Gate 4: Shadow Mode Deployment\n\nShadow mode runs the candidate agent version alongside the production version on real user sessions, without surfacing the candidate's output to users. Both versions see the same prompt; only the production version's output is shown. The candidate's output is captured, scored, and compared.\n\nShadow mode provides several things that no offline eval can: real prompt distribution (not a sampled approximation), real context (users' actual Figma files and project states), and a direct A/B comparison rather than an absolute score. A candidate that scores 8.4 in offline evals but loses to the production agent in 40% of shadow mode comparisons has a problem that offline evals didn't surface.\n\nShadow mode requires infrastructure investment — you're running inference twice per request during the shadow period — but for a platform where agent quality is core to the product, the cost is justified by the reduction in escaped regressions.\n\n#### Gate 5: Graduated Rollout\n\nEven with all the preceding gates, production holds surprises. Graduated rollout — 1% of traffic, then 5%, then 25%, then 100% — contains the blast radius of surprises that passed all gates.\n\nAt each step, you hold for a measurement period (typically 24-48 hours at lower percentages, longer at higher ones) and evaluate against a go/no-go scorecard: quality metrics, behavioral fingerprint, canary eval re-run on the live cohort, user signal metrics. Automatic rollback triggers at each step if metrics fall outside acceptable bounds.\n\nThe key anti-pattern is treating graduation steps as mechanical checkboxes. Each step is a decision point with live monitoring data. The question at each gate is: \"Do we see anything in the data from this cohort that would change our confidence in shipping to 100%?\"\n\n#### The Anti-Pattern: Shipping on Green CI\n\nThe most common failure mode is shipping immediately after the eval suite passes, skipping adversarial probes and shadow deployment. This is how subtle regressions reach 100% of users — not because teams are careless, but because the eval-to-ship pipeline was designed for software correctness, not model quality.\n\nIn software, green CI is a strong signal. In AI systems, green CI means your deterministic code is correct. It says nothing about whether the model's output quality distribution has shifted in ways your evals don't cover.\n\n#### Make-Specific Gate Implementation\n\nThe full gate stack for a Make agent update looks like:\n\n1. Canary benchmarks: 40 hand-crafted prompts covering known failure modes, all must pass\n2. Contamination check: held-out prompt set scored; flag if gap exceeds threshold\n3. OOD adversarial probes: 20 prompts covering unusual frameworks, edge cases, contradictory constraints; characterize failure mode distribution\n4. Visual regression comparison: render candidate and production outputs for the same 50 prompts; human review of diffs\n5. Framework-specific regression: verify React performance didn't regress when prompt engineering improved Vue output\n6. Design-token compliance check: token usage rate on candidate must meet or exceed production baseline\n7. Shadow mode: 48-hour shadow deployment on 5% of traffic; compare at prompt level\n8. Graduated rollout: 1% → 5% → 25% → 100% with 24-hour holds and automated go/no-go scoring\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "An engineer proposes skipping shadow mode for a \"small\" prompt engineering update — just changes to the system prompt, no model version change. \"It's not a model update, so it can't regress the model's core behavior.\" How do you respond?",
+      "answer": "System prompt changes are among the highest-risk updates for a coding agent because the system prompt is the primary mechanism for shaping model behavior. A change that seems minor — rewording an instruction, adjusting priority ordering, adding a new constraint — can have non-linear effects on output distributions that are invisible in offline evals. Shadow mode is especially important for prompt updates precisely because they're hard to reason about analytically. The argument \"it's not a model update\" conflates the deployment artifact (code/config) with the behavioral change (output distribution shift). Shadow mode tests behavioral change, not artifact type.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Design a canary benchmark suite for a Make agent update. Write 10 specific prompts (not categories — actual prompts) that you would use as the hard-coded behavioral protection layer. For each, write one sentence explaining which known failure mode it probes.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Walk through the five gates in sequence and explain to a PM peer why each gate catches risks the previous gate missed. The structure of your explanation should make clear why the gates are ordered the way they are, not just what each gate does.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "With Make's gate stack, which gate would most likely catch this class of failure earliest?",
+        "And what would you add to the gate stack that isn't already there, given what you know about how this failure mode manifests in high-stakes production environments?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Eval passage proves correctness on expected scenarios — pre-deployment gates probe the gap between expected scenarios and production reality, each gate designed to catch what the previous one structurally cannot.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Pre-deployment gates protect quality at ship time. But the platform's long-term health depends on more than protecting existing quality — it depends on who is building on the platform and what they're able to build. Level 7 explores the platform strategy layer: how Make becomes a component in larger AI workflows, and what changes when the primary consumer of Make's APIs isn't a human developer but another AI agent.\n\n---\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Why are canary benchmarks kept separate from the main eval suite, rather than being included in it?",
+      "options": [
+        "Canary benchmarks are too computationally expensive to include in the main eval suite and are therefore run only as a pre-release gate",
+        "Canary benchmarks use a different scoring rubric that is incompatible with the main eval suite's pass/fail criteria",
+        "If canary benchmarks were in the main eval suite, they would be optimized for during model development — losing the adversarial insight they encode. They must remain outside the optimization target to remain valid probes of known failure modes"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly explains this: canary benchmarks probe specific known failure modes, and they are intentionally kept outside the main eval suite because any prompt included in the main suite becomes an optimization target. Once the model is tuned to pass the main suite, canary prompts that were part of it would no longer be adversarially valid — the model would have been optimized against them. Separation preserves their detection power.",
+      "encourageCorrect": "Exactly — the adversarial value of canary benchmarks depends on them being outside the optimization loop. The moment they become training targets, they stop being probes.",
+      "encourageIncorrect": "Computational cost is not the reason for separation — canary benchmarks are a small set of 20-50 items and are fast to run. The separation is about preserving adversarial validity: prompts that are optimized against stop being effective at detecting the failure modes they were designed to probe."
+    },
+    {
+      "question": "An engineer proposes skipping shadow mode for a prompt engineering update, arguing it's 'just a system prompt change, not a model update.' How should the Platform PM respond?",
+      "options": [
+        "Agree to skip shadow mode for this change but require a full shadow mode run for the next model version update to compensate",
+        "Reject the skip — system prompt changes are among the highest-risk updates because the system prompt is the primary mechanism for shaping model behavior, and prompt changes can have non-linear effects on output distributions that offline evals miss",
+        "Allow a shortened 12-hour shadow mode run instead of the standard 48 hours, given the lower risk profile of a prompt-only change"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's calibration answer directly addresses this: system prompt changes are high-risk precisely because they're hard to reason about analytically. Shadow mode tests behavioral change, not artifact type — a 'small' wording change can have non-linear effects on output distributions. The argument 'it's not a model update' conflates deployment artifact with behavioral impact. Shadow mode is especially important for prompt updates.",
+      "encourageCorrect": "Right — the module explicitly identifies this argument as a rationalization for skipping a critical gate. Prompt changes are the highest-behavioral-risk update category.",
+      "encourageIncorrect": "A shortened shadow mode run still misses the protection purpose. 48 hours captures time-of-day behavioral variation (weekday morning vs. evening usage patterns differ). A 12-hour window may miss failure modes that only appear with certain prompt types or user segments. The module's recommendation is to maintain the full shadow mode requirement for prompt changes."
+    },
+    {
+      "question": "What does contamination detection specifically probe, and what does a large gap between eval score and held-out score indicate?",
+      "options": [
+        "Contamination detection uses held-out prompts the model hasn't seen to check whether eval scores reflect genuine capability or memorization of eval cases; a large gap (10-15+ percentage points) suggests the model is performing better on known eval prompts than on novel ones",
+        "Contamination detection checks whether generated code contains security vulnerabilities introduced through the training data; a large gap indicates high security risk",
+        "Contamination detection verifies that eval prompts haven't been leaked to competitors; a large gap indicates a data security breach"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module defines contamination as a threat to eval validity: if the model was trained or fine-tuned on data including your eval prompts, the scores are inflated. Held-out prompts — prompts the model provably hasn't seen — give an uncontaminated baseline. A large gap between eval score and held-out score means the model 'memorized' the eval cases. For Make, this also applies to prompt engineering overfitting: iterating your system prompt against your eval suite can have the same effect.",
+      "encourageCorrect": "Correct — contamination is fundamentally an eval validity problem. High scores on known prompts but lower scores on held-out prompts reveal that the capability isn't as general as the eval suggests.",
+      "encourageIncorrect": "Contamination detection is not a security feature about code vulnerabilities or competitor leaks. It's an eval validity mechanism — ensuring your eval scores reflect actual capability on novel prompts, not familiarity with the specific prompts used in evaluation."
+    }
+  ]
+}

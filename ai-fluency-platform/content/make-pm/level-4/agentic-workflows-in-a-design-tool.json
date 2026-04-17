@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "4.7 Agentic Workflows in a Design Tool",
+    "description": "The canonical coding agent lives in a terminal or an IDE. Its context is text: file contents, shell output, error messages, documentation. Make's agent lives in a design tool. Its context includes a v",
+    "level": "level-4",
+    "slug": "agentic-workflows-in-a-design-tool",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> Most coding agents work in a terminal or IDE. Make's agent works inside Figma — a design tool. What capabilities does a canvas-aware agent need that a terminal agent doesn't?\n\nWrite your answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The canonical coding agent lives in a terminal or an IDE. Its context is text: file contents, shell output, error messages, documentation. Make's agent lives in a design tool. Its context includes a visual artifact — a canvas with frames, components, layout rules, and design tokens. This changes the agent's requirements at every layer.\n\n**Design-aware code generation:**\n\nA terminal coding agent receives text instructions: \"Create a login form with an email field and password field.\" It generates code based on its training data's understanding of what a login form looks like.\n\nMake's agent receives something different: a Figma frame containing an already-designed login form, with specific layout (flex column, 24px gap), spacing (email field: 48px height, 16px padding), typography (Inter 14px regular for labels, Inter 16px for inputs), and color (border: `--color-border-subtle`, background: `--color-surface-primary`).\n\nThe agent must read these properties from the canvas and generate code that matches them — not code that resembles a generic login form. The output is a React component that uses the exact design tokens from the file's variable library, the exact component from the design system (if `Input` exists as a design system component, use it), and the exact layout properties from the frame.\n\nThis requires tools that do not exist in any terminal agent's toolkit.\n\n**Component library integration:**\n\nA Figma design system contains components: `Button`, `Input`, `Card`, `Badge`, `Modal`. When the agent generates code, it should use these components — not generate raw HTML elements that approximate them.\n\nThis requires a tool: given a UI element in the design frame, find the closest matching component in the codebase's component library. This is a matching problem: the Figma component named \"Button/Primary/Medium\" should map to `<Button variant=\"primary\" size=\"md\" />` in the React codebase.\n\nBuilding this mapping layer is a Platform PM deliverable. It is not something the reasoning model does spontaneously — it requires a structured mapping between the design system's component taxonomy and the codebase's component API.\n\n**Design token mapping:**\n\nFigma variables (color styles, typography styles, spacing values) must map to the codebase's design tokens (CSS custom properties, Tailwind theme values, styled-components theme keys).\n\nA frame with `fill: Brand/Primary/500` must generate code with `color: var(--color-brand-primary-500)` — not `color: #5B21B6` (the resolved hex value). Hard-coding resolved values defeats the purpose of a design token system.\n\nThe agent needs a tool that queries the Figma file's variable library and returns the token name, not just the resolved value. The platform must maintain this mapping as both the Figma file and the codebase evolve.\n\n**Canvas-to-code bidirectional sync:**\n\nThe most ambitious version of Make's vision is bidirectional: code changes update the canvas, canvas changes update the code. A designer moves a button 8px to the right on the canvas; the agent updates the `margin-left` in the component. A developer changes `gap: 24px` to `gap: 16px` in code; the canvas updates to reflect the new spacing.\n\nThis is technically hard. It requires:\n- Parsing code changes to extract layout properties\n- Mapping those properties back to Figma frame attributes\n- Writing changes to the Figma file via the Figma API\n- Doing all of this without creating infinite loops (code change → canvas change → code change → ...)\n\nThe \"Code to Canvas\" initiative (noted in the JD as a partnership with Anthropic) is working in this direction. The Platform PM owns the protocol for this sync.\n\n**Multi-modal context:**\n\nTerminal agents receive text. Make's agent should receive both text and visual context. When a user says \"this button doesn't match the design,\" the agent should be able to see a screenshot of the rendered button and a screenshot of the Figma frame, and compute the difference.\n\nThis requires vision capability (Claude's multi-modal input) and a screenshot tool — a tool that captures the current preview render and returns it as an image the model can analyze.\n\nThis is architecturally different from anything a terminal agent does. The model must reason across two modalities: the Figma visual spec and the rendered code output.\n\n**The Figma API as a tool registry:**\n\nThe agent's Figma-specific tools call the Figma REST API:\n\n- `GET /v1/files/:file_key/nodes?ids=:node_id` — read a specific frame's properties\n- `GET /v1/files/:file_key/variables/local` — read the file's variable library\n- `GET /v1/files/:file_key/components` — read the file's component set\n- `POST /v1/files/:file_key/changes` — write changes back to the canvas\n\nThese API calls must be authenticated, rate-limited, and error-handled. They are tools in the agent's tool catalog — which means they are subject to all the permission, sandboxing, and reliability requirements from Module 4.2.\n\n**Why this is Make's moat:**\n\nNo terminal coding agent has access to a design system at this level of integration. Cursor does not know that the button it just generated has 2px more padding than the design spec. Claude Code does not know that the component it created should be using the project's existing `Card` component rather than a raw `div`. GitHub Copilot does not know that the color it hard-coded is semantically a brand-primary color that should be a token.\n\nMake's agent knows all of this — because the platform gives it Figma-native context. This is not a model capability advantage. It is a context advantage. And context is the Platform PM's domain.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user selects a Figma frame containing a pricing table and says \"code this up.\" The frame uses a Figma component called \"PricingCard\" from the design system. The codebase has a React component called `<PricingCard />` in `src/components/ui/PricingCard.tsx`. The agent generates the code using raw `<div>` elements instead of `<PricingCard />`. What is the root cause?\nA. The model is not smart enough to know about PricingCard\nB. The component mapping tool did not surface the match between the Figma \"PricingCard\" component and the React `PricingCard` component\nC. The agent should have read every file in the codebase to find PricingCard\nD. The user should have told the agent to use PricingCard explicitly",
+      "answer": "B.** This is a platform failure, not a model failure and not a user failure. The agent generated reasonable code given the context it had — but the platform did not provide the component mapping that would have told it \"this Figma component corresponds to this React component.\" The fix is in the tool layer (component mapping tool), not in the model weights or the user prompt.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open any Figma file you have access to. Pick one frame. Write out — in prose — the complete set of information the agent would need to generate a pixel-perfect code implementation: layout properties, spacing, typography, colors, component instances, interactive states. Then: which of these would require a custom Figma API tool call, and which could the agent infer from a screenshot alone?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a Figma designer (non-technical) why the agent using design tokens instead of hard-coded hex values matters for their workflow. What breaks in six months if the agent always hard-codes values?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What patterns from building a content generation pipeline apply directly to Make's design-to-code challenge?",
+        "Where does the analogy break down?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "A canvas-aware coding agent requires a Figma-native tool layer — component mapping, design token resolution, Figma API integration — that is Make's proprietary moat and cannot be provided by any general-purpose coding agent.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> Every Figma API call costs tokens. Every agent session costs money. At scale, the unit economics of Make's agent determine whether the business works. What does a heavy Make user actually cost to serve?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A user asks Make's agent to 'code up' a Figma frame containing a pricing table. The frame uses a Figma component called 'PricingCard' and the codebase has a matching React component. The agent generates raw div elements instead. What is the root cause?",
+      "options": [
+        "The component mapping tool failed to surface the match between the Figma 'PricingCard' component and the React PricingCard component — this is a platform failure, not a model failure",
+        "The underlying model was not trained on enough Figma-specific data to recognize design system component patterns",
+        "The user should have explicitly told the agent to use the existing PricingCard component rather than generating new markup"
+      ],
+      "correctIndex": 0,
+      "explanation": "The agent generated reasonable code given the context it had. The platform failed to provide the component mapping that would have told it 'this Figma component corresponds to this React component.' The fix is in the tool layer — a component mapping tool that resolves design system components to their codebase equivalents — not in the model or the user's prompt.",
+      "encourageCorrect": "Correct — this is a platform tool failure, and the fix is building the component mapping layer, not retraining the model or blaming the user.",
+      "encourageIncorrect": "This is not a model training gap or a user error. The model can't know about the codebase's PricingCard component unless the platform tells it — that's the component mapping tool's job. The agent behaved correctly given its context; the platform failed to provide the mapping that would have connected the Figma component to the React component."
+    },
+    {
+      "question": "Why is using design tokens instead of hard-coded hex values important when Make's agent generates code?",
+      "options": [
+        "Design tokens generate smaller CSS file sizes because token names are shorter than hex values, improving page load performance",
+        "Hard-coded hex values break the semantic connection to the design system — if the brand color changes from #5B21B6 to a new value, every hard-coded hex must be found and updated, while token references update automatically",
+        "Design tokens are required for accessibility compliance, since hex values don't carry enough semantic meaning for assistive technologies"
+      ],
+      "correctIndex": 1,
+      "explanation": "Design tokens are semantic references — color.brand.primary.500 — not resolved values. When the design system changes (rebrand, theme update, dark mode), token references update automatically throughout the codebase. Hard-coded hex values must be manually found and replaced. An agent that always hard-codes values defeats the purpose of having a design token system and creates long-term maintenance debt.",
+      "encourageCorrect": "Right — the semantic connection is what makes token references durable and hard-coded values fragile over time.",
+      "encourageIncorrect": "File size and accessibility compliance aren't the primary concerns here. The core issue is maintainability: design tokens are semantic references that survive design system changes. If the brand color changes, token references update automatically; hard-coded hex values don't. An agent that always hard-codes colors will create a codebase that's expensive to update every time the design system evolves."
+    },
+    {
+      "question": "The module describes Make's canvas-to-code integration as its 'moat.' What specifically makes this advantage non-replicable by a general-purpose coding agent like Cursor or GitHub Copilot?",
+      "options": [
+        "Figma's API is rate-limited and only accessible to approved partners, preventing competitors from building equivalent integrations",
+        "Figma's proprietary data format is encrypted, preventing competitors from parsing design files without Figma's cooperation",
+        "General-purpose coding agents have no access to the Figma-native context — frame properties, design token names, component library mappings — that Make's tools provide, so they generate code without knowing what the design actually specifies"
+      ],
+      "correctIndex": 2,
+      "explanation": "The moat is context, not API access restrictions or encryption. Cursor knows nothing about whether a component has 2px more padding than the design spec, or whether a color should be a token reference rather than a hex value, because it has no access to the Figma file. Make's agent has Figma-native tools that provide exactly this context — and that context is what produces faithful, maintainable code.",
+      "encourageCorrect": "Exactly — the moat is context advantage, not access restrictions. Any agent with the same Figma context could match Make's output; the challenge is building the tool layer to deliver that context.",
+      "encourageIncorrect": "Figma's API is publicly available and the data format is documented. The moat is not a legal or technical barrier — it's a context advantage. Cursor generates code without knowing what the Figma spec actually says. Make's agent knows the exact frame properties, design token names, and component mappings because the platform built the tools to extract and deliver that context."
+    }
+  ]
+}

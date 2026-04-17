@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "F.2 Modern Frontend Frameworks",
+    "description": "Raw HTML/CSS/JS works fine for a landing page. It breaks down the moment you have state \u2014 data that changes and a UI that must reflect that change. Without a framework, keeping the DOM synchronized wi",
+    "level": "foundations",
+    "slug": "modern-frontend-frameworks",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> Why can't Figma Make just generate raw HTML/CSS/JavaScript? What problem do frameworks like React, Vue, and Next.js solve that raw code doesn't?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Raw HTML/CSS/JS works fine for a landing page. It breaks down the moment you have state \u2014 data that changes and a UI that must reflect that change. Without a framework, keeping the DOM synchronized with application state is manual, error-prone, and does not scale. Frameworks solve the synchronization problem. Make's choice of framework is not a style preference \u2014 it determines the entire architecture of the platform beneath it.\n\n**The Component Model**\n\nReact, Vue, and Svelte all share one core idea: UI is a function of state. Instead of imperatively saying \"find this element and change its text,\" you declare \"this element should always show `user.name`.\" When `user.name` changes, the framework figures out the minimal DOM update required.\n\nThis model creates components \u2014 self-contained units that encapsulate HTML structure, styles, and behavior. Components compose: a `Button` inside a `Form` inside a `Modal`. This is why AI code generators love frameworks. When the AI generates a component, it has a clear, bounded unit. When it generates raw HTML, there's no obvious abstraction boundary.\n\n**The Virtual DOM**\n\nReact popularized the virtual DOM (VDOM). On every state change, React re-runs your component functions and produces a new virtual DOM tree \u2014 a lightweight JavaScript object representation of what the DOM should look like. React then diffs this new tree against the previous tree and applies only the changes. This diffing is fast because JavaScript object comparison is cheap; actual DOM manipulation is slow.\n\nVue uses a similar VDOM approach. The tradeoff: VDOM diffing adds JavaScript overhead on every render. For simple UIs this is negligible. For complex UIs with thousands of nodes, it accumulates.\n\n**React vs. Vue vs. Svelte: Compilation Strategies**\n\nReact ships a runtime. Your components are JavaScript functions; React's reconciler (the diffing engine) is JavaScript that runs in the browser. The React package you ship to users includes the engine.\n\nSvelte takes a different approach: it compiles away at build time. Svelte components are compiled into efficient, targeted DOM manipulation code. There's no diffing engine in the browser; the compiled output knows exactly which DOM node to update when specific state changes. The result is smaller bundles and faster runtime performance \u2014 but a more constrained authoring model.\n\nVue sits between them, offering both a runtime mode and a compilation step that optimizes templates.\n\n**For Make, this matters because:** the framework choice determines what the AI must generate (React JSX vs. Vue single-file components vs. Svelte syntax), what the build system must understand, and what the runtime must include. React is the safe choice \u2014 largest ecosystem, most training data for LLMs, most developer familiarity. But React's runtime overhead is real, and Make ships that overhead to every user's preview.\n\n**Next.js and the Server-Component Layer**\n\nNext.js is a framework built on React that adds server-side capabilities. Its architecture has evolved significantly:\n\n- **SSR (Server-Side Rendering):** Components render on the server; HTML arrives at the browser complete. Hydration attaches interactivity.\n- **SSG (Static Site Generation):** Pages render at build time into static HTML files. Fast, cheap to serve, but cannot be personalized at request time.\n- **ISR (Incremental Static Regeneration):** Static pages that regenerate in the background after a configurable time interval. The compromise between SSG performance and SSR freshness.\n- **React Server Components (RSC):** A newer model where components are categorized as Server (run only on server, can access databases directly, never sent to client) or Client (run in browser, can have state and event handlers). The component tree can mix both.\n\nNext.js's deployment target is Vercel \u2014 this is not incidental. Vercel built Next.js. When you deploy a Next.js app to Vercel, the platform understands its conventions (file-based routing, API routes, middleware) and configures the infrastructure automatically. This tight coupling is both Next.js's strength and its lock-in risk.\n\n**Nuxt** is Vue's equivalent of Next.js. Same architectural concepts (SSR, SSG, ISR, server components) applied to the Vue ecosystem.\n\n**Why Framework Choice Constrains Everything Downstream**\n\nIf Make generates Next.js by default:\n- The **runtime** must support Node.js server execution (not just browser execution)\n- The **build system** must understand Next.js conventions and file structure\n- The **deployment target** must handle both static assets and server-rendered routes\n- The **AI agent** must understand Next.js-specific patterns: `app/` directory routing, `use client` directives, `getServerSideProps` vs. `generateStaticParams`\n- The **preview environment** must either run a Node.js server or simulate its behavior\n\nIf Make generates Vite + React (client-side only):\n- No server required\n- Preview is just a static file server\n- Much simpler runtime\n- But no SSR, no server components, limited for production apps\n\nThis is why framework selection is a Platform PM decision, not a frontend engineering preference.\n\n**Tailwind CSS and Why AI Code-Gen Loves It**\n\nTailwind is a utility-first CSS framework. Instead of writing `.card { padding: 16px; border-radius: 8px; }`, you write `<div class=\"p-4 rounded-lg\">`. Styles are expressed entirely as class names directly on HTML elements.\n\nAI models love Tailwind for three reasons:\n1. **Locality:** The style and the element are in the same place. No separate CSS file to generate and keep synchronized.\n2. **Vocabulary:** Tailwind has a finite, consistent vocabulary (`p-4`, `text-gray-600`, `flex items-center`). LLMs are trained on enormous amounts of Tailwind code and produce accurate Tailwind reliably.\n3. **Design token alignment:** Tailwind's spacing and color scales roughly align with Figma's spacing and color systems, making design-to-code translation more direct.\n\nThe tradeoff: Tailwind classes become verbose. A complex component might have 20 class names on a single element. Humans sometimes find this hard to read; AI models don't care.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Make decides to support Next.js App Router with React Server Components. A PM on the infra team asks: \"Does this mean we need to run Node.js servers for every user's preview?\" How do you answer, and what does this mean for preview infrastructure costs?",
+      "answer": "Yes, RSC requires server execution \u2014 components marked as Server Components must run in a Node.js-compatible environment. This means preview can no longer be purely a static file server or a browser sandbox. Each preview either needs a short-lived server process (expensive, slow to start) or a serverless function execution model (faster, but with cold start latency and execution time limits). This is a fundamental infrastructure cost driver. The alternative: restrict to Client Components only in preview, which undermines the value of Next.js App Router.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Create a new Next.js project with `npx create-next-app@latest`. Look at the file structure. Count how many configuration files exist before you write a single line of product code. Now open one of the default Server Components. Look for the `use client` directive \u2014 note its absence. This is what Make's AI must navigate: generating code for a framework whose conventions are implicit.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Your design manager asks why Make generates React instead of \"just HTML.\" Explain in one paragraph why the framework choice is not aesthetic but structural \u2014 and what it commits the platform team to.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What is Figma's equivalent lock-in strategy \u2014 and does Make reinforce it or create a new one?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Framework choice is not a frontend engineering decision \u2014 it determines the runtime, build system, deployment target, and agent training requirements for the entire platform, making it one of the highest-leverage architectural choices a Platform PM must own.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> You've picked React. Now how do you get from `.jsx` files to something a browser can actually run? That transformation is the build system \u2014 and it's why your preview takes 45 seconds when it shouldn't.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "What is the core architectural difference between how React/Vue and Svelte handle UI updates at runtime?",
+      "options": [
+        "React and Vue ship a reconciler (diffing engine) to the browser that compares virtual DOM trees on every state change; Svelte compiles away to targeted DOM mutation code with no runtime diffing engine",
+        "Svelte ships a larger runtime than React because it must pre-compile all possible UI states into the bundle",
+        "React, Vue, and Svelte all use the same virtual DOM approach — Svelte is simply a different syntax for writing the same underlying operations"
+      ],
+      "correctIndex": 0,
+      "explanation": "React and Vue include a JavaScript reconciler in the browser bundle — it diffs new virtual DOM trees against old ones on every render. Svelte's compiler transforms your component code into precise DOM mutations at build time, so no diffing engine ships to the browser. The result is smaller bundles and faster runtime performance, but a more constrained authoring model. This is why framework choice affects bundle size and runtime cost for every Make user.",
+      "encourageCorrect": "Exactly — Svelte's 'compile away' approach is genuinely different architecture, not just a syntax preference.",
+      "encourageIncorrect": "Svelte actually ships a smaller runtime, not a larger one — its compiler produces targeted DOM mutation code rather than a diffing engine. React's reconciler (the virtual DOM differ) runs in the browser on every state change; Svelte's equivalent logic happens at build time and doesn't ship to users."
+    },
+    {
+      "question": "If Make decides to support Next.js App Router with React Server Components as its default generation target, which infrastructure requirement becomes unavoidable?",
+      "options": [
+        "The preview environment must run a Node.js-compatible server process, not just a static file server",
+        "All generated components must use the 'use client' directive, since Server Components only run at deploy time",
+        "Tailwind CSS becomes incompatible because Server Components require CSS-in-JS styling solutions"
+      ],
+      "correctIndex": 0,
+      "explanation": "React Server Components execute on a server — they access databases directly, run Node.js APIs, and never ship their code to the browser. Previewing an app with Server Components therefore requires a Node.js execution environment, not just a static file server. This fundamentally changes Make's preview infrastructure cost and complexity. The 'use client' directive marks components that run in the browser — Server Components are the ones without it.",
+      "encourageCorrect": "Correct — this is the exact infrastructure cost driver that makes Next.js App Router support a meaningful platform decision, not a simple feature addition.",
+      "encourageIncorrect": "Server Components are the ones without 'use client' — they run on the server and can access Node.js APIs directly. This means previewing them requires a running Node.js process, which is the infrastructure consequence the module highlights. Tailwind CSS works fine with Server Components."
+    },
+    {
+      "question": "Why do AI code generation models produce more accurate and idiomatic Tailwind CSS than standard CSS, and what does this reveal about how Make's AI produces its output?",
+      "options": [
+        "Tailwind is technically simpler than CSS — it has fewer features, so there are fewer ways to generate incorrect code",
+        "Tailwind's finite utility class vocabulary and co-location of styles with markup means LLMs trained on large codebases produce correct output reliably, while custom CSS requires generating synchronized separate files",
+        "Tailwind is preferred because it produces smaller file sizes, which speeds up the AI's token generation"
+      ],
+      "correctIndex": 1,
+      "explanation": "LLMs generate output based on training data patterns. Tailwind has a consistent, finite vocabulary (p-4, text-gray-600, flex items-center) that is massively represented in open-source codebases. More importantly, Tailwind classes appear directly on HTML elements — the model generates style and structure together, with no separate CSS file to keep synchronized. Standard CSS requires the model to generate two coordinated files and maintain selector consistency, which is a harder generation problem.",
+      "encourageCorrect": "Right — the co-location principle and finite vocabulary are exactly why AI models handle Tailwind better, and it's a meaningful signal about how Make's generation quality works.",
+      "encourageIncorrect": "Tailwind actually has many features and can produce verbose output. The reason AI models handle it well is that its vocabulary is finite and consistent, and styles appear directly on elements — no separate file coordination needed. Smaller file size isn't relevant to token generation quality."
+    }
+  ]
+}

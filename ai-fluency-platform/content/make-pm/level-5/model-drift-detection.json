@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "5.9 Model Drift Detection",
+    "description": "The Silent Degradation Problem",
+    "level": "level-5",
+    "slug": "model-drift-detection",
+    "order": 9,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Your coding agent was generating excellent React code last month. This month, users are reporting subtle quality issues — the code runs, but component structure is messier, naming conventions changed, and the agent stopped using the project's design tokens. No error rate spike. No build failures. What's happening?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "#### The Silent Degradation Problem\n\nError rates are the smoke alarm of AI systems. They're easy to instrument, easy to alert on, and they catch catastrophic failures reliably. But smoke alarms don't detect mold. Model drift is mold.\n\n**Model drift** is the gradual degradation of output quality without triggering any of your standard error metrics. The code compiles. The tests pass. The build is green. And users are quietly getting worse results.\n\nFor a coding agent like Make, drift is particularly insidious because generated code exists on multiple quality dimensions simultaneously: syntactic correctness (does it run?), functional correctness (does it do what was asked?), and *qualitative correctness* (is it well-structured, idiomatic, maintainable code that fits the project's conventions?). Your monitoring probably covers the first two. Drift almost always hits the third.\n\n#### Two Sources of Drift\n\n**Source 1: Upstream model changes.** Anthropic ships a new version of Claude. They didn't notify you. Your system prompt didn't change. Your prompts didn't change. But the model's behavior shifted — it's now slightly more verbose, or it weights style instructions differently, or its defaults for component granularity changed. You have no changelog to diff. You only know something changed because your outputs look different.\n\nThis is the upstream model problem, and it's structurally different from anything you own. You can't fix it by deploying a new version of your code. You can't reproduce it in a local environment from last month. The ground has shifted beneath your eval suite.\n\n**Source 2: Distribution shift.** Your eval suite was built when users were primarily building simple form components. Six months later, your users are building complex data visualization dashboards with nested state management. Your evals still pass — they test what they always tested — but the gap between what your evals cover and what your users actually need has widened. The model hasn't changed; your eval suite became unrepresentative.\n\nBoth sources produce the same symptom: users notice quality degradation before you do.\n\n#### Why Coding Agents Are Especially Vulnerable\n\nIn NLP tasks, drift usually means worse answers. In coding agents, drift means code that is technically defensible but qualitatively worse in ways that accumulate. Consider what this looks like at the Make level:\n\n- The agent was using Figma design tokens (`colors.brand.primary`) consistently. After drift, it starts hardcoding hex values. Every component it generates now creates a new maintenance debt.\n- The agent was generating Tailwind utility classes aligned with the project's configuration. After drift, it starts writing inline CSS. Neither version breaks; one version quietly sabotages design system consistency.\n- The agent was creating components with clear single responsibilities. After drift, it starts co-locating concerns — data fetching inside presentational components, business logic bleeding into UI layers. The code works; future developers are slightly worse off every sprint.\n\nNone of these trigger an error. All of them compound.\n\n#### Detection Strategies\n\n**Behavioral fingerprinting** treats the distribution of output characteristics as a signal, not just individual outputs. Instead of asking \"is this output correct?\", you track: What percentage of generated files use design tokens? What is the average component depth? What is the ratio of Tailwind classes to inline styles? What is the import graph complexity? You baseline these distributions and alert when they shift. A 15% drop in design token usage rate is a detection event, even if no single output was \"wrong.\"\n\n**Canary eval runs** are a small suite — 20-50 carefully chosen prompts — that runs continuously against the live model on a scheduled cadence (daily or weekly), not just before releases. These aren't your full eval suite; they're the canary in the mine. They represent the behavioral fingerprint you care most about protecting. When canary scores trend down for three consecutive runs, you have a drift signal before users do.\n\n**User signal monitoring** treats product metrics as eval proxies. Retry rate (\"regenerate this\" clicks) is a leading indicator of quality perception. Edit-after-generation rate — how much of the generated code users modify before shipping — measures how close to correct the first generation was. Support ticket sentiment trending on quality-related language gives you a lagging signal. None of these are perfect, but together they create an early warning system grounded in actual user experience.\n\n**LLM judge trending** applies the same LLM-as-evaluator approach from Module 5.3, but longitudinally. Run the same judge prompt against a consistent sample of 50 outputs weekly. Track the score trend, not just the absolute score. A score of 7.8 this week versus 8.1 last month is meaningful even if 7.8 is technically \"above threshold.\" Trending is the signal.\n\n#### MTTD: Mean Time to Detect\n\nIn production AI platforms, drift MTTD without dedicated detection infrastructure is often measured in weeks — during which every cohort of users gets degraded outputs, some percentage of whom churn without ever explaining why. With canary eval runs (catching model-side drift) and behavioral fingerprinting on inference outputs (catching distribution shift), MTTD can drop from weeks to under 24 hours. The key insight: every day of undetected degradation at production scale is another cohort of users who got worse outputs.\n\nFor Make, the target MTTD equivalent is: **detect drift before users start filing support tickets or decreasing generation frequency**. Given that quality degradation is perceptual and users often blame themselves (\"I must be prompting badly\") before blaming the product, the real-world MTTD without instrumentation is often measured in months.\n\n#### The Upstream Model Mitigation Stack\n\nSince Anthropic can update Claude without notice, your mitigation options are:\n\n**Model version pinning** where available — request a specific model version rather than `claude-3-5-sonnet-latest`. Pinning trades freshness for stability and gives you control over when you absorb a model update.\n\n**Behavioral regression tests on every model update** — when you do absorb an update (or when you detect one happened despite pinning), run the full canary suite before the update reaches production users. Treat model updates like dependency updates: they require a regression check.\n\n**Drift notification hooks** — instrument your inference layer to log model version metadata on every response. When the version changes, automatically trigger the canary suite and notify the eval owner.\n\n#### The Feedback Loop\n\nDetection without remediation is just anxiety. The full loop is: drift detected (canary or fingerprinting) → root cause classification (upstream model vs. distribution shift) → if upstream: evaluate whether to accept the new behavior, adjust system prompts, or re-pin → if distribution shift: update eval suite to cover new prompt patterns → validate fix on canary suite → ship prompt/config update → monitor for re-emergence.\n\nThe loop should have an owner, a response SLA (within 48 hours of detection for critical drift), and a postmortem trigger for anything that reached users at scale.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You notice that your LLM judge scores have held steady at 8.1/10 for two months, but your \"regenerate\" click rate has increased 22% over the same period. What does this most likely indicate, and what would you investigate first?",
+      "answer": "The divergence between judge scores and user behavior suggests distribution shift, not random variation. The eval suite (which the judge uses as its sample) may have become unrepresentative of what users are actually prompting. Users are asking for things the eval suite doesn't cover, and the model is performing worse on that new distribution even though it performs fine on the old one. First investigation: compare the prompt distribution of sessions with high regenerate rates against your eval suite's prompt distribution. Look for systematic gaps — prompt types, complexity levels, or use cases that appear frequently in high-retry sessions but rarely or never in your evals.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Pick a coding agent or AI writing tool you use regularly. Identify three behavioral characteristics you could measure as a fingerprint (analogous to design token usage rate). For each, describe: what you'd measure, how you'd baseline it, and what threshold shift would trigger a drift investigation. You don't need to instrument anything — design the detection spec on paper.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain model drift to a skeptical engineer who says: \"Our error rate is fine, our build success rate is 99.4%, and our eval suite is passing. Why are we adding more monitoring?\" Your explanation should cover what drift is, why standard metrics miss it, and what the cost of a 2.5-week MTTD looks like at scale.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What would a Make canary suite look like?",
+        "Which 20 prompts would you protect as the core behavioral fingerprint, and what characteristics would you track beyond pass/fail?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Model drift is quality degradation that standard error metrics cannot see — detecting it requires tracking behavioral fingerprints and user signals as longitudinal trends, not just thresholds.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Drift detection tells you that quality has degraded. But knowing there's a problem is different from having a safe path to ship the fix. The next module covers the gates between \"eval passed\" and \"safe to ship\" — and why the gap between those two states is where subtle regressions escape to production.\n\n---\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Your LLM judge scores have held steady at 8.1/10 for two months, but the 'regenerate' click rate has increased 22% over the same period. What does this most likely indicate?",
+      "options": [
+        "The LLM judge has drifted and is now evaluating outputs more generously than before — the judge needs recalibration",
+        "Distribution shift — the eval suite has become unrepresentative of what users are actually prompting, so the model performs well on eval prompts but worse on the new distribution of real user prompts",
+        "The regenerate button became more prominent in a UI update, causing users to click it more often even when satisfied with the output"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's calibration check covers exactly this scenario. Stable judge scores but rising regenerate rates signal distribution shift: the eval suite (which the judge samples) no longer represents what users are actually asking for. The model performs fine on the old distribution but worse on the new one. The first investigation should compare the prompt distribution of high-retry sessions against the eval suite's prompt distribution to find systematic gaps.",
+      "encourageCorrect": "Correct — this is the canonical distribution shift signal. The eval suite became unrepresentative, so a quality problem appeared in production before appearing in eval scores.",
+      "encourageIncorrect": "Judge drift and UI changes are plausible alternative explanations, but the module specifically identifies this divergence pattern as the primary indicator of distribution shift. The first investigation step is to compare actual user prompt distributions against eval suite coverage, not to recalibrate the judge."
+    },
+    {
+      "question": "What distinguishes model drift caused by an upstream model update from model drift caused by distribution shift, and why does this distinction matter for remediation?",
+      "options": [
+        "Upstream model drift is caused by the provider changing model behavior without notice; distribution shift means the eval suite became unrepresentative of real user prompts. The remediation is different: upstream drift may require prompt adjustment or model re-pinning; distribution shift requires updating the eval suite to cover new prompt patterns",
+        "Upstream model drift affects all users equally; distribution shift affects only users in specific geographic regions due to latency differences",
+        "Upstream model drift is detectable immediately through error rate spikes; distribution shift only appears after 90 days of accumulation"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module defines two distinct drift sources: upstream model changes (Anthropic updates Claude without notifying you) and distribution shift (users' prompts evolve while the eval suite stays static). The remediation paths diverge significantly: upstream drift requires evaluating whether to accept the new behavior, adjust system prompts, or re-pin to a previous model version. Distribution shift requires updating the eval suite to cover the new prompt patterns users are actually submitting.",
+      "encourageCorrect": "Right — knowing which type of drift you're facing determines your response. The wrong diagnosis leads to the wrong fix.",
+      "encourageIncorrect": "Neither drift type is geographically isolated, and both can appear quickly or slowly depending on how large the behavioral shift is. The meaningful distinction is causal: who changed — the model provider (upstream) or the user population (distribution shift) — and what you control in each case."
+    },
+    {
+      "question": "What is 'behavioral fingerprinting' in the context of drift detection, and why is it more sensitive than monitoring error rates alone?",
+      "options": [
+        "Behavioral fingerprinting is a security technique that identifies which users are generating potentially harmful code prompts",
+        "Behavioral fingerprinting uses Playwright to capture a visual fingerprint of each generated app and compares it to a canonical reference",
+        "Behavioral fingerprinting tracks the statistical distribution of output characteristics — such as design token usage rate, component depth, or Tailwind-to-inline-CSS ratio — and alerts when those distributions shift, catching quality degradation before any individual output triggers an error"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module defines behavioral fingerprinting as tracking distributions of output characteristics rather than evaluating individual outputs. Examples include: what percentage of generated files use design tokens, the average component depth, the ratio of Tailwind classes to inline styles. A 15% drop in design token usage rate is a detection event even if no single output 'failed.' This catches the gradual drift that standard error metrics miss entirely because the code still runs.",
+      "encourageCorrect": "Exactly — fingerprinting measures the shape of outputs in aggregate, not whether any individual output errored. That's what makes it sensitive to the qualitative degradation that error monitoring misses.",
+      "encourageIncorrect": "Behavioral fingerprinting is not a security technique and is not about visual screenshots. It's about statistical properties of the generated code itself — distributions of stylistic and structural choices that shift when the model's behavior shifts, even when the code technically works."
+    }
+  ]
+}

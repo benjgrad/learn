@@ -1,0 +1,70 @@
+[
+  {
+    "id": "architecture-judgment",
+    "name": "Architecture Judgment",
+    "definition": "Evaluating system design tradeoffs with enough depth to challenge, validate, or redirect engineering proposals",
+    "professionalApplication": "Knowing when to push back on a proposed runtime, sandbox, or deployment architecture with specific reasoning about cost, latency, isolation strength, and compatibility.",
+    "icon": "🏗️",
+    "levels": {
+      "0": "Understand the primitives of modern web execution — browsers, frameworks, build systems, containers, CDNs. Build the vocabulary required to follow engineering conversations.",
+      "1": "Compare product architectures across the AI code-generation landscape. Recognize why v0, Lovable, Bolt, and Replit Agent made different architectural bets and what each optimizes for.",
+      "2": "Evaluate runtime and sandbox options with specific tradeoffs. Argue for WebContainers over Docker (or the reverse) based on user profile, cost structure, and isolation requirements.",
+      "3": "Choose preview and deployment infrastructure. Design tenant isolation, hot reload strategies, and rollback mechanisms that match the product's latency and reliability targets.",
+      "4": "Assess coding agent architecture. Decide between building agent infrastructure in-house, integrating Claude Code, or forking an open-source framework — and defend the decision with concrete tradeoffs.",
+      "5": "Design eval pipeline architecture. Separate functional correctness, visual fidelity, and qualitative quality into distinct measurement layers with appropriate methodologies for each.",
+      "6": "Instrument the platform with observability that matches its failure modes. Design monitoring for silent degradation, not just hard outages.",
+      "7": "Own full-stack architectural vision across runtime, preview, deploy, agent, eval, and extensibility. Sequence investments across multiple quarters without creating dependency traps."
+    }
+  },
+  {
+    "id": "abstraction-design",
+    "name": "Abstraction Design",
+    "definition": "Defining the right boundaries between platform and product — what to expose, what to hide, what to make configurable",
+    "professionalApplication": "Writing API surfaces, plugin specifications, and configuration models that serve both technical users who want control and non-technical users who want abstraction.",
+    "icon": "📐",
+    "levels": {
+      "0": "Recognize where abstraction boundaries live in web platforms — HTML/CSS/JS, framework layer, build layer, deployment layer.",
+      "1": "Identify what belongs at the platform layer versus the product layer. Distinguish generic infrastructure concerns from product-specific ones.",
+      "2": "Define execution API boundaries. Decide what the runtime exposes to generated code versus what it isolates.",
+      "3": "Design tenant isolation boundaries and deployment API surfaces. Make promises about what users can and cannot customize.",
+      "4": "Design tool-use contracts for agents. Define what tools the agent can call, with what parameters, under what permission model.",
+      "5": "Separate eval concerns into distinct, loosely-coupled layers — functional correctness, quality, regression, safety — each evaluable independently.",
+      "6": "Design observability APIs that serve multiple audiences — engineering on-call, product analytics, leadership dashboards.",
+      "7": "Govern the platform-product boundary across multiple consuming teams. Design extensibility APIs that preserve platform invariants while enabling third-party innovation."
+    }
+  },
+  {
+    "id": "failure-reasoning",
+    "name": "Failure Reasoning",
+    "definition": "Thinking in failure modes — what breaks, who notices, how bad is it, what is the blast radius",
+    "professionalApplication": "Before approving any design, enumerating the ways it can fail — silent failures, cascading failures, partial failures — and the observability needed to detect each.",
+    "icon": "⚠️",
+    "levels": {
+      "0": "Recognize common web platform failure patterns — network errors, browser quirks, build failures, cold starts.",
+      "1": "Identify failure patterns specific to AI code generation — hallucinations, prompt-output drift, state corruption.",
+      "2": "Reason about runtime-specific failures — OOM kills, resource exhaustion, sandbox escapes, cold start cascades.",
+      "3": "Anticipate preview environment failure modes — tenant interference, HMR breaks, dependency install timeouts, deploy failures.",
+      "4": "Anticipate agent failure modes — multi-step reasoning failures, state corruption, tool call failures, context overflow.",
+      "5": "Anticipate eval system failures — false positives, false negatives, eval gaming, coverage gaps, judge miscalibration.",
+      "6": "Design incident response for AI-specific failures. Recognize that gradual degradation is more dangerous than acute outages.",
+      "7": "Reason about cascading failures across the platform. Design blast-radius limits and graceful degradation at every boundary."
+    }
+  },
+  {
+    "id": "systems-sequencing",
+    "name": "Systems Sequencing",
+    "definition": "Deciding what to build first when everything depends on everything else, and articulating why",
+    "professionalApplication": "Writing multi-quarter roadmaps where dependencies, competitive pressure, and reliability targets all compete for the same engineering capacity — and defending the sequence with data.",
+    "icon": "🧭",
+    "levels": {
+      "0": "Understand how web platform primitives build on each other — you need a runtime before you need a build system before you need a deployment platform.",
+      "1": "Sequence market entry decisions. Recognize why competitors made certain architectural choices in certain orders.",
+      "2": "Sequence runtime investments ahead of the surfaces that depend on them.",
+      "3": "Sequence preview infrastructure, deployment pipeline, and observability in the correct dependency order.",
+      "4": "Sequence agent infrastructure, eval system, and production release gates so each is validated before being depended upon.",
+      "5": "Sequence eval investment before scale, not after. Understand the compounding cost of quality regressions that ship before detection infrastructure exists.",
+      "6": "Sequence observability investments to catch the failure modes that matter most at the current scale — not all failure modes deserve equal instrumentation upfront.",
+      "7": "Own multi-quarter platform roadmapping. Balance runtime rewrites, feature velocity, GA readiness, and extensibility APIs across a 12-18 month horizon."
+    }
+  }
+]

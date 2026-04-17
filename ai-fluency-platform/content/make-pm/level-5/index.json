@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Eval Systems & Quality Gates",
+    "description": "Master execution-based evaluation, visual regression, regression detection, LLM-as-judge with human calibration, eval infrastructure as a product, drift detection, and pre-deployment gates.",
+    "level": "level-5",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Eval Systems & Quality Gates\n\n*How to know the AI got better or worse before users find out*\n\nMaster execution-based evaluation, visual regression, regression detection, LLM-as-judge with human calibration, eval infrastructure as a product, drift detection, and pre-deployment gates.\n\n## Modules in This Level\n\n### 5.1 Why Code-Gen Evals Are Uniquely Hard\n\nEvaluation is the discipline that separates AI products that improve reliably from those that drift unpredictably. For a Platform PM owning Make, understanding why code-gen evals are structurally diff\n\n### 5.2 Execution-Based Evaluation\n\nExecution-based evaluation is the only reliable way to determine if AI-generated code actually functions. Static analysis catches some problems (syntax errors, type errors), but a surprising amount of\n\n### 5.3 Visual Regression Testing\n\nVisual regression testing is one of the most underinvested areas in AI code generation product infrastructure \u2014 and one of the areas where Make has a structural advantage over competitors. Because Mak\n\n### 5.4 Regression Detection Across Releases\n\nRegression detection across releases is the discipline of ensuring that improvements in one area of a system do not silently degrade other areas. For an AI code generation platform, this is particular\n\n### 5.5 LLM-as-Judge and Human-in-the-Loop\n\nLLM-as-judge is now a standard technique in AI evaluation, but using it well requires understanding its failure modes, the critical importance of rubric design, and how to calibrate it against human j\n\n### 5.6 Eval Infrastructure as a Product\n\nThe eval system is infrastructure \u2014 and like all infrastructure, it has users with different needs. Treating the eval system as a product, with its own roadmap and user requirements, is the difference\n\n### 5.7 The Eval-Driven Development Loop\n\nEval data is a compass, not just a report card. The most valuable use of a mature eval system is not confirming that quality is maintained \u2014 it is revealing where to invest next. Understanding how to \n\n### 5.8 Level 5 Checkpoint\n\nInterview Scenario\n\n### 5.9 Model Drift Detection\n\nThe Silent Degradation Problem\n\n### 5.10 Pre-Deployment Gates\n\nThe Gap Between \"Eval Passed\" and \"Production Ready\""
+    }
+  ]
+}

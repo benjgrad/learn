@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "2.3 Browser-Based Execution (WebContainers)",
+    "description": "StackBlitz's WebContainers technology is one of the more impressive pieces of systems engineering in the modern web tooling ecosystem. Understanding how it works is essential for any PM evaluating pre",
+    "level": "level-2",
+    "slug": "browser-based-execution-webcontainers",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "StackBlitz claims to run Node.js entirely in your browser tab. How is that possible? Node.js needs a filesystem, network access, and child processes \u2014 none of which exist in a browser. Write down your best hypothesis before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "StackBlitz's WebContainers technology is one of the more impressive pieces of systems engineering in the modern web tooling ecosystem. Understanding how it works is essential for any PM evaluating preview infrastructure \u2014 because it directly shapes what Make can and cannot promise users.\n\n**The core insight:** Node.js itself is just software. Software can be compiled to WebAssembly. WebAssembly runs in browsers. Therefore, in principle, Node.js can run in a browser. The trick is providing everything Node.js expects to find when it starts up.\n\n**What WebContainers actually does:**\n\nNode.js assumes it's running on an operating system. It expects to call `open()` to open files, `read()` to read them, `write()` to write them, `socket()` to create network connections. These are POSIX system calls that don't exist in a browser tab.\n\nWebContainers intercepts these calls at the boundary between the Node.js WASM binary and the browser. When Node.js tries to read `/package.json`, WebContainers serves it from an in-memory virtual filesystem (a JavaScript object tree that maps paths to file contents). When Node.js opens a TCP socket on port 3000, WebContainers intercepts that and routes it through a ServiceWorker that rewrites requests destined for `localhost:3000` to be served from the in-memory server.\n\nThe result is that Node.js \u2014 running as WASM in a browser tab \u2014 genuinely believes it has a real filesystem and real network stack. It doesn't. Everything is emulated in JavaScript and WebAssembly.\n\n**What works:**\n\n- `npm install` \u2014 the npm CLI runs in the WASM Node.js, resolves the dependency tree, downloads packages from the real npm registry (through the browser's actual network), and writes them to the virtual filesystem\n- Vite dev server \u2014 it boots, watches files in the virtual filesystem, and serves via the ServiceWorker\n- Most pure-JavaScript packages \u2014 anything that only uses Node.js standard APIs that WebContainers emulates\n- React, Vue, Svelte, SolidJS, Astro \u2014 all work because their build tools are pure JS\n- TypeScript compilation \u2014 same reason\n\n**What doesn't work:**\n\n- **Native modules** \u2014 packages like `bcrypt`, `sharp`, `canvas`, `sqlite3`, or database drivers that ship precompiled C++ binaries (`.node` files) cannot be loaded because there's no mechanism to run arbitrary native code in the browser sandbox\n- **Direct TCP/UDP** \u2014 you can fake HTTP, but you cannot open raw sockets; real database connections (PostgreSQL, MongoDB, Redis) are impossible because they use custom wire protocols over TCP\n- **Heavy CPU workloads** \u2014 the WASM Node.js runs slower than native Node.js; CPU-intensive work (video transcoding, large matrix operations) will be noticeably slow and may exhaust browser memory\n- **Child process spawning** \u2014 `child_process.exec()` and `spawn()` don't work; you can't shell out to system commands\n- **Long-running background processes** \u2014 the browser tab is the process boundary; if the tab closes, everything stops\n\n**Why this matters for Make's preview infrastructure:**\n\nThe zero-cost-per-user property is transformative. A container-based preview costs ~$0.01-0.05 per active hour per user in compute costs. A WebContainer preview costs $0 in compute (the user's browser does the work). At 100,000 monthly active users each spending 2 hours in preview, that's the difference between $2,000-10,000/month in infrastructure and $0.\n\nThe startup time advantage is equally significant. A WebContainer environment is ready in under a second from cold. The filesystem is in-memory, the npm packages are cached in the browser's IndexedDB, and the Vite dev server starts in ~200ms. Hot module replacement (HMR) \u2014 updating a running dev server when code changes \u2014 happens in milliseconds because everything is in the same memory space.\n\n**Bolt (by StackBlitz) uses this model.** This is not speculation \u2014 Bolt's architecture is built on WebContainers. When you prompt Bolt to generate an app, the code runs in your browser tab. This means Bolt's previews are instant and its compute costs for previews are near-zero. It's a structurally different cost model than competitors using server-side containers.\n\n**The real constraints for Make:**\n\nThe core limitation is that any feature requiring native packages, real database connections, or server-side computation cannot live in the WebContainer layer. If a user's generated app needs to talk to a PostgreSQL database, that database and the code connecting to it must live server-side. The WebContainer can render the frontend; it cannot run the backend in those cases.\n\nBrowser tab memory limits (~2-4GB on modern Chrome) also create a ceiling. A project with thousands of files and large `node_modules` can approach this limit.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user prompts Make: \"Build me a full-stack todo app with a PostgreSQL database.\" Your preview infrastructure is WebContainers. Which parts of this app can run in the WebContainer, and which parts cannot? What does your infrastructure need to provide for the parts that can't?",
+      "answer": "The React frontend, the API route code (as JavaScript), and the Vite/Next.js dev server can run in the WebContainer. The PostgreSQL database cannot \u2014 it's a native binary with a TCP wire protocol. The connection from the app to the database also can't be a real TCP connection. Options: (1) use an in-browser SQLite via WebAssembly (e.g., sql.js) as a proxy for PostgreSQL during preview, (2) provision a real Postgres instance server-side and proxy requests through the ServiceWorker, or (3) mock the database layer entirely for preview purposes. Each is a product tradeoff between fidelity and cost.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Go to [stackblitz.com](https://stackblitz.com) and create a new Vite + React project. Open the browser DevTools \u2192 Network tab. Watch the requests as `npm install` runs. Notice: packages are being fetched from the real npm registry, but the server serving your app at localhost is... your own browser tab. Open a second tab to the same URL \u2014 notice it doesn't work (the ServiceWorker is per-tab).\n\nThen open the Application tab \u2192 IndexedDB \u2014 you'll see the cached filesystem. This is the persistence layer.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A journalist is writing about Bolt versus a traditional cloud IDE. Without using \"WebAssembly\" or \"ServiceWorker,\" explain why Bolt can offer free unlimited previews while a traditional cloud IDE has to charge for compute time.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Does WebContainers-only preview set a ceiling on what kinds of apps Make can plausibly generate?",
+        "How would you decide where to draw the line?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "WebContainers moves the execution cost from your servers to the user's browser, enabling near-zero-cost instant previews \u2014 but native modules, real database connections, and raw TCP access are architectural impossibilities in this model, which places a hard ceiling on the complexity of apps that can be previewed without a server-side component.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "WebContainers handles the browser execution case. But generated apps need to run somewhere after the user leaves the preview tab \u2014 and many apps need server-side logic even during preview. What are the lightweight server-side execution options between \"full Docker container\" and \"nothing\"?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "WebContainers makes Node.js 'believe' it has a real filesystem and network stack when it's actually running in a browser tab. What are the two key mechanisms that create this illusion?",
+      "options": [
+        "An in-memory virtual filesystem (a JavaScript object tree mapping paths to file contents) handles file I/O, and a ServiceWorker intercepts TCP traffic on localhost ports and routes it as HTTP responses from the browser itself",
+        "WebContainers uses browser LocalStorage for the filesystem and the Fetch API for networking — standard browser APIs repurposed for Node.js emulation",
+        "WebContainers compiles the entire filesystem to WebAssembly at startup and uses WebRTC for peer-to-peer networking between the Node.js process and the preview iframe"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module describes this precisely: WebContainers intercepts Node.js's POSIX system calls. File operations are served from an in-memory virtual filesystem (a JavaScript object tree). Network operations — when Node.js tries to open a TCP socket on port 3000 — are intercepted by a ServiceWorker that rewrites localhost requests to be served from the in-memory server. The browser tab genuinely serves its own localhost. LocalStorage and WebRTC are not involved.",
+      "encourageCorrect": "Correct — the virtual filesystem plus ServiceWorker interception is the core engineering insight behind WebContainers.",
+      "encourageIncorrect": "LocalStorage is too small and synchronous for a working filesystem. WebRTC is for peer-to-peer media and data streaming. The actual mechanisms are: in-memory virtual filesystem (fast, arbitrary size, lives in browser heap) for file I/O, and a ServiceWorker that intercepts localhost HTTP requests for networking. The ServiceWorker is what makes the 'localhost server' work entirely within the browser tab."
+    },
+    {
+      "question": "A user generates an app in Make that uses the `bcrypt` npm package for password hashing. If Make's preview runs on WebContainers, what happens and why?",
+      "options": [
+        "bcrypt installs successfully but runs slower than on a server because WebAssembly executes at roughly 70% of native speed",
+        "bcrypt's installation will fail or the module will fail to load because bcrypt ships a precompiled C++ binary (.node file) that cannot execute in a browser's WebAssembly environment",
+        "bcrypt works in WebContainers because WebAssembly can execute any compiled binary through the WASI (WebAssembly System Interface) standard"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module is explicit: native modules — packages like bcrypt, sharp, canvas, sqlite3 that ship precompiled C++ binaries (.node files) — cannot run in WebContainers. WebAssembly is a sandboxed bytecode format; it cannot load arbitrary native binaries compiled for a specific OS/CPU. WASI is a related standard but doesn't solve this problem for existing native npm packages that haven't been explicitly compiled for Wasm. This is the hard ceiling the module identifies for WebContainers-only preview infrastructure.",
+      "encourageCorrect": "Right — native module incompatibility is the architectural hard limit for WebContainers, and bcrypt is one of the canonical examples the module cites.",
+      "encourageIncorrect": "WASI doesn't automatically make existing native .node packages run in WebAssembly — packages must be explicitly compiled to Wasm target, which bcrypt hasn't done. WebContainers can't execute native binaries at all, not just run them more slowly. This is a complete incompatibility, not a performance tradeoff."
+    },
+    {
+      "question": "Bolt's WebContainers architecture means user compute costs are near-zero for Make's server infrastructure. At 100,000 monthly active users spending 2 hours each in preview, what is the approximate infrastructure cost difference versus a container-based approach, and what is the architectural tradeoff?",
+      "options": [
+        "The cost difference is negligible because cloud providers offer preview compute at commodity prices, making WebContainers' main advantage startup speed rather than cost savings",
+        "WebContainers is more expensive because maintaining the ServiceWorker infrastructure and CDN serving WebAssembly assets costs more than running containers",
+        "Container-based preview at $0.01-$0.05 per active hour would cost $2,000-10,000/month for that usage profile; WebContainers moves execution to user browsers at near-zero server cost — the tradeoff is that native modules, real database connections, and heavy CPU workloads cannot run in the browser sandbox"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly provides this calculation: at $0.01-0.05 per active hour, 100K users × 2 hours = $2,000-10,000/month in container compute. WebContainers transfers that work to user browsers, making server-side preview compute near-zero. The architectural tradeoff is the capability ceiling: native modules (.node binaries), real TCP connections to databases, and heavy CPU workloads are impossible in the browser sandbox. This is the core cost/capability tradeoff the module is designed to make concrete.",
+      "encourageCorrect": "Good — knowing these specific numbers and tradeoffs is what makes WebContainers vs. containers an informed product decision rather than a vague preference.",
+      "encourageIncorrect": "Preview compute at scale is not negligible — the module provides the specific calculation. ServiceWorker and Wasm asset serving costs are minimal compared to active compute time. The correct analysis is that WebContainers eliminates the dominant cost (execution compute) at the cost of a capability ceiling (no native modules, no real database TCP connections)."
+    }
+  ]
+}

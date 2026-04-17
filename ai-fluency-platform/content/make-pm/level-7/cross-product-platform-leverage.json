@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "7.4 Cross-Product Platform Leverage",
+    "description": "Cross-product platform leverage is the strongest justification for platform investment. \"Build it once, use it everywhere\" makes a compelling ROI case. But the reality of serving multiple products sim",
+    "level": "level-7",
+    "slug": "cross-product-platform-leverage",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Make Platform builds a sandboxed code execution environment. Figma Design could use it for interactive prototypes. FigJam could use it for custom widgets. Should Make's platform team serve all three products, or stay focused on Make?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Cross-product platform leverage is the strongest justification for platform investment. \"Build it once, use it everywhere\" makes a compelling ROI case. But the reality of serving multiple products simultaneously is harder than the pitch suggests. The Platform PM needs to understand both the opportunity and the organizational complexity before recommending expansion.\n\n---\n\n**The Leverage Case**\n\nMake's core infrastructure assets have genuine cross-product applicability inside Figma:\n\n**Code execution sandbox:** Make built a secure, isolated environment for running untrusted user-generated code. Figma Design needs the same for interactive component previews. FigJam needs it for custom whiteboard widgets. Sites needs it for interactive animations. Building this once as a shared platform service and having three products consume it is far more efficient than three teams each building their own sandboxes \u2014 three different security models, three different API surfaces, three sets of CVEs to patch.\n\n**Preview infrastructure:** Make's CDN and edge delivery for previews could serve Figma's prototype sharing (currently a separate infrastructure). Unified delivery infrastructure means one team responsible for reliability, one caching strategy, one cost optimization surface.\n\n**Component runtime:** Make's runtime for executing React components could power Figma's interactive components feature \u2014 letting designers use actual code components, not just static designs, in their Figma files.\n\nThe platform leverage case is strongest when:\n- The infrastructure is genuinely the same (same security requirements, same performance characteristics)\n- The cost of maintaining separate implementations is demonstrably high\n- The organizational alignment to agree on shared infrastructure exists\n\n---\n\n**The Distraction Risk**\n\nServing three products means three product teams with different roadmaps, different prioritization pressures, and different definitions of what the platform needs to do.\n\nIn practice, cross-product platform serving creates:\n\n**Requirement conflicts:** Figma Design's component runtime requirements are shaped by professional designers using Mac Studio workstations with fast connections. FigJam's requirements are shaped by enterprise teams in large video calls on corporate VPNs. Make's requirements are shaped by builders iterating rapidly on app code. These use cases have meaningfully different performance characteristics, failure tolerance, and feature requirements. The platform abstraction that serves all three is more complex than any single-product implementation.\n\n**Prioritization pressure:** If Make needs a critical runtime fix that only affects Make, but FigJam has a feature request that requires a platform change that would benefit FigJam more, whose priority wins? Platform teams serving multiple product teams constantly face this negotiation. Without strong governance, the loudest product team or the one with the most executive support wins \u2014 not the one with the highest-leverage request.\n\n**Velocity tax:** Every change to the shared platform requires coordination with all consumers. A runtime change that would take 2 days if Make owned it takes 2 weeks when the change requires cross-team review, testing, and migration across three products.\n\n---\n\n**Shared vs. Specialized: The Right Dividing Line**\n\nThe resolution is to distinguish between infrastructure that is genuinely shared and infrastructure that is Make-specific in ways that matter.\n\n**Genuinely shared (good candidates for cross-product platform):**\n- Code execution sandbox: the security and isolation requirements are nearly identical across products\n- CDN and preview delivery: the performance and reliability requirements are similar\n- Authentication and authorization: user identity is Figma-wide\n- Build pipeline for JavaScript/TypeScript: if all products run JS, the build toolchain is shared\n\n**Make-specific (should stay in Make):**\n- Agent orchestration: the multi-step tool-calling loop for code generation is specific to Make's use case\n- Eval systems: what constitutes a \"good\" output for Make's code generation doesn't translate to FigJam widget evaluation\n- Code generation prompts: these are Make's core product differentiation\n- Preview hot-reload: the DX optimizations for iterative code editing are Make-specific\n\nThe Platform PM's job is to maintain this distinction rigorously. The moment platform teams start owning product-specific logic \"for convenience,\" the platform's cognitive load and complexity explode.\n\n---\n\n**Organizational Models**\n\nTwo models for cross-product platform work:\n\n**Model 1: Centralized platform team with product \"customers.\"** A single Make Platform team owns the shared infrastructure and treats Make Product, Figma Design, and FigJam as internal customers with SLAs. Product teams file requests; Platform prioritizes across the portfolio.\n\n**Strengths:** Clear ownership, no duplication, single place for infrastructure improvements.\n**Weaknesses:** Platform bottleneck, velocity tax for all products, platform team disconnected from product context.\n\n**Model 2: Embedded platform engineers in each product team.** Figma has a loose \"platform guild\" \u2014 engineers who share practices and sometimes code \u2014 but they're embedded in product teams.\n\n**Strengths:** Platform engineers understand product context, velocity is high for each product.\n**Weaknesses:** Divergence over time, duplicated infrastructure, inconsistent security models.\n\nFor Make's current scale, the right model is probably a hybrid: Make Platform owns the core runtime, sandbox, and preview infrastructure as a shared service with explicit SLAs, with embedded platform-oriented engineers in each product team who understand how to consume the shared services.\n\n---\n\n**The AWS Precedent**\n\nAmazon Web Services began as Amazon's internal infrastructure. S3, EC2, and SQS were built to solve Amazon.com's problems. The insight was that the infrastructure was useful to others too \u2014 and that making it available externally would create a self-reinforcing business.\n\nMake's situation is analogous internally: the infrastructure built for Make is useful to other Figma products. The question of whether it eventually becomes an external product (a code execution sandbox as a service for other platforms?) is a 3-5 year strategic question, not an immediate one. But designing the infrastructure with clean interfaces now makes that optionality possible.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "FigJam asks Make Platform to support Python in its sandbox, so FigJam users can run custom data scripts in their whiteboards. Make's current sandbox only supports JavaScript. Python support would require 3 months of platform work and would primarily benefit FigJam, not Make. How do you evaluate this request?",
+      "answer": "*Key considerations: Is Python support on Make's roadmap for any reason? If yes, timing and scope negotiation. If no: who funds the 3 months? FigJam's team, or Platform's budget? What's the governance model for cross-product platform work? Is there a chargeback model? This is an organizational question as much as a technical one.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Look at Figma's current product portfolio: Figma Design, FigJam, Figma Sites, Figma Slides, and Make. Identify three pieces of infrastructure that are probably shared today (before Make's platform team explicitly built them as shared services). What tells you they're likely shared?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the \"platform tax\" of cross-product serving to a CPO who is excited about the leverage potential. What does the CPO need to understand about the organizational and velocity costs before approving the expansion?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In platform organizations where AI systems serve multiple internal products or teams, how does the multi-customer dynamic play out in practice?",
+        "Where does cross-product leverage tend to succeed, and where does it create friction?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Cross-product platform leverage is real for genuinely shared infrastructure like sandboxes, CDN, and auth \u2014 but agent orchestration, evals, and code generation are Make-specific and should stay that way, and the organizational cost of multi-product serving (velocity tax, requirement conflicts) must be explicitly accounted for before expanding platform scope.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Serving multiple products while shipping Make features is a velocity question. What happens when the platform needs a significant rewrite and there are also features to ship? That tradeoff is next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Make Platform's code execution sandbox is a strong candidate for cross-product sharing with FigJam and Sites. Make's eval system is not. What distinguishes them?",
+      "options": [
+        "The sandbox is more expensive to build, so sharing amortizes the cost across teams",
+        "The sandbox has nearly identical security and isolation requirements across all products, while the eval system encodes Make-specific definitions of output quality that don't translate to other products",
+        "The sandbox is owned by the platform team, while the eval system is owned by the product team"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's dividing line is between genuinely shared infrastructure and Make-specific logic. Code execution sandboxes have similar security requirements across products — the same CVEs matter, the same isolation model applies. Eval systems, by contrast, define what a 'good' output looks like for Make's code generation — that definition is product-specific and doesn't apply to FigJam widget evaluation or Sites animations. Ownership is a consequence, not the cause of this distinction.",
+      "encourageCorrect": "Exactly — genuine sharability comes from requirement similarity, not cost amortization. Evals are Make-specific because what counts as quality for code generation doesn't translate to other products.",
+      "encourageIncorrect": "Cost amortization is a benefit of sharing, not the criterion for deciding what to share. The right test is whether the security, performance, and feature requirements are genuinely similar across consuming products — which they are for sandboxes and aren't for eval systems."
+    },
+    {
+      "question": "FigJam requests Python support in Make Platform's JavaScript sandbox so FigJam users can run data scripts. The work would take 3 months and primarily benefit FigJam. What is the most important organizational question the Platform PM must answer first?",
+      "options": [
+        "Whether Python support is technically feasible within the existing sandbox architecture",
+        "Who funds the 3 months of platform work — FigJam's team budget or Platform's budget — and what governance model determines cross-product prioritization",
+        "Whether Python support would create security vulnerabilities that need to be assessed before any other consideration"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module frames this as 'an organizational question as much as a technical one.' Without a clear governance model for cross-product platform requests — including a chargeback model and a prioritization framework — the loudest product team or the one with most executive support wins, not the highest-leverage request. Technical feasibility and security are important but they don't resolve who decides and who pays.",
+      "encourageCorrect": "Right — the governance and funding question must be answered before the technical work begins, otherwise cross-product platform serving devolves into whoever escalates most aggressively winning.",
+      "encourageIncorrect": "Technical feasibility and security matter, but they're downstream of the organizational question. If there's no governance model for cross-product requests, you'll answer the technical question and then hit an unresolvable funding dispute. The module's calibration question is specifically designed to surface this organizational dimension."
+    },
+    {
+      "question": "A CPO argues: 'Build it once, use it everywhere — cross-product leverage is the strongest ROI case for platform investment.' What is the critical limitation of this argument that the module explicitly corrects?",
+      "options": [
+        "The ROI case ignores the velocity tax — every change to shared infrastructure requires cross-team coordination, slowing all consuming products and creating requirement conflicts",
+        "Cross-product leverage is theoretically sound but impossible to achieve in practice because no two products share infrastructure",
+        "Platform investments have no ROI because they don't directly drive user acquisition"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module's core corrective to the leverage pitch is the velocity tax: every change to shared platform requires coordination across all consuming teams, turning a 2-day fix into a 2-week process. Additionally, serving multiple products creates requirement conflicts (different products have different performance and feature needs) and prioritization disputes. The CPO's ROI case is real for genuinely shared infrastructure but must be weighed against these organizational costs before deciding to expand platform scope.",
+      "encourageCorrect": "Correct — the leverage case is real, but the velocity tax and requirement conflicts are the hidden costs that the 'build it once' pitch systematically omits.",
+      "encourageIncorrect": "Cross-product leverage does work for genuinely shared infrastructure. The module's point is more specific: the organizational costs of multi-product serving — velocity tax, prioritization conflicts, requirement mismatches — must be explicitly accounted for, because the CPO's ROI framing typically ignores them."
+    }
+  ]
+}

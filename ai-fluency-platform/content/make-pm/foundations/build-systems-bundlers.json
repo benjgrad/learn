@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "F.3 Build Systems & Bundlers",
+    "description": "The gap between \"code an AI wrote\" and \"code a browser can run\" is not small. Browsers speak ES5-compatible JavaScript and standard CSS. AI-generated code is written in TypeScript, JSX, modern ES2022+",
+    "level": "foundations",
+    "slug": "build-systems-bundlers",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> When you run `npm install && npm run build`, what is actually happening? Why does it take 45 seconds, and why can't you skip it?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The gap between \"code an AI wrote\" and \"code a browser can run\" is not small. Browsers speak ES5-compatible JavaScript and standard CSS. AI-generated code is written in TypeScript, JSX, modern ES2022+ JavaScript, and CSS modules. Something must bridge that gap. That something is the build system \u2014 and its speed is the primary constraint on Make's preview experience.\n\n**Package Managers: What node_modules Actually Is**\n\nWhen you run `npm install`, npm reads `package.json`, resolves the dependency graph, downloads every package and all of their dependencies, and writes them to `node_modules/`. For a standard React project, `node_modules/` contains 200\u2013500 MB of files and tens of thousands of individual files.\n\nThis is not a bug. It is the consequence of fine-grained modularity. React depends on `react-dom`. `react-dom` depends on `scheduler`. `scheduler` has its own dependencies. The graph can be 5\u201310 levels deep.\n\n`npm` builds a flat `node_modules/` directory when possible, using `package-lock.json` to pin exact versions. This determinism is the whole point \u2014 every developer gets the same dependency tree.\n\n`pnpm` (Performant npm) is increasingly common in platform contexts. Instead of copying packages, pnpm uses hard links to a global store. A package used in 10 projects is stored once on disk. Install time and disk usage both drop dramatically. This matters for Make: if you're spinning up preview environments that need to install dependencies, pnpm's approach is significantly faster.\n\n`yarn` (by Meta) introduced the lockfile pattern and parallel downloads before npm did. Yarn v2/v3's Plug'n'Play mode eliminates `node_modules/` entirely \u2014 instead, a single `.pnp.cjs` file maps every import to an exact location in a global cache. Faster resolution, but compatibility issues with tools that expect `node_modules/` to exist.\n\n**Bundlers: The Transformation Engine**\n\nBrowsers cannot import TypeScript, JSX, or ES modules from npm packages directly. A bundler takes your source code (many files, many formats) and produces browser-executable output (fewer files, standard JavaScript).\n\n**Webpack** was the dominant bundler for a decade. It processes your entry point, follows every `import` and `require`, and assembles a dependency graph. It transforms files through loaders (TypeScript \u2192 JavaScript via `ts-loader`, JSX \u2192 `createElement` via `babel-loader`). It then emits optimized bundles. Webpack is extraordinarily capable and extraordinarily slow on large projects. A cold build on a medium-sized app can take 30\u201360 seconds.\n\n**esbuild** (written in Go) is 10\u2013100\u00d7 faster than Webpack for the same transformation. It processes files in parallel using Go's goroutines and compiles to native code. The tradeoff: esbuild is not a full bundler in Webpack's sense \u2014 it lacks some advanced features like deep HMR and certain code-splitting strategies. It is primarily used as a transform step inside other tools.\n\n**Vite** (by Evan You, creator of Vue) is the bundler of the current era. Its key insight: for development, you don't need to bundle at all. Modern browsers support ES modules natively. Vite's dev server serves files as individual ES modules, transforming them on-demand with esbuild when they're requested. The browser handles the import graph. The result: dev server starts in under a second for any size project. Only the specific file you just changed is re-transformed.\n\nFor production builds, Vite uses Rollup (not esbuild) to produce optimized bundles. Rollup has better tree-shaking and code-splitting than esbuild for production output.\n\n**Turbopack** is Vercel's answer to Vite, built in Rust. Integrated into Next.js 13+. Its claim: incremental computation \u2014 it tracks what changed and only re-computes what is affected, maintaining a dependency graph of computations rather than files. Turbopack's cold start is slower than Vite's; its incremental updates are faster.\n\n**Transpilation: TypeScript and JSX**\n\nTypeScript is a superset of JavaScript with static types. Browsers cannot execute TypeScript directly. The types must be stripped (or the entire file compiled). Two approaches: `tsc` (the TypeScript compiler) does full type-checking and emits JavaScript. `esbuild` and `swc` strip types without type-checking \u2014 dramatically faster, but silent type errors. Vite uses esbuild to strip types during development (no type checking) and recommends running `tsc` separately in CI.\n\nJSX (`<Button onClick={fn}>`) is not valid JavaScript. It compiles to function calls: `React.createElement(Button, { onClick: fn })` in older React, or the optimized JSX runtime `_jsx(Button, { onClick: fn })` in React 17+. Babel and esbuild both handle this transformation.\n\n**Tree-Shaking, Code Splitting, Minification**\n\nTree-shaking: bundlers statically analyze `import` statements to identify which exports are actually used. Unused code is excluded from the bundle. If you import one utility from a 200KB library, only that utility (and its dependencies) ships. This requires ES module syntax \u2014 `require()` is dynamic and cannot be tree-shaken reliably.\n\nCode splitting: instead of one massive bundle, the bundler produces multiple smaller chunks. Route-based splitting is common: the code for `/dashboard` only loads when the user navigates to `/dashboard`. This reduces initial load time. Next.js does this automatically per page.\n\nMinification: variable names are shortened, whitespace removed, dead code eliminated. A 200KB development bundle often becomes 60KB after minification. Terser and esbuild both handle this.\n\n**Why Build Time is the Enemy of Instant Previews**\n\nMake's preview promise is implicit: change your prompt, see your updated app. If that cycle includes a 45-second Webpack build, the product fails. The engineering answer:\n\n1. **Use Vite's dev server model:** Serve ES modules on-demand, transform only what's requested. No bundle step. Preview starts in under a second.\n2. **Cache aggressively:** If the AI regenerates only one component, only that component needs to be re-transformed. The rest is cached.\n3. **Pre-install dependencies:** If Make's runtime environments come with React, React DOM, and the common component libraries pre-installed, `npm install` becomes unnecessary for most previews.\n4. **Use WebContainers:** StackBlitz's technology runs the entire Node.js toolchain inside the browser tab using WebAssembly. No server install step. But language/package support is constrained.\n\nThe tension is between correctness (production builds are more accurate previews of deployed behavior) and speed (dev server transforms are fast but don't perfectly replicate production). Make has to decide which side of that tradeoff to favor \u2014 and communicate the choice clearly to users.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user complains: \"My preview shows the app working, but when I deploy it, images are broken.\" You investigate and find that in the dev server preview, images are served from localhost with permissive paths. In production, they go through a CDN with strict content hashing. What class of problem is this, and how does it argue for or against using Vite's dev server model for Make's preview?",
+      "answer": "This is a dev/prod parity problem \u2014 the preview environment behaves differently from the deployment target. It argues for either (a) running production builds for preview (slow but accurate) or (b) investing in better dev/prod simulation in the preview environment. This is a real tradeoff the platform team must own: faster previews create inaccurate previews. The product answer is usually a tiered model: fast dev preview for iteration, a \"production preview\" build before deploy.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Run `npm run build` on a Vite project and a Next.js project of comparable size. Compare build times. Then run `vite dev` and measure how quickly the dev server starts. Look at the `dist/` folder after build \u2014 examine the chunk files. Notice how many chunks are generated and what triggers a new chunk boundary.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "An engineering lead asks why Make can't use Webpack for preview. Explain in three sentences why Vite's approach is architecturally better for Make's use case, and what the tradeoff is.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "If this technology matures, what does it do to Make's infrastructure costs and architecture?",
+        "Is it a threat or an opportunity?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Build speed is a product feature, not an engineering metric \u2014 every second of bundle time is a second of broken feedback loop for the user, and the choice of bundler (Vite vs. Webpack vs. esbuild) is a platform architecture decision with direct user experience consequences.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> You've got code that can be transformed and bundled. But where does it run? A hundred thousand users are all generating untrusted code simultaneously. That's the isolation problem \u2014 and it's the hardest infrastructure question Make faces.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Vite's dev server serves ES modules on-demand rather than bundling upfront. What is the key product consequence of this approach for Make's preview experience?",
+      "options": [
+        "Vite eliminates the need for TypeScript type-checking, which reduces error rates in generated code",
+        "Vite's approach means previews are more accurate representations of production builds, since no bundling step introduces differences",
+        "Dev server startup takes under a second for any project size because no bundle is created; only the specific file being requested is transformed when it's first accessed"
+      ],
+      "correctIndex": 2,
+      "explanation": "Vite's dev server exploits native browser ES module support — instead of bundling all files upfront, it serves files individually and transforms only the ones the browser actually requests. A cold Webpack build on a medium-sized project takes 30-60 seconds; Vite's dev server starts in under a second regardless of project size. For Make, this is the difference between an 'instant preview' product promise and one that makes users wait nearly a minute.",
+      "encourageCorrect": "Exactly — Vite's ES module approach directly enables the 'instant preview' experience that's central to Make's product promise.",
+      "encourageIncorrect": "Vite actually increases the dev/prod parity gap, not reduce it — for production it uses Rollup, not the same ESM approach. And it doesn't eliminate TypeScript type-checking; it strips types without checking them (a speed/safety tradeoff). The key benefit is near-instant dev server startup because no bundling step happens upfront."
+    },
+    {
+      "question": "pnpm uses hard links to a global package store rather than copying packages into each project's node_modules. Why does this matter specifically for Make's preview infrastructure?",
+      "options": [
+        "When spinning up preview environments that need npm packages installed, pnpm's approach reduces both install time and disk usage because packages used across many projects are stored only once",
+        "Hard links prevent package tampering because the files are read-only at the OS level",
+        "pnpm's approach means packages can be shared between different users' preview environments, which creates a security risk Make must address"
+      ],
+      "correctIndex": 0,
+      "explanation": "pnpm's global store means a package like react@18 is stored once on disk regardless of how many preview environments need it. In a platform spinning up thousands of preview environments per hour, this dramatically reduces install time (no redundant downloads) and disk I/O. At the infrastructure level, this translates directly to faster preview cold starts and lower storage costs — which is why pnpm appears frequently in high-scale platform contexts.",
+      "encourageCorrect": "Correct — the infrastructure cost implications of package management are exactly the kind of connection a Platform PM needs to make.",
+      "encourageIncorrect": "Hard links don't enforce read-only access — that's a separate file permission concern. And while the shared store could theoretically raise questions about isolation, the files themselves are read-only by convention and the risk is about disk, not security boundary crossing. The core benefit for Make's infrastructure is dramatically reduced install time and storage when spinning up many preview environments."
+    },
+    {
+      "question": "Tree-shaking requires ES module syntax (import/export) and fails for CommonJS (require). What is the practical consequence for Make if it generates code that uses CommonJS-style requires?",
+      "options": [
+        "The generated app will fail to run in modern browsers, since browsers only support ES modules",
+        "Bundlers cannot determine which exports are actually used at build time, so the entire library ships to users even if only one small utility was needed — increasing bundle size and load time",
+        "CommonJS requires will cause runtime errors in Node.js environments, since Node.js deprecated require() in recent versions"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tree-shaking works by statically analyzing import statements at build time to identify unused exports and exclude them from the bundle. CommonJS require() is dynamic — the module name can be a variable, computed at runtime — so the bundler cannot safely determine what's actually used and must include the entire library. If Make generates code that imports lodash with require(), the entire 70KB library ships; with ES module imports, only the specific functions used are included.",
+      "encourageCorrect": "Right — bundle bloat from untree-shakeable CommonJS imports is a real quality issue in generated code, and it directly affects user-perceived load performance.",
+      "encourageIncorrect": "CommonJS runs fine in Node.js (it's the original module system) and modern browsers actually support ES modules, not CommonJS. The tree-shaking problem is that require() is dynamic, so bundlers can't determine at build time which parts of a library are actually used — the entire library ships, inflating bundle size."
+    }
+  ]
+}

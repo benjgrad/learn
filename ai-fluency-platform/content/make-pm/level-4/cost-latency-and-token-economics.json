@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "4.8 Cost, Latency, and Token Economics",
+    "description": "Token economics is where agent platform strategy meets business model. A Platform PM who cannot do this math is flying blind on one of the most important constraints in the product.",
+    "level": "level-4",
+    "slug": "cost-latency-and-token-economics",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> A single Make session might involve the agent reading 50 files, making 20 tool calls, and generating 15,000 tokens of code. At Claude's API pricing, what does that cost \u2014 and can you build a business on it?\n\nWrite your calculation before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Token economics is where agent platform strategy meets business model. A Platform PM who cannot do this math is flying blind on one of the most important constraints in the product.\n\n**Token pricing as of 2025 (Claude Sonnet 3.7):**\n\n- Input tokens: ~$3.00 per million\n- Output tokens: ~$15.00 per million\n- Prompt caching (cached reads): ~$0.30 per million (10x cheaper than uncached)\n\nThese prices will change. The direction is down \u2014 model costs have dropped 10-100x in three years. But the math is worth doing at current prices to understand the structure.\n\n**A typical Make session, broken down:**\n\n| Component | Tokens | Type | Cost |\n|-----------|--------|------|------|\n| System prompt (tools + instructions) | 4,000 | Input | $0.012 |\n| Codebase context (retrieved files, cached) | 80,000 | Cached input | $0.024 |\n| Conversation history (10 turns) | 20,000 | Input | $0.060 |\n| Tool results (20 tool calls \u00d7 avg 1K tokens) | 20,000 | Input | $0.060 |\n| Generated code (output) | 10,000 | Output | $0.150 |\n| **Total** | **134,000** | | **~$0.31** |\n\nA light session costs $0.30-0.50. A heavy session (complex feature, many files, long conversation) costs $1.50-3.00.\n\n**The heavy user problem:**\n\nA power user \u2014 a freelance developer building client projects in Make \u2014 might run 10-20 sessions per day. At $1.50/session average:\n\n- 10 sessions/day \u00d7 $1.50 = $15/day in API cost\n- $15/day \u00d7 20 working days = $300/month in API cost per heavy user\n\nIf Make charges $20/month (Cursor's price point), heavy users are deeply unprofitable. If Make charges $50/month, heavy users break even but light users (1-2 sessions/day) generate 80%+ margin.\n\nThis math drives the business model decision.\n\n**Cost optimization strategies:**\n\n**Prompt caching.** Anthropic's caching feature allows the system prompt and frequently-accessed context (the codebase index, common framework boilerplate) to be cached at the API level. Cached tokens cost 10x less than uncached tokens. For a session where 60% of input tokens are cached, total cost drops by ~50%.\n\nImplementation: mark the system prompt and the codebase context block as cache-able. The first request in a session pays full price; subsequent turns in the same session read from cache.\n\n**Model routing.** Not every agent step requires Sonnet. Simple operations \u2014 reading a file, formatting a code block, writing a CSS rule \u2014 can use Haiku (roughly 25x cheaper than Sonnet). Complex operations \u2014 architectural planning, debugging a subtle logic error, reasoning across multiple files \u2014 warrant Sonnet or Opus.\n\nA routing layer that classifies each agent step by complexity and selects the appropriate model can reduce average cost by 40-60% without meaningfully degrading output quality for simple tasks.\n\n**Context pruning.** Module 4.3 covered this from a quality perspective; it also has a cost dimension. Every token in the context is a billed token. Aggressively evicting old tool results, compressing conversation history, and retrieving only the most relevant files (not the entire codebase) directly reduces cost.\n\n**Streaming.** Not a cost reduction \u2014 it is a latency perception improvement. Streaming partial results as the agent generates them makes a 15-second generation feel faster than a 15-second blank wait followed by a complete response. For Make's preview environment, streaming allows the UI to render partial components as they are generated.\n\n**Latency breakdown:**\n\nA 15-step agent session, with each step taking:\n- Model inference: 2-4 seconds\n- Tool execution (file read/write): 0.1-0.5 seconds\n- Tool execution (npm install): 5-60 seconds (the long tail)\n- Build verification: 3-10 seconds\n\nTotal session latency: 60-180 seconds for a complex feature. This is not acceptable for interactive use if the user is staring at a blank screen. Streaming and incremental preview rendering transform 120 seconds of waiting into 120 seconds of watching progress.\n\n**Business model implications:**\n\n| Model | Architecture Implication |\n|-------|--------------------------|\n| Monthly subscription (unlimited) | Must set usage limits; heavy users require cost controls; generous free tier is a growth lever |\n| Per-session billing | Users are price-sensitive during session; may abandon mid-session when complex; better unit economics |\n| Credit-based | Predictable revenue; heavy users self-select into higher tiers; requires a credit consumption model that maps to token cost |\n\nCursor uses subscription with \"fast request\" limits (500 premium requests per month on Pro). Replit Agent uses cycle-based billing. GitHub Copilot uses flat subscription.\n\nFor Make, the credit-based or tiered subscription model aligns best with the heavy-tail distribution of usage. The top 10% of users generate 60%+ of API cost; a tiered model captures their willingness to pay.\n\n**The 10x cost reduction bet:**\n\nModel inference costs have dropped 10-100x in three years. A platform PM building Make's business model in 2025 is building for a world where inference costs are 5-10x cheaper in 2027. The math that makes heavy users unprofitable at current prices may make them profitable at future prices \u2014 if Figma maintains price while costs fall.\n\nThis is the same bet every SaaS company made with cloud infrastructure in 2010: the unit economics looked marginal, but the infrastructure cost curve bent faster than anyone expected.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "You are designing Make's model routing layer. A user asks the agent to \"change the button color from blue to green throughout the app.\" The agent must: find all files containing blue button classes, update each file, and run a build to verify. Which tasks should use Haiku and which should use Sonnet?\nA. Haiku for everything \u2014 it's a simple task\nB. Sonnet for finding the files, Haiku for making the changes, Sonnet for interpreting the build output\nC. Haiku for finding and changing files, Sonnet for interpreting build output and any error recovery\nD. Sonnet for everything \u2014 the risk of a wrong change is too high for Haiku",
+      "answer": "C.** Finding files (grep tool) and making mechanical substitutions (known pattern, no ambiguity) are tasks Haiku handles well. Interpreting a complex build error, diagnosing why a change broke a CSS cascade, or deciding whether to retry or rollback \u2014 these require Sonnet-level reasoning. D is overcautious; A and B misallocate model capability.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open the Anthropic pricing page and the Cursor pricing page. Calculate: at Cursor's $20/month price point, how many \"average\" Make sessions (use your own estimate of token usage) could Figma serve before losing money on a user? What price would Make need to charge to break even on a user who runs 15 sessions/day? Does that price seem viable?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain prompt caching to a CFO who is asking why the API cost per user is so high. What is the one change in platform architecture that would have the largest impact on cost per session, and what does it take to implement?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "If you were building such a tool as a commercial product with a subscription model, what would the cost-per-session estimate be \u2014 and what would you charge?",
+        "How does that exercise inform how you would think about Make's pricing model?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Token economics determine whether Make's business model works: prompt caching, model routing, and context pruning are the three levers that can reduce session cost by 50-70%, and the Platform PM owns all three.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> You have now built a mental model of Make's full agent infrastructure stack: the agent loop, tool use, context management, planning, error recovery, the build-or-integrate decision, canvas-aware workflows, and token economics. The VP of Engineering walks in and asks for your recommendation on one of these in five minutes. Are you ready?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Prompt caching reduces session cost by approximately 50% in typical Make sessions. What is the mechanism that makes this possible?",
+      "options": [
+        "The platform stores the model's generated code output from previous sessions and reuses it when similar prompts are submitted",
+        "Anthropic's API caches the key-value representations of the system prompt and stable context (like the codebase index), so subsequent turns in the same session read from cache at ~10x lower cost than uncached tokens",
+        "The platform batches multiple user sessions together and sends them to the API simultaneously, reducing per-session API overhead"
+      ],
+      "correctIndex": 1,
+      "explanation": "Prompt caching works at the attention mechanism level: Anthropic caches the KV representations of the prompt prefix (system prompt + stable codebase context) after the first request. Subsequent turns in the same session read these cached representations at ~$0.30/M tokens instead of ~$3.00/M — a 10x cost reduction on the cached portion. The first request pays full price; subsequent turns are dramatically cheaper.",
+      "encourageCorrect": "Right — KV cache reuse across turns within a session is the mechanism, and it applies specifically to the stable prefix of the prompt.",
+      "encourageIncorrect": "Caching doesn't reuse generated outputs or batch multiple users together. It works at the model's attention layer: after processing the system prompt and stable context once, the API caches the intermediate representations (KV cache). Subsequent turns in the same session read from that cache at 10x lower cost rather than reprocessing those tokens from scratch."
+    },
+    {
+      "question": "A model routing layer that uses Haiku for simple tasks and Sonnet for complex tasks can reduce session cost by 40–60%. For the task 'change all button colors from blue to green throughout the app,' which assignment is correct?",
+      "options": [
+        "Sonnet for finding files and making changes; Haiku only for the build output summary",
+        "Haiku for everything — the task is simple enough that Sonnet is unnecessary overhead",
+        "Haiku for file search and mechanical substitutions; Sonnet for interpreting build output and any error recovery that requires reasoning across multiple files"
+      ],
+      "correctIndex": 2,
+      "explanation": "Finding files (grep tool) and making mechanical text substitutions (known pattern, no ambiguity) are tasks Haiku handles reliably. Interpreting a complex build error — diagnosing why a CSS cascade broke after the change, or deciding whether to retry or rollback — requires Sonnet-level reasoning. Routing by task complexity, not by blanket policy, is what achieves meaningful cost reduction without sacrificing quality.",
+      "encourageCorrect": "Exactly — the key insight is routing by task complexity: mechanical operations to Haiku, reasoning-intensive operations to Sonnet.",
+      "encourageIncorrect": "Using Haiku for everything risks degraded quality on the reasoning-intensive parts (error diagnosis, recovery decisions). The correct routing assigns grep and text substitution to Haiku, where it performs well, and reserves Sonnet for interpreting complex build errors and making recovery decisions that require multi-file reasoning."
+    },
+    {
+      "question": "The module notes that heavy users (15 sessions/day) may be deeply unprofitable at a $20/month flat subscription. What business model structure best aligns pricing with the heavy-user cost problem?",
+      "options": [
+        "Per-session billing — users pay each time they start a session, so heavy users automatically cover their API costs",
+        "A tiered subscription or credit-based model — heavy users self-select into higher tiers or buy more credits, allowing price to track usage in the tail while lighter users subsidize growth with high-margin subscriptions",
+        "Usage caps that terminate sessions after a token limit — preventing heavy users from ever exceeding the subscription price's cost basis"
+      ],
+      "correctIndex": 1,
+      "explanation": "The top 10% of users generate 60%+ of API cost. A tiered or credit-based model captures heavy users' higher willingness to pay (they get more value from the product) while maintaining high margins on light users. Per-session billing creates friction that discourages use. Hard caps break the experience for the most valuable users. Tiered pricing is the structural solution to heavy-tail cost distribution.",
+      "encourageCorrect": "Right — tiered pricing captures heavy-user willingness to pay and matches price to value in a way that flat subscriptions and per-session billing don't.",
+      "encourageIncorrect": "Per-session billing creates friction and may discourage exactly the power users who drive the most value. Hard caps break the experience for the platform's most engaged users. The correct structure is tiered subscriptions or credits — heavy users who get the most value self-select into higher-priced tiers, aligning price with usage and keeping lighter users at a profitable margin."
+    }
+  ]
+}

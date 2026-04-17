@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "1.1 The Prompt-to-Code Product Category",
+    "description": "The AI coding market is genuinely confusing because the output of many products looks similar \u2014 you type a prompt, you get code \u2014 while the architecture, user intent, and business model underneath dif",
+    "level": "level-1",
+    "slug": "the-prompt-to-code-product-category",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> Name every AI coding tool you can think of. Now try to categorize them \u2014 what axis would you use to distinguish them? (Hint: it's not \"good vs. bad.\")\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The AI coding market is genuinely confusing because the output of many products looks similar \u2014 you type a prompt, you get code \u2014 while the architecture, user intent, and business model underneath differ dramatically. A Platform PM who can't distinguish these categories cannot make prioritization arguments, cannot position Make credibly to partners or stakeholders, and cannot anticipate where the market is heading.\n\n**The Category Taxonomy**\n\n**Code Assistants** augment human coding. They sit inside an existing IDE and make the developer faster. They do not generate complete applications \u2014 they autocomplete functions, explain errors, suggest refactors, and answer questions about the codebase.\n\nExamples: GitHub Copilot, JetBrains AI Assistant, Tabnine, Codeium, Amazon Q Developer.\n\nThe user remains in control of the code. The assistant is a tool, not an agent. Copilot is not trying to build your app \u2014 it's trying to write the next line of code you were going to write anyway. This category is deep in the developer workflow, high adoption, relatively low controversy (low risk per suggestion), and commoditizing rapidly.\n\n**Code Generators** accept a prompt and produce a working artifact \u2014 a component, a page, an app. The user does not need to read the code to get value. They care about the output (does it look right? does it work?) not the implementation.\n\nExamples: Vercel v0, Lovable, Bolt (StackBlitz), Framer AI, Anima.\n\nThe user delegates implementation. The generator is trying to ship something useful in one prompt. These products are primarily UI/frontend-focused because visual output is verifiable without reading code. \"Does this look like what I described?\" is easier to evaluate than \"Is this backend correctly structured?\"\n\n**Coding Agents** can plan, act across multiple steps, use tools (file system, browser, terminal, APIs), and iterate without per-step human approval. They are not just writing code \u2014 they are doing software engineering.\n\nExamples: Replit Agent, Devin (Cognition), Claude Code, OpenHands, SWE-agent.\n\nThe user delegates a goal, not a task. \"Build me a SaaS app with user auth, a dashboard, and Stripe billing\" is an agent prompt. The agent may take 20+ steps, run tests, read error messages, fix bugs, and verify functionality. The risk is higher (agents can break things), the trust requirement is higher, and the value ceiling is higher.\n\n**Where Make Fits**\n\nMake spans the Code Generator and early Coding Agent categories. The prompt-to-working-app flow is generator territory. The agent infrastructure (tool calls, iterative refinement, error recovery) is agent territory. Make's unique position: it is the only tool where generation happens inside the design canvas, with design system awareness baked in.\n\n**What Users Actually Want**\n\nUsers do not want code. They want a working product. This distinction sounds trivial but has large product implications.\n\nA user who wants code is a developer who wants help writing it faster \u2014 Copilot's market. A user who wants a working product wants something that runs, looks right, and can be shared \u2014 Make's market. The product quality bar for \"working product\" is much higher than for \"code that compiles.\" It encompasses: visual correctness, interaction fidelity, data loading, error states, empty states, responsive layout, and performance.\n\nThis is why Make is harder to build than Copilot. Copilot is judged on one line at a time. Make is judged on the whole experience.\n\n**The Last-Mile Problem**\n\nThe \"last mile\" is the gap between generated code and a working app. It appears in every product in this category:\n- Generated code compiles but throws runtime errors\n- Component renders but with wrong spacing\n- Data fetching works but loading states are missing\n- Form submits but validation is skipped\n- App works on desktop but breaks on mobile\n\nAI models are excellent at generating plausible code. They are poor at testing it, simulating edge cases, and verifying visual correctness. The last mile requires a quality layer \u2014 either human review (trusted by developers, unscalable for non-technical users) or automated eval (what Make's eval infrastructure must build).\n\n**Market Size and Growth**\n\nThe developer tools market is approximately $30B globally. AI code generation is the fastest-growing segment, growing from near-zero in 2021 to multiple-billion-dollar ARR across the category in 2025. Copilot alone crossed $1B ARR. The non-developer segment (non-technical builders using tools like Bolt and Lovable) is growing faster than the developer segment.\n\nThe long-run question is not \"how big is the market\" but \"who owns the platform.\" Copilot owns the IDE layer. Vercel owns the deployment layer. Figma could own the design-to-code layer. These are not competing \u2014 they are potentially stacked, and the platform that connects them captures the most value.\n\n**The Convergence Toward Platform Plays**\n\nEvery major player in this space is becoming a platform. Copilot added extensions. Replit became a full cloud IDE. Vercel launched v0 and then Build. StackBlitz built the WebContainers SDK. The tools are accumulating surface area because the value is not in any one tool \u2014 it is in the integration across the workflow. Make's platform strategy must answer: what is the workflow that Make owns end-to-end, and where does it hand off to others?\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A PM candidate says \"the AI code-gen market is winner-take-all because whoever has the best model wins.\" What's wrong with this analysis, and what does it miss about the competitive dynamics?",
+      "answer": "Model quality is a shared, rapidly commoditizing resource \u2014 all players access the same frontier models (GPT-4, Claude, Gemini) via API. The competitive moat is not model quality but: (1) data flywheels (proprietary training data from user interactions), (2) integration depth (how tightly the tool is embedded in an existing workflow), (3) distribution (existing user base, enterprise sales motion), and (4) platform lock-in (the more your project lives in the tool, the harder it is to leave). \"Best model wins\" is a 2022 framing. In 2025, the battle is for workflow ownership.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Spend 15 minutes each with v0, Bolt, and Replit Agent (use the free tiers). Give each the same prompt: \"Build a task management app with a list, a form to add tasks, and the ability to mark tasks complete.\" Compare: What framework was generated? How was state managed? Did it work on first try? What broke? How long until you had something you'd show to a user?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the three-category taxonomy (assistants, generators, agents) to a Figma product designer who asked \"what makes Make different from Copilot?\" Use one concrete difference per category.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What does building such a tool reveal about the \"last mile\" problem?",
+        "What class of failure tends to be hardest to solve, and how does that experience translate to thinking about Make's quality problem?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The AI coding market divides into assistants (augment humans), generators (produce artifacts from prompts), and agents (achieve goals autonomously) \u2014 and the competitive battle is not about model quality but about who owns the workflow layer that connects design, generation, deployment, and iteration.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> If the taxonomy tells you what each product does, the architecture map tells you how. v0, Lovable, Bolt, and Replit Agent all take prompts and produce apps \u2014 but the engineering underneath them is completely different. That's next.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A PM argues: 'The AI code-gen market will consolidate around whoever has the best model — once GPT-5 is clearly superior, everyone will just use that.' What is the strongest rebuttal to this position?",
+      "options": [
+        "Model quality is already good enough, so further improvements won't change user behavior",
+        "Model quality is rapidly commoditizing — all major players access the same frontier models via API — so the competitive moat is workflow ownership, distribution, and integration depth, not the underlying model",
+        "The argument is correct for developer tools but incorrect for non-technical user tools, where UX matters more than model capability"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module explicitly addresses this: frontier models (GPT-4, Claude, Gemini) are available via API to any competitor. Model quality is a shared, commoditizing resource. The durable competitive positions are built on data flywheels (proprietary training from user interactions), integration depth (how deeply embedded in an existing workflow), distribution (existing user base), and platform lock-in (project state that makes switching costly). 'Best model wins' was a 2022 framing that doesn't hold in 2025.",
+      "encourageCorrect": "Right — this is one of the most important strategic reframes in the module, and it's the key to understanding why Figma's distribution advantage is more defensible than any model improvement.",
+      "encourageIncorrect": "The model quality argument is flawed for all segments, not just one. The core issue is that frontier models are available to everyone via API — they're not a proprietary advantage. The module's argument is that platform positioning, distribution, and integration depth are what create durable competitive moats in this market."
+    },
+    {
+      "question": "What is the defining difference between a 'Code Generator' (like v0 or Lovable) and a 'Coding Agent' (like Replit Agent or Devin), and why does that distinction matter for how Make should be built?",
+      "options": [
+        "Code Generators produce frontend code while Coding Agents produce backend code — the distinction maps to what layer of the stack they target",
+        "Code Generators produce an artifact from a single prompt without tool access or iteration; Coding Agents plan across multiple steps, use tools (terminal, browser, filesystem), and iterate autonomously on a goal",
+        "The distinction is primarily about quality — Coding Agents produce production-ready code while Code Generators produce prototypes"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module defines this precisely: Code Generators delegate implementation (produce an artifact from one prompt, user verifies by looking at it). Coding Agents delegate a goal — the agent plans, uses tools, runs code, reads errors, and iterates without per-step human approval. Make currently spans both: the prompt-to-app flow is generator territory, while its agent infrastructure (tool calls, error recovery) is early agent territory. Understanding this distinction shapes infrastructure requirements — agents need stable APIs, deterministic error responses, and high rate limits.",
+      "encourageCorrect": "Exactly — this taxonomy isn't academic; it directly determines what infrastructure Make needs to build and which user expectations to set.",
+      "encourageIncorrect": "The distinction isn't about frontend vs. backend or quality levels — it's about the nature of delegation. Code Generators take a task; Coding Agents take a goal. The difference is whether the system can plan, use tools, and iterate autonomously across multiple steps, which has major implications for Make's runtime, API design, and trust model."
+    },
+    {
+      "question": "The 'last-mile problem' in AI code generation refers to the gap between generated code and a working app. Which of the following is the most accurate characterization of this problem?",
+      "options": [
+        "AI models produce syntactically valid code that compiles, but the gap to a working product includes runtime errors, missing edge cases, broken mobile layouts, and missing empty/error states — a quality bar that requires either human review or automated evaluation infrastructure",
+        "The last mile is primarily a model quality issue — as models improve, the gap between generated code and production-ready code will close automatically",
+        "The last mile problem only affects non-technical users; developers can always read and fix the generated code"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module defines the last-mile as a specific, enumerable list of failures: runtime errors, wrong spacing, missing loading states, broken form validation, mobile breakage. AI models are excellent at plausible code generation but poor at simulating edge cases and verifying visual correctness. Better models help but don't eliminate the gap — the quality bar for 'working product' is higher than 'code that compiles.' This is why Make needs an evaluation infrastructure layer, not just a better LLM.",
+      "encourageCorrect": "Correct — recognizing the last mile as a systems problem (requiring eval infrastructure) rather than a model problem is the key insight.",
+      "encourageIncorrect": "Model improvements help but don't close the last-mile gap — the gap isn't about syntax, it's about the difference between 'plausible code' and 'tested, production-quality software.' And developers face the last mile too — they just have the skills to bridge it themselves, which non-technical users don't. The platform must address this gap with eval infrastructure, not just rely on user review."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "2.6 Cold Starts, Warm Pools, and Latency Budgets",
+    "description": "Latency is not a single number. It's a pipeline, and each stage has a budget. The PM's job is to understand that pipeline well enough to know where investment buys the most user-visible improvement \u2014 ",
+    "level": "level-2",
+    "slug": "cold-starts-warm-pools-and-latency-budgets",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A user prompts \"add a contact form to my app.\" The agent writes the code. The user expects to see the updated preview in under 2 seconds. Break down where those 2 seconds go \u2014 what has to happen between \"prompt submitted\" and \"preview visible\"?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Latency is not a single number. It's a pipeline, and each stage has a budget. The PM's job is to understand that pipeline well enough to know where investment buys the most user-visible improvement \u2014 and to push back when engineering proposes optimizations that attack the wrong stage.\n\n**The full anatomy of a Make preview update:**\n\nStarting from the moment the user submits a prompt:\n\n1. **Agent inference time** \u2014 The LLM processes the prompt and generates code. At current API speeds, a 500-token code change might take 1-3 seconds. Streaming helps here (the user sees tokens appear) but doesn't eliminate the latency.\n\n2. **Code write** \u2014 The generated code is written to the project's filesystem (virtual or real). For WebContainers, this is an in-memory operation: ~1ms. For a server-side system writing to a volume, it might be 10-50ms.\n\n3. **Dependency resolution** \u2014 If the generated code introduces a new package, `npm install` must run. This can take 5-60 seconds depending on the package and network conditions. Most optimizations focus on avoiding this: pre-caching common packages, detecting whether a package is already installed before attempting install.\n\n4. **Build/compile step** \u2014 TypeScript files must be transpiled. JSX must be transformed. Vite handles this with native ESM \u2014 it does lazy compilation on request rather than ahead-of-time, which makes initial startup fast but moves compile time to the first request for each file.\n\n5. **Runtime startup** \u2014 The dev server process must start. A Vite dev server on a warm machine starts in ~200-400ms. A Next.js dev server starts in 1-3 seconds. A Docker container hosting Node.js: 2-10 seconds.\n\n6. **Hot Module Replacement (HMR)** \u2014 If the dev server is already running and only the code changed (no new dependencies), HMR updates the running application without a restart. Vite's HMR is sub-100ms for most changes. This is the fast path.\n\n7. **Network round-trip to preview iframe** \u2014 The preview loads from the dev server (real or emulated). Even in WebContainers via ServiceWorker, this is a real request-response cycle: ~5-20ms.\n\n8. **Browser render** \u2014 The browser parses the updated HTML/JS/CSS and repaints. For React apps, reconciliation is typically <16ms for incremental changes.\n\n**The two scenarios:**\n\n*Hot path (code change in an active session, no new dependencies):*\nAgent inference (1-3s) + Code write (1ms) + HMR update (50-100ms) + Render (16ms) = **~1.1-3.1 seconds**\n\nThe agent inference dominates. You cannot compress this without a faster model or streaming responses.\n\n*Cold path (new session, or new dependencies):*\nEnvironment provision (if cold start applies: 0-10s) + Agent inference (1-3s) + npm install (5-60s) + Dev server startup (200ms-3s) + Initial render (100ms) = **7-76 seconds**\n\nnpm install is the killer. The entire cold path strategy is about avoiding it.\n\n**Cold start: where the time actually goes**\n\nA \"cold start\" happens when no execution environment exists for a session. Stages:\n\n- **Image pull** (if Docker): downloading the base image layers. Mitigated by pre-caching images on hosts.\n- **Container/VM initialization**: creating namespaces, setting up the network, mounting filesystems. Firecracker: ~125ms. Docker: 500ms-2s. Full VM: 10-60s.\n- **Process startup**: the Node.js runtime initializing, loading the V8 engine, executing module-level code. For a minimal Node.js script: ~50ms. For Next.js with 500 dependencies: 2-4s.\n- **Dev server ready**: the dev server must listen before it can serve requests.\n\n**Warm pools:**\n\nA warm pool is a set of pre-provisioned, fully-initialized execution environments waiting to be assigned to users. When a user starts a session, they claim an environment from the pool instantly \u2014 the cold start already happened before they arrived.\n\nThe cost: every environment in the warm pool consumes resources (memory, CPU reservation) while idle. If your pool has 1,000 warm environments and each uses 256MB of RAM, that's 256GB of RAM sitting idle, costing money around the clock.\n\nWarm pool sizing is an optimization problem: you want a pool large enough to absorb traffic spikes without cold starts, but not so large that idle capacity wastes money. The typical strategy is predictive scaling based on historical traffic patterns (warm more environments before Monday morning, fewer at 3am).\n\n**Hot reload vs. restart:**\n\nVite's HMR is the critical optimization for the hot path. When a file changes, Vite:\n1. Detects the change via filesystem watch\n2. Determines the minimal module graph update required\n3. Sends a WebSocket message to the browser with the new module\n4. The browser applies the update in-place without a page reload\n\nFor React apps with React Fast Refresh, component state is preserved across HMR updates. A button click counter in the UI doesn't reset when you change the button's label.\n\nThis is only possible because the dev server is already running. The cold-start vs. warm-instance distinction is about whether you pay the startup cost upfront or on demand.\n\n**Real-world benchmark comparison:**\n\n| Tool | Cold Preview | Hot Reload (code change) |\n|---|---|---|\n| Vercel preview deployments | 15-45s | N/A (full redeploy) |\n| CodeSandbox | 3-8s | 200ms-1s |\n| StackBlitz WebContainers | <1s | 50-100ms |\n| Replit | 2-6s | 200-500ms |\n\nStackBlitz's WebContainers advantage is almost entirely explained by the elimination of container cold start and the move to in-memory filesystem operations.\n\n**Latency budget allocation for Make:**\n\nGiven a 2-second target from \"code written\" to \"preview visible\" (setting aside agent inference time):\n\n- npm install: must be avoided on hot path \u2192 achieve via dependency pre-caching, intelligent change detection\n- Dev server startup: must be warm \u2192 achieve via warm pools or session persistence\n- HMR update: budget 100ms \u2192 Vite achieves this comfortably\n- Render: budget 50ms \u2192 acceptable for most UI changes\n- Network round-trip: budget 20ms \u2192 ServiceWorker or localhost is sub-10ms\n\nThe residual problem is session startup: the first preview load after a cold session start. This is where warm pools (costly) or WebContainers (zero startup) become decisive.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user opens Make at 9am Monday, makes 30 code changes over an hour, then closes their laptop. They reopen Tuesday morning. Which latency optimizations help them on Monday, and which help them on Tuesday morning?",
+      "answer": "Monday's session benefits from HMR (hot reload for each of the 30 changes \u2014 sub-100ms each), dependency caching (any packages from the session are already installed), and a warm dev server (no restart between changes). Tuesday morning is a cold-start scenario: the session is gone, the environment may be de-provisioned, the dev server is not running. Tuesday's experience depends on warm pool availability (was an environment pre-provisioned for them?), the quality of filesystem/npm cache persistence (are their node_modules cached somewhere they can be restored quickly?), and the underlying execution model (WebContainers restores from IndexedDB cache in seconds; a Docker-based system must restart a container).*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Measure the stages of your own development environment. Open a terminal in any Node.js project and run:\n\n```bash\ntime node -e \"console.log('ready')\"        # Node.js startup time\ntime npx vite --version                    # Vite startup time\n```\n\nThen in a Vite project, run `npm run dev` and note \"ready\" time. Make a trivial change (add a space to a CSS file). Note the HMR update time shown in the terminal. These are the real numbers your infrastructure must beat or match.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the warm pool tradeoff to a CFO who has asked why the engineering team wants to spend money on \"servers that do nothing.\" Use a concrete analogy.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Does Make's choice of execution model create an equity problem in the product?",
+        "How would you think about the minimum supported device profile?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Preview latency is a pipeline of distinct stages \u2014 agent inference, dependency resolution, runtime startup, HMR, and render \u2014 and optimizing the wrong stage wastes engineering effort; the dominant strategies are avoiding npm install on the hot path, eliminating container cold start through warm pools or browser execution, and using HMR to make code changes sub-100ms.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've optimized the execution environment. Now consider the code itself: Make has to choose which frameworks to support. But \"supporting\" a framework isn't a product checkbox \u2014 it requires build tooling integration, dev server configuration, deployment adapters, and agent training. What are the real costs of adding framework support?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "On the hot path (active session, no new dependencies), the module identifies agent inference time as the dominant latency factor. What does this imply for how Make should prioritize engineering investment in preview latency?",
+      "options": [
+        "Since agent inference (1-3 seconds) dominates the hot path, HMR and build optimizations below that threshold have limited user-visible impact — streaming token responses (showing code generation in real time) is the highest-leverage UX intervention, not build infrastructure",
+        "Make should invest primarily in faster HMR and build caching, since those are the stages engineering can control and improve",
+        "Make should invest in a faster LLM API integration, since reducing inference from 3 seconds to 1 second would double the speed of every preview update"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module's hot path breakdown shows: agent inference 1-3s, code write ~1ms, HMR update ~50-100ms, render ~16ms. If inference takes 2 seconds and HMR takes 100ms, cutting HMR to 10ms saves 90ms against a 2-second baseline — a 4.5% improvement that users probably won't notice. Streaming the agent's code generation so users see tokens appearing changes the perceived latency fundamentally. The PM must invest in the bottleneck (inference perception) rather than sub-bottleneck stages.",
+      "encourageCorrect": "Exactly — this is a bottleneck analysis problem, and the module is training you to identify where optimization actually moves the product metric.",
+      "encourageIncorrect": "HMR and build optimizations are valuable for the cold path but largely invisible on the hot path where inference dominates. A faster LLM API would help if you control the LLM — but streaming responses that improve perceived latency is the highest-leverage intervention available without model changes. Cutting sub-100ms stages when the bottleneck is 2 seconds moves the wrong metric."
+    },
+    {
+      "question": "A warm pool maintains 1,000 pre-provisioned execution environments. Each uses 256MB of RAM. What is the ongoing cost of this approach, and what problem does it solve that would otherwise degrade the user experience?",
+      "options": [
+        "The warm pool uses 256GB of RAM in idle infrastructure, costing money around the clock — it solves the npm install latency problem by pre-installing packages into each environment",
+        "The warm pool uses 256GB of RAM in idle infrastructure — it solves the cold start problem by ensuring users claiming a new session get an already-initialized environment rather than waiting for container startup",
+        "The warm pool eliminates all preview latency because environments are pre-warmed and can return preview results instantly without any startup sequence"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module defines warm pools precisely: pre-provisioned environments waiting to be assigned. When a user starts a session, they claim a warm environment — the cold start (container init, process startup, dev server ready) already happened. The cost is 1,000 × 256MB = 256GB of RAM continuously consumed by idle infrastructure. The warm pool doesn't eliminate npm install latency for new packages or HMR latency — it eliminates session-level cold start, not all subsequent operations.",
+      "encourageCorrect": "Correct — warm pools solve cold start but cost idle compute, and they don't help with any of the other latency stages the module identifies.",
+      "encourageIncorrect": "Warm pools don't solve npm install latency — that's a package caching problem. And they don't eliminate all preview latency — agent inference, HMR, and render still take their full time. What warm pools solve specifically is the container/environment startup cost: the time to create namespaces, start the Node.js process, and get the dev server listening. Everything after that still happens per-operation."
+    },
+    {
+      "question": "Vite's Hot Module Replacement (HMR) updates a running application in under 100ms for most code changes and preserves React component state across updates. What is the architectural property that makes this possible?",
+      "options": [
+        "HMR works by reloading the entire browser page very quickly using browser pre-caching, which is why state is preserved — the cached version includes the previous state",
+        "HMR works by taking a memory snapshot of the running application before each code change and restoring it after the update is applied",
+        "HMR requires the dev server to already be running — it detects file changes, determines the minimal module graph update, sends the new module to the browser via WebSocket, and the browser applies it in-place without a page reload, preserving component state through React Fast Refresh"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module describes HMR's mechanism precisely: filesystem watch detects the change, Vite determines the minimal affected module subgraph, sends the update over an already-open WebSocket connection, and the browser applies the update in-place. React Fast Refresh specifically preserves component state during this process. The critical prerequisite is that the dev server is already running — this is the 'warm instance' that makes HMR possible. Cold starts require a full restart before HMR can operate.",
+      "encourageCorrect": "Right — HMR's in-place update mechanism is what makes the 'instant iteration' experience possible, and understanding the prerequisite (running dev server) explains why cold start optimization matters.",
+      "encourageIncorrect": "HMR doesn't reload the whole page — a full page reload would reset all component state. And there's no memory snapshot mechanism — React Fast Refresh works by surgically updating the running component tree while the React reconciler preserves state that didn't change. The state preservation is algorithmic, not from a snapshot or cache."
+    }
+  ]
+}

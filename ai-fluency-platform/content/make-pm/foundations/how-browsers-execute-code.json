@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "F.1 How Browsers Execute Code",
+    "description": "Those two seconds contain one of the most complex pipelines in software. Understanding it is not optional for a Platform PM \u2014 every performance complaint, every \"why is preview slow,\" every decision a",
+    "level": "foundations",
+    "slug": "how-browsers-execute-code",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> When a user clicks \"Preview\" in Figma Make and a working app appears in 2 seconds, what happened between their click and the pixels on screen? List every step you can think of.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Those two seconds contain one of the most complex pipelines in software. Understanding it is not optional for a Platform PM \u2014 every performance complaint, every \"why is preview slow,\" every decision about server-rendered versus client-rendered output traces back to this pipeline.\n\n**The Browser Execution Pipeline**\n\nWhen the browser receives HTML (from a server, a blob URL, or an injected string), it runs through six sequential stages:\n\n**1. HTML Parsing \u2192 DOM Construction**\nThe browser reads HTML as a byte stream and tokenizes it \u2014 `<div class=\"app\">` becomes an open-tag token with an attribute. These tokens are assembled into nodes, and nodes are assembled into a tree: the Document Object Model (DOM). The DOM is a live, programmatic representation of the document. Scripts and stylesheets block this process \u2014 a `<script>` tag without `async` or `defer` halts parsing entirely while the JS downloads and executes.\n\n**2. CSSOM Construction**\nIn parallel with HTML parsing, the browser parses CSS into its own tree \u2014 the CSS Object Model (CSSOM). Every selector rule maps to computed styles for matching nodes. The CSSOM cannot be constructed incrementally the way the DOM can; CSS is \"render-blocking\" because a later rule can override an earlier one, so the browser must process the entire stylesheet before it knows what anything looks like.\n\n**3. Render Tree**\nThe DOM and CSSOM are combined into the Render Tree \u2014 a tree that contains only visible nodes with their computed styles. `display: none` nodes are excluded entirely. `visibility: hidden` nodes are included (they still take up space). This is the first structure that represents \"what will actually appear on screen.\"\n\n**4. Layout (Reflow)**\nThe browser traverses the Render Tree and calculates the exact position and size of every element. This is called layout, or reflow. Box model calculations happen here \u2014 margins, padding, width, height, flexbox and grid algorithms all resolve in this phase. Layout is expensive, especially for deeply nested trees or when triggered repeatedly by JavaScript.\n\n**5. Paint**\nLayout gives coordinates; paint fills in the pixels. The browser determines what to draw in each layer \u2014 background colors, borders, text, shadows. Paint produces a series of draw calls, not pixels directly. Complex visual effects (box-shadow, filter, opacity) can make this phase expensive.\n\n**6. Composite**\nModern browsers separate the page into layers (like Photoshop layers). The compositor thread assembles those layers into the final frame and sends it to the GPU. Animations that only affect `transform` and `opacity` can be composited without triggering layout or paint \u2014 this is why those properties are preferred for smooth animation.\n\n**JavaScript Execution: V8 and the Event Loop**\n\nJavaScript runs inside an engine \u2014 in Chrome and Node.js, that engine is V8. V8 compiles JavaScript to machine code using a JIT (just-in-time) compiler. The first execution is interpreted; hot code paths are identified and recompiled to optimized machine code.\n\nJavaScript is single-threaded. There is one call stack. This is not a bug \u2014 it eliminates an entire class of race conditions. But it means that any synchronous operation that takes a long time (a large sort, a synchronous HTTP request) blocks everything else, including UI updates. This is why \"don't block the main thread\" is a core browser performance axiom.\n\nThe Event Loop is the mechanism that makes JavaScript feel concurrent without threads:\n1. Execute whatever is on the call stack\n2. When the stack is empty, check the microtask queue (Promise callbacks) \u2014 drain it completely\n3. Check the macrotask queue (setTimeout, setInterval, I/O callbacks) \u2014 run one task\n4. Repeat\n\nThis means Promise chains resolve before timeouts, and a deeply nested Promise chain can still block the UI if it runs long enough.\n\n**Why This Matters for Make**\n\nEvery time a user clicks Preview, this entire pipeline runs on code that an AI just wrote. The AI does not know the user's screen resolution, does not know their browser's rendering quirks, and does not know that a deeply nested flexbox grid will trigger an expensive reflow on every keystroke. Make's preview environment is essentially a bet that the generated code will be performant enough to feel instant.\n\nThe practical implications:\n- Generated code that synchronously fetches data in the component body will block rendering\n- Generated CSS that changes layout properties inside animations will cause jank\n- Generated JavaScript that runs a synchronous loop over a large array will freeze the UI\n- The preview iframe must load, parse, and execute all of this in a forgiving sandbox while the user watches\n\nThe quality bar for \"working preview\" is actually higher than it looks. The code doesn't just need to be syntactically valid \u2014 it needs to clear the entire browser pipeline without producing a broken or slow experience.\n\n**Server-Rendered vs. Client-Rendered: Make's Fork in the Road**\n\nIn client-side rendering (CSR), the server sends a nearly empty HTML file and a JavaScript bundle. The browser downloads the JS, executes it, and the JS builds the DOM. First Contentful Paint is delayed until JS executes. React's standard model is CSR by default.\n\nIn server-side rendering (SSR), the server runs the JavaScript and sends completed HTML. The browser paints immediately. Then JavaScript loads and \"hydrates\" the page \u2014 attaching event listeners to the server-rendered HTML. First paint is faster; the complexity of hydration is real.\n\nMake must choose: does a generated app render on the client, the server, or both? This choice affects:\n- Where the runtime lives (browser sandbox vs. server container)\n- What the deployment target looks like\n- How quickly previews appear\n- Whether the output is a static file or requires a persistent server process\n\nMost early-stage code-gen tools default to CSR because it's simpler \u2014 no server required, output is just static files. But CSR apps have worse SEO and slower initial load. The moment Make wants to support server components, database queries at render time, or meaningful SEO \u2014 it needs SSR infrastructure. That infrastructure cost is substantial.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user reports that their Make preview feels \"janky\" \u2014 elements jump around after the initial load. A bug report says \"layout shift.\" Which phase of the browser pipeline is most likely responsible, and what category of generated code would cause it?",
+      "answer": "Layout (reflow). Common causes in generated code: images without explicit width/height attributes (browser doesn't know their dimensions until they load, causing reflow when they do), dynamically injected content above existing content, or web fonts that load and cause text reflow. In generated code specifically, the AI often omits image dimensions and skeleton placeholders.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open Chrome DevTools \u2192 Performance tab. Record a 5-second session of a Make preview loading. Identify the four colored sections in the flame chart: blue (HTML parsing/scripting), purple (rendering/layout), green (painting), gray (compositing). Find the longest task. If it exceeds 50ms, it's a \"long task\" that blocked the main thread.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the browser rendering pipeline to a non-technical Figma designer on your team who asked why previews sometimes \"flash\" before the correct layout appears. Your explanation should take less than 90 seconds.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What does that stability tell you about where the real product risk in Make's preview system lives \u2014 in the browser execution layer, or somewhere else?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Every Make preview is the full browser execution pipeline running on untested AI-generated code \u2014 performance problems in generated output are not bugs in the preview system, they are failures of code quality that the platform must either prevent or gracefully surface.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> If Make defaults to generating React \u2014 and React has specific behavior in this pipeline \u2014 what does that lock-in mean for the runtime environment that has to execute it? That's what F.2 covers.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A user reports that a Make-generated app 'flashes' before the layout settles — elements jump into position about 500ms after the page loads. Which phase of the browser pipeline is most responsible, and what category of generated code causes it?",
+      "options": [
+        "The Composite phase, caused by animations that trigger GPU layer recomposition",
+        "The Layout (Reflow) phase, caused by images without explicit dimensions or content injected above existing DOM nodes",
+        "The CSSOM Construction phase, caused by too many CSS rules being parsed"
+      ],
+      "correctIndex": 1,
+      "explanation": "Layout shift (reflow) happens when the browser must recalculate element positions after initial rendering. Common causes in generated code include images without width/height attributes — the browser doesn't know their size until they load — and dynamically injected content that pushes existing content down. The CSSOM is render-blocking but doesn't cause post-load shifts, and composite-only animations don't trigger reflow.",
+      "encourageCorrect": "Exactly right — layout shift is a reflow problem, and knowing what triggers reflow is essential for evaluating generated code quality.",
+      "encourageIncorrect": "The 'flash then jump' pattern is a Layout (Reflow) symptom. The browser paints what it knows, then when images load or content is injected dynamically, it recalculates positions — causing the visible shift. CSSOM issues block initial render; composite issues affect animation smoothness."
+    },
+    {
+      "question": "Make defaults to client-side rendering (CSR) for generated apps. Which of the following is the most accurate consequence of that choice for the preview infrastructure?",
+      "options": [
+        "The preview can be served as static files with no persistent server process required, but initial load is slower and SEO is weaker",
+        "The preview requires a Node.js server running per user to render HTML on each request",
+        "CSR and SSR have identical infrastructure requirements — the difference is only in where JavaScript executes"
+      ],
+      "correctIndex": 0,
+      "explanation": "CSR outputs are static files — an HTML shell plus a JS bundle. The browser downloads the JS, executes it, and builds the DOM. This means the preview infrastructure only needs a static file server, eliminating the need for persistent server processes. The tradeoff is a slower First Contentful Paint (FCP) and poor SEO, since crawlers see an empty HTML shell. SSR infrastructure is significantly more complex and expensive.",
+      "encourageCorrect": "Good — the infrastructure simplicity of CSR is the reason most code-gen tools default to it, even though it has real product tradeoffs.",
+      "encourageIncorrect": "CSR is simpler at the infrastructure level, not more complex. Because the browser builds the DOM from JavaScript, the server only needs to send static files — no per-request rendering. The cost is slower initial paint and weak SEO, not additional server infrastructure."
+    },
+    {
+      "question": "In JavaScript's event loop, Promise callbacks (microtasks) and setTimeout callbacks (macrotasks) are both queued. When the call stack is empty, which executes first, and why does this matter for Make's preview quality?",
+      "options": [
+        "Macrotasks (setTimeout) execute first because they were queued first — FIFO ordering applies across all queues",
+        "Microtasks (Promise callbacks) execute first and drain completely before any macrotask runs — which means a deeply nested Promise chain can still block the UI",
+        "Both queues are processed in parallel since JavaScript engines use multiple threads for async operations"
+      ],
+      "correctIndex": 1,
+      "explanation": "The event loop always drains the microtask queue completely before picking up a macrotask. This means Promise chains resolve before any setTimeout fires — but it also means that a deeply nested or recursive Promise chain can starve the UI update loop, causing jank even without explicit synchronous blocking. JavaScript is single-threaded; the 'concurrency' is cooperative scheduling, not true parallelism.",
+      "encourageCorrect": "Correct — the microtask queue priority is a subtle but important property, and it explains why Promise-heavy generated code can still produce an unresponsive UI.",
+      "encourageIncorrect": "JavaScript is single-threaded — there's no parallel processing of queues. Microtasks (Promises) always drain fully before the event loop picks up a macrotask (setTimeout). This is why a chain of Promises resolving synchronously can still block UI updates, even though they're 'async'."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "2.5 Sandboxing and Isolation",
+    "description": "When you run a platform that executes AI-generated code, you are operating on a threat model equivalent to public code execution infrastructure. The code is untrusted. Not because your users are malic",
+    "level": "level-2",
+    "slug": "sandboxing-and-isolation",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "The AI just generated code that includes `require('child_process').exec('rm -rf /')`. This code will run in your platform. What stops it from doing damage? Think through your answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "When you run a platform that executes AI-generated code, you are operating on a threat model equivalent to public code execution infrastructure. The code is untrusted. Not because your users are malicious \u2014 most aren't \u2014 but because AI systems generate unpredictable output, users paste in code from the internet, and npm packages can be compromised. You cannot assume the code is safe. You must assume it is unsafe and build containment.\n\n**The threat model for Make:**\n\n- **Code escape**: Code that breaks out of its execution sandbox and gains access to host processes or other users' data\n- **Resource exhaustion**: Code that consumes unlimited CPU, memory, or network bandwidth, degrading the platform for all users\n- **Network exfiltration**: Code that reads API keys from environment variables and sends them to an external server\n- **Filesystem access**: Code that reads or writes outside its permitted directory tree\n- **Supply chain attack**: A compromised npm package that runs malicious code during `npm install`\n\nThe `rm -rf /` case is actually the least likely \u2014 it requires filesystem write access, which a well-sandboxed environment won't grant. The more realistic attacks are resource exhaustion (infinite loops, memory leaks) and exfiltration (stealing secrets).\n\n**The isolation spectrum:**\n\nIsolation exists on a continuum from weak to strong, with corresponding tradeoffs in startup time, resource overhead, and operational complexity.\n\n**Level 1: iframe sandbox (browser-level)**\nAn `<iframe sandbox>` attribute prevents the framed page from accessing the parent page's JavaScript context, cookies, or localStorage. It cannot execute plugins or open new windows without permission. This is what code preview tools use to show rendered HTML output safely. It does not provide any protection against resource exhaustion (the iframe shares the browser tab's CPU and memory), and it doesn't help with server-side code execution at all.\n\n**Level 2: V8 isolates**\nCloudflare Workers and Deno Deploy use V8 isolates as their primary isolation mechanism. Each isolate gets its own heap \u2014 it cannot read another isolate's memory. CPU time is metered and capped. The runtime API surface is intentionally restricted: no `fs`, no `child_process`, limited `fetch`. The attack surface is the V8 engine itself, which is extremely well-audited. Startup time is near-zero. This is the right isolation for pure-JavaScript workloads with restricted system access requirements.\n\n**Level 3: gVisor**\nGoogle's gVisor is a user-space kernel \u2014 it intercepts system calls from the containerized process and handles them in user space rather than passing them to the real kernel. This means that even if an attacker escapes the container's namespace isolation, they're still talking to gVisor's fake kernel, not the real one. gVisor significantly reduces the kernel attack surface. Startup overhead is moderate \u2014 similar to a container. Google uses gVisor in Cloud Run and App Engine. It's a strong choice when you need container-level flexibility with kernel-level isolation.\n\n**Level 4: Firecracker microVMs**\nAWS Lambda and Fly.io use Firecracker, Amazon's open-source microVM. A Firecracker microVM boots a minimal Linux kernel in ~125ms and provides true VM-level isolation \u2014 each VM has its own kernel instance, its own virtual devices, its own network stack. An attacker who escapes the process, the container, and the kernel still hasn't escaped the VM boundary. Firecracker's minimal device model also reduces attack surface compared to full QEMU VMs. This is the isolation model most appropriate for running truly arbitrary code.\n\n**Level 5: Full VMs**\nStrongest isolation. Each tenant gets a complete virtual machine \u2014 separate OS, separate kernel, separate hardware virtualization boundary. Cloud providers use this for their highest-isolation offerings (EC2, Azure VMs). Cold start is 30-60 seconds. Per-tenant cost is highest. Appropriate for workloads where security requirements outweigh performance requirements.\n\n**Defense in depth:**\n\nReal systems combine multiple layers. A well-designed execution environment might use:\n\n1. V8 isolate or Firecracker for process-level isolation\n2. Network policy to block outbound connections except to allowlisted endpoints\n3. Resource limits (CPU quotas, memory ceiling, execution timeout)\n4. Egress monitoring to detect exfiltration patterns\n5. Read-only filesystem mounts where possible\n6. Secret injection that never puts secrets in environment variables accessible to user code\n\n**The Make-specific challenge: `npm install`**\n\nThe hardest sandboxing problem for Make is package installation. When a user's generated app includes `npm install malicious-package`, that package's install scripts (`preinstall`, `postinstall`) execute immediately. These scripts have access to the execution environment's capabilities. If you're running npm in a Docker container, install scripts can access the container's network, filesystem, and process space.\n\nOptions:\n- **Run npm in an isolated environment** (Firecracker microVM, gVisor container) that restricts what install scripts can do\n- **Block install scripts** by default (`--ignore-scripts`) and only run them for packages on an allowlist \u2014 but this breaks many legitimate packages\n- **Pre-cache a curated set of packages** and serve from a private registry where packages have been audited\n- **Use a virtual filesystem** (WebContainers model) where install scripts run in the browser's sandbox and can't escape to the host\n\nEach approach has a different impact on the range of packages users can install. This is a product decision masquerading as a security question.\n\n**Resource limits as a first line of defense:**\n\nBefore sophisticated isolation, simple resource limits prevent the most common attacks:\n\n- **Execution timeout**: Kill any execution running longer than N seconds (prevents infinite loops from consuming resources indefinitely)\n- **Memory ceiling**: OOM-kill processes exceeding the memory limit (prevents memory exhaustion attacks)\n- **CPU quota**: Throttle CPU-intensive processes (prevents one tenant from starving others)\n- **Network egress cap**: Limit outbound bandwidth (reduces exfiltration impact, caps cost of network-intensive abuse)\n\nThese limits should be tuned differently for preview (interactive, short bursts) and production deployment (longer executions, higher legitimate resource needs).\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Make offers \"install any npm package\" as a feature. A security engineer proposes running all `npm install` operations in a gVisor container. A product manager proposes blocking install scripts by default. Which approach better preserves the \"install any package\" promise, and what does the rejected approach protect against that the accepted approach doesn't?",
+      "answer": "Running npm in gVisor better preserves the \"install any package\" promise because install scripts run but are contained by the user-space kernel \u2014 packages that depend on install scripts (node-sass, robotjs, many native modules) still work. Blocking install scripts via `--ignore-scripts` breaks those packages entirely. What blocking install scripts protects against that gVisor doesn't: a sophisticated kernel exploit in the gVisor implementation itself. gVisor reduces the kernel attack surface but doesn't eliminate it; `--ignore-scripts` eliminates install-script-based attacks entirely at the cost of compatibility. In practice, the gVisor approach is the better product decision; `--ignore-scripts` is an appropriate choice only for a registry that can't afford the operational complexity of gVisor.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In a throw-away environment (a free-tier VM or a local Docker container), run:\n\n```bash\ndocker run --rm --memory=128m --cpus=0.5 node:18-alpine node -e \"\n  const arr = [];\n  while(true) { arr.push(new Array(10000).fill('x')); }\n\"\n```\n\nObserve when Docker kills the process. This is `cgroups` enforcing your memory limit. Then remove the `--memory` flag and run it again. Note the difference in what \"unconstrained\" means.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A PM from another team asks why Make needs \"all this sandboxing complexity\" when \"the AI would never generate malicious code.\" Write a two-paragraph response that explains the real threat model without using jargon.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "For Make's interactive preview, where in the isolation spectrum does the latency tradeoff become unacceptable?",
+        "What would it take to change your answer?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "AI-generated code is untrusted code by definition, and the isolation spectrum \u2014 from V8 isolates to Firecracker microVMs \u2014 represents a direct tradeoff between startup latency, operational complexity, and the strength of the security boundary; the right choice depends on which threat vectors you can accept residual risk on.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You've chosen your isolation mechanism. Now consider the user-visible latency. From the moment a user finishes prompting to the moment they see a preview, multiple stages must complete. Where does time go, and how do you control it?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The module describes an isolation spectrum from iframe sandboxes to full VMs. gVisor (Level 3) is positioned between Docker containers (Level 2) and Firecracker microVMs (Level 4). What specific security property does gVisor add that Docker containers alone don't provide?",
+      "options": [
+        "gVisor intercepts system calls in user space rather than passing them to the real host kernel — so even if an attacker escapes the container namespace, they're interacting with gVisor's fake kernel rather than the real one, significantly reducing kernel attack surface",
+        "gVisor adds network-level encryption between containers, which Docker containers don't provide by default",
+        "gVisor provides faster startup than Docker containers by pre-loading kernel modules into memory before the container is created"
+      ],
+      "correctIndex": 0,
+      "explanation": "Docker containers use Linux namespaces and cgroups, but they share the host kernel — a kernel exploit lets an attacker reach the real kernel. gVisor places a user-space kernel between the container and the host kernel: system calls from the container hit gVisor's interceptor, not the real kernel. Even a container escape still lands in gVisor's virtual kernel, not the host. This additional layer is why Google uses gVisor in Cloud Run for higher-isolation workloads. The tradeoff is moderate startup overhead.",
+      "encourageCorrect": "Right — gVisor's user-space kernel interception is the specific property that closes the 'container escape reaches real kernel' attack path.",
+      "encourageIncorrect": "gVisor doesn't add network encryption or improve startup speed — those are separate concerns. The security property gVisor adds is a user-space kernel layer that intercepts system calls. If an attacker escapes the container's namespace isolation (the Docker model), they still face gVisor's interceptor rather than the real host kernel. This dramatically reduces the kernel attack surface available to a successful container escape."
+    },
+    {
+      "question": "The module identifies npm package installation as 'the hardest sandboxing problem' for Make. Why is `npm install` specifically more dangerous than running the installed package's code?",
+      "options": [
+        "npm install requires downloading files from the internet, which creates network attack surface; running the installed code doesn't require network access",
+        "npm install runs as root by default, while installed package code runs as a restricted user — this privilege difference is the security risk",
+        "Package install scripts (preinstall, postinstall) execute immediately during npm install with access to the execution environment's capabilities — before any security review of the package can occur"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module makes this exact point: when `npm install` runs, any install scripts in the package execute immediately. These scripts run with the capabilities of whatever environment npm is running in — if that's a Docker container, they have container-level access. A malicious package's `postinstall` script can exfiltrate environment variables, make network requests, or attempt privilege escalation — before any human or automated system has had a chance to review the package's behavior. The installed code that runs later is what users and security tools typically audit; the install scripts run before any of that.",
+      "encourageCorrect": "Correct — install scripts are the attack surface that most developers don't think about, and it's why npm install sandboxing is harder than sandboxing the running application.",
+      "encourageIncorrect": "Network access during download is a real concern but not the primary issue. npm doesn't run as root by default in modern configurations. The critical risk is install scripts: postinstall, preinstall hooks that execute immediately during package installation with the permissions of the process running npm. A malicious package can steal credentials before anyone reviews its code."
+    },
+    {
+      "question": "Make implements a 30-second execution timeout for all preview sessions. A user generates a Node.js app that fetches data from a slow API taking 45 seconds to respond. What is the correct framing for this product decision?",
+      "options": [
+        "The timeout is a bug — Make should detect slow external APIs and extend the timeout dynamically rather than killing the session",
+        "The 30-second timeout is a resource limit that serves as a first line of defense against resource exhaustion attacks, but it also creates a false failure for legitimate slow operations — the PM must weigh abuse prevention against false positive rate, and consider per-request vs. per-session timeout granularity",
+        "Execution timeouts are a pure security control with no product consequence — users whose code legitimately takes longer should use a paid tier with higher limits"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module frames resource limits as a first line of defense that has real product consequences. A timeout that kills legitimate slow operations creates false failures and user frustration — but no timeout allows infinite loops and slow denial-of-service attacks to consume resources indefinitely. The PM's job is to calibrate: what timeout catches the abuse pattern without creating unacceptable false positive rates? And should the limit apply per-execution (one request to a slow API doesn't kill the session) vs. per-session (cumulative runtime)? These are product decisions, not just security decisions.",
+      "encourageCorrect": "Good — resource limits are a security control with product consequences, and calibrating them requires thinking about both abuse patterns and legitimate use cases.",
+      "encourageIncorrect": "Automatically extending timeouts would undermine the resource exhaustion protection — the whole point is to prevent unlimited resource consumption. Framing timeouts as purely a security control with no product consequence misses that false positives (killing legitimate slow operations) hurt user experience and trust. And tiering by paid plan doesn't solve the security problem — it just creates a tier where DoS attacks are more expensive."
+    }
+  ]
+}

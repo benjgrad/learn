@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "F.4 Containers, VMs, and Sandboxes",
+    "description": "This is the defining infrastructure problem of the AI code-gen product category. The answer you choose determines your cost structure, your startup latency, your language support, your security postur",
+    "level": "foundations",
+    "slug": "containers-vms-and-sandboxes",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> You need to run untrusted, AI-generated code from 100,000 concurrent users. Each user's code must be completely isolated from every other user's. What are your options?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "This is the defining infrastructure problem of the AI code-gen product category. The answer you choose determines your cost structure, your startup latency, your language support, your security posture, and \u2014 ultimately \u2014 your competitive moat. No one has solved it perfectly. The differences between v0, Bolt, Replit, and Make's preview environments trace back to how each team answered this question.\n\n**The Threat Model**\n\nAI-generated code is untrusted by definition. The AI occasionally produces code that:\n- Makes outbound HTTP requests (data exfiltration risk)\n- Reads environment variables (credential exposure risk)\n- Spawns child processes (privilege escalation risk)\n- Consumes unbounded CPU or memory (resource exhaustion, denial of service)\n- Accesses the filesystem arbitrarily\n\nIn a multi-tenant environment where user A's code runs on the same infrastructure as user B's code, any of these failures could affect other users or the platform itself. Isolation is not a nice-to-have \u2014 it is the security primitive that makes the product viable.\n\n**Virtual Machines: Maximum Isolation, Maximum Cost**\n\nA virtual machine runs a complete operating system kernel on virtualized hardware. The hypervisor (KVM, VMware, Hyper-V) abstracts the physical hardware and presents each VM with its own virtual CPU, memory, disk, and network interfaces. Two VMs on the same physical host are completely isolated at the kernel level \u2014 a compromise of one VM does not give access to the other.\n\nTradeoffs:\n- **Startup time:** 30\u201390 seconds. Booting an OS is not fast.\n- **Memory:** A minimal Ubuntu VM uses 256MB of RAM before your application starts.\n- **Cost:** Running a VM per user preview is economically impossible at scale. A platform with 100K concurrent previews would require an enormous fleet.\n- **Isolation strength:** Excellent. This is the gold standard.\n\nVMs are appropriate for long-running workspaces (Replit's persistent development environments) where startup cost is amortized over hours of use. They are not appropriate for ephemeral previews.\n\n**Containers: The Practical Standard**\n\nDocker containers share the host OS kernel. Instead of virtualizing hardware, containers use kernel namespaces and cgroups to isolate process trees, filesystems, network interfaces, and resource limits. A container cannot see processes outside its namespace. It cannot access files outside its filesystem layer.\n\nContainer startup time: 1\u20135 seconds for a warm image (already pulled to the host). Cold starts (first pull) can take 10\u201330 seconds.\n\nContainers are the current standard for cloud workloads because the density is high \u2014 a single host can run hundreds of containers \u2014 and the startup time is acceptable for most use cases. Kubernetes orchestrates containers at scale, handling scheduling, health checks, scaling, and networking.\n\nThe security limitation: containers share the kernel. A kernel exploit on the host affects all containers. This is not a theoretical risk \u2014 container escapes are a real attack vector. For most enterprise workloads, containers are secure enough. For executing arbitrary untrusted code at scale, they may not be.\n\n**Microcontainers: Firecracker and the MicroVM Model**\n\nFirecracker is an open-source Virtual Machine Monitor (VMM) developed by AWS and used in Lambda and Fargate. It creates \"microVMs\" \u2014 lightweight VMs that use the KVM hypervisor but without the overhead of a traditional OS. A Firecracker microVM can start in under 150 milliseconds and uses as little as 5MB of memory overhead.\n\nFirecracker gives VM-level isolation (separate kernel) at near-container startup speed. This is what makes AWS Lambda's security model viable \u2014 each Lambda invocation runs in its own Firecracker microVM.\n\nFor Make's preview infrastructure, Firecracker is the most compelling model: per-user isolation at VM-level security with sub-second startup. The operational complexity is real \u2014 you're running a VMM, not Docker \u2014 but the security-to-performance tradeoff is better than any alternative for untrusted code execution at scale.\n\n**Browser Sandboxes: WebContainers and Iframes**\n\nStackBlitz's WebContainers technology takes a radically different approach: run the entire Node.js environment inside the browser tab using WebAssembly. The user's code never leaves their browser. There are no server compute costs for execution. Isolation is provided by the browser's security model.\n\nA browser tab is already a highly isolated sandbox:\n- No direct filesystem access (sandboxed filesystem API only)\n- Network requests subject to CORS\n- No process spawning\n- Memory and CPU limited by the browser's process model\n\nWebContainers implement a custom OS-like environment in WebAssembly: a virtual filesystem, Node.js APIs (reimplemented in Wasm), and a package resolution system. npm packages that require native bindings (compiled C/C++ addons) cannot run. Packages that rely on Node.js internals may behave differently.\n\nThe tradeoff: browser execution is limited to what WebAssembly and the browser sandbox allow. Full-stack frameworks with native modules, database drivers, or native addons may not work. But for pure JavaScript/TypeScript client-side code, WebContainers work reliably and eliminate server costs entirely.\n\nIframe sandboxes are a cruder mechanism: an `<iframe sandbox=\"allow-scripts\">` attribute restricts what code in the iframe can do \u2014 no cookies, no localStorage, no top-frame navigation. Make can run preview code in a sandboxed iframe within the Figma canvas for basic isolation, but this only prevents cross-origin interaction \u2014 it does not prevent resource exhaustion or malicious network requests.\n\n**V8 Isolates and Cloudflare Workers**\n\nV8 Isolates are the lightest-weight isolation unit. Each isolate is a separate V8 context \u2014 isolated memory heap, isolated global object, but sharing the same V8 engine process. Isolates start in under 1 millisecond and use minimal memory.\n\nCloudflare Workers runs on V8 Isolates. Every Workers function is a separate isolate; thousands of them can run on a single machine. This is how Cloudflare achieves sub-millisecond cold starts and extreme density.\n\nThe constraint: V8 Isolates are JavaScript/WebAssembly only. No Node.js APIs. No arbitrary binaries. No filesystem. The execution environment is extremely restricted. For running npm packages that use Node.js APIs, Workers cannot help you.\n\n**The Tradeoff Chart**\n\n| Technology | Isolation | Startup | Cost/1K users | Language Support |\n|---|---|---|---|---|\n| Full VM | \u2605\u2605\u2605\u2605\u2605 | 30\u201390s | Very High | Any |\n| Container (Docker) | \u2605\u2605\u2605\u2606\u2606 | 1\u20135s | Medium | Any |\n| Firecracker microVM | \u2605\u2605\u2605\u2605\u2605 | 100\u2013500ms | Medium | Any |\n| WebContainers | \u2605\u2605\u2605\u2606\u2606 | < 1s | Near zero (client) | JS/TS only |\n| V8 Isolates | \u2605\u2605\u2606\u2606\u2606 | < 5ms | Very Low | JS/TS/Wasm only |\n| Sandboxed iframe | \u2605\u2606\u2606\u2606\u2606 | Instant | Zero | Any (browser) |\n\nMake's preview architecture likely uses a hybrid: sandboxed iframes for initial display, with server-side execution (Firecracker or containers) for code that requires Node.js APIs or server components. The platform PM's job is to know where the boundaries are and when to invest in moving up the isolation stack.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Make's team is debating whether to use V8 Isolates (like Cloudflare Workers) for preview execution instead of containers. An engineer says \"Isolates are 100\u00d7 cheaper and start instantly.\" A security engineer says \"but we can't run npm packages with native addons.\" As PM, how do you frame the decision?",
+      "answer": "This is a capability vs. cost tradeoff that maps to user segments. V8 Isolates work for the majority of generated code (React, Tailwind, fetch-based data loading) but fail for code with native dependencies (bcrypt, sharp, sqlite3). The PM question is: what percentage of Make's generated apps require native Node.js packages? If the AI agent defaults to pure-JS alternatives (argon2 in Wasm instead of bcrypt native), the isolate model works for most users. You'd architect a tiered system: isolates for standard previews, containers as fallback for complex apps. Cost and security both favor isolates as the default.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open StackBlitz and create a new project. Open DevTools \u2192 Network tab. Notice that node_modules content is being served from the browser's local cache \u2014 nothing is going to a server for package resolution. Now try importing a package with native bindings (like `bcrypt`). Observe what fails and why.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a Figma design partner why \"running your code in the browser\" (WebContainers) is a fundamentally different security model than \"running your code on our servers\" \u2014 and what the practical implications are for what kinds of apps Make can preview.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Which of the three does Make most have to sacrifice, and why?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The isolation model is the infrastructure bet that determines cost structure, security posture, and language support simultaneously \u2014 choosing between VMs, containers, microVMs, and browser sandboxes is not an engineering implementation detail but the foundational architectural decision of the preview platform.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> Code runs. Preview works. Now the user clicks \"Deploy.\" That URL has to resolve globally in under a second, serve the right content, and handle a user in Tokyo as gracefully as one in San Francisco. That's the CDN and edge network problem.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Firecracker microVMs start in under 150ms and use as little as 5MB of memory overhead, yet provide VM-level isolation. What makes this possible, and why does it matter for Make's preview infrastructure?",
+      "options": [
+        "Firecracker achieves speed by sharing the host kernel across microVMs, which is why it starts faster than traditional VMs but provides weaker isolation",
+        "Firecracker uses the KVM hypervisor to create minimal VMs without a traditional OS — each microVM boots its own kernel but skips the full OS initialization, achieving near-VM isolation at near-container speed",
+        "Firecracker works by pre-loading a single Linux VM snapshot and forking it per user, so microVMs share memory pages until they diverge"
+      ],
+      "correctIndex": 1,
+      "explanation": "Firecracker creates lightweight VMs using KVM virtualization but strips away the full device model of traditional VMs (no emulated BIOS, no USB, minimal devices). Each microVM runs its own kernel instance — providing true VM-level isolation — but without the overhead of booting a complete OS. This is what enables 125ms startup and 5MB overhead. For Make, this represents the isolation model that matches Lambda's security model while remaining viable for interactive previews.",
+      "encourageCorrect": "Exactly — Firecracker's minimal device model is the engineering insight that closes the gap between VM isolation and container speed.",
+      "encourageIncorrect": "Firecracker does not share the host kernel — that would make it a container, not a microVM. Each Firecracker microVM runs its own kernel instance, providing full VM-level isolation. The speed comes from stripping the traditional VM's full OS overhead (BIOS, device emulation, etc.) rather than from memory forking, which is a different technology (copy-on-write pages)."
+    },
+    {
+      "question": "V8 Isolates (used by Cloudflare Workers) offer sub-millisecond cold starts and very low memory overhead, but they cannot run npm packages with native Node.js bindings. As a Platform PM, how should this constraint shape Make's execution strategy?",
+      "options": [
+        "V8 Isolates should be avoided entirely for Make because native module support is a baseline requirement for any serious web application",
+        "V8 Isolates are appropriate as a default execution layer for the majority of generated apps (pure JS/TS), with a server-side container fallback triggered when native packages are detected",
+        "V8 Isolates solve both the cost and compatibility problems since their JavaScript support includes access to all npm packages via WebAssembly"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module establishes that most generated code — React UIs, Tailwind styling, fetch-based data loading — is pure JavaScript that runs fine in V8 Isolates. Native modules (bcrypt, sharp, database drivers with binary protocols) are edge cases. A tiered architecture using Isolates as the default (low cost, instant startup) with container fallback for native-module sessions captures most of the efficiency gains while preserving compatibility. V8 Isolates do not provide access to native npm packages via WebAssembly.",
+      "encourageCorrect": "Good — the tiered architecture reasoning is exactly the PM move here: don't let the edge case drive the default.",
+      "encourageIncorrect": "WebAssembly doesn't bridge the gap for native modules — packages like bcrypt compile to CPU-specific binaries that can't be converted to Wasm automatically. The right framing is a tiered model: V8 Isolates for the typical case (pure JS), containers as a fallback for the minority of sessions needing native packages."
+    },
+    {
+      "question": "WebContainers run Node.js inside a browser tab using WebAssembly and a ServiceWorker. What is the primary security model this approach relies on, and what threat does it NOT address?",
+      "options": [
+        "WebContainers rely on the browser's existing security sandbox, which prevents filesystem access and arbitrary network requests — but does not prevent CPU or memory exhaustion within the tab",
+        "WebContainers provide stronger isolation than Docker containers because WebAssembly cannot execute native binaries, making code escape impossible",
+        "WebContainers rely on CORS policies to prevent all network access, which also prevents the generated app from loading external data or APIs"
+      ],
+      "correctIndex": 0,
+      "explanation": "WebContainers inherit the browser tab's security model: no direct filesystem access, network requests subject to CORS, no process spawning. This is meaningful isolation for many threat vectors. However, the browser doesn't prevent a runaway process from consuming all available CPU or memory within the tab — resource exhaustion is the residual threat. The module notes that heavy CPU workloads run slower and may exhaust browser memory, which is both a performance and an abuse-prevention gap.",
+      "encourageCorrect": "Right — inheriting browser security is a genuine advantage of WebContainers, but understanding its limits (especially resource exhaustion) is what distinguishes a strong analysis.",
+      "encourageIncorrect": "WebContainers are not strictly stronger than Docker for isolation — Docker has kernel namespaces and cgroups for resource limiting; the browser doesn't cap CPU/memory within a tab. And CORS doesn't block all network requests — it restricts cross-origin requests from scripts, but the app can still fetch from APIs. The key gap is resource exhaustion, not network access."
+    }
+  ]
+}

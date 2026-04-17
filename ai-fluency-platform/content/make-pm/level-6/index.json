@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Observability & Platform Health",
+    "description": "Master observability for probabilistic systems \u2014 the three pillars, user-facing observability, platform-level monitoring with SLOs, cost observability and showback, and incident response patterns unique to AI.",
+    "level": "level-6",
+    "slug": "index",
+    "order": 0,
+    "isCheckpoint": false,
+    "isIndex": true
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "## Observability & Platform Health\n\n*The telemetry that makes AI platforms operable*\n\nMaster observability for probabilistic systems \u2014 the three pillars, user-facing observability, platform-level monitoring with SLOs, cost observability and showback, and incident response patterns unique to AI.\n\n## Modules in This Level\n\n### 6.1 Observability for AI-Powered Platforms\n\nTraditional observability answers three questions: Is the system **up**? Is it **fast**? Is it returning **correct** responses? These questions assume the system is deterministic \u2014 given the same inpu\n\n### 6.2 Logs, Metrics, Traces \u2014 The Three Pillars\n\nEvery observability system is built on three primitives. They are complementary, not redundant. Conflating them leads to either massive log storage costs or alert systems that can't localize problems.\n\n### 6.3 User-Facing Observability\n\nMost observability infrastructure is built for engineers. Log pipelines, trace viewers, and metrics dashboards assume the reader understands what a p99 is and why a stack trace points to the root caus\n\n### 6.4 Platform-Level Monitoring\n\nPlatform-level monitoring is the view from altitude: not \"what happened to user u_8842's session\" but \"how did the platform perform across all 50,000 sessions this weekend.\" This is the PM's primary i\n\n### 6.5 Cost Observability and Showback\n\nCost observability is the least glamorous observability domain and the one most likely to matter in your first 90 days as a Platform PM. AI infrastructure costs are high, variable, and opaque by defau\n\n### 6.6 Incident Response for AI Systems\n\nIncident response for AI platforms differs from traditional incident response in three important ways: failures are often gradual rather than binary, the root cause is frequently external and opaque, \n\n### 6.7 Level 6 Checkpoint\n\n---"
+    }
+  ]
+}

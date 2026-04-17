@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "3.1 Anatomy of a Preview Environment",
+    "description": "When a user clicks Preview in Make, a cascade of infrastructure events happens in the background \u2014 and if any part of that cascade takes too long, the user sees a spinner, loses trust, and the product",
+    "level": "level-3",
+    "slug": "anatomy-of-a-preview-environment",
+    "order": 1,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "When a Make user hits \"Preview,\" a working app appears in their browser. That app is running somewhere. Where? And what had to happen to get it there?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "When a user clicks Preview in Make, a cascade of infrastructure events happens in the background \u2014 and if any part of that cascade takes too long, the user sees a spinner, loses trust, and the product feels slow. Understanding this anatomy is essential for a Platform PM making tradeoff decisions about cost, latency, and reliability.\n\n**What a preview environment actually is**\n\nA preview environment is an isolated, ephemeral compute instance that runs the user's generated code as if it were a local development server. \"Ephemeral\" means it exists only for the duration of the session \u2014 when the user closes the tab or goes idle, the environment is torn down and compute is reclaimed. \"Isolated\" means it cannot access other users' data, cannot consume shared resources beyond its allocation, and cannot persist state across sessions unless explicitly designed to do so.\n\nFour components make up a preview environment:\n\n**Runtime** \u2014 the compute layer where the code actually executes. This could be a container, a VM, a serverless function, or a lightweight JavaScript isolate (like Cloudflare Workers runs). The runtime choice affects startup time, memory ceiling, and isolation guarantees.\n\n**Filesystem** \u2014 where the generated code lives. The agent writes files (App.tsx, index.html, package.json) and the filesystem must expose these to the runtime's build tooling. This is typically an in-memory virtual filesystem or a fast ephemeral disk volume. Disk I/O latency here directly affects hot reload speed.\n\n**Network layer** \u2014 how the preview is served to the user's browser. The runtime starts a dev server (Vite, Webpack Dev Server, etc.) on a port, and the platform proxies that port to a public preview URL. The proxy handles TLS termination, authentication tokens (so only the owner can access the preview), and WebSocket connections (which carry HMR updates).\n\n**Process manager** \u2014 what keeps the dev server running, monitors for crashes, and restarts it on failure. If the user's code introduces a fatal error that kills the server process, the process manager detects the failure and either restarts or surfaces an error state.\n\n**The lifecycle**\n\nThe sequence from \"user clicks Preview\" to \"app visible in browser\":\n\n1. **Create** \u2014 allocate a compute slot from the pool\n2. **Provision** \u2014 configure the environment (OS, runtime version, network rules)\n3. **Inject code** \u2014 copy the agent's generated files into the environment's filesystem\n4. **Install dependencies** \u2014 run package manager to pull npm packages\n5. **Start dev server** \u2014 launch Vite or equivalent\n6. **Serve preview** \u2014 expose the dev server via a public URL with auth token\n7. **Destroy** \u2014 tear down when session ends or idle timeout triggers\n\n**The Vercel model vs. the Make model**\n\nVercel's preview deployments are triggered by git push. A new commit triggers a full build, and the resulting static assets are deployed to a CDN. Each deployment is immutable and takes 30-120 seconds. This works because the workflow is async \u2014 developers push code, wait for CI, then review.\n\nMake's model is fundamentally different: every agent edit must update the preview in real-time. The user expects to see their UI change within seconds of the agent finishing a file write. This means Make cannot afford Vercel's full build cycle on every change. The preview must be running continuously, and updates must be applied incrementally via hot reloading rather than full redeployment.\n\n**Latency targets**\n\nCreate + provision must complete in under 500ms, or the experience feels broken. Users have been conditioned by browser DevTools and local development to expect near-instant feedback. A 2-second spinner before the preview even starts is a product failure. This forces architectural choices: environments must be pre-warmed (allocated before they are needed), base images must be cached, and dependency installation must be fast.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A new Make user opens a project for the first time. There is no pre-warmed environment available. Which component of the preview lifecycle is most likely to cause latency that exceeds the 500ms target \u2014 and why?",
+      "answer": "*The most likely culprit is dependency installation. Container provisioning can be fast (<100ms) with pre-built base images. But running `npm install` on a fresh project with a full package.json (React, routing, UI libraries) involves network downloads, dependency resolution, and disk writes \u2014 often 5-30 seconds. This is the component that requires the most architectural investment: caching, pre-warming, and CDN-based module resolution.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open browser DevTools (Network tab) and load a Vercel preview URL. Filter by \"WS\" (WebSocket) to see the HMR connection. Then open a local Vite project, make a file change, and observe the WebSocket message that carries the HMR update. Note the timestamp delta between file save and browser update. This is the baseline your platform must match or beat.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a non-technical designer on your team: what is the difference between \"the preview environment\" and \"the app\"? Why does the preview disappear when they close the browser tab?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Your PM counterpart on the consumer product team says: \"Let's just give every user a persistent always-on environment so there's no spin-up latency.\" What is the cost implication of this, and how would you frame the tradeoff?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "A preview environment is a temporary compute instance with four discrete components \u2014 runtime, filesystem, network, and process manager \u2014 and the Platform PM's job is to make its creation feel instantaneous while keeping infrastructure costs proportional to actual usage.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The preview environment serves one user at a time. But Make has 100,000 concurrent users. How does the platform prevent one user's runaway code from degrading everyone else's experience? That's the multi-tenancy problem \u2014 next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A preview environment is described as 'ephemeral.' What does this mean in practice for a Make user?",
+      "options": [
+        "The preview runs faster than a production deployment because it skips optimization steps",
+        "The environment exists only for the session duration and is torn down when the user closes the tab or goes idle",
+        "The preview URL is temporary but the underlying server persists indefinitely to enable fast restarts"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ephemeral means the compute instance is allocated for the session and reclaimed when it ends — nothing persists unless explicitly designed to do so. This is what makes it cost-efficient but also why a cold start requires a new environment to be provisioned.",
+      "encourageCorrect": "Exactly right — ephemeral is the key design choice that keeps infrastructure costs proportional to actual usage.",
+      "encourageIncorrect": "Ephemeral refers to the lifetime of the environment, not its speed or server persistence. The environment is torn down when the session ends, which is why cold-start latency matters so much — there's nothing warm waiting for the user."
+    },
+    {
+      "question": "Which component of the preview environment lifecycle is most responsible for exceeding the 500ms latency target when a user opens a brand-new project?",
+      "options": [
+        "Container provisioning — allocating a compute slot from the pool takes 1–2 seconds for new tenants",
+        "Network layer setup — TLS termination and WebSocket configuration add 700ms per new session",
+        "Dependency installation — running npm install on a fresh project involves network downloads and can take 5–30 seconds"
+      ],
+      "correctIndex": 2,
+      "explanation": "Container provisioning can be fast (<100ms) with pre-built base images. The network layer configuration is similarly fast. Dependency installation is the dominant source of latency because it requires network downloads, dependency resolution, and disk writes for every package in the project.",
+      "encourageCorrect": "Correct — dependency installation is the most common latency culprit and the component that requires the most architectural investment to solve.",
+      "encourageIncorrect": "Container provisioning and network setup are fast with pre-warmed infrastructure. The real culprit is dependency installation, which can take 5–30 seconds on a fresh project — far exceeding the 500ms target."
+    },
+    {
+      "question": "Make's preview model differs fundamentally from Vercel's. Which statement best captures the core architectural difference?",
+      "options": [
+        "Vercel uses containers; Make uses serverless functions — the runtime choice determines update speed",
+        "Vercel runs a full immutable build on every git push and serves static assets; Make requires a continuously-running environment that applies incremental updates in real time",
+        "Vercel supports custom domains while Make's previews are restricted to sandbox URLs — the networking model is different"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vercel's model is async: a git push triggers a full build (30–120 seconds) and the result is deployed to a CDN. Make's model requires real-time updates because every agent edit must appear in the preview within seconds. This rules out full rebuilds and requires a continuously-running dev server with hot reloading.",
+      "encourageCorrect": "Yes — the continuous running environment with incremental updates is exactly what distinguishes Make's model from Vercel's batch-build approach.",
+      "encourageIncorrect": "The core difference is not runtime choice or domain support — it's that Vercel can afford a 30–120 second full rebuild per change, while Make needs the preview to update within seconds after every agent edit, requiring a running dev server and incremental updates."
+    }
+  ]
+}

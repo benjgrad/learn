@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "1.5 Figma Make's Position",
+    "description": "Positioning is not marketing \u2014 it is a statement of where you are structurally advantaged and where you are structurally behind. Make's Platform PM must hold both sides of this analysis simultaneously",
+    "level": "level-1",
+    "slug": "figma-make-s-position",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> What does Figma have that no other AI code-gen tool has? And what does everyone else have that Figma is still building?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Positioning is not marketing \u2014 it is a statement of where you are structurally advantaged and where you are structurally behind. Make's Platform PM must hold both sides of this analysis simultaneously: the advantages are real and must be defended; the gaps are real and must be closed before competitors build around them.\n\n**Unique Advantage 1: Design System Awareness**\n\nEvery other AI code-gen tool generates code in a vacuum. v0 knows shadcn/ui. Bolt knows what you told it in the prompt. Lovable knows React.\n\nMake knows your Figma file. It knows your specific Button component with its variants. It knows that your Primary color is `#6366F1`, not Material UI's default blue. It knows your spacing tokens (8, 16, 24, 40) and your typography scale (Body/14px, Heading/24px, Display/48px).\n\nThis is not a feature \u2014 it is a structural data advantage. The generated code uses your design system, not a generic one. The output is coherent with every other screen in your product because it shares the same design primitives. This coherence is essentially impossible to achieve with a standalone code-gen tool because it requires access to the design state that only Figma has.\n\nThe moat: even if a competitor built a better code-gen model, they would need Figma's users to grant them access to their Figma files to replicate this advantage. That access problem is Figma's structural advantage.\n\n**Unique Advantage 2: Canvas-Native Integration**\n\nMake's output lives in Figma's canvas. An AI-generated app can be converted back to editable Figma components (\"Code to Canvas\" \u2014 Anthropic partnership, announced April 2025). A designer can modify the generated UI as Figma layers, not as code. The design-to-code flow becomes bidirectional.\n\nNo other tool has this. v0's output goes into a Next.js project. Lovable's output goes into a browser tab. Bolt's output goes into a StackBlitz workspace. None of them have a canvas where the output becomes part of the design workflow.\n\nThis bidirectionality is potentially transformative: designers iterate in Figma, Make regenerates code from the updated design, the code regenerates updated Figma components. The design and the code stay synchronized \u2014 eliminating the \"spec to implementation\" gap that teams have struggled with for 20 years.\n\n**Unique Advantage 3: Figma's Customer Base**\n\nFigma has approximately 4 million paying customers, including design teams at virtually every major technology company. Make's distribution is the existing Figma product \u2014 not a new go-to-market motion.\n\nWhen Make launches features, they land in front of the world's most influential design community. Designers who adopt Make become internal advocates for it within their engineering organizations. The B2B sales motion benefits from existing Figma enterprise contracts.\n\nThis distribution advantage compounds with the design system advantage: the users who most need design system-aware code generation are exactly Figma's power users.\n\n**Unique Advantage 4: The Anthropic Partnership**\n\nFigma's partnership with Anthropic (announced with \"Code to Canvas\") gives Make access to Claude's latest capabilities and positions Figma as a preferred partner for AI capabilities in the design-to-code workflow. This is not just an API relationship \u2014 it is a strategic alignment that gives Figma early access to model improvements and joint product development.\n\n**Canvas-Direct AI Agents (April 2026)**\n\nThe April 2026 launch of Canvas-Direct AI Agents represents a step-change in Make's positioning. Autonomous agents can now directly interact with the Figma canvas \u2014 not just generating code, but modifying design components, creating variants, applying design system tokens, and orchestrating the entire design-to-code workflow without per-step human prompting.\n\nThis is the \"raising the ceiling\" vision made concrete. The design canvas becomes an agent workspace, not just a human authoring environment. Make's platform must support agent tool calls into the canvas \u2014 which requires stable, low-latency APIs, robust state management, and conflict resolution when agent and human modify the same canvas simultaneously.\n\n**Gaps vs. Competitors**\n\n**Runtime maturity:** v0 has been deployed at scale for 2+ years. Bolt has WebContainers in production. Replit's cloud IDE handles millions of sessions. Make's preview infrastructure is newer and has not been tested at comparable scale. Every major quality issue \u2014 slow previews, broken builds, inconsistent behavior \u2014 traces back to runtime maturity.\n\n**Deployment infrastructure:** Make's deployment story (as of early 2026) is less developed than Vercel's (for v0), Netlify's (for Bolt), or Replit's (native hosting). Users who want to go from Make to production need a clear, opinionated deployment path. \"Export your code and figure out hosting yourself\" is not competitive.\n\n**Developer trust:** Developers do not yet use Make the way they use Cursor or Copilot \u2014 as a professional tool. Make is perceived as a demo tool or a designer's tool. Winning developer trust requires: high-quality generated code, Git integration, CLI access, framework flexibility, and a track record of production deployments. None of this is insurmountable, but it requires deliberate investment.\n\n**The Platform Bet: Make as Infrastructure Layer**\n\nDylan Field's stated vision: Make is not just a product feature \u2014 it is the AI layer across Figma Design, FigJam, and Figma Sites. Every Figma surface gains AI-powered generation. Make's runtime, its agent infrastructure, and its eval systems become shared platform services.\n\nThis bet changes the Platform PM's mandate. It is not \"build a better code-gen tool.\" It is \"build the AI infrastructure that every Figma product depends on.\" That is a platform role in the deepest sense \u2014 the decisions made here will shape Figma's architecture for a decade.\n\n**Dylan Field's Philosophy: \"Craft Will Always Win\"**\n\nField's public statements about AI in design consistently return to one principle: AI lowers the floor (anyone can start) and raises the ceiling (experts can achieve things impossible before), but craft \u2014 the accumulated judgment of a skilled practitioner \u2014 remains the competitive differentiator.\n\nThis philosophy has a direct implication for Make: the product should not try to replace design judgment. It should accelerate the expression of design judgment. The designer who understands grid systems, visual hierarchy, and interaction design should get 10\u00d7 more output from Make than the designer who doesn't \u2014 not the same output.\n\nA Platform PM who internalizes this philosophy will make different prioritization decisions than one who doesn't. Every feature that removes human judgment from the loop should be scrutinized against this principle. Every feature that amplifies human judgment should get prioritized.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A competitor announces a \"Figma plugin\" that reads your Figma design tokens and generates code using those tokens. They claim this eliminates Make's design system advantage. How do you evaluate this claim?",
+      "answer": "A plugin that reads design tokens is a significant step toward Make's advantage \u2014 it closes the \"generic code\" gap for the most common design system inputs (colors, spacing, typography). But it doesn't replicate: (1) component-level understanding (knowing that Button has a disabled state, an icon variant, and a loading state \u2014 not just its color), (2) canvas-native generation (output going into Figma layers, not just code), (3) bidirectionality (Code to Canvas \u2014 going back from code to editable design). The token reading is necessary but not sufficient. Make's advantage is in the depth of design context, not just the existence of it. The threat is real but partial.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Generate a component in Make. Then generate the same component prompt in v0. Compare: Does v0's output use the same design tokens as your Figma file? Can you tell which component came from your design system and which came from a generic one? Now try to modify the Make output in the Figma canvas. What is the experience of that bidirectionality?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain Make's competitive position to a skeptical senior developer who says \"I just use Cursor, why would I use a Figma tool?\" Your answer must acknowledge a genuine gap while articulating a genuine advantage.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Does this support or undermine Field's thesis?",
+        "How does this tension affect what Make should build?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Make's structural advantages \u2014 design system awareness, canvas-native integration, Figma's customer base, and the Anthropic partnership \u2014 are real and defensible, but they must be paired with infrastructure maturity (runtime, deployment, developer trust) that competitors have built over years of production-scale operation.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> You've mapped the landscape, understood the gaps, and identified Make's position. Now the synthesis question: how do you prioritize? That's the Level 1 Checkpoint.\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A competitor builds a Figma plugin that reads your design tokens (colors, spacing, typography) and uses them when generating code. Does this eliminate Make's design-system advantage? What does and doesn't it replicate?",
+      "options": [
+        "No — token access is necessary but not sufficient. Make also has component-level understanding (variants, states, interactions), canvas-native generation (output becomes editable Figma layers), and bidirectionality (Code to Canvas). Token reading closes the 'generic colors' gap but not the depth-of-context advantage",
+        "Yes — once competitors can read Figma tokens, the design-system advantage is gone, because tokens are the main differentiation",
+        "No — because Figma would simply block plugin API access to prevent this competitive threat"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module makes this exact argument: a competitor reading design tokens closes one gap — the 'generated code uses wrong colors' problem — but doesn't replicate component-level awareness (knowing a Button has a disabled state and a loading variant, not just its color), canvas-native generation (output going into Figma layers rather than a code file), or bidirectionality (Code to Canvas — modifying generated UI as Figma components). Token access is necessary but not sufficient for Make's full structural advantage.",
+      "encourageCorrect": "Exactly — this is the right level of competitive analysis. The threat is real and partial, not decisive.",
+      "encourageIncorrect": "Token access would close one meaningful gap, but the module specifically distinguishes depth of design context from existence of design context. Component-level understanding (variants, states, constraints), canvas-native output, and bidirectionality are all things a plugin API for tokens doesn't provide. Figma blocking plugin access would also create more problems than it solves for Figma's ecosystem."
+    },
+    {
+      "question": "Dylan Field's 'Craft Will Always Win' philosophy has a direct implication for Make's product prioritization. What features should be prioritized, and which should be scrutinized, based on this principle?",
+      "options": [
+        "Features that remove human judgment from the loop (full automation) should be prioritized since they lower the floor; features that require human input should be scrutinized as friction",
+        "Field's philosophy implies Make should focus only on professional designers and deprioritize non-technical users, since craft requires professional expertise",
+        "Features that amplify the output of skilled users (accelerate design judgment expression) should be prioritized; features that replace or bypass human judgment should be scrutinized against whether they undermine the craft advantage"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module interprets Field's 'lowers the floor, raises the ceiling' framing as meaning AI should accelerate design judgment, not replace it. Features that help a skilled designer get 10x more output (raise the ceiling) align with the philosophy. Features that produce the same output regardless of user skill level (don't differentiate experts) work against it. The implication for prioritization: scrutinize any feature that removes human judgment from the loop, prioritize features that make expert judgment more impactful.",
+      "encourageCorrect": "Right — this is the direct product implication the module draws from Field's philosophy, and it's a meaningful filter for prioritization decisions.",
+      "encourageIncorrect": "Field's philosophy doesn't exclude non-technical users — 'lowers the floor' means anyone can start. But 'craft will always win' means expert users should get disproportionately more value from Make. The scrutiny should be on features that eliminate human judgment entirely, since those flatten the quality difference between skilled and unskilled users — working against the 'craft differentiator' thesis."
+    },
+    {
+      "question": "Make's April 2026 Canvas-Direct AI Agents capability introduces a new reliability requirement that didn't exist before. What is it, and why does it depend on solving the baseline runtime stability problem first?",
+      "options": [
+        "Canvas-Direct Agents require Figma to implement a new authentication model, which is blocked by the current preview infrastructure",
+        "Agents operating on the canvas issue requests at higher volume than human users, amplifying any existing reliability failures — an unstable runtime that fails 1% of human sessions may fail systematically for agents, making runtime stability a prerequisite before investing in agent capabilities",
+        "Canvas-Direct Agents are only available to enterprise customers, so they require a separate infrastructure tier that must be built from scratch"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module explicitly states: 'Agents amplify platform weaknesses — an unstable runtime that occasionally fails for human users will fail systematically for agents.' This is the module's argument for sequencing: runtime stability must come before agent investment. A 1% failure rate is tolerable for human users making 5-10 requests per session; it's catastrophic for an agent making 500+ requests. Investing in Canvas-Direct Agents on an unstable platform would produce a product that systematically fails at the agentic use case.",
+      "encourageCorrect": "Exactly — the amplification argument is why the sequencing matters, and it's the kind of structural reasoning that distinguishes Platform PM thinking from feature PM thinking.",
+      "encourageIncorrect": "This isn't an authentication or infrastructure tier problem — it's a reliability amplification problem. Agents don't need separate infrastructure; they need the same infrastructure to be reliable enough to survive agent-scale request volumes. The module's sequencing argument is that you can't build Canvas-Direct Agents on a foundation that fails 1% of human requests, because agents will surface that failure rate systematically."
+    }
+  ]
+}

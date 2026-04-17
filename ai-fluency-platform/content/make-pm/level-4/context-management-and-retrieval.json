@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "4.3 Context Management and Retrieval",
+    "description": "Context management is the highest-leverage platform engineering problem in agent infrastructure. Model capability matters; context engineering matters more. A weaker model with excellent context wins ",
+    "level": "level-4",
+    "slug": "context-management-and-retrieval",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> A user's Make project has 200 files. The agent's context window is 200K tokens. The full codebase is 500K tokens. How does the agent \"know\" about files it can't see?\n\nWrite your answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Context management is the highest-leverage platform engineering problem in agent infrastructure. Model capability matters; context engineering matters more. A weaker model with excellent context wins against a stronger model that is lost in irrelevant tokens.\n\n**The context window as working memory:**\n\nEverything the agent knows must fit in its context window. There is no persistent memory outside the context — no \"background knowledge\" of your codebase that persists between turns. When a session ends, the agent forgets everything. When a session is active, the agent's \"knowledge\" is the union of:\n\n- The system prompt (agent instructions, tool definitions, persona)\n- The conversation history (user messages, assistant turns, tool calls, tool results)\n- Files that have been explicitly read via tool calls\n- Tool results from shell commands, search operations, build outputs\n\nA 200K token context window sounds large. It fills faster than you expect. A system prompt with tool definitions: 3-5K tokens. A conversation with 20 turns and 20 tool results: 50-100K tokens. Three large source files: 30K tokens. You are at capacity before you have read a quarter of a typical codebase.\n\n**Context engineering:**\n\nThe platform's job is to decide what goes in the context and what stays out. This is not a model decision — it is a platform decision. The platform chooses what files to surface before the agent begins, what search results to include when the agent asks for context, and what to compress or evict when the context fills.\n\nThis is the single highest-leverage decision in agent platform design. Get it wrong and even GPT-4 struggles. Get it right and even a smaller model can navigate a complex codebase.\n\n**Retrieval strategies:**\n\nWhen the full codebase does not fit in context, the agent needs retrieval — a mechanism to find relevant files without reading all of them.\n\n*File tree indexing:* The platform provides the agent with the project's directory structure (file paths, not contents). The agent uses this to decide which files to read. Cheap, fast, always current.\n\n*Semantic search:* Files are embedded and stored in a vector index. When the agent needs to \"find where authentication is handled,\" it queries the index with that phrase and retrieves the most semantically similar files. This surfaces relevant code even when the agent does not know the exact file name.\n\n*Dependency graph analysis:* Parse imports to build a graph of which files depend on which. If the agent is editing `LoginForm.tsx`, surface `AuthContext.tsx` (it imports from it) and `auth.utils.ts` (it imports from auth context) proactively. This is structural retrieval — using code relationships, not semantics.\n\n*Recently-modified file prioritization:* The file the user last edited is almost certainly relevant to what they are asking the agent to do next. Recency is a cheap, high-signal heuristic.\n\n**Codebase indexing:**\n\nFor semantic retrieval to work, the platform must maintain a codebase index. This is an ongoing infrastructure cost:\n\n- On project open: index all files\n- On file change: re-embed changed files and update the index\n- On query: retrieve top-K relevant files, rank by combined semantic + structural + recency score\n\nEmbedding-based retrieval has a known failure mode: it retrieves semantically similar content, but code relevance is often structural, not semantic. \"The file that exports the auth hook\" is not necessarily the file whose text is most similar to \"authentication.\" AST-based indexing (parse the import tree, extract exported symbols) complements embedding retrieval.\n\n**The \"lost in the middle\" problem:**\n\nModels attend well to content at the beginning and end of their context window, and less well to content in the middle. This is empirically documented across model families. The practical implication: do not bury the most relevant file in the middle of a 100K-token context. Put the most important context at the top (after the system prompt) or at the end (just before the user's message).\n\nFor a coding agent, this means: the file the agent is currently editing should be at the end of the context, not buried after 30 tool results from earlier turns.\n\n**Context compression:**\n\nWhen the context fills, the platform has three choices:\n\n1. *Evict old tool results:* Drop the raw contents of files the agent read 20 steps ago. The agent has already acted on them; the raw contents are less valuable than the actions taken.\n2. *Summarize conversation history:* Compress old conversation turns into a prose summary. \"Steps 1-10: created the database schema, set up Prisma, wrote migration files. Current state: migrations applied, ready to build API routes.\"\n3. *Re-retrieve on demand:* When the agent needs a file it no longer has in context, it re-reads it via a tool call.\n\nThe right strategy is usually all three, in order of cost.\n\n**What Make's platform must provide:**\n\nA codebase indexing service that the agent can query before every editing operation. The query returns: the files most likely relevant to the user's current intent, ordered by combined relevance score. The agent does not need to read the whole codebase — it reads the retrieval result and starts from there.\n\nThis is a platform capability, not a model capability. Shipping it is the Platform PM's job.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your agent is editing a React codebase. It has read `src/components/LoginForm.tsx` and is about to write a change. The context window contains: system prompt (4K), conversation history (60K), tool results from the last 25 steps (80K), `LoginForm.tsx` (10K). Total: 154K out of 200K. The user asks the agent to also update the error handling in `src/utils/auth.utils.ts`. What should happen?\nA. The agent reads auth.utils.ts (adds 8K tokens) and proceeds — fits in context\nB. The agent reads auth.utils.ts but the platform should compress the oldest tool results first to make room\nC. The agent cannot proceed — the context is too full\nD. The agent should ask the user to start a new session",
+      "answer": "A — for now, but B is the correct platform behavior to implement.** 154K + 8K = 162K, which fits in a 200K window. But the platform should be proactively compressing old tool results before the context hits 80% capacity, not reactively when it is full. The correct platform behavior is B; the correct immediate action is A.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "In any codebase you have worked in, identify a feature that spans more than 5 files. For each file, write one sentence on why the agent would need to see it to safely edit any one of the others. Now: if you could only give the agent 2 of those files in context (the rest must be retrieved on demand), which 2 would you pick, and why?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the \"lost in the middle\" problem to an ML engineer who is designing the context assembly logic for Make's agent. What concrete change to their implementation does this problem demand?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In a RAG document retrieval system, what retrieval design choices matter most?",
+        "What would you do differently in a code retrieval context where the stakes (broken builds, wrong imports) are higher than in content generation?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The context window is the agent's working memory, and what the platform chooses to put in it — through indexing, retrieval, and compression — determines the agent's effective intelligence more than model size alone.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> The agent has a retrieval system and a context management strategy. Now it needs to turn \"add user authentication\" into 30 coherent steps that leave the codebase in a working state. How does a language model — fundamentally a next-token predictor — do planning?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A 200K token context window 'fills faster than you expect.' In a typical Make agent session, which component consumes the largest share of context tokens?",
+      "options": [
+        "Conversation history and accumulated tool results from prior steps, which can reach 50–100K tokens after 20 turns with multiple tool calls each",
+        "The system prompt and tool definitions, which can reach 50K tokens for a fully-specified agent with a large tool catalog",
+        "The codebase index, which must hold the full text of every file in the project to enable accurate semantic search"
+      ],
+      "correctIndex": 0,
+      "explanation": "The system prompt is typically 3–5K tokens. The codebase index is not stored in the context window — it's a separate retrieval system. The dominant consumer is conversation history plus tool results: 20 turns with multiple tool calls each can reach 50–100K tokens, leaving limited space for the files the agent currently needs to read.",
+      "encourageCorrect": "Right — conversation history and tool result accumulation is the primary context pressure in a multi-step agent session.",
+      "encourageIncorrect": "The system prompt is large but typically 3–5K tokens, not 50K. The codebase index isn't held in the context window — it's queried externally. The dominant pressure comes from conversation history plus accumulated tool results from all previous steps, which can reach 50–100K tokens after a 20-turn session."
+    },
+    {
+      "question": "The 'lost in the middle' problem has a concrete implication for how a Platform PM should design context assembly. What is it?",
+      "options": [
+        "Long contexts should be split into multiple smaller sessions, so the model never has to attend to content in the middle of a long context",
+        "The most important file — such as the file currently being edited — should be placed at the end of the context, not buried in the middle after tool results from earlier steps",
+        "The system prompt should be repeated at the end of the context to ensure the model attends to its instructions throughout the session"
+      ],
+      "correctIndex": 1,
+      "explanation": "Empirical research shows that model attention is strongest at the beginning and end of the context window and weakest in the middle. For a coding agent, this means the file currently being edited should be positioned at the end of the context (just before the user's message) rather than buried after dozens of earlier tool results where it may receive less attention.",
+      "encourageCorrect": "Correct — end-of-context positioning for the most critical file is the practical design implication of the lost-in-the-middle finding.",
+      "encourageIncorrect": "Splitting sessions would break the agent's accumulated state. Repeating the system prompt wastes tokens. The practical implication of lost-in-the-middle is positioning: put the file the agent is currently editing at the end of the context window, where model attention is strongest, rather than burying it in the middle after earlier tool results."
+    },
+    {
+      "question": "Why does embedding-based semantic search alone fail as a codebase retrieval strategy for coding agents?",
+      "options": [
+        "Embedding models are too slow to query in real time, making semantic search impractical within the latency budget of an agent session",
+        "Embedding-based search requires storing the full text of every file, which exceeds the context window capacity for large codebases",
+        "Semantic similarity retrieves textually similar content, but code relevance is often structural — the file that exports an auth hook may not be textually similar to the query 'authentication'"
+      ],
+      "correctIndex": 2,
+      "explanation": "Semantic search retrieves documents whose text is similar to the query. In codebases, the most relevant file is often relevant by structure — by import relationships, by exported symbols — not by textual similarity. The auth utility might contain no text matching 'authentication.' AST-based and dependency-graph-based retrieval complement semantic search by capturing these structural relationships.",
+      "encourageCorrect": "Right — structural relevance (import graphs, exported symbols) is what semantic search misses, which is why AST-based retrieval is a necessary complement.",
+      "encourageIncorrect": "Embedding search is fast enough in practice. It doesn't require full file text in the context window — embeddings are small vectors. The real limitation is that code relevance is often structural, not textual. The auth utility may not contain the word 'authentication,' but the dependency graph reveals it's imported by the login component. Semantic search misses that signal."
+    }
+  ]
+}

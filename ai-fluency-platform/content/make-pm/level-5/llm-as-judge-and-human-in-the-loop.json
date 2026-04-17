@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "5.5 LLM-as-Judge and Human-in-the-Loop",
+    "description": "LLM-as-judge is now a standard technique in AI evaluation, but using it well requires understanding its failure modes, the critical importance of rubric design, and how to calibrate it against human j",
+    "level": "level-5",
+    "slug": "llm-as-judge-and-human-in-the-loop",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You need to evaluate 500 generated apps. Automated tests cover approximately 60% of quality dimensions. For the remaining 40% (aesthetics, UX quality, code readability), you need judgment. Human review of 500 apps takes 2 weeks. What's the alternative?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "LLM-as-judge is now a standard technique in AI evaluation, but using it well requires understanding its failure modes, the critical importance of rubric design, and how to calibrate it against human judgment.\n\n**What LLM-as-judge is**\n\nInstead of asking a human to evaluate a generated app, you ask a frontier model to evaluate it. You give the model a rubric, provide the generated code and/or screenshots, and ask it to score along specific dimensions with specific criteria.\n\nThis scales to thousands of eval cases instantly, costs pennies per evaluation, and runs in minutes rather than weeks.\n\n**What LLM judges are good at**\n\n- **Code quality assessment**: Is the code following React best practices? Are components appropriately decomposed? Are there obvious anti-patterns (prop drilling without context, effects with missing dependencies)?\n- **Accessibility review**: Does the generated HTML have proper ARIA labels? Are interactive elements keyboard navigable? Are color contrast ratios sufficient?\n- **Best practice compliance**: Are environment variables used correctly? Is error handling present? Are async operations properly handled?\n- **Design fidelity (multimodal)**: When provided with both the Figma design and the generated app screenshot, can the model identify specific visual discrepancies?\n- **Code readability**: Is the code maintainable? Are variable names meaningful? Is the component structure clear?\n\n**What LLM judges are unreliable for**\n\n- **Subjective aesthetics**: \"Does this look good?\" produces inconsistent results across runs and models\n- **Novel UX patterns**: Judges tend to score against established conventions; genuinely novel but good UX patterns may be underscored\n- **Edge case detection**: Judges see the happy path; they rarely identify what happens when the form submission fails or the user types an emoji\n- **Self-referential evaluation**: Asking the same model family that generated the code to evaluate it introduces systematic bias — the judge has the same blind spots as the generator\n\n**The rubric is everything**\n\nThe difference between a useful LLM judge and a useless one is the rubric. A vague prompt produces garbage:\n\n```\nRate this code quality from 1-10.\n```\n\nA specific rubric with criteria and anchors produces useful signal:\n\n```\nEvaluate the React code quality on the following dimensions. For each,\nassign a score from 1-5 and explain your reasoning with specific\nevidence from the code.\n\n1. Component decomposition (1=monolithic single component, \n   5=appropriately decomposed with clear single responsibility)\n2. State management (1=all state in single component, \n   5=state colocated with the component that needs it, \n   lifted only when necessary)\n3. Effect hygiene (1=effects with missing dependencies or \n   side effects in render, 5=all effects have complete dependency \n   arrays and are free of unintended side effects)\n4. Error handling (1=no error handling, 5=async operations wrapped \n   in try/catch, user-visible error states for all failure paths)\n5. Accessibility (1=no semantic HTML or ARIA, 5=full semantic HTML, \n   ARIA labels on interactive elements, keyboard navigable)\n```\n\nEach criterion should include anchor examples — what does a 1 look like vs. a 5? — so the judge has consistent reference points.\n\n**Human-in-the-loop calibration**\n\nLLM judges have systematic biases. They may consistently overrate code that uses newer APIs, or underrate code that uses verbose but correct patterns. Without calibration, you cannot trust the judge's absolute scores — only relative comparisons.\n\nCalibration process:\n\n1. Select 50 eval cases representative of the full distribution\n2. Have qualified humans (engineers, designers) rate each case using the same rubric\n3. Have the LLM judge rate the same 50 cases\n4. Compute agreement: Cohen's kappa for categorical ratings, Pearson correlation for continuous scores\n5. Identify systematic biases (the judge consistently rates accessibility 0.5 points higher than humans)\n6. Adjust the judge's prompt or post-process scores to correct for known biases\n7. Repeat calibration quarterly\n\nCohen's kappa above 0.6 (substantial agreement) is a reasonable target for a reliable judge. Below 0.4 (fair agreement) means the judge is not reliable and should not gate releases.\n\n**The production loop**\n\nOnce calibrated, the LLM judge operates in a production loop:\n\n- **Automated gate**: Judge scores block releases if any dimension falls below threshold\n- **Weekly human review**: Sample 20-30 recently evaluated cases per week for human review, continuously monitoring for judge drift\n- **Recalibration trigger**: If weekly review shows judge agreement dropping below threshold, trigger a full recalibration (50-case human evaluation)\n\n**Cost analysis**\n\nJudging 500 eval cases with Claude Opus 4, assuming 2,000 tokens per evaluation (code + rubric + response):\n\n- 500 cases × 2,000 tokens = 1,000,000 tokens\n- At approximately $0.015 per 1,000 output tokens: ~$15 per run\n- Human equivalent: 500 cases × 5 minutes each × $100/hr loaded cost = ~$4,200\n\nThe LLM judge is 280x cheaper and runs in minutes rather than days. The investment to calibrate and maintain the judge is recovered within the first 2-3 uses.\n\n**The multi-model judge approach**\n\nTo mitigate the self-referential bias problem (using the same model family to evaluate its own outputs), use a different model family for judging than for generation. If Make's agent uses Claude, judge with GPT-4o or Gemini. If Make's agent uses GPT-4o, judge with Claude Opus. This does not eliminate bias but reduces the systematic blind spot overlap.\n\nFor high-stakes evaluation decisions (new major agent version, significant prompt changes), run the evaluation with two different judge models and require agreement before gating the release.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your LLM judge is rating code accessibility. Human calibration shows the judge achieves kappa=0.75 on identifying missing ARIA labels. However, on evaluating keyboard navigation order, kappa drops to 0.38. What does this mean for how you use the judge, and what do you do about the keyboard navigation dimension?",
+      "answer": "*A kappa of 0.75 for ARIA label detection means the judge is reliable for that dimension — you can use it to automatically gate releases. A kappa of 0.38 for keyboard navigation is below the \"fair agreement\" threshold — the judge is not reliable for this dimension. You should not use the judge's keyboard navigation scores to gate releases. Options: (1) exclude keyboard navigation from the automated gate and route it to human review, (2) invest in improving the keyboard navigation rubric with more specific anchors and examples and recalibrate, (3) replace the LLM judge for this dimension with a specialized tool (axe-core's `keyboard` rule) that does not require LLM judgment.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Write a rubric for evaluating a React todo app on 3 dimensions: component decomposition, error handling, and accessibility. Rate a sample app (any React todo app from GitHub) using your rubric. Then ask Claude and GPT-4o to rate the same app using your rubric. Compare scores. Where do the models agree? Where do they diverge?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Your head of design says: \"I don't trust an LLM to evaluate visual aesthetics. It's going to give everything a 7.\" How do you respond, and what would you use the LLM judge for vs. human review for visual evaluation?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How do you distinguish \"the agent got better\" from \"the judge got easier to fool\"?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "LLM-as-judge scales evaluation to thousands of cases in minutes at minimal cost, but reliability depends entirely on rubric specificity, calibration against human judgment (targeting Cohen's kappa above 0.6), and using a different model family from the generator to avoid self-referential blind spots.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You have an eval pipeline that generates code, runs it, visually compares it, and judges its quality. But who are the users of this system — and what does each user need from it? The eval system is not just a quality gate; it is a platform that internal teams depend on. That's next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Your LLM judge achieves Cohen's kappa of 0.75 for detecting missing ARIA labels, but only 0.38 for evaluating keyboard navigation order. What is the correct operational response?",
+      "options": [
+        "Use the judge for both dimensions but weight the keyboard navigation scores at 50% to account for its lower reliability",
+        "Use the judge to automatically gate releases on ARIA label detection (kappa 0.75 = substantial agreement), but remove keyboard navigation from the automated gate and route it to specialized tooling or human review (kappa 0.38 = below reliable threshold)",
+        "Discard the judge entirely until all dimensions achieve kappa above 0.6"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module establishes kappa above 0.6 as the threshold for a reliable judge dimension. At 0.75, ARIA label detection meets this bar and can gate releases automatically. At 0.38, keyboard navigation is below the fair-agreement threshold and should not gate releases. The correct response is dimension-specific: use reliable dimensions for automation, route unreliable ones to dedicated tooling (axe-core) or human review.",
+      "encourageCorrect": "Correct — reliability is dimension-specific. A partially reliable judge should be used precisely where it's reliable, not discarded or uniformly weighted down.",
+      "encourageIncorrect": "Discarding the judge entirely or applying a blanket weight reduction throws away the genuine signal the judge provides for ARIA detection. The module explicitly recommends a dimension-specific approach — automate where kappa is high, route to alternatives where it's low."
+    },
+    {
+      "question": "Why does the module recommend using a different model family as judge than as generator when evaluating Make's outputs?",
+      "options": [
+        "Using the same model family to evaluate its own outputs introduces self-referential bias — the judge has the same blind spots as the generator, so failures the generator makes systematically may not be caught",
+        "Different model families have different pricing tiers, and the cheaper model should be reserved for generation while the more expensive one judges",
+        "Anthropic's API terms prohibit using Claude to evaluate Claude-generated outputs"
+      ],
+      "correctIndex": 0,
+      "explanation": "The self-referential bias problem is explicit in the module: the judging model may share the same systematic failure modes as the generating model. If Make's agent uses Claude and Claude also judges the output, Claude's blind spots — novel UX patterns it undervalues, accessibility conventions it consistently misses — will go undetected. Using GPT-4o or Gemini as the judge reduces the overlap in systematic blind spots.",
+      "encourageCorrect": "Right — the core issue is that a model cannot reliably catch its own systematic errors. Cross-family judging reduces shared blind spots.",
+      "encourageIncorrect": "Cost optimization is a secondary concern. There are no API terms prohibiting this. The fundamental reason is epistemological: a model that generates code in a particular way tends to evaluate that same code positively, missing the exact failures it's prone to producing."
+    },
+    {
+      "question": "A team proposes replacing human evaluation entirely with LLM-as-judge to save cost. Based on the module, which evaluation dimension is most likely to be unreliable when delegated entirely to the LLM judge?",
+      "options": [
+        "Code readability — because LLMs apply inconsistent standards for naming conventions across languages",
+        "Accessibility review — because LLMs cannot render the page and therefore cannot assess visual contrast ratios",
+        "Subjective aesthetics and edge case detection — because judges produce inconsistent results on 'does this look good?' questions and rarely identify what happens when the form submission fails or the user types an emoji"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly lists subjective aesthetics and edge case detection as domains where LLM judges are unreliable. 'Does this look good?' produces inconsistent results across runs and models. Edge cases — form submission failures, emoji input, missing data states — require adversarial thinking that LLM judges rarely apply, because they evaluate the happy path. Accessibility review, by contrast, is one of the dimensions where judges perform well (ARIA labels, semantic HTML).",
+      "encourageCorrect": "Exactly — aesthetics and edge cases are the documented weak spots. The module recommends human review for these dimensions, not LLM judging.",
+      "encourageIncorrect": "Accessibility review is actually one of the LLM judge's strengths — the module lists it explicitly as something judges are good at, including ARIA labels and keyboard navigability evaluation. Aesthetics and edge case detection are the documented unreliable dimensions."
+    }
+  ]
+}

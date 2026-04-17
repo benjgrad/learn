@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "4.6 Build, Fork, or Integrate?",
+    "description": "The build-vs-buy decision for agent infrastructure is one of the most consequential calls a Platform PM makes. Get it wrong and you have either built something a vendor does better for free, or ceded ",
+    "level": "level-4",
+    "slug": "build-fork-or-integrate",
+    "order": 6,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "> The Make JD explicitly mentions \"Claude Code or Opencode or similar.\" Figma needs agent infrastructure. Should they build their own from scratch, integrate Claude Code as a dependency, or fork an open-source project like Opencode?\n\nWrite your answer before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The build-vs-buy decision for agent infrastructure is one of the most consequential calls a Platform PM makes. Get it wrong and you have either built something a vendor does better for free, or ceded your product's core differentiation to a third party. The decision framework matters more than the answer.\n\n**The three options:**\n\n**Option A: Build from scratch.**\n\nFull control over the agent loop, tool catalog, planning scaffolding, context management, and error recovery. The agent can be deeply integrated with Figma's design system — it can understand design tokens, query the component library, read frame properties from the canvas. No vendor dependency; no revenue share; no waiting for Anthropic to ship a feature you need.\n\nCost: 6-12 months of senior infrastructure engineering before you have a production-quality agent. Agent infrastructure is a solved problem at the component level but extraordinarily difficult to assemble reliably. The teams that have done it well — Cursor, Cognition, Devin — spent years on it.\n\n**Option B: Integrate Claude Code (or a comparable agent API).**\n\nAnthropic offers Claude Code as an API surface — the agent loop, tool execution, context management, and error recovery are Anthropic's problem. Figma ships in weeks, not months. Anthropic's improvements flow to Figma automatically. The agent's reasoning quality is state-of-the-art because Anthropic is continuously training and prompting for it.\n\nCost: Limited customization. The agent loop is Anthropic's, not Figma's. Deep Figma integrations — canvas-aware tool calls, design token retrieval, component library awareness — must be built as tools that the Claude Code agent calls, but the agent itself is a black box. Vendor lock-in and the associated commercial leverage Anthropic has over Figma.\n\n**Option C: Fork an open-source project (Opencode, Aider, Continue).**\n\nCommunity momentum, immediate codebase, and full access to modify internals. Opencode in particular is a well-architected agent framework with active development.\n\nCost: Divergence risk. Every customization Figma makes to the fork must be re-applied after every upstream update. Maintenance burden compounds. The team that owns the fork is now also responsible for security patches, model compatibility updates, and bug fixes that upstream handles for free — unless they contribute back, which requires time and strategic alignment with the open-source maintainers.\n\n**Decision framework:**\n\nFour questions drive the decision:\n\n**1. How differentiated does the agent need to be?**\n\nIf Figma's agent is a generic coding agent that happens to run inside Figma, any of the three options works. If the agent's canvas awareness, design-system integration, and component-library intelligence are the core product differentiator — the thing that makes Make a Figma product rather than a reskinned Cursor — then the tool layer must be proprietary. But the reasoning engine (which option A, B, or C provides) can be standard.\n\n**2. How fast do you need to ship?**\n\nThe coding agent market moves quarterly. Cursor launched in 2022; by 2024 it had 4 million users. The window to establish Make as the design-aware coding agent is measured in months, not years. Speed-to-ship favors integration or fork over build.\n\n**3. What is the integration depth?**\n\nFigma's canvas is a deeply proprietary system. The agent needs to read design frames, query variable libraries, map Figma components to code components, and potentially write changes back to the canvas. This integration surface requires custom tool development regardless of which agent backbone is chosen. The question is whether that custom layer goes on top of Claude Code (B), on top of a forked framework (C), or directly into a custom agent (A).\n\n**4. What is the talent pool?**\n\nAgent infrastructure engineers are among the scarcest engineers in the market. Building from scratch requires 5-8 of them for 12 months. Integrating Claude Code requires 2-3 to build the Figma-specific tool layer. Forking requires 3-5 to maintain the fork and build the custom layer.\n\n**The hybrid approach:**\n\nThe answer is almost certainly not a pure option. The likely optimal architecture for Make:\n\n- **Reasoning engine:** Integrate Claude Code (or equivalent) — Anthropic handles the agent loop, context management, and model improvements\n- **Tool layer:** Build proprietary — Figma-specific tools that connect the agent to canvas context, design tokens, component library, and design-to-code mapping\n- **Infrastructure:** Build proprietary — sandboxed execution environments, checkpoint/restore, codebase indexing, preview rendering\n\nThis is the approach Cursor took with its early architecture: the reasoning was OpenAI's, but the IDE integration, codebase indexing, and diff application were Cursor's proprietary layer.\n\n**The analogy:**\n\nFigma did not build their own browser rendering engine. They built on web standards (WebGL, WebAssembly) and made their magic at the application layer — the canvas interaction model, the multiplayer sync, the component system. The rendering substrate was not their differentiator.\n\nThe same principle applies to Make's agent reasoning layer. The LLM-as-reasoning-engine is not Figma's differentiator. The design-aware context layer — the tools that give the agent canvas visibility — is. Build what differentiates; integrate what does not.\n\n**The vendor lock-in question:**\n\nThe integration option creates commercial dependency on Anthropic. If Anthropic raises prices by 3x, Figma's unit economics break. If Anthropic deprecates the Claude Code API, Figma's platform breaks. The mitigation: design the agent's tool layer so it is model-agnostic. The Figma-specific tools work regardless of whether the reasoning engine is Claude, GPT-4, or Gemini. This gives Figma negotiating leverage and migration optionality.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Figma's VP of Engineering pushes back on the hybrid approach: \"If we're integrating Claude Code, Anthropic controls our agent's behavior. We can't customize the planning logic or improve error recovery without waiting for Anthropic. Why not fork Opencode so we own the whole stack?\" What is the strongest counterargument?\nA. Opencode's license does not permit forking\nB. Forking requires maintaining compatibility with every new Claude model release — Anthropic ships new models quarterly and the fork must be updated each time\nC. Open-source projects always have worse code quality than proprietary options\nD. Figma's engineers do not have the skills to maintain a fork",
+      "answer": "B.** Model compatibility maintenance is the structural problem with forking a model-dependent framework. Every time Anthropic releases a new model (with new context windows, new tool-calling APIs, new prompt formats), the fork must be updated. If Figma is running a heavily diverged fork, each update is a significant engineering effort. The VP's desire for control is valid — but the fork option trades vendor dependency for maintenance dependency, and maintenance compounds over time.\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Read the Opencode GitHub repository README and the Claude Code documentation for the Claude Code API. List: (1) three things Figma would need to build in either case (custom regardless of option), (2) three things Claude Code provides that Opencode does not, (3) three things Opencode provides that Claude Code's API does not.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the build-fork-integrate framework to a Head of Engineering who is anchored on building from scratch because \"we want to own our destiny.\" What specific evidence would you want to gather before pushing back — or agreeing with them?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "What factors drive the decision, and would a typical choice hold up as the system scales?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "The build-fork-integrate decision for agent infrastructure hinges on where differentiation lives — and for Make, differentiation lives in the Figma-specific tool layer, not the reasoning engine, which means integrating the reasoning and building proprietary context.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "> The agent infrastructure is chosen. But Make is not a terminal agent — it runs inside a design tool. What does the canvas change about what the agent needs to know and do?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The module argues that Make's differentiation lives in the tool layer, not the reasoning engine. What is the practical implication of this for the build-fork-integrate decision?",
+      "options": [
+        "Make should integrate a commercial reasoning engine (like Claude Code) and invest engineering resources in the proprietary Figma-specific tool layer that gives the agent canvas context no competitor can replicate",
+        "Make should build its own reasoning engine from scratch to ensure it can differentiate the agent's underlying intelligence from competitors",
+        "Make should fork Opencode and customize the reasoning layer to understand Figma's data model, since reasoning and tools are inseparable"
+      ],
+      "correctIndex": 0,
+      "explanation": "If the differentiation is in the tool layer — Figma-native tools for reading frame properties, mapping design tokens, querying component libraries — then the reasoning engine is a commodity input. Integrating Claude Code for reasoning and building proprietary Figma tools is more efficient than building a custom reasoning engine, because the reasoning layer is not where Make's moat lives.",
+      "encourageCorrect": "Exactly — understanding where differentiation lives is the first and most important question, and it points directly to the tool layer as proprietary and the reasoning engine as integrable.",
+      "encourageIncorrect": "The reasoning engine — the ability to plan multi-step code generation — is not Make's moat. Cursor and other tools have equally capable reasoning. Make's moat is that its agent knows about the specific Figma frame, design token, and component library in the user's file. That requires proprietary Figma-native tools, not a custom reasoning engine."
+    },
+    {
+      "question": "The module identifies the fork option's primary hidden cost. What is it?",
+      "options": [
+        "Open-source forks have GPL licensing that would require Make to open-source its proprietary tool layer",
+        "Maintaining a diverged fork requires re-applying Figma's customizations against every significant upstream update — and model-dependent frameworks like Opencode update frequently as new Claude versions ship",
+        "Forking Opencode would create a PR problem because the open-source community would view Figma as exploiting community work without contributing back"
+      ],
+      "correctIndex": 1,
+      "explanation": "The structural problem with forking a model-dependent framework is maintenance accumulation. Every time Anthropic releases a new model with new context windows, tool-calling APIs, or prompt formats, the fork must be updated. Each update is a significant engineering effort on a diverged codebase. This maintenance burden compounds over time in a way that vendor dependency does not.",
+      "encourageCorrect": "Right — maintenance dependency that compounds over time is the fork option's structural flaw, particularly for a model-dependent framework.",
+      "encourageIncorrect": "Licensing (Opencode uses MIT, not GPL) and PR optics are not the primary concerns. The structural problem is model compatibility maintenance: every new Claude release potentially breaks a diverged fork. Figma must then re-apply all its customizations against a changed codebase. As the fork diverges further, each update becomes more expensive."
+    },
+    {
+      "question": "The module recommends designing Make's Figma-specific tool layer to be model-agnostic. Why does this matter for the integration option?",
+      "options": [
+        "Model-agnostic tools are cheaper to operate because they can route to whichever model currently offers the lowest API price",
+        "Model-agnostic tools are required for SOC 2 compliance, since enterprise customers may not allow their data to be processed by a specific vendor",
+        "Model-agnostic tools preserve negotiating leverage and migration optionality — if Anthropic raises prices significantly or changes its API, Figma can switch reasoning engines without rebuilding the tool layer"
+      ],
+      "correctIndex": 2,
+      "explanation": "The integration option's risk is vendor lock-in: if the tool layer is built specifically for Claude Code's API, switching reasoning engines requires rebuilding it. Model-agnostic tool design means the Figma-specific tools work regardless of whether Claude, GPT-4, or Gemini is the reasoning engine — preserving the ability to negotiate with Anthropic and migrate if economics require it.",
+      "encourageCorrect": "Correct — model-agnostic tool design is the specific mitigation for vendor lock-in risk in the integration option.",
+      "encourageIncorrect": "Cost optimization and compliance aren't the primary drivers for model-agnostic tool design. The strategic reason is negotiating leverage: if Figma's tool layer is tightly coupled to Claude Code's specific API, switching is a full rebuild. Model-agnostic tools mean the proprietary Figma layer works with any reasoning engine, giving Figma real optionality if the vendor relationship changes."
+    }
+  ]
+}

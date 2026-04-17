@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "2.7 Framework Support as a Platform Decision",
+    "description": "\"Should we support this framework?\" feels like a product question \u2014 survey your users, see what they use, add support if there's demand. It's actually a runtime and infrastructure question with produc",
+    "level": "level-2",
+    "slug": "framework-support-as-a-platform-decision",
+    "order": 7,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Should Make support React, Vue, Svelte, Angular, AND vanilla JS? Or should it pick one framework and go deep? What are the consequences of each choice? Write your instinct before reading.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "\"Should we support this framework?\" feels like a product question \u2014 survey your users, see what they use, add support if there's demand. It's actually a runtime and infrastructure question with product consequences that compound over time. Understanding what \"support a framework\" actually requires at the platform level is what separates a PM who can drive these decisions from one who defers them to engineering.\n\n**What \"supporting a framework\" actually means:**\n\n**1. Scaffolding templates.** When a user starts a new project, Make generates initial files. For React + Vite: `vite.config.ts`, `src/main.tsx`, `src/App.tsx`, `index.html`, `package.json` with the right dependencies. For Next.js: `next.config.js`, `app/page.tsx`, `app/layout.tsx`, `.env.local`, different file conventions. For SvelteKit: `svelte.config.js`, `vite.config.ts`, `src/routes/+page.svelte`. Each framework has its own conventions that the agent must know to initialize correctly.\n\n**2. Dependency pre-caching.** If your preview environment caches common packages to avoid npm install latency, you need separate caches for each framework's dependency set. React's core packages (react, react-dom, @types/react, @vitejs/plugin-react) are different from Vue's (vue, @vue/compiler-sfc, @vitejs/plugin-vue). Cache invalidation strategy multiplies across frameworks.\n\n**3. Dev server configuration.** Vite's config for a React project (`@vitejs/plugin-react`) differs from Vue (`@vitejs/plugin-vue`). Next.js uses its own dev server, not raw Vite. SvelteKit uses Vite with the SvelteKit plugin. Each requires different configuration in the execution environment. If your preview infrastructure provisions environments with pre-configured dev servers, you're provisioning different environment types per framework.\n\n**4. Build pipeline.** Production builds work differently: Vite's `build` command vs. `next build` vs. `svelte-kit build`. Output formats differ: Vite outputs to `dist/`, Next.js to `.next/`, SvelteKit's output depends on the adapter. Your deployment pipeline must handle each variant.\n\n**5. Deployment adapters.** When Make deploys an app, the deployment target integration differs per framework. Next.js deploys cleanly to Vercel (first-party integration) or AWS Lambda with the right handler. SvelteKit needs an adapter (`adapter-vercel`, `adapter-cloudflare`, `adapter-node`). Remix uses similar adapter patterns. Each adapter must be tested and maintained.\n\n**6. Agent training and prompting.** The LLM that generates code has been trained on vast amounts of code from the internet. React has a massive training corpus \u2014 React patterns are well-represented. Svelte has less training data, which means the agent generates lower-quality, less idiomatic Svelte code. Vue falls in between. Angular has unique patterns (dependency injection, decorators, zone.js) that models handle poorly unless explicitly prompted. The quality of generated code is a function of training data volume, and React wins this by orders of magnitude today.\n\n**7. Component library integration.** Figma's unique advantage is design systems. If Make can generate code that uses Figma design tokens, that's a differentiated feature. But component libraries are framework-specific: shadcn/ui is React-only, Vuetify is Vue-only, Skeleton is Svelte-only. Figma's ability to export design tokens to component code depends on which framework those components target.\n\n**The breadth vs. depth tradeoff in practice:**\n\n**v0 (Vercel)** chose depth: Next.js only. The upside is that v0's Next.js code generation is excellent \u2014 it generates idiomatic App Router patterns, correct Server Component usage, proper TypeScript types. v0 understands Next.js conventions deeply because they're the same company. The downside is market exclusion: teams using Vue, Svelte, or plain Vite can't use v0 without migrating frameworks.\n\n**Bolt (StackBlitz)** chose breadth: WebContainers runs any framework that works in Node.js. Bolt will generate React, Vue, Svelte, Astro, vanilla JS \u2014 whatever the user requests. The upside is flexibility. The downside is that Bolt's code generation for non-React frameworks is noticeably lower quality. The agent defaults to React patterns even when prompted for Vue, and Vue-specific optimizations are rarely applied correctly.\n\n**The PM decision framework:**\n\nThe right sequencing question is: *what framework maximizes the product's ability to deliver value while supporting the eventual breadth?*\n\n**Start with React + Vite** (not Next.js). Reasons:\n- Largest agent training corpus \u2192 best code quality\n- Largest developer user base \u2192 broadest potential audience\n- Simpler runtime than Next.js (no SSR, no server components, no deployment complexity) \u2192 easier preview infrastructure\n- Strong Figma community precedent (React is the dominant Figma plugin/widget framework)\n\n**Add Next.js** when: users are building apps that need SSR, SEO, or server-side logic, and the preview infrastructure can handle the more complex server runtime. This is a meaningful step up in platform complexity.\n\n**Add Vue and Svelte** based on demand signals: community requests, usage data from waitlist surveys, integration opportunities (Nuxt has strong EU market share; SvelteKit has a growing community in certain technical niches).\n\n**Defer Angular** indefinitely or until there's a specific enterprise buyer requiring it. Angular's complexity (dependency injection, zone.js, opinionated project structure) makes agent-generated Angular code particularly error-prone.\n\n**Figma's unique framework leverage:**\n\nThe component library integration angle changes the calculus. If Figma invests in design-token-to-component pipelines, the framework that has the best Figma component ecosystem becomes the obvious default. Today that's React \u2014 the Figma community has built extensive React component systems (Figma Variables \u2192 CSS custom properties \u2192 React style props is a worked pattern). This gives Make a reason to go deep on React beyond just training data: it's where the Figma ecosystem already lives.\n\n**Framework support as competitive positioning:**\n\nv0's Next.js depth is a bet that Next.js becomes the dominant framework for AI-generated production apps. Bolt's framework agnosticism is a bet that flexibility matters more than depth. Make's decision is a signal to the developer community about what kind of platform it is \u2014 a Next.js IDE or a framework-agnostic generator.\n\nNeither answer is wrong. But the answer shapes hiring (what framework expertise your DevRel and engineering teams need), product roadmap (which component library integrations you prioritize), and go-to-market (which developer communities you court).\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A product manager argues: \"We should support all major frameworks from day one. Users shouldn't have to think about framework \u2014 Make should just generate the right thing for their app.\" What's wrong with this argument at the platform level, and what condition would have to be true for it to be correct?",
+      "answer": "The argument ignores that \"supporting\" a framework is not a binary \u2014 it's a quality level. Supporting five frameworks at 60% quality is worse than supporting one at 95% quality. The user who gets generated Vue code with subtle React idioms baked in is worse off than a user who's told \"we support React\" and gets excellent React code. The argument would be correct if: (a) the agent could generate equally high-quality code for all frameworks (currently false due to training data differences), (b) the preview infrastructure could support all framework build tooling identically (currently false due to configuration complexity), and (c) deployment adapters existed for all frameworks with equal reliability (currently false). Framework breadth is an eventual goal, not a day-one strategy.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open v0.dev and Bolt.new side by side. Prompt both: \"Build a user profile page with an avatar upload, a form to edit name/bio, and a save button.\" Compare:\n\n1. Which framework does each default to?\n2. How idiomatic is the code? Does it use framework-specific patterns correctly?\n3. How does the preview start up? What's the time from prompt to visible preview?\n4. What happens if you ask for a Vue version of the same thing?\n\nThese observations give you direct product intelligence on competitor depth vs. breadth decisions.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A senior engineer says: \"Adding Svelte support is just adding a template and a Vite plugin \u2014 it's a two-day project.\" What are the seven things they're not accounting for in that estimate?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Does this Figma-specific advantage change the breadth vs. depth argument for Make specifically (as opposed to a generic AI code generator)?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Framework support is not a product checkbox but an infrastructure commitment \u2014 scaffolding, dependency caching, dev server configuration, build pipelines, deployment adapters, and agent quality all multiply per framework \u2014 which means the right strategy is to sequence framework additions by demand signal rather than specifying breadth on day one.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You now understand the execution stack from runtime selection through framework support. Level 3 moves up the stack to how Make manages the agent that generates the code \u2014 how it maintains context across edits, how it evaluates output quality, and how it recovers from failures. How do the runtime constraints you've learned about change what the agent can and cannot do?\n\n---\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "An engineer says 'adding Svelte support is just adding a template and a Vite plugin — it's a two-day project.' What are the infrastructure commitments they are not accounting for?",
+      "options": [
+        "Framework support requires: scaffolding templates, dependency cache configuration for Svelte-specific packages, dev server configuration (svelte.config.js, the SvelteKit plugin), production build pipeline differences, deployment adapters (adapter-vercel, adapter-cloudflare, etc.), agent training and prompting for Svelte idioms, and component library integration — at least seven distinct infrastructure dimensions",
+        "Svelte requires a completely different cloud provider than React, which would necessitate a major infrastructure migration",
+        "The engineer is correct that adding a Vite plugin is sufficient — the other considerations are product decisions, not engineering work"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module explicitly enumerates seven dimensions of framework support: scaffolding templates, dependency pre-caching, dev server configuration, build pipeline, deployment adapters, agent training/prompting quality, and component library integration. Each multiplies across frameworks. Svelte's dev server (SvelteKit + Vite) has different configuration than React's (@vitejs/plugin-react). Deployment requires Svelte-specific adapters. And critically, the agent generates lower-quality Svelte code because LLMs have far less Svelte training data than React data.",
+      "encourageCorrect": "Exactly — the 'two-day project' estimate reveals what the module is teaching: framework support is an infrastructure commitment across seven dimensions, not a template copy.",
+      "encourageIncorrect": "Svelte doesn't require a different cloud provider. But the engineer is also not correct that a Vite plugin is sufficient — they're missing dependency caching (Svelte packages differ from React packages), deployment adapters (SvelteKit requires adapter-specific builds), build pipeline differences, and the agent quality problem (LLMs generate lower-quality Svelte because they have far less Svelte training data). Each of these is engineering work."
+    },
+    {
+      "question": "The module argues that React + Vite (not Next.js) is the right starting framework for Make. Why is Next.js specifically a more complex starting point than React + Vite, even though Next.js is the most popular framework in the category?",
+      "options": [
+        "Next.js is less popular than React + Vite in terms of total downloads, so there would be less demand from Make's user base",
+        "Next.js requires server-side execution for Server Components and Server Actions, making the preview infrastructure significantly more complex — React + Vite is client-side only, which allows a simpler static-file preview environment and faster initial platform delivery",
+        "Next.js has stricter licensing requirements that would create intellectual property issues for Figma"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's sequencing recommendation is based on infrastructure complexity: React + Vite is client-side only, which means preview infrastructure is a static file server — the simplest possible setup. Next.js App Router requires a running Node.js process for Server Components, more complex build conventions (app/ directory, use client directives, generateStaticParams), and a deployment pipeline that handles both static and server routes. Starting with React + Vite lets Make establish a stable preview infrastructure before taking on the added complexity of server-side rendering.",
+      "encourageCorrect": "Right — the preview infrastructure simplification is the core argument for React + Vite as a starting point, and it's a Platform PM reasoning pattern worth internalizing.",
+      "encourageIncorrect": "Next.js is extremely popular and has no licensing issues with Figma. The sequencing argument is about infrastructure complexity: Next.js SSR and Server Components require a running Node.js server for preview, while React + Vite can be previewed from a static file server. Starting simpler lets the platform establish stability before adding server-side complexity."
+    },
+    {
+      "question": "The module says that v0's framework depth (excellent Next.js code) is better for users than Bolt's framework breadth (mediocre code for five frameworks). Why does quality per framework matter more than number of frameworks supported?",
+      "options": [
+        "Users prefer fewer framework choices because it reduces decision fatigue — quality is secondary to simplicity of selection",
+        "More frameworks require more server infrastructure, making breadth economically unsustainable compared to depth",
+        "Supporting five frameworks at 60% quality produces generated code with subtle framework mismatches (React idioms in Vue code, etc.) that cause runtime errors and frustrate users more than being told the platform only supports React — bad framework support is worse than no support"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module makes this explicit: 'Supporting five frameworks at 60% quality is worse than supporting one at 95% quality.' A user who gets generated Vue code with React patterns embedded will see runtime errors they can't diagnose — the code looks like Vue but fails in Vue-specific ways. That user is worse off than a user who was simply told 'we support React' and got correct code. Bad support creates silent failures; explicit non-support creates clear expectations. The quality-breadth tradeoff is the central PM decision the module addresses.",
+      "encourageCorrect": "Correct — the 'silent failure is worse than explicit non-support' principle is the key insight, and it's what makes framework depth the right sequencing choice.",
+      "encourageIncorrect": "Decision fatigue isn't the issue — developers know what framework they want. Infrastructure cost isn't the key factor either. The quality argument is about failure modes: 60% quality means code that looks correct but has subtle idiom errors from cross-framework pattern bleeding. Users hit errors they don't understand and can't fix. That's a worse outcome than a clear 'we don't support Vue yet' message."
+    }
+  ]
+}

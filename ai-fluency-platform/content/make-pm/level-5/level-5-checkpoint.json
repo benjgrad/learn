@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "5.8 Level 5 Checkpoint",
+    "description": "Interview Scenario",
+    "level": "level-5",
+    "slug": "level-5-checkpoint",
+    "order": 8,
+    "isCheckpoint": true,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "markdown",
+      "content": "### Interview Scenario\n\nYou are presenting to the Figma leadership team. They want to know: \"How do we ensure Make's code quality improves with every release and never silently regresses?\" Outline your eval strategy.\n\n---\n\n### Model Answer\n\nThe answer to \"how do we ensure quality improves and never silently regresses\" is a closed-loop eval system with three properties: coverage, speed, and consequence.\n\n**Coverage: what we measure**\n\nQuality in an AI code generation product is multi-dimensional, and each dimension requires a different measurement technique. We measure across five layers:\n\nExecution correctness — does the generated code actually run? We run every eval case through a five-step ladder: parse, build, run, render, and function-level automated tests. We cannot rely on static analysis alone because a surprising amount of syntactically valid code fails at runtime or produces broken UIs.\n\nVisual fidelity — does the app look like what was designed? Our unique advantage here is that Make starts from Figma — the Figma frame export is our ground truth reference image. We compare generated app screenshots against Figma frame exports using pixel-diff and LLM-as-visual-judge, measuring layout accuracy, color consistency, and typography matching.\n\nCode quality — is the code maintainable and secure? We use a calibrated LLM judge with a specific rubric covering component decomposition, error handling, accessibility, and security patterns. The judge is calibrated quarterly against human reviewers; we only use dimensions where Cohen's kappa exceeds 0.6.\n\nCoverage is stratified — we report pass rates independently by framework (React, Vue, Svelte), task type (create, modify, deploy), and complexity level. A regression in any cell is visible, even if the overall number looks fine.\n\n**Speed: how quickly we know**\n\nA quality gate is only useful if the feedback loop is tight. Our eval runs at three cadences:\n\nEvery PR on the agent: a 50-prompt smoke suite covering the highest-traffic task types. Results within 30 minutes. Failing smoke suite blocks merge.\n\nNightly on main: the full 500+ prompt eval suite with visual regression and LLM judging. Results every morning before standup. Failing nightly blocks the release pipeline.\n\nPer release candidate: full eval suite plus manual review of a random sample of 20 failures. Go/no-go authority sits with the Platform PM.\n\n**Consequence: what happens when quality drops**\n\nCoverage and speed are worthless without consequence. Our go/no-go gates are: no category regresses by more than 3% from the previous version, no category falls below 70% absolute pass rate, and the overall pass rate is stable or improving. These thresholds are non-negotiable without a VP-level exception.\n\nBefore any full rollout, we run a canary at 5% of users for 24-48 hours and monitor session completion rate and retry rate against the control group. This catches real-world failure modes that offline evals miss.\n\n**The flywheel: how quality improves**\n\nThe eval suite is a living product. Production failures become new eval cases automatically — any session with a high retry rate or explicit negative feedback is sampled, reproduced in eval, and added to the appropriate category. This means our eval suite gets harder as the product gets used, which is the right property.\n\nFailure analysis is part of the weekly planning cycle. Eval data is not just a quality gate — it is a product signal. A 30% failure rate on \"modify existing app\" told us to invest in codebase retrieval. A 20% failure rate on \"deploy to production\" told us to invest in dev/prod parity. The eval system tells us where to build next.\n\n**What we will not do**\n\nWe will not use public benchmarks (HumanEval, SWE-bench) as proxies for Make-specific quality. We will not retire hard eval prompts to make pass rates look better. We will not skip the canary because the eval suite passed. These are the failure modes of eval systems that exist to provide comfort rather than signal.\n\n---\n\n### Evaluation Criteria\n\n- Does the candidate address coverage, speed, and consequence explicitly — not just list \"we will run evals\"?\n- Do they demonstrate understanding of stratification and why category-level reporting matters more than overall pass rate?\n- Do they articulate the canary release step as a complement to offline evals, not a replacement for them?\n- Do they frame the eval system as a driver of platform investment decisions, not just a release gate?\n- Do they acknowledge what the eval system cannot catch and describe the human-in-the-loop calibration process?\n\n### Common Pitfalls\n\n- Describing only execution-based evaluation and ignoring visual and qualitative dimensions\n- Treating the overall pass rate as the primary metric without discussing category-level stratification\n- Not mentioning canary releases — offline eval alone is insufficient\n- Framing the eval system as a reporting tool rather than a decision-making tool\n- Proposing to \"continuously improve\" without specifying the go/no-go thresholds that create actual consequence\n- Conflating the LLM judge's reliability across all dimensions without discussing calibration or dimension-specific kappa scores"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "In a presentation to Figma leadership, you're asked to describe the three properties that make a closed-loop eval system effective. Which answer best reflects the Level 5 model answer?",
+      "options": [
+        "Automation, speed, and cost-efficiency — the system must run without human intervention, return results in under an hour, and cost less than $500 per run",
+        "Regression detection, canary releases, and human review — the three must operate in sequence to ensure quality before each production rollout",
+        "Coverage, speed, and consequence — the system must measure across all quality dimensions, provide tight feedback loops close to the commit, and create real release-blocking stakes when quality drops"
+      ],
+      "correctIndex": 2,
+      "explanation": "The Level 5 model answer explicitly organizes the eval strategy around coverage (measuring across execution correctness, visual fidelity, code quality), speed (smoke suite per PR, full suite nightly, manual review for release candidates), and consequence (go/no-go thresholds that non-negotiably block releases). These are the three properties that distinguish a genuine quality system from a reporting exercise.",
+      "encourageCorrect": "Correct — coverage, speed, and consequence are the organizing frame. A system with coverage and speed but no real consequences is just a dashboard.",
+      "encourageIncorrect": "The elements you named are real parts of the system, but they don't capture the organizing framework. The model answer structures the answer around coverage (what you measure), speed (how quickly you know), and consequence (what happens when quality drops) — because without all three, the eval system doesn't actually protect quality."
+    },
+    {
+      "question": "According to the Level 5 checkpoint, what is a common pitfall when describing an eval strategy that makes the answer sound incomplete?",
+      "options": [
+        "Describing canary releases before explaining the eval suite, which implies production traffic is the primary quality gate",
+        "Describing only execution-based evaluation and ignoring visual and qualitative dimensions, or treating overall pass rate as the primary metric without discussing category-level stratification",
+        "Proposing specific kappa thresholds for LLM judges without acknowledging that kappa values differ by dimension"
+      ],
+      "correctIndex": 1,
+      "explanation": "The checkpoint's common pitfalls section explicitly flags: describing only execution-based evaluation, treating overall pass rate as the primary metric, not mentioning canary releases, and framing the eval system as a reporting tool rather than a decision-making tool. Missing visual regression and qualitative dimensions — or reporting a single overall number instead of stratified category scores — are the most common signs that an answer is incomplete.",
+      "encourageCorrect": "Right — completeness requires covering all evaluation layers (execution, visual, qualitative) and stratified category-level reporting, not just an overall pass rate.",
+      "encourageIncorrect": "Mentioning canary releases in the wrong order is a structural issue, not the pitfall identified here. The checkpoint specifically flags missing entire evaluation layers (visual, qualitative) and using only overall pass rate as the primary metric as the most common incomplete-answer patterns."
+    },
+    {
+      "question": "The Level 5 model answer includes a 'what we will not do' section. Which item from that section is included, and why does it matter?",
+      "options": [
+        "'We will not use public benchmarks like HumanEval as proxies for Make-specific quality, and we will not skip the canary because the eval suite passed' — because these are the failure modes of eval systems that exist to provide comfort rather than signal",
+        "'We will not use LLM-as-judge for more than 60% of quality dimensions' — because over-reliance on automated judging creates false confidence in coverage",
+        "'We will not run the full eval suite on every PR' — because eval suite overhead would block engineering velocity"
+      ],
+      "correctIndex": 0,
+      "explanation": "The model answer explicitly lists three things the team will not do: use public benchmarks as proxies, retire hard prompts to inflate pass rates, and skip the canary because the eval suite passed. Each represents a temptation that makes the eval system feel rigorous while undermining it. The framing 'eval systems that exist to provide comfort rather than signal' captures the failure mode precisely.",
+      "encourageCorrect": "Exactly — these 'will not do' items identify the most common ways eval systems become theater rather than actual quality protection.",
+      "encourageIncorrect": "The model answer does address full suite vs. smoke suite cadences, but that's part of the 'speed' section, not the 'what we will not do' section. The explicitly stated prohibitions are: public benchmarks as proxies, retiring hard prompts, and skipping the canary when evals pass."
+    }
+  ]
+}

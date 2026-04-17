@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "3.4 Dependency Management in Ephemeral Environments",
+    "description": "Dependency installation is the single most common source of preview latency spikes and the area where the gap between \"good enough\" and \"production-ready\" infrastructure is largest. A Platform PM who ",
+    "level": "level-3",
+    "slug": "dependency-management-in-ephemeral-environments",
+    "order": 4,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "The agent adds `import { motion } from 'framer-motion'` to the user's code. Before the preview can show the animation, framer-motion needs to be installed. `npm install framer-motion` takes 12 seconds. How do you make this fast?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Dependency installation is the single most common source of preview latency spikes and the area where the gap between \"good enough\" and \"production-ready\" infrastructure is largest. A Platform PM who understands the options here can make a specific, defensible infrastructure recommendation rather than deferring entirely to engineering judgment.\n\n**Why npm install is slow**\n\nA naive `npm install framer-motion` involves:\n\n1. **Dependency resolution**: npm reads `package.json`, queries the npm registry to resolve the full dependency tree (framer-motion has 12 dependencies, which have their own dependencies), and builds a lock file\n2. **Network download**: fetches tarballs for each package from the npm CDN\n3. **Tarball extraction**: decompresses and writes files to `node_modules/`\n4. **Postinstall scripts**: runs any package lifecycle scripts (some packages compile native binaries)\n5. **Hoisting and deduplication**: npm reorganizes `node_modules/` to deduplicate shared dependencies\n\nFor a popular package like framer-motion on a warm network connection, this takes 8-20 seconds. For a package with native compilation (e.g., `sharp`, `bcrypt`), it can take 60+ seconds.\n\n**Package caching strategies**\n\n**Global cache per platform**: The platform maintains a shared cache of npm package tarballs. When a user installs `framer-motion@11.0.0`, the platform checks its cache first. If the tarball exists, it copies from cache instead of downloading from npm. Network download (the slowest step) is eliminated. Effective for popular packages.\n\n**Pre-built node_modules snapshots**: For the most common dependency sets (React + React Router + Tailwind + Radix UI), the platform maintains pre-built `node_modules/` snapshots. Installing a new project that matches one of these snapshots is a filesystem copy operation rather than a full install. This reduces install time from 20 seconds to under 1 second for common stacks.\n\n**Layered caching**: Like Docker image layers, the platform caches intermediate states of `node_modules/`. If User A installs React and then adds framer-motion, the React layer is reused for any future user who installs React first.\n\n**pnpm's content-addressable store**\n\npnpm is an npm alternative that stores packages once in a global content-addressable store and hard-links them into projects. Instead of copying package files into each project's `node_modules/`, pnpm creates hard links pointing to the single stored copy. The result:\n\n- First install of a package: full download (same as npm)\n- Second install of the same package version (by any user on the same host): instant — hard-links from the global store\n- Install time for cached packages: essentially filesystem metadata operations, not disk writes\n\nFor a platform where thousands of users share the same underlying hosts, pnpm's global store means that popular packages are installed once and reused by everyone. This is a major operational win.\n\n**Vite's dependency pre-bundling**\n\nVite pre-bundles all installed dependencies at dev server start using esbuild. The result is a single optimized bundle per dependency, stored in `node_modules/.vite/deps/`. When the same dependency is imported again (or the dev server restarts), Vite serves from this pre-built cache rather than reprocessing the package.\n\nCombined with platform-level caching, this means: if framer-motion is already pre-bundled in the Vite cache, importing it requires zero build work on the next dev server start.\n\n**CDN-based module resolution**\n\nAn alternative to installing packages locally: import them directly from a CDN using native ESM. Services like esm.sh and Skypack convert any npm package to a browser-compatible ES module:\n\n```javascript\nimport { motion } from 'https://esm.sh/framer-motion@11.0.0'\n```\n\nNo installation required. The browser fetches the module directly from the CDN on first use; the CDN serves from its edge cache on subsequent requests.\n\nTradeoffs: eliminates installation entirely, but introduces CDN dependency (availability risk), adds per-request latency for uncached modules, and requires the agent to generate CDN-style imports rather than standard npm imports.\n\n**The hybrid approach**\n\nA production platform combines these strategies:\n\n1. Pre-cache the top 100-200 npm packages by download count (covers ~80% of agent-generated code) in the platform's global pnpm store\n2. For packages not in the pre-cache: fall back to standard npm install with the platform-level tarball cache\n3. Use framework starter templates (pre-cloned environments with React + common deps already installed) as the base for new projects\n\nWith this approach, the most common case (agent-generated React app with standard dependencies) has near-zero install latency. The tail case (obscure package not in pre-cache) falls back to standard install speed.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user's agent generates code that imports `d3` (a popular data visualization library). The platform has d3 in its pre-cached pnpm store. Walk through the installation path — what happens at each step, and what is the approximate latency?",
+      "answer": "*Rough path: Agent writes the import statement → dev server detects the new unresolved import → platform checks pnpm global store → d3 found in store → hard-links d3 into the project's `node_modules/` (filesystem metadata operation, ~10-50ms) → Vite detects the new dependency and pre-bundles it with esbuild (~100-500ms for a library of d3's size) → dev server serves the pre-bundled module. Total: under 1 second, vs. 10-20 seconds for a cold npm install.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Run `time npm install framer-motion` in a new empty project directory. Note the time. Then run `time npm install framer-motion` again in a new directory (npm's local cache should warm). Note the improvement. Finally, install pnpm and run `time pnpm add framer-motion` twice. Compare all three install times and explain the differences.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain to a product designer why they might see the preview \"flash\" or show a loading state for 2-3 seconds after the agent adds a new animation library. What is happening technically, and what would make it faster?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "As Platform PM, how do you evaluate this investment?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Dependency installation latency is solved through layered caching — global tarball caches, pnpm content-addressable stores, pre-built node_modules snapshots, and Vite pre-bundling — reducing the common case from 12 seconds to under 1 second while falling back gracefully for uncached packages.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The preview works. The user is happy with what they've built. Now they want a real URL — not a sandbox preview, but a deployed app anyone can visit. What changes between preview and production, and what decisions does Make need to make about deployment? That's next.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "pnpm's content-addressable store dramatically reduces install times for packages already installed by other users on the same host. What is the mechanism that makes this possible?",
+      "options": [
+        "pnpm stores each package version once globally and creates hard links into each project's node_modules, so 'installation' for a cached package is a filesystem metadata operation",
+        "pnpm downloads packages from a faster CDN than the standard npm registry, reducing network latency",
+        "pnpm skips the dependency resolution step for packages it has seen before, saving the time npm spends computing the dependency graph"
+      ],
+      "correctIndex": 0,
+      "explanation": "pnpm's global content-addressable store holds one copy of each package version. Rather than copying files into each project's node_modules, pnpm creates hard links — which are filesystem metadata operations costing microseconds, not copies costing milliseconds. On a shared platform host, popular packages installed once are effectively instant for all subsequent users.",
+      "encourageCorrect": "Correct — the hard-link mechanism is what turns a second install of any cached package into a near-instant operation.",
+      "encourageIncorrect": "pnpm uses the same npm registry as npm does. Its speed advantage comes from hard links, not a faster CDN or skipping dependency resolution. The global store holds one copy per package version; hard links point each project to that shared copy rather than duplicating files."
+    },
+    {
+      "question": "A platform maintains a pre-built node_modules snapshot for the most common dependency set: React + React Router + Tailwind + Radix UI. A user's agent adds framer-motion to this project. What is the correct installation path?",
+      "options": [
+        "The snapshot cannot be used at all — any change to the dependency set requires a full fresh npm install from scratch",
+        "The platform copies the pre-built snapshot as the base, then installs only framer-motion on top of it — falling back to the tarball cache for packages not pre-snapshotted",
+        "The platform serves framer-motion from the CDN via ESM import and skips installation entirely, since CDN-based modules don't require node_modules"
+      ],
+      "correctIndex": 1,
+      "explanation": "The pre-built snapshot covers the common base. For a new package not in the snapshot, the correct approach is layered: use the snapshot as the starting point, then install only the delta (framer-motion) using the platform's tarball cache. This is far faster than a full fresh install.",
+      "encourageCorrect": "Exactly — layered caching means the snapshot handles the common base, and only the new package requires any real installation work.",
+      "encourageIncorrect": "The snapshot doesn't become useless when a new package is added. The correct approach is layered: use the pre-built snapshot as a starting point and install only the delta package on top of it. CDN-based ESM imports are an alternative pattern but require the agent to generate a different import syntax, which introduces other tradeoffs."
+    },
+    {
+      "question": "Vite's dependency pre-bundling produces a cache in node_modules/.vite/deps/. What is its primary purpose in reducing preview latency?",
+      "options": [
+        "It compresses all dependencies into a single bundle, reducing the number of network requests the browser makes to load the app",
+        "It verifies that all installed packages are compatible with each other before the dev server starts, preventing runtime import errors",
+        "It converts CommonJS packages to ESM and bundles each dependency into a single optimized file, so the dev server serves from this pre-built cache rather than reprocessing the package on each dev server start"
+      ],
+      "correctIndex": 2,
+      "explanation": "Vite pre-bundles dependencies at first dev server start using esbuild, handling two things: converting CommonJS modules to ESM (which the browser requires) and consolidating each package's many small files into a single optimized chunk. On subsequent dev server starts, Vite serves from this pre-built cache — no reprocessing needed, which dramatically reduces startup latency.",
+      "encourageCorrect": "Right — pre-bundling eliminates reprocessing on restarts, which is critical in ephemeral environments that cold-start frequently.",
+      "encourageIncorrect": "Pre-bundling is not primarily about reducing browser network requests or validating compatibility. Its key job is converting CommonJS to ESM and consolidating package files into a single chunk per dependency, so the dev server can serve from cache on restart rather than reprocessing every package from scratch."
+    }
+  ]
+}

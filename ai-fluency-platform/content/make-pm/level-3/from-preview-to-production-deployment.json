@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "3.5 From Preview to Production Deployment",
+    "description": "The transition from preview to production is where platform strategy becomes product strategy. Every decision here — static vs. dynamic, managed vs. DIY, instant vs. careful — shapes what kinds of app",
+    "level": "level-3",
+    "slug": "from-preview-to-production-deployment",
+    "order": 5,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "Preview works on your Make sandbox. \"Deploy\" means a real URL with real users. What changes between preview and production?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "The transition from preview to production is where platform strategy becomes product strategy. Every decision here — static vs. dynamic, managed vs. DIY, instant vs. careful — shapes what kinds of apps users can build with Make and who Make's target user actually is.\n\n**Development mode vs. production mode**\n\nThe preview environment runs in development mode. This means:\n\n- **Vite dev server**: serves source files directly, with source maps, without optimization\n- **HMR enabled**: WebSocket connection open, ready to receive updates\n- **No minification**: code is human-readable, not optimized for size\n- **No tree-shaking**: all imported code is included, even unused exports\n- **React in development mode**: includes extra runtime warnings, slower rendering\n\nProduction mode is fundamentally different. The build step (`npm run build`) produces optimized static artifacts:\n\n- **Bundled**: all JavaScript modules combined into a small number of chunks\n- **Minified**: variable names shortened, whitespace removed, dead code eliminated\n- **Tree-shaken**: unused exports removed (a React app using only 10 Radix UI components does not bundle the other 50)\n- **Optimized images**: compressed and converted to modern formats (WebP, AVIF)\n- **Source maps**: optional — useful for debugging but should not be publicly accessible\n\nThe build step takes 10-60 seconds depending on app size and framework. Users feel this as the \"Deploy\" button taking a while — managing this expectation is a product design problem as much as a technical one.\n\n**Hosting options**\n\n**Static hosting (S3 + CDN)**: The build output is a folder of HTML, CSS, and JavaScript files. Upload to S3 (or equivalent blob storage), serve via a CDN (CloudFront, Fastly, Cloudflare). Cost: ~$0.01-0.10/month per app for typical traffic. Limitation: no server-side logic. API routes, server-side rendering, and database access require a separate backend.\n\n**Serverless functions (API routes)**: Frameworks like Next.js and SvelteKit support API routes — server-side code that runs on demand. Deploy via Vercel, Netlify Functions, or AWS Lambda. Each API route becomes a serverless function. Cost scales with invocations. Limitation: cold starts, execution time limits, statelessness.\n\n**Container-based (full server)**: A Node.js server running in a container, handling both static files and dynamic requests. Most flexible but most expensive — requires persistent compute, not just on-demand.\n\n**The strategic decision Make must make**\n\nDoes \"Deploy\" mean static-only or full-stack? This is the most consequential product decision in the deployment pipeline:\n\n- **Static-only**: Simpler infrastructure, lower cost, faster deploys. But users cannot build apps with server-side logic, authenticated APIs, or server-rendered content. Limits Make to static dashboards and simple UIs.\n- **Full-stack**: More complex infrastructure, higher cost, but users can build real applications. Requires decisions about serverless vs. container, database provisioning, and secret management.\n\nThe answer is not purely technical — it depends on who Make's target user is. If Make targets designers building prototypes, static is sufficient. If Make targets developers shipping production software, full-stack is required.\n\n**Environment variables and secrets**\n\nPreview environments can use test API keys and mock services. Production requires real credentials. The platform must:\n\n1. Provide a secure secrets store where users can register production API keys\n2. Inject secrets as environment variables at build time or runtime (never hardcoded in files)\n3. Ensure secrets are never exposed in client-side JavaScript bundles (a common security failure)\n\nThis requires the agent to be trained to use environment variable patterns (`process.env.API_KEY`, `import.meta.env.VITE_API_KEY`) rather than hardcoded values.\n\n**Database provisioning**\n\nFor full-stack apps, preview environments can use sandboxed Supabase projects (ephemeral, wiped after session). Production requires:\n\n- A persistent Supabase project linked to the user's account\n- Database migrations applied at deploy time\n- Backup and recovery guarantees\n- Connection pooling (Supabase PgBouncer) for high-traffic apps\n\nThis is a significant integration surface — the Platform PM must define the contract between Make and Supabase for production deployments.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A user builds a React app in Make that fetches data from an external API using their personal API key. The preview works. When they deploy to production, why might this app fail — and what platform feature would prevent the failure?",
+      "answer": "*The user likely hardcoded the API key in the source code (or the agent generated it that way). In production, the key is exposed in the client-side bundle (visible in browser DevTools). The platform needs: (1) a secrets store for production API keys, (2) the agent trained to use environment variable patterns instead of inline strings, and (3) build-time injection of secrets that replaces env var references with values without exposing them in the bundle.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Create a Next.js project with a simple API route (`pages/api/hello.js`). Run `npm run build` and examine the `.next/` output directory. Identify the client-side bundle (static files) and the server-side bundle (API routes). This is what Make's deployment pipeline needs to handle for full-stack apps.\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A product manager from a partner team asks: \"Why can't Make just deploy to Vercel? They handle all of this.\" What are the specific tradeoffs of building on top of Vercel vs. building Make's own deployment infrastructure?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "We need API routes and server-side rendering.\" How do you evaluate this feedback and decide whether to accelerate full-stack deployment?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Moving from preview to production requires a build step that transforms development-mode code into optimized artifacts, plus strategic decisions about static vs. full-stack hosting and secure secret management — and those decisions define the ceiling of what users can build with Make.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "The production build step transforms development-mode code into optimized artifacts. Which capability is specifically NOT available in a static hosting deployment (S3 + CDN)?",
+      "options": [
+        "Processing API requests server-side, such as authenticating users against a database",
+        "Serving compressed JavaScript bundles to users in different geographic regions",
+        "Delivering images in modern formats like WebP or AVIF from the CDN"
+      ],
+      "correctIndex": 0,
+      "explanation": "Static hosting serves pre-built HTML, CSS, and JavaScript files from a CDN. There is no server-side execution layer, so API routes, server-side rendering, and database access from the server are not possible. Image optimization, compression, and CDN distribution are all supported with static hosting.",
+      "encourageCorrect": "Correct — server-side execution is the capability that static hosting fundamentally cannot provide, which is the central constraint in the static-vs-full-stack decision.",
+      "encourageIncorrect": "CDN delivery, geographic distribution, and image format optimization are all compatible with static hosting. The fundamental limitation is server-side execution: there is no runtime to process API requests, authenticate against a database, or render pages server-side."
+    },
+    {
+      "question": "A user builds a Make app with their API key hardcoded in the source file. The preview works. Why does this create a security problem in production that the platform must address?",
+      "options": [
+        "Hardcoded keys cause build failures during the production minification step, since minifiers cannot safely process credential strings",
+        "Client-side bundles are publicly accessible in the browser — the hardcoded key is visible to anyone who opens DevTools, exposing it to the public internet",
+        "The CDN caches the bundle globally, which makes the key more exposed than it was in the ephemeral preview environment"
+      ],
+      "correctIndex": 1,
+      "explanation": "In a production deployment, client-side JavaScript bundles are downloaded by every visitor's browser. Anyone can open DevTools, navigate to the Sources tab, and read the bundle — including any hardcoded API keys. The platform must provide a secrets store and train the agent to use environment variable patterns rather than inline credentials.",
+      "encourageCorrect": "Exactly — client-side bundle exposure is the specific mechanism that makes hardcoded keys a production security failure.",
+      "encourageIncorrect": "Minification doesn't cause build failures on credential strings. CDN caching doesn't create additional exposure beyond what's already in the bundle. The problem is that client-side JavaScript is publicly readable in any browser's DevTools, so any secret embedded in the bundle is exposed to every user who visits the site."
+    },
+    {
+      "question": "Make's product team debates whether to support static-only or full-stack deployment at launch. What is the most important factor that should drive this decision?",
+      "options": [
+        "Full-stack deployment is always technically superior, so it should be prioritized regardless of timeline",
+        "Static-only is always the correct v1 choice because infrastructure simplicity reduces launch risk for any platform product",
+        "The choice should be driven by what the agent actually generates — if it generates React SPAs using client-side Supabase SDK calls, static hosting is sufficient without requiring server infrastructure"
+      ],
+      "correctIndex": 2,
+      "explanation": "The deployment model and the agent's code generation patterns are tightly coupled. If the agent generates patterns compatible with static hosting (client-side SDK calls, no API routes), static deployment is sufficient. If the agent generates Next.js apps with server-side rendering or API routes, static-only immediately breaks the output. The agent's actual output — not infrastructure preference — should drive the decision.",
+      "encourageCorrect": "Right — the coupling between agent code generation behavior and deployment model is the key insight. The deployment choice must align with what the agent actually produces.",
+      "encourageIncorrect": "Neither 'full-stack is always better' nor 'static is always the right v1' is the correct frame. The key insight is that the agent's code generation patterns and the deployment model must be aligned. If the agent generates client-side patterns, static hosting works. If it generates server-side patterns, static hosting breaks those outputs immediately."
+    }
+  ]
+}

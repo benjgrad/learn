@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "title": "6.3 User-Facing Observability",
+    "description": "Most observability infrastructure is built for engineers. Log pipelines, trace viewers, and metrics dashboards assume the reader understands what a p99 is and why a stack trace points to the root caus",
+    "level": "level-6",
+    "slug": "user-facing-observability",
+    "order": 3,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "A non-technical builder's Make app shows a blank white screen. They have no idea what \"TypeError: Cannot read property of undefined\" means. How do you help them debug without making them learn JavaScript?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Most observability infrastructure is built for engineers. Log pipelines, trace viewers, and metrics dashboards assume the reader understands what a p99 is and why a stack trace points to the root cause. But Make's users include designers, founders, and product managers who have never seen a JavaScript error in production.\n\nThis creates a UX gap with real business consequences. When a non-technical user's app breaks, they have three options: figure it out themselves (unlikely), ask for help (friction), or abandon the session (lost conversion). Your job as Platform PM is to collapse the gap between \"something is wrong\" and \"here's what to do about it\" for all user types.\n\n---\n\n**The Two-Audience Problem**\n\nMake has two distinct user populations with opposite observability needs:\n\n**Technical users** (frontend developers, full-stack engineers): Want the raw stack trace. Want console output. Want to inspect network requests. They'll open DevTools and solve it themselves if you get out of the way.\n\n**Non-technical users** (designers, PMs, founders): Cannot interpret a stack trace. Need error messages that describe the problem in terms of their mental model (\"your contact form,\" \"the button color\") not the system's mental model (\"React component,\" \"undefined property\").\n\nThe failure mode is building one observability surface and trying to serve both. A raw stack trace alienates the non-technical user. A plain-language summary that hides the stack trace frustrates the developer.\n\nThe solution is layered error presentation: start with plain language, offer \"technical details\" as an expandable section.\n\n---\n\n**AI-Powered Error Translation**\n\nThe most scalable solution for non-technical error translation is using an LLM as an interpreter. When Make's preview runtime catches a JavaScript error, instead of surfacing the raw error, it passes the error, the surrounding code context, and the user's project structure to the agent:\n\n> \"The following error occurred in the user's preview: `TypeError: Cannot read properties of undefined (reading 'map')` at line 47 of ContactForm.jsx. The user's ContactForm component expects a `contacts` prop. Explain what went wrong and offer a fix in plain language.\"\n\nThe agent responds: \"Your contact list isn't loading because the contacts data isn't being passed to your form component. The agent can fix this — click 'Fix' to connect your data source to the form.\"\n\nThis pattern requires careful design:\n- **Scope the agent's access:** it should read the error and the affected file, not have full project access during an error state\n- **Confidence gating:** if the agent can't identify the cause with high confidence, default to \"Something went wrong with your preview — the agent is investigating\" rather than generating a confident but wrong diagnosis\n- **Fix confirmation:** the agent should propose the fix and show a diff before applying it, not silently modify the user's code\n\n---\n\n**Error Boundaries in Generated Code**\n\nWhen Make generates React components, it should wrap them in error boundaries — React's built-in mechanism for catching runtime errors within a component tree without crashing the entire app.\n\nA well-designed error boundary, generated automatically by Make, might look like this to the user:\n\n> \"The 'Product Card' section encountered a problem and couldn't display. This might be because the product data isn't loaded yet. Click to try again, or ask the agent to investigate.\"\n\nWithout an error boundary, the entire app shows a blank white screen. With one, only the affected section fails, and the user gets actionable messaging. The delta in user experience is enormous.\n\n---\n\n**Build Error UX**\n\nRaw build errors are some of the most hostile text in software development:\n\n```\nERROR in ./src/components/AnimatedCard.jsx\nModule not found: Error: Can't resolve 'framer-motion' in '/app/src/components'\n```\n\nMake can do better. When a build fails, the platform should:\n\n1. Classify the error type (missing dependency, TypeScript type error, import conflict, out-of-memory)\n2. Generate a plain-language explanation tied to the user's project context\n3. Offer a one-click resolution where possible\n\nFor the error above: \"Your animated card uses the 'framer-motion' library, but it isn't installed in your project. Click 'Install' to add it, or the agent can update your animation to use a built-in option that doesn't require installation.\"\n\n---\n\n**Simplified Network Inspector**\n\nFor users building apps that connect to external APIs, network request failures are common and opaque. Browser DevTools is too technical. Make should surface a simplified inspector in the preview panel:\n\n- Show each API call the app is making, with the endpoint and response status\n- For failed requests, show a plain-language description: \"Your weather API call failed because the API key is missing. Add your key in Settings → API Connections.\"\n- Let the agent intercept and diagnose failed API calls automatically\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "A designer using Make builds a real-time dashboard. The preview shows data for 2 seconds, then goes blank. The actual error is a WebSocket connection dropping due to a CORS misconfiguration. How would you design the user-facing error message? What should the agent offer to do?",
+      "answer": "---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Go to any public web app and intentionally trigger an error: disable JavaScript for a page, or use browser DevTools to block a network request. Compare what the user sees versus what the DevTools console shows. How large is the translation gap? What would a non-technical user do with what they see?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain the \"two-audience problem\" in observability to a designer who is about to join the Make product team. Why can't you just show everyone the same error message?\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "How should the gap between technical error output and user-facing communication be handled in AI systems targeting non-technical users?",
+        "What's the cost — in user experience and support burden — when that gap is large?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "User-facing observability for AI platforms means using the agent itself as an error translator — intercepting raw technical failures and surfacing plain-language diagnosis and one-click resolution, layered so technical users can still access the raw data.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "Individual user errors are one thing. But what about the patterns across all your users? The next module covers platform-level monitoring — the view from the command center, not the individual session.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Make has two user populations with opposite observability needs. What is the correct design pattern to serve both without compromising either?",
+      "options": [
+        "Build separate error reporting interfaces for technical and non-technical users, accessible via a toggle in account settings",
+        "Route errors to different channels based on user account type — raw stack traces emailed to developer accounts, plain-language alerts sent to non-technical accounts",
+        "Layered error presentation: start with a plain-language description for all users, with an expandable 'technical details' section that reveals the raw stack trace for developers who need it"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module explicitly rejects the pattern of building 'one observability surface and trying to serve both.' The solution is layered presentation: plain language first (which non-technical users can act on), with a collapsible technical details section (which developers can expand). Separate interfaces or email routing add friction — developers want to see the error in context of the session, not in email.",
+      "encourageCorrect": "Exactly — layered presentation serves both audiences in the same surface without forcing either to adapt to the other's needs.",
+      "encourageIncorrect": "Separate interfaces or routing by account type create maintenance burden and don't handle the case where the same user's technical sophistication varies by context. The module's prescribed solution — layered in-situ presentation — keeps both audiences in the same flow while giving each what they need."
+    },
+    {
+      "question": "When Make's preview runtime catches a JavaScript error, the module recommends using an LLM to translate the error before surfacing it to the user. What design constraint is most critical to get right?",
+      "options": [
+        "The LLM translator must respond in under 500ms to avoid adding perceptible delay to the error display",
+        "The agent should propose a fix and show a diff for user confirmation before applying any code changes — not silently modify the user's project — and must default to a generic message if it cannot diagnose with high confidence",
+        "The error translation LLM must be a different model family from the code generation agent to prevent self-referential blind spots in error diagnosis"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module specifies two critical constraints: confidence gating (if the agent can't identify the cause confidently, default to 'Something went wrong — the agent is investigating' rather than a confident but wrong diagnosis) and fix confirmation (the agent proposes the fix with a diff, doesn't silently modify code). Uninvited code modification violates user trust. Speed is a UX consideration but is not the most critical constraint identified.",
+      "encourageCorrect": "Right — both constraints protect user trust: don't diagnose confidently when uncertain, and never silently modify a user's code.",
+      "encourageIncorrect": "Response time is important for UX but is not the critical design constraint the module emphasizes. The trust-critical constraints are: confident-but-wrong diagnoses are worse than honest uncertainty, and the agent must always show a diff and get confirmation before changing user code."
+    },
+    {
+      "question": "What is the primary business consequence of failing to translate raw technical errors for non-technical Make users?",
+      "options": [
+        "When non-technical users encounter untranslated errors, they have no path to resolution — they cannot figure it out themselves, may ask for help (friction), or most likely abandon the session (lost conversion), making error translation a conversion metric, not just a support cost metric",
+        "Support ticket volume increases, raising support costs per incident",
+        "Untranslated errors create accessibility violations under WCAG 2.1 guidelines, creating legal exposure"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module frames the business consequence explicitly: non-technical users facing a raw error have three options — figure it out (unlikely), ask for help (friction), or abandon the session (lost conversion). Session abandonment is the primary business cost, not support tickets. The module frames the gap between 'something is wrong' and 'here's what to do about it' as a conversion problem.",
+      "encourageCorrect": "Correct — the module frames this as a conversion and retention problem. Support costs are a secondary effect.",
+      "encourageIncorrect": "Support ticket volume is a real effect, but the module identifies session abandonment as the primary business consequence. A user who abandons doesn't file a support ticket — they simply churn. The conversion framing is why user-facing observability is a product investment, not just an operational one."
+    }
+  ]
+}

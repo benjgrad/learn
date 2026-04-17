@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "6.2 Logs, Metrics, Traces — The Three Pillars",
+    "description": "Every observability system is built on three primitives. They are complementary, not redundant. Conflating them leads to either massive log storage costs or alert systems that can't localize problems.",
+    "level": "level-6",
+    "slug": "logs-metrics-traces-the-three-pillars",
+    "order": 2,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You know something is wrong because users are complaining about slow previews. Logs tell you what happened. Metrics tell you how much. Traces tell you where. How do these three work together to find the root cause?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Every observability system is built on three primitives. They are complementary, not redundant. Conflating them leads to either massive log storage costs or alert systems that can't localize problems. Understanding where each fits is a foundational PM skill when reviewing observability architecture proposals from your engineering team.\n\n---\n\n**Logs**\n\nLogs are discrete events with timestamps and context. Something happened, at a specific time, in a specific place, with specific parameters.\n\n```\n2026-04-15T09:14:32Z [ERROR] preview-service: Preview abc123 failed to start\n  user_id: u_8842\n  session_id: sess_99201\n  region: us-east-1\n  error: npm install timeout after 60000ms\n  package_count: 47\n  duration_ms: 60042\n```\n\nStructured logging (JSON format, as above) is far more useful than unstructured text because it's queryable. You can ask: \"show me all preview failures in us-east-1 in the last hour\" without writing regex.\n\nLog levels create signal-to-noise filtering:\n- **DEBUG:** granular step-by-step events, used during development, usually off in production\n- **INFO:** normal operations worth recording (\"Preview started,\" \"Build succeeded\")\n- **WARN:** something unexpected but recoverable (\"npm install took 45s, approaching timeout\")\n- **ERROR:** something failed and requires attention\n\nFor Make, every significant lifecycle event should emit a structured log: agent session start, each tool call invocation, build trigger, dependency install start/end, dev server start, preview ready, user interaction. These logs become the audit trail for debugging individual user sessions.\n\n**The risk:** logs are expensive. At scale, a single session might emit 500 log lines. 50,000 sessions per day is 25 million log lines per day. You need log sampling strategies (capture 100% of errors, 10% of successful sessions) and log retention policies (errors for 90 days, debug logs for 7 days).\n\n---\n\n**Metrics**\n\nMetrics are numeric measurements aggregated over time. They're not individual events — they're patterns across many events.\n\nKey metrics for Make:\n\n| Metric | What it measures |\n|---|---|\n| `preview.load.p50 / p95 / p99` | Distribution of preview load times |\n| `agent.session.success_rate` | Percentage of sessions that produce a working output |\n| `build.pass_rate` | Percentage of builds that succeed on first attempt |\n| `build.failure_reason` | Distribution across: npm error, TypeScript error, runtime crash |\n| `deployment.success_rate` | Percentage of deployments that go live |\n| `token.usage.per_session.p95` | Token consumption at the 95th percentile |\n\nPercentiles (p50, p95, p99) matter more than averages for latency metrics. The average preview load time might be 1.2 seconds. But if p99 is 12 seconds, 1 in 100 users is waiting 10x longer — and those users are your power users who run the most sessions. Averages hide the tail.\n\nMetrics are stored in time-series databases (Prometheus, Datadog, InfluxDB). They enable dashboards, trend analysis, and alerting. A spike in `build.failure_rate` at 3pm on Tuesday triggers a PagerDuty alert. A gradual upward trend in `preview.load.p95` over two weeks shows up in your Monday health review.\n\n---\n\n**Traces**\n\nTraces capture the end-to-end journey of a single request across multiple services. This is where distributed systems become observable.\n\nWhen a user clicks \"Preview\" in Make, here's what happens across multiple services:\n\n```\nPreview Request (total: 4,200ms)\n├── Agent: process user message + generate file diff (800ms)\n├── File Service: write 12 files to project storage (120ms)\n├── Build Service: trigger webpack build (2,900ms)\n│   ├── Dep Install: npm install (2,100ms)  ← BOTTLENECK\n│   └── Bundle: compile + bundle (800ms)\n├── Runtime: start dev server (200ms)\n└── CDN: serve first load (180ms)\n```\n\nWithout tracing, you'd know the preview took 4.2 seconds. With tracing, you can see that 2.1 seconds were spent in npm install — and if you look at the trace attributes, you notice it's a project with 47 dependencies, suggesting you need a dependency caching strategy.\n\nOpenTelemetry is the current standard for distributed tracing. It provides a vendor-neutral instrumentation library that emits traces to backends like Jaeger, Honeycomb, or Datadog. Every Make service should be instrumented with OpenTelemetry spans that capture the key operations and their durations.\n\n---\n\n**How the Three Work Together**\n\nA p99 spike alert fires: preview load time just crossed 8 seconds. *That's your metric alerting you.*\n\nYou open your tracing dashboard and filter to the slowest traces from the last 30 minutes. Every slow trace shows the same pattern: npm install is taking 4-6 seconds instead of the usual 400ms. *That's your trace localizing the problem.*\n\nYou query the logs for npm install events from the same time window and find: `npm WARN registry: Using stale package data from cache`. The npm registry in us-east-1 is having connectivity issues and falling back to a cold cache path. *That's your log explaining the cause.*\n\nThree tools, one root cause, under 10 minutes.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "Your team proposes adding 200 new log lines to the agent service to improve debuggability. Your on-call engineer flags that log storage is already $40K/month. What questions do you ask before approving?",
+      "answer": "*Look for: What log level are these? How many sessions per day trigger this code path? Are we sampling or capturing 100%? What's the retention policy? Could some of these be metrics instead of logs (e.g., a count is a metric, not a log)?*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Open your browser DevTools (F12 → Network tab). Trigger a preview load in Make or any complex web app. Look at the waterfall view. This is a client-side trace — each row is a span, each bar is a duration. Identify the three slowest network requests. Would you call them infrastructure, application, or AI-layer problems?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "A new PM joins the platform team from a consumer product background. They've never worked with distributed systems. Explain logs, metrics, and traces in two minutes using the \"preview is slow\" scenario as your example. Use no jargon.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "In an AI execution environment — whether one you've worked with, studied, or can reason about from first principles — which of the three observability pillars tends to be strongest?",
+        "Which is weakest?",
+        "If a model regression happened and you needed to diagnose it, where would the investigation most likely stall?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Logs explain individual events, metrics reveal patterns across events, and traces show where time is spent across service boundaries — and you need all three because each answers a different question in the root cause chain.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "You can instrument the infrastructure layer. But what about the users who experience problems and have no idea how to open DevTools? The next module is about making observability legible to non-technical builders.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "A p99 spike alert fires showing preview load time crossed 8 seconds. In what sequence do logs, metrics, and traces each contribute to the root cause diagnosis?",
+      "options": [
+        "Metrics surface the alert, traces localize the bottleneck to a specific service (e.g., npm install taking 4-6 seconds), and logs explain the cause (e.g., npm registry connectivity issue causing a cache fallback)",
+        "Logs identify the spike first, traces confirm which service is slow, and metrics provide the historical baseline to determine severity",
+        "Traces surface the alert, metrics confirm the spike is outside the normal distribution, and logs provide the stack trace for the failing service"
+      ],
+      "correctIndex": 0,
+      "explanation": "The module walks through this exact scenario: the metrics alert fires on the p99 spike. Traces on the slowest requests reveal npm install is the bottleneck (4-6 seconds instead of 400ms). Logs for npm install events in that window show the specific error message explaining why — npm registry connectivity issues causing cache fallback. This is the canonical three-pillar root cause chain: metrics alert → traces localize → logs explain.",
+      "encourageCorrect": "Correct — each pillar answers a different question in sequence: metrics say something is wrong, traces say where, logs say why.",
+      "encourageIncorrect": "Traces do not surface alerts — they localize problems after an alert fires. Logs do not surface alerts either — they explain causes after localization. The alert comes from metrics (the p99 threshold crossing). Getting the sequence right matters because each tool has a different cost profile and is queried at a different stage of investigation."
+    },
+    {
+      "question": "Why does the module recommend tracking p95 and p99 latency rather than average latency for preview load time?",
+      "options": [
+        "Averages are mathematically unstable for distributions with high variance, so p95 and p99 are statistically more reliable summary statistics",
+        "The average preview load time might be 1.2 seconds while p99 is 12 seconds — averages hide the tail, and the users in that tail are often power users running the most sessions, whose experience matters disproportionately",
+        "p95 and p99 are standard SLO metrics defined by Google's SRE book and are required for Datadog and Prometheus compatibility"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module explicitly makes this point: if the average is 1.2 seconds but p99 is 12 seconds, 1 in 100 users is waiting 10x longer — and those users tend to be power users running many sessions. Averages hide the tail. Percentiles reveal it. The concern is practical: tail latency affects your most engaged users, not a random sample.",
+      "encourageCorrect": "Exactly — the tail is where your most engaged users often live, and averages systematically hide it.",
+      "encourageIncorrect": "Statistical reliability and SRE standard compliance are not the primary reasons given in the module. The argument is user-impact: the users in the p99 tail are disproportionately important (power users, high session frequency), and an average that looks healthy can obscure a terrible experience for them."
+    },
+    {
+      "question": "A team proposes adding 200 new DEBUG-level log lines to the agent service for better debuggability. Log storage already costs $40K/month. What questions should the Platform PM ask before approving?",
+      "options": [
+        "Whether the logs can be stored in a cheaper region, and whether the team has benchmarked log write latency",
+        "Whether the 200 log lines can be compressed into a single structured JSON object per session to reduce storage volume",
+        "What log level they are, how many sessions trigger this code path, whether 100% sampling is required or sampling is acceptable, what the retention policy is, and whether some of these should be metrics instead"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module's calibration answer explicitly lists these questions: log level (DEBUG logs can be off in production), code path frequency (200 log lines × 50,000 sessions/day = 10M lines), sampling strategy (100% of errors, 10% of successes), retention policy (debug vs. error retention differ), and whether counts should be metrics rather than logs. Compression is a useful technique but not the primary set of questions the module teaches.",
+      "encourageCorrect": "Right — these questions determine whether 200 new log lines mean $5K/month or $500K/month in additional storage costs.",
+      "encourageIncorrect": "Compression and regional storage are optimization tactics but not the diagnostic questions the module recommends. The key decisions are: do we need this log level in production, do we need 100% coverage or can we sample, and are we creating logs when we should be creating metrics (a count is a metric, not a log)."
+    }
+  ]
+}

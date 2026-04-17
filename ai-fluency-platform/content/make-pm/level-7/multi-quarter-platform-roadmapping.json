@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "title": "7.7 Multi-Quarter Platform Roadmapping",
+    "description": "Multi-quarter roadmapping for a platform team is primarily a dependency analysis problem. Unlike feature roadmapping \u2014 where items are often parallel and can be resequenced based on user demand \u2014 plat",
+    "level": "level-7",
+    "slug": "multi-quarter-platform-roadmapping",
+    "order": 8,
+    "isCheckpoint": false,
+    "isIndex": false
+  },
+  "blocks": [
+    {
+      "type": "predictPrompt",
+      "prompt": "You need to sequence: runtime rewrite, preview infrastructure upgrade, agent infrastructure v2, eval system, extensibility APIs, observability overhaul, and GA hardening. You have 4 quarters. What comes first, what comes last, and why?\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "Multi-quarter roadmapping for a platform team is primarily a dependency analysis problem. Unlike feature roadmapping \u2014 where items are often parallel and can be resequenced based on user demand \u2014 platform items frequently have hard dependencies: you cannot build the thing that runs on top until you've built the thing underneath. Getting the sequence wrong doesn't just slow you down; it can create architectural debt that's expensive to unwind.\n\n---\n\n**Step 1: Map the Dependencies**\n\nBefore any sequencing, draw the dependency graph. Ask for each item: \"What does this require to exist before it can be built?\"\n\n**Runtime rewrite:**\n- Requires: nothing. The runtime is foundational infrastructure.\n- Blocks: Preview infrastructure upgrade (preview runs on the runtime; upgrading preview on a broken runtime is wasted work)\n\n**Agent infrastructure v2:**\n- Requires: nothing. Agent infra is a separate system from the runtime.\n- Blocks: Eval system (evals test the agent; you want to evaluate the final agent architecture, not an intermediate version)\n\n**Preview infrastructure upgrade:**\n- Requires: Runtime rewrite (preview performance is bounded by runtime performance)\n- Blocks: Nothing directly, but should precede GA hardening (you're hardening the final preview stack, not an intermediate one)\n\n**Eval system:**\n- Requires: Agent infrastructure v2 (evaluate the final agent)\n- Blocks: Nothing directly, but should precede GA (evals are a GA quality gate)\n\n**Observability overhaul:**\n- Requires: Core services to be stable (you're instrumenting what you've built)\n- Blocks: GA hardening (you can't harden what you can't observe)\n\n**GA hardening:**\n- Requires: Runtime rewrite, preview upgrade, eval system, observability overhaul\n- Blocks: GA launch\n\n**Extensibility APIs:**\n- Requires: GA (don't expose unstable APIs externally)\n- Blocks: Plugin ecosystem (plugins are built on extensibility APIs)\n\n---\n\n**Step 2: Identify the Critical Path**\n\nThe critical path is the longest sequence of dependent items. In this case:\n\n`Runtime rewrite \u2192 Preview upgrade \u2192 GA hardening \u2192 GA launch \u2192 Extensibility APIs \u2192 Plugin ecosystem`\n\nThe parallel path: `Agent infra v2 \u2192 Eval system` can run concurrently with the runtime/preview track.\n\nObservability should be built in parallel throughout \u2014 you should be instrumenting the runtime as you rewrite it, not after.\n\n---\n\n**Step 3: Map to Quarters**\n\nWith dependencies and critical path identified, the sequencing becomes clearer:\n\n**Q1: Foundations (parallel workstreams)**\n- Workstream A: Runtime rewrite (large, foundational, starts immediately)\n- Workstream B: Agent infrastructure v2 (independent, can run in parallel)\n- Observability instrumented as each system is built\n\nThese are the two independent foundational investments. Running them in parallel is the right call \u2014 they don't interfere with each other, and serial sequencing would cost two quarters instead of one.\n\n**Q2: Build on the Foundations**\n- Preview infrastructure upgrade (now that the runtime is stable)\n- Eval system (now that agent infra v2 is complete)\n- Observability overhaul (instrument the upgraded preview and agent systems)\n\nQ2 is the integration quarter. The Q1 foundations are complete; Q2 builds on them and validates them.\n\n**Q3: GA Hardening**\n- Load testing to 3x at the final architecture\n- Security audit\n- Runbook completion for all critical paths\n- SLO validation over 30 consecutive days\n- Beta user migration\n- Enterprise readiness (SSO, audit logs)\n\nThis is not a \"nothing ships\" quarter \u2014 it's intensive engineering work on reliability, performance, and security. But it's not net-new feature work.\n\n**Q4: GA Launch + Extensibility APIs**\n- Soft GA launch (remove beta label, publish SLAs)\n- Begin partner extensibility program (Phase 2)\n- Design and build REST API surface for external developers\n- Hard GA launch (press moment) once soft launch validates stability\n\n**Q5+ (post-GA): Plugin Ecosystem**\n- Partner feedback from Phase 2 informs plugin API design\n- Sandbox security model for plugin execution\n- Marketplace infrastructure\n- Developer documentation and review process\n\n---\n\n**Communicating the Roadmap to Leadership**\n\nA technical dependency graph is not a leadership communication. Leaders need:\n\n**Milestone-based presentation:** not \"runtime rewrite\" but \"Q2 Milestone: Preview load time reduced from 3.8s to under 2s at 2x current traffic load.\"\n\n**Dependency visibility:** a simple visual that shows why Q3 hardening can't start until Q2 is complete. Leaders shouldn't approve a roadmap they can't read.\n\n**Risk register:** for each quarter, what are the top 2 risks that could cause a slip? What's the mitigation plan? What's the trigger for escalating?\n\n**Competitive framing:** how does this roadmap position Make relative to v0, Lovable, and Bolt? If they launch plugin ecosystems before Make does, what's the impact?\n\n---\n\n**The Plan Is Not the Contract**\n\nThe four-quarter roadmap is a plan, not a commitment. Platform work frequently surfaces unexpected complexity \u2014 a runtime rewrite discovers that the preview system is more tightly coupled to the runtime than anyone thought, adding three weeks to the preview upgrade.\n\nThe PM's job is to update the plan when reality changes it, not to defend the original plan out of pride. The governance for this:\n\n- Monthly roadmap review with engineering leads: is the sequence still correct?\n- Quarterly strategic review with leadership: are the priorities still right given competitive moves and user feedback?\n- Explicit re-plan triggers: if a quarter slips by more than 4 weeks, force a full resequencing conversation rather than cascading the slip into all subsequent quarters\n\nThe danger of treating the roadmap as fixed is that you ship the eval system in Q2 on a schedule that requires Q1 agent infra v2 to be complete, discover agent infra v2 is 6 weeks late, and ship the eval system on a half-built agent \u2014 invalidating the eval results.\n\nFlexibility is not sloppiness. It's the recognition that plans are made with incomplete information, and reality is the authoritative source.\n\n---"
+    },
+    {
+      "type": "calibrationCheck",
+      "question": "At the Q2 roadmap review, you learn that the runtime rewrite is 5 weeks late due to unexpected complexity in the preview coupling. The preview upgrade (Q2) depends on the runtime. The observability overhaul (Q2) is on track. GA hardening (Q3) depends on both. What are your options?",
+      "answer": "*Options: (1) Compress the preview upgrade scope \u2014 can you do a narrower upgrade that still hits the SLO targets? (2) Parallelize: start GA hardening on the systems that are complete (eval system, agent infra) while finishing the preview upgrade. (3) Slip GA by 5-6 weeks and update leadership. The PM's job is to surface these options with their tradeoffs, not to silently absorb the slip.*\n\n---"
+    },
+    {
+      "type": "tryItYourself",
+      "title": "Take the seven platform items from the PredictPrompt and draw the dependency graph on paper (or a whiteboard app). Then identify two items that could run in parallel in Q1. What shared resources (engineering headcount, shared infrastructure) could create a conflict even if they're technically independent?\n\n---",
+      "solution": ""
+    },
+    {
+      "type": "explainBack",
+      "prompt": "Explain \"critical path\" to a product manager who has never done dependency mapping. Use the analogy of building a house: you can't install the roof before you have walls, even if the roofing crew is available.\n\n---"
+    },
+    {
+      "type": "reflectPrompt",
+      "questions": [
+        "Have you built or presented a multi-quarter roadmap?",
+        "What was the hardest thing to communicate to leadership \u2014 the dependencies, the risks, or the fact that the plan would change?",
+        "How would you do it differently?\n\n---"
+      ]
+    },
+    {
+      "type": "keyTakeaway",
+      "content": "Multi-quarter platform roadmapping is primarily a dependency sequencing problem \u2014 the critical path through runtime, preview, eval, and observability determines the earliest possible GA date, and parallel workstreams are the only way to compress that timeline without cutting scope.\n\n---"
+    },
+    {
+      "type": "connectPrompt",
+      "prompt": "The final module of Level 7 synthesizes everything: GA timeline, extensibility strategy, and competitive positioning into a single strategic plan. That's the Level 7 Checkpoint.\n\n---"
+    }
+  ],
+  "reviewQuestions": [
+    {
+      "question": "Why must the eval system be sequenced after agent infrastructure v2, rather than being built in parallel to save time?",
+      "options": [
+        "The eval system is lower priority than agent infrastructure and should come after all higher-priority items are complete",
+        "Evals test the agent — building evals against an intermediate agent architecture produces results that become invalid when agent infra v2 ships, wasting the evaluation work",
+        "The eval system requires the same engineering team as agent infrastructure v2, creating a resource conflict"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module's dependency logic is explicit: 'you want to evaluate the final agent architecture, not an intermediate version.' If the eval system ships on agent v1 and agent infra v2 changes how the agent operates, all the eval baselines become meaningless. The dependency isn't about resource conflicts or priority — it's about validity: evals produce useful data only when run against the stable system they're designed to measure.",
+      "encourageCorrect": "Exactly — eval results are only valuable if they measure the final architecture. Evaluating an intermediate version is wasted work that must be repeated.",
+      "encourageIncorrect": "This isn't a priority or resource question — it's a validity question. Running evals against agent v1 produces a baseline that agent infra v2 invalidates. The dependency exists to prevent the eval work from being meaningless."
+    },
+    {
+      "question": "At the Q2 roadmap review, the runtime rewrite is 5 weeks late due to unexpected coupling with the preview system. The preview upgrade depends on the runtime. GA hardening (Q3) depends on both. What is the module's prescribed response?",
+      "options": [
+        "Silently absorb the 5-week slip into all subsequent quarters to avoid alarming leadership",
+        "Surface the slip to leadership with explicit options: compress preview scope, parallelize GA hardening on complete systems, or slip GA and update the plan",
+        "Declare the current plan failed and restart roadmapping from scratch with a new Q1"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module explicitly states: 'if a quarter slips by more than 4 weeks, force a full resequencing conversation rather than cascading the slip into all subsequent quarters.' Silent absorption is the failure mode the module warns against — it produces the bad outcome where the eval system ships on a half-built agent because the team absorbed the slip rather than resurfacing options. The PM's job is transparent escalation with options.",
+      "encourageCorrect": "Right — transparent escalation with options is the governance behavior. Cascading a slip silently is how a 5-week delay becomes a 5-month GA miss.",
+      "encourageIncorrect": "Restarting from scratch is an overreaction — the dependency analysis and sequencing logic are still valid. Silent absorption is the real failure mode. The correct response is to surface the slip explicitly and negotiate options: compress scope, parallelize where possible, or officially adjust the timeline."
+    },
+    {
+      "question": "Platform roadmapping is described as 'primarily a dependency analysis problem.' What makes this different from feature roadmapping for a product team?",
+      "options": [
+        "Platform items are larger and take longer, so they require more planning time",
+        "Platform roadmaps are presented to leadership, while feature roadmaps are internal to engineering teams",
+        "Platform items have hard sequential dependencies — you cannot build what runs on top until the foundation exists — while feature items are often parallel and can be resequenced based on user demand"
+      ],
+      "correctIndex": 2,
+      "explanation": "The module's opening distinction is between feature roadmapping (items often parallel, resequenceable based on demand signals) and platform roadmapping (hard sequential dependencies where getting the order wrong creates architectural debt that's expensive to unwind). The preview upgrade can't precede the runtime rewrite because preview performance is bounded by runtime performance — no amount of user demand changes that structural constraint.",
+      "encourageCorrect": "Correct — the structural difference is dependency hardness. Feature items can usually be reordered; platform items often cannot, because later work literally cannot exist without earlier work being in place.",
+      "encourageIncorrect": "Size and audience are surface differences, not the structural distinction. The key insight is that platform dependencies are often technically mandatory — a wrong sequence doesn't just slow things down, it creates architectural debt that requires expensive unwinding. Feature roadmaps rarely have this property."
+    }
+  ]
+}
