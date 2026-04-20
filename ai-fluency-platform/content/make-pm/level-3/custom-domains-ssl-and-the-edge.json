@@ -19,13 +19,13 @@
     },
     {
       "type": "calibrationCheck",
-      "question": "A user sets up their custom domain `mycompany.com` and points it at Make's edge, but the browser shows an SSL error. What are the two most likely causes, and how does the platform diagnose each?",
+      "question": "A user sets up their custom domain `mycompany.com` and points it at Make's edge via a CNAME record, but the browser shows an SSL error. What are the two most likely causes, and how does the platform diagnose each?",
       "answer": "*Cause 1: DNS has not yet propagated — the domain resolves to the user's old hosting provider, not Make's edge. Let's Encrypt cannot validate domain ownership, so no certificate was issued. Diagnosis: check DNS resolution for the domain from multiple resolvers; if it doesn't return Make's IP, this is the cause. Cause 2: DNS is resolving correctly but SSL cert provisioning failed (Let's Encrypt rate limits, ACME challenge file not served correctly). Diagnosis: check the platform's certificate issuance logs for the domain.*\n\n---"
     },
     {
       "type": "tryItYourself",
       "title": "Visit Vercel's documentation on custom domains. Trace the exact steps from \"add custom domain\" to \"HTTPS working.\" Identify the places where the process can fail and what error state is surfaced to the user. Then do the same for Netlify. Where do the two products diverge in their UX for this flow?\n\n---",
-      "solution": ""
+      "solution": "In Vercel's custom domain flow, the key steps are: (1) add domain in dashboard, (2) Vercel shows you either a CNAME record (for non-apex domains like www.mycompany.com) or an A record (for apex domains like mycompany.com), (3) you update DNS at your registrar, (4) Vercel polls for DNS propagation and automatically provisions a Let's Encrypt certificate once your domain resolves to Vercel's edge. Failure points: the wrong record type set at the registrar (common for apex domains where CNAME isn't allowed), DNS propagation delay (Vercel usually detects within minutes once DNS is correct), and Let's Encrypt rate limits if the domain has had many cert requests recently. Netlify follows the same ACME-based flow but differs in UX: Netlify shows a real-time DNS propagation checker and displays which resolvers have picked up the change. The divergence is in error state transparency — Vercel gives a simpler 'waiting for DNS' message while Netlify shows more diagnostic detail. Both handle cert provisioning and renewal automatically. Note for Make: the failure mode the module discusses (SSL error immediately after CNAME setup) maps directly to the DNS-not-yet-propagated state both platforms surface differently."
     },
     {
       "type": "explainBack",
@@ -34,7 +34,7 @@
     {
       "type": "reflectPrompt",
       "questions": [
-        "What pricing and positioning signals does this choice send to users, and is it the right line to draw?\n\n---"
+        "What pricing and positioning signals does the decision to gate custom domains behind a paid tier send to users — and recall a product where you drew a line between free and paid capabilities. How did you choose where the line went, was it the right decision, and what signals told you if you got it right?\n\n---"
       ]
     },
     {
