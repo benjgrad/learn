@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "4.1 What a Coding Agent Actually Is",
-    "description": "Understand the Observe-Think-Act-Evaluate loop that distinguishes coding agents from code generators — and why tool ownership, multi-step state persistence, and self-correction on failure are what make Make's agent fundamentally different from a chatbot that writes code.",
+    "description": "Understand the Observe-Think-Act-Evaluate loop that distinguishes coding agents from code generators \u2014 and why tool ownership, multi-step state persistence, and self-correction on failure are what make Make's agent fundamentally different from a chatbot that writes code.",
     "level": "level-4",
     "slug": "what-a-coding-agent-actually-is",
     "order": 1,
@@ -15,26 +15,30 @@
     },
     {
       "type": "markdown",
-      "content": "The difference is not the model. It is the loop.\n\nWhen you paste a function into ChatGPT and ask it to fix a bug, the model generates text that looks like code. You copy it. You paste it. You run it. If it fails, you copy the error back in. Every step of that cycle — reading files, running code, observing results — is performed by you, the human. The model is a sophisticated text completer sitting inside that loop, not driving it.\n\nClaude Code, Cursor, and the agent powering Make are different in kind. They own the loop. They read files, write files, run shell commands, observe the output, make decisions based on what they see, and take the next action — without you touching a keyboard. That cycle is the agent loop, and it is the defining architectural feature of coding agents.\n\n**The agent loop has four phases:**\n\n**Observe.** The agent reads the current state of the world: files on disk, terminal output, compiler errors, test results, the contents of a URL. Crucially, it reads artifacts it created in previous steps. This is what makes step 7 coherent with step 3.\n\n**Think.** Given everything it has observed, the agent reasons about what to do next. This is not a separate \"planning\" model — it is the same language model, prompted in a way that encourages step-by-step reasoning before action. Chain-of-thought prompting is not a trick; it is how the model simulates deliberation.\n\n**Act.** The agent executes a tool call: write this content to `src/auth/login.tsx`, run `npm test`, query this API endpoint, grep the codebase for all usages of `AuthProvider`. The platform, not the model, executes the action and returns the result.\n\n**Evaluate.** Did it work? The agent reads the tool result — the file contents it just wrote, the test output, the compiler error — and decides whether to proceed, retry, or re-plan. This is the self-correction mechanism that makes agents capable of recovering from their own mistakes.\n\nThen the loop repeats. For a complex feature, this cycle runs 15-40 times."
+      "content": "## What You'll Learn\n\nThis module gives you the mental model that separates a coding agent from a code-writing chatbot. By the end, you'll be able to explain \u2014 precisely \u2014 what the agent loop is, why tool ownership is the defining feature, and what this means for Make's Platform PM role."
+    },
+    {
+      "type": "markdown",
+      "content": "A coding agent is not a smarter text generator \u2014 it is a model that owns the Observe-Think-Act-Evaluate loop, using tool calls to take real actions in a real environment and recover from real errors. The model is the same; what changes is whether the loop belongs to the human or the machine.\n\nWhen you paste a function into ChatGPT and ask it to fix a bug, the model generates text that looks like code. You copy it. You paste it. You run it. If it fails, you copy the error back in. Every step of that cycle \u2014 reading files, running code, observing results \u2014 is performed by you, the human. The model is a sophisticated text completer sitting inside that loop, not driving it.\n\nClaude Code, Cursor, and the agent powering Make are different in kind. They own the loop. They read files, write files, run shell commands, observe the output, make decisions based on what they see, and take the next action \u2014 without you touching a keyboard. That cycle is the agent loop, and it is the defining architectural feature of coding agents.\n\n**The agent loop has four phases:**\n\n**Observe.** The agent reads the current state of the world: files on disk, terminal output, compiler errors, test results, the contents of a URL. Crucially, it reads artifacts it created in previous steps. This is what makes step 7 coherent with step 3.\n\n**Think.** Given everything it has observed, the agent reasons about what to do next. This is not a separate \"planning\" model \u2014 it is the same language model, prompted in a way that encourages step-by-step reasoning before action. Chain-of-thought prompting is not a trick; it is how the model simulates deliberation.\n\n**Act.** The agent executes a tool call: write this content to `src/auth/login.tsx`, run `npm test`, query this API endpoint, grep the codebase for all usages of `AuthProvider`. The platform, not the model, executes the action and returns the result.\n\n**Evaluate.** Did it work? The agent reads the tool result \u2014 the file contents it just wrote, the test output, the compiler error \u2014 and decides whether to proceed, retry, or re-plan. This is the self-correction mechanism that makes agents capable of recovering from their own mistakes.\n\nThen the loop repeats. For a complex feature, this cycle runs 15-40 times."
     },
     {
       "type": "calibrationCheck",
       "question": "What is the fundamental difference between a coding assistant (like ChatGPT in a browser) and a coding agent (like Claude Code)? Is it model size, internet access, or something else?",
-      "answer": "The fundamental difference is the loop — not the model. A coding assistant generates text that a human must then act on: copy, paste, run, report back. A coding agent owns the full Observe-Think-Act-Evaluate cycle itself, executing tool calls and observing their results without the human performing each step. The same underlying model could power either; what differs is whether the model drives the environment-interaction cycle or sits inside a human-driven one."
+      "answer": "The fundamental difference is the loop \u2014 not the model. A coding assistant generates text that a human must then act on: copy, paste, run, report back. A coding agent owns the full Observe-Think-Act-Evaluate cycle itself, executing tool calls and observing their results without the human performing each step. The same underlying model could power either; what differs is whether the model drives the environment-interaction cycle or sits inside a human-driven one."
     },
     {
       "type": "markdown",
-      "content": "**Tool use is the defining feature.** Without tool use, a model is a text generator. With tool use, it becomes an actor in the world. The agent's \"intelligence\" is not smarter weights — it is the ability to observe, act, and observe again. This is why researchers frame agency as OODA loops, not as model capability alone.\n\n**State persistence** is the second distinguishing feature. When you are on step 22 of a 30-step implementation, the agent's context window contains what it did at step 8, what error it got at step 11, and what workaround it applied at step 14. It is not starting fresh each turn. It is operating with accumulated situational awareness — which is also why context management (Module 4.3) is one of the hardest platform engineering problems.\n\n**Why this matters for Make:**\n\nFigma Make's agent is not writing code in a vacuum. It is operating inside a live project: a real file system with a real dependency tree, a real build pipeline that either passes or fails, a real preview environment that either renders or breaks. Every action has side effects. Every tool call produces state that constrains the next decision. The agent must manage this complexity coherently across dozens of steps.\n\nA chatbot that generates code-as-text cannot do this. It does not know that the import it suggested in step 4 will cause a circular dependency it encounters at step 19. The agent — running in a real environment, observing real errors — can catch that. This is the capability gap that Make's Platform PM is responsible for.\n\n---"
+      "content": "**Tool use is the defining feature.** Without tool use, a model is a text generator. With tool use, it becomes an actor in the world. The agent's \"intelligence\" is not smarter weights \u2014 it is the ability to observe, act, and observe again. This is why researchers frame agency as OODA loops, not as model capability alone.\n\n**State persistence** is the second distinguishing feature. When you are on step 22 of a 30-step implementation, the agent's context window contains what it did at step 8, what error it got at step 11, and what workaround it applied at step 14. It is not starting fresh each turn. It is operating with accumulated situational awareness \u2014 which is also why context management (Module 4.3) is one of the hardest platform engineering problems.\n\n## How to Think About This\n\nThe agent loop is the same loop you run manually when using a chatbot \u2014 read, think, act, check results, repeat. The agent just runs it faster and without requiring you to perform the environment steps. The model capability is nearly identical; the architectural difference is who operates the loop. This is why agent quality depends on tool reliability and context design, not just model intelligence: you can have the world's best reasoner fail if its tools return garbage or its context fills with noise.\n\n**Why this matters for Make:**\n\nFigma Make's agent is not writing code in a vacuum. It is operating inside a live project: a real file system with a real dependency tree, a real build pipeline that either passes or fails, a real preview environment that either renders or breaks. Every action has side effects. Every tool call produces state that constrains the next decision. The agent must manage this complexity coherently across dozens of steps.\n\nA chatbot that generates code-as-text cannot do this. It does not know that the import it suggested in step 4 will cause a circular dependency it encounters at step 19. The agent \u2014 running in a real environment, observing real errors \u2014 can catch that. This is the capability gap that Make's Platform PM is responsible for.\n\n---"
     },
     {
       "type": "calibrationCheck",
       "question": "A user asks Claude Code to \"add a dark mode toggle to my app.\" The agent makes 12 tool calls before finishing. Which of these is NOT a typical agent tool call in that sequence?\nA. Read `tailwind.config.js` to understand the current theme configuration\nB. Write `src/components/ThemeToggle.tsx` with the new component\nC. Run `npm run build` to verify the build passes\nD. Call Claude's API to generate a better version of the component it just wrote",
-      "answer": "D.** The agent does not call itself recursively through the API — it *is* the model. Its \"self-improvement\" comes from reading the results of its own actions and adjusting, not from spawning sub-calls to the inference endpoint. (Multi-agent architectures do spawn sub-calls, but that is a separate pattern from within-session self-correction.)\n\n---"
+      "answer": "D.** The agent does not call itself recursively through the API \u2014 it *is* the model. Its \"self-improvement\" comes from reading the results of its own actions and adjusting, not from spawning sub-calls to the inference endpoint. (Multi-agent architectures do spawn sub-calls, but that is a separate pattern from within-session self-correction.)\n\n---"
     },
     {
       "type": "tryItYourself",
-      "title": "Open Claude Code in an existing project (or clone any open-source project). Ask it to add a single, small feature — a button, a form field, a new route. Watch the tool use panel. Count how many distinct tool calls it makes before it considers the task done. Note which tool it uses most frequently and which produces the most complex output. Write down what would have happened if any single tool call had failed silently.\n\n---",
-      "solution": "You should see a mix of read and write tool calls — typically file reads early (to understand existing structure), followed by file writes (to create or modify components), followed by shell commands (npm run build or similar). A small feature commonly triggers 5–15 tool calls. The most frequent tool is usually file read, and the most complex output is often a shell command that returns compiler output or test results. If any single tool call had failed silently — say, the file write returned success but wrote nothing — the agent would have proceeded assuming a valid state that did not exist. The build step several turns later would have failed with a confusing error pointing at an import of a file that appeared to be written but was actually empty. This is the core reason tool reliability (timeouts, structured errors, truncation signals) matters: silent failures produce confident agents building on broken foundations."
+      "title": "Open Claude Code in an existing project (or clone any open-source project). Ask it to add a single, small feature \u2014 a button, a form field, a new route. Watch the tool use panel. Count how many distinct tool calls it makes before it considers the task done. Note which tool it uses most frequently and which produces the most complex output. Write down what would have happened if any single tool call had failed silently.\n\n---",
+      "solution": "You should see a mix of read and write tool calls \u2014 typically file reads early (to understand existing structure), followed by file writes (to create or modify components), followed by shell commands (npm run build or similar). A small feature commonly triggers 5\u201315 tool calls. The most frequent tool is usually file read, and the most complex output is often a shell command that returns compiler output or test results. If any single tool call had failed silently \u2014 say, the file write returned success but wrote nothing \u2014 the agent would have proceeded assuming a valid state that did not exist. The build step several turns later would have failed with a confusing error pointing at an import of a file that appeared to be written but was actually empty. This is the core reason tool reliability (timeouts, structured errors, truncation signals) matters: silent failures produce confident agents building on broken foundations."
     },
     {
       "type": "explainBack",
@@ -43,55 +47,55 @@
     {
       "type": "reflectPrompt",
       "questions": [
-        "Think of a time you used an AI coding assistant and had to manually copy-paste code, run it yourself, and copy back errors. How many times did the loop repeat before you got a working result? Which steps in that cycle would you have most wanted the agent to own — and which would you have wanted to keep control of?",
-        "Recall a project where something broke at a late step because of a decision made early in the build. Which phase of the agent loop — Observe, Think, Act, or Evaluate — do you think would have caught it earliest? What does that tell you about where current coding agents are most brittle?\n\n---"
+        "Think of a time you used an AI coding assistant and had to manually copy-paste code, run it yourself, and copy back errors. How many times did the loop repeat before you got a working result? Which steps in that cycle would you have most wanted the agent to own \u2014 and which would you have wanted to keep control of?",
+        "Recall a project where something broke at a late step because of a decision made early in the build. Which phase of the agent loop \u2014 Observe, Think, Act, or Evaluate \u2014 do you think would have caught it earliest? What does that tell you about where current coding agents are most brittle?\n\n---"
       ]
     },
     {
       "type": "keyTakeaway",
-      "content": "A coding agent is not a smarter text generator — it is a model that owns the Observe-Think-Act-Evaluate loop, using tool calls to take real actions in a real environment and recover from real errors.\n\n---"
+      "content": "A coding agent is not a smarter text generator \u2014 it is a model that owns the Observe-Think-Act-Evaluate loop, using tool calls to take real actions in a real environment and recover from real errors.\n\n---"
     },
     {
       "type": "connectPrompt",
-      "prompt": "> The agent \"acts\" by making tool calls. But what is a tool call, exactly? How does the model tell the platform what to do — and how does the platform decide whether to allow it?\n\n---\n\n---"
+      "prompt": "> The agent \"acts\" by making tool calls. But what is a tool call, exactly? How does the model tell the platform what to do \u2014 and how does the platform decide whether to allow it?\n\n---\n\n---"
     }
   ],
   "reviewQuestions": [
     {
-      "question": "What is the defining architectural difference between Claude Code and a browser-based chatbot like ChatGPT?",
+      "question": "What are the four phases of the agent loop that distinguish a coding agent from a chatbot?",
       "options": [
-        "Claude Code owns the Observe-Think-Act-Evaluate loop — it reads files, executes tool calls, observes results, and takes the next action without the human performing each step",
-        "Claude Code uses a more powerful underlying model, which enables it to write longer and more accurate code in a single response",
-        "Claude Code has access to the internet in real time, while a browser chatbot only uses training data frozen at a cutoff date"
+        "Observe, Think, Act, Evaluate",
+        "Read, Generate, Test, Deploy",
+        "Plan, Write, Review, Ship"
       ],
       "correctIndex": 0,
-      "explanation": "The defining feature is the loop, not the model. A chatbot generates text that a human must then copy, paste, run, and report results from. An agent owns the full cycle: observing the environment, deciding what to do, executing tool calls, and evaluating the results — repeating without human involvement between steps.",
-      "encourageCorrect": "Exactly right — it's the loop that makes the difference, not the model size or internet access.",
-      "encourageIncorrect": "The distinction isn't about model power or internet access. Both tools may use the same underlying model. What makes Claude Code an agent is that it owns the full Observe-Think-Act-Evaluate loop — it reads the file, writes the code, runs the build, observes the error, and tries again, all without a human performing those steps."
+      "explanation": "The agent loop has four phases: Observe (read current state), Think (reason about what to do), Act (execute a tool call), and Evaluate (check the result and decide next steps). This loop repeats 15-40 times for a complex feature.",
+      "encourageCorrect": "Nice work! Those four phases are the core architecture that separates an agent from a code-writing assistant.",
+      "encourageIncorrect": "The four phases are Observe, Think, Act, and Evaluate. A chatbot generates text a human must then run and report back \u2014 the agent owns this entire cycle itself, looping through it 15-40 times for a complex task."
     },
     {
-      "question": "In the agent loop, the 'Evaluate' phase serves a specific function. Which of these best describes what happens during Evaluate?",
+      "question": "Which of the following correctly describes why tool use is the defining feature of a coding agent?",
       "options": [
-        "The agent generates a quality score for the code it just wrote, using a secondary model to assess correctness",
-        "The agent reads the tool result from its last action — the file it wrote, the test output, the compiler error — and decides whether to proceed, retry, or re-plan",
-        "The platform audits the agent's tool calls for security violations before allowing the session to continue"
+        "Tool use allows the agent to use a larger context window than a standard chatbot",
+        "Without tool use, a model is a text generator \u2014 with tool use, it becomes an actor that can observe, act, and observe again in a real environment",
+        "Tool use lets the agent access the internet in real time to look up documentation"
       ],
       "correctIndex": 1,
-      "explanation": "Evaluate is the self-correction mechanism: the agent reads what actually happened as a result of its last action and uses that to decide next steps. This is what enables recovery from mistakes — the agent observes the compiler error it caused and adjusts its plan, rather than blindly continuing.",
-      "encourageCorrect": "Correct — Evaluate is how the agent grounds its next decision in actual observed results rather than predictions about what should have happened.",
-      "encourageIncorrect": "There is no secondary scoring model and the platform's security audit (if any) is separate from the agent loop's Evaluate phase. Evaluate is simpler and more fundamental: the agent reads the result of its last tool call and uses it to decide what to do next. This is the self-correction mechanism."
+      "explanation": "The lesson states: 'Without tool use, a model is a text generator. With tool use, it becomes an actor in the world.' The agent's intelligence comes from the ability to execute actions and observe their real results \u2014 not from a larger model or internet access.",
+      "encourageCorrect": "You've got it! The transition from text generator to actor is exactly what tool use enables.",
+      "encourageIncorrect": "Context window size and internet access aren't the defining factor. The key is that tool use turns a text generator into an actor \u2014 the agent can write a file, run a build, observe the error, and adjust, all without a human performing those steps."
     },
     {
-      "question": "Why is state persistence across steps a critical distinguishing feature of a coding agent?",
+      "question": "In the agent loop, approximately how many tool calls does a coding agent typically make for a complex feature implementation?",
       "options": [
-        "State persistence allows the agent to bill usage by session rather than per-message, which is required for subscription pricing models",
-        "State persistence is what allows the agent to run multiple tasks in parallel, since each parallel task maintains its own isolated state",
-        "Without persistence across steps, the agent at step 22 would have no knowledge of decisions made at step 8, errors encountered at step 11, or workarounds applied at step 14 — making coherent multi-step execution impossible"
+        "1-3 tool calls",
+        "5-10 tool calls",
+        "15-40 tool calls"
       ],
       "correctIndex": 2,
-      "explanation": "The agent loop runs 15–40 cycles for a complex feature. Each cycle's observations — errors, file contents, build results — inform the next cycle. Without accumulated state, the agent would have no coherent understanding of what it has built so far, what constraints it has established, or what errors it has encountered. Parallelism and billing are separate concerns.",
-      "encourageCorrect": "Right — accumulated situational awareness across steps is what makes complex multi-step implementation coherent rather than a series of disconnected actions.",
-      "encourageIncorrect": "State persistence isn't about billing or parallelism. Its purpose is accumulated situational awareness: the agent at step 22 needs to know what it decided at step 8 and what it discovered at step 11 to make coherent decisions. Without that continuity, each step would be disconnected from the last."
+      "explanation": "The module states the agent loop runs '15-40 times' for a complex feature. Each cycle covers one observe-think-act-evaluate pass, and complex tasks like adding authentication require many such cycles.",
+      "encourageCorrect": "Exactly right \u2014 complex features require many cycles, which is why state persistence across those steps is so critical.",
+      "encourageIncorrect": "The module specifically says the loop runs 15-40 times for a complex feature. Each cycle is one observe-think-act-evaluate pass, and tasks like adding full authentication across many files require many such cycles."
     }
   ]
 }

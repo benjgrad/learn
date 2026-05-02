@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "3.2 Tenant Isolation at Scale",
-    "description": "Learn to defend multi-tenancy investment with concrete mechanisms — hard CPU limits, memory OOM kill, I/O throttling, and bin packing headroom — and explain why shared-process, container-per-tenant, and VM-per-tenant carry fundamentally different risk profiles at Make's scale.",
+    "description": "Learn to defend multi-tenancy investment with concrete mechanisms \u2014 hard CPU limits, memory OOM kill, I/O throttling, and bin packing headroom \u2014 and explain why shared-process, container-per-tenant, and VM-per-tenant carry fundamentally different risk profiles at Make's scale.",
     "level": "level-3",
     "slug": "tenant-isolation-at-scale",
     "order": 2,
@@ -15,7 +15,11 @@
     },
     {
       "type": "markdown",
-      "content": "Multi-tenancy is the central infrastructure problem for any platform product. It is also the area where Platform PMs most frequently have to defend engineering investment to skeptical stakeholders who see only the cost, not the invisible protection it provides.\n\n**Three isolation models**\n\n**Shared process (dangerous):** Multiple users' code runs in the same OS process. This is the cheapest model and the most dangerous. An infinite loop in User A's code spins the CPU and starves User B. A memory leak in User C's app causes the entire process to OOM-crash, taking every user down simultaneously. This model is acceptable only for throwaway demos, never for a production product.\n\n**Container-per-tenant (the standard):** Each user gets their own Docker container. Containers share the host OS kernel but have isolated process trees, filesystems, and network namespaces. Resource limits (CPU shares, memory ceiling) are enforced by the container runtime (Docker, containerd). User A's infinite loop spins inside A's container; the kernel scheduler enforces CPU limits so A cannot consume more than their allocation. Cost: containers have meaningful startup latency (1-3 seconds) and memory overhead per instance (tens to hundreds of MB).\n\n**VM-per-tenant (maximum isolation):** Each user gets a lightweight virtual machine (Firecracker microVMs are the modern standard — Amazon uses these for Lambda). VMs have their own kernel, providing stronger isolation guarantees. A kernel exploit in User A's container cannot escape into the host in a VM model. Cost: VMs have higher memory overhead and slower startup than containers, though Firecracker microVMs start in ~125ms.\n\n**The noisy neighbor problem**\n\nThe noisy neighbor problem occurs when one tenant consumes disproportionate shared resources — CPU, memory, network, disk I/O — and degrades the experience for others on the same host. Even with per-tenant resource limits, contention for shared hardware resources (CPU cache, memory bus bandwidth, disk controller throughput) can cause cross-tenant interference.\n\nMitigation strategies:\n\n- **Hard CPU limits**: Set CPU quota per container (e.g., 0.5 CPU cores maximum). The kernel's CFS bandwidth controller enforces this hard ceiling.\n- **Memory ceiling with OOM kill**: If a tenant exceeds their memory limit, the OOM killer terminates their process, not a shared process. Their session breaks; others are unaffected.\n- **I/O throttling**: Container runtimes can set disk I/O limits (bytes/second read and write) to prevent one tenant from saturating the disk.\n- **Network bandwidth cap**: Egress rate limiting prevents a tenant from consuming all available network bandwidth.\n- **Bin packing with headroom**: Never run hosts at 100% utilization. Maintain 20-30% headroom so burst traffic from one tenant doesn't immediately saturate the host.\n\n---"
+      "content": "## What You'll Learn\n\nBy the end of this module, you'll be able to explain the concrete failure modes each isolation model prevents, identify the one scenario where container isolation is insufficient and microVM isolation is warranted, and defend the infrastructure investment to a skeptical stakeholder with specific threat scenarios rather than abstract safety arguments."
+    },
+    {
+      "type": "markdown",
+      "content": "Tenant isolation is a spectrum \u2014 shared process, container, and microVM trade cost against isolation strength \u2014 and the Platform PM must set the isolation floor based on the actual threat model of user-generated, AI-written code, not theoretical worst cases. It is also the area where Platform PMs most frequently have to defend engineering investment to skeptical stakeholders who see only the cost, not the invisible protection it provides.\n\n**Three isolation models**\n\n**Shared process (dangerous):** Multiple users' code runs in the same OS process. This is the cheapest model and the most dangerous. An infinite loop in User A's code spins the CPU and starves User B. A memory leak in User C's app causes the entire process to OOM-crash, taking every user down simultaneously. This model is acceptable only for throwaway demos, never for a production product.\n\n**Container-per-tenant (the standard):** Each user gets their own Docker container. Containers share the host OS kernel but have isolated process trees, filesystems, and network namespaces. Resource limits (CPU shares, memory ceiling) are enforced by the container runtime (Docker, containerd). User A's infinite loop spins inside A's container; the kernel scheduler enforces CPU limits so A cannot consume more than their allocation. Cost: containers have meaningful startup latency (1-3 seconds) and memory overhead per instance (tens to hundreds of MB).\n\n**VM-per-tenant (maximum isolation):** Each user gets a lightweight virtual machine (Firecracker microVMs are the modern standard \u2014 Amazon uses these for Lambda). VMs have their own kernel, providing stronger isolation guarantees. A kernel exploit in User A's container cannot escape into the host in a VM model. Cost: VMs have higher memory overhead and slower startup than containers, though Firecracker microVMs start in ~125ms.\n\n**The noisy neighbor problem**\n\nThe noisy neighbor problem occurs when one tenant consumes disproportionate shared resources \u2014 CPU, memory, network, disk I/O \u2014 and degrades the experience for others on the same host. Even with per-tenant resource limits, contention for shared hardware resources (CPU cache, memory bus bandwidth, disk controller throughput) can cause cross-tenant interference.\n\nMitigation strategies:\n\n- **Hard CPU limits**: Set CPU quota per container (e.g., 0.5 CPU cores maximum). The kernel's CFS bandwidth controller enforces this hard ceiling.\n- **Memory ceiling with OOM kill**: If a tenant exceeds their memory limit, the OOM killer terminates their process, not a shared process. Their session breaks; others are unaffected.\n- **I/O throttling**: Container runtimes can set disk I/O limits (bytes/second read and write) to prevent one tenant from saturating the disk.\n- **Network bandwidth cap**: Egress rate limiting prevents a tenant from consuming all available network bandwidth.\n- **Bin packing with headroom**: Never run hosts at 100% utilization. Maintain 20-30% headroom so burst traffic from one tenant doesn't immediately saturate the host.\n\n---"
     },
     {
       "type": "calibrationCheck",
@@ -24,17 +28,21 @@
     },
     {
       "type": "markdown",
-      "content": "**Network isolation**\n\nBeyond resource isolation, tenants must not be able to communicate with each other over the network. This is enforced at the infrastructure level:\n\n- Each container/VM gets its own virtual network interface with a private IP\n- Network policies (via iptables, eBPF, or cloud-native equivalents) block inter-tenant traffic\n- Egress rules limit outbound calls — you may not want preview environments to make arbitrary external API calls (security, cost, abuse vector)\n\n**Filesystem isolation**\n\nEach tenant gets their own filesystem namespace. Bind mounts, overlay filesystems (how Docker implements copy-on-write layers), or virtual filesystems (like virtiofs for VMs) ensure that User A cannot read or write User B's files. This matters especially when base images are shared — the read-only base layer is shared (efficient), but each tenant's write layer is private.\n\n**The cost curve**\n\nIsolation strength and cost are in direct tension:\n\n| Model | Startup Latency | Memory Overhead | Isolation Level | Cost/Session |\n|---|---|---|---|---|\n| Shared process | 0ms | Near zero | Low | Lowest |\n| Container | 500ms-2s | 50-200MB | Medium | Moderate |\n| MicroVM | 100-500ms | 20-50MB (Firecracker) | High | Higher |\n\nThe Platform PM's job is to determine the minimum isolation level that meets product safety requirements and then optimize within that constraint. For Make — where users run untrusted, AI-generated code — container-level isolation is the floor, and microVM isolation is worth evaluating for the security guarantees it provides.\n\n---"
+      "content": "**Network isolation**\n\nBeyond resource isolation, tenants must not be able to communicate with each other over the network. This is enforced at the infrastructure level:\n\n- Each container/VM gets its own virtual network interface with a private IP\n- Network policies (via iptables, eBPF, or cloud-native equivalents) block inter-tenant traffic\n- Egress rules limit outbound calls \u2014 you may not want preview environments to make arbitrary external API calls (security, cost, abuse vector)\n\n**Filesystem isolation**\n\nEach tenant gets their own filesystem namespace. Bind mounts, overlay filesystems (how Docker implements copy-on-write layers), or virtual filesystems (like virtiofs for VMs) ensure that User A cannot read or write User B's files. This matters especially when base images are shared \u2014 the read-only base layer is shared (efficient), but each tenant's write layer is private.\n\n**The cost curve**\n\nIsolation strength and cost are in direct tension:\n\n| Model | Startup Latency | Memory Overhead | Isolation Level | Cost/Session |\n|---|---|---|---|---|\n| Shared process | 0ms | Near zero | Low | Lowest |\n| Container | 500ms-2s | 50-200MB | Medium | Moderate |\n| MicroVM | 100-500ms | 20-50MB (Firecracker) | High | Higher |\n\nThe Platform PM's job is to determine the minimum isolation level that meets product safety requirements and then optimize within that constraint. For Make \u2014 where users run untrusted, AI-generated code \u2014 container-level isolation is the floor, and microVM isolation is worth evaluating for the security guarantees it provides.\n\n---"
+    },
+    {
+      "type": "markdown",
+      "content": "## How to Think About This\n\nIsolation is invisible when it works and catastrophic when it doesn't. The mental model for Platform PMs: think in failure modes, not features. For each isolation level, ask: what is the worst thing a user's code can do, and does this model contain it? Shared process fails on infinite loops and memory leaks \u2014 both common in AI-generated code. Containers contain those failures but share the host kernel \u2014 a kernel exploit in one container can escape to the host. MicroVMs contain kernel exploits too. The question is which threat is real at your scale and user base."
     },
     {
       "type": "calibrationCheck",
       "question": "The cost table shows that Firecracker microVMs have lower memory overhead (20-50MB) than containers (50-200MB), yet the table lists microVM cost-per-session as 'Higher.' How is that possible?",
-      "answer": "Memory overhead is only one component of cost. MicroVM cost is higher because each VM requires its own kernel instance — the kernel itself has initialization overhead, additional processes, and management complexity that containers (which share the host kernel) don't have. The per-host count of microVMs is also lower than containers before the host is saturated, because the VM hypervisor layer consumes CPU cycles for virtualization. Lower memory per VM doesn't fully offset the higher per-VM compute and orchestration overhead. This is why microVMs are worth the cost only when the kernel-level isolation guarantee is specifically required — not as a default optimization."
+      "answer": "Memory overhead is only one component of cost. MicroVM cost is higher because each VM requires its own kernel instance \u2014 the kernel itself has initialization overhead, additional processes, and management complexity that containers (which share the host kernel) don't have. The per-host count of microVMs is also lower than containers before the host is saturated, because the VM hypervisor layer consumes CPU cycles for virtualization. Lower memory per VM doesn't fully offset the higher per-VM compute and orchestration overhead. This is why microVMs are worth the cost only when the kernel-level isolation guarantee is specifically required \u2014 not as a default optimization."
     },
     {
       "type": "tryItYourself",
       "title": "Look up Docker's documentation on `--memory`, `--cpus`, and `--blkio-weight` flags. Then find a real incident report from any multi-tenant platform (AWS Lambda, Render, Railway) where a noisy neighbor problem caused a production incident. What was the mitigation? What isolation improvement was made afterward?\n\n---",
-      "solution": "The Docker flags to find: `--memory` (e.g., `--memory=256m`) sets a hard memory ceiling; exceeding it triggers OOM kill of that container. `--cpus` (e.g., `--cpus=0.5`) limits how many CPU cores the container can use. `--blkio-weight` controls I/O priority relative to other containers on the same host (values 10–1000, default 500). For the incident report, Render and Railway have published post-mortems on their status pages — search for 'noisy neighbor incident' or 'resource contention' in their public postmortems. A common pattern: a tenant runs a CPU-intensive workload, the platform's CPU quotas were not enforced at the granularity needed, and neighboring tenants experienced degraded response times. The typical mitigation is tightening CPU quota enforcement (moving from soft limits to hard limits) and adding per-host utilization headroom policies. The key insight from real incidents: the failure often isn't that limits didn't exist — it's that limits were too coarse (per-node instead of per-container) or that a single resource (disk I/O) was unthrottled while CPU and memory were controlled."
+      "solution": "The Docker flags to find: `--memory` (e.g., `--memory=256m`) sets a hard memory ceiling; exceeding it triggers OOM kill of that container. `--cpus` (e.g., `--cpus=0.5`) limits how many CPU cores the container can use. `--blkio-weight` controls I/O priority relative to other containers on the same host (values 10\u20131000, default 500). For the incident report, Render and Railway have published post-mortems on their status pages \u2014 search for 'noisy neighbor incident' or 'resource contention' in their public postmortems. A common pattern: a tenant runs a CPU-intensive workload, the platform's CPU quotas were not enforced at the granularity needed, and neighboring tenants experienced degraded response times. The typical mitigation is tightening CPU quota enforcement (moving from soft limits to hard limits) and adding per-host utilization headroom policies. The key insight from real incidents: the failure often isn't that limits didn't exist \u2014 it's that limits were too coarse (per-node instead of per-container) or that a single resource (disk I/O) was unthrottled while CPU and memory were controlled."
     },
     {
       "type": "explainBack",
@@ -43,54 +51,54 @@
     {
       "type": "reflectPrompt",
       "questions": [
-        "How does the isolation architecture decision change when users on the free tier are more likely to be experimenting with untrusted or low-quality AI-generated code — and have you worked on a product where free-tier users created disproportionate infrastructure risk or cost? How did you address it?\n\n---"
+        "How does the isolation architecture decision change when users on the free tier are more likely to be experimenting with untrusted or low-quality AI-generated code \u2014 and have you worked on a product where free-tier users created disproportionate infrastructure risk or cost? How did you address it?\n\n---"
       ]
     },
     {
       "type": "keyTakeaway",
-      "content": "Tenant isolation is not a binary choice but a spectrum — shared process, container, and microVM trade off cost, startup latency, and isolation strength — and the Platform PM must set the isolation floor based on the actual attack surface of user-generated, AI-written code.\n\n---"
+      "content": "Tenant isolation is not a binary choice but a spectrum \u2014 shared process, container, and microVM trade off cost, startup latency, and isolation strength \u2014 and the Platform PM must set the isolation floor based on the actual attack surface of user-generated, AI-written code.\n\n---"
     },
     {
       "type": "connectPrompt",
-      "prompt": "You've isolated tenants so one user's runaway code can't hurt another. But the agent is editing files continuously, and users expect to see changes in under a second. How does the preview update without a full rebuild every time? That's hot reloading — next.\n\n---"
+      "prompt": "You've isolated tenants so one user's runaway code can't hurt another. But the agent is editing files continuously, and users expect to see changes in under a second. How does the preview update without a full rebuild every time? That's hot reloading \u2014 next.\n\n---"
     }
   ],
   "reviewQuestions": [
     {
-      "question": "In a shared-process isolation model, User A's infinite loop affects User B. Why does this not happen in a container-per-tenant model?",
+      "question": "In the shared-process isolation model, why does one user's infinite loop affect all other users on the same host?",
       "options": [
-        "Containers use a separate CPU core per tenant, so one tenant's code cannot compete with another's",
-        "Each container has its own isolated process tree, and the kernel's CFS bandwidth controller enforces hard CPU limits per container",
-        "Containers run in separate data centers so resource contention across tenants is physically impossible"
+        "All users' code runs in the same OS process, so there are no per-user CPU limits \u2014 one process can consume all available CPU cycles",
+        "The shared process uses a single CPU core, so all users compete for time on that single core",
+        "Infinite loops trigger a kernel panic that reboots the entire host"
       ],
-      "correctIndex": 1,
-      "explanation": "Containers share the host OS kernel but have isolated process trees. The kernel's CFS (Completely Fair Scheduler) bandwidth controller enforces hard CPU quotas per container, so an infinite loop in one container cannot consume more than its allocation — preventing it from starving other tenants.",
-      "encourageCorrect": "Correct — the kernel-enforced CPU quota is the mechanism that contains noisy neighbors within the container model.",
-      "encourageIncorrect": "Containers share a CPU and a kernel — isolation is enforced through software, not physical separation or dedicated cores. The CFS bandwidth controller applies a hard ceiling on each container's CPU usage, which is what prevents User A's infinite loop from starving User B."
+      "correctIndex": 0,
+      "explanation": "In a shared-process model, multiple users' code runs in the same process with no per-user enforcement. An infinite loop spins the CPU without restriction, starving all co-located users. Container-per-tenant isolation prevents this with kernel-enforced CPU quotas per container.",
+      "encourageCorrect": "Correct! No per-user CPU limits in the shared-process model is what makes noisy neighbor failures so severe.",
+      "encourageIncorrect": "The problem isn't a single core or a kernel panic \u2014 it's the absence of per-user limits. In a shared process, all users' code runs together with no enforcement boundary, so one user's infinite loop can consume as much CPU as the host has available."
     },
     {
-      "question": "A senior engineer argues that container isolation is sufficient for Make and microVMs are over-engineering. What is the one scenario where microVM isolation is genuinely warranted?",
+      "question": "According to the cost table in the module, approximately how long does a Firecracker microVM take to start?",
       "options": [
-        "When users run very large apps that need more than 512MB of RAM — microVMs support higher memory ceilings",
-        "When the platform needs faster cold-start times — Firecracker microVMs start in 125ms, faster than containers",
-        "When the threat model includes kernel exploits — a container escape can access the host, but a microVM has its own kernel, preventing that class of attack"
+        "Approximately 125 milliseconds",
+        "Approximately 1\u20133 seconds, the same as a standard container",
+        "Approximately 10 seconds, due to the overhead of booting a full kernel"
       ],
-      "correctIndex": 2,
-      "explanation": "Containers share the host OS kernel, which means a kernel-level exploit in one container could potentially escape to the host and access other tenants. MicroVMs like Firecracker give each tenant its own kernel, preventing kernel exploits from crossing tenant boundaries. For a platform running arbitrary AI-generated code, this is the decisive consideration.",
-      "encourageCorrect": "Exactly — kernel exploit containment is the specific scenario where the microVM's separate kernel provides a security guarantee that containers cannot match.",
-      "encourageIncorrect": "Memory ceilings and startup times aren't the reason to choose microVMs. The decisive scenario is kernel exploits: containers share the host OS kernel, so a sophisticated exploit could escape to the host. A microVM's separate kernel prevents that class of attack entirely."
+      "correctIndex": 0,
+      "explanation": "The module states that Firecracker microVMs start in approximately 125ms \u2014 significantly faster than the 500ms\u20132s listed for standard containers, despite providing stronger kernel-level isolation.",
+      "encourageCorrect": "Nice! 125ms is the specific Firecracker startup figure from the module \u2014 faster than containers despite having a separate kernel.",
+      "encourageIncorrect": "Firecracker microVMs start in approximately 125ms, which is actually faster than standard containers (500ms\u20132s) according to the module's cost table. The overhead of a separate kernel is much smaller than you might expect with modern microVM design."
     },
     {
-      "question": "Which strategy correctly mitigates the noisy neighbor problem without requiring VM-per-tenant isolation?",
+      "question": "Which combination of controls correctly mitigates the noisy neighbor problem within a container-per-tenant model?",
       "options": [
-        "Running hosts at 100% utilization to maximize density, paired with memory limits per container",
-        "Enforcing hard CPU limits, memory ceilings with OOM-kill per tenant, I/O throttling, and maintaining 20–30% host headroom",
-        "Assigning each tenant to a dedicated host so cross-tenant resource contention is eliminated"
+        "Hard CPU limits, memory ceilings with OOM-kill per tenant, I/O throttling, and maintaining 20\u201330% host headroom",
+        "Running hosts at 100% utilization to maximize density, paired with network bandwidth caps",
+        "Assigning each tenant to a dedicated host and disabling resource limits to reduce overhead"
       ],
-      "correctIndex": 1,
-      "explanation": "The noisy neighbor problem is mitigated through a combination of controls applied within shared infrastructure: hard CPU quotas (CFS), per-container memory limits with OOM-kill targeting only the offending tenant, I/O rate limits, and never running hosts at full utilization. Dedicated hosts per tenant would eliminate the problem but at prohibitive cost.",
-      "encourageCorrect": "Right — layered resource controls plus headroom is the correct approach to noisy neighbor mitigation within shared infrastructure.",
-      "encourageIncorrect": "Running hosts at 100% utilization makes the noisy neighbor problem worse, not better — burst from one tenant immediately saturates the host. Dedicated hosts solve the problem but are prohibitively expensive. The correct answer is layered controls (CPU, memory, I/O) plus maintained headroom."
+      "correctIndex": 0,
+      "explanation": "Noisy neighbor mitigation requires layered controls: hard CPU quotas (CFS), per-container memory limits with OOM-kill targeting only the offending tenant, I/O rate limits, and never running hosts at full utilization. Running at 100% eliminates the headroom needed to absorb bursts.",
+      "encourageCorrect": "Well done! Layered controls plus maintained headroom is the complete answer \u2014 each control addresses a different resource dimension.",
+      "encourageIncorrect": "Running hosts at 100% makes the noisy neighbor problem worse by eliminating burst headroom. Dedicated hosts per tenant solve the problem but at prohibitive cost. The correct approach is layered controls \u2014 CPU, memory, I/O \u2014 plus keeping 20\u201330% headroom so one tenant's burst doesn't immediately saturate the host."
     }
   ]
 }

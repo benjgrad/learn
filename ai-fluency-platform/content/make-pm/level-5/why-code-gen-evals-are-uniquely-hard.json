@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "5.1 Why Code-Gen Evals Are Uniquely Hard",
-    "description": "Understand why AI code generation cannot use traditional assertions — non-determinism requires semantic evaluation — and map the eight-level correctness spectrum from syntax parsing to aesthetic judgment that defines the full eval infrastructure Make must build.",
+    "description": "Understand why AI code generation cannot use traditional assertions \u2014 non-determinism requires semantic evaluation \u2014 and map the eight-level correctness spectrum from syntax parsing to aesthetic judgment that defines the full eval infrastructure Make must build.",
     "level": "level-5",
     "slug": "why-code-gen-evals-are-uniquely-hard",
     "order": 1,
@@ -11,20 +11,24 @@
   "blocks": [
     {
       "type": "predictPrompt",
-      "prompt": "In traditional software, you test with unit tests: expected input → expected output. How do you test AI-generated code when every prompt could produce different but equally valid code?\n\n---"
+      "prompt": "In traditional software, you test with unit tests: expected input \u2192 expected output. How do you test AI-generated code when every prompt could produce different but equally valid code?\n\n---"
     },
     {
       "type": "markdown",
-      "content": "Evaluation is the discipline that separates AI products that improve reliably from those that drift unpredictably. For a Platform PM owning Make, understanding why code-gen evals are structurally different from traditional software testing is not an academic exercise — it determines the entire quality infrastructure investment.\n\n**The determinism problem**\n\nTraditional software testing works because software is deterministic. Given input X, the function produces output Y, always. A unit test verifies that relationship. If the test passes, the function is correct.\n\nAI code generation is non-deterministic. Given the prompt \"write a function that adds two numbers,\" a capable model might produce:\n\n```javascript\nfunction add(a, b) { return a + b; }\n```\n\nOr:\n\n```javascript\nconst add = (a, b) => a + b;\n```\n\nOr:\n\n```javascript\nfunction add(num1, num2) {\n  return num1 + num2;\n}\n```\n\nAll three are correct. None of them match each other as strings. Standard test infrastructure — which checks expected output against actual output — immediately fails. You cannot write `assert(output === 'function add(a, b) { return a + b; }')`.\n\nThis means every dimension of evaluation must be semantic (does it mean the right thing?) rather than syntactic (does it look the same?). Semantic evaluation is fundamentally harder and more expensive.\n\n**Levels of \"correct\"**\n\nCode-gen evaluation is not a single binary judgment. There is a spectrum of correctness, and different levels of the spectrum require different evaluation techniques:\n\n1. **Syntactically valid**: Can a parser read the code without errors? (Cheap — AST parsing)\n2. **Compiles**: Does the TypeScript compiler or bundler accept the code? (Moderate — requires build tooling)\n3. **Runs**: Does the app start without crashing? (Moderate — requires a runtime environment)\n4. **Renders**: Does the UI appear in a browser without a blank screen? (Moderate — requires headless browser)\n5. **Functionally correct**: Does the app do what the prompt asked? (Hard — requires task-specific checks)\n6. **Edge case correct**: Does it handle unexpected inputs gracefully? (Hard — requires adversarial testing)\n7. **Best practices compliant**: Is the code well-structured, accessible, and secure? (Hard — requires static analysis + LLM judgment)\n8. **Aesthetically appropriate**: Does the UI look good? (Hard — requires visual evaluation or human judgment)\n\nMost automated eval systems only reliably cover levels 1-4. Levels 5-8 require the more sophisticated techniques covered in subsequent modules.\n\n---"
+      "content": "## What You'll Learn\n\nThis module explains why standard testing infrastructure fails for AI code generation and introduces the eight-level correctness spectrum that defines what Make's eval system must cover. By the end, you'll be able to explain why HumanEval is irrelevant to Make's quality goals and articulate what each level of the spectrum requires to evaluate reliably."
+    },
+    {
+      "type": "markdown",
+      "content": "Code-gen evaluation requires semantic judgment across eight correctness levels \u2014 not deterministic assertion \u2014 and building an eval system without understanding that spectrum leads to infrastructure that misses the failures that actually damage user trust.\n\n**The determinism problem**\n\nTraditional software testing works because software is deterministic. Given input X, the function produces output Y, always. A unit test verifies that relationship. If the test passes, the function is correct.\n\nAI code generation is non-deterministic. Given the prompt \"write a function that adds two numbers,\" a capable model might produce:\n\n```javascript\nfunction add(a, b) { return a + b; }\n```\n\nOr:\n\n```javascript\nconst add = (a, b) => a + b;\n```\n\nOr:\n\n```javascript\nfunction add(num1, num2) {\n  return num1 + num2;\n}\n```\n\nAll three are correct. None of them match each other as strings. Standard test infrastructure \u2014 which checks expected output against actual output \u2014 immediately fails. You cannot write `assert(output === 'function add(a, b) { return a + b; }')`.\n\nThis means every dimension of evaluation must be semantic (does it mean the right thing?) rather than syntactic (does it look the same?). Semantic evaluation is fundamentally harder and more expensive.\n\n**Levels of \"correct\"**\n\nCode-gen evaluation is not a single binary judgment. There is a spectrum of correctness, and different levels of the spectrum require different evaluation techniques:\n\n1. **Syntactically valid**: Can a parser read the code without errors? (Cheap \u2014 AST parsing)\n2. **Compiles**: Does the TypeScript compiler or bundler accept the code? (Moderate \u2014 requires build tooling)\n3. **Runs**: Does the app start without crashing? (Moderate \u2014 requires a runtime environment)\n4. **Renders**: Does the UI appear in a browser without a blank screen? (Moderate \u2014 requires headless browser)\n5. **Functionally correct**: Does the app do what the prompt asked? (Hard \u2014 requires task-specific checks)\n6. **Edge case correct**: Does it handle unexpected inputs gracefully? (Hard \u2014 requires adversarial testing)\n7. **Best practices compliant**: Is the code well-structured, accessible, and secure? (Hard \u2014 requires static analysis + LLM judgment)\n8. **Aesthetically appropriate**: Does the UI look good? (Hard \u2014 requires visual evaluation or human judgment)\n\nMost automated eval systems only reliably cover levels 1-4. Levels 5-8 require the more sophisticated techniques covered in subsequent modules.\n\n## How to Think About This\n\nThe correctness spectrum is not a checklist \u2014 it's an investment map. Each level up is geometrically more expensive to evaluate because it requires a richer runtime environment and more judgment. This is why eval systems stop at level 3: not because levels 4-8 don't matter, but because infrastructure cost compounds at each step. The Platform PM's job is to push coverage as high as the product risk warrants \u2014 and justify the investment with the failure modes that lower levels structurally cannot catch.\n\n---"
     },
     {
       "type": "calibrationCheck",
       "question": "A junior PM argues: \"If the app builds and runs without errors, that's good enough for an eval pass.\" Which correctness levels does this miss, and why does missing them matter for a product like Make?",
-      "answer": "Building and running without errors only covers levels 1-3 of the correctness spectrum. It misses functional correctness (does the app do what the prompt asked?), edge case handling, best practices compliance, and aesthetic quality. For Make, this gap is significant: an app can start successfully but render a completely blank UI, fail when the user types into a form, or generate code with security vulnerabilities — none of which trigger a build error. Evals that stop at level 3 will miss the failures that most damage user trust."
+      "answer": "Building and running without errors only covers levels 1-3 of the correctness spectrum. It misses functional correctness (does the app do what the prompt asked?), edge case handling, best practices compliance, and aesthetic quality. For Make, this gap is significant: an app can start successfully but render a completely blank UI, fail when the user types into a form, or generate code with security vulnerabilities \u2014 none of which trigger a build error. Evals that stop at level 3 will miss the failures that most damage user trust."
     },
     {
       "type": "markdown",
-      "content": "**Why benchmarks lie**\n\nHumanEval (the standard code-gen benchmark) tests models on completing short, self-contained functions given a docstring. \"Given an array, return the sum of its elements.\" This is useful for measuring a model's basic coding ability, but it is essentially uncorrelated with performance on real code-gen tasks.\n\nMake's actual task is: given a natural language prompt describing an app or feature, generate a working multi-file codebase using a specific framework (React), specific tooling (Vite), and specific integrations (Supabase) that renders correctly in a browser and satisfies the user's intent.\n\nHumanEval does not test multi-file generation, UI rendering, framework-specific patterns, or user intent alignment. A model that scores 90% on HumanEval could still generate broken Make apps 30% of the time. The Platform PM must resist the temptation to use public benchmarks as proxies for product quality and invest in task-specific evals.\n\n**What Make's eval system must actually test**\n\nA Make eval must test the full pipeline: the agent receives a prompt, plans an approach, generates multiple files, the build tooling compiles the output, the preview environment runs it, and a browser renders the result. An eval that tests only the generated code — without running the full pipeline — will miss failures that occur at the build, runtime, or rendering stages.\n\nThis creates a tight coupling between the eval infrastructure and the production infrastructure: running evals requires real preview environments, real build tooling, and a real browser. Evals are expensive to run because they mirror real usage.\n\n**The eval taxonomy for Make**\n\n| Dimension | What It Tests | Evaluation Method |\n|---|---|---|\n| Functional correctness | Does the app do what was asked? | Automated UI tests |\n| Visual fidelity | Does it match the Figma design? | Screenshot comparison |\n| Code quality | Is the code well-structured? | Static analysis + LLM judge |\n| Performance | Is the app fast? | Lighthouse scores |\n| Accessibility | Is it keyboard navigable? | axe-core automated checks |\n| Security | Are there obvious vulnerabilities? | Static security analysis |\n\n---"
+      "content": "**Why benchmarks lie**\n\nHumanEval (the standard code-gen benchmark) tests models on completing short, self-contained functions given a docstring. \"Given an array, return the sum of its elements.\" This is useful for measuring a model's basic coding ability, but it is essentially uncorrelated with performance on real code-gen tasks.\n\nMake's actual task is: given a natural language prompt describing an app or feature, generate a working multi-file codebase using a specific framework (React), specific tooling (Vite), and specific integrations (Supabase) that renders correctly in a browser and satisfies the user's intent.\n\nHumanEval does not test multi-file generation, UI rendering, framework-specific patterns, or user intent alignment. A model that scores 90% on HumanEval could still generate broken Make apps 30% of the time. The Platform PM must resist the temptation to use public benchmarks as proxies for product quality and invest in task-specific evals.\n\n**What Make's eval system must actually test**\n\nA Make eval must test the full pipeline: the agent receives a prompt, plans an approach, generates multiple files, the build tooling compiles the output, the preview environment runs it, and a browser renders the result. An eval that tests only the generated code \u2014 without running the full pipeline \u2014 will miss failures that occur at the build, runtime, or rendering stages.\n\nThis creates a tight coupling between the eval infrastructure and the production infrastructure: running evals requires real preview environments, real build tooling, and a real browser. Evals are expensive to run because they mirror real usage.\n\n**The eval taxonomy for Make**\n\n| Dimension | What It Tests | Evaluation Method |\n|---|---|---|\n| Functional correctness | Does the app do what was asked? | Automated UI tests |\n| Visual fidelity | Does it match the Figma design? | Screenshot comparison |\n| Code quality | Is the code well-structured? | Static analysis + LLM judge |\n| Performance | Is the app fast? | Lighthouse scores |\n| Accessibility | Is it keyboard navigable? | axe-core automated checks |\n| Security | Are there obvious vulnerabilities? | Static security analysis |\n\n---"
     },
     {
       "type": "calibrationCheck",
@@ -34,64 +38,64 @@
     {
       "type": "tryItYourself",
       "title": "Look up the HumanEval benchmark paper and its evaluation methodology. Then look up SWE-bench, which tests agents on real GitHub issues. Compare what each benchmark actually measures. Which is more relevant to Make's use case, and what dimensions does neither benchmark cover?\n\n---",
-      "solution": "You should find that HumanEval tests single-function completion from docstrings — the benchmark was designed to measure basic coding ability, not application generation. SWE-bench tests agents on real GitHub issues, which is closer to Make's use case because it involves multi-step reasoning and real codebases. However, SWE-bench still doesn't cover UI rendering, Figma-to-code fidelity, or integration-specific patterns (Supabase, Vite configuration). Neither benchmark covers: multi-file coordinated generation, framework-specific best practices, visual design compliance, or real browser rendering. If you found SWE-bench more relevant, you're right — but note that even SWE-bench performance may not predict Make's specific failure modes around UI and design system compliance. If your comparison missed these dimensions, revisit the eval taxonomy table in the module."
+      "solution": "You should find that HumanEval tests single-function completion from docstrings \u2014 the benchmark was designed to measure basic coding ability, not application generation. SWE-bench tests agents on real GitHub issues, which is closer to Make's use case because it involves multi-step reasoning and real codebases. However, SWE-bench still doesn't cover UI rendering, Figma-to-code fidelity, or integration-specific patterns (Supabase, Vite configuration). Neither benchmark covers: multi-file coordinated generation, framework-specific best practices, visual design compliance, or real browser rendering. If you found SWE-bench more relevant, you're right \u2014 but note that even SWE-bench performance may not predict Make's specific failure modes around UI and design system compliance. If your comparison missed these dimensions, revisit the eval taxonomy table in the module."
     },
     {
       "type": "explainBack",
-      "prompt": "The agent team lead says: \"We'll know if quality gets worse — we'll see it in support tickets.\" Explain why support tickets are an insufficient quality signal for an AI code generation product, and what you need instead.\n\n---"
+      "prompt": "The agent team lead says: \"We'll know if quality gets worse \u2014 we'll see it in support tickets.\" Explain why support tickets are an insufficient quality signal for an AI code generation product, and what you need instead.\n\n---"
     },
     {
       "type": "reflectPrompt",
       "questions": [
-        "Think about a product you've worked on where quality degraded gradually rather than failing catastrophically. How long did it take before it showed up in support tickets or metrics — and what did you wish you'd been measuring earlier?",
+        "Think about a product you've worked on where quality degraded gradually rather than failing catastrophically. How long did it take before it showed up in support tickets or metrics \u2014 and what did you wish you'd been measuring earlier?",
         "Recall a time you were asked to ship a feature without adequate testing infrastructure in place. What was the implicit argument being made about cost vs. risk, and how would you make that case differently today given what you know about eval gaps?\n\n---"
       ]
     },
     {
       "type": "keyTakeaway",
-      "content": "Code-gen evaluation is structurally harder than traditional software testing because the same prompt can produce multiple valid outputs, requiring semantic evaluation across a spectrum of correctness dimensions — from syntax validity through functional correctness to aesthetic quality — each requiring different techniques.\n\n---"
+      "content": "Code-gen evaluation is structurally harder than traditional software testing because the same prompt can produce multiple valid outputs, requiring semantic evaluation across a spectrum of correctness dimensions \u2014 from syntax validity through functional correctness to aesthetic quality \u2014 each requiring different techniques.\n\n---"
     },
     {
       "type": "connectPrompt",
-      "prompt": "You know what you need to evaluate. But how do you actually determine, at scale, whether generated code \"works\"? The answer is running it — and that requires real environments, real build tooling, and real browsers. That's execution-based evaluation, next.\n\n---"
+      "prompt": "You know what you need to evaluate. But how do you actually determine, at scale, whether generated code \"works\"? The answer is running it \u2014 and that requires real environments, real build tooling, and real browsers. That's execution-based evaluation, next.\n\n---"
     }
   ],
   "reviewQuestions": [
     {
-      "question": "A new agent version scores 18% higher on HumanEval. Why is this insufficient evidence to conclude Make's app quality improved?",
+      "question": "Why does non-determinism make traditional test assertions fail for AI code generation?",
       "options": [
-        "HumanEval tests single-function completion on self-contained problems, not multi-file generation, UI rendering, or framework-specific patterns like React and Supabase integration",
-        "HumanEval only tests Python, but Make generates JavaScript",
-        "HumanEval scores above 85% are considered saturated and no longer differentiate models"
-      ],
-      "correctIndex": 0,
-      "explanation": "HumanEval measures a model's ability to complete short, isolated functions given a docstring. Make's actual task involves generating multi-file codebases, rendering correctly in a browser, following React and Vite conventions, and integrating with Supabase — none of which HumanEval covers. A score improvement on HumanEval says nothing about whether generated apps will work better in Make's environment.",
-      "encourageCorrect": "Exactly — public benchmarks measure what they were designed to measure, and HumanEval was designed for something much narrower than Make's use case.",
-      "encourageIncorrect": "The language difference is a secondary issue — HumanEval does include JavaScript tasks. The core problem is structural: HumanEval tests self-contained algorithm problems, while Make's eval must cover the full pipeline from prompt to rendered, multi-file app in a real browser."
-    },
-    {
-      "question": "Which level of the code-gen correctness spectrum is the most expensive to evaluate and cannot be reliably covered by automated AST parsing alone?",
-      "options": [
-        "Syntactically valid — because every output must be parsed before any other check",
-        "Functionally correct — because verifying the app does what the prompt asked requires task-specific automated tests against a running app",
-        "Compiles — because the TypeScript compiler must be invoked for each generated file"
+        "AI models are too slow to run in a standard CI pipeline, making assertion timing unreliable",
+        "The same prompt can produce multiple syntactically different but equally correct outputs, so string-matching assertions like 'assert output equals expected' always fail even when the code is correct",
+        "Non-determinism means the model occasionally produces no output at all, causing assertion errors"
       ],
       "correctIndex": 1,
-      "explanation": "Syntactic validity (level 1) is cheap — AST parsers run in milliseconds. Compilation (level 2) is moderate. Functional correctness (level 5) is hard because it requires task-specific Playwright tests running against a live preview environment to verify the app actually behaves as the prompt described. This cannot be inferred from static analysis.",
-      "encourageCorrect": "Right — functional correctness is the hardest and most expensive dimension because it requires running the full app and validating behavior against the original intent.",
-      "encourageIncorrect": "AST parsing (syntactic validity) is actually the cheapest check — it takes milliseconds and needs no build tooling. The most expensive dimension is functional correctness, which requires running the full app in a preview environment and executing task-specific behavioral tests."
+      "explanation": "The module shows three equally valid implementations of 'add two numbers' \u2014 all correct, none matching each other as strings. Standard test infrastructure that checks expected output against actual output immediately fails because there is no single correct string to compare against. Every evaluation dimension must be semantic (does it mean the right thing?) rather than syntactic.",
+      "encourageCorrect": "That's the core challenge \u2014 multiple valid outputs mean string-matching assertions are useless. Semantic evaluation is required.",
+      "encourageIncorrect": "The problem isn't timing or empty outputs. It's that 'function add(a,b){return a+b}' and 'const add=(a,b)=>a+b' are both correct answers to the same prompt but don't match each other as strings. You can't assert equality when there are multiple valid solutions."
     },
     {
-      "question": "Why must Make's eval system run the full pipeline — including build tooling, preview environments, and a real browser — rather than just inspecting the generated code statically?",
+      "question": "At which level of the eight-level correctness spectrum does 'functionally correct' appear?",
       "options": [
-        "Static analysis tools are too slow for an eval suite of 500 prompts",
-        "Real browsers are required because code style checkers cannot evaluate React JSX syntax",
-        "Generated code that looks syntactically valid can still fail at the build, runtime, or rendering stage, and those failures are invisible without actually running the pipeline"
+        "Level 2",
+        "Level 5",
+        "Level 8"
       ],
-      "correctIndex": 2,
-      "explanation": "The module makes clear that evals must mirror the production pipeline because failures occur at multiple stages — a file can parse without errors, compile cleanly, but still produce a blank white screen in the browser due to runtime errors, incorrect routing, or missing assets. Static analysis catches only a subset of failure categories. This also creates tight coupling between eval and production infrastructure.",
-      "encourageCorrect": "Correct — static analysis leaves entire classes of failures undetected. The eval must run the same pipeline production does, or it will miss real failures.",
-      "encourageIncorrect": "Speed is a consideration for eval design, but not why static analysis is insufficient. The core issue is that valid-looking code can fail at runtime or rendering in ways that no static inspector can detect — you have to actually run it."
+      "correctIndex": 1,
+      "explanation": "The module lists the spectrum as: (1) syntactically valid, (2) compiles, (3) runs, (4) renders, (5) functionally correct, (6) edge case correct, (7) best practices compliant, (8) aesthetically appropriate. Functional correctness \u2014 does the app do what the prompt asked \u2014 is level 5.",
+      "encourageCorrect": "Right \u2014 functional correctness is level 5, sitting above the basic build-and-run levels and below edge case and quality levels.",
+      "encourageIncorrect": "The spectrum runs from syntactically valid (level 1) through compiles, runs, and renders (levels 2\u20134) before reaching functionally correct at level 5. Level 8 is aesthetic appropriateness \u2014 the hardest and most subjective dimension."
+    },
+    {
+      "question": "What does the module say about HumanEval as a proxy for Make's code generation quality?",
+      "options": [
+        "HumanEval is a reliable proxy because it measures the same algorithmic reasoning skills the agent uses to generate React apps",
+        "HumanEval is irrelevant to Make's quality goals because it tests single-function completion on self-contained problems, not multi-file generation, UI rendering, or framework-specific patterns",
+        "HumanEval scores above 85% indicate the model is saturated and no further quality improvement is possible"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module is explicit: HumanEval tests models on completing short, self-contained functions from a docstring. It does not test multi-file generation, React/Vite conventions, UI rendering, or Supabase integration. A model scoring 90% on HumanEval could still generate broken Make apps 30% of the time. The Platform PM must invest in task-specific evals.",
+      "encourageCorrect": "Exactly \u2014 HumanEval measures narrow algorithmic skill, not the full pipeline that Make's quality depends on.",
+      "encourageIncorrect": "HumanEval and Make's quality goals are essentially unrelated. HumanEval tests isolated algorithm problems; Make requires multi-file codebase generation that renders correctly in a browser with specific framework integrations. A high HumanEval score says nothing about Make app quality."
     }
   ]
 }

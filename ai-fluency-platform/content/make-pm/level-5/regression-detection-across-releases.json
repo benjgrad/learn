@@ -15,7 +15,11 @@
     },
     {
       "type": "markdown",
-      "content": "Regression detection across releases is the discipline of ensuring that improvements in one area of a system do not silently degrade other areas. For an AI code generation platform, this is particularly challenging because the model is a black box \u2014 you cannot inspect its internals to understand why a change in one capability affected another.\n\n**The eval suite as a safety net**\n\nThe eval suite is only useful for regression detection if it is run consistently, covers all relevant dimensions, and has a principled pass/fail policy. A one-time eval run before a major release is not a safety net \u2014 it is a spot check.\n\nA true safety net requires:\n\n1. The full eval suite runs before every agent update that ships to users (not just major releases)\n2. Results are automatically compared against the previous agent version\n3. Any category that regresses beyond a defined threshold blocks the release\n4. Results are stored historically so trends are visible over time\n\n**Stratified eval sets**\n\nA monolithic eval suite that scores \"91% overall\" hides category-level regressions. If React evals are 98% passing and Vue evals are 60% passing, the overall number looks acceptable while Vue users experience systematic failures.\n\nStratification means organizing eval prompts into distinct categories and reporting scores independently for each:\n\n- **By framework**: React, Vue, Svelte, plain HTML/CSS\n- **By task type**: Create new app, add a feature, fix a bug, modify styling\n- **By complexity**: Simple (single component), medium (multi-page app), complex (full-stack with auth and database)\n- **By integration**: Supabase, third-party APIs, custom backends\n\nEach cell in this matrix gets its own pass rate. Regression detection operates at the cell level: if React \u00d7 new-feature \u00d7 medium complexity regresses from 90% to 75%, the eval system catches it even if overall React scores improved.\n\n**Go/no-go gates**\n\nDefine explicit release criteria before any regression analysis:\n\n- **Absolute minimum**: No cell can fall below 70% pass rate (if any cell is below 70%, the release is blocked regardless of direction of change)\n- **Regression threshold**: No cell can regress by more than 3% from the previous version\n- **Overall improvement**: The overall pass rate must be stable or improving (no net regression)\n\nThese thresholds should be set conservatively and adjusted over time based on operational experience. The cost of a false positive (blocking a release that was actually fine) is much lower than the cost of a false negative (shipping a regression that affects users).\n\n---"
+      "content": "## What You'll Learn\n\nThis module teaches you to design stratified eval sets that surface category-level regressions that overall pass rates hide, and to set explicit go/no-go thresholds at the cell level. By the end, you'll be able to explain why an improving aggregate score can still be a release-blocking result \u2014 and specify the canary and A/B testing patterns that catch what offline evals miss."
+    },
+    {
+      "type": "markdown",
+      "content": "An overall pass rate improvement can mask a release-blocking regression \u2014 which is why stratified eval sets, reporting independently per framework, task type, and complexity, are the only defense against improvements in one area quietly destroying another. For an AI code generation platform, this is particularly challenging because the model is a black box \u2014 you cannot inspect its internals to understand why a change in one capability affected another.\n\n**The eval suite as a safety net**\n\nThe eval suite is only useful for regression detection if it is run consistently, covers all relevant dimensions, and has a principled pass/fail policy. A one-time eval run before a major release is not a safety net \u2014 it is a spot check.\n\nA true safety net requires:\n\n1. The full eval suite runs before every agent update that ships to users (not just major releases)\n2. Results are automatically compared against the previous agent version\n3. Any category that regresses beyond a defined threshold blocks the release\n4. Results are stored historically so trends are visible over time\n\n**Stratified eval sets**\n\nA monolithic eval suite that scores \"91% overall\" hides category-level regressions. If React evals are 98% passing and Vue evals are 60% passing, the overall number looks acceptable while Vue users experience systematic failures.\n\nStratification means organizing eval prompts into distinct categories and reporting scores independently for each:\n\n- **By framework**: React, Vue, Svelte, plain HTML/CSS\n- **By task type**: Create new app, add a feature, fix a bug, modify styling\n- **By complexity**: Simple (single component), medium (multi-page app), complex (full-stack with auth and database)\n- **By integration**: Supabase, third-party APIs, custom backends\n\nEach cell in this matrix gets its own pass rate. Regression detection operates at the cell level: if React \u00d7 new-feature \u00d7 medium complexity regresses from 90% to 75%, the eval system catches it even if overall React scores improved.\n\n**Go/no-go gates**\n\nDefine explicit release criteria before any regression analysis:\n\n- **Absolute minimum**: No cell can fall below 70% pass rate (if any cell is below 70%, the release is blocked regardless of direction of change)\n- **Regression threshold**: No cell can regress by more than 3% from the previous version\n- **Overall improvement**: The overall pass rate must be stable or improving (no net regression)\n\nThese thresholds should be set conservatively and adjusted over time based on operational experience. The cost of a false positive (blocking a release that was actually fine) is much lower than the cost of a false negative (shipping a regression that affects users).\n\n## How to Think About This\n\nThe reason to stratify is not bureaucratic thoroughness \u2014 it's because the model's capability space is not uniform. An agent change that improves React generation may do so by deprioritizing patterns the Vue code path depends on. You cannot reason about this analytically; you can only observe it empirically. Stratified thresholds at the cell level make the observation automatic: the aggregate can improve while a specific cell falls through the floor, and the gate catches it before any user sees it.\n\n---"
     },
     {
       "type": "calibrationCheck",
@@ -58,40 +62,40 @@
   ],
   "reviewQuestions": [
     {
-      "question": "A new agent version improves overall eval pass rate from 87% to 89%. Why might this still be insufficient to approve a release?",
+      "question": "What does a stratified eval set organize eval prompts by, according to the module?",
       "options": [
-        "Aggregated overall scores can hide category-level regressions \u2014 if React evals improved dramatically while Vue evals dropped below the 70% floor, the release should be blocked even though the overall number looks better",
-        "An overall pass rate improvement is only valid if the eval suite was run at least three times and averaged",
-        "A 2-point improvement is within the margin of error and does not constitute a statistically significant result"
-      ],
-      "correctIndex": 0,
-      "explanation": "The module explains that stratification is critical precisely because an improving overall number can mask a collapsing category. The go/no-go gate operates at the cell level \u2014 no cell can fall below 70% absolute pass rate, and no cell can regress by more than 3% from the previous version. A release with a regression in Vue generation should be blocked even if the React improvements lifted the overall number.",
-      "encourageCorrect": "Correct \u2014 overall pass rates are insufficient. Category-level stratification is what makes regression detection meaningful.",
-      "encourageIncorrect": "Statistical margin of error is a real consideration but not the primary concern here. The module's core point is that aggregated numbers hide category regressions \u2014 you need stratified reporting by framework, task type, and complexity to actually know whether any segment got worse."
-    },
-    {
-      "question": "The new agent version passes all go/no-go gates, but a 5% canary rollout shows session completion rate dropped 2% compared to the control group. What should happen next?",
-      "options": [
-        "Proceed to 25% rollout \u2014 a 2% drop on a 5% canary is too small a sample to be statistically meaningful",
-        "Roll back the canary and investigate \u2014 real user session data outweighs offline eval results when they conflict, because canaries capture failure modes the eval suite missed",
-        "Add more prompts to the eval suite to explain the discrepancy, then re-run before deciding on rollout"
+        "User account tier, geographic region, and device type",
+        "Framework (React, Vue, Svelte), task type (create, fix, modify), and complexity (simple, medium, complex)",
+        "Model version, token count, and session length"
       ],
       "correctIndex": 1,
-      "explanation": "The module is explicit: when canary metrics and eval suite results conflict, canary data wins because it represents real users, real prompts, and real infrastructure conditions. A 2% drop in session completion across a canary group is a meaningful signal that the eval suite has a gap. The correct response is to roll back, investigate which prompt patterns are driving the failures, and add those patterns as new eval cases before shipping.",
-      "encourageCorrect": "Right \u2014 this is exactly the scenario the canary exists to catch. Real-user signals override offline eval signals when they conflict.",
-      "encourageIncorrect": "Adding eval cases before re-running doesn't address the immediate risk of shipping a degraded experience to all users. The canary caught something the eval missed \u2014 that's its purpose. Roll back first, investigate second, fix the eval gap third."
+      "explanation": "The module defines stratification as organizing eval prompts into distinct categories: by framework (React, Vue, Svelte, plain HTML/CSS), by task type (create new app, add a feature, fix a bug, modify styling), by complexity (simple, medium, complex), and by integration type. Each cell in this matrix gets its own pass rate.",
+      "encourageCorrect": "Nice work! Stratification by framework, task type, and complexity is what makes category-level regression detection possible.",
+      "encourageIncorrect": "Stratification is about product dimensions \u2014 framework, task type, and complexity \u2014 not infrastructure or user account attributes. The goal is to ensure a regression in one framework (like Vue) can't hide behind strong performance in another (like React)."
     },
     {
-      "question": "Why does the module describe the eval suite as having 'a roadmap, just like the product'?",
+      "question": "According to the module, what is the absolute minimum pass rate threshold below which any cell blocks a release?",
       "options": [
-        "Because the eval suite must be rebuilt from scratch with each major product release",
-        "Because the eval suite roadmap determines the product roadmap \u2014 features are only built if they have eval coverage",
-        "Because eval prompts become stale as the agent improves, new product capabilities go uncovered, and someone must own retiring, adding, and balancing prompts as a planned quarterly activity"
+        "60%",
+        "70%",
+        "80%"
       ],
-      "correctIndex": 2,
-      "explanation": "The module warns that a prompt written six months ago may be trivially easy for the current agent and provides no signal about capability edges. New features (Supabase integration, custom domains) are not covered by old prompts. Without active ownership and maintenance, the eval suite drifts away from representing real product quality. The Platform PM should advocate for eval maintenance as a quarterly planned activity, not reactive work.",
-      "encourageCorrect": "Exactly \u2014 an eval suite that isn't maintained gradually stops measuring what matters. Ownership and roadmapping are required to keep it representative.",
-      "encourageIncorrect": "The eval suite doesn't determine the product roadmap \u2014 it's the other way around. The eval suite must follow the product's evolution, covering new capabilities as they ship and retiring prompts that no longer challenge the current agent."
+      "correctIndex": 1,
+      "explanation": "The module specifies that no cell can fall below a 70% pass rate \u2014 if any cell is below 70%, the release is blocked regardless of whether that cell is improving or declining. This is a floor threshold, separate from the 3% regression threshold that applies to direction of change.",
+      "encourageCorrect": "That's it \u2014 70% is the absolute floor. Any cell below it blocks the release, full stop.",
+      "encourageIncorrect": "The module sets the absolute minimum at 70%. If any stratification cell drops below that threshold, the release is blocked regardless of overall pass rate trends. This floor is separate from the regression threshold (no cell can regress by more than 3%)."
+    },
+    {
+      "question": "Which pattern best describes why the module says the eval suite has 'a roadmap, just like the product'?",
+      "options": [
+        "Eval suites must be rebuilt completely each time a new model version ships",
+        "Eval prompts grow stale as the agent improves and new product capabilities go uncovered, requiring planned maintenance to retire, add, and balance prompts",
+        "The eval roadmap determines which features can be built \u2014 features without eval coverage cannot ship"
+      ],
+      "correctIndex": 1,
+      "explanation": "The module warns that a prompt written six months ago may be trivially easy for the current agent, and new features like Supabase integration or custom domains won't be covered by old prompts. Without active ownership, the eval suite drifts. The Platform PM should advocate for eval maintenance as a quarterly planned activity.",
+      "encourageCorrect": "Exactly right. An unmaintained eval suite gradually stops measuring what matters \u2014 it needs the same care as the product itself.",
+      "encourageIncorrect": "The eval suite follows the product's evolution \u2014 not the other way around. New capabilities need new prompts, old prompts that no longer challenge the agent need retiring, and the set must stay representative of real user prompts. That ongoing work is what earns it the name 'roadmap.'"
     }
   ]
 }
