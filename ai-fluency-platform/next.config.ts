@@ -8,6 +8,9 @@ const withSerwist = withSerwistInit({
 });
 
 const nextConfig: NextConfig = {
+  // Self-contained server bundle for the Docker image (see Dockerfile).
+  // Note: standalone does not trace `content/` or `public/` — the Dockerfile copies them explicitly.
+  output: "standalone",
   turbopack: {},
   async redirects() {
     return [

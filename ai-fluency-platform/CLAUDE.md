@@ -12,6 +12,41 @@ npm run build:review # Extract review questions from content → public/review-q
 
 Run `npm run build:review` after any lesson edit. Never hand-edit `public/review-questions.json`.
 
+## Local Docker hosting
+
+Production runs on this machine, not Vercel. `learn-two-chi.vercel.app` is a 308 redirect
+(`vercel.json`) to `https://learning.gradyserver.com`.
+
+| Piece | Where |
+|---|---|
+| Web app | `palestra-web` container, `127.0.0.1:3005` → nginx `learning.gradyserver.com` |
+| Supabase API (Kong) | `127.0.0.1:54321` → nginx `db.learning.gradyserver.com` |
+| Postgres | `127.0.0.1:54322` (not exposed publicly) |
+| Studio | `127.0.0.1:54323` (not exposed publicly) |
+
+Supabase is managed by the Supabase CLI, not by `compose.yml` — it owns the postgres/gotrue/
+postgrest/kong containers and the `supabase_network_learning` network the web container joins.
+
+```bash
+npx supabase start                                   # bring up Supabase; applies supabase/migrations/*
+npx supabase status                                  # prints the local anon key for .env.docker
+docker compose --env-file .env.docker up -d --build  # build + run the web app
+```
+
+**Always pass `--env-file .env.docker`.** `NEXT_PUBLIC_*` are inlined into the client bundle at
+build time, so they are Docker *build args*; without the flag they interpolate to empty and the
+build fails the guard in `Dockerfile`. Changing either value requires a rebuild, not a restart.
+
+Two things the Dockerfile copies that `output: "standalone"` does not trace on its own:
+`content/` (read at runtime by `src/lib/content.ts` via `process.cwd()`) and `public/`
+(holds the generated `review-questions.json`). Dropping either yields 500s on every lesson.
+
+nginx vhosts live in `deploy/nginx/` and are installed to `/etc/nginx/sites-available/`
+with certbot managing the TLS blocks. Supabase Studio is deliberately not proxied.
+
+Stripe is unconfigured — `src/lib/sparks/env.ts` throws on the sparks purchase/subscription
+routes. Sparks earning works; buying does not.
+
 ## Learning framework
 
 The curricula are evidence-based; see `../AI Enabled Learning Patterns.md` and `../AI Fluency Curriculum Development.md` for the source research. Authoring choices should follow from four principles:

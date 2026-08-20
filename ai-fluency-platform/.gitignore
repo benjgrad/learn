@@ -45,3 +45,13 @@ public/sw.js
 public/sw.js.map
 public/swe-worker-*.js
 public/swe-worker-*.js.map
+
+# supabase CLI local state + data dumps (contain user PII / auth hashes)
+supabase/.temp/
+supabase/dumps/
+*.dump
+
+# local docker env
+.env.docker
+supabase/signing_keys.json
+!.env.docker.example

@@ -1,0 +1,32 @@
+# Local hosting for Palestra. Supabase itself is managed by the Supabase CLI
+# (`npx supabase start`), which owns the postgres/gotrue/postgrest/kong containers
+# and the `supabase_network_learning` network this service joins.
+#
+# Always pass the env file so build args interpolate:
+#   docker compose --env-file .env.docker up -d --build
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    image: palestra-web:latest
+    container_name: palestra-web
+    env_file: .env.docker
+    ports:
+      # Host nginx (learning.gradyserver.com) proxies here. 3000-3002 and 3030
+      # are already taken by other services on this box.
+      - "127.0.0.1:3005:3000"
+    extra_hosts:
+      # Server-side Supabase calls resolve the public hostname back to the host's
+      # nginx instead of hairpinning out through the public IP.
+      - "db.learning.gradyserver.com:host-gateway"
+    networks:
+      - supabase
+    restart: unless-stopped
+
+networks:
+  supabase:
+    name: supabase_network_learning
+    external: true
