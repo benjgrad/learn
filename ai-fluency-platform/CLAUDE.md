@@ -44,6 +44,26 @@ Two things the Dockerfile copies that `output: "standalone"` does not trace on i
 nginx vhosts live in `deploy/nginx/` and are installed to `/etc/nginx/sites-available/`
 with certbot managing the TLS blocks. Supabase Studio is deliberately not proxied.
 
+`supabase status` prints a freshly minted anon/service key on every start. The key *string*
+changes but previously issued keys keep working — they are signed with the stable ES256 key in
+`supabase/signing_keys.json` (gitignored, not in version control) and expire in 2036. A restart
+does not require rebuilding the image.
+
+Migrations 004-006 exist because the hosted project had drifted from `001`-`003`: it was missing
+Data API grants, left `PUBLIC` EXECUTE on the SECURITY DEFINER sparks functions, and had three
+tables (`quiz_sessions`, `quiz_question_history`, `user_xp`) created outside the migration flow.
+Re-pulling production data:
+
+```bash
+npx supabase login && npx supabase link --project-ref sqzrnhfddgejemjxknky
+npx supabase db dump --linked --data-only -f supabase/dumps/data.sql   # includes auth schema
+npx supabase db reset                                                  # reapplies 001-006
+# truncate public tables first — migrations seed achievement_definitions, which collides
+docker exec -i supabase_db_learning psql -U postgres -d postgres < supabase/dumps/data.sql
+```
+
+Dumps land in `supabase/dumps/` and are gitignored — they contain user emails and password hashes.
+
 Stripe is unconfigured — `src/lib/sparks/env.ts` throws on the sparks purchase/subscription
 routes. Sparks earning works; buying does not.
 
