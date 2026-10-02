@@ -14,6 +14,7 @@ import {
   getLevelTitle,
 } from "@/lib/content";
 import type { CurriculumData, ModuleMeta } from "@/types/content";
+import { canViewCourse, getViewablePrivateCourses } from "@/lib/private-courses";
 import type { McpIdentity } from "./auth";
 import {
   completedPaths,
@@ -145,6 +146,17 @@ export async function callTool(
   args: Record<string, unknown>,
   identity: McpIdentity
 ): Promise<ToolResult> {
+  // Every tool that takes a course reads content by id, and an unpriced course
+  // counts as free, so a private course must be refused here for everyone but
+  // its owner -- with the same error as a course that doesn't exist.
+  const requested =
+    name === "get_lesson"
+      ? str(args.module_path)?.replace(/^\/+/, "").split("/")[0]
+      : str(args.course);
+  if (requested && !(await canViewCourse(requested, identity.userId))) {
+    return err(unknownCourse(requested));
+  }
+
   switch (name) {
     case "get_progress":
       return getProgress(identity, str(args.course));
@@ -175,6 +187,12 @@ function text(value: string): ToolResult {
 
 function err(message: string): ToolResult {
   return { content: [{ type: "text", text: message }], isError: true };
+}
+
+function unknownCourse(courseId: string): string {
+  return `Unknown course '${courseId}'. Valid ids: ${getCourses()
+    .map((c) => c.id)
+    .join(", ")}.`;
 }
 
 /** getCurriculum throws when a course has no curriculum.json. */
@@ -308,7 +326,8 @@ async function listCurriculum(
   const done = completedPaths(progressRows);
 
   if (!courseFilter) {
-    const courses = getCourses().map((c) => {
+    const viewable = [...getCourses(), ...(await getViewablePrivateCourses(identity.userId))];
+    const courses = viewable.map((c) => {
       const curriculum = safeCurriculum(c.id);
       const modules = curriculum ? getOrderedModules(curriculum) : [];
       const completed = modules.filter((m) => done.has(modulePathOf(c.id, m)))
@@ -327,11 +346,7 @@ async function listCurriculum(
 
   const curriculum = safeCurriculum(courseFilter);
   if (!curriculum) {
-    return err(
-      `Unknown course '${courseFilter}'. Valid ids: ${getCourses()
-        .map((c) => c.id)
-        .join(", ")}.`
-    );
+    return err(unknownCourse(courseFilter));
   }
 
   const levelSlugs = getLevelOrder(curriculum);
