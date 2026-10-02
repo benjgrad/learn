@@ -196,3 +196,27 @@ Run `npm run build:review` after modifying content.
 - `src/types/` — TypeScript type definitions.
 - `scripts/` — Build and validation scripts (`build-review-questions.ts`, `validate-lesson.ts`).
 - `supabase/` — Migrations and edge functions.
+
+## Private courses
+
+Owner-only courses for content that must not be public. This repo is public, so their content
+never enters git: every private course id starts with `private-`, and `.gitignore` ignores
+`content/private-*` (the registry, the generated review questions and the course directories).
+The deploy host's checkout holds the files; `docker compose ... --build` picks them up from the
+build context.
+
+| Piece | Where |
+|---|---|
+| Registry (not `courses.json`, which ships in the client bundle) | `content/private-courses.json` |
+| Owner ids, runtime env (restart, no rebuild) | `OWNER_USER_IDS` in `.env.docker` |
+| Visibility check | `canViewCourse` / `getViewablePrivateCourses` in `src/lib/private-courses.ts` |
+| Review questions (not `public/`) | `content/private-review-questions.json` → `GET /api/review-questions/private` |
+| Sidebar curriculum (not the static import map) | fetched from the gated `/api/curriculum/[course]` |
+
+An unpriced course counts as free and open to signed-out visitors, so any new route that reads
+course content must call `canViewCourse` first and `notFound()` otherwise. Do not add a private
+course to `courses.json`, the `Sidebar`/`dashboard` import maps, `SPARK_CONFIG`, or the `COURSES`
+list in `scripts/build-review-questions.ts`.
+
+Validate a course (block fields, answers, review questions, mermaid syntax) with
+`node scripts/check-course.mjs <course-id>`.
