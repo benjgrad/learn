@@ -3,8 +3,7 @@
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ChevronLeft, ChevronRight, ClipboardList } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 import type { PracticeProblem } from "@/types/content";
 
 interface PracticeSetProps {
@@ -123,7 +122,7 @@ export function PracticeSet({
       {/* Vignette */}
       {vignette && currentIndex === 0 && (
         <div className="mb-4 p-3 rounded bg-emerald-100/50 dark:bg-emerald-900/30 prose prose-sm dark:prose-invert max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{vignette}</ReactMarkdown>
+          <LessonMarkdown>{vignette}</LessonMarkdown>
         </div>
       )}
 
@@ -139,9 +138,9 @@ export function PracticeSet({
 
       {/* Question */}
       <div className="mb-4 prose prose-sm dark:prose-invert max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <LessonMarkdown>
           {problem.question}
-        </ReactMarkdown>
+        </LessonMarkdown>
       </div>
 
       {/* Options */}
@@ -206,9 +205,9 @@ export function PracticeSet({
               </span>
             )}
           </div>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <LessonMarkdown>
             {problem.explanation}
-          </ReactMarkdown>
+          </LessonMarkdown>
         </div>
       )}
 

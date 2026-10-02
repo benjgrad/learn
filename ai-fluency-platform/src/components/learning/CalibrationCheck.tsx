@@ -8,8 +8,7 @@ import { SignInPromptDialog } from "./SignInPromptDialog";
 import { useAIRequest } from "@/lib/use-ai-request";
 import { RateLimitError } from "@/lib/ai-client";
 import { HelpCircle, CheckCircle2 } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 
 interface CalibrationCheckProps {
   question: string;
@@ -106,9 +105,9 @@ export function CalibrationCheck({
       ) : (
         <>
           <div className="p-3 rounded bg-amber-100/50 dark:bg-amber-900/30 mb-3 prose prose-sm dark:prose-invert max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <LessonMarkdown>
               {answer}
-            </ReactMarkdown>
+            </LessonMarkdown>
           </div>
           <div className="border-t pt-3 mt-3">
             <p className="text-sm text-muted-foreground mb-2">

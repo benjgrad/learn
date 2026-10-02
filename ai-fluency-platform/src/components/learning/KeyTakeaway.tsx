@@ -1,8 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 
 export function KeyTakeaway({ content }: { content: string }) {
   return (
@@ -12,7 +11,7 @@ export function KeyTakeaway({ content }: { content: string }) {
         Key Takeaway
       </div>
       <div className="prose prose-sm dark:prose-invert max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        <LessonMarkdown>{content}</LessonMarkdown>
       </div>
     </div>
   );

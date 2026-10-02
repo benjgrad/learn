@@ -5,16 +5,8 @@ import {
   PROVIDER_DISPLAY_NAMES,
   type ProviderId,
 } from "@/lib/store/provider-context";
-import ReactMarkdown, { Components } from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 
-const markdownComponents: Components = {
-  table: ({ children, ...props }) => (
-    <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-      <table {...props}>{children}</table>
-    </div>
-  ),
-};
 
 interface ProviderContentProps {
   context?: string;
@@ -42,12 +34,9 @@ export function ProviderContent({ context, providers }: ProviderContentProps) {
     <div className="my-6 rounded-lg border border-border bg-muted/30 p-4">
       {context && (
         <div className="mb-4">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={markdownComponents}
-          >
+          <LessonMarkdown>
             {context}
-          </ReactMarkdown>
+          </LessonMarkdown>
         </div>
       )}
 
@@ -63,12 +52,9 @@ export function ProviderContent({ context, providers }: ProviderContentProps) {
         </span>
       </div>
 
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        components={markdownComponents}
-      >
+      <LessonMarkdown>
         {displayContent}
-      </ReactMarkdown>
+      </LessonMarkdown>
     </div>
   );
 }

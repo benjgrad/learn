@@ -31,8 +31,7 @@ import {
   type MasteryLevel,
 } from "@/lib/poker/messages";
 import { isSparkGatingEnabled, PRACTICE_SKIP_COST } from "@/lib/sparks/feature-flags";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 
 interface DrillSetProps {
   title: string;
@@ -336,9 +335,9 @@ export function DrillSet({
         </div>
 
         <div className="mb-3 prose prose-sm dark:prose-invert max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <LessonMarkdown>
             {problem.question}
-          </ReactMarkdown>
+          </LessonMarkdown>
         </div>
 
         {problem.cards && (
@@ -411,9 +410,9 @@ export function DrillSet({
                 </span>
               )}
             </div>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <LessonMarkdown>
               {problem.explanation}
-            </ReactMarkdown>
+            </LessonMarkdown>
           </div>
         )}
 
@@ -489,9 +488,9 @@ export function DrillSet({
         </div>
 
         <div className="mb-3 prose prose-sm dark:prose-invert max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <LessonMarkdown>
             {problem.question}
-          </ReactMarkdown>
+          </LessonMarkdown>
         </div>
 
         {problem.cards && (
@@ -583,7 +582,7 @@ export function DrillSet({
         </div>
 
         <div className="mb-3 prose prose-sm dark:prose-invert max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{problem.question}</ReactMarkdown>
+          <LessonMarkdown>{problem.question}</LessonMarkdown>
         </div>
 
         {problem.cards && (
@@ -638,7 +637,7 @@ export function DrillSet({
               </span>
             )}
           </div>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{problem.explanation}</ReactMarkdown>
+          <LessonMarkdown>{problem.explanation}</LessonMarkdown>
         </div>
 
         <div className="flex justify-between mt-4 pt-3 border-t">
