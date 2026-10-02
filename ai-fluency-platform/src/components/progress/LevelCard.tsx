@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { isModuleComplete } from "@/lib/store/progress";
 import Link from "next/link";
 import type { LevelInfo, ModuleMeta } from "@/types/content";
-import { CheckCircle2, Circle } from "lucide-react";
+import { CheckCircle2, Circle, Lock } from "lucide-react";
+import { useCourseAccess } from "@/lib/sparks/use-course-access";
 
 export function LevelCard({
   level,
@@ -20,6 +21,8 @@ export function LevelCard({
   course?: string;
 }) {
   const [completedCount, setCompletedCount] = useState(0);
+  const { hasAccess, resolved } = useCourseAccess(course);
+  const locked = resolved && !hasAccess;
 
   useEffect(() => {
     const count = modules.filter((m) =>
@@ -73,30 +76,55 @@ export function LevelCard({
         <div className="space-y-1">
           {modules.map((mod) => {
             const complete = isModuleComplete(`${course}/${mod.level}/${mod.slug}`);
+            const icon = locked ? (
+              <Lock className="h-3.5 w-3.5 shrink-0" />
+            ) : complete ? (
+              <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
+            ) : (
+              <Circle className="h-3.5 w-3.5 shrink-0 opacity-30" />
+            );
+
+            // Locked courses still show every lesson -- the outline is the pitch.
+            if (locked) {
+              return (
+                <div
+                  key={mod.slug}
+                  aria-disabled="true"
+                  className="flex items-center gap-2 text-sm py-1 text-muted-foreground opacity-50"
+                >
+                  {icon}
+                  <span className="truncate">{mod.title}</span>
+                </div>
+              );
+            }
+
             return (
               <Link
                 key={mod.slug}
                 href={`/learn/${course}/${mod.level}/${mod.slug}`}
                 className="flex items-center gap-2 text-sm py-1 hover:text-foreground transition-colors text-muted-foreground"
               >
-                {complete ? (
-                  <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
-                ) : (
-                  <Circle className="h-3.5 w-3.5 shrink-0 opacity-30" />
-                )}
+                {icon}
                 <span className="truncate">{mod.title}</span>
               </Link>
             );
           })}
         </div>
         {/* Start button */}
-        <Link
-          href={`/learn/${course}/${levelSlug}/index`}
-          className="mt-4 inline-block text-sm font-medium hover:underline"
-          style={{ color: level.color }}
-        >
-          {completedCount > 0 ? "Continue" : "Start"} {level.levelLabel || "Level"} →
-        </Link>
+        {locked ? (
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground opacity-50">
+            <Lock className="h-3.5 w-3.5" />
+            Locked
+          </span>
+        ) : (
+          <Link
+            href={`/learn/${course}/${levelSlug}/index`}
+            className="mt-4 inline-block text-sm font-medium hover:underline"
+            style={{ color: level.color }}
+          >
+            {completedCount > 0 ? "Continue" : "Start"} {level.levelLabel || "Level"} →
+          </Link>
+        )}
       </CardContent>
     </Card>
   );

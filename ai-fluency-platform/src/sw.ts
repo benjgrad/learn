@@ -25,6 +25,18 @@ const serwist = new Serwist({
       matcher: /\/auth\/.*/i,
       handler: new NetworkOnly(),
     },
+    // The OAuth consent screen turns on a single-use authorization_id, and the
+    // discovery documents are read by clients that must see them fresh. A
+    // cached shell here is a broken flow at best and the wrong client name at
+    // worst.
+    {
+      matcher: /\/oauth\/.*/i,
+      handler: new NetworkOnly(),
+    },
+    {
+      matcher: /\/\.well-known\/.*/i,
+      handler: new NetworkOnly(),
+    },
     // Use sensible defaults for everything else
     ...defaultCache,
   ],

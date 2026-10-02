@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
 import { ChevronDown, ChevronRight, CheckCircle2, Circle, Lock } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { useCourseAccess } from "@/lib/sparks/use-course-access";
+import { byModuleOrder } from "@/lib/module-order";
 import { isModuleComplete, isLevelFullyPassed, getMasteryLevel, getAllProgress } from "@/lib/store/progress";
 import { getMasteryColor, type MasteryLevel } from "@/lib/poker/messages";
 import type { LevelInfo, ModuleMeta, CurriculumData } from "@/types/content";
@@ -93,6 +95,8 @@ export function Sidebar({
   const levelOrder = getLevelOrder(curriculum);
   const courseInfo = courses.find((c) => c.id === course);
   const isDrill = courseInfo?.isDrillCourse;
+  const { hasAccess, resolved } = useCourseAccess(course);
+  const courseLocked = resolved && !hasAccess;
 
   // Re-render when localStorage changes (progress updates)
   useEffect(() => {
@@ -111,7 +115,7 @@ export function Sidebar({
   );
 
   return (
-    <nav className="h-full overflow-y-auto py-4 px-3">
+    <nav className="h-full py-4 px-3">
       <div className="mb-4 px-2">
         <Link
           href={`/curriculum/${course}`}
@@ -132,14 +136,15 @@ export function Sidebar({
           const levelInfo = curriculum.levels.find(
             (l: LevelInfo) => l.level === levelNum
           );
-          const modules = curriculum.modules[levelSlug]?.filter(
-            (m: ModuleMeta) => !m.isIndex
-          ) || [];
+          const modules = [...(curriculum.modules[levelSlug] || [])]
+            .filter((m: ModuleMeta) => !m.isIndex)
+            .sort(byModuleOrder);
           const hasIndex = (curriculum.modules[levelSlug] || []).some((m: ModuleMeta) => m.isIndex);
           const isActive = activeLevel === levelSlug;
 
-          // TODO: TEMPORARY - all levels unlocked for testing. Revert this!
-          const isLevelLocked = false;
+          // Course-level entitlement. Per-level drill progression is still
+          // disabled below (TODO: TEMPORARY - all levels unlocked for testing).
+          const isLevelLocked = courseLocked;
           // if (isDrill && levelIndex > 0) {
           //   const prevSlug = levelOrder[levelIndex - 1];
           //   const prevModules = curriculum.modules[prevSlug] || [];
@@ -158,7 +163,7 @@ export function Sidebar({
                     )}
                   </button>
                 </CollapsibleTrigger>
-                {isDrill && isLevelLocked ? (
+                {isLevelLocked ? (
                   <Lock className="h-3 w-3 shrink-0 text-muted-foreground" />
                 ) : (
                   <span

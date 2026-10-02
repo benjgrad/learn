@@ -67,6 +67,59 @@ Dumps land in `supabase/dumps/` and are gitignored — they contain user emails 
 Stripe is unconfigured — `src/lib/sparks/env.ts` throws on the sparks purchase/subscription
 routes. Sparks earning works; buying does not.
 
+## MCP authentication
+
+`/api/mcp` is an OAuth 2.1 protected resource. Users connect a client with
+`claude mcp add --transport http palestra https://learning.gradyserver.com/api/mcp` — no header,
+no token to paste — and approve a consent screen in the browser.
+
+The authorization server is the project's own GoTrue, enabled by
+`[auth.oauth_server]` in `supabase/config.toml`. Flipping those flags needs
+`npx supabase stop && npx supabase start`, not `migration up`; back up first, and note
+`signing_keys.json` persists so existing web sessions survive.
+
+| Piece | Where |
+|---|---|
+| Protected resource metadata (RFC 9728) | `src/app/.well-known/oauth-protected-resource/`, built by `src/lib/mcp/protected-resource.ts` |
+| 401 challenge that bootstraps discovery | `unauthorized()` in `src/app/api/mcp/route.ts` |
+| Consent screen | `src/app/oauth/consent/page.tsx` (GoTrue redirects here with `?authorization_id`) |
+| Token verification | `authenticateMcp` in `src/lib/mcp/auth.ts` |
+| Connected-apps management | `src/app/settings/page.tsx` via `supabase.auth.oauth.listGrants/revokeGrant` |
+
+Things that will bite:
+
+- **`allow_dynamic_registration` must stay `true`.** GoTrue matches `redirect_uris` by exact
+  string and does not implement the RFC 8252 loopback-port exemption, so a pre-registered
+  `http://localhost:PORT/callback` matches once and never again. Open registration is why the
+  consent screen — not the client list — is the security boundary.
+- **`scopes_supported` in the resource metadata is sent verbatim as the `scope` parameter**, and
+  GoTrue rejects anything outside `openid profile email phone offline_access`. A custom scope like
+  `mcp:read` kills the flow with `unsupported scope`.
+- **`authorization_servers` must keep the `/auth/v1` path** — it is the exact `issuer` GoTrue
+  emits. Clients try three discovery URLs and only `…/auth/v1/.well-known/openid-configuration`
+  resolves, because Kong does not route root `/.well-known/*`. That fallback is by design, not an
+  oversight.
+- **Metadata routes cannot be `force-static`** while they export `OPTIONS`; Next fails them at
+  runtime with `DYNAMIC_SERVER_USAGE`.
+- **Revocation depends on the session check**, not the JWT. Tokens are verified locally against the
+  ES256 JWKS, so a revoked grant's token stays cryptographically valid until it expires;
+  `authenticateMcp` confirms the session against GoTrue at most once a minute per session to cap
+  the lag at ~60s. Remove that and Settings starts lying.
+
+Two knowing gaps from using GoTrue as the authorization server:
+
+1. **No audience validation.** GoTrue does not implement RFC 8707, and sets `aud: "authenticated"`
+   on every token — the same value a web-session token carries — so the MCP spec's "reject tokens
+   not issued for you" MUST cannot be satisfied properly. We require the `client_id` claim, which
+   only OAuth-issued tokens carry, so a stolen web session cannot be replayed here.
+2. **No Client ID Metadata Documents.** The MCP draft prefers CIMD and marks Dynamic Client
+   Registration deprecated, but GoTrue only does DCR. Every shipping client still uses DCR; swap
+   when Supabase ships CIMD.
+
+MCP tool reads run under the caller's own token so RLS scopes them (`src/lib/mcp/data.ts`). OAuth
+scopes grant no table access at all, so RLS is the whole authorization mechanism — the
+`.eq("user_id", …)` filters there are defence in depth, not the control.
+
 ## Learning framework
 
 The curricula are evidence-based; see `../AI Enabled Learning Patterns.md` and `../AI Fluency Curriculum Development.md` for the source research. Authoring choices should follow from four principles:
@@ -149,6 +202,27 @@ Config lives in `src/lib/sparks/config.ts`. Key knobs:
   - `1000` — premium (cfa-2, cfa-3)
 
 `ai-fluency` and `texas-holdem` are the only permanently free courses (in `BEN_CONFIG_OVERRIDES.freeCourses`).
+
+### Course entitlements
+
+`course_unlocks` is the source of truth, not localStorage. Unlocks used to be written to
+`localStorage.aif_course_unlocks` only — the spend was synced, the entitlement was not — so a
+cleared cache or a second browser lost a paid course. Migration `008` backfills the rows from
+`spark_transactions WHERE tx_type = 'course_unlock'`.
+
+- Write path: `unlockCourse` (`src/lib/sparks/course-access.ts`) POSTs `/api/sparks/unlock-course`,
+  which prices the course server-side (never trust the request's `sparkCost`), spends, and inserts
+  the row. It rolls the local debit back if that fails.
+- Read path: `ensureUnlocksSynced` (`src/lib/sparks/unlock-sync.ts`) unions the server's unlocks
+  into localStorage on every load and pushes local-only ones back up.
+- Enforcement: `getCourseEntitlement` (`src/lib/sparks/course-entitlement.ts`) runs in the
+  `/learn/[...slug]` server component, so locked lessons are never rendered into the HTML. Reading
+  the session cookie makes that route `force-dynamic` — it no longer prerenders via
+  `generateStaticParams`. The client gates (`CourseAccessGate`, `CourseUnlockGate`) only prevent a
+  content flash on soft navigation.
+- `spend_sparks` reports a replayed idempotency key as `success = false`, which is
+  indistinguishable from an empty wallet. Check `spark_transactions` for the key before treating
+  that as a payment failure.
 
 ## Review questions
 

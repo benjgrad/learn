@@ -16,12 +16,19 @@ function CourseItem({ courseId, price }: { courseId: string; price: number }) {
   const { hasAccess, unlock } = useCourseAccess(courseId);
   const { balance, refresh } = useSparks();
   const { user } = useAuth();
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleUnlock = () => {
-    const result = unlock(user?.id || "anon");
+  const handleUnlock = async () => {
+    setPending(true);
+    setError(null);
+    const result = await unlock(user?.id || "anon");
     if (result.success) {
       refresh();
+    } else {
+      setError(result.error ?? "Could not unlock this course.");
     }
+    setPending(false);
   };
 
   return (
@@ -31,15 +38,16 @@ function CourseItem({ courseId, price }: { courseId: string; price: number }) {
         <div className="text-sm text-muted-foreground">
           {hasAccess ? "Unlocked" : `${price.toLocaleString()} Sparks`}
         </div>
+        {error && <div className="text-sm text-destructive">{error}</div>}
       </div>
       {!hasAccess && (
         <Button
           onClick={handleUnlock}
-          disabled={balance < price}
+          disabled={balance < price || pending}
           size="sm"
           variant="outline"
         >
-          Unlock &#9889;
+          {pending ? "Unlocking..." : <>Unlock &#9889;</>}
         </Button>
       )}
       {hasAccess && (

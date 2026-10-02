@@ -6,8 +6,13 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "Palestra",
     description:
       "Earned mastery through active practice, spaced repetition, and AI-powered drills. Learn skills that stick.",
+    id: "/",
     start_url: "/",
+    scope: "/",
     display: "standalone",
+    // Reuse the running PWA window when an email sign-in link is captured
+    // (Chromium only; iOS Safari never captures links into a home-screen app).
+    launch_handler: { client_mode: "navigate-existing" },
     background_color: "#ffffff",
     theme_color: "#0f172a",
     icons: [

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,12 +9,30 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Mail, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export default function LoginPage() {
+// Errors handed back by /auth/confirm and /auth/callback via ?error=
+const LINK_ERRORS: Record<string, string> = {
+  invalid_link: "That sign-in link is malformed. Request a new code below.",
+  expired_link: "That sign-in link has expired or was already used. Request a new code below.",
+  auth: "We couldn't complete that sign-in. Request a new code below.",
+};
+
+function LoginForm() {
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState<"email" | "otp">("email");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() => LINK_ERRORS[searchParams.get("error") ?? ""] ?? "");
+
+  // Where to land after sign-in. The OAuth consent screen sends users here with
+  // ?next=/oauth/consent?authorization_id=..., and losing it would strand a
+  // pending authorization. Same guard as /auth/confirm: a relative path only,
+  // and never protocol-relative.
+  const requestedNext = searchParams.get("next");
+  const next =
+    requestedNext && requestedNext.startsWith("/") && !requestedNext.startsWith("//")
+      ? requestedNext
+      : "/dashboard";
 
   const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +42,12 @@ export default function LoginPage() {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email,
+      options: {
+        // Populates {{ .RedirectTo }} in the email templates, so one template serves
+        // both production and localhost. The code works regardless of this value.
+        emailRedirectTo: `${window.location.origin}/auth/confirm?next=${encodeURIComponent(next)}`,
+        shouldCreateUser: true,
+      },
     });
 
     if (error) {
@@ -48,7 +73,9 @@ export default function LoginPage() {
     if (error) {
       setError(error.message);
     } else {
-      window.location.href = "/dashboard";
+      // The OTP path is same-tab, so it is the one that reliably returns to a
+      // pending consent screen -- an emailed link may open in another browser.
+      window.location.href = next;
     }
     setLoading(false);
   };
@@ -136,5 +163,13 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen" />}>
+      <LoginForm />
+    </Suspense>
   );
 }

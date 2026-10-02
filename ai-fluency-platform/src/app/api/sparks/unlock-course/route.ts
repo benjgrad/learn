@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { getEffectiveConfig } from "@/lib/sparks/config";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -48,10 +49,22 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { courseId, sparkCost } = body;
+  const { courseId, reconcileOnly } = body;
 
-  if (!courseId || sparkCost === undefined) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  if (!courseId) {
+    return NextResponse.json({ error: "Missing courseId" }, { status: 400 });
+  }
+
+  // Price the course here rather than trusting the client's `sparkCost` --
+  // otherwise a hand-rolled request could unlock anything for nothing.
+  const config = getEffectiveConfig(user.email);
+  const sparkCost = config.freeCourses.includes(courseId)
+    ? 0
+    : config.coursePrices[courseId] ?? 0;
+
+  if (sparkCost === 0) {
+    // Free courses need no entitlement row -- access is granted by config.
+    return NextResponse.json({ success: true, free: true });
   }
 
   // Check if already unlocked
@@ -60,43 +73,86 @@ export async function POST(request: NextRequest) {
     .select("course_id")
     .eq("user_id", user.id)
     .eq("course_id", courseId)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return NextResponse.json({ success: true, alreadyUnlocked: true });
   }
 
-  // Spend sparks
   const idempotencyKey = `${user.id}:course_unlock:${courseId}`;
-  const { data: spendResult, error: spendError } = await supabase.rpc("spend_sparks", {
-    p_user_id: user.id,
-    p_tx_type: "course_unlock",
-    p_amount: sparkCost,
-    p_idempotency_key: idempotencyKey,
-    p_metadata: { courseId },
-  });
 
-  if (spendError) {
-    return NextResponse.json({ error: spendError.message }, { status: 500 });
-  }
+  // `reconcileOnly` backfills an entitlement the user has already paid for --
+  // it must never spend. Legacy unlocks lived in localStorage, and the sync
+  // that pushes them up runs unattended on page load; charging there would
+  // debit someone for a course they are already holding.
 
-  const result = spendResult?.[0] ?? { success: false, new_balance: 0 };
+  // Was this unlock already paid for? spend_sparks reports a replayed
+  // idempotency key as success=false, indistinguishable from an empty wallet,
+  // so check the ledger first. This is the case that stranded users whose
+  // unlock lived only in localStorage: charged once, entitlement never
+  // written, and every retry rejected as "insufficient".
+  const { data: priorTx } = await supabase
+    .from("spark_transactions")
+    .select("id, balance_after")
+    .eq("user_id", user.id)
+    .eq("idempotency_key", idempotencyKey)
+    .maybeSingle();
 
-  if (!result.success) {
+  if (reconcileOnly && !priorTx) {
     return NextResponse.json({
       success: false,
-      newBalance: result.new_balance,
-      error: "Insufficient sparks",
+      error: "No prior purchase found for this course",
     });
   }
 
-  // Record the unlock
-  const { error: unlockError } = await supabase.from("course_unlocks").insert({
-    user_id: user.id,
-    course_id: courseId,
-    unlock_method: "sparks",
-    spark_cost: sparkCost,
-  });
+  let newBalance: number;
+
+  if (priorTx) {
+    const { data: wallet } = await supabase
+      .from("spark_wallets")
+      .select("balance")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    newBalance = wallet?.balance ?? priorTx.balance_after ?? 0;
+  } else {
+    const { data: spendResult, error: spendError } = await supabase.rpc("spend_sparks", {
+      p_user_id: user.id,
+      p_tx_type: "course_unlock",
+      p_amount: sparkCost,
+      p_idempotency_key: idempotencyKey,
+      p_metadata: { courseId },
+    });
+
+    if (spendError) {
+      return NextResponse.json({ error: spendError.message }, { status: 500 });
+    }
+
+    const result = spendResult?.[0] ?? { success: false, new_balance: 0 };
+
+    if (!result.success) {
+      return NextResponse.json({
+        success: false,
+        newBalance: result.new_balance,
+        error: "Insufficient sparks",
+      });
+    }
+
+    newBalance = result.new_balance;
+  }
+
+  // Record the unlock. `ignoreDuplicates` keeps a concurrent second request
+  // from failing on the (user_id, course_id) unique constraint.
+  const { error: unlockError } = await supabase
+    .from("course_unlocks")
+    .upsert(
+      {
+        user_id: user.id,
+        course_id: courseId,
+        unlock_method: "sparks",
+        spark_cost: sparkCost,
+      },
+      { onConflict: "user_id,course_id", ignoreDuplicates: true }
+    );
 
   if (unlockError) {
     return NextResponse.json({ error: unlockError.message }, { status: 500 });
@@ -104,6 +160,6 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({
     success: true,
-    newBalance: result.new_balance,
+    newBalance,
   });
 }

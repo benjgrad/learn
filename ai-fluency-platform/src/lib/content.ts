@@ -6,6 +6,7 @@ import type {
   ModuleMeta,
   CourseInfo,
 } from "@/types/content";
+import { sortModules } from "@/lib/module-order";
 import fs from "fs";
 import path from "path";
 
@@ -28,7 +29,13 @@ export function getCurriculum(course: string): CurriculumData {
     path.join(courseDir(course), "curriculum.json"),
     "utf-8"
   );
-  return JSON.parse(raw);
+  const curriculum: CurriculumData = JSON.parse(raw);
+  // Single read boundary for the server: sorting here also fixes prev/next
+  // navigation, since getAdjacentModules builds its chain from these arrays.
+  for (const level of Object.keys(curriculum.modules || {})) {
+    curriculum.modules[level] = sortModules(curriculum.modules[level]);
+  }
+  return curriculum;
 }
 
 export function getModule(

@@ -2,6 +2,7 @@
 
 import { CooldownGate } from "./CooldownGate";
 import { LessonLockGate } from "./LessonLockGate";
+import { CourseAccessGate } from "./CourseAccessGate";
 
 interface LessonGateWrapperProps {
   courseId: string;
@@ -15,10 +16,12 @@ export function LessonGateWrapper({
   children,
 }: LessonGateWrapperProps) {
   return (
-    <CooldownGate courseId={courseId}>
-      <LessonLockGate prevModulePath={prevModulePath} course={courseId}>
-        {children}
-      </LessonLockGate>
-    </CooldownGate>
+    <CourseAccessGate courseId={courseId}>
+      <CooldownGate courseId={courseId}>
+        <LessonLockGate prevModulePath={prevModulePath} course={courseId}>
+          {children}
+        </LessonLockGate>
+      </CooldownGate>
+    </CourseAccessGate>
   );
 }

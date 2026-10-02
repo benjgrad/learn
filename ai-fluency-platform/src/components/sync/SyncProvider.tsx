@@ -9,6 +9,7 @@ import {
   mergeXpData,
   mergeQuizQuestionHistory,
 } from "@/lib/store/merge-utils";
+import { ensureUnlocksSynced } from "@/lib/sparks/unlock-sync";
 
 const SYNCED_KEY = "aif_db_synced";
 const PROGRESS_KEY = "aif_progress";
@@ -18,7 +19,6 @@ const PROVIDER_KEY = "aif_provider";
 const SPARKS_KEY = "aif_sparks";
 const STREAK_KEY = "aif_streak_v2";
 const ACHIEVEMENTS_KEY = "aif_achievements";
-const COURSE_UNLOCKS_KEY = "aif_course_unlocks";
 
 export function SyncProvider({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -31,6 +31,11 @@ export function SyncProvider({ children }: { children: React.ReactNode }) {
     syncedRef.current = true;
 
     (async () => {
+      // Course entitlements first, and outside the block below: they are what
+      // stands between a paying user and their courses, so a failing
+      // /api/user-data must not skip them.
+      await ensureUnlocksSynced(user.id);
+
       try {
         // 1. Fetch all DB state
         const res = await fetch("/api/user-data");
@@ -187,35 +192,6 @@ export function SyncProvider({ children }: { children: React.ReactNode }) {
                 localStorage.setItem(
                   ACHIEVEMENTS_KEY,
                   JSON.stringify(earned)
-                );
-              }
-            }
-          }
-        } catch {
-          // Best-effort
-        }
-
-        // Course unlocks
-        try {
-          const localUnlocks = safeJsonParse(
-            localStorage.getItem(COURSE_UNLOCKS_KEY)
-          );
-          const isFreshUnlocks =
-            !localUnlocks ||
-            (Array.isArray(localUnlocks)
-              ? localUnlocks.length === 0
-              : true);
-
-          if (isFreshUnlocks) {
-            const unlocksRes = await fetch("/api/sparks/unlock-course");
-            if (unlocksRes.ok) {
-              const unlocksData = await unlocksRes.json();
-              const unlocks = unlocksData.unlocks ?? [];
-
-              if (unlocks.length > 0) {
-                localStorage.setItem(
-                  COURSE_UNLOCKS_KEY,
-                  JSON.stringify(unlocks)
                 );
               }
             }

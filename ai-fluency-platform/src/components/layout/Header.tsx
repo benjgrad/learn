@@ -138,9 +138,13 @@ export function Header() {
                 <LogOut className="h-4 w-4" />
                 <span className="hidden md:inline">Sign Out</span>
               </Button>
-              <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-medium" title={user.email ?? "Signed in"}>
+              <Link
+                href="/settings"
+                className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-medium hover:opacity-80 transition-opacity"
+                title="Settings"
+              >
                 {user.email ? user.email[0].toUpperCase() : <User className="h-4 w-4" />}
-              </div>
+              </Link>
             </>
           ) : (
             <>

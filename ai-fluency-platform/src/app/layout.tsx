@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { AuthProvider } from "@/lib/auth-context";
 import { ProviderProvider } from "@/lib/store/provider-context";
 import { IOSInstallPrompt } from "@/components/pwa/IOSInstallPrompt";
@@ -53,7 +53,7 @@ export default function RootLayout({
           <ProviderProvider>
             <Header />
             <div className="flex-1">{children}</div>
-            <Footer />
+            <ConditionalFooter />
             <IOSInstallPrompt />
             <DailyQuizProvider />
           </ProviderProvider>

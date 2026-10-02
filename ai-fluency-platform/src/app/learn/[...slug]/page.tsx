@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import {
   getModuleBySlugPath,
-  getAllModulePaths,
   getAdjacentModules,
   getLevelColor,
   getLevelTitle,
@@ -10,7 +9,10 @@ import {
 } from "@/lib/content";
 import { ModuleRenderer } from "@/components/content/ModuleRenderer";
 import { LessonGateWrapper } from "@/components/sparks/LessonGateWrapper";
+import { CoursePaywall } from "@/components/sparks/CoursePaywall";
+import { getCourseEntitlement } from "@/lib/sparks/course-entitlement";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { Footer } from "@/components/layout/Footer";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
@@ -20,10 +22,11 @@ interface PageProps {
   params: Promise<{ slug: string[] }>;
 }
 
-export async function generateStaticParams() {
-  const paths = getAllModulePaths();
-  return paths.map((slug) => ({ slug }));
-}
+// This route reads the session cookie to check the course entitlement, so it
+// renders dynamically. It used to prerender every lesson via
+// generateStaticParams, which cannot coexist with a per-user check -- a
+// prerendered page would serve one user's answer to everyone.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
@@ -60,19 +63,23 @@ export default async function LearnPage({ params }: PageProps) {
   const { prev, next } = getAdjacentModules(course, meta.level, meta.slug);
   const courses = getCourses();
   const courseInfo = courses.find((c) => c.id === course);
+  const { hasAccess } = await getCourseEntitlement(course);
   const firstLessonInLevel = meta.isIndex
     ? (getCurriculum(course).modules[meta.level] || []).find((m: any) => !m.isIndex) || null
     : null;
 
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)]">
+    <div className="flex min-h-[calc(100dvh-var(--header-h))] items-start">
       {/* Desktop sidebar */}
-      <aside className="hidden lg:block w-72 border-r shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
+      <aside className="hidden lg:block w-72 border-r shrink-0 sticky top-[var(--header-h)] h-[calc(100dvh-var(--header-h))] overflow-y-auto">
         <Sidebar course={course} />
       </aside>
 
-      {/* Main content */}
-      <main className="flex-1 min-w-0 max-w-4xl mx-auto px-4 sm:px-8 py-8">
+      {/* Main content column. The footer lives inside this column (rather than
+          as a sibling of the flex row) so the sticky sidebar's containing block
+          extends to the bottom of the document and it stays pinned all the way. */}
+      <div className="flex-1 min-w-0 flex flex-col">
+      <main className="w-full max-w-4xl mx-auto px-4 sm:px-8 py-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
           <Link href={`/curriculum/${course}`} className="hover:text-foreground">
@@ -102,21 +109,31 @@ export default async function LearnPage({ params }: PageProps) {
 
         <Separator className="mb-8" />
 
-        {/* Module content */}
-        <LessonGateWrapper
-          courseId={course}
-          prevModulePath={prev ? `${course}/${prev.level}/${prev.slug}` : null}
-        >
-          <ModuleRenderer
-            blocks={blocks}
-            meta={meta}
-            levelTitle={levelTitle}
-            levelColor={levelColor}
-            nextModule={next}
-            course={course}
-            isDrillCourse={courseInfo?.isDrillCourse}
+        {/* Module content. When the course is not unlocked the blocks are
+            never rendered, so they are absent from the HTML rather than
+            hidden by a client gate. */}
+        {hasAccess ? (
+          <LessonGateWrapper
+            courseId={course}
+            prevModulePath={prev ? `${course}/${prev.level}/${prev.slug}` : null}
+          >
+            <ModuleRenderer
+              blocks={blocks}
+              meta={meta}
+              levelTitle={levelTitle}
+              levelColor={levelColor}
+              nextModule={next}
+              course={course}
+              isDrillCourse={courseInfo?.isDrillCourse}
+            />
+          </LessonGateWrapper>
+        ) : (
+          <CoursePaywall
+            courseId={course}
+            courseTitle={courseInfo?.title || course}
+            courseDescription={courseInfo?.description || ""}
           />
-        </LessonGateWrapper>
+        )}
 
         {/* Begin First Lesson CTA for index pages */}
         {meta.isIndex && firstLessonInLevel && (
@@ -161,6 +178,8 @@ export default async function LearnPage({ params }: PageProps) {
           </nav>
         )}
       </main>
+      <Footer />
+      </div>
     </div>
   );
 }

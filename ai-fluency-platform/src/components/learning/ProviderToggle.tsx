@@ -11,7 +11,7 @@ export function ProviderToggle() {
   const { provider, setProvider } = useProvider();
 
   return (
-    <div className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border pb-3 mb-6 pt-2">
+    <div className="sticky top-[var(--header-h)] z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border pb-3 mb-6 pt-2">
       <p className="text-xs text-muted-foreground mb-2">
         Your tool — tips and examples adapt to your selection:
       </p>

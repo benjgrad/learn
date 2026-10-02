@@ -17895,7 +17895,7 @@
     "question": "A senior engineer argues that container isolation is sufficient for Make and microVMs are over-engineering. What is the one scenario where microVM isolation is genuinely warranted?",
     "options": [
       "When users run very large apps that need more than 512MB of RAM — microVMs support higher memory ceilings",
-      "When the platform needs faster cold-start times — firecracker microVMs start in 125ms, faster than containers",
+      "When the platform needs faster cold-start times — Firecracker microVMs start in 125ms, faster than containers",
       "When the threat model includes kernel exploits — a container escape can access the host, but a microVM has its own kernel, preventing that class of attack"
     ],
     "correctIndex": 2,

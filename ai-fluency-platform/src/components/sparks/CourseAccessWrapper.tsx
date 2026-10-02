@@ -1,6 +1,6 @@
 "use client";
 
-import { CourseUnlockGate } from "./CourseUnlockGate";
+import { CourseLockedBanner } from "./CourseLockedBanner";
 import { useCourseAccess } from "@/lib/sparks/use-course-access";
 
 interface CourseAccessWrapperProps {
@@ -16,19 +16,21 @@ export function CourseAccessWrapper({
   courseDescription,
   children,
 }: CourseAccessWrapperProps) {
-  const { hasAccess } = useCourseAccess(courseId);
+  const { hasAccess, resolved } = useCourseAccess(courseId);
+  const locked = resolved && !hasAccess;
 
-  if (!hasAccess) {
-    return (
-      <CourseUnlockGate
-        courseId={courseId}
-        courseTitle={courseTitle}
-        courseDescription={courseDescription}
-      >
-        {children}
-      </CourseUnlockGate>
-    );
-  }
-
-  return <>{children}</>;
+  // The outline is always browsable. Only the unlock CTA is conditional --
+  // lesson access itself is enforced on the /learn route by CourseAccessGate.
+  return (
+    <>
+      {locked && (
+        <CourseLockedBanner
+          courseId={courseId}
+          courseTitle={courseTitle}
+          courseDescription={courseDescription}
+        />
+      )}
+      {children}
+    </>
+  );
 }

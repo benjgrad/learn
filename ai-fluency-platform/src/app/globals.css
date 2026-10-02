@@ -49,6 +49,9 @@
 
 :root {
   --radius: 0.625rem;
+  /* Height of the sticky app header (Header.tsx `h-14`). Sticky offsets and
+     viewport-minus-header heights derive from this rather than repeating 3.5rem. */
+  --header-h: 3.5rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -120,12 +123,18 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* `clip` rather than `hidden`: both clip horizontal overflow, but `hidden`
+     forces overflow-y from `visible` to `auto`, which turns <body> into its own
+     scroll container. Sticky children then resolve against a scrollport that
+     never scrolls, so the header and lesson sidebar never pin. `clip` does not
+     create a scroll container. */
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
+    scroll-padding-top: var(--header-h);
   }
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 

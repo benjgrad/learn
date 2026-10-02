@@ -4,7 +4,7 @@
     "description": "Treating AI models as components with defined interfaces, contracts, and failure modes.",
     "level": "level-4",
     "slug": "ai-as-software-component",
-    "order": 0,
+    "order": 1,
     "isCheckpoint": false,
     "isIndex": false
   },
@@ -37,7 +37,7 @@
     },
     {
       "type": "markdown",
-      "content": "## The Component Boundary Pattern\n\nThe most important architectural decision is **where you draw the AI boundary** in your system. A clean boundary means:\n\n1. **Inputs are validated** before reaching the model\n2. **Outputs are parsed and typed** before leaving the component\n3. **Retries and fallbacks** are handled inside the component\n4. **The rest of your system does not know it is talking to AI** -- it just sees a function with typed inputs and outputs\n\n```\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502           AI Component Boundary             \u2502\n\u2502                                             \u2502\n\u2502  Input \u2500\u2500> Validate \u2500\u2500> Build Prompt \u2500\u2500>    \u2502\n\u2502            Format       + Context           \u2502\n\u2502                            \u2502                \u2502\n\u2502                      Call Model             \u2502\n\u2502                            \u2502                \u2502\n\u2502  Output <\u2500\u2500 Type <\u2500\u2500 Parse Response <\u2500\u2500     \u2502\n\u2502             Check     + Validate            \u2502\n\u2502                                             \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n```\n\nThis boundary pattern means the rest of your application treats the AI component like any other service -- testable, mockable, and replaceable."
+      "content": "## The Component Boundary Pattern\n\nThe most important architectural decision is **where you draw the AI boundary** in your system. A clean boundary means:\n\n1. **Inputs are validated** before reaching the model\n2. **Outputs are parsed and typed** before leaving the component\n3. **Retries and fallbacks** are handled inside the component\n4. **The rest of your system does not know it is talking to AI** -- it just sees a function with typed inputs and outputs\n\n```\n┌─────────────────────────────────────────────┐\n│           AI Component Boundary             │\n│                                             │\n│  Input ──> Validate ──> Build Prompt ──>    │\n│            Format       + Context           │\n│                            │                │\n│                      Call Model             │\n│                            │                │\n│  Output <── Type <── Parse Response <──     │\n│             Check     + Validate            │\n│                                             │\n└─────────────────────────────────────────────┘\n```\n\nThis boundary pattern means the rest of your application treats the AI component like any other service -- testable, mockable, and replaceable."
     },
     {
       "type": "explainBack",

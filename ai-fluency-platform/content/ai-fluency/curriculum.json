@@ -77,20 +77,11 @@
         "isIndex": true
       },
       {
-        "title": "Glossary",
-        "description": "Key AI terms and definitions used throughout the AI Fluency curriculum.",
-        "level": "root",
-        "slug": "glossary",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
         "title": "Getting Started",
         "description": "How to use the AI Fluency platform, understand the learning structure, and choose your path.",
         "level": "root",
         "slug": "getting-started",
-        "order": 0,
+        "order": 1,
         "isCheckpoint": false,
         "isIndex": false
       },
@@ -99,7 +90,16 @@
         "description": "The 4D competency framework that guides your AI fluency journey across all seven levels.",
         "level": "root",
         "slug": "competency-map",
-        "order": 0,
+        "order": 2,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "Glossary",
+        "description": "Key AI terms and definitions used throughout the AI Fluency curriculum.",
+        "level": "root",
+        "slug": "glossary",
+        "order": 3,
         "isCheckpoint": false,
         "isIndex": false
       }
@@ -216,21 +216,21 @@
         "isIndex": false
       },
       {
-        "title": "7.7: Level 7 Checkpoint",
-        "description": "Assess your understanding of AI's frontier challenges in alignment, emergence, ethics, and research.",
-        "level": "level-7",
-        "slug": "checkpoint",
-        "order": 5,
-        "isCheckpoint": true,
-        "isIndex": false
-      },
-      {
         "title": "7.6 Architecture Innovation",
         "description": "Survey novel architectural approaches beyond standard transformers, from state space models to advanced optimization.",
         "level": "level-7",
         "slug": "architecture-innovation",
         "order": 6,
         "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "7.7: Level 7 Checkpoint",
+        "description": "Assess your understanding of AI's frontier challenges in alignment, emergence, ethics, and research.",
+        "level": "level-7",
+        "slug": "checkpoint",
+        "order": 7,
+        "isCheckpoint": true,
         "isIndex": false
       }
     ],
@@ -456,15 +456,6 @@
     ],
     "level-4": [
       {
-        "title": "4.5 Testing & CI/CD",
-        "description": "Creating evaluation suites, snapshot tests, and CI/CD pipelines for AI components.",
-        "level": "level-4",
-        "slug": "testing-and-cicd",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
         "title": "Level 4: AI Component Engineer",
         "description": "Engineering reliable AI components within production software systems.",
         "level": "level-4",
@@ -474,47 +465,20 @@
         "isIndex": true
       },
       {
+        "title": "4.1 AI as Software Component",
+        "description": "Treating AI models as components with defined interfaces, contracts, and failure modes.",
+        "level": "level-4",
+        "slug": "ai-as-software-component",
+        "order": 1,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
         "title": "4.2 Engineering Patterns for AI",
         "description": "Applying proven software engineering and SRE patterns to build robust AI-powered systems.",
         "level": "level-4",
         "slug": "engineering-patterns",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
-        "title": "4.4 Deterministic Wrappers",
-        "description": "Building layers around probabilistic AI outputs to enforce structured formats and ensure reliability.",
-        "level": "level-4",
-        "slug": "deterministic-wrappers",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
-        "title": "4.6 Context Compression Patterns",
-        "description": "Implement engineering patterns for context compression including summarization pipelines, sliding windows, and token budget managers.",
-        "level": "level-4",
-        "slug": "context-compression-patterns",
-        "order": 0,
-        "isCheckpoint": false,
-        "isIndex": false
-      },
-      {
-        "title": "4.8 Checkpoint: AI Component Engineer",
-        "description": "Assess your Level 4 understanding of AI component engineering.",
-        "level": "level-4",
-        "slug": "checkpoint",
-        "order": 0,
-        "isCheckpoint": true,
-        "isIndex": false
-      },
-      {
-        "title": "4.7 Can vs. Should: AI Decision Frameworks",
-        "description": "Evaluate when AI is the right solution versus traditional algorithms, considering complexity, cost, and determinism tradeoffs.",
-        "level": "level-4",
-        "slug": "can-vs-should",
-        "order": 0,
+        "order": 2,
         "isCheckpoint": false,
         "isIndex": false
       },
@@ -523,17 +487,53 @@
         "description": "Working with AI provider APIs including authentication, SDKs, rate limiting, and error handling.",
         "level": "level-4",
         "slug": "api-integration",
-        "order": 0,
+        "order": 3,
         "isCheckpoint": false,
         "isIndex": false
       },
       {
-        "title": "4.1 AI as Software Component",
-        "description": "Treating AI models as components with defined interfaces, contracts, and failure modes.",
+        "title": "4.4 Deterministic Wrappers",
+        "description": "Building layers around probabilistic AI outputs to enforce structured formats and ensure reliability.",
         "level": "level-4",
-        "slug": "ai-as-software-component",
-        "order": 0,
+        "slug": "deterministic-wrappers",
+        "order": 4,
         "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.5 Testing & CI/CD",
+        "description": "Creating evaluation suites, snapshot tests, and CI/CD pipelines for AI components.",
+        "level": "level-4",
+        "slug": "testing-and-cicd",
+        "order": 5,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.6 Context Compression Patterns",
+        "description": "Implement engineering patterns for context compression including summarization pipelines, sliding windows, and token budget managers.",
+        "level": "level-4",
+        "slug": "context-compression-patterns",
+        "order": 6,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.7 Can vs. Should: AI Decision Frameworks",
+        "description": "Evaluate when AI is the right solution versus traditional algorithms, considering complexity, cost, and determinism tradeoffs.",
+        "level": "level-4",
+        "slug": "can-vs-should",
+        "order": 7,
+        "isCheckpoint": false,
+        "isIndex": false
+      },
+      {
+        "title": "4.8 Checkpoint: AI Component Engineer",
+        "description": "Assess your Level 4 understanding of AI component engineering.",
+        "level": "level-4",
+        "slug": "checkpoint",
+        "order": 8,
+        "isCheckpoint": true,
         "isIndex": false
       }
     ],
