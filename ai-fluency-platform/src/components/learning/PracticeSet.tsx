@@ -36,7 +36,7 @@ export function PracticeSet({
     (option: string) => {
       if (isRevealed) return;
       // Extract letter from "A) ..." format, or use full string
-      const letter = option.match(/^([A-C])\)/)?.[1] || option;
+      const letter = option.match(/^([A-D])\)/)?.[1] || option;
       setAnswers((prev) => ({ ...prev, [currentIndex]: letter }));
     },
     [currentIndex, isRevealed]
@@ -146,7 +146,7 @@ export function PracticeSet({
       {/* Options */}
       <div className="space-y-2 mb-4">
         {problem.options.map((option) => {
-          const letter = option.match(/^([A-C])\)/)?.[1] || option;
+          const letter = option.match(/^([A-D])\)/)?.[1] || option;
           const isSelected = selectedAnswer === letter;
           const isCorrect = letter === problem.correctAnswer;
 
