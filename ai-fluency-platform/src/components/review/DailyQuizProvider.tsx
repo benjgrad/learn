@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getStreakState } from "@/lib/sparks/streak";
 import { getAllProgress } from "@/lib/store/progress";
 import { selectQuestions } from "@/lib/store/quiz-history";
+import { loadReviewQuestions } from "@/lib/review-questions";
 import { DailyQuizModal } from "./DailyQuizModal";
 import type { ReviewQuestion } from "@/types/review";
 
@@ -27,9 +28,7 @@ export function DailyQuizProvider() {
 
         if (completedModules.size === 0) return;
 
-        const res = await fetch("/review-questions.json");
-        if (!res.ok) return;
-        const allQuestions: ReviewQuestion[] = await res.json();
+        const allQuestions = await loadReviewQuestions();
 
         const eligible = allQuestions.filter((q) =>
           completedModules.has(q.modulePath)

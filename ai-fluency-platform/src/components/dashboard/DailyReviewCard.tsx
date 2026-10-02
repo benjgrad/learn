@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getStreakState } from "@/lib/sparks/streak";
 import { getAllProgress } from "@/lib/store/progress";
 import { selectQuestions } from "@/lib/store/quiz-history";
+import { loadReviewQuestions } from "@/lib/review-questions";
 import { DailyQuizModal } from "@/components/review/DailyQuizModal";
 import type { ReviewQuestion } from "@/types/review";
 
@@ -30,8 +31,7 @@ export function DailyReviewCard() {
   const handleStartReview = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/review-questions.json");
-      const allQuestions: ReviewQuestion[] = await res.json();
+      const allQuestions = await loadReviewQuestions();
 
       const progress = getAllProgress();
       const completedModulePaths = new Set(

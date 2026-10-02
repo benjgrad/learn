@@ -55,3 +55,8 @@ supabase/dumps/
 .env.docker
 supabase/signing_keys.json
 !.env.docker.example
+
+# Private courses: owner-only content that must never reach this public repo.
+# Their ids start with "private-", so this one rule covers the registry, the
+# generated review questions and every course directory. See CLAUDE.md.
+content/private-*

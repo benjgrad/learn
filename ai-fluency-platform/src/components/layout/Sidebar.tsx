@@ -38,6 +38,38 @@ const curricula: Record<string, CurriculumData> = {
   "make-pm": makePmCurriculum as CurriculumData,
 };
 
+/**
+ * Private courses are kept out of the static imports above, which ship in the
+ * public bundle. Their curriculum comes from the owner-gated API instead; for
+ * anyone else the request 404s and the sidebar keeps its ai-fluency fallback.
+ */
+function usePrivateCourse(courseId: string | null) {
+  const [loaded, setLoaded] = useState<{
+    id: string;
+    curriculum: CurriculumData;
+    info?: CourseInfo;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!courseId) return;
+    let cancelled = false;
+    Promise.all([
+      fetch(`/api/curriculum/${courseId}`).then((r) => (r.ok ? r.json() : null)),
+      fetch("/api/courses/private").then((r) => (r.ok ? r.json() : [])),
+    ])
+      .then(([curriculum, privateCourses]: [CurriculumData | null, CourseInfo[]]) => {
+        if (cancelled || !curriculum) return;
+        setLoaded({ id: courseId, curriculum, info: privateCourses.find((c) => c.id === courseId) });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [courseId]);
+
+  return loaded && loaded.id === courseId ? loaded : null;
+}
+
 function getLevelOrder(curriculum: CurriculumData): string[] {
   return curriculum.levels.map((l) =>
     l.level === 0 ? "foundations" : `level-${l.level}`
@@ -89,9 +121,11 @@ export function Sidebar({
     return latest;
   }, [courseProp, courseFromUrl]);
   const course = recentCourse;
-  const curriculum = curricula[course] || curricula["ai-fluency"];
+  const privateCourse = usePrivateCourse(curricula[course] ? null : course);
+  const curriculum =
+    curricula[course] ?? privateCourse?.curriculum ?? curricula["ai-fluency"];
   const levelOrder = getLevelOrder(curriculum);
-  const courseInfo = courses.find((c) => c.id === course);
+  const courseInfo = courses.find((c) => c.id === course) ?? privateCourse?.info;
   const isDrill = courseInfo?.isDrillCourse;
 
   // Re-render when localStorage changes (progress updates)
@@ -119,7 +153,7 @@ export function Sidebar({
           onClick={onNavigate}
         >
           {curriculum.levels.length > 0
-            ? `${courses.find(c => c.id === course)?.title || course} Curriculum`
+            ? `${courseInfo?.title || course} Curriculum`
             : "Curriculum Overview"}
         </Link>
       </div>
