@@ -65,31 +65,74 @@ function getMostRecentActivity(
   return latest;
 }
 
+type DashboardCourse = (typeof courses)[number];
+
+/**
+ * Private courses are kept out of the static imports above, which ship in the
+ * public bundle. The owner gets them from the gated APIs; everyone else gets an
+ * empty list and the dashboard is unchanged.
+ */
+function usePrivateCourses() {
+  const [loaded, setLoaded] = useState<{
+    courses: DashboardCourse[];
+    curricula: Record<string, CurriculumData>;
+  }>({ courses: [], curricula: {} });
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const res = await fetch("/api/courses/private");
+      const list: DashboardCourse[] = res.ok ? await res.json() : [];
+      const entries = await Promise.all(
+        list.map(async (c) => {
+          const r = await fetch(`/api/curriculum/${c.id}`);
+          return r.ok ? ([c.id, (await r.json()) as CurriculumData] as const) : null;
+        })
+      );
+      const loadedCurricula = Object.fromEntries(entries.filter((e) => e !== null));
+      if (!cancelled) {
+        setLoaded({ courses: list.filter((c) => loadedCurricula[c.id]), curricula: loadedCurricula });
+      }
+    })().catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return loaded;
+}
+
 export default function DashboardPage() {
   const [progress, setProgress] = useState<ProgressStore>({ modules: {} });
+  const privateCourses = usePrivateCourses();
 
   useEffect(() => {
     setProgress(getAllProgress());
   }, []);
 
-  // Split courses into enrolled and unenrolled
-  const enrolledCourses = courses
-    .filter((c) => curricula[c.id] && isEnrolled(c.id, progress))
+  const allCourses = [...courses, ...privateCourses.courses];
+  const allCurricula = { ...curricula, ...privateCourses.curricula };
+  const privateIds = new Set(privateCourses.courses.map((c) => c.id));
+
+  // Split courses into enrolled and unenrolled. A private course was made for
+  // its owner, so it always sits under "Your Courses", even before it's started.
+  const enrolledCourses = allCourses
+    .filter((c) => allCurricula[c.id] && (privateIds.has(c.id) || isEnrolled(c.id, progress)))
     .sort((a, b) => {
       const aTime = getMostRecentActivity(a.id, progress) ?? "";
       const bTime = getMostRecentActivity(b.id, progress) ?? "";
       return bTime.localeCompare(aTime);
     });
 
-  const unenrolledCourses = courses.filter(
-    (c) => curricula[c.id] && !isEnrolled(c.id, progress)
+  const unenrolledCourses = allCourses.filter(
+    (c) => allCurricula[c.id] && !privateIds.has(c.id) && !isEnrolled(c.id, progress)
   );
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
 
-      <LearningInsights progress={progress} courses={courses} curricula={curricula} />
+      <LearningInsights progress={progress} courses={allCourses} curricula={allCurricula} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
         <DailyReviewCard />
@@ -106,7 +149,7 @@ export default function DashboardPage() {
               <CourseCard
                 key={course.id}
                 course={course}
-                curriculum={curricula[course.id]}
+                curriculum={allCurricula[course.id]}
                 progress={progress}
               />
             ))}
@@ -122,7 +165,7 @@ export default function DashboardPage() {
               <CourseCard
                 key={course.id}
                 course={course}
-                curriculum={curricula[course.id]}
+                curriculum={allCurricula[course.id]}
                 progress={progress}
               />
             ))}
