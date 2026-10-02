@@ -3,8 +3,7 @@
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ChevronLeft, ChevronRight, ClipboardList } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 import type { PracticeProblem } from "@/types/content";
 
 interface PracticeSetProps {
@@ -37,7 +36,7 @@ export function PracticeSet({
     (option: string) => {
       if (isRevealed) return;
       // Extract letter from "A) ..." format, or use full string
-      const letter = option.match(/^([A-C])\)/)?.[1] || option;
+      const letter = option.match(/^([A-D])\)/)?.[1] || option;
       setAnswers((prev) => ({ ...prev, [currentIndex]: letter }));
     },
     [currentIndex, isRevealed]
@@ -123,7 +122,7 @@ export function PracticeSet({
       {/* Vignette */}
       {vignette && currentIndex === 0 && (
         <div className="mb-4 p-3 rounded bg-emerald-100/50 dark:bg-emerald-900/30 prose prose-sm dark:prose-invert max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{vignette}</ReactMarkdown>
+          <LessonMarkdown>{vignette}</LessonMarkdown>
         </div>
       )}
 
@@ -139,15 +138,15 @@ export function PracticeSet({
 
       {/* Question */}
       <div className="mb-4 prose prose-sm dark:prose-invert max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <LessonMarkdown>
           {problem.question}
-        </ReactMarkdown>
+        </LessonMarkdown>
       </div>
 
       {/* Options */}
       <div className="space-y-2 mb-4">
         {problem.options.map((option) => {
-          const letter = option.match(/^([A-C])\)/)?.[1] || option;
+          const letter = option.match(/^([A-D])\)/)?.[1] || option;
           const isSelected = selectedAnswer === letter;
           const isCorrect = letter === problem.correctAnswer;
 
@@ -206,9 +205,9 @@ export function PracticeSet({
               </span>
             )}
           </div>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <LessonMarkdown>
             {problem.explanation}
-          </ReactMarkdown>
+          </LessonMarkdown>
         </div>
       )}
 

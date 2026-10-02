@@ -26,18 +26,8 @@ import { syncSparkEarn, syncSparkSpend } from "@/lib/sparks/db-sync";
 import { generateIdempotencyKey } from "@/lib/sparks/idempotency";
 import { SPARK_CONFIG } from "@/lib/sparks/config";
 import { PRACTICE_SKIP_COST } from "@/lib/sparks/feature-flags";
-import ReactMarkdown, { Components } from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 
-const markdownComponents: Components = {
-  table: ({ children, ...props }) => (
-    <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-      <table {...props}>{children}</table>
-    </div>
-  ),
-};
 
 interface ModuleRendererProps {
   blocks: ContentBlock[];
@@ -248,13 +238,9 @@ export function ModuleRenderer({
             case "markdown":
               return (
                 <div key={i}>
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm, remarkMath]}
-                    rehypePlugins={[rehypeKatex]}
-                    components={markdownComponents}
-                  >
+                  <LessonMarkdown math>
                     {block.content}
-                  </ReactMarkdown>
+                  </LessonMarkdown>
                 </div>
               );
 

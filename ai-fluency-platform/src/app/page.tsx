@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCourses } from "@/lib/content";
+import { PrivateCourseCards } from "@/components/progress/PrivateCourseCards";
 import { ArrowRight, BookOpen, Brain, Target, Shield } from "lucide-react";
 
 export default function Home() {
@@ -55,6 +56,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          <PrivateCourseCards />
         </div>
       </section>
 

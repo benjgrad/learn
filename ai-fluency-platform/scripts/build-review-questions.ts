@@ -19,6 +19,10 @@ interface ReviewQuestion extends LessonReviewQuestion {
 
 const CONTENT_DIR = path.join(__dirname, "..", "content");
 const OUTPUT_FILE = path.join(__dirname, "..", "public", "review-questions.json");
+// Private courses' questions must not land in public/, which anyone can fetch and
+// the service worker precaches. They are served by /api/review-questions/private.
+const PRIVATE_REGISTRY = path.join(CONTENT_DIR, "private-courses.json");
+const PRIVATE_OUTPUT_FILE = path.join(CONTENT_DIR, "private-review-questions.json");
 
 const COURSES = [
   "ai-fluency",
@@ -56,13 +60,14 @@ function findLessonFiles(courseDir: string): string[] {
   return files;
 }
 
-function main() {
-  const allQuestions: ReviewQuestion[] = [];
-  let questionId = 0;
-  let lessonsWithQuestions = 0;
-  let lessonsWithout = 0;
+let questionId = 0;
+let lessonsWithQuestions = 0;
+let lessonsWithout = 0;
 
-  for (const courseId of COURSES) {
+function collect(courseIds: string[]): ReviewQuestion[] {
+  const allQuestions: ReviewQuestion[] = [];
+
+  for (const courseId of courseIds) {
     const courseDir = path.join(CONTENT_DIR, courseId);
     const files = findLessonFiles(courseDir);
 
@@ -102,13 +107,27 @@ function main() {
     }
   }
 
+  return allQuestions;
+}
+
+function main() {
+  const allQuestions = collect(COURSES);
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(allQuestions, null, 2));
+
+  // Collected after the public courses so the shared counter leaves every public
+  // question id unchanged; quiz history refers to questions by id.
+  const privateCourseIds: string[] = fs.existsSync(PRIVATE_REGISTRY)
+    ? JSON.parse(fs.readFileSync(PRIVATE_REGISTRY, "utf-8")).map((c: { id: string }) => c.id)
+    : [];
+  const privateQuestions = collect(privateCourseIds);
+  fs.writeFileSync(PRIVATE_OUTPUT_FILE, JSON.stringify(privateQuestions, null, 2));
 
   console.log(`\nBuild complete:`);
   console.log(`  ${allQuestions.length} review questions extracted`);
+  console.log(`  ${privateQuestions.length} private review questions extracted`);
   console.log(`  ${lessonsWithQuestions} lessons with questions`);
   console.log(`  ${lessonsWithout} lessons missing questions`);
-  console.log(`  Output: ${OUTPUT_FILE}`);
+  console.log(`  Output: ${OUTPUT_FILE}, ${PRIVATE_OUTPUT_FILE}`);
 }
 
 main();

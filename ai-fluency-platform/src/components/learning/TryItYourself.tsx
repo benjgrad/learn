@@ -9,8 +9,7 @@ import { useAIRequest } from "@/lib/use-ai-request";
 import { RateLimitError } from "@/lib/ai-client";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Wrench, ChevronDown, CheckCircle2 } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { LessonMarkdown } from "@/components/content/LessonMarkdown";
 
 interface TryItYourselfProps {
   title: string;
@@ -136,9 +135,9 @@ export function TryItYourself({
           </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="mt-2 p-3 rounded bg-blue-100/50 dark:bg-blue-900/30 prose prose-sm dark:prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              <LessonMarkdown>
                 {solution}
-              </ReactMarkdown>
+              </LessonMarkdown>
             </div>
           </CollapsibleContent>
         </Collapsible>

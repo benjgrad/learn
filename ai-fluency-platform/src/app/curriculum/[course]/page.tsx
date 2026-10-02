@@ -3,9 +3,21 @@ import { getCurriculum, getCourses } from "@/lib/content";
 import { LevelCard } from "@/components/progress/LevelCard";
 import { DrillCurriculumGrid } from "@/components/progress/DrillCurriculumGrid";
 import { CourseAccessWrapper } from "@/components/sparks/CourseAccessWrapper";
+import { getViewablePrivateCourses, isPrivateCourse } from "@/lib/private-courses";
 
 interface PageProps {
   params: Promise<{ course: string }>;
+}
+
+/**
+ * Public courses resolve from courses.json without touching the session, so
+ * their pages stay prerendered. A private course is never in the static params;
+ * it renders on demand and only resolves for its owner.
+ */
+async function findCourse(course: string) {
+  const publicCourse = getCourses().find((c) => c.id === course);
+  if (publicCourse || !isPrivateCourse(course)) return publicCourse;
+  return (await getViewablePrivateCourses()).find((c) => c.id === course);
 }
 
 export async function generateStaticParams() {
@@ -15,16 +27,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { course } = await params;
-  const courses = getCourses();
-  const courseInfo = courses.find((c) => c.id === course);
+  const courseInfo = await findCourse(course);
   if (!courseInfo) return { title: "Not Found" };
   return { title: `${courseInfo.title} Curriculum` };
 }
 
 export default async function CurriculumCoursePage({ params }: PageProps) {
   const { course } = await params;
-  const courses = getCourses();
-  const courseInfo = courses.find((c) => c.id === course);
+  const courseInfo = await findCourse(course);
   if (!courseInfo) notFound();
 
   const curriculum = getCurriculum(course);

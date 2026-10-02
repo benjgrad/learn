@@ -7,6 +7,7 @@ import {
   getCourses,
   getCurriculum,
 } from "@/lib/content";
+import { canViewCourse } from "@/lib/private-courses";
 import { ModuleRenderer } from "@/components/content/ModuleRenderer";
 import { LessonGateWrapper } from "@/components/sparks/LessonGateWrapper";
 import { CoursePaywall } from "@/components/sparks/CoursePaywall";
@@ -33,6 +34,7 @@ export async function generateMetadata({ params }: PageProps) {
   if (slug.length < 2) return { title: "Not Found" };
 
   const course = slug[0];
+  if (!(await canViewCourse(course))) return { title: "Not Found" };
   const moduleSlugs = slug.slice(1);
   const module = getModuleBySlugPath(course, moduleSlugs);
   if (!module) return { title: "Not Found" };
@@ -52,6 +54,9 @@ export default async function LearnPage({ params }: PageProps) {
   if (slug.length < 2) notFound();
 
   const course = slug[0];
+  // Before anything is read: a private course must 404 for everyone but its
+  // owner, and look exactly like a course that doesn't exist.
+  if (!(await canViewCourse(course))) notFound();
   const moduleSlugs = slug.slice(1);
   const module = getModuleBySlugPath(course, moduleSlugs);
 
