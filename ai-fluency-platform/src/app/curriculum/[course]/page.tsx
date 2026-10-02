@@ -9,20 +9,17 @@ interface PageProps {
   params: Promise<{ course: string }>;
 }
 
-/**
- * Public courses resolve from courses.json without touching the session, so
- * their pages stay prerendered. A private course is never in the static params;
- * it renders on demand and only resolves for its owner.
- */
+// A private course resolves only for its owner, which means reading the session
+// cookie. A statically generated route throws DYNAMIC_SERVER_USAGE (a 500 in
+// production; dev doesn't enforce it) when an unlisted param does that, so the
+// route renders per request, like /learn. The work is a couple of file reads.
+export const dynamic = "force-dynamic";
+
+/** Public courses resolve from courses.json without touching the session. */
 async function findCourse(course: string) {
   const publicCourse = getCourses().find((c) => c.id === course);
   if (publicCourse || !isPrivateCourse(course)) return publicCourse;
   return (await getViewablePrivateCourses()).find((c) => c.id === course);
-}
-
-export async function generateStaticParams() {
-  const courses = getCourses();
-  return courses.map((c) => ({ course: c.id }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
