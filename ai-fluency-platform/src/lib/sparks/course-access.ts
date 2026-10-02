@@ -58,6 +58,10 @@ export function canAccessCourse(courseId: string, userEmail?: string | null): bo
   if (!isSparkGatingEnabled(userEmail)) return true;
   const config = getEffectiveConfig(userEmail);
   if (config.freeCourses.includes(courseId)) return true;
+  // Mirrors getCourseEntitlement: an unpriced course costs 0 and is open.
+  // Without this, a course the server already serves (e.g. a private course,
+  // which is never priced) showed an "Unlock for 0 Sparks" paywall.
+  if ((config.coursePrices[courseId] ?? 0) === 0) return true;
   const unlocks = getUnlocks();
   return unlocks.some((u) => u.courseId === courseId);
 }
